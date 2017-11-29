@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 9df826a8abda4de4cac55dbdf12f4527
+timeCreated: 1511950481
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Hemi Head 426
+  fontNames:
+  - Hemi Head 426
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
