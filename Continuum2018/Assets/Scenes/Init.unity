@@ -169,13 +169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cc7a8272a536b46b875cbe3b336161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0
-  sceneLoadType: 0
+  delay: 2
   SceneName: Menu
+  ProgressBarSmoothTime: 2
   LoadProgressText: {fileID: 1596567195}
   ProgressBarL: {fileID: 200332156}
   ProgressBarR: {fileID: 363860101}
-  ProgressBarSmoothTime: 2
+  SceneLoaderUI: {fileID: 1445390172}
 --- !u!4 &92470625
 Transform:
   m_ObjectHideFlags: 0
@@ -1003,6 +1003,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1445390171}
+  - component: {fileID: 1445390172}
   m_Layer: 0
   m_Name: SceneLoadUI
   m_TagString: Untagged
@@ -1024,6 +1025,23 @@ Transform:
   m_Father: {fileID: 24184771}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1445390172
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1445390170}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 84f90c278ea26c64ea3c620ea13b6a8e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1596567193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1106,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
@@ -1154,11 +1172,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
