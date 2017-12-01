@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4533205449483738}
   - component: {fileID: 20439028371073018}
   - component: {fileID: 124979209143594274}
-  - component: {fileID: 81470143162922346}
   - component: {fileID: 114772280294189848}
   m_Layer: 0
   m_Name: SceneLoaderUICamera
@@ -121,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4591764739453038}
   - component: {fileID: 20305503103227270}
+  - component: {fileID: 81271408240645384}
   m_Layer: 0
   m_Name: BackupCamera
   m_TagString: Untagged
@@ -539,12 +539,12 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &81470143162922346
+--- !u!81 &81271408240645384
 AudioListener:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1082791161579882}
+  m_GameObject: {fileID: 1247248281549506}
   m_Enabled: 1
 --- !u!95 &95504372702990660
 Animator:
@@ -745,6 +745,7 @@ MonoBehaviour:
   delay: 2
   SceneName: Menu
   ProgressBarSmoothTime: 2
+  PostPorcessSceneLoader: {fileID: 114772280294189848}
   LevelLoadUICanvas: {fileID: 223694990216724898}
   LoadProgressText: {fileID: 114787568378713720}
   ProgressBarL: {fileID: 114402911675710654}
@@ -853,7 +854,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1082791161579882}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
@@ -888,7 +889,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 3976200191
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:

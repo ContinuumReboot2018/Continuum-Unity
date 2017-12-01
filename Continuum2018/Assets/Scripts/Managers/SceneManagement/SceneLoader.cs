@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.PostProcessing;
 
 public class SceneLoader : MonoBehaviour 
 {
@@ -11,6 +12,7 @@ public class SceneLoader : MonoBehaviour
 	public float delay; // How long before the actual loading of the next scene starts.
 	public string SceneName; // The name of the scene that other scripts can modify. The next scene should loaded by this name.
 	public float ProgressBarSmoothTime = 1;
+	public PostProcessingBehaviour PostPorcessSceneLoader;
 
 	[Header ("UI Elements")]
 	public Canvas LevelLoadUICanvas;
@@ -63,6 +65,7 @@ public class SceneLoader : MonoBehaviour
 		SceneLoaderUI.gameObject.SetActive (true);
 		SceneLoaderUI.Play ("SceneLoaderUIAppear");
 		yield return new WaitForSecondsRealtime (delay);
+		PostPorcessSceneLoader.enabled = true;
 		async = SceneManager.LoadSceneAsync (SceneName, LoadSceneMode.Single);
 		async.allowSceneActivation = false; // Prevents the loading scene from activating.
 
@@ -92,6 +95,7 @@ public class SceneLoader : MonoBehaviour
 		// The short delay is to leave the progress text visible at 100% for longer.
 		yield return new WaitForSecondsRealtime (1);
 		isLoading = false;
+		PostPorcessSceneLoader.enabled = false;
 		// Finally, we can activate the newly loaded scene.
 		async.allowSceneActivation = true;
 	}
