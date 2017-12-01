@@ -60,6 +60,7 @@ public class SceneLoader : MonoBehaviour
 
 	IEnumerator LoadProgress ()
 	{
+		SceneLoaderUI.gameObject.SetActive (true);
 		SceneLoaderUI.Play ("SceneLoaderUIAppear");
 		yield return new WaitForSecondsRealtime (delay);
 		async = SceneManager.LoadSceneAsync (SceneName, LoadSceneMode.Single);

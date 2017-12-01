@@ -22,6 +22,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		//SavePlayerData ();
 		LoadPlayerData ();
+		//SaveSettingsData ();
+		LoadSettingsData ();
 		CheckUsername ();
 	}
 
@@ -70,7 +72,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		); 
 	}
 
-	// Sets data.[variable] = variable from this script.
+	// Sets data.[variable] = [variable] from this script.
 	void SetPlayerData (playerData data)
 	{
 		data.Username = Username;
@@ -148,7 +150,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		); 
 	}
 
-	// Sets data.[variable] = variable from this script.
+	// Sets data.[variable] = [variable] from this script.
 	void SetSettingsData ()
 	{
 		
