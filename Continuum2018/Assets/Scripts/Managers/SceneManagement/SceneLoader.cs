@@ -7,11 +7,13 @@ using TMPro;
 
 public class SceneLoader : MonoBehaviour 
 {
+	public bool isLoading;
 	public float delay; // How long before the actual loading of the next scene starts.
 	public string SceneName; // The name of the scene that other scripts can modify. The next scene should loaded by this name.
 	public float ProgressBarSmoothTime = 1;
 
 	[Header ("UI Elements")]
+	public Canvas LevelLoadUICanvas;
 	public TextMeshProUGUI LoadProgressText;
 	public Slider ProgressBarL;
 	public Slider ProgressBarR;
@@ -28,8 +30,26 @@ public class SceneLoader : MonoBehaviour
 		}
 	}
 
+	void Update ()
+	{
+		/*if (Input.GetKeyDown (KeyCode.L)) 
+		{
+			if (isLoading == true)
+			{
+				Debug.LogWarning ("User input to load sequence but not going to load anything.");
+			}
+
+			if (isLoading == false) 
+			{
+				StartLoadSequence ();
+				Debug.LogWarning ("User input to load sequence.");
+			} 
+		}*/
+	}
+
 	public void StartLoadSequence ()
 	{
+		isLoading = true;
 		StartCoroutine (LoadProgress ());
 
 		// Resets all UI fill and text values.
@@ -70,7 +90,7 @@ public class SceneLoader : MonoBehaviour
 	{
 		// The short delay is to leave the progress text visible at 100% for longer.
 		yield return new WaitForSecondsRealtime (1);
-
+		isLoading = false;
 		// Finally, we can activate the newly loaded scene.
 		async.allowSceneActivation = true;
 	}
