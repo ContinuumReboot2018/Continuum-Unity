@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuController : MonoBehaviour 
+public class LocalSceneLoader : MonoBehaviour 
 {
 	public SceneLoader sceneLoaderScript;
 
