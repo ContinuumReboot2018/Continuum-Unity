@@ -4,24 +4,40 @@ using UnityEngine;
 
 public class SimpleFollow : MonoBehaviour 
 {
-	public Transform Follow;
 	public bool FollowPosition;
+	public Transform FollowPosX;
+	public Transform FollowPosY;
+	public Transform FollowPosZ;
+
 	public followPosMethod FollowPosMethod;
 	public enum followPosMethod
 	{
 		Lerp,
 		SmoothDamp
 	}
+
 	private float FollowPosVelX, FollowPosVelY, FollowPosVelZ;
-	public float FollowPosSmoothTime;
+	public Vector3 FollowPosSmoothTime;
 
 	public bool FollowRotation;
+	public Transform FollowRotX;
+	public Transform FollowRotY;
+	public Transform FollowRotZ;
+
+	public Vector3 FollowRotSmoothTime;
 
 	void Update () 
 	{
 		if (FollowPosition == true) 
 		{
 			FollowObjectPosition ();
+		}
+
+		CheckFollowPosTransforms ();
+
+		if (FollowRotation == true) 
+		{
+			FollowObjectRotation ();
 		}
 	}
 
@@ -31,9 +47,9 @@ public class SimpleFollow : MonoBehaviour
 		{
 			transform.position = new Vector3 
 				(
-					Mathf.Lerp (transform.position.x, Follow.position.x, FollowPosSmoothTime * Time.deltaTime),
-					Mathf.Lerp (transform.position.y, Follow.position.y, FollowPosSmoothTime * Time.deltaTime),
-					Mathf.Lerp (transform.position.z, Follow.position.z, FollowPosSmoothTime * Time.deltaTime)
+					Mathf.Lerp (transform.position.x, FollowPosX.position.x, FollowPosSmoothTime.x * Time.deltaTime),
+					Mathf.Lerp (transform.position.y, FollowPosY.position.y, FollowPosSmoothTime.y * Time.deltaTime),
+					Mathf.Lerp (transform.position.z, FollowPosZ.position.z, FollowPosSmoothTime.z * Time.deltaTime)
 				);
 		}
 
@@ -41,10 +57,40 @@ public class SimpleFollow : MonoBehaviour
 		{
 			transform.position = new Vector3 
 				(
-					Mathf.SmoothDamp (transform.position.x, Follow.position.x, ref FollowPosVelX, FollowPosSmoothTime * Time.deltaTime),
-					Mathf.SmoothDamp (transform.position.y, Follow.position.y, ref FollowPosVelY, FollowPosSmoothTime * Time.deltaTime),
-					Mathf.SmoothDamp (transform.position.z, Follow.position.z, ref FollowPosVelZ, FollowPosSmoothTime * Time.deltaTime)
+					Mathf.SmoothDamp (transform.position.x, FollowPosX.position.x, ref FollowPosVelX, FollowPosSmoothTime.x * Time.deltaTime),
+					Mathf.SmoothDamp (transform.position.y, FollowPosY.position.y, ref FollowPosVelY, FollowPosSmoothTime.y * Time.deltaTime),
+					Mathf.SmoothDamp (transform.position.z, FollowPosZ.position.z, ref FollowPosVelZ, FollowPosSmoothTime.z * Time.deltaTime)
 				);
 		}
+	}
+
+	void CheckFollowPosTransforms ()
+	{
+		if (FollowPosX == null) 
+		{
+			FollowPosX = gameObject.transform;
+		}
+
+		if (FollowPosY == null) 
+		{
+			FollowPosY = gameObject.transform;
+		}
+
+		if (FollowPosZ == null) 
+		{
+			FollowPosZ = gameObject.transform;
+		}
+	}
+
+	void FollowObjectRotation ()
+	{
+		Vector3 RotationAngle = new Vector3 
+			(
+				Mathf.LerpAngle (transform.eulerAngles.x, FollowRotX.eulerAngles.x, FollowRotSmoothTime.x * Time.deltaTime),
+				Mathf.LerpAngle (transform.eulerAngles.y, FollowRotY.eulerAngles.y, FollowRotSmoothTime.y * Time.deltaTime),
+				Mathf.LerpAngle (transform.eulerAngles.z, FollowRotZ.eulerAngles.z, FollowRotSmoothTime.z * Time.deltaTime)
+			);
+
+		transform.rotation = Quaternion.Euler(RotationAngle);
 	}
 }

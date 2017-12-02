@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour
 	public float YRotationMultiplier = 10;
 	private float RotVelY;
 
+	[Header ("Shooting")]
+	public GameObject CurrentShot;
+	public float CurrentFireRate = 0.1f;
+	private float NextFire;
+	public GameObject StandardShot;
+	public Transform StandardShotSpawn;
+
 	void Start () 
 	{
 		CreatePlayerActions ();
@@ -36,6 +43,7 @@ public class PlayerController : MonoBehaviour
 	void Update () 
 	{
 		MovePlayer ();
+		CheckShoot ();
 	}
 
 	void MovePlayer ()
@@ -76,6 +84,29 @@ public class PlayerController : MonoBehaviour
 				);
 		}
 			
+	}
+
+	// Checks shooting state.
+	void CheckShoot ()
+	{
+		if (CurrentShot == null) 
+		{
+			CurrentShot = StandardShot;
+		}
+
+		if (playerActions.Shoot.Value > 0 && Time.time > NextFire) 
+		{
+			Shoot ();
+			NextFire = Time.time + CurrentFireRate;
+		}
+	}
+
+	void Shoot ()
+	{
+		if (CurrentShot == StandardShot)
+		{
+			Instantiate (StandardShot, StandardShotSpawn.position, StandardShotSpawn.rotation);
+		}
 	}
 
 	// This is for InControl for initialization.
