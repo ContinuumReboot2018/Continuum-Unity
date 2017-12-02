@@ -15,6 +15,15 @@ public class GameController : MonoBehaviour
 	public bool showDebugMenu;
 	public GameObject DebugMenu;
 
+	[Header ("Game Stats")]
+	public bool TrackStats = true;
+	public float GameTime;
+	public float RealTime;
+	public float TimeRatio;
+	public TextMeshProUGUI GameTimeText_Debug;
+	public TextMeshProUGUI RealTimeText_Debug;
+	public TextMeshProUGUI TimeRatioText_Debug;
+
 	[Header ("Scoring")]
 	public bool CountScore;
 	public float DisplayScore;
@@ -47,6 +56,7 @@ public class GameController : MonoBehaviour
 
 	void Update () 
 	{
+		UpdateGameStats ();
 		UpdateScore ();
 		CheckOrthSize ();
 		UpdateStarFieldparticleEffectTrail ();	
@@ -61,6 +71,20 @@ public class GameController : MonoBehaviour
 
 		var StarFieldForegroundMainModule = StarFieldForeground.main;
 		StarFieldForegroundMainModule.simulationSpeed = StarFieldForegroundSimulationSpeed * Time.timeScale;
+	}
+
+	void UpdateGameStats ()
+	{
+		if (TrackStats == true && playerControllerScript_P1.isPaused == false) 
+		{
+			GameTime += Time.deltaTime;
+			RealTime += Time.unscaledDeltaTime;
+			TimeRatio = GameTime / RealTime;
+
+			GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
+			RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
+			TimeRatioText_Debug.text = "Time Ratio: " + System.Math.Round (TimeRatio, 2);
+		}
 	}
 
 	void UpdateScore ()
