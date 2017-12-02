@@ -37,7 +37,7 @@ public class FPSCounter : MonoBehaviour
 
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.Tab)) 
+		/*if (Input.GetKeyDown (KeyCode.Tab)) 
 		{
 			if (toggle == true)
 			{
@@ -54,7 +54,7 @@ public class FPSCounter : MonoBehaviour
 
 				showFps = !showFps;
 			}
-		}
+		}*/
 	}
 
 	private IEnumerator FPS() 

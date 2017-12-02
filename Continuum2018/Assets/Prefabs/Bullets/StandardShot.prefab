@@ -398,10 +398,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd2480e2d464c24bb180e6d0ff2f30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletSpeed: 2000
+  BulletSpeed: 12000
   BulletRb: {fileID: 54432708209494034}
   DestroyPos: {fileID: 4203462978359602}
   Lifetime: 0
   MaxLifetime: 30
   ColliderYMaxPos: 12
   BulletCol: {fileID: 65121020114057740}
+  camShakeScript: {fileID: 0}
+  shakeDuration: 0.1
+  shakeTimeRemaining: 0.2
+  shakeAmount: 0.1

@@ -19,6 +19,8 @@ public class SimpleFollow : MonoBehaviour
 	private float FollowPosVelX, FollowPosVelY, FollowPosVelZ;
 	public Vector3 FollowPosSmoothTime;
 
+	public Vector2 PosBoundsX, PosBoundsY, PosBoundsZ;
+
 	public bool FollowRotation;
 	public Transform FollowRotX;
 	public Transform FollowRotY;
@@ -47,9 +49,9 @@ public class SimpleFollow : MonoBehaviour
 		{
 			transform.position = new Vector3 
 				(
-					Mathf.Lerp (transform.position.x, FollowPosX.position.x, FollowPosSmoothTime.x * Time.deltaTime),
-					Mathf.Lerp (transform.position.y, FollowPosY.position.y, FollowPosSmoothTime.y * Time.deltaTime),
-					Mathf.Lerp (transform.position.z, FollowPosZ.position.z, FollowPosSmoothTime.z * Time.deltaTime)
+					Mathf.Clamp (Mathf.Lerp (transform.position.x, FollowPosX.position.x, FollowPosSmoothTime.x * Time.deltaTime), PosBoundsX.x, PosBoundsX.y),
+					Mathf.Clamp (Mathf.Lerp (transform.position.y, FollowPosY.position.y, FollowPosSmoothTime.y * Time.deltaTime), PosBoundsY.x, PosBoundsY.y),
+					Mathf.Clamp (Mathf.Lerp (transform.position.z, FollowPosZ.position.z, FollowPosSmoothTime.z * Time.deltaTime), PosBoundsZ.x, PosBoundsZ.y)
 				);
 		}
 
@@ -57,28 +59,28 @@ public class SimpleFollow : MonoBehaviour
 		{
 			transform.position = new Vector3 
 				(
-					Mathf.SmoothDamp (transform.position.x, FollowPosX.position.x, ref FollowPosVelX, FollowPosSmoothTime.x * Time.deltaTime),
-					Mathf.SmoothDamp (transform.position.y, FollowPosY.position.y, ref FollowPosVelY, FollowPosSmoothTime.y * Time.deltaTime),
-					Mathf.SmoothDamp (transform.position.z, FollowPosZ.position.z, ref FollowPosVelZ, FollowPosSmoothTime.z * Time.deltaTime)
+					Mathf.Clamp(Mathf.SmoothDamp (transform.position.x, FollowPosX.position.x, ref FollowPosVelX, FollowPosSmoothTime.x * Time.deltaTime), PosBoundsX.x, PosBoundsX.y),
+					Mathf.Clamp(Mathf.SmoothDamp (transform.position.y, FollowPosY.position.y, ref FollowPosVelY, FollowPosSmoothTime.y * Time.deltaTime), PosBoundsY.x, PosBoundsY.y),
+					Mathf.Clamp(Mathf.SmoothDamp (transform.position.z, FollowPosZ.position.z, ref FollowPosVelZ, FollowPosSmoothTime.z * Time.deltaTime), PosBoundsZ.x, PosBoundsZ.y)
 				);
 		}
 	}
 
 	void CheckFollowPosTransforms ()
 	{
-		if (FollowPosX == null) 
+		if (FollowPosX.transform == null) 
 		{
-			FollowPosX = gameObject.transform;
+			FollowPosX = this.transform;
 		}
 
-		if (FollowPosY == null) 
+		if (FollowPosY.transform == null) 
 		{
-			FollowPosY = gameObject.transform;
+			FollowPosY = this.transform;
 		}
 
-		if (FollowPosZ == null) 
+		if (FollowPosZ.transform == null) 
 		{
-			FollowPosZ = gameObject.transform;
+			FollowPosZ = this.transform;
 		}
 	}
 

@@ -5,7 +5,11 @@ using InControl;
 
 public class PlayerController : MonoBehaviour 
 {
-	public PlayerActions playerActions;
+	public GameController gameControllerScript;
+	public TimescaleController timescaleControllerScript;
+	public AudioController audioControllerScript;
+	public CursorManager cursorManagerScript;
+	public CameraShake camShakeScript;
 
 	[Header ("Player Movement")]
 	[Range (-1, 1)]
@@ -31,8 +35,25 @@ public class PlayerController : MonoBehaviour
 	public GameObject CurrentShot;
 	public float CurrentFireRate = 0.1f;
 	private float NextFire;
+
+	public shotType ShotType; 
+	public enum shotType
+	{
+		Standard,
+		Double,
+		Triple,
+	}
+
 	public GameObject StandardShot;
 	public Transform StandardShotSpawn;
+	public float StandardFireRate = 0.1f;
+
+	[Header ("Pausing")]
+	public bool isPaused;
+	public float PauseCooldown = 1;
+	private float NextPauseCooldown;
+
+	public PlayerActions playerActions;
 
 	void Start () 
 	{
@@ -43,7 +64,9 @@ public class PlayerController : MonoBehaviour
 	void Update () 
 	{
 		MovePlayer ();
+		CheckBulletType ();
 		CheckShoot ();
+		CheckPause ();
 	}
 
 	void MovePlayer ()
@@ -52,7 +75,7 @@ public class PlayerController : MonoBehaviour
 		MovementX = playerActions.Move.Value.x;
 		MovementY = playerActions.Move.Value.y;
 
-		if (UsePlayerFollow == true) 
+		if (UsePlayerFollow == true && isPaused == false) 
 		{
 			// This moves the transform position which the player will follow.
 			PlayerFollowRb.velocity = new Vector3 (
@@ -86,6 +109,17 @@ public class PlayerController : MonoBehaviour
 			
 	}
 
+	void CheckBulletType ()
+	{
+		switch (ShotType) 
+		{
+		case shotType.Standard:
+			CurrentShot = StandardShot;
+			CurrentFireRate = StandardFireRate;
+			break;
+		}
+	}
+
 	// Checks shooting state.
 	void CheckShoot ()
 	{
@@ -94,10 +128,10 @@ public class PlayerController : MonoBehaviour
 			CurrentShot = StandardShot;
 		}
 
-		if (playerActions.Shoot.Value > 0 && Time.time > NextFire) 
+		if (playerActions.Shoot.Value > 0 && Time.time > NextFire && isPaused == false) 
 		{
 			Shoot ();
-			NextFire = Time.time + CurrentFireRate;
+			NextFire = Time.time + CurrentFireRate / Time.timeScale;
 		}
 	}
 
@@ -106,6 +140,42 @@ public class PlayerController : MonoBehaviour
 		if (CurrentShot == StandardShot)
 		{
 			Instantiate (StandardShot, StandardShotSpawn.position, StandardShotSpawn.rotation);
+		}
+	}
+
+	void CheckPause ()
+	{
+		if (playerActions.Pause.WasPressed && Time.unscaledTime > NextPauseCooldown) 
+		{
+			isPaused = !isPaused;
+
+			// Stop updating required scripts.
+			if (isPaused) 
+			{
+				cursorManagerScript.UnlockMouse ();
+				cursorManagerScript.ShowMouse ();
+
+				audioControllerScript.updateVolumeAndPitches = false;
+				audioControllerScript.BassTrack.pitch = 0;
+				gameControllerScript.CountScore = false;
+				timescaleControllerScript.isOverridingTimeScale = true;
+				timescaleControllerScript.OverridingTimeScale = 0;
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.1f;
+			}
+
+			// Restart updating required scripts.
+			if (!isPaused) 
+			{
+				cursorManagerScript.LockMouse ();
+				cursorManagerScript.HideMouse ();
+
+				audioControllerScript.updateVolumeAndPitches = true;
+				gameControllerScript.CountScore = true;
+				timescaleControllerScript.isOverridingTimeScale = false;
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
+			}
+
+			NextPauseCooldown = Time.unscaledTime + PauseCooldown;
 		}
 	}
 

@@ -14,15 +14,23 @@ public class Bullet : MonoBehaviour
 	public float ColliderYMaxPos = 12;
 	public Collider BulletCol;
 
+	[Header ("Camera Shake")]
+	public CameraShake camShakeScript;
+	public float shakeDuration;
+	public float shakeTimeRemaining;
+	public float shakeAmount;
+
 	void Start ()
 	{
-		BulletRb.velocity = transform.InverseTransformDirection (new Vector3 (0, BulletSpeed * Time.deltaTime, 0));
+		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
+		StartCameraShake ();
 		Lifetime = 0;
 		InvokeRepeating ("CheckForDestroy", 0, 1);
 	}
 
 	void Update ()
 	{
+		BulletRb.velocity = transform.InverseTransformDirection (new Vector3 (0, BulletSpeed * Time.deltaTime * Time.timeScale, 0));
 		Lifetime += Time.unscaledDeltaTime;
 		CheckForDestroy ();
 
@@ -47,6 +55,24 @@ public class Bullet : MonoBehaviour
 		if (BulletRb.transform.position.y > DestroyPos.position.y) 
 		{
 			Destroy (gameObject);
+		}
+	}
+
+	void StartCameraShake ()
+	{
+		if (camShakeScript.shakeDuration < shakeDuration)
+		{
+			camShakeScript.shakeDuration = shakeDuration;
+		}
+
+		if (camShakeScript.shakeTimeRemaining < shakeTimeRemaining)
+		{
+			camShakeScript.shakeTimeRemaining = shakeTimeRemaining;
+		}
+
+		if (camShakeScript.shakeAmount < shakeAmount)
+		{
+			camShakeScript.shakeAmount = shakeAmount;
 		}
 	}
 }
