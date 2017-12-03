@@ -9,11 +9,9 @@ public class GameController : MonoBehaviour
 {
 	public PlayerController playerControllerScript_P1;
 	public TimescaleController timescaleControllerScript;
+	public AudioController audioControllerScript;
 	public CursorManager cursorManagerScript;
 	public PostProcessingProfile ImageEffects;
-
-	public bool showDebugMenu;
-	public GameObject DebugMenu;
 
 	[Header ("Game Stats")]
 	public bool TrackStats = true;
@@ -23,6 +21,8 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI GameTimeText_Debug;
 	public TextMeshProUGUI RealTimeText_Debug;
 	public TextMeshProUGUI TimeRatioText_Debug;
+	public float Distance;
+	public TextMeshProUGUI DistanceText;
 
 	[Header ("Scoring")]
 	public bool CountScore;
@@ -34,6 +34,14 @@ public class GameController : MonoBehaviour
 
 	public int ScoreMult;
 	public float ScoreRate;
+
+	[Header ("Pausing")]
+	public bool isPaused;
+	public float PauseCooldown = 1;
+	public GameObject PauseUI;
+	[HideInInspector]
+	public float NextPauseCooldown;
+	public bool isInOtherMenu;
 
 	[Header ("Camera")]
 	public Camera MainCamera;
@@ -49,6 +57,7 @@ public class GameController : MonoBehaviour
 
 	void Start () 
 	{
+		ScoreText.text = "0";
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
@@ -60,7 +69,6 @@ public class GameController : MonoBehaviour
 		UpdateScore ();
 		CheckOrthSize ();
 		UpdateStarFieldparticleEffectTrail ();	
-		CheckDebugMenu ();
 		UpdateImageEffects ();
 	}
 
@@ -75,12 +83,14 @@ public class GameController : MonoBehaviour
 
 	void UpdateGameStats ()
 	{
-		if (TrackStats == true && playerControllerScript_P1.isPaused == false) 
+		if (TrackStats == true && isPaused == false) 
 		{
+			Distance = timescaleControllerScript.Distance;
 			GameTime += Time.deltaTime;
 			RealTime += Time.unscaledDeltaTime;
 			TimeRatio = GameTime / RealTime;
 
+			DistanceText.text = "Distance: " + System.Math.Round (Distance, 2);
 			GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
 			RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
 			TimeRatioText_Debug.text = "Time Ratio: " + System.Math.Round (TimeRatio, 2);
@@ -109,9 +119,81 @@ public class GameController : MonoBehaviour
 
 	void UpdateImageEffects ()
 	{
-		var ImageEffectsMotionBlurModuleSettings = ImageEffects.motionBlur.settings;
-		ImageEffectsMotionBlurModuleSettings.frameBlending = Mathf.Clamp(-0.12f * timescaleControllerScript.Distance + 1.18f, 0, 1); 
-		ImageEffects.motionBlur.settings = ImageEffectsMotionBlurModuleSettings;
+		if (timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false)
+		{
+			var ImageEffectsMotionBlurModuleSettings = ImageEffects.motionBlur.settings;
+			ImageEffectsMotionBlurModuleSettings.frameBlending = Mathf.Clamp (-0.12f * timescaleControllerScript.Distance + 1.18f, 0, 1); 
+			ImageEffects.motionBlur.settings = ImageEffectsMotionBlurModuleSettings;
+		}
+
+		if (timescaleControllerScript.isInInitialSequence == true || timescaleControllerScript.isInInitialCountdownSequence == true) 
+		{
+			var ImageEffectsMotionBlurModuleSettings = ImageEffects.motionBlur.settings;
+			ImageEffectsMotionBlurModuleSettings.frameBlending = 0; 
+			ImageEffects.motionBlur.settings = ImageEffectsMotionBlurModuleSettings;
+		}
+
+	}
+
+	public void CheckPause ()
+	{
+		if (isInOtherMenu == false)
+		{
+			isPaused = !isPaused;
+
+			// Stop updating required scripts.
+			if (isPaused) 
+			{
+				PauseUI.SetActive (true);
+				cursorManagerScript.UnlockMouse ();
+				cursorManagerScript.ShowMouse ();
+
+				audioControllerScript.updateVolumeAndPitches = false;
+				audioControllerScript.BassTrack.pitch = 0;
+				CountScore = false;
+				timescaleControllerScript.isOverridingTimeScale = true;
+				timescaleControllerScript.OverridingTimeScale = 0;
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.1f;
+			}
+
+			// Restart updating required scripts.
+			if (!isPaused) 
+			{
+				PauseUI.SetActive (false);
+				cursorManagerScript.LockMouse ();
+				cursorManagerScript.HideMouse ();
+
+				audioControllerScript.updateVolumeAndPitches = true;
+				CountScore = true;
+				timescaleControllerScript.isOverridingTimeScale = false;
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
+			}
+
+			NextPauseCooldown = Time.unscaledTime + PauseCooldown;
+		}
+	}
+
+	public void InvokeUnpause ()
+	{
+		if (isInOtherMenu == false) 
+		{
+			isPaused = false;
+			PauseUI.SetActive (false);
+			cursorManagerScript.LockMouse ();
+			cursorManagerScript.HideMouse ();
+
+			audioControllerScript.updateVolumeAndPitches = true;
+			CountScore = true;
+			timescaleControllerScript.isOverridingTimeScale = false;
+			timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
+
+			NextPauseCooldown = Time.unscaledTime + PauseCooldown;
+		}
+	}
+
+	public void SetPauseOtherMenu (bool otherMenu)
+	{
+		isInOtherMenu = otherMenu;
 	}
 
 	void SetStartOrthSize ()
@@ -125,23 +207,5 @@ public class GameController : MonoBehaviour
 		//OrthSize = 4 * Mathf.Sin (0.17f * timeScaleControllerScript.Distance) + 8;
 
 		//MainCamera.orthographicSize = Mathf.SmoothDamp (MainCamera.orthographicSize, OrthSize, ref OrthSizeVel, OrthSizeSmoothTime * Time.deltaTime);
-	}
-
-	void CheckDebugMenu ()
-	{
-		if (Input.GetKeyDown (KeyCode.Tab)) 
-		{
-			showDebugMenu = !showDebugMenu;
-
-			if (showDebugMenu == true) 
-			{
-				DebugMenu.SetActive (true);
-			}
-
-			if (showDebugMenu == false) 
-			{
-				DebugMenu.SetActive (false);
-			}
-		}
 	}
 }

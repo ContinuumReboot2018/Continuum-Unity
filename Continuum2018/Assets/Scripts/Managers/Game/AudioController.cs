@@ -74,11 +74,6 @@ public class AudioController : MonoBehaviour
 			UpdateTargetVolumes ();
 			UpdateTargetPitches ();
 		}
-
-		if (Input.GetKeyDown (KeyCode.N)) 
-		{
-			NextTrack ();
-		}
 	}
 
 	void UpdateTargetVolumes ()
@@ -193,6 +188,29 @@ public class AudioController : MonoBehaviour
 			if (TrackNumber >= BassTracks.Length) 
 			{
 				TrackNumber = 0;
+			}
+		}
+
+		if (TrackSequenceMode == trackSequence.Random) 
+		{
+			TrackNumber = Random.Range (0, BassTracks.Length);
+		}
+
+		LoadTracks ();
+	}
+
+	public void PreviousTrack ()
+	{
+		if (TrackSequenceMode == trackSequence.Sequential) 
+		{
+			if (TrackNumber <= 0) 
+			{
+				TrackNumber = BassTracks.Length;
+			}
+
+			if (TrackNumber > 0) 
+			{
+				TrackNumber -= 1;
 			}
 		}
 

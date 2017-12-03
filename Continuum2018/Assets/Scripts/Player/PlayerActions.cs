@@ -11,6 +11,7 @@ public class PlayerActions : PlayerActionSet
 	public PlayerAction Shoot;
 	public PlayerAction Ability;
 	public PlayerAction Pause;
+	public PlayerAction DebugMenu;
 
 	public PlayerActions ()
 	{
@@ -23,5 +24,6 @@ public class PlayerActions : PlayerActionSet
 		Shoot = CreatePlayerAction ("Shoot");
 		Ability = CreatePlayerAction ("Ability");
 		Pause = CreatePlayerAction ("Pause");
+		DebugMenu = CreatePlayerAction ("Debug Menu");
 	}
 }

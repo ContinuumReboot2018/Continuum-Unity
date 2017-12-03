@@ -5,6 +5,7 @@ using UnityEngine;
 public class LocalSceneLoader : MonoBehaviour 
 {
 	public SceneLoader sceneLoaderScript;
+	public bool SceneLoadCommit;
 
 	void Start ()
 	{
@@ -13,6 +14,7 @@ public class LocalSceneLoader : MonoBehaviour
 		
 	public void LoadScene (string sceneName)
 	{
+		SceneLoadCommit = true;
 		sceneLoaderScript.SceneName = sceneName;
 		sceneLoaderScript.StartLoadSequence ();
 	}

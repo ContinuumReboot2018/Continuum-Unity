@@ -48,11 +48,6 @@ public class PlayerController : MonoBehaviour
 	public Transform StandardShotSpawn;
 	public float StandardFireRate = 0.1f;
 
-	[Header ("Pausing")]
-	public bool isPaused;
-	public float PauseCooldown = 1;
-	private float NextPauseCooldown;
-
 	public PlayerActions playerActions;
 
 	void Start () 
@@ -75,7 +70,7 @@ public class PlayerController : MonoBehaviour
 		MovementX = playerActions.Move.Value.x;
 		MovementY = playerActions.Move.Value.y;
 
-		if (UsePlayerFollow == true && isPaused == false) 
+		if (UsePlayerFollow == true && gameControllerScript.isPaused == false) 
 		{
 			// This moves the transform position which the player will follow.
 			PlayerFollowRb.velocity = new Vector3 (
@@ -128,7 +123,7 @@ public class PlayerController : MonoBehaviour
 			CurrentShot = StandardShot;
 		}
 
-		if (playerActions.Shoot.Value > 0 && Time.time > NextFire && isPaused == false) 
+		if (playerActions.Shoot.Value > 0 && Time.time > NextFire && gameControllerScript.isPaused == false) 
 		{
 			Shoot ();
 			NextFire = Time.time + CurrentFireRate / Time.timeScale;
@@ -145,37 +140,9 @@ public class PlayerController : MonoBehaviour
 
 	void CheckPause ()
 	{
-		if (playerActions.Pause.WasPressed && Time.unscaledTime > NextPauseCooldown) 
+		if (playerActions.Pause.WasPressed && Time.unscaledTime > gameControllerScript.NextPauseCooldown) 
 		{
-			isPaused = !isPaused;
-
-			// Stop updating required scripts.
-			if (isPaused) 
-			{
-				cursorManagerScript.UnlockMouse ();
-				cursorManagerScript.ShowMouse ();
-
-				audioControllerScript.updateVolumeAndPitches = false;
-				audioControllerScript.BassTrack.pitch = 0;
-				gameControllerScript.CountScore = false;
-				timescaleControllerScript.isOverridingTimeScale = true;
-				timescaleControllerScript.OverridingTimeScale = 0;
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.1f;
-			}
-
-			// Restart updating required scripts.
-			if (!isPaused) 
-			{
-				cursorManagerScript.LockMouse ();
-				cursorManagerScript.HideMouse ();
-
-				audioControllerScript.updateVolumeAndPitches = true;
-				gameControllerScript.CountScore = true;
-				timescaleControllerScript.isOverridingTimeScale = false;
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
-			}
-
-			NextPauseCooldown = Time.unscaledTime + PauseCooldown;
+			gameControllerScript.CheckPause ();
 		}
 	}
 
@@ -210,5 +177,7 @@ public class PlayerController : MonoBehaviour
 
 		playerActions.Pause.AddDefaultBinding (Key.Escape);
 		playerActions.Pause.AddDefaultBinding (InputControlType.Command);
+
+		playerActions.DebugMenu.AddDefaultBinding (Key.Tab);
 	}
 }

@@ -8,6 +8,7 @@ public class TimescaleController : MonoBehaviour
 {
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
+	public LocalSceneLoader localSceneLoaderScript;
 
 	[Header ("Read Only")]
 	public float TimeScaleView;
@@ -30,6 +31,12 @@ public class TimescaleController : MonoBehaviour
 	public bool useTwoPlayers;
 	public Transform PlayerTwo;
 
+	public bool isInInitialSequence = true;
+
+	public bool isInInitialCountdownSequence;
+	public float InitialCountdownSequenceDuration = 3;
+	public float InitialCountdownSequenceTimeRemaining = 3;
+
 	[Header ("Override")]
 	public bool isOverridingTimeScale;
 	public float OverridingTimeScale;
@@ -38,7 +45,7 @@ public class TimescaleController : MonoBehaviour
 
 	void Start () 
 	{
-		
+		isInInitialSequence = true;
 	}
 
 	void Update () 
@@ -48,6 +55,14 @@ public class TimescaleController : MonoBehaviour
 		CheckOverrideTimeScale ();
 		CheckTargetTimeScale ();
 		UpdateTimeScaleUI ();
+
+		if (localSceneLoaderScript.SceneLoadCommit == true) 
+		{
+			this.enabled = false;
+			Time.timeScale = 1;
+		}
+
+		CheckInitialCountdownSequence ();
 	}
 
 	void CheckTargetTimeScale ()
@@ -71,7 +86,7 @@ public class TimescaleController : MonoBehaviour
 	{
 		if (useTwoPlayers == false) 
 		{
-			if (isOverridingTimeScale == false) 
+			if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
 			{
 				Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
 
@@ -89,7 +104,7 @@ public class TimescaleController : MonoBehaviour
 	{
 		if (OverrideTimeScaleTimeRemaining > 0) 
 		{
-			if (playerControllerScript_P1.isPaused == false) 
+			if (gameControllerScript.isPaused == false) 
 			{
 				OverrideTimeScaleTimeRemaining -= Time.unscaledDeltaTime;
 			}
@@ -105,6 +120,31 @@ public class TimescaleController : MonoBehaviour
 			if (isOverridingTimeScale == true) 
 			{
 				isOverridingTimeScale = false;
+			}
+		}
+	}
+
+	public void SwitchInitialSequence ()
+	{
+		Time.timeScale = 1;
+		isInInitialSequence = false;
+		isInInitialCountdownSequence = true;
+	}
+
+	void CheckInitialCountdownSequence ()
+	{
+		if (isInInitialCountdownSequence == true) 
+		{
+			if (InitialCountdownSequenceTimeRemaining > 0) 
+			{
+				InitialCountdownSequenceTimeRemaining -= Time.unscaledDeltaTime;
+			}
+
+			if (InitialCountdownSequenceTimeRemaining <= 0) 
+			{
+				Time.timeScale = 1;
+				gameControllerScript.CountScore = true;
+				isInInitialCountdownSequence = false;
 			}
 		}
 	}

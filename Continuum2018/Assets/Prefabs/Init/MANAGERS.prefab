@@ -411,8 +411,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4842852468642538}
-  m_RootOrder: 0
+  m_Father: {fileID: 4546041198185072}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4546041198185072
 Transform:
@@ -425,8 +425,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224539723318884558}
+  - {fileID: 4533205449483738}
   m_Father: {fileID: 4842852468642538}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4591764739453038
 Transform:
@@ -464,7 +465,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4533205449483738}
   - {fileID: 4546041198185072}
   m_Father: {fileID: 4460546852102150}
   m_RootOrder: 3
@@ -724,12 +724,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9a8135e99dfeb4abcb3284ed834dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsManagerScript: {fileID: 0}
   Username: Player
   ExperiencePoints: 0
   VisualSettings: {fileID: 11400000, guid: cb1c9f0b292c9e84fa25332b580b675a, type: 2}
+  VisualSettingsComponent: {fileID: 0}
+  QualitySettingsIndex: 1
+  useHdr: 0
+  sunShaftsEnabled: 0
+  noiseGrainEnabled: 0
+  MasterVolume: 1
+  SoundtrackVolume: 1
+  EffectsVolume: 1
   PlayerData:
     Username: 
     ExperiencePoints: 0
+  SettingsData:
+    QualitySettingsIndex: 0
+    useHdr: 0
+    sunShaftsEnabled: 0
+    noiseGrainEnabled: 0
+    MasterVolume: 1
+    SoundtrackVolume: 1
+    EffectsVolume: 1
 --- !u!114 &114621961245413214
 MonoBehaviour:
   m_ObjectHideFlags: 1
