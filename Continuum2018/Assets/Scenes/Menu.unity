@@ -772,6 +772,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveAndLoadScript: {fileID: 0}
+  postProcessingBehaviourComponent: {fileID: 1771333219}
+  cam: {fileID: 1771333218}
   HighEndPresetText: High
   LowEndPresetText: Low
   QualityPresetSlider: {fileID: 1847297709}

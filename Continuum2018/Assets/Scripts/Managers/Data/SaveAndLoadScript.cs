@@ -19,6 +19,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	[Header ("Settings Data")]
 	public PostProcessingProfile VisualSettings;
 	public PostProcessingBehaviour VisualSettingsComponent;
+	public Camera cam;
 	public int QualitySettingsIndex;
 	public bool useHdr;
 	public bool sunShaftsEnabled;
@@ -31,12 +32,13 @@ public class SaveAndLoadScript : MonoBehaviour
 	public playerData PlayerData;
 	public settingsData SettingsData;
 
-	void Start () 
+	void Awake () 
 	{
 		if (SceneManager.GetActiveScene ().name != "Init")
 		{
 			settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
-			VisualSettingsComponent = Camera.main.GetComponent<PostProcessingBehaviour> ();
+			cam = settingsManagerScript.cam;
+			VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 			LoadPlayerData ();
 			LoadSettingsData ();
 			CheckUsername ();
@@ -289,9 +291,9 @@ public class SaveAndLoadScript : MonoBehaviour
 			noiseGrainEnabled = true;
 		}
 			
-		Camera.main.allowHDR = useHdr;
-		Camera.main.GetComponent<SunShafts> ().enabled = sunShaftsEnabled;
-		Camera.main.GetComponent<NoiseAndGrain> ().enabled = noiseGrainEnabled;
+		cam.allowHDR = useHdr;
+		cam.GetComponent<SunShafts> ().enabled = sunShaftsEnabled;
+		cam.GetComponent<NoiseAndGrain> ().enabled = noiseGrainEnabled;
 	}
 
 	// Variables stored in data files.

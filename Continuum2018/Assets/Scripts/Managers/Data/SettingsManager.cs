@@ -4,15 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.PostProcessing;
 
 public class SettingsManager : MonoBehaviour 
 {
 	public SaveAndLoadScript saveAndLoadScript;
+	public PostProcessingBehaviour postProcessingBehaviourComponent;
+
+	[Header ("Visual Settings")]
+	public Camera cam;
 	public string HighEndPresetText = "High";
 	public string LowEndPresetText = "Low";
 	public Slider QualityPresetSlider;
 	public TextMeshProUGUI QualityPresetText;
 
+	[Header ("Audio Settings")]
 	public Slider MasterVolumeSlider;
 	public TextMeshProUGUI MasterVolumeValueText;
 	public Slider SoundtrackVolumeSlider;
@@ -23,6 +29,9 @@ public class SettingsManager : MonoBehaviour
 	void Start () 
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+		saveAndLoadScript.settingsManagerScript = this; // Assign itself to save and load script.
+		saveAndLoadScript.VisualSettingsComponent = postProcessingBehaviourComponent;
+		saveAndLoadScript.cam = cam;
 	}
 		
 	public void SetQualityIndex ()
