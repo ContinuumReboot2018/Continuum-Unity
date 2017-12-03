@@ -729,6 +729,7 @@ MonoBehaviour:
   ExperiencePoints: 0
   VisualSettings: {fileID: 11400000, guid: cb1c9f0b292c9e84fa25332b580b675a, type: 2}
   VisualSettingsComponent: {fileID: 0}
+  cam: {fileID: 0}
   QualitySettingsIndex: 1
   useHdr: 0
   sunShaftsEnabled: 0
@@ -906,7 +907,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3976200191
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:

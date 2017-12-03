@@ -7,6 +7,7 @@ public class AudioController : MonoBehaviour
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
 	public TimescaleController timescaleControllerScript;
+	public SaveAndLoadScript saveAndLoadScript;
 
 	public bool updateVolumeAndPitches = true;
 	public float Distance;
@@ -59,6 +60,9 @@ public class AudioController : MonoBehaviour
 
 	void Start ()
 	{
+		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+		//RandomTrack ();
+		TrackNumber = 5;
 		LoadTracks ();
 	}
 
@@ -145,10 +149,10 @@ public class AudioController : MonoBehaviour
 	void UpdateSoundtracksVolume ()
 	{
 		// Updates target volumes.
-		BassTrack.volume = Mathf.Lerp (BassTrack.volume, BaseTargetVolume, VolumeSmoothTime * Time.unscaledDeltaTime);
-		LayerOneTrack.volume = Mathf.Lerp (LayerOneTrack.volume, LayerOneTargetVolume, VolumeSmoothTime * Time.unscaledDeltaTime);
-		LayerTwoTrack.volume = Mathf.Lerp (LayerTwoTrack.volume, LayerTwoTargetVolume, VolumeSmoothTime * Time.unscaledDeltaTime);
-		LayerThreeTrack.volume = Mathf.Lerp (LayerThreeTrack.volume, LayerThreeTargetVolume, VolumeSmoothTime * Time.unscaledDeltaTime);
+		BassTrack.volume = Mathf.Lerp (BassTrack.volume, BaseTargetVolume + (saveAndLoadScript.SoundtrackVolume - 1), VolumeSmoothTime * Time.unscaledDeltaTime);
+		LayerOneTrack.volume = Mathf.Lerp (LayerOneTrack.volume, LayerOneTargetVolume + (saveAndLoadScript.SoundtrackVolume - 1), VolumeSmoothTime * Time.unscaledDeltaTime);
+		LayerTwoTrack.volume = Mathf.Lerp (LayerTwoTrack.volume, LayerTwoTargetVolume + (saveAndLoadScript.SoundtrackVolume - 1), VolumeSmoothTime * Time.unscaledDeltaTime);
+		LayerThreeTrack.volume = Mathf.Lerp (LayerThreeTrack.volume, LayerThreeTargetVolume + (saveAndLoadScript.SoundtrackVolume - 1), VolumeSmoothTime * Time.unscaledDeltaTime);
 	}
 
 	void UpdateSoundtracksPitch ()
@@ -219,6 +223,12 @@ public class AudioController : MonoBehaviour
 			TrackNumber = Random.Range (0, BassTracks.Length);
 		}
 
+		LoadTracks ();
+	}
+
+	public void RandomTrack ()
+	{
+		TrackNumber = Random.Range (0, BassTracks.Length);
 		LoadTracks ();
 	}
 }

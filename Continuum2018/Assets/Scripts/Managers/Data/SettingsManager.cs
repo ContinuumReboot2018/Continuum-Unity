@@ -98,14 +98,20 @@ public class SettingsManager : MonoBehaviour
 	{
 		saveAndLoadScript.LoadSettingsData ();
 
-		QualityPresetSlider.value = saveAndLoadScript.QualitySettingsIndex;
-		MasterVolumeSlider.value = saveAndLoadScript.MasterVolume;
-		SoundtrackVolumeSlider.value = saveAndLoadScript.SoundtrackVolume;
-		EffectsVolumeSlider.value = saveAndLoadScript.EffectsVolume;
+		RefreshSettings ();
 
 		UpdateQualitySettingsIndexText ();
 		UpdateMasterVolumeText ();
 		UpdateSoundtrackVolumeText ();
 		EffectsMasterVolumeText ();
+	}
+
+
+	public void RefreshSettings ()
+	{
+		QualityPresetSlider.value = saveAndLoadScript.QualitySettingsIndex;
+		MasterVolumeSlider.value = saveAndLoadScript.MasterVolume;
+		SoundtrackVolumeSlider.value = saveAndLoadScript.SoundtrackVolume;
+		EffectsVolumeSlider.value = saveAndLoadScript.EffectsVolume;
 	}
 }

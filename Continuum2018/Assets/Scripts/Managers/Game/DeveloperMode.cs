@@ -136,6 +136,12 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED");
 			}
 
+			if (CheatString == "randomtrack") 
+			{
+				audioControllerScript.RandomTrack ();
+				ShowCheatNotification ("CHEAT ACTIVATED");
+			}
+
 			if (CheatString == "savesettings") 
 			{
 				saveAndLoadScript.SaveSettingsData ();

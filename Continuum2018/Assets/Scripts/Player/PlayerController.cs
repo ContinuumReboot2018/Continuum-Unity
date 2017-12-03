@@ -48,6 +48,12 @@ public class PlayerController : MonoBehaviour
 	public Transform StandardShotSpawn;
 	public float StandardFireRate = 0.1f;
 
+	[Header ("Powerups")]
+
+	[Header ("Shield")]
+	public bool isShieldOn;
+	public Lens lensScript;
+
 	public PlayerActions playerActions;
 
 	void Start () 
@@ -143,6 +149,28 @@ public class PlayerController : MonoBehaviour
 		if (playerActions.Pause.WasPressed && Time.unscaledTime > gameControllerScript.NextPauseCooldown) 
 		{
 			gameControllerScript.CheckPause ();
+		}
+
+		if (gameControllerScript.isPaused == true) 
+		{
+			if (isShieldOn == true) 
+			{
+				if (lensScript.enabled == true) 
+				{
+					lensScript.enabled = false;
+				}
+			}
+		}
+
+		if (gameControllerScript.isPaused == false) 
+		{
+			if (isShieldOn == true) 
+			{
+				if (lensScript.enabled == false) 
+				{
+					lensScript.enabled = true;
+				}
+			}
 		}
 	}
 

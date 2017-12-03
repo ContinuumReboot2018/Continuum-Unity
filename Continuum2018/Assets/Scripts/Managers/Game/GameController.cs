@@ -23,6 +23,9 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI TimeRatioText_Debug;
 	public float Distance;
 	public TextMeshProUGUI DistanceText;
+	public AudioSource BassTrack;
+	public TextMeshProUGUI TargetPitch;
+	public TextMeshProUGUI CurrentPitch;
 
 	[Header ("Scoring")]
 	public bool CountScore;
@@ -70,6 +73,13 @@ public class GameController : MonoBehaviour
 		CheckOrthSize ();
 		UpdateStarFieldparticleEffectTrail ();	
 		UpdateImageEffects ();
+
+		if (isPaused == true) 
+		{
+			var motionblursettings = ImageEffects.motionBlur.settings;
+			motionblursettings.frameBlending = 0;
+			ImageEffects.motionBlur.settings = motionblursettings;
+		}
 	}
 
 	void UpdateStarFieldparticleEffectTrail ()
@@ -94,6 +104,9 @@ public class GameController : MonoBehaviour
 			GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
 			RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
 			TimeRatioText_Debug.text = "Time Ratio: " + System.Math.Round (TimeRatio, 2);
+
+			TargetPitch.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
+			CurrentPitch.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
 		}
 	}
 
@@ -162,9 +175,14 @@ public class GameController : MonoBehaviour
 				PauseUI.SetActive (false);
 				cursorManagerScript.LockMouse ();
 				cursorManagerScript.HideMouse ();
-
 				audioControllerScript.updateVolumeAndPitches = true;
-				CountScore = true;
+
+				if (timescaleControllerScript.isInInitialSequence == false && 
+					timescaleControllerScript.isInInitialCountdownSequence == false) 
+				{
+					CountScore = true;
+				}
+
 				timescaleControllerScript.isOverridingTimeScale = false;
 				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
 			}
@@ -181,9 +199,14 @@ public class GameController : MonoBehaviour
 			PauseUI.SetActive (false);
 			cursorManagerScript.LockMouse ();
 			cursorManagerScript.HideMouse ();
-
 			audioControllerScript.updateVolumeAndPitches = true;
-			CountScore = true;
+
+			if (timescaleControllerScript.isInInitialSequence == false && 
+				timescaleControllerScript.isInInitialCountdownSequence == false) 
+			{
+				CountScore = true;
+			}
+
 			timescaleControllerScript.isOverridingTimeScale = false;
 			timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
 
