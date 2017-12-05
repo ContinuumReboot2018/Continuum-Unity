@@ -111,6 +111,8 @@ public class PlayerController : MonoBehaviour
 					Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, 10 * Time.deltaTime) * YRotationMultiplier, -YRotationAmount, YRotationAmount), 
 					0
 				);
+
+				//Camera.main.transform.rotation = Quaternion.Euler (0, 0, PlayerFollow.position.x-PlayerRb.position.x);
 			}
 
 			yield return null;

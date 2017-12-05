@@ -145,6 +145,7 @@ public class TimescaleController : MonoBehaviour
 				Time.timeScale = 1;
 				gameControllerScript.CountScore = true;
 				isInInitialCountdownSequence = false;
+				gameControllerScript.NextLevel ();
 				gameControllerScript.StartGame ();
 			}
 		}

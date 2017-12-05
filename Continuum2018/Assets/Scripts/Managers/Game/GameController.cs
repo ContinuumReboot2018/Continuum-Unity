@@ -28,6 +28,13 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI TargetPitch;
 	public TextMeshProUGUI CurrentPitch;
 
+	[Header ("Waves")]
+	public int Wave;
+	public float WaveTimeIncreaseRate;
+	public float FirstWaveTimeDuration;
+	public float WaveTimeDuration;
+	public float WaveTimeRemaining;
+
 	[Header ("Scoring")]
 	public bool CountScore;
 	public float DisplayScore;
@@ -68,7 +75,8 @@ public class GameController : MonoBehaviour
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
-
+		Wave = 1;
+		WaveTimeDuration = FirstWaveTimeDuration;
 		StartCoroutines ();
 	}
 
@@ -78,9 +86,10 @@ public class GameController : MonoBehaviour
 		StartCoroutine (UpdateStarFieldparticleEffectTrail ());
 	}
 
+	// Timescale controller calls this initially after the countdown.
 	public void StartGame ()
 	{
-		StartCoroutine (UpdateScore ());
+		StartCoroutine (LevelTimer ());
 	}
 
 	IEnumerator UpdateStarFieldparticleEffectTrail ()
@@ -112,29 +121,29 @@ public class GameController : MonoBehaviour
 
 			TargetPitch.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
 			CurrentPitch.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
-
+			UpdateTimeStats ();
 			yield return null;
 		}
 	}
 
-	IEnumerator UpdateScore ()
+	void UpdateScoreIncrements ()
 	{
-		CountScore = true;
-		while (CountScore == true) 
+		if (CountScore == true) 
 		{
 			TargetScore += ScoreRate * Time.deltaTime * ScoreMult * Time.timeScale;
 
 			CurrentScore = Mathf.Lerp (CurrentScore, TargetScore, ScoreSmoothing * Time.unscaledDeltaTime);
 			DisplayScore = Mathf.Round (CurrentScore);
 			ScoreText.text = "" + DisplayScore;
-
-			Distance = timescaleControllerScript.Distance;
-			GameTime += Time.deltaTime;
-			RealTime += Time.unscaledDeltaTime;
-			TimeRatio = GameTime / RealTime;
-
-			yield return null;
 		}
+	}
+
+	void UpdateTimeStats ()
+	{
+		Distance = timescaleControllerScript.Distance;
+		GameTime += Time.deltaTime;
+		RealTime += Time.unscaledDeltaTime;
+		TimeRatio = GameTime / RealTime;
 	}
 
 	public void ResetScore ()
@@ -260,5 +269,21 @@ public class GameController : MonoBehaviour
 		//OrthSize = 4 * Mathf.Sin (0.17f * timeScaleControllerScript.Distance) + 8;
 
 		//MainCamera.orthographicSize = Mathf.SmoothDamp (MainCamera.orthographicSize, OrthSize, ref OrthSizeVel, OrthSizeSmoothTime * Time.deltaTime);
+	}
+
+	public IEnumerator LevelTimer ()
+	{
+		while (WaveTimeRemaining > 0) 
+		{
+			WaveTimeRemaining -= Time.deltaTime;
+			UpdateScoreIncrements ();
+			yield return null;
+		}
+	}
+
+	public void NextLevel ()
+	{
+		WaveTimeDuration += WaveTimeIncreaseRate;
+		WaveTimeRemaining = WaveTimeDuration;
 	}
 }
