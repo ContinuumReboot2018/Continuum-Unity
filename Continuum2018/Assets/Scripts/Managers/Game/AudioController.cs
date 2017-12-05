@@ -61,22 +61,24 @@ public class AudioController : MonoBehaviour
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		//RandomTrack ();
 		TrackNumber = 5;
 		LoadTracks ();
+		StartCoroutine (UpdateSoundtrackVolumeAndPitches ());
 	}
 
-	void Update () 
+	public IEnumerator UpdateSoundtrackVolumeAndPitches ()
 	{
-		Distance = timescaleControllerScript.Distance;
-
-		if (updateVolumeAndPitches == true) 
+		while (updateVolumeAndPitches == true) 
 		{
+			Distance = timescaleControllerScript.Distance;
+
 			UpdateSoundtracksVolume ();
 			UpdateSoundtracksPitch ();
 
 			UpdateTargetVolumes ();
 			UpdateTargetPitches ();
+
+			yield return null;
 		}
 	}
 

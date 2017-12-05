@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 	public PlayerController playerControllerScript_P1;
 	public TimescaleController timescaleControllerScript;
 	public AudioController audioControllerScript;
+	public DeveloperMode developerModeScript;
 	public CursorManager cursorManagerScript;
 	public PostProcessingProfile ImageEffects;
 
@@ -41,6 +42,7 @@ public class GameController : MonoBehaviour
 	[Header ("Pausing")]
 	public bool isPaused;
 	public float PauseCooldown = 1;
+	public bool canPause = true;
 	public GameObject PauseUI;
 	[HideInInspector]
 	public float NextPauseCooldown;
@@ -54,6 +56,8 @@ public class GameController : MonoBehaviour
 	public float OrthSizeSmoothTime = 1;
 
 	[Header ("Visuals")]
+	public bool isUpdatingImageEffects = true;
+	public bool isUpdatingParticleEffects = true;
 	public float StarFieldForegroundLifetimeMultipler = 0.1f;
 	public float StarFieldForegroundSimulationSpeed = 1;
 	public ParticleSystem StarFieldForeground;
@@ -64,42 +68,43 @@ public class GameController : MonoBehaviour
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
+
+		StartCoroutines ();
 	}
 
-	void Update () 
+	public void StartCoroutines ()
 	{
-		UpdateGameStats ();
-		UpdateScore ();
-		CheckOrthSize ();
-		UpdateStarFieldparticleEffectTrail ();	
-		UpdateImageEffects ();
+		StartCoroutine (UpdateImageEffects ());
+		StartCoroutine (UpdateStarFieldparticleEffectTrail ());
+	}
 
-		if (isPaused == true) 
+	public void StartGame ()
+	{
+		StartCoroutine (UpdateScore ());
+	}
+
+	IEnumerator UpdateStarFieldparticleEffectTrail ()
+	{
+		isUpdatingParticleEffects = true;
+		while (isUpdatingParticleEffects == true) 
 		{
-			var motionblursettings = ImageEffects.motionBlur.settings;
-			motionblursettings.frameBlending = 0;
-			ImageEffects.motionBlur.settings = motionblursettings;
+			var StarFieldForegroundTrailModule = StarFieldForeground.trails;
+			StarFieldForegroundTrailModule.lifetime = new ParticleSystem.MinMaxCurve (0, StarFieldForegroundLifetimeMultipler * Time.timeScale);
+
+			var StarFieldForegroundMainModule = StarFieldForeground.main;
+			StarFieldForegroundMainModule.simulationSpeed = StarFieldForegroundSimulationSpeed * Time.timeScale;
+
+			yield return null;
 		}
 	}
 
-	void UpdateStarFieldparticleEffectTrail ()
+	IEnumerator UpdateGameStats ()
 	{
-		var StarFieldForegroundTrailModule = StarFieldForeground.trails;
-		StarFieldForegroundTrailModule.lifetime = new ParticleSystem.MinMaxCurve (0, StarFieldForegroundLifetimeMultipler * Time.timeScale);
+		TrackStats = true;
+		isPaused = false;
 
-		var StarFieldForegroundMainModule = StarFieldForeground.main;
-		StarFieldForegroundMainModule.simulationSpeed = StarFieldForegroundSimulationSpeed * Time.timeScale;
-	}
-
-	void UpdateGameStats ()
-	{
-		if (TrackStats == true && isPaused == false) 
+		while (TrackStats == true && isPaused == false && developerModeScript.DebugMenu.activeInHierarchy == true) 
 		{
-			Distance = timescaleControllerScript.Distance;
-			GameTime += Time.deltaTime;
-			RealTime += Time.unscaledDeltaTime;
-			TimeRatio = GameTime / RealTime;
-
 			DistanceText.text = "Distance: " + System.Math.Round (Distance, 2);
 			GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
 			RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
@@ -107,18 +112,28 @@ public class GameController : MonoBehaviour
 
 			TargetPitch.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
 			CurrentPitch.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
+
+			yield return null;
 		}
 	}
 
-	void UpdateScore ()
+	IEnumerator UpdateScore ()
 	{
-		if (CountScore == true) 
+		CountScore = true;
+		while (CountScore == true) 
 		{
 			TargetScore += ScoreRate * Time.deltaTime * ScoreMult * Time.timeScale;
 
 			CurrentScore = Mathf.Lerp (CurrentScore, TargetScore, ScoreSmoothing * Time.unscaledDeltaTime);
 			DisplayScore = Mathf.Round (CurrentScore);
 			ScoreText.text = "" + DisplayScore;
+
+			Distance = timescaleControllerScript.Distance;
+			GameTime += Time.deltaTime;
+			RealTime += Time.unscaledDeltaTime;
+			TimeRatio = GameTime / RealTime;
+
+			yield return null;
 		}
 	}
 
@@ -130,22 +145,37 @@ public class GameController : MonoBehaviour
 		ScoreText.text = "" + DisplayScore;
 	}
 
-	void UpdateImageEffects ()
+	IEnumerator UpdateImageEffects ()
 	{
-		if (timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false)
+		isUpdatingImageEffects = true;
+		while (isUpdatingImageEffects == true)
 		{
-			var ImageEffectsMotionBlurModuleSettings = ImageEffects.motionBlur.settings;
-			ImageEffectsMotionBlurModuleSettings.frameBlending = Mathf.Clamp (-0.12f * timescaleControllerScript.Distance + 1.18f, 0, 1); 
-			ImageEffects.motionBlur.settings = ImageEffectsMotionBlurModuleSettings;
-		}
+			if (isPaused == true) 
+			{
+				var motionblursettings = ImageEffects.motionBlur.settings;
+				motionblursettings.frameBlending = 0;
+				ImageEffects.motionBlur.settings = motionblursettings;
+			}
 
-		if (timescaleControllerScript.isInInitialSequence == true || timescaleControllerScript.isInInitialCountdownSequence == true) 
-		{
-			var ImageEffectsMotionBlurModuleSettings = ImageEffects.motionBlur.settings;
-			ImageEffectsMotionBlurModuleSettings.frameBlending = 0; 
-			ImageEffects.motionBlur.settings = ImageEffectsMotionBlurModuleSettings;
-		}
+			if (isPaused == false)
+			{
+				if (timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false)
+				{
+					var ImageEffectsMotionBlurModuleSettings = ImageEffects.motionBlur.settings;
+					ImageEffectsMotionBlurModuleSettings.frameBlending = Mathf.Clamp (-0.12f * timescaleControllerScript.Distance + 1.18f, 0, 1); 
+					ImageEffects.motionBlur.settings = ImageEffectsMotionBlurModuleSettings;
+				}
 
+				if (timescaleControllerScript.isInInitialSequence == true || timescaleControllerScript.isInInitialCountdownSequence == true) 
+				{
+					var ImageEffectsMotionBlurModuleSettings = ImageEffects.motionBlur.settings;
+					ImageEffectsMotionBlurModuleSettings.frameBlending = 0; 
+					ImageEffects.motionBlur.settings = ImageEffectsMotionBlurModuleSettings;
+				}
+			}
+
+			yield return null;
+		}
 	}
 
 	public void CheckPause ()

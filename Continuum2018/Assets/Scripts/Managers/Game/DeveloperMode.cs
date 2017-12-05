@@ -46,7 +46,10 @@ public class DeveloperMode : MonoBehaviour
 			UpdateDebugMenu ();
 		}
 
-		UpdateCheats ();
+		if (allowCheats == true)
+		{
+			UpdateCheats ();
+		}
 	}
 
 	void UpdateDebugMenu ()
@@ -114,6 +117,7 @@ public class DeveloperMode : MonoBehaviour
 			if (CheatString == "start") 
 			{
 				timeScaleControllerScript.SwitchInitialSequence ();
+				playerControllerScript_P1.StartCoroutines ();
 				ShowCheatNotification ("CHEAT ACTIVATED");
 			}
 

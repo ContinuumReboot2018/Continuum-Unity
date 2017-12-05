@@ -32,23 +32,6 @@ public class SceneLoader : MonoBehaviour
 		}
 	}
 
-	void Update ()
-	{
-		/*if (Input.GetKeyDown (KeyCode.L)) 
-		{
-			if (isLoading == true)
-			{
-				Debug.LogWarning ("User input to load sequence but not going to load anything.");
-			}
-
-			if (isLoading == false) 
-			{
-				StartLoadSequence ();
-				Debug.LogWarning ("User input to load sequence.");
-			} 
-		}*/
-	}
-
 	public void StartLoadSequence ()
 	{
 		isLoading = true;

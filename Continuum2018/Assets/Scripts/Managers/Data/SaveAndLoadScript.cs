@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 public class SaveAndLoadScript : MonoBehaviour 
 {
 	public SettingsManager settingsManagerScript;
+	public PlayerController playerControllerScript;
+	public GameController gameControllerScript;
 
 	// Live variables.
 	[Header ("Player Data")]
@@ -37,6 +39,8 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (SceneManager.GetActiveScene ().name != "Init")
 		{
 			settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
+			playerControllerScript = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
+			gameControllerScript = GameObject.Find ("GameController").GetComponent<GameController> ();
 			cam = settingsManagerScript.cam;
 			VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 			LoadPlayerData ();
@@ -62,7 +66,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Gets variables from this script = variables in other scripts.
 	void GetPlayerData ()
 	{
-		
+		ExperiencePoints += (int)Math.Round(gameControllerScript.TargetScore);
 	}
 
 	// Save PlayerData Main.

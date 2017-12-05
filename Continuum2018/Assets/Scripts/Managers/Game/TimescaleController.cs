@@ -52,8 +52,8 @@ public class TimescaleController : MonoBehaviour
 	{
 		TimeScaleView = Time.timeScale;
 		FixedTimeStepView = Time.fixedDeltaTime;
-		CheckOverrideTimeScale ();
 		CheckTargetTimeScale ();
+		CheckOverrideTimeScale ();
 		UpdateTimeScaleUI ();
 
 		if (localSceneLoaderScript.SceneLoadCommit == true) 
@@ -145,6 +145,7 @@ public class TimescaleController : MonoBehaviour
 				Time.timeScale = 1;
 				gameControllerScript.CountScore = true;
 				isInInitialCountdownSequence = false;
+				gameControllerScript.StartGame ();
 			}
 		}
 	}
@@ -154,5 +155,4 @@ public class TimescaleController : MonoBehaviour
 		TimeScaleText.text = "TimeScale: " + System.Math.Round(Time.timeScale, 2);
 		FixedTimeStepText.text = "FixedTimeStep: " + System.Math.Round (Time.fixedDeltaTime * 2, 5);
 	}
-
 }

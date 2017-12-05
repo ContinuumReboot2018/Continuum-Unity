@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 	private float RotVelY;
 
 	[Header ("Shooting")]
+	public bool canShoot = true;
 	public GameObject CurrentShot;
 	public float CurrentFireRate = 0.1f;
 	private float NextFire;
@@ -62,77 +63,95 @@ public class PlayerController : MonoBehaviour
 		AssignActionControls ();
 	}
 
-	void Update () 
+	public void StartCoroutines ()
 	{
-		MovePlayer ();
-		CheckBulletType ();
-		CheckShoot ();
-		CheckPause ();
+		StartCoroutine (MovePlayer ());
+		StartCoroutine (CheckPause ());
+		StartCoroutine (CheckShoot ());
+		StartCoroutine (CheckBulletType ());
 	}
 
-	void MovePlayer ()
+	IEnumerator MovePlayer ()
 	{
-		// Reads movement input on two axis.
-		MovementX = playerActions.Move.Value.x;
-		MovementY = playerActions.Move.Value.y;
+		UsePlayerFollow = true;
 
-		if (UsePlayerFollow == true && gameControllerScript.isPaused == false) 
+		while (UsePlayerFollow == true) 
 		{
-			// This moves the transform position which the player will follow.
-			PlayerFollowRb.velocity = new Vector3 (
-				MovementX * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
-				MovementY * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
-				0
-			);
+			if (gameControllerScript.isPaused == false) 
+			{
+				// Reads movement input on two axis.
+				MovementX = playerActions.Move.Value.x;
+				MovementY = playerActions.Move.Value.y;
 
-			// Clamps the bounds of the player follow transform.
-			PlayerFollow.position = new Vector3 (
-				Mathf.Clamp (PlayerFollow.position.x, XBounds.x, XBounds.y),
-				Mathf.Clamp (PlayerFollow.position.y, YBounds.x, YBounds.y),
-				0
-			);
+				// This moves the transform position which the player will follow.
+				PlayerFollowRb.velocity = new Vector3 (
+					MovementX * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
+					MovementY * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
+					0
+				);
 
-			// Player follows [follow position] with smoothing.
-			PlayerRb.position = new Vector3 (
-				Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
-				Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
-				0
-			);
+				// Clamps the bounds of the player follow transform.
+				PlayerFollow.position = new Vector3 (
+					Mathf.Clamp (PlayerFollow.position.x, XBounds.x, XBounds.y),
+					Mathf.Clamp (PlayerFollow.position.y, YBounds.x, YBounds.y),
+					0
+				);
 
-			// Rotates on y-axis by x velocity.
-			PlayerRb.rotation = Quaternion.Euler
+				// Player follows [follow position] with smoothing.
+				PlayerRb.position = new Vector3 (
+					Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
+					Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
+					0
+				);
+
+				// Rotates on y-axis by x velocity.
+				PlayerRb.rotation = Quaternion.Euler
 				(
 					0, 
 					Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, 10 * Time.deltaTime) * YRotationMultiplier, -YRotationAmount, YRotationAmount), 
 					0
 				);
+			}
+
+			yield return null;
 		}
-			
 	}
 
-	void CheckBulletType ()
+	IEnumerator CheckBulletType ()
 	{
-		switch (ShotType) 
+		canShoot = true;
+		while (canShoot == true) 
 		{
-		case shotType.Standard:
-			CurrentShot = StandardShot;
-			CurrentFireRate = StandardFireRate;
-			break;
+			switch (ShotType) 
+			{
+			case shotType.Standard:
+				CurrentShot = StandardShot;
+				CurrentFireRate = StandardFireRate;
+				break;
+			}
+
+			yield return null;
 		}
 	}
 
 	// Checks shooting state.
-	void CheckShoot ()
+	IEnumerator CheckShoot ()
 	{
-		if (CurrentShot == null) 
+		canShoot = true;
+		while (canShoot == true) 
 		{
-			CurrentShot = StandardShot;
-		}
+			if (CurrentShot == null) 
+			{
+				CurrentShot = StandardShot;
+			}
 
-		if (playerActions.Shoot.Value > 0 && Time.time > NextFire && gameControllerScript.isPaused == false) 
-		{
-			Shoot ();
-			NextFire = Time.time + CurrentFireRate / Time.timeScale;
+			if (playerActions.Shoot.Value > 0 && Time.time > NextFire && gameControllerScript.isPaused == false) 
+			{
+				Shoot ();
+				NextFire = Time.time + CurrentFireRate / Time.timeScale;
+			}
+
+			yield return null;
 		}
 	}
 
@@ -144,33 +163,42 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void CheckPause ()
+	IEnumerator CheckPause ()
 	{
-		if (playerActions.Pause.WasPressed && Time.unscaledTime > gameControllerScript.NextPauseCooldown) 
+		gameControllerScript.canPause = true;
+		while (gameControllerScript.canPause == true) 
 		{
-			gameControllerScript.CheckPause ();
-		}
-
-		if (gameControllerScript.isPaused == true) 
-		{
-			if (isShieldOn == true) 
+			if (playerActions.Pause.WasPressed) 
 			{
-				if (lensScript.enabled == true) 
+				if (Time.unscaledTime > gameControllerScript.NextPauseCooldown) 
 				{
-					lensScript.enabled = false;
+					gameControllerScript.CheckPause ();
 				}
 			}
-		}
 
-		if (gameControllerScript.isPaused == false) 
-		{
-			if (isShieldOn == true) 
+			if (gameControllerScript.isPaused == true) 
 			{
-				if (lensScript.enabled == false) 
+				if (isShieldOn == true) 
 				{
-					lensScript.enabled = true;
+					if (lensScript.enabled == true) 
+					{
+						lensScript.enabled = false;
+					}
 				}
 			}
+
+			if (gameControllerScript.isPaused == false) 
+			{
+				if (isShieldOn == true) 
+				{
+					if (lensScript.enabled == false) 
+					{
+						lensScript.enabled = true;
+					}
+				}
+			}
+
+			yield return null;
 		}
 	}
 
