@@ -82,6 +82,7 @@ public class GameController : MonoBehaviour
 
 	public void StartCoroutines ()
 	{
+		ScoreText.text = "";
 		StartCoroutine (UpdateImageEffects ());
 		StartCoroutine (UpdateStarFieldparticleEffectTrail ());
 	}
@@ -90,6 +91,12 @@ public class GameController : MonoBehaviour
 	public void StartGame ()
 	{
 		StartCoroutine (LevelTimer ());
+	}
+
+	void Update ()
+	{
+		UpdateGameStats ();
+		UpdateTimeStats ();
 	}
 
 	IEnumerator UpdateStarFieldparticleEffectTrail ()
@@ -107,22 +114,21 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	IEnumerator UpdateGameStats ()
+	void UpdateGameStats ()
 	{
-		TrackStats = true;
-		isPaused = false;
-
-		while (TrackStats == true && isPaused == false && developerModeScript.DebugMenu.activeInHierarchy == true) 
+		if (TrackStats == true && isPaused == false) 
 		{
-			DistanceText.text = "Distance: " + System.Math.Round (Distance, 2);
-			GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
-			RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
-			TimeRatioText_Debug.text = "Time Ratio: " + System.Math.Round (TimeRatio, 2);
+			// Put debug stuff here.
+			if (developerModeScript.DebugMenu.activeInHierarchy == true)
+			{
+				DistanceText.text = "Distance: " + System.Math.Round (Distance, 2);
+				GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
+				RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
+				TimeRatioText_Debug.text = "Time Ratio: " + System.Math.Round (TimeRatio, 2);
 
-			TargetPitch.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
-			CurrentPitch.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
-			UpdateTimeStats ();
-			yield return null;
+				TargetPitch.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
+				CurrentPitch.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
+			}
 		}
 	}
 
@@ -130,11 +136,11 @@ public class GameController : MonoBehaviour
 	{
 		if (CountScore == true) 
 		{
-			TargetScore += ScoreRate * Time.deltaTime * ScoreMult * Time.timeScale;
+			//TargetScore += ScoreRate * Time.deltaTime * ScoreMult * Time.timeScale;
 
 			CurrentScore = Mathf.Lerp (CurrentScore, TargetScore, ScoreSmoothing * Time.unscaledDeltaTime);
 			DisplayScore = Mathf.Round (CurrentScore);
-			ScoreText.text = "" + DisplayScore;
+			ScoreText.text = DisplayScore.ToString ("00000000");
 		}
 	}
 

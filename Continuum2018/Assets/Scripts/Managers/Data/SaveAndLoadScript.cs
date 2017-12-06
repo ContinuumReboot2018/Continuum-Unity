@@ -17,6 +17,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	[Header ("Player Data")]
 	public string Username = "default";
 	public int ExperiencePoints;
+	public int Level;
+	public int NextLevelRequirement;
 
 	[Header ("Settings Data")]
 	public PostProcessingProfile VisualSettings;
@@ -99,6 +101,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		data.Username = Username;
 		data.ExperiencePoints = ExperiencePoints;
+		data.Level = Level;
+		data.NextLevelRequirement = NextLevelRequirement;
 	}
 
 	// Load PlayerData main.
@@ -133,6 +137,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		Username = data.Username;
 		ExperiencePoints = data.ExperiencePoints;
+		Level = data.Level;
+		NextLevelRequirement = data.NextLevelRequirement;
 	}
 
 	// Puts new data into relevant scripts.
@@ -306,6 +312,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		public string Username;
 		public int ExperiencePoints;
+		public int Level;
+		public int NextLevelRequirement;
 	}
 
 	[Serializable]

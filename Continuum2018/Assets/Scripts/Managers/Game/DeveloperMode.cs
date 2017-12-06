@@ -85,13 +85,18 @@ public class DeveloperMode : MonoBehaviour
 		if (CheatStringResetTimeRemaining <= 0) 
 		{
 			ClearCheatString ();
-			CheatStringResetTimeRemaining = CheatStringResetDuration;
+			//CheatStringResetTimeRemaining = CheatStringResetDuration;
 		}
 
 		foreach (char c in Input.inputString) 
 		{		
 			CheatStringResetTimeRemaining = CheatStringResetDuration;
 			CheatString += c;
+
+			if (CheatString.Contains (c.ToString() + c.ToString() + c.ToString())) 
+			{
+				ClearCheatString ();
+			}
 		}
 
 		if (CheatString.Length > maxCheatCharacters) 
@@ -170,6 +175,7 @@ public class DeveloperMode : MonoBehaviour
 
 	void ShowCheatNotification (string cheatText)
 	{
+		CheatNotificationAnim.StopPlayback ();
 		CheatNotificationAnim.Play ("CheatNotification");
 		CheatNotifcationText.text = cheatText;
 		Instantiate (CheatSound);

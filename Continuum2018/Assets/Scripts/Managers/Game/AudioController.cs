@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour 
 {
@@ -58,17 +59,52 @@ public class AudioController : MonoBehaviour
 
 	public Vector4 TimePitch = new Vector4 (0.25f, 1.0f, 1.25f, 1.5f);
 
+	[Header ("StereoUI")]
+	public AudioSourceLoudnessTester bassLoudness;
+	public AudioSourceLoudnessTester layerOneLoudness;
+	public AudioSourceLoudnessTester layerTwoLoudness;
+	public AudioSourceLoudnessTester layerThreeLoudness;
+	public float CurrentBassLoudness;
+	public float CurrentLayerOneLoudness;
+	public float CurrentLayerTwoLoudness;
+	public float CurrentLayerThreeLoudness;
+	public Image StereoImageL;
+	public Image StereoImageR;
+	public float LoudnessSmoothing = 0.1f;
+
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		TrackNumber = 5;
+		TrackNumber = 3;
 		LoadTracks ();
-		StartCoroutine (UpdateSoundtrackVolumeAndPitches ());
 	}
 
-	public IEnumerator UpdateSoundtrackVolumeAndPitches ()
+	void Update ()
 	{
-		while (updateVolumeAndPitches == true) 
+		UpdateSoundtrackVolumeAndPitches ();
+		UpdateStereoUI ();
+	}
+
+	void UpdateStereoUI ()
+	{
+		CurrentBassLoudness = bassLoudness.clipLoudness;
+		CurrentLayerOneLoudness = layerOneLoudness.clipLoudness;
+		CurrentLayerTwoLoudness = layerTwoLoudness.clipLoudness;
+		CurrentLayerThreeLoudness = layerThreeLoudness.clipLoudness;
+
+		// For all clips
+		//float AverageLoudness = 0.25f * (CurrentBassLoudness + CurrentLayerOneLoudness + CurrentLayerTwoLoudness + CurrentLayerThreeLoudness);
+
+		// For bass clip
+		float AverageLoudness = 0.5f * (CurrentBassLoudness + CurrentLayerOneLoudness);
+
+		StereoImageL.fillAmount = Mathf.Lerp (StereoImageL.fillAmount, AverageLoudness, LoudnessSmoothing * Time.deltaTime);
+		StereoImageR.fillAmount = Mathf.Lerp (StereoImageR.fillAmount, AverageLoudness, LoudnessSmoothing * Time.deltaTime);
+	}
+
+	public void UpdateSoundtrackVolumeAndPitches ()
+	{
+		if (updateVolumeAndPitches == true) 
 		{
 			Distance = timescaleControllerScript.Distance;
 
@@ -77,8 +113,6 @@ public class AudioController : MonoBehaviour
 
 			UpdateTargetVolumes ();
 			UpdateTargetPitches ();
-
-			yield return null;
 		}
 	}
 
