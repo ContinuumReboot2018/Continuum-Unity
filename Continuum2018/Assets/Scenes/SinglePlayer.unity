@@ -12346,7 +12346,7 @@ MonoBehaviour:
   TargetTimeScale: 1
   TargetTimeScaleSmoothing: 3
   TargetTimeScaleMult: 0.07
-  TargetTimeScaleAdd: 0.5
+  TargetTimeScaleAdd: 0
   TargetTimeScaleIncreaseRate: 0.0015
   ReferencePoint: {fileID: 2056022828}
   Distance: 8
