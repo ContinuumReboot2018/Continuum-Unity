@@ -82,7 +82,7 @@ public class AudioController : MonoBehaviour
 	void Update ()
 	{
 		UpdateSoundtrackVolumeAndPitches ();
-		UpdateStereoUI ();
+		//UpdateStereoUI ();
 	}
 
 	void UpdateStereoUI ()
