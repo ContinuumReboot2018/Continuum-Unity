@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
 			if (playerActions.Shoot.Value > 0 && Time.time > NextFire && gameControllerScript.isPaused == false) 
 			{
 				Shoot ();
-				NextFire = Time.time + CurrentFireRate / Time.timeScale;
+				NextFire = Time.time + CurrentFireRate / (2 * Time.timeScale);
 			}
 
 			yield return null;

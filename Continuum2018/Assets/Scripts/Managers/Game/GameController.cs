@@ -46,6 +46,14 @@ public class GameController : MonoBehaviour
 	public int ScoreMult;
 	public float ScoreRate;
 
+	[Header ("Block Spawner")]
+	public GameObject[] Blocks;
+	public float BlockSpawnRate;
+	private float NextBlockSpawn;
+	public float[] BlockSpawnXPositions;
+	public float BlockSpawnYPosition;
+	public float BlockSpawnZPosition;
+
 	[Header ("Pausing")]
 	public bool isPaused;
 	public float PauseCooldown = 1;
@@ -91,6 +99,7 @@ public class GameController : MonoBehaviour
 	public void StartGame ()
 	{
 		StartCoroutine (LevelTimer ());
+		StartCoroutine (StartBlockSpawn ());
 	}
 
 	void Update ()
@@ -291,5 +300,20 @@ public class GameController : MonoBehaviour
 	{
 		WaveTimeDuration += WaveTimeIncreaseRate;
 		WaveTimeRemaining = WaveTimeDuration;
+	}
+
+	IEnumerator StartBlockSpawn ()
+	{
+		while (WaveTimeRemaining > 0) 
+		{
+			if (Time.time > NextBlockSpawn)
+			{
+				GameObject Block = Blocks [Random.Range (0, Blocks.Length)];
+				Vector3 SpawnPos = new Vector3 (BlockSpawnXPositions[Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+				Instantiate (Block, SpawnPos, Quaternion.identity);
+				NextBlockSpawn = Time.time + BlockSpawnRate;
+			}
+			yield return null;
+		}
 	}
 }
