@@ -13,6 +13,11 @@ public class Bullet : MonoBehaviour
 
 	public float ColliderYMaxPos = 12;
 	public Collider BulletCol;
+	public float DestroyDelayTime = 1;
+
+	[Header ("Visuals")]
+	public ParticleSystem BulletOuterParticles;
+	public ParticleSystem BulletCoreParticles;
 
 	[Header ("Camera Shake")]
 	public CameraShake camShakeScript;
@@ -22,6 +27,7 @@ public class Bullet : MonoBehaviour
 
 	void Start ()
 	{
+		
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		StartCameraShake ();
 		Lifetime = 0;
@@ -30,11 +36,22 @@ public class Bullet : MonoBehaviour
 
 	void Update ()
 	{
-		BulletRb.velocity = transform.InverseTransformDirection (new Vector3 (0, BulletSpeed * Time.deltaTime * Time.timeScale, 0));
+		BulletRb.velocity = transform.InverseTransformDirection (
+				new Vector3 (
+					0, 
+					BulletSpeed * Time.deltaTime * Time.timeScale, 
+					0
+				));
+		
 		Lifetime += Time.unscaledDeltaTime;
 		CheckForDestroy ();
 
 		CheckForColliderDeactivate ();
+	}
+
+	void OnTriggerEnter (Collider other)
+	{
+		
 	}
 
 	void CheckForColliderDeactivate ()
@@ -69,10 +86,14 @@ public class Bullet : MonoBehaviour
 		{
 			camShakeScript.shakeTimeRemaining = shakeTimeRemaining;
 		}
+			
+		camShakeScript.shakeAmount = shakeAmount;
+	}
 
-		if (camShakeScript.shakeAmount < shakeAmount)
-		{
-			camShakeScript.shakeAmount = shakeAmount;
-		}
+	public IEnumerator DestroyDelay ()
+	{
+		BulletCol.enabled = false;
+		yield return new WaitForSecondsRealtime (DestroyDelayTime);
+		Destroy (gameObject);
 	}
 }

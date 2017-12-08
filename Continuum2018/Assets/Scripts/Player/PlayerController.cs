@@ -67,8 +67,12 @@ public class PlayerController : MonoBehaviour
 	{
 		StartCoroutine (MovePlayer ());
 		StartCoroutine (CheckPause ());
-		StartCoroutine (CheckShoot ());
 		StartCoroutine (CheckBulletType ());
+	}
+
+	void Update ()
+	{
+		CheckShoot ();
 	}
 
 	IEnumerator MovePlayer ()
@@ -137,10 +141,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Checks shooting state.
-	IEnumerator CheckShoot ()
+	void CheckShoot ()
 	{
-		canShoot = true;
-		while (canShoot == true) 
+		if (canShoot == true) 
 		{
 			if (CurrentShot == null) 
 			{
@@ -152,8 +155,6 @@ public class PlayerController : MonoBehaviour
 				Shoot ();
 				NextFire = Time.time + CurrentFireRate / (2 * Time.timeScale);
 			}
-
-			yield return null;
 		}
 	}
 
