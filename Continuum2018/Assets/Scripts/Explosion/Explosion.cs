@@ -17,8 +17,6 @@ public class Explosion : MonoBehaviour
 	{
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController>();
 
-		ComboAnim.Play ("ComboPoints");
-
 		// Scales points text based on combo.
 		ComboAnim.gameObject.transform.localScale = new Vector3 (
 			Mathf.Clamp (0.015f * gameControllerScript.combo + 0.485f, 0, MaxScale), 
@@ -30,10 +28,9 @@ public class Explosion : MonoBehaviour
 	{
 		if (blockScript != null) 
 		{
-			blockScript.GetTotalPointValue ();
-			Debug.Log (blockScript.totalPointValue);
 			totalPointVal = Mathf.Round (blockScript.totalPointValue);
 			ComboPointsText.text = "" + totalPointVal + "";
+			ComboAnim.Play ("ComboPoints");
 			ComboPointsText.color = TextColor;
 			blockScript.RefreshCombo ();
 		}

@@ -49,7 +49,7 @@ public class Block : MonoBehaviour
 	{
 		if (other.tag == "Bullet") 
 		{
-			//GetTotalPointValue ();
+			GetTotalPointValue ();
 			CreateExplosion ();
 
 			// Stops the bullet that hit it from hanging around.
@@ -94,9 +94,10 @@ public class Block : MonoBehaviour
 
 	void CreateExplosion ()
 	{
-		Instantiate (Explosion, transform.position, Quaternion.identity);
-		Explosion.GetComponent<Explosion> ().blockScript = this;
-		Explosion.GetComponent<Explosion> ().TextColor = TextColor;
-		Explosion.GetComponent<Explosion> ().Anim ();
+		// Have to create an instance of the Explosion prefab.
+		GameObject _Explosion = Instantiate (Explosion, transform.position, Quaternion.identity);
+		_Explosion.GetComponent<Explosion> ().blockScript = this;
+		_Explosion.GetComponent<Explosion> ().TextColor = TextColor;
+		_Explosion.GetComponent<Explosion> ().Anim ();
 	}
 }
