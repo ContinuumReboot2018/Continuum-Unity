@@ -164,11 +164,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameControllerScript: {fileID: 0}
   timeScaleControllerScript: {fileID: 0}
+  rend: {fileID: 0}
   speed: -150
   OverwriteVelocity: 0
+  OrangeSpeed: -150
+  YellowSpeed: -250
+  GreenSpeed: -350
+  BlueSpeed: -450
+  PurpleSpeed: -550
+  OrangeMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
+  YellowMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
+  GreenMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
+  BlueMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
+  PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
+  OrangeBasePointValue: 1
+  YellowBasePointValue: 2
+  GreenBasePointValue: 3
+  BlueBasePointValue: 4
+  PurpleBasePointValue: 5
+  OrangeExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
+    type: 2}
+  YellowExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
+    type: 2}
+  GreenExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
+    type: 2}
+  BlueExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
+    type: 2}
+  PurpleExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
+    type: 2}
+  OrangeTextColor: {r: 1, g: 0.33426183, b: 0, a: 1}
+  YellowTextColor: {r: 0.99721456, g: 1, b: 0, a: 1}
+  GreenTextColor: {r: 0, g: 1, b: 0.0055708885, a: 1}
+  BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
+  PurpleTextColor: {r: 0.846797, g: 0, b: 1, a: 1}
+  BlockType: 0
+  ChangeRate: 0.5
+  BlockChangeType: 0
+  isSpecialBlockType: 0
+  SpecialBlockType: 0
+  Explosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706, type: 2}
   BasePointValue: 1
   totalPointValue: 0
-  Explosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706, type: 2}
   TextColor: {r: 1, g: 0.33426183, b: 0, a: 1}
   MinYPos: -15
   camShakeScript: {fileID: 0}

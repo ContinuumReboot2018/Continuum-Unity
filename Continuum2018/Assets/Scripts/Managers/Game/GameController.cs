@@ -356,6 +356,7 @@ public class GameController : MonoBehaviour
 			{
 				GameObject Block = Blocks [Random.Range (0, Blocks.Length)];
 
+				/*
 				// Creates a stream of blocks.
 				float RandomRange = Random.Range (0, 1.0f);
 
@@ -390,11 +391,11 @@ public class GameController : MonoBehaviour
 					{
 						
 					}
-				}
+				}*/
 
-				Vector3 SpawnPos = new Vector3 (BlockSpawnXPositions[NextXPosId], BlockSpawnYPosition, BlockSpawnZPosition);
+				//Vector3 SpawnPos = new Vector3 (BlockSpawnXPositions[NextXPosId], BlockSpawnYPosition, BlockSpawnZPosition);
 				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions[Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-				Instantiate (Block, SpawnPos, Quaternion.identity);
+				//Instantiate (Block, SpawnPos, Quaternion.identity);
 				Instantiate (Block, SpawnPosRand, Quaternion.identity);
 				NextBlockSpawn = Time.time + BlockSpawnRate;
 			}
