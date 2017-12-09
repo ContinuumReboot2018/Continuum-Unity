@@ -42,9 +42,15 @@ public class GameController : MonoBehaviour
 	public float TargetScore;
 	public float ScoreSmoothing;
 	public TextMeshProUGUI ScoreText;
+	public Animator ScoreAnim;
 
-	public int ScoreMult;
-	public float ScoreRate;
+	public int combo = 1;
+	public float comboDuration = 0.5f;
+	public float comboTimeRemaining;
+	public TextMeshProUGUI ComboText;
+
+	//public int ScoreMult;
+	//public float ScoreRate;
 
 	[Header ("Block Spawner")]
 	public GameObject[] Blocks;
@@ -106,6 +112,7 @@ public class GameController : MonoBehaviour
 	{
 		UpdateGameStats ();
 		UpdateTimeStats ();
+		CheckCombo ();
 	}
 
 	IEnumerator UpdateStarFieldparticleEffectTrail ()
@@ -137,6 +144,8 @@ public class GameController : MonoBehaviour
 
 				TargetPitch.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
 				CurrentPitch.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
+
+				ComboText.text = "Combo: " + combo; 
 			}
 		}
 	}
@@ -150,6 +159,28 @@ public class GameController : MonoBehaviour
 			CurrentScore = Mathf.Lerp (CurrentScore, TargetScore, ScoreSmoothing * Time.unscaledDeltaTime);
 			DisplayScore = Mathf.Round (CurrentScore);
 			ScoreText.text = DisplayScore.ToString ("00000000");
+		}
+	}
+
+	void CheckCombo ()
+	{
+		if (comboTimeRemaining > 0) 
+		{
+			comboTimeRemaining -= Time.unscaledDeltaTime;
+		}
+
+		if (comboTimeRemaining < 0) 
+		{
+			if (combo > 1) 
+			{
+				combo -= 1;
+				comboTimeRemaining = comboDuration;
+			}
+
+			if (combo == 1)
+			{
+				//comboTimeRemaining = 0;
+			}
 		}
 	}
 
@@ -304,13 +335,55 @@ public class GameController : MonoBehaviour
 
 	IEnumerator StartBlockSpawn ()
 	{
+		int StartXPosId = Random.Range (0, BlockSpawnXPositions.Length);
+		int NextXPosId = StartXPosId;
+
 		while (WaveTimeRemaining > 0) 
 		{
 			if (Time.time > NextBlockSpawn)
 			{
 				GameObject Block = Blocks [Random.Range (0, Blocks.Length)];
-				Vector3 SpawnPos = new Vector3 (BlockSpawnXPositions[Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+
+				// Creates a stream of blocks.
+				float RandomRange = Random.Range (0, 1.0f);
+
+				// Move left.
+				if (RandomRange < 0.33f) 
+				{
+					if (NextXPosId > 0) 
+					{
+						NextXPosId -= 1;
+					}
+
+					if (NextXPosId <= 0) 
+					{
+						NextXPosId = 0;
+					}
+				}
+
+				// Go straight.
+				if (RandomRange >= 0.33f && RandomRange < 0.67f) 
+				{
+				}
+
+				// Move right.
+				if (RandomRange >= 0.67f) 
+				{
+					if (NextXPosId < BlockSpawnXPositions.Length - 1) 
+					{
+						NextXPosId += 1;
+					}
+
+					if (NextXPosId >= BlockSpawnXPositions.Length) 
+					{
+						
+					}
+				}
+
+				Vector3 SpawnPos = new Vector3 (BlockSpawnXPositions[NextXPosId], BlockSpawnYPosition, BlockSpawnZPosition);
+				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions[Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 				Instantiate (Block, SpawnPos, Quaternion.identity);
+				Instantiate (Block, SpawnPosRand, Quaternion.identity);
 				NextBlockSpawn = Time.time + BlockSpawnRate;
 			}
 			yield return null;

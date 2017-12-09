@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114859730920538306}
   - component: {fileID: 54244710924662194}
   - component: {fileID: 114045489295494334}
+  - component: {fileID: 114212151734931360}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Block
@@ -59,7 +60,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: b31563216fcd9bd42a28b29f045d7015, type: 2}
+  - {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,6 +139,18 @@ MonoBehaviour:
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+--- !u!114 &114212151734931360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750224001074990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6129a3f33a82e494cb649fce0aab9eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParentTransformName: InstantiatedBlocks
 --- !u!114 &114859730920538306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,11 +164,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameControllerScript: {fileID: 0}
   timeScaleControllerScript: {fileID: 0}
-  OverwriteTimeDuration: 0.02
-  OverwriteTimeScale: 0.2
-  speed: -500
+  speed: -150
   OverwriteVelocity: 0
-  points: 150
+  BasePointValue: 1
+  totalPointValue: 0
+  Explosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706, type: 2}
+  TextColor: {r: 1, g: 0.33426183, b: 0, a: 1}
+  MinYPos: -15
   camShakeScript: {fileID: 0}
   newCamShakeDuration: 0.2
   newCamShakeAmount: 0.2

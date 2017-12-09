@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using InControl;
+using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour 
 {
@@ -30,6 +31,9 @@ public class PlayerController : MonoBehaviour
 	public float YRotationAmount = 45;
 	public float YRotationMultiplier = 10;
 	private float RotVelY;
+
+	public float PlayerVibrationDuration;
+	public float PlayerVibrationTimeRemaining;
 
 	[Header ("Shooting")]
 	public bool canShoot = true;
@@ -73,6 +77,7 @@ public class PlayerController : MonoBehaviour
 	void Update ()
 	{
 		CheckShoot ();
+		CheckPlayerVibration ();
 	}
 
 	IEnumerator MovePlayer ()
@@ -150,10 +155,16 @@ public class PlayerController : MonoBehaviour
 				CurrentShot = StandardShot;
 			}
 
-			if (playerActions.Shoot.Value > 0 && Time.time > NextFire && gameControllerScript.isPaused == false) 
+			if (playerActions.Shoot.Value > 0.75f && Time.unscaledTime > NextFire && gameControllerScript.isPaused == false) 
 			{
+				if (gameControllerScript.combo > 1)
+				{
+					gameControllerScript.combo -= 1;
+				}
+
 				Shoot ();
-				NextFire = Time.time + CurrentFireRate / (2 * Time.timeScale);
+
+				NextFire = Time.unscaledTime + CurrentFireRate / (2 * Time.timeScale);
 			}
 		}
 	}
@@ -216,19 +227,24 @@ public class PlayerController : MonoBehaviour
 	{
 		playerActions.MoveLeft.AddDefaultBinding (Key.A);
 		playerActions.MoveLeft.AddDefaultBinding (Key.LeftArrow);
+		playerActions.MoveLeft.AddDefaultBinding (InputControlType.LeftStickLeft);
 
 		playerActions.MoveRight.AddDefaultBinding (Key.D);
 		playerActions.MoveRight.AddDefaultBinding (Key.RightArrow);
+		playerActions.MoveRight.AddDefaultBinding (InputControlType.LeftStickRight);
 
 		playerActions.MoveUp.AddDefaultBinding (Key.W);
 		playerActions.MoveUp.AddDefaultBinding (Key.UpArrow);
+		playerActions.MoveUp.AddDefaultBinding (InputControlType.LeftStickUp);
 
 		playerActions.MoveDown.AddDefaultBinding (Key.S);
 		playerActions.MoveDown.AddDefaultBinding (Key.DownArrow);
+		playerActions.MoveDown.AddDefaultBinding (InputControlType.LeftStickDown);
 
 		playerActions.Shoot.AddDefaultBinding (Key.Space);
 		playerActions.Shoot.AddDefaultBinding (Mouse.LeftButton);
 		playerActions.Shoot.AddDefaultBinding (InputControlType.RightTrigger);
+		playerActions.Shoot.AddDefaultBinding (InputControlType.Action1);
 
 		playerActions.Ability.AddDefaultBinding (Key.LeftShift);
 		playerActions.Ability.AddDefaultBinding (Mouse.RightButton);
@@ -238,5 +254,32 @@ public class PlayerController : MonoBehaviour
 		playerActions.Pause.AddDefaultBinding (InputControlType.Command);
 
 		playerActions.DebugMenu.AddDefaultBinding (Key.Tab);
+		playerActions.DebugMenu.AddDefaultBinding (InputControlType.DPadUp);
+	}
+
+	public void Vibrate (float LeftMotor, float RightMotor, float duration)
+	{
+		PlayerVibrationDuration = duration;
+		PlayerVibrationTimeRemaining = PlayerVibrationDuration;
+		GamePad.SetVibration (PlayerIndex.One, LeftMotor, RightMotor);
+	}
+
+	void CheckPlayerVibration ()
+	{
+		if (PlayerVibrationTimeRemaining > 0) 
+		{
+			PlayerVibrationTimeRemaining -= Time.deltaTime;
+		}
+
+		if (PlayerVibrationTimeRemaining < 0) 
+		{
+			ResetPlayerVibration ();
+			PlayerVibrationTimeRemaining = 0;
+		}
+	}
+
+	void ResetPlayerVibration ()
+	{
+		GamePad.SetVibration (PlayerIndex.One, 0, 0);
 	}
 }

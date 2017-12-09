@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour 
 {
+	public PlayerController playerControllerScript;
 	public float BulletSpeed;
 	public Rigidbody BulletRb;
 
@@ -25,9 +26,14 @@ public class Bullet : MonoBehaviour
 	public float shakeTimeRemaining;
 	public float shakeAmount;
 
+	[Header ("Player Vibration")]
+	public float LeftMotorRumble = 0.2f;
+	public float RightMotorRumble = 0.2f;
+	public float VibrationDuration = 0.25f;
+
 	void Start ()
 	{
-		
+		playerControllerScript = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		StartCameraShake ();
 		Lifetime = 0;
@@ -51,7 +57,10 @@ public class Bullet : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		
+		if (other.tag == "Block") 
+		{
+			playerControllerScript.Vibrate (LeftMotorRumble, RightMotorRumble, VibrationDuration);
+		}
 	}
 
 	void CheckForColliderDeactivate ()
