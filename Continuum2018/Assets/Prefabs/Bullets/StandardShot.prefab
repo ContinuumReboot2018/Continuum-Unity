@@ -268,9 +268,9 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   BulletSpeed: 2000
   BulletRb: {fileID: 54411608822263048}
-  DestroyPos: {fileID: 4203462978359602}
   Lifetime: 0
   MaxLifetime: 30
+  DestroyMaxYPos: 30
   ColliderYMaxPos: 12
   BulletCol: {fileID: 65224658155953138}
   DestroyDelayTime: 1
@@ -5233,7 +5233,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 1
+    enabled: 0
     strength:
       serializedVersion: 2
       minMaxState: 0

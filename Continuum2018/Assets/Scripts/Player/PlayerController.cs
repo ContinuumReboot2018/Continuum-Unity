@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
 	public Rigidbody PlayerFollowRb;
 	public float PlayerFollowMoveSpeed;
 	public Vector2 XBounds, YBounds;
-
 	public Rigidbody PlayerRb;
 	private float SmoothFollowVelX, SmoothFollowVelY;
 	public float SmoothFollowTime = 1;

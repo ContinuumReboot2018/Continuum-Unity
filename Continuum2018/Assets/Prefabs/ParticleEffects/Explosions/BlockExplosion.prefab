@@ -209,6 +209,7 @@ MonoBehaviour:
   blockScript: {fileID: 0}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 2
+  totalPointVal: 0
 --- !u!114 &114201206547933330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -261,7 +262,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750599044371674}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -454,7 +455,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1692385878
+  randomSeed: -1972906539
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3798,7 +3799,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 910389635
+  randomSeed: -387340834
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -19,14 +19,8 @@ public class GameController : MonoBehaviour
 	public float GameTime;
 	public float RealTime;
 	public float TimeRatio;
-	public TextMeshProUGUI GameTimeText_Debug;
-	public TextMeshProUGUI RealTimeText_Debug;
-	public TextMeshProUGUI TimeRatioText_Debug;
 	public float Distance;
-	public TextMeshProUGUI DistanceText;
 	public AudioSource BassTrack;
-	public TextMeshProUGUI TargetPitch;
-	public TextMeshProUGUI CurrentPitch;
 
 	[Header ("Waves")]
 	public int Wave;
@@ -44,13 +38,13 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI ScoreText;
 	public Animator ScoreAnim;
 
+	//public int ScoreMult;
+	//public float ScoreRate;
+
+	[Header ("Combo")]
 	public int combo = 1;
 	public float comboDuration = 0.5f;
 	public float comboTimeRemaining;
-	public TextMeshProUGUI ComboText;
-
-	//public int ScoreMult;
-	//public float ScoreRate;
 
 	[Header ("Block Spawner")]
 	public GameObject[] Blocks;
@@ -82,6 +76,21 @@ public class GameController : MonoBehaviour
 	public float StarFieldForegroundLifetimeMultipler = 0.1f;
 	public float StarFieldForegroundSimulationSpeed = 1;
 	public ParticleSystem StarFieldForeground;
+
+	[Header ("Debug")]
+	public TextMeshProUGUI WaveText_Debug;
+	public TextMeshProUGUI ComboText_Debug;
+	public TextMeshProUGUI CurrentPitch_Debug;
+	public TextMeshProUGUI TargetPitch_Debug;
+	public TextMeshProUGUI DistanceText_Debug;
+	public TextMeshProUGUI GameTimeText_Debug;
+	public TextMeshProUGUI RealTimeText_Debug;
+	public TextMeshProUGUI TimeRatioText_Debug;
+	public TextMeshProUGUI TimeScaleText_Debug;
+	public TextMeshProUGUI FixedTimeStepText_Debug;
+	public TextMeshProUGUI TargetScoreText_Debug;
+	public TextMeshProUGUI SpawnWaitText_Debug;
+
 
 	void Start () 
 	{
@@ -137,15 +146,22 @@ public class GameController : MonoBehaviour
 			// Put debug stuff here.
 			if (developerModeScript.DebugMenu.activeInHierarchy == true)
 			{
-				DistanceText.text = "Distance: " + System.Math.Round (Distance, 2);
+				WaveText_Debug.text = "Wave: " + Wave;
+				TargetScoreText_Debug.text = "Target Score: " + Mathf.Round (TargetScore);
+				ComboText_Debug.text = "Combo: " + combo; 
+				DistanceText_Debug.text = "Distance: " + System.Math.Round (Distance, 2);
+
 				GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
 				RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
 				TimeRatioText_Debug.text = "Time Ratio: " + System.Math.Round (TimeRatio, 2);
 
-				TargetPitch.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
-				CurrentPitch.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
+				TargetPitch_Debug.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
+				CurrentPitch_Debug.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
 
-				ComboText.text = "Combo: " + combo; 
+				TimeScaleText_Debug.text = "TimeScale: " + System.Math.Round (Time.timeScale, 2);
+				FixedTimeStepText_Debug.text = "FixedTimeStep: " + System.Math.Round (Time.fixedDeltaTime * 2, 5);
+
+				SpawnWaitText_Debug.text = "Spawn Rate: " + BlockSpawnRate;
 			}
 		}
 	}
@@ -154,6 +170,7 @@ public class GameController : MonoBehaviour
 	{
 		if (CountScore == true) 
 		{
+			// Adds score over time.
 			//TargetScore += ScoreRate * Time.deltaTime * ScoreMult * Time.timeScale;
 
 			CurrentScore = Mathf.Lerp (CurrentScore, TargetScore, ScoreSmoothing * Time.unscaledDeltaTime);
@@ -166,7 +183,7 @@ public class GameController : MonoBehaviour
 	{
 		if (comboTimeRemaining > 0) 
 		{
-			comboTimeRemaining -= Time.unscaledDeltaTime;
+			comboTimeRemaining -= Time.unscaledDeltaTime * (0.05f * combo);
 		}
 
 		if (comboTimeRemaining < 0) 
@@ -175,11 +192,6 @@ public class GameController : MonoBehaviour
 			{
 				combo -= 1;
 				comboTimeRemaining = comboDuration;
-			}
-
-			if (combo == 1)
-			{
-				//comboTimeRemaining = 0;
 			}
 		}
 	}

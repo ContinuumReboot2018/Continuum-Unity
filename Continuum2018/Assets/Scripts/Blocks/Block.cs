@@ -9,13 +9,17 @@ public class Block : MonoBehaviour
 	public TimescaleController timeScaleControllerScript;
 	//public float OverwriteTimeDuration = 0.5f;
 	//public float OverwriteTimeScale = 0.2f;
+
+	[Header ("Stats")]
 	public float speed;
 	public bool OverwriteVelocity;
 	private Rigidbody rb;
 
+	[Header ("Explosion Combo")]
+	public GameObject Explosion;
 	public float BasePointValue;
 	public float totalPointValue;
-	public GameObject Explosion;
+
 	public Color TextColor;
 	public float MinYPos = -15.0f;
 

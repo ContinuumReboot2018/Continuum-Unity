@@ -6,15 +6,20 @@ using TMPro;
 public class Explosion : MonoBehaviour 
 {
 	public GameController gameControllerScript;
+	public Block blockScript;
+	public float Lifetime = 2;
+
+	[Header ("Read Combo")]
+	private float totalPointVal;
 	public Animator ComboAnim;
 	public TextMeshProUGUI ComboPointsText;
-	public Block blockScript;
+
 	public Color TextColor;
 	public float MaxScale = 2;
-	public float totalPointVal;
 
 	void Start () 
 	{
+		Destroy (gameObject, Lifetime);
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController>();
 
 		// Scales points text based on combo.

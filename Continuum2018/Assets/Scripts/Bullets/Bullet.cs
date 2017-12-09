@@ -8,10 +8,10 @@ public class Bullet : MonoBehaviour
 	public float BulletSpeed;
 	public Rigidbody BulletRb;
 
-	public Transform DestroyPos;
+	[Header ("Stats")]
 	public float Lifetime;
 	public float MaxLifetime = 30;
-
+	public float DestroyMaxYPos = 30;
 	public float ColliderYMaxPos = 12;
 	public Collider BulletCol;
 	public float DestroyDelayTime = 1;
@@ -78,7 +78,7 @@ public class Bullet : MonoBehaviour
 			Destroy (gameObject);
 		}
 
-		if (BulletRb.transform.position.y > DestroyPos.position.y) 
+		if (BulletRb.transform.position.y > DestroyMaxYPos) 
 		{
 			Destroy (gameObject);
 		}
