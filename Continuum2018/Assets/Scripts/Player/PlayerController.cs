@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			// Horizontal position.
-			if (PlayerRb.position.x <= -ScoreCheckPlayerPos.x && PlayerRb.position.x >= ScoreCheckPlayerPos.x) 
+			if (PlayerRb.position.x <= -ScoreCheckPlayerPos.x || PlayerRb.position.x >= ScoreCheckPlayerPos.x) 
 			{
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 				{
