@@ -159,7 +159,7 @@ public class GameController : MonoBehaviour
 				CurrentPitch_Debug.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
 
 				TimeScaleText_Debug.text = "TimeScale: " + System.Math.Round (Time.timeScale, 2);
-				FixedTimeStepText_Debug.text = "FixedTimeStep: " + System.Math.Round (Time.fixedDeltaTime * 2, 5);
+				FixedTimeStepText_Debug.text = "FixedTimeStep: " + System.Math.Round (Time.fixedDeltaTime, 5);
 
 				SpawnWaitText_Debug.text = "Spawn Rate: " + BlockSpawnRate;
 			}

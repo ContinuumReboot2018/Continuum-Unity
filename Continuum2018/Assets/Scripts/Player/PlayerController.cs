@@ -58,6 +58,11 @@ public class PlayerController : MonoBehaviour
 	public bool isShieldOn;
 	public Lens lensScript;
 
+	[Header ("UI")]
+	public bool isHidingScoreUI;
+	public Animator ScoreAnim;
+	public Vector3 ScoreCheckPlayerPos;
+
 	public PlayerActions playerActions;
 
 	void Start () 
@@ -77,6 +82,7 @@ public class PlayerController : MonoBehaviour
 	{
 		CheckShoot ();
 		CheckPlayerVibration ();
+		CheckUIVisibility ();
 	}
 
 	IEnumerator MovePlayer ()
@@ -212,6 +218,42 @@ public class PlayerController : MonoBehaviour
 			}
 
 			yield return null;
+		}
+	}
+
+	void CheckUIVisibility ()
+	{
+		// Vertical position.
+		if (PlayerRb.position.y > ScoreCheckPlayerPos.y) 
+		{
+			// Horizontal position.
+			if (PlayerRb.position.x > -ScoreCheckPlayerPos.x && PlayerRb.position.x < ScoreCheckPlayerPos.x) 
+			{
+				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false && isHidingScoreUI == false) 
+				{
+					ScoreAnim.Play ("ScoreFadeOut");
+					isHidingScoreUI = true;
+				}
+			}
+
+			// Horizontal position.
+			if (PlayerRb.position.x <= -ScoreCheckPlayerPos.x && PlayerRb.position.x >= ScoreCheckPlayerPos.x) 
+			{
+				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
+				{
+					ScoreAnim.Play ("ScoreFadeIn");
+					isHidingScoreUI = false;
+				}
+			}
+		}
+
+		if (PlayerRb.position.y <= ScoreCheckPlayerPos.y) 
+		{
+			if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
+			{
+				ScoreAnim.Play ("ScoreFadeIn");
+				isHidingScoreUI = false;
+			}
 		}
 	}
 

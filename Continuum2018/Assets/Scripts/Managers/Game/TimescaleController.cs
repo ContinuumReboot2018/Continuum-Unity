@@ -13,8 +13,6 @@ public class TimescaleController : MonoBehaviour
 	[Header ("Read Only")]
 	public float TimeScaleView;
 	public float FixedTimeStepView;
-	public TextMeshProUGUI TimeScaleText;
-	public TextMeshProUGUI FixedTimeStepText;
 	public float MinimumTimeScale = 0.2f;
 	public float MaximumTimeScale = 2.5f;
 
@@ -54,7 +52,6 @@ public class TimescaleController : MonoBehaviour
 		FixedTimeStepView = Time.fixedDeltaTime;
 		CheckTargetTimeScale ();
 		CheckOverrideTimeScale ();
-		UpdateTimeScaleUI ();
 
 		if (localSceneLoaderScript.SceneLoadCommit == true) 
 		{
@@ -95,7 +92,7 @@ public class TimescaleController : MonoBehaviour
 					
 				// Updates fixed time step based on time scale.
 				Time.fixedDeltaTime = Time.timeScale * 0.01f;
-				Time.maximumParticleDeltaTime = Time.timeScale * 0.02f;
+				Time.maximumParticleDeltaTime = Time.timeScale * 0.01f;
 			}
 		}
 	}
@@ -149,11 +146,5 @@ public class TimescaleController : MonoBehaviour
 				gameControllerScript.StartGame ();
 			}
 		}
-	}
-
-	void UpdateTimeScaleUI ()
-	{
-		TimeScaleText.text = "TimeScale: " + System.Math.Round(Time.timeScale, 2);
-		FixedTimeStepText.text = "FixedTimeStep: " + System.Math.Round (Time.fixedDeltaTime * 2, 5);
 	}
 }

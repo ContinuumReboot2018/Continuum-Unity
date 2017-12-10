@@ -160,7 +160,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 1, z: 1}
+  m_Size: {x: 0.05, y: 0.05, z: 0.05}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82177489875643580
 AudioSource:
@@ -274,6 +274,8 @@ MonoBehaviour:
   ColliderYMaxPos: 12
   BulletCol: {fileID: 65224658155953138}
   DestroyDelayTime: 1
+  playerPos: {fileID: 0}
+  movedEnough: 0
   BulletOuterParticles: {fileID: 198411590459158762}
   BulletCoreParticles: {fileID: 198739177880214716}
   camShakeScript: {fileID: 0}

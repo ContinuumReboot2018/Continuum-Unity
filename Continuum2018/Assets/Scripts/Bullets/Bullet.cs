@@ -15,6 +15,8 @@ public class Bullet : MonoBehaviour
 	public float ColliderYMaxPos = 12;
 	public Collider BulletCol;
 	public float DestroyDelayTime = 1;
+	public Transform playerPos;
+	public bool movedEnough;
 
 	[Header ("Visuals")]
 	public ParticleSystem BulletOuterParticles;
@@ -33,11 +35,14 @@ public class Bullet : MonoBehaviour
 
 	void Start ()
 	{
+		BulletCol.enabled = false;
+		movedEnough = false;
 		playerControllerScript = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		StartCameraShake ();
 		Lifetime = 0;
 		InvokeRepeating ("CheckForDestroy", 0, 1);
+		playerPos = GameObject.Find ("PlayerCollider").transform;
 	}
 
 	void Update ()
@@ -53,6 +58,8 @@ public class Bullet : MonoBehaviour
 		CheckForDestroy ();
 
 		CheckForColliderDeactivate ();
+
+		CheckColActivate ();
 	}
 
 	void OnTriggerEnter (Collider other)
@@ -68,6 +75,24 @@ public class Bullet : MonoBehaviour
 		if (BulletRb.transform.position.y > ColliderYMaxPos) 
 		{
 			BulletCol.enabled = false;
+		}
+	}
+
+	void CheckColActivate ()
+	{
+		if (movedEnough == false) 
+		{
+			Debug.Log (Vector3.Distance(transform.position, playerPos.position));
+			if (Vector3.Distance(transform.position, playerPos.position) < 0.75f)
+			{
+				BulletCol.enabled = false;
+			}
+
+			if (Vector3.Distance(transform.position, playerPos.position) >= 0.75f)
+			{
+				BulletCol.enabled = true;
+				movedEnough = true;
+			}
 		}
 	}
 

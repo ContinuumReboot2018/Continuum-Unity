@@ -81,7 +81,7 @@ MonoBehaviour:
     m_Settings:
       shutterAngle: 360
       sampleCount: 32
-      frameBlending: 0.1337003
+      frameBlending: 0
   eyeAdaptation:
     m_Enabled: 0
     m_Settings:
@@ -107,7 +107,7 @@ MonoBehaviour:
         antiFlicker: 1
       lensDirt:
         texture: {fileID: 2800000, guid: 4e59c075675385245878c2b676845b22, type: 3}
-        intensity: 0.25
+        intensity: 0.1
   colorGrading:
     m_Enabled: 0
     m_Settings:

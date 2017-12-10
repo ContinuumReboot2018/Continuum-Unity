@@ -5,7 +5,6 @@ using UnityEngine;
 public class StackZone : MonoBehaviour 
 {
 	public bool isOccupied;
-	public Vector2 PlotPoint;
 	public StackZone StackZoneBelow;
 	public StackZone StackZoneAbove;
 	public float yRange = 0.5f;
