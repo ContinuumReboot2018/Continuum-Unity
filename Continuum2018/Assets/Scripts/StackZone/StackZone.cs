@@ -7,7 +7,6 @@ public class StackZone : MonoBehaviour
 	public bool isOccupied;
 	public StackZone StackZoneBelow;
 	public StackZone StackZoneAbove;
-	public float yRange = 0.5f;
 	public GameObject CapturedBlock;
 
 	void Start () 
@@ -42,7 +41,38 @@ public class StackZone : MonoBehaviour
 				if (StackZoneBelow == null)
 				{
 					// Only if the stack zone above is not occupied.
-					if (StackZoneAbove.isOccupied == false || StackZoneAbove == null) 
+					if (StackZoneAbove.isOccupied == false) 
+					{
+						CapturedBlock = other.gameObject;
+						CaptureBlock ();
+					}
+				}
+			}
+		}
+	}
+
+
+	void OnTriggerExit (Collider other)
+	{
+		if (isOccupied == false) 
+		{
+			if (other.GetComponent<Collider>().tag == "Block")
+			{
+				// Any row above the bottom row.
+				if (StackZoneBelow != null) 
+				{
+					if (StackZoneBelow.isOccupied == true) 
+					{
+						CapturedBlock = other.gameObject;
+						CaptureBlock ();
+					}
+				}
+
+				// Must be a zone on the bottom.
+				if (StackZoneBelow == null)
+				{
+					// Only if the stack zone above is not occupied.
+					if (StackZoneAbove.isOccupied == false) 
 					{
 						CapturedBlock = other.gameObject;
 						CaptureBlock ();
@@ -61,6 +91,17 @@ public class StackZone : MonoBehaviour
 		CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = gameObject.transform;
 		CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = gameObject.transform;
 		isOccupied = true;
+	}
+
+	void CaptureAboveBlock ()
+	{
+		CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
+		CapturedBlock.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+		CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
+		CapturedBlock.GetComponent<SimpleFollow> ().FollowPosX = StackZoneAbove.gameObject.transform;
+		CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = StackZoneAbove.gameObject.transform;
+		CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = StackZoneAbove.gameObject.transform;
+		StackZoneAbove.isOccupied = true;
 	}
 
 	void OnCollisionExit (Collision col)

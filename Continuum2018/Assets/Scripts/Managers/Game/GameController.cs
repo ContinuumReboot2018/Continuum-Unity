@@ -219,9 +219,9 @@ public class GameController : MonoBehaviour
 		{
 			if (isPaused == true) 
 			{
-				var motionblursettings = ImageEffects.motionBlur.settings;
-				motionblursettings.frameBlending = 0;
-				ImageEffects.motionBlur.settings = motionblursettings;
+				//var motionblursettings = ImageEffects.motionBlur.settings;
+				//motionblursettings.frameBlending = 0;
+				//ImageEffects.motionBlur.settings = motionblursettings;
 			}
 
 			if (isPaused == false)

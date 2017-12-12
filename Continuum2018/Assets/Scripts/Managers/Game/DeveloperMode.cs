@@ -33,6 +33,7 @@ public class DeveloperMode : MonoBehaviour
 	[Header ("Debug Menu")]
 	public bool showDebugMenu;
 	public GameObject DebugMenu;
+	public Animator DebugMenuAnim;
 
 	void Start () 
 	{
@@ -60,12 +61,14 @@ public class DeveloperMode : MonoBehaviour
 
 			if (showDebugMenu == true)
 			{
-				DebugMenu.SetActive (true);
+				//DebugMenu.SetActive (true);
+				DebugMenuAnim.Play ("DebugMenuEnter");
 			}
 
 			if (showDebugMenu == false) 
 			{
-				DebugMenu.SetActive (false);
+				//DebugMenu.SetActive (false);
+				DebugMenuAnim.Play ("DebugMenuExit");
 			}
 		}
 	}

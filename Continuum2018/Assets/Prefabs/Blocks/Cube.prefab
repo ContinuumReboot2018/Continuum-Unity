@@ -130,7 +130,7 @@ MonoBehaviour:
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
   FollowPosMethod: 0
-  FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  FollowPosSmoothTime: {x: 2, y: 2, z: 0}
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
