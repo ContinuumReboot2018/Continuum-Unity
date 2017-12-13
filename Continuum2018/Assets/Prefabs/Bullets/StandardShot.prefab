@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 82177489875643580}
   - component: {fileID: 65224658155953138}
   - component: {fileID: 54411608822263048}
+  - component: {fileID: 114608472503133034}
   m_Layer: 9
   m_Name: StandardShot
   m_TagString: Bullet
@@ -171,9 +172,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 807e4e8106bc9834a9e59d62a218e7d4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -254,6 +255,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBullets
+--- !u!114 &114608472503133034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451733020400380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingPitch: 1
+  multiplierPitch: 1
+  minimumPitch: 0
+  maximumPitch: 20
+  addPitch: 0
+  reachedMaxPitch: 0
+  dontUseStartPitch: 0
 --- !u!114 &114984395663026318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -276,8 +295,10 @@ MonoBehaviour:
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
   movedEnough: 0
+  VelocityLimits: {x: -50, y: 50}
   BulletOuterParticles: {fileID: 198411590459158762}
   BulletCoreParticles: {fileID: 198739177880214716}
+  AwakeAudio: {fileID: 0}
   camShakeScript: {fileID: 0}
   shakeDuration: 0.1
   shakeTimeRemaining: 0.2

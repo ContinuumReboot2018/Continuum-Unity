@@ -61,13 +61,11 @@ public class DeveloperMode : MonoBehaviour
 
 			if (showDebugMenu == true)
 			{
-				//DebugMenu.SetActive (true);
 				DebugMenuAnim.Play ("DebugMenuEnter");
 			}
 
 			if (showDebugMenu == false) 
 			{
-				//DebugMenu.SetActive (false);
 				DebugMenuAnim.Play ("DebugMenuExit");
 			}
 		}
@@ -88,7 +86,6 @@ public class DeveloperMode : MonoBehaviour
 		if (CheatStringResetTimeRemaining <= 0) 
 		{
 			ClearCheatString ();
-			//CheatStringResetTimeRemaining = CheatStringResetDuration;
 		}
 
 		foreach (char c in Input.inputString) 

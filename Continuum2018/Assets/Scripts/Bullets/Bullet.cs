@@ -17,10 +17,14 @@ public class Bullet : MonoBehaviour
 	public float DestroyDelayTime = 1;
 	public Transform playerPos;
 	public bool movedEnough;
+	public Vector2 VelocityLimits;
 
 	[Header ("Visuals")]
 	public ParticleSystem BulletOuterParticles;
 	public ParticleSystem BulletCoreParticles;
+
+	[Header ("Audio")]
+	public AudioSource AwakeAudio;
 
 	[Header ("Camera Shake")]
 	public CameraShake camShakeScript;
@@ -33,8 +37,14 @@ public class Bullet : MonoBehaviour
 	public float RightMotorRumble = 0.2f;
 	public float VibrationDuration = 0.25f;
 
+	void Awake ()
+	{
+		AwakeAudio = GetComponent<AudioSource> ();
+	}
+
 	void Start ()
 	{
+		AwakeAudio.panStereo = 0.04f * transform.position.x;
 		BulletCol.enabled = false;
 		movedEnough = false;
 		playerControllerScript = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
@@ -45,12 +55,12 @@ public class Bullet : MonoBehaviour
 		playerPos = GameObject.Find ("PlayerCollider").transform;
 	}
 
-	void Update ()
+	void FixedUpdate ()
 	{
 		BulletRb.velocity = transform.InverseTransformDirection (
 				new Vector3 (
 					0, 
-					BulletSpeed * Time.deltaTime * Time.timeScale, 
+				Mathf.Clamp(BulletSpeed * Time.fixedDeltaTime * (6 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
 					0
 				));
 		
@@ -82,7 +92,7 @@ public class Bullet : MonoBehaviour
 	{
 		if (movedEnough == false) 
 		{
-			Debug.Log (Vector3.Distance(transform.position, playerPos.position));
+			//Debug.Log (Vector3.Distance(transform.position, playerPos.position));
 			if (Vector3.Distance(transform.position, playerPos.position) < 0.75f)
 			{
 				BulletCol.enabled = false;

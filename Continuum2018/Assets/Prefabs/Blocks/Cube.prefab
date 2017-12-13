@@ -197,7 +197,7 @@ MonoBehaviour:
   GreenTextColor: {r: 0, g: 1, b: 0.0055708885, a: 1}
   BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
   PurpleTextColor: {r: 0.846797, g: 0, b: 1, a: 1}
-  BlockType: 0
+  BlockType: 3
   ChangeRate: 0.5
   BlockChangeType: 0
   isSpecialBlockType: 0

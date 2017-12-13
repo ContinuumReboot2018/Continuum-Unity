@@ -8,6 +8,7 @@ public class Explosion : MonoBehaviour
 	public GameController gameControllerScript;
 	public Block blockScript;
 	public float Lifetime = 2;
+	public AudioSource ExplosionSound;
 
 	[Header ("Read Combo")]
 	private float totalPointVal;
@@ -17,10 +18,16 @@ public class Explosion : MonoBehaviour
 	public Color TextColor;
 	public float MaxScale = 2;
 
+	void Awake ()
+	{
+		ExplosionSound = GetComponent<AudioSource> ();
+	}
+
 	void Start () 
 	{
 		Destroy (gameObject, Lifetime);
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController>();
+		ExplosionSound.pitch = 0.005f * gameControllerScript.combo + 0.5f;
 
 		// Scales points text based on combo.
 		ComboAnim.gameObject.transform.localScale = new Vector3 (

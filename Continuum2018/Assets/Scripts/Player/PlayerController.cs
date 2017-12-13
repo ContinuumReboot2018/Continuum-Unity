@@ -63,6 +63,10 @@ public class PlayerController : MonoBehaviour
 	public Animator ScoreAnim;
 	public Vector3 ScoreCheckPlayerPos;
 
+	public bool isHidingLivesUI;
+	public Animator LivesAnim;
+	public Vector3 LivesCheckPlayerPos;
+
 	public PlayerActions playerActions;
 
 	void Start () 
@@ -73,23 +77,28 @@ public class PlayerController : MonoBehaviour
 
 	public void StartCoroutines ()
 	{
-		StartCoroutine (MovePlayer ());
 		StartCoroutine (CheckPause ());
 		StartCoroutine (CheckBulletType ());
 	}
 
 	void Update ()
 	{
+		MovePlayer ();
 		CheckShoot ();
 		CheckPlayerVibration ();
 		CheckUIVisibility ();
 	}
 
-	IEnumerator MovePlayer ()
+	public void EnablePlayerInput ()
 	{
 		UsePlayerFollow = true;
+		canShoot = true;
+		StartCoroutines ();
+	}
 
-		while (UsePlayerFollow == true) 
+	void MovePlayer ()
+	{
+		if (UsePlayerFollow == true) 
 		{
 			if (gameControllerScript.isPaused == false) 
 			{
@@ -98,21 +107,24 @@ public class PlayerController : MonoBehaviour
 				MovementY = playerActions.Move.Value.y;
 
 				// This moves the transform position which the player will follow.
-				PlayerFollowRb.velocity = new Vector3 (
+				PlayerFollowRb.velocity = new Vector3 
+				(
 					MovementX * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
 					MovementY * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
 					0
 				);
 
 				// Clamps the bounds of the player follow transform.
-				PlayerFollow.position = new Vector3 (
+				PlayerFollow.position = new Vector3 
+				(
 					Mathf.Clamp (PlayerFollow.position.x, XBounds.x, XBounds.y),
 					Mathf.Clamp (PlayerFollow.position.y, YBounds.x, YBounds.y),
 					0
 				);
 
 				// Player follows [follow position] with smoothing.
-				PlayerRb.position = new Vector3 (
+				PlayerRb.position = new Vector3 
+				(
 					Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
 					Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
 					0
@@ -125,17 +137,12 @@ public class PlayerController : MonoBehaviour
 					Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, 10 * Time.deltaTime) * YRotationMultiplier, -YRotationAmount, YRotationAmount), 
 					0
 				);
-
-				//Camera.main.transform.rotation = Quaternion.Euler (0, 0, PlayerFollow.position.x-PlayerRb.position.x);
 			}
-
-			yield return null;
 		}
 	}
 
 	IEnumerator CheckBulletType ()
 	{
-		canShoot = true;
 		while (canShoot == true) 
 		{
 			switch (ShotType) 
@@ -162,6 +169,7 @@ public class PlayerController : MonoBehaviour
 
 			if (playerActions.Shoot.Value > 0.75f && Time.unscaledTime > NextFire && gameControllerScript.isPaused == false) 
 			{
+				// Every time the player shoots, decremement the combo.
 				if (gameControllerScript.combo > 1)
 				{
 					gameControllerScript.combo -= 1;
@@ -184,7 +192,6 @@ public class PlayerController : MonoBehaviour
 
 	IEnumerator CheckPause ()
 	{
-		gameControllerScript.canPause = true;
 		while (gameControllerScript.canPause == true) 
 		{
 			if (playerActions.Pause.WasPressed) 
@@ -223,10 +230,12 @@ public class PlayerController : MonoBehaviour
 
 	void CheckUIVisibility ()
 	{
+		// SCORE TEXT
+		// When the player is close to the score text.
 		// Vertical position.
 		if (PlayerRb.position.y > ScoreCheckPlayerPos.y) 
 		{
-			// Horizontal position.
+			// Horizontal position too far.
 			if (PlayerRb.position.x > -ScoreCheckPlayerPos.x && PlayerRb.position.x < ScoreCheckPlayerPos.x) 
 			{
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false && isHidingScoreUI == false) 
@@ -236,7 +245,7 @@ public class PlayerController : MonoBehaviour
 				}
 			}
 
-			// Horizontal position.
+			// Horizontal position in range.
 			if (PlayerRb.position.x <= -ScoreCheckPlayerPos.x || PlayerRb.position.x >= ScoreCheckPlayerPos.x) 
 			{
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
@@ -247,12 +256,49 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
+		// Vertical position too far from score text.
 		if (PlayerRb.position.y <= ScoreCheckPlayerPos.y) 
 		{
 			if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 			{
 				ScoreAnim.Play ("ScoreFadeIn");
 				isHidingScoreUI = false;
+			}
+		}
+
+		// LIVES TEXT
+		// When the player is close to the lives text.
+		// Vertical position.
+		if (PlayerRb.position.y > LivesCheckPlayerPos.y) 
+		{
+			// Horizontal position too far.
+			if (PlayerRb.position.x < LivesCheckPlayerPos.x) 
+			{
+				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeOut") == false && isHidingLivesUI == false) 
+				{
+					LivesAnim.Play ("LivesFadeOut");
+					isHidingLivesUI = true;
+				}
+			}
+
+			// Horizontal position in range.
+			if (PlayerRb.position.x >= LivesCheckPlayerPos.x) 
+			{
+				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true) 
+				{
+					LivesAnim.Play ("LivesFadeIn");
+					isHidingLivesUI = false;
+				}
+			}
+		}
+
+		// Vertical position too far from lives text.
+		if (PlayerRb.position.y <= LivesCheckPlayerPos.y) 
+		{
+			if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true) 
+			{
+				LivesAnim.Play ("LivesFadeIn");
+				isHidingLivesUI = false;
 			}
 		}
 	}
@@ -298,6 +344,7 @@ public class PlayerController : MonoBehaviour
 		playerActions.DebugMenu.AddDefaultBinding (InputControlType.DPadUp);
 	}
 
+	// Creates vibration.
 	public void Vibrate (float LeftMotor, float RightMotor, float duration)
 	{
 		PlayerVibrationDuration = duration;
@@ -305,6 +352,7 @@ public class PlayerController : MonoBehaviour
 		GamePad.SetVibration (PlayerIndex.One, LeftMotor, RightMotor);
 	}
 
+	// Vibration time remaining is timed and turns off vibration when the timer runs out.
 	void CheckPlayerVibration ()
 	{
 		if (PlayerVibrationTimeRemaining > 0) 
@@ -319,6 +367,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	// Resets player vibration.
 	void ResetPlayerVibration ()
 	{
 		GamePad.SetVibration (PlayerIndex.One, 0, 0);

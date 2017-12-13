@@ -11,6 +11,7 @@ public class StackZone : MonoBehaviour
 
 	void Start () 
 	{
+		InvokeRepeating ("CheckStackZoneState", 0, 1);
 	}
 
 	void Update ()
@@ -122,5 +123,13 @@ public class StackZone : MonoBehaviour
 		}
 
 		isOccupied = false;
+	}
+
+	void CheckStackZoneState ()
+	{
+		if (CapturedBlock == null) 
+		{
+			VacateBlock ();
+		}
 	}
 }

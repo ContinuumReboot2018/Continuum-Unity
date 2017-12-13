@@ -38,8 +38,11 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI ScoreText;
 	public Animator ScoreAnim;
 
-	//public int ScoreMult;
-	//public float ScoreRate;
+	[Header ("Lives")]
+	public int Lives;
+	public TextMeshProUGUI LivesText;
+	public Animator LivesAnim;
+	public RawImage LifeOne, LifeTwo, LifeThree;
 
 	[Header ("Combo")]
 	public int combo = 1;
@@ -91,10 +94,11 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI TargetScoreText_Debug;
 	public TextMeshProUGUI SpawnWaitText_Debug;
 
-
 	void Start () 
 	{
 		ScoreText.text = "0";
+		Lives = 3;
+		LivesText.text = "";
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
@@ -106,6 +110,7 @@ public class GameController : MonoBehaviour
 	public void StartCoroutines ()
 	{
 		ScoreText.text = "";
+		//LivesText.text = "" + Lives;
 		StartCoroutine (UpdateImageEffects ());
 		StartCoroutine (UpdateStarFieldparticleEffectTrail ());
 	}
@@ -115,18 +120,20 @@ public class GameController : MonoBehaviour
 	{
 		StartCoroutine (LevelTimer ());
 		StartCoroutine (StartBlockSpawn ());
+		ScoreAnim.enabled = true;
+		LivesAnim.enabled = true;
 	}
 
 	void Update ()
 	{
 		UpdateGameStats ();
+		UpdateLives ();
 		UpdateTimeStats ();
 		CheckCombo ();
 	}
 
 	IEnumerator UpdateStarFieldparticleEffectTrail ()
 	{
-		isUpdatingParticleEffects = true;
 		while (isUpdatingParticleEffects == true) 
 		{
 			var StarFieldForegroundTrailModule = StarFieldForeground.trails;
@@ -179,6 +186,55 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	void UpdateLives ()
+	{
+		if (timescaleControllerScript.isInInitialSequence == true || timescaleControllerScript.isInInitialCountdownSequence == true) 
+		{
+			LifeOne.enabled = false;
+			LifeTwo.enabled = false;
+			LifeThree.enabled = false;
+			LivesText.text = "";
+		}
+
+		if (timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) {
+			// Check how many life images are supposed to be there
+			switch (Lives) {
+			case 0:
+				LifeOne.enabled = false;
+				LifeTwo.enabled = false;
+				LifeThree.enabled = false;
+				LivesText.text = "";
+				break;
+			case 1:
+				LifeOne.enabled = true;
+				LifeTwo.enabled = false;
+				LifeThree.enabled = false;
+				LivesText.text = "";
+				break;
+			case 2:
+				LifeOne.enabled = true;
+				LifeTwo.enabled = true;
+				LifeThree.enabled = false;
+				LivesText.text = "";
+				break;
+			case 3:
+				LifeOne.enabled = true;
+				LifeTwo.enabled = true;
+				LifeThree.enabled = true;
+				LivesText.text = "";
+				break;
+			}
+
+			if (Lives > 3) {
+				LifeOne.enabled = true;
+				LifeTwo.enabled = false;
+				LifeThree.enabled = false;
+				LivesText.text = "" + Lives;
+			}
+		}
+	}
+
+	// Combo time remaining variable is timed and decreases based on what combo it is already on.
 	void CheckCombo ()
 	{
 		if (comboTimeRemaining > 0) 
@@ -186,6 +242,7 @@ public class GameController : MonoBehaviour
 			comboTimeRemaining -= Time.unscaledDeltaTime * (0.05f * combo);
 		}
 
+		// Decrements a combo when the timer runs out and resets.
 		if (comboTimeRemaining < 0) 
 		{
 			if (combo > 1) 
@@ -214,7 +271,6 @@ public class GameController : MonoBehaviour
 
 	IEnumerator UpdateImageEffects ()
 	{
-		isUpdatingImageEffects = true;
 		while (isUpdatingImageEffects == true)
 		{
 			if (isPaused == true) 
@@ -269,19 +325,7 @@ public class GameController : MonoBehaviour
 			// Restart updating required scripts.
 			if (!isPaused) 
 			{
-				PauseUI.SetActive (false);
-				cursorManagerScript.LockMouse ();
-				cursorManagerScript.HideMouse ();
-				audioControllerScript.updateVolumeAndPitches = true;
-
-				if (timescaleControllerScript.isInInitialSequence == false && 
-					timescaleControllerScript.isInInitialCountdownSequence == false) 
-				{
-					CountScore = true;
-				}
-
-				timescaleControllerScript.isOverridingTimeScale = false;
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
+				UnPauseGame ();
 			}
 
 			NextPauseCooldown = Time.unscaledTime + PauseCooldown;
@@ -293,22 +337,28 @@ public class GameController : MonoBehaviour
 		if (isInOtherMenu == false) 
 		{
 			isPaused = false;
-			PauseUI.SetActive (false);
-			cursorManagerScript.LockMouse ();
-			cursorManagerScript.HideMouse ();
-			audioControllerScript.updateVolumeAndPitches = true;
-
-			if (timescaleControllerScript.isInInitialSequence == false && 
-				timescaleControllerScript.isInInitialCountdownSequence == false) 
-			{
-				CountScore = true;
-			}
-
-			timescaleControllerScript.isOverridingTimeScale = false;
-			timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
-
+			UnPauseGame ();
 			NextPauseCooldown = Time.unscaledTime + PauseCooldown;
 		}
+	}
+
+	void UnPauseGame ()
+	{
+		playerControllerScript_P1.UsePlayerFollow = true;
+		playerControllerScript_P1.canShoot = true;
+		PauseUI.SetActive (false);
+		cursorManagerScript.LockMouse ();
+		cursorManagerScript.HideMouse ();
+		audioControllerScript.updateVolumeAndPitches = true;
+		audioControllerScript.BassTrack.pitch = 1;
+		if (timescaleControllerScript.isInInitialSequence == false && 
+			timescaleControllerScript.isInInitialCountdownSequence == false) 
+		{
+			CountScore = true;
+		}
+
+		timescaleControllerScript.isOverridingTimeScale = false;
+		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
 	}
 
 	public void SetPauseOtherMenu (bool otherMenu)
@@ -318,7 +368,7 @@ public class GameController : MonoBehaviour
 
 	void SetStartOrthSize ()
 	{
-		//MainCamera.orthographicSize = StartOrthSize;
+		MainCamera.orthographicSize = StartOrthSize;
 	}
 
 	void CheckOrthSize ()
@@ -343,6 +393,7 @@ public class GameController : MonoBehaviour
 	{
 		WaveTimeDuration += WaveTimeIncreaseRate;
 		WaveTimeRemaining = WaveTimeDuration;
+		StartCoroutine (LevelTimer ());
 	}
 
 	IEnumerator StartBlockSpawn ()
@@ -394,9 +445,11 @@ public class GameController : MonoBehaviour
 				}*/
 
 				//Vector3 SpawnPos = new Vector3 (BlockSpawnXPositions[NextXPosId], BlockSpawnYPosition, BlockSpawnZPosition);
-				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions[Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 				//Instantiate (Block, SpawnPos, Quaternion.identity);
+
+				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions[Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 				Instantiate (Block, SpawnPosRand, Quaternion.identity);
+
 				NextBlockSpawn = Time.time + BlockSpawnRate;
 			}
 			yield return null;

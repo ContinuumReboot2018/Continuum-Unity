@@ -48,8 +48,7 @@ public class TimescaleController : MonoBehaviour
 
 	void Update () 
 	{
-		TimeScaleView = Time.timeScale;
-		FixedTimeStepView = Time.fixedDeltaTime;
+		CheckViewTimeProperties ();
 		CheckTargetTimeScale ();
 		CheckOverrideTimeScale ();
 
@@ -60,6 +59,12 @@ public class TimescaleController : MonoBehaviour
 		}
 
 		CheckInitialCountdownSequence ();
+	}
+
+	void CheckViewTimeProperties ()
+	{
+		TimeScaleView = Time.timeScale;
+		FixedTimeStepView = Time.fixedDeltaTime;
 	}
 
 	void CheckTargetTimeScale ()
@@ -101,7 +106,7 @@ public class TimescaleController : MonoBehaviour
 	{
 		if (OverrideTimeScaleTimeRemaining > 0) 
 		{
-			if (gameControllerScript.isPaused == false) 
+			if (gameControllerScript.isPaused == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
 			{
 				OverrideTimeScaleTimeRemaining -= Time.unscaledDeltaTime;
 			}

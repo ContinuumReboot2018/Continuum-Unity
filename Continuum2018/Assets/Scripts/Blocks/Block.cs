@@ -142,7 +142,11 @@ public class Block : MonoBehaviour
 	{
 		// Adds point value to target score in game controller and plays animation.
 		gameControllerScript.TargetScore += totalPointValue;
-		gameControllerScript.ScoreAnim.Play ("ScorePoints");
+
+		if (gameControllerScript.ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false) 
+		{
+			gameControllerScript.ScoreAnim.Play ("ScorePoints");
+		}
 
 		// Adds to next combo.
 		gameControllerScript.combo += 2;

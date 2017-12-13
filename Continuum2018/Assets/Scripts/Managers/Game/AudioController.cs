@@ -15,9 +15,10 @@ public class AudioController : MonoBehaviour
 
 	// Distances to edit
 	[Header ("Distance values")]
-	public float BaseDistance = 5.5f;
-	public float LowDistance = 11.16f;
-	public float HighDistance = 13.96f;
+	public float BaseDistance;
+	public float LowDistance;
+	public float MediumDistance;
+	public float HighDistance;
 
 	[Header ("Track Sequence")]
 	public int TrackNumber;
@@ -57,7 +58,7 @@ public class AudioController : MonoBehaviour
 	public float BassTargetPitch;
 	public float PitchSmoothTime;
 
-	public Vector4 TimePitch = new Vector4 (0.25f, 1.0f, 1.25f, 1.5f);
+	public Vector4 TimePitch;
 
 	[Header ("StereoUI")]
 	public AudioSourceLoudnessTester bassLoudness;
@@ -81,8 +82,13 @@ public class AudioController : MonoBehaviour
 
 	void Update ()
 	{
-		UpdateSoundtrackVolumeAndPitches ();
-		//UpdateStereoUI ();
+		if (gameControllerScript.isPaused == false && 
+			timescaleControllerScript.isInInitialCountdownSequence == false && 
+			timescaleControllerScript.isInInitialSequence == false)
+		{
+			UpdateSoundtrackVolumeAndPitches ();
+			//UpdateStereoUI ();
+		}
 	}
 
 	void UpdateStereoUI ()
@@ -136,8 +142,8 @@ public class AudioController : MonoBehaviour
 			LayerThreeTargetVolume = LayerThreeVolume.y;
 		}
 
-		// High distance.
-		if (Distance >= LowDistance && Distance < HighDistance) 
+		// Medium distance.
+		if (Distance >= LowDistance && Distance < MediumDistance) 
 		{
 			BaseTargetVolume = BassVolume.z;
 			LayerOneTargetVolume = LayerOneVolume.z;
@@ -145,13 +151,22 @@ public class AudioController : MonoBehaviour
 			LayerThreeTargetVolume = LayerThreeVolume.z;
 		}
 
-		// Top distance.
-		if (Distance >= HighDistance) 
+		// High distance.
+		if (Distance >= MediumDistance && Distance < HighDistance) 
 		{
 			BaseTargetVolume = BassVolume.w;
 			LayerOneTargetVolume = LayerOneVolume.w;
 			LayerTwoTargetVolume = LayerTwoVolume.w;
 			LayerThreeTargetVolume = LayerThreeVolume.w;
+		}
+
+		// Top distance.
+		if (Distance >= HighDistance) 
+		{
+			BaseTargetVolume = 1;
+			LayerOneTargetVolume = 1;
+			LayerTwoTargetVolume = 1;
+			LayerThreeTargetVolume = 1;
 		}
 	}
 
@@ -169,16 +184,22 @@ public class AudioController : MonoBehaviour
 			BassTargetPitch = TimePitch.y;
 		}
 
-		// High distance.
-		if (Distance >= LowDistance && Distance < HighDistance) 
+		// Medium distance.
+		if (Distance >= LowDistance && Distance < MediumDistance) 
 		{
 			BassTargetPitch = TimePitch.z;
+		}
+
+		// High distance.
+		if (Distance >= MediumDistance && Distance < HighDistance) 
+		{
+			BassTargetPitch = TimePitch.w;
 		}
 
 		// Top distance.
 		if (Distance >= HighDistance) 
 		{
-			BassTargetPitch = TimePitch.w;
+			BassTargetPitch = 1.5f;
 		}
 	}
 
