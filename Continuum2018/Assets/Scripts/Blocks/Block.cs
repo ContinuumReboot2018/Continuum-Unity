@@ -5,6 +5,7 @@ using TMPro;
 
 public class Block : MonoBehaviour
 {
+	public PlayerController playerControllerScript;
 	public GameController gameControllerScript;
 	public TimescaleController timeScaleControllerScript;
 	//public float OverwriteTimeDuration = 0.5f;
@@ -83,6 +84,8 @@ public class Block : MonoBehaviour
 	public Color TextColor;
 	public float MinYPos = -15.0f;
 
+	public GameObject playerExplosion;
+
 	[Header ("Camera Shake")]
 	public CameraShake camShakeScript;
 	public float newCamShakeDuration = 0.1f;
@@ -90,6 +93,7 @@ public class Block : MonoBehaviour
 
 	void Start () 
 	{
+		playerControllerScript = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
@@ -129,6 +133,40 @@ public class Block : MonoBehaviour
 			//timeScaleControllerScript.OverridingTimeScale = OverwriteTimeScale;
 
 			Destroy (gameObject);
+		}
+
+		if (other.tag == "Player") 
+		{
+			playerControllerScript.SetCooldownTime (5);
+
+			if (gameControllerScript.Lives >= 1) 
+			{
+				timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
+				timeScaleControllerScript.OverridingTimeScale = 0.25f;
+
+				Instantiate (playerExplosion, transform.position, Quaternion.identity);
+
+				playerControllerScript.playerCol.enabled = false;
+				playerControllerScript.playerMesh.SetActive (false);
+				playerControllerScript.PlayerRb.velocity = Vector3.zero;
+				playerControllerScript.PlayerFollowRb.velocity = Vector3.zero;
+				playerControllerScript.MovementX = 0;
+				playerControllerScript.MovementY = 0;
+				playerControllerScript.canShoot = false;
+
+				newCamShakeAmount = 0.5f;
+				newCamShakeDuration = 1.5f;
+				DoCamShake ();
+				playerControllerScript.StartCooldown ();
+				gameControllerScript.Lives -= 1;
+
+				GameObject[] Blocks = GameObject.FindGameObjectsWithTag ("Block");
+
+				foreach (GameObject block in Blocks) 
+				{
+					Destroy (block);
+				}
+			}
 		}
 	}
 

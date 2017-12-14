@@ -9,13 +9,10 @@ public class StackZone : MonoBehaviour
 	public StackZone StackZoneAbove;
 	public GameObject CapturedBlock;
 
-	void Start () 
-	{
-		InvokeRepeating ("CheckStackZoneState", 0, 1);
-	}
-
 	void Update ()
 	{
+		CheckStackZoneState ();
+
 		if (CapturedBlock == null) 
 		{
 			isOccupied = false;
@@ -53,7 +50,7 @@ public class StackZone : MonoBehaviour
 	}
 
 
-	void OnTriggerExit (Collider other)
+	/*void OnTriggerExit (Collider other)
 	{
 		if (isOccupied == false) 
 		{
@@ -81,7 +78,7 @@ public class StackZone : MonoBehaviour
 				}
 			}
 		}
-	}
+	}*/
 
 	void CaptureBlock ()
 	{
@@ -105,12 +102,34 @@ public class StackZone : MonoBehaviour
 		StackZoneAbove.isOccupied = true;
 	}
 
-	void OnCollisionExit (Collision col)
+	void MoveToSpaceBelow ()
 	{
-		if (col.collider.gameObject == CapturedBlock) 
+		if (StackZoneBelow.isOccupied == false || StackZoneBelow.CapturedBlock == null) 
 		{
-			VacateBlock ();
+			isOccupied = false;
+			StackZoneBelow.CapturedBlock = CapturedBlock;
+			CapturedBlock = null;
+
+			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
+			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosX = StackZoneBelow.gameObject.transform;
+			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = StackZoneBelow.gameObject.transform;
+			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = StackZoneBelow.gameObject.transform;
+
+			StackZoneBelow.isOccupied = true;
 		}
+
+		if (CapturedBlock != null) 
+		{
+			CapturedBlock = null;
+			isOccupied = false;
+			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
+			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosX = StackZoneBelow.gameObject.transform;
+			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = StackZoneBelow.gameObject.transform;
+			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = StackZoneBelow.gameObject.transform;
+		}
+
+	
+
 	}
 
 	public void VacateBlock ()
@@ -118,8 +137,8 @@ public class StackZone : MonoBehaviour
 		// Allows release of the block if it is still there and can be triggered elsewhere.
 		if (CapturedBlock != null) 
 		{
-			CapturedBlock.GetComponent<Block> ().OverwriteVelocity = false;
-			CapturedBlock.GetComponent<SimpleFollow> ().enabled = false;
+			//CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
+			//CapturedBlock.GetComponent<SimpleFollow> ().enabled = false;
 		}
 
 		isOccupied = false;
@@ -127,9 +146,62 @@ public class StackZone : MonoBehaviour
 
 	void CheckStackZoneState ()
 	{
-		if (CapturedBlock == null) 
+		// If the current zone is empty.
+		if (isOccupied == false)
 		{
-			VacateBlock ();
+			// Any row between top and bottom
+			if (StackZoneAbove != null && StackZoneBelow != null)
+			{
+				if (StackZoneAbove.isOccupied == true) 
+				{
+					CapturedBlock = StackZoneAbove.CapturedBlock;
+					CaptureBlock ();
+					StackZoneAbove.VacateBlock ();
+				}
+			}
+
+			// For bottom row zones.
+			if (StackZoneBelow == null && StackZoneAbove != null) 
+			{
+				if (StackZoneAbove.isOccupied == true)
+				{
+					CapturedBlock = StackZoneAbove.CapturedBlock;
+					CaptureBlock ();
+					StackZoneAbove.VacateBlock ();
+				}
+			}
+		}
+
+		if (isOccupied == true) 
+		{
+			if (CapturedBlock == null) 
+			{
+				VacateBlock ();
+			}
+				
+			if (StackZoneAbove == null && StackZoneBelow != null) 
+			{
+				if (StackZoneBelow.isOccupied == false) 
+				{
+					VacateBlock ();
+					MoveToSpaceBelow ();
+				}
+
+				/*if (StackZoneBelow.isOccupied == true) 
+				{
+					CaptureBlock ();
+				}*/
+			}
+
+			// Any row between top and bottom
+			if (StackZoneAbove != null && StackZoneBelow != null)
+			{
+				if (StackZoneBelow.isOccupied == false) 
+				{
+					//VacateBlock ();
+					MoveToSpaceBelow ();
+				}
+			}
 		}
 	}
 }

@@ -52,6 +52,13 @@ public class PlayerController : MonoBehaviour
 	public Transform StandardShotSpawn;
 	public float StandardFireRate = 0.1f;
 
+	[Header ("Impact")]
+	public GameObject playerMesh;
+	public Collider playerCol;
+	public bool isInCooldownMode;
+	public float cooldownDuration;
+	public float cooldownTimeRemaining;
+
 	[Header ("Powerups")]
 
 	[Header ("Shield")]
@@ -87,6 +94,49 @@ public class PlayerController : MonoBehaviour
 		CheckShoot ();
 		CheckPlayerVibration ();
 		CheckUIVisibility ();
+		CheckCooldownTime ();
+	}
+
+	void CheckCooldownTime ()
+	{
+		if (isInCooldownMode == true)
+		{
+			if (cooldownTimeRemaining > 0) 
+			{
+				UsePlayerFollow = false;
+				cooldownTimeRemaining -= Time.unscaledDeltaTime;
+			}
+
+			if (cooldownTimeRemaining <= 0) 
+			{
+				RejoinGame ();
+				Invoke ("EnableCollider", 3);
+				isInCooldownMode = false;
+			}
+		}
+	}
+
+	public void SetCooldownTime (float cooldownTime)
+	{
+		cooldownDuration = cooldownTime;
+		cooldownTimeRemaining = cooldownDuration;
+	}
+
+	public void StartCooldown ()
+	{
+		isInCooldownMode = true;
+	}
+
+	void EnableCollider ()
+	{
+		playerCol.enabled = true;
+	}
+
+	void RejoinGame ()
+	{
+		canShoot = true;
+		UsePlayerFollow = true;
+		playerMesh.SetActive (true);
 	}
 
 	public void EnablePlayerInput ()
@@ -100,7 +150,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (UsePlayerFollow == true) 
 		{
-			if (gameControllerScript.isPaused == false) 
+			if (gameControllerScript.isPaused == false && cooldownTimeRemaining <= 0) 
 			{
 				// Reads movement input on two axis.
 				MovementX = playerActions.Move.Value.x;
@@ -113,32 +163,31 @@ public class PlayerController : MonoBehaviour
 					MovementY * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
 					0
 				);
-
-				// Clamps the bounds of the player follow transform.
-				PlayerFollow.position = new Vector3 
-				(
-					Mathf.Clamp (PlayerFollow.position.x, XBounds.x, XBounds.y),
-					Mathf.Clamp (PlayerFollow.position.y, YBounds.x, YBounds.y),
-					0
-				);
-
+						
 				// Player follows [follow position] with smoothing.
-				PlayerRb.position = new Vector3 
-				(
+				PlayerRb.position = new Vector3 (
 					Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
 					Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
 					0
 				);
-
-				// Rotates on y-axis by x velocity.
-				PlayerRb.rotation = Quaternion.Euler
-				(
-					0, 
-					Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, 10 * Time.deltaTime) * YRotationMultiplier, -YRotationAmount, YRotationAmount), 
-					0
-				);
 			}
 		}
+
+		// Rotates on y-axis by x velocity.
+		PlayerRb.rotation = Quaternion.Euler
+			(
+				0, 
+				Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, 10 * Time.deltaTime) * YRotationMultiplier, -YRotationAmount, YRotationAmount), 
+				0
+			);
+
+		// Clamps the bounds of the player follow transform.
+		PlayerFollow.position = new Vector3 
+			(
+				Mathf.Clamp (PlayerFollow.position.x, XBounds.x, XBounds.y),
+				Mathf.Clamp (PlayerFollow.position.y, YBounds.x, YBounds.y),
+				0
+			);
 	}
 
 	IEnumerator CheckBulletType ()

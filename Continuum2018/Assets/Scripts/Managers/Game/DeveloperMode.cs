@@ -162,6 +162,12 @@ public class DeveloperMode : MonoBehaviour
 				saveAndLoadScript.LoadSettingsData ();
 				ShowCheatNotification ("CHEAT ACTIVATED");
 			}
+
+			if (CheatString == "morelives") 
+			{
+				gameControllerScript.Lives += 3;
+				ShowCheatNotification ("CHEAT ACTIVATED");
+			}
 		}
 	}
 

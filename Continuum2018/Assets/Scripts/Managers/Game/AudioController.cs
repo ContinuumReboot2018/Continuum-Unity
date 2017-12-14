@@ -89,6 +89,13 @@ public class AudioController : MonoBehaviour
 			UpdateSoundtrackVolumeAndPitches ();
 			//UpdateStereoUI ();
 		}
+
+		if (playerControllerScript_P1.isInCooldownMode == true) 
+		{
+			//BassTrack.pitch = 0.25f;
+			BassTargetPitch = Time.timeScale;
+			BassTrack.pitch = Mathf.Lerp (BassTrack.pitch, BassTargetPitch, PitchSmoothTime * Time.unscaledDeltaTime);
+		}
 	}
 
 	void UpdateStereoUI ()
