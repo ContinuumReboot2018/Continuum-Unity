@@ -925,7 +925,7 @@ GameObject:
   - component: {fileID: 297859870}
   - component: {fileID: 297859869}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: PlayerGuide_Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8849,7 +8849,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 680966673}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 960.00006, y: 0, z: 0}
+  m_LocalPosition: {x: 958.9655, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1074315503}
@@ -14546,7 +14546,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 25705bd3ed11d4148942811a4788a14b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -14744,7 +14744,7 @@ RectTransform:
   m_GameObject: {fileID: 1074315502}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -90}
-  m_LocalScale: {x: 0.022222223, y: 0.022222223, z: 0.022222223}
+  m_LocalScale: {x: 0.022246193, y: 0.022246193, z: 0.022246193}
   m_Children:
   - {fileID: 1314035617}
   - {fileID: 1092400648}
@@ -14979,8 +14979,8 @@ MonoBehaviour:
   BaseDistance: 1
   LowDistance: 5
   MediumDistance: 10
-  HighDistance: 15
-  TrackNumber: 0
+  HighDistance: 18
+  TrackNumber: 5
   TrackName: 
   TrackNames: []
   TrackSequenceMode: 0
@@ -15001,13 +15001,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
+  - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   LayerTwoTracks:
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
+  - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   LayerThreeTracks:
+  - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
   - {fileID: 8300000, guid: 67cddca6830ce4d4f800b959b0d759f1, type: 3}
@@ -23844,8 +23847,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1816846808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 808, y: 454.5, z: 0}
-  m_LocalScale: {x: 0.84166664, y: 0.84166664, z: 0.84166664}
+  m_LocalPosition: {x: 360.5, y: 203, z: 0}
+  m_LocalScale: {x: 0.37592593, y: 0.37592593, z: 0.37592593}
   m_Children:
   - {fileID: 2023690795}
   - {fileID: 223707680}
@@ -24187,7 +24190,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1888853072}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960.00006, y: 0, z: 0}
+  m_LocalPosition: {x: -958.9655, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1074315503}
@@ -24325,7 +24328,7 @@ GameObject:
   - component: {fileID: 1968131949}
   - component: {fileID: 1968131948}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: PlayerGuide_Horizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24339,7 +24342,7 @@ Transform:
   m_GameObject: {fileID: 1968131946}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03, y: 4, z: 0.03}
+  m_LocalScale: {x: 0.04, y: 8, z: 0.03}
   m_Children: []
   m_Father: {fileID: 1813136819}
   m_RootOrder: 1
@@ -24360,7 +24363,7 @@ MonoBehaviour:
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
   FollowPosMethod: 1
-  FollowPosSmoothTime: {x: 0, y: 0, z: 0}
+  FollowPosSmoothTime: {x: 5, y: 0, z: 0}
   PosBoundsX: {x: -30, y: 30}
   PosBoundsY: {x: -20, y: 20}
   PosBoundsZ: {x: 0, y: 0}

@@ -206,18 +206,24 @@ public class GameController : MonoBehaviour
 				LivesText.text = "";
 				break;
 			case 1:
-				LifeOne.enabled = true;
+				LifeOne.enabled = false;
 				LifeTwo.enabled = false;
 				LifeThree.enabled = false;
 				LivesText.text = "";
 				break;
 			case 2:
 				LifeOne.enabled = true;
-				LifeTwo.enabled = true;
+				LifeTwo.enabled = false;
 				LifeThree.enabled = false;
 				LivesText.text = "";
 				break;
 			case 3:
+				LifeOne.enabled = true;
+				LifeTwo.enabled = true;
+				LifeThree.enabled = false;
+				LivesText.text = "";
+				break;
+			case 4:
 				LifeOne.enabled = true;
 				LifeTwo.enabled = true;
 				LifeThree.enabled = true;
@@ -225,7 +231,7 @@ public class GameController : MonoBehaviour
 				break;
 			}
 
-			if (Lives > 3) {
+			if (Lives > 4) {
 				LifeOne.enabled = true;
 				LifeTwo.enabled = false;
 				LifeThree.enabled = false;

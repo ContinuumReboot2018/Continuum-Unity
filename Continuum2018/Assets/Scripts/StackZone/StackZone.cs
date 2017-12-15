@@ -13,17 +13,27 @@ public class StackZone : MonoBehaviour
 	void Start ()
 	{
 		stackSound = GameObject.Find ("StackSound").GetComponent<AudioSource> ();
-		InvokeRepeating ("CheckStackZoneStateBelow", 0, 0.5f);
+		InvokeRepeating ("CheckStackZoneStateBelow", 0, 0.1f);
 	}
 
 	void CheckStackZoneStateBelow ()
 	{
+		// If there is a stack spot below.
 		if (StackZoneBelow != null) 
 		{
 			if (isOccupied == true && StackZoneBelow.isOccupied == false)
 			{
 				VacateBlock ();
 				isOccupied = false;
+			}
+
+			if (CapturedBlock != null && StackZoneBelow.CapturedBlock == null) 
+			{
+				if (Vector3.Distance (CapturedBlock.transform.position, transform.position) > 0.1f)
+				{
+					VacateBlock ();
+					isOccupied = false;
+				}
 			}
 		}
 	}
@@ -94,7 +104,23 @@ public class StackZone : MonoBehaviour
 
 	void MoveToSpaceBelow ()
 	{
-		if (StackZoneBelow.isOccupied == false || StackZoneBelow.CapturedBlock == null) 
+		if (StackZoneBelow.isOccupied == false) 
+		{
+			isOccupied = false;
+			StackZoneBelow.CapturedBlock = CapturedBlock;
+			CapturedBlock = null;
+			StackZoneBelow.isOccupied = true;
+
+			if (StackZoneBelow.CapturedBlock != null) 
+			{
+				StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
+				StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosX = StackZoneBelow.gameObject.transform;
+				StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = StackZoneBelow.gameObject.transform;
+				StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = StackZoneBelow.gameObject.transform;
+			}
+		}
+
+		if (StackZoneBelow.CapturedBlock == null)
 		{
 			isOccupied = false;
 			StackZoneBelow.CapturedBlock = CapturedBlock;
@@ -102,7 +128,7 @@ public class StackZone : MonoBehaviour
 			StackZoneBelow.isOccupied = true;
 		}
 
-		if (CapturedBlock != null) 
+		if (CapturedBlock != null && StackZoneBelow.isOccupied == false) 
 		{
 			CapturedBlock = null;
 			isOccupied = false;

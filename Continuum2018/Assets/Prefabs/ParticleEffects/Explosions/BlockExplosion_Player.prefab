@@ -292,7 +292,7 @@ MonoBehaviour:
   ComboAnim: {fileID: 95149226577271650}
   ComboPointsText: {fileID: 114731813035183860}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
-  MaxScale: 2
+  MaxScale: 4
 --- !u!114 &114201206547933330
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour
 			if (cooldownTimeRemaining <= 0) 
 			{
 				RejoinGame ();
+				gameControllerScript.Lives -= 1;
 				Invoke ("EnableCollider", 3);
 				isInCooldownMode = false;
 			}

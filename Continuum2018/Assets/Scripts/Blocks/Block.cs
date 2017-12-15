@@ -158,7 +158,6 @@ public class Block : MonoBehaviour
 				newCamShakeDuration = 1.5f;
 				DoCamShake ();
 				playerControllerScript.StartCooldown ();
-				gameControllerScript.Lives -= 1;
 
 				GameObject[] Blocks = GameObject.FindGameObjectsWithTag ("Block");
 

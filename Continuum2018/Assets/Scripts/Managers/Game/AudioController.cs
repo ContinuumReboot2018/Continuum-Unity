@@ -76,7 +76,7 @@ public class AudioController : MonoBehaviour
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		TrackNumber = 3;
+		//TrackNumber = 3;
 		LoadTracks ();
 	}
 
