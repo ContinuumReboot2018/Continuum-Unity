@@ -49,37 +49,6 @@ public class StackZone : MonoBehaviour
 		}
 	}
 
-
-	/*void OnTriggerExit (Collider other)
-	{
-		if (isOccupied == false) 
-		{
-			if (other.GetComponent<Collider>().tag == "Block")
-			{
-				// Any row above the bottom row.
-				if (StackZoneBelow != null) 
-				{
-					if (StackZoneBelow.isOccupied == true) 
-					{
-						CapturedBlock = other.gameObject;
-						CaptureBlock ();
-					}
-				}
-
-				// Must be a zone on the bottom.
-				if (StackZoneBelow == null)
-				{
-					// Only if the stack zone above is not occupied.
-					if (StackZoneAbove.isOccupied == false) 
-					{
-						CapturedBlock = other.gameObject;
-						CaptureBlock ();
-					}
-				}
-			}
-		}
-	}*/
-
 	void CaptureBlock ()
 	{
 		CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
@@ -109,12 +78,6 @@ public class StackZone : MonoBehaviour
 			isOccupied = false;
 			StackZoneBelow.CapturedBlock = CapturedBlock;
 			CapturedBlock = null;
-
-			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
-			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosX = StackZoneBelow.gameObject.transform;
-			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = StackZoneBelow.gameObject.transform;
-			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = StackZoneBelow.gameObject.transform;
-
 			StackZoneBelow.isOccupied = true;
 		}
 
@@ -127,20 +90,10 @@ public class StackZone : MonoBehaviour
 			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = StackZoneBelow.gameObject.transform;
 			StackZoneBelow.CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = StackZoneBelow.gameObject.transform;
 		}
-
-	
-
 	}
 
 	public void VacateBlock ()
 	{
-		// Allows release of the block if it is still there and can be triggered elsewhere.
-		if (CapturedBlock != null) 
-		{
-			//CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
-			//CapturedBlock.GetComponent<SimpleFollow> ().enabled = false;
-		}
-
 		isOccupied = false;
 	}
 
@@ -186,11 +139,6 @@ public class StackZone : MonoBehaviour
 					VacateBlock ();
 					MoveToSpaceBelow ();
 				}
-
-				/*if (StackZoneBelow.isOccupied == true) 
-				{
-					CaptureBlock ();
-				}*/
 			}
 
 			// Any row between top and bottom
