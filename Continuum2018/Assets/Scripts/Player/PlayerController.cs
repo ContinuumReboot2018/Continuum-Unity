@@ -378,6 +378,7 @@ public class PlayerController : MonoBehaviour
 		playerActions.MoveDown.AddDefaultBinding (InputControlType.LeftStickDown);
 
 		playerActions.Shoot.AddDefaultBinding (Key.Space);
+		playerActions.Shoot.AddDefaultBinding (Key.LeftControl);
 		playerActions.Shoot.AddDefaultBinding (Mouse.LeftButton);
 		playerActions.Shoot.AddDefaultBinding (InputControlType.RightTrigger);
 		playerActions.Shoot.AddDefaultBinding (InputControlType.Action1);
