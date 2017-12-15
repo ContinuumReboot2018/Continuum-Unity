@@ -28,7 +28,7 @@ public class DeveloperMode : MonoBehaviour
 	public Animator CheatsMenuAnim;
 	public Animator CheatNotificationAnim;
 	public TextMeshProUGUI CheatNotifcationText;
-	public AudioSource CheatSound;
+	public GameObject CheatSound;
 
 	[Header ("Debug Menu")]
 	public bool showDebugMenu;
@@ -175,7 +175,7 @@ public class DeveloperMode : MonoBehaviour
 	{
 		CheatNotificationAnim.Play ("CheatNotification");
 		CheatNotifcationText.text = cheatText;
-		Instantiate (CheatSound);
+		Instantiate (CheatSound, transform.position, Quaternion.identity);
 		ClearCheatString ();
 	}
 
@@ -184,7 +184,7 @@ public class DeveloperMode : MonoBehaviour
 		CheatNotificationAnim.StopPlayback ();
 		CheatNotificationAnim.Play ("CheatNotification");
 		CheatNotifcationText.text = cheatText;
-		Instantiate (CheatSound);
+		Instantiate (CheatSound, transform.position, Quaternion.identity);
 		ClearCheatString ();
 	}
 }

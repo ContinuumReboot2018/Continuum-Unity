@@ -208,7 +208,7 @@ MonoBehaviour:
   totalPointValue: 0
   TextColor: {r: 1, g: 0.33426183, b: 0, a: 1}
   MinYPos: -15
-  playerExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
+  playerExplosion: {fileID: 1072586396597310, guid: e2323cf201c23094ea1c27a36bcbcc9c,
     type: 2}
   camShakeScript: {fileID: 0}
   newCamShakeDuration: 0.2

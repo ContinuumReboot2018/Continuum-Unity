@@ -96,7 +96,7 @@ public class TimescaleController : MonoBehaviour
 				TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance + TargetTimeScaleAdd, MinimumTimeScale, MaximumTimeScale);
 					
 				// Updates fixed time step based on time scale.
-				Time.fixedDeltaTime = Time.timeScale * 0.01f;
+				Time.fixedDeltaTime = Time.timeScale * 0.005f;
 				Time.maximumParticleDeltaTime = Time.timeScale * 0.01f;
 			}
 		}

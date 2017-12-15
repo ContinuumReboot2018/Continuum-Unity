@@ -8,6 +8,25 @@ public class StackZone : MonoBehaviour
 	public StackZone StackZoneBelow;
 	public StackZone StackZoneAbove;
 	public GameObject CapturedBlock;
+	public AudioSource stackSound;
+
+	void Start ()
+	{
+		stackSound = GameObject.Find ("StackSound").GetComponent<AudioSource> ();
+		InvokeRepeating ("CheckStackZoneStateBelow", 0, 0.5f);
+	}
+
+	void CheckStackZoneStateBelow ()
+	{
+		if (StackZoneBelow != null) 
+		{
+			if (isOccupied == true && StackZoneBelow.isOccupied == false)
+			{
+				VacateBlock ();
+				isOccupied = false;
+			}
+		}
+	}
 
 	void Update ()
 	{
@@ -51,6 +70,7 @@ public class StackZone : MonoBehaviour
 
 	void CaptureBlock ()
 	{
+		stackSound.Play ();
 		CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
 		CapturedBlock.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
@@ -62,6 +82,7 @@ public class StackZone : MonoBehaviour
 
 	void CaptureAboveBlock ()
 	{
+		stackSound.Play ();
 		CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
 		CapturedBlock.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
