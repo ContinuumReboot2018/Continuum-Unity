@@ -77,33 +77,33 @@ MonoBehaviour:
       useCameraFov: 1
       kernelSize: 3
   motionBlur:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       shutterAngle: 360
       sampleCount: 32
-      frameBlending: 1
+      frameBlending: 0
   eyeAdaptation:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      lowPercent: 45
-      highPercent: 95
-      minLuminance: -5
-      maxLuminance: 1
+      lowPercent: 1
+      highPercent: 99
+      minLuminance: 0
+      maxLuminance: -4
       keyValue: 0.25
       dynamicKeyValue: 1
       adaptationType: 0
       speedUp: 2
       speedDown: 1
-      logMin: -8
-      logMax: 4
+      logMin: -16
+      logMax: 16
   bloom:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.09
-        threshold: 0
-        softKnee: 0.296
-        radius: 5.46
+        intensity: 0.08
+        threshold: 1.69
+        softKnee: 0
+        radius: 6.5
         antiFlicker: 1
       lensDirt:
         texture: {fileID: 2800000, guid: 4e59c075675385245878c2b676845b22, type: 3}

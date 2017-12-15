@@ -168,6 +168,18 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.Lives += 3;
 				ShowCheatNotification ("CHEAT ACTIVATED");
 			}
+
+			if (CheatString == "god") 
+			{
+				playerControllerScript_P1.playerCol.enabled = false;
+				ShowCheatNotification ("CHEAT ACTIVATED");
+			}
+
+			if (CheatString == "ungod") 
+			{
+				playerControllerScript_P1.playerCol.enabled = true;
+				ShowCheatNotification ("CHEAT ACTIVATED");
+			}
 		}
 	}
 
