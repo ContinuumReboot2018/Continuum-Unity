@@ -30,7 +30,10 @@ public class HiResScreenShots : MonoBehaviour
 
 	void LateUpdate() 
 	{
-		takeHiResShot |= Input.GetKeyDown (KeyCode.Alpha9);
+		if (Input.GetKeyDown (KeyCode.Alpha9))
+		{
+			TakeHiResShot ();
+		}
 
 		if (takeHiResShot == true) 
 		{
