@@ -17,45 +17,45 @@ public class Block : MonoBehaviour
 	public bool OverwriteVelocity;
 	private Rigidbody rb;
 
-	public float OrangeSpeed;
-	public float YellowSpeed;
-	public float GreenSpeed;
+	public float AquaSpeed;
 	public float BlueSpeed;
+	public float GreenSpeed;
 	public float PurpleSpeed;
+	public float PinkSpeed;
 
-	public Material OrangeMat;
-	public Material YellowMat;
-	public Material GreenMat;
+	public Material AquaMat;
 	public Material BlueMat;
+	public Material GreenMat;
 	public Material PurpleMat;
+	public Material PinkMat;
 
-	public float OrangeBasePointValue = 1;
-	public float YellowBasePointValue = 2;
+	public float AquaBasePointValue = 1;
+	public float BlueBasePointValue = 2;
 	public float GreenBasePointValue = 3;
-	public float BlueBasePointValue = 4;
-	public float PurpleBasePointValue = 5;
+	public float PurpleBasePointValue = 4;
+	public float PinkBasePointValue = 5;
 
-	public GameObject OrangeExplosion;
-	public GameObject YellowExplosion;
-	public GameObject GreenExplosion;
+	public GameObject AquaExplosion;
 	public GameObject BlueExplosion;
+	public GameObject GreenExplosion;
 	public GameObject PurpleExplosion;
+	public GameObject PinkExplosion;
 
-	public Color OrangeTextColor;
-	public Color YellowTextColor;
-	public Color GreenTextColor;
+	public Color AquaTextColor;
 	public Color BlueTextColor;
+	public Color GreenTextColor;
 	public Color PurpleTextColor;
+	public Color PinkTextColor;
 
 	[Header ("Block Types")]
 	public mainBlockType BlockType;
 	public enum mainBlockType
 	{
-		Orange = 0,
-		Yellow = 1,
+		Aqua = 0,
+		Blue = 1,
 		Green = 2, 
-		Blue = 3, 
-		Purple = 4
+		Purple = 3, 
+		Pink = 4
 	}
 
 	public float ChangeRate;
@@ -218,26 +218,12 @@ public class Block : MonoBehaviour
 			// Update change explosion text color reference stat.
 			switch (BlockType) 
 			{
-			case mainBlockType.Orange:
-				speed = OrangeSpeed;
-				rend.material = OrangeMat;
-				BasePointValue = OrangeBasePointValue;
-				TextColor = OrangeTextColor;
-				Explosion = OrangeExplosion;
-				break;
-			case mainBlockType.Yellow:
-				speed = YellowSpeed;
-				rend.material = YellowMat;
-				BasePointValue = YellowBasePointValue;
-				TextColor = YellowTextColor;
-				Explosion = YellowExplosion;
-				break;
-			case mainBlockType.Green:
-				speed = GreenSpeed;
-				rend.material = GreenMat;
-				BasePointValue = GreenBasePointValue;
-				TextColor = GreenTextColor;
-				Explosion = GreenExplosion;
+			case mainBlockType.Aqua:
+				speed = AquaSpeed;
+				rend.material = AquaMat;
+				BasePointValue = AquaBasePointValue;
+				TextColor = AquaTextColor;
+				Explosion = AquaExplosion;
 				break;
 			case mainBlockType.Blue:
 				speed = BlueSpeed;
@@ -246,12 +232,26 @@ public class Block : MonoBehaviour
 				TextColor = BlueTextColor;
 				Explosion = BlueExplosion;
 				break;
+			case mainBlockType.Green:
+				speed = GreenSpeed;
+				rend.material = GreenMat;
+				BasePointValue = GreenBasePointValue;
+				TextColor = GreenTextColor;
+				Explosion = GreenExplosion;
+				break;
 			case mainBlockType.Purple:
 				speed = PurpleSpeed;
 				rend.material = PurpleMat;
 				BasePointValue = PurpleBasePointValue;
 				TextColor = PurpleTextColor;
 				Explosion = PurpleExplosion;
+				break;
+			case mainBlockType.Pink:
+				speed = PinkSpeed;
+				rend.material = PinkMat;
+				BasePointValue = PinkBasePointValue;
+				TextColor = PinkTextColor;
+				Explosion = PinkExplosion;
 				break;
 			}
 		}

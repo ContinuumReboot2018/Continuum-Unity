@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 82630998734724706}
   - component: {fileID: 114538948711491612}
   m_Layer: 0
-  m_Name: BlockExplosion_Orange
+  m_Name: BlockExplosion_Pink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,7 +645,7 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.46006063, b: 0.2794118, a: 1}
+      minColor: {r: 1, g: 0.2794118, b: 0.6521299, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2

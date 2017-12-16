@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114045489295494334}
   - component: {fileID: 114212151734931360}
   m_Layer: 0
-  m_Name: Cube_Orange
+  m_Name: Cube_Pink
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
+  - {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -168,37 +168,37 @@ MonoBehaviour:
   rend: {fileID: 0}
   speed: -150
   OverwriteVelocity: 0
-  OrangeSpeed: -150
-  YellowSpeed: -250
-  GreenSpeed: -350
-  BlueSpeed: -450
+  AquaSpeed: -250
+  BlueSpeed: -350
+  GreenSpeed: -450
   PurpleSpeed: -550
-  OrangeMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
-  YellowMat: {fileID: 2100000, guid: 56fec50062bff284fa9a26dcec179845, type: 2}
-  GreenMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
-  BlueMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
-  PurpleMat: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
-  OrangeBasePointValue: 1
-  YellowBasePointValue: 2
-  GreenBasePointValue: 3
+  PinkSpeed: -650
+  AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
+  BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
+  GreenMat: {fileID: 2100000, guid: 56fec50062bff284fa9a26dcec179845, type: 2}
+  PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
+  PinkMat: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
+  AquaBasePointValue: 1
   BlueBasePointValue: 4
+  GreenBasePointValue: 3
   PurpleBasePointValue: 5
-  OrangeExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
+  PinkBasePointValue: 5
+  AquaExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
     type: 2}
-  YellowExplosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af,
+  BlueExplosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af,
     type: 2}
   GreenExplosion: {fileID: 1072586396597310, guid: b191e9064992146449f1fde1f162feaf,
     type: 2}
-  BlueExplosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be,
+  PurpleExplosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be,
     type: 2}
-  PurpleExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
+  PinkExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
     type: 2}
-  OrangeTextColor: {r: 1, g: 0.33426183, b: 0, a: 1}
-  YellowTextColor: {r: 0.99721456, g: 1, b: 0, a: 1}
-  GreenTextColor: {r: 0, g: 1, b: 0.0055708885, a: 1}
+  AquaTextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
   BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
+  GreenTextColor: {r: 0, g: 1, b: 0.0055708885, a: 1}
   PurpleTextColor: {r: 0.846797, g: 0, b: 1, a: 1}
-  BlockType: 0
+  PinkTextColor: {r: 1, g: 0, b: 0.4846797, a: 1}
+  BlockType: 4
   ChangeRate: 0.5
   BlockChangeType: 0
   isSpecialBlockType: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   totalPointValue: 0
   TextColor: {r: 1, g: 0.33426183, b: 0, a: 1}
   MinYPos: -15
-  playerExplosion: {fileID: 1072586396597310, guid: e2323cf201c23094ea1c27a36bcbcc9c,
+  playerExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
     type: 2}
   camShakeScript: {fileID: 0}
   newCamShakeDuration: 0.2
