@@ -7,6 +7,7 @@ public class HiResScreenShots : MonoBehaviour
 	public int resHeight = 2160;
 
 	private bool takeHiResShot = false;
+	private bool takeHiDoubleResShot = false;
 
 	private Camera cam;
 
@@ -28,11 +29,21 @@ public class HiResScreenShots : MonoBehaviour
 		takeHiResShot = true;
 	}
 
+	public void TakeHiDoubleResShot ()
+	{
+		takeHiDoubleResShot = true;
+	}
+
 	void LateUpdate() 
 	{
 		if (Input.GetKeyDown (KeyCode.Alpha9))
 		{
 			TakeHiResShot ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.Alpha8)) 
+		{
+			TakeHiDoubleResShot ();
 		}
 
 		if (takeHiResShot == true) 
@@ -51,6 +62,24 @@ public class HiResScreenShots : MonoBehaviour
 			System.IO.File.WriteAllBytes (filename, bytes);
 			Debug.Log (string.Format("Took screenshot to: {0}", filename));
 			takeHiResShot = false;
+		}
+
+		if (takeHiDoubleResShot == true) 
+		{
+			RenderTexture rt = new RenderTexture (resWidth * 2, resHeight * 2, 24);
+			cam.targetTexture = rt;
+			Texture2D screenShot = new Texture2D (resWidth* 2, resHeight* 2, TextureFormat.RGB24, false);
+			cam.Render();
+			RenderTexture.active = rt;
+			screenShot.ReadPixels (new Rect (0, 0, resWidth * 2, resHeight * 2), 0, 0);
+			cam.targetTexture = null;
+			RenderTexture.active = null; // JC: added to avoid errors
+			Destroy(rt);
+			byte[] bytes = screenShot.EncodeToPNG();
+			string filename = ScreenShotName (resWidth * 2, resHeight * 2);
+			System.IO.File.WriteAllBytes (filename, bytes);
+			Debug.Log (string.Format("Took screenshot to: {0}", filename));
+			takeDoubleHiResShot = false;
 		}
 	}
 }
