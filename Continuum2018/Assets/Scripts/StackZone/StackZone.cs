@@ -81,6 +81,7 @@ public class StackZone : MonoBehaviour
 		CapturedBlock.GetComponent<SimpleFollow> ().enabled = false;
 		CapturedBlock = null;
 		isOccupied = false;
+		canOccupy = true;
 	}
 
 	void CheckState ()
@@ -116,6 +117,44 @@ public class StackZone : MonoBehaviour
 					if (StackZoneBelow.isOccupied == false) 
 					{
 						VacateBlock ();
+					}
+				}
+			}
+		}
+
+		// If zone is not occupied.
+		if (isOccupied == false) 
+		{
+			// If doesn't have a captured block.
+			if (CapturedBlock == null) 
+			{
+				// For bottom row block.
+				if (StackZoneBelow == null) 
+				{
+					// Allow to occupy.
+					canOccupy = true;
+				}
+
+				// For all zones above the bottom or below the top.
+				if (StackZoneBelow != null && StackZoneAbove != null) 
+				{
+					// Zone above is not occupied but also has a captured block for some reason.
+					if (StackZoneAbove.isOccupied == false && StackZoneAbove.CapturedBlock != null) 
+					{
+						StackZoneAbove.VacateBlock ();
+					}
+
+					// Zone above is occupied or has a captured block for some reason.
+					if (StackZoneAbove.isOccupied == true || StackZoneAbove.CapturedBlock != null) 
+					{
+						//StackZoneAbove.VacateBlock ();
+					}
+
+					// Zone above is occuped and somehow there is no captured block.
+					if (StackZoneAbove.isOccupied == true && StackZoneAbove.CapturedBlock == null) 
+					{
+						StackZoneAbove.isOccupied = false;
+						canOccupy = true;
 					}
 				}
 			}

@@ -180,6 +180,18 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.playerCol.enabled = true;
 				ShowCheatNotification ("CHEAT ACTIVATED");
 			}
+
+			if (CheatString == "chargeability") 
+			{
+				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
+				ShowCheatNotification ("CHEAT ACTIVATED");
+			}
+
+			if (CheatString == "refreshability") 
+			{
+				playerControllerScript_P1.RefreshAbilityName ();
+				ShowCheatNotification ("CHEAT ACTIVATED");
+			}
 		}
 	}
 

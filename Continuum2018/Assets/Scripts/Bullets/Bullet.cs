@@ -47,12 +47,10 @@ public class Bullet : MonoBehaviour
 		AwakeAudio.panStereo = 0.04f * transform.position.x;
 		BulletCol.enabled = false;
 		movedEnough = false;
-		playerControllerScript = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		StartCameraShake ();
 		Lifetime = 0;
 		InvokeRepeating ("CheckForDestroy", 0, 1);
-		playerPos = GameObject.Find ("PlayerCollider").transform;
 	}
 
 	void FixedUpdate ()

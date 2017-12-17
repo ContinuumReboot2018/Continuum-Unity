@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class SaveAndLoadScript : MonoBehaviour 
 {
 	public SettingsManager settingsManagerScript;
-	public PlayerController playerControllerScript;
+	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
 
 	// Live variables.
@@ -41,7 +41,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (SceneManager.GetActiveScene ().name != "Init")
 		{
 			settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
-			playerControllerScript = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
+			playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
 			gameControllerScript = GameObject.Find ("GameController").GetComponent<GameController> ();
 			cam = settingsManagerScript.cam;
 			VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();

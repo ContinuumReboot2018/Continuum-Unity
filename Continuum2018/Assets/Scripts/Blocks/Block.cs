@@ -5,11 +5,9 @@ using TMPro;
 
 public class Block : MonoBehaviour
 {
-	public PlayerController playerControllerScript;
+	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
 	public TimescaleController timeScaleControllerScript;
-	//public float OverwriteTimeDuration = 0.5f;
-	//public float OverwriteTimeScale = 0.2f;
 	public MeshRenderer rend;
 
 	[Header ("Stats")]
@@ -93,7 +91,7 @@ public class Block : MonoBehaviour
 
 	void Start () 
 	{
-		playerControllerScript = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
+		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
@@ -137,7 +135,7 @@ public class Block : MonoBehaviour
 
 		if (other.tag == "Player") 
 		{
-			playerControllerScript.SetCooldownTime (5);
+			playerControllerScript_P1.SetCooldownTime (5);
 
 			if (gameControllerScript.Lives >= 1) 
 			{
@@ -146,18 +144,19 @@ public class Block : MonoBehaviour
 
 				Instantiate (playerExplosion, transform.position, Quaternion.identity);
 
-				playerControllerScript.playerCol.enabled = false;
-				playerControllerScript.playerMesh.SetActive (false);
-				playerControllerScript.PlayerRb.velocity = Vector3.zero;
-				playerControllerScript.PlayerFollowRb.velocity = Vector3.zero;
-				playerControllerScript.MovementX = 0;
-				playerControllerScript.MovementY = 0;
-				playerControllerScript.canShoot = false;
+				playerControllerScript_P1.ResetPowerups ();
+				playerControllerScript_P1.playerCol.enabled = false;
+				playerControllerScript_P1.playerMesh.SetActive (false);
+				playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
+				playerControllerScript_P1.PlayerFollowRb.velocity = Vector3.zero;
+				playerControllerScript_P1.MovementX = 0;
+				playerControllerScript_P1.MovementY = 0;
+				playerControllerScript_P1.canShoot = false;
 
 				newCamShakeAmount = 0.5f;
 				newCamShakeDuration = 1.5f;
 				DoCamShake ();
-				playerControllerScript.StartCooldown ();
+				playerControllerScript_P1.StartCooldown ();
 
 				GameObject[] Blocks = GameObject.FindGameObjectsWithTag ("Block");
 

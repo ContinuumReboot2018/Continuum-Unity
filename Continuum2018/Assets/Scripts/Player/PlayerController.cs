@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 	public AudioController audioControllerScript;
 	public CursorManager cursorManagerScript;
 	public CameraShake camShakeScript;
+	public int PlayerId = 1;
 
 	[Header ("Player Movement")]
 	[Range (-1, 1)]
@@ -69,18 +70,22 @@ public class PlayerController : MonoBehaviour
 		Ready,
 		Active
 	}
+
 	public float CurrentAbilityTimeRemaining;
-	public float CurrentAbulityDuration;
+	public float CurrentAbilityDuration;
 	public float AbilityTimeAmountProportion;
 	public float AbilityChargeSpeedMultiplier = 0.5f;
 	public float AbilityUseSpeedMultiplier = 4;
+
+	public string AbilityName;
 	public ability Ability;
 	public enum ability
 	{
 		Shield,
 		Emp
 	}
-	public Image AbilityFillImage;
+	public Image AbilityFillImageL;
+	public Image AbilityFillImageR;
 	public TextMeshProUGUI AbilityReadyText;
 	public RawImage AbilityReadyBackground;
 	public Color AbilityUseColor, AbilityChargingColor, AbilityChargingFullColor;
@@ -100,11 +105,16 @@ public class PlayerController : MonoBehaviour
 	public Animator LivesAnim;
 	public Vector3 LivesCheckPlayerPos;
 
+	public bool isHidingWaveUI;
+	public Animator WaveAnim;
+	public Vector3 WaveCheckPlayerPos;
+
 	public PlayerActions playerActions;
 
 	void Start () 
 	{
 		AbilityReadyText.text = "";
+		RefreshAbilityName ();
 		CreatePlayerActions ();
 		AssignActionControls ();
 	}
@@ -222,8 +232,9 @@ public class PlayerController : MonoBehaviour
 	void CheckAbilityTime ()
 	{
 		// Updates the ability UI involved.
-		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbulityDuration;
-		AbilityFillImage.fillAmount = AbilityTimeAmountProportion; // Fills to a third.
+		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbilityDuration;
+		AbilityFillImageL.fillAmount = 0.16f * AbilityTimeAmountProportion; // Fills to a sixth.
+		AbilityFillImageR.fillAmount = 0.16f * AbilityTimeAmountProportion; // Fills to a sixth.
 
 		// Player presses ability button.
 		if (playerActions.Ability.WasPressed) 
@@ -242,7 +253,8 @@ public class PlayerController : MonoBehaviour
 		// Updates the ability timers.
 		if (CurrentAbilityState == abilityState.Active) 
 		{
-			AbilityFillImage.color = AbilityUseColor;
+			AbilityFillImageL.color = AbilityUseColor;
+			AbilityFillImageR.color = AbilityUseColor;
 
 			if (CurrentAbilityTimeRemaining > 0)
 			{
@@ -257,7 +269,7 @@ public class PlayerController : MonoBehaviour
 
 		if (CurrentAbilityState == abilityState.Charging) 
 		{
-			if (CurrentAbilityTimeRemaining < CurrentAbulityDuration && cooldownTimeRemaining <= 0 &&
+			if (CurrentAbilityTimeRemaining < CurrentAbilityDuration && cooldownTimeRemaining <= 0 &&
 				timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) 
 			{
 				AbilityReadyText.text = "";
@@ -265,9 +277,9 @@ public class PlayerController : MonoBehaviour
 				CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
 			}
 
-			if (CurrentAbilityTimeRemaining >= CurrentAbulityDuration) 
+			if (CurrentAbilityTimeRemaining >= CurrentAbilityDuration) 
 			{
-				CurrentAbilityTimeRemaining = CurrentAbulityDuration;
+				CurrentAbilityTimeRemaining = CurrentAbilityDuration;
 				AbilityReadyText.text = "READY";
 				AbilityReadyBackground.enabled = true;
 				CurrentAbilityState = abilityState.Ready;
@@ -277,19 +289,40 @@ public class PlayerController : MonoBehaviour
 
 			if (AbilityTimeAmountProportion < 1f)
 			{
-				AbilityFillImage.color = AbilityChargingColor;
+				AbilityFillImageL.color = AbilityChargingColor;
+				AbilityFillImageR.color = AbilityChargingColor;
 			}
 
 			if (AbilityTimeAmountProportion == 1)
 			{
-				AbilityFillImage.color = AbilityChargingFullColor;
+				AbilityFillImageL.color = AbilityChargingFullColor;
+				AbilityFillImageR.color = AbilityChargingFullColor;
 			}
 		}
 	}
 
 	void ActivateAbility ()
 	{
-		
+		switch (Ability) 
+		{
+		case ability.Shield:
+			break;
+		case ability.Emp:
+			break;
+		}
+	}
+
+	public void RefreshAbilityName ()
+	{
+		switch (Ability) 
+		{
+		case ability.Shield:
+			AbilityName = "Shield";
+			break;
+		case ability.Emp:
+			AbilityName = "Emp";
+			break;
+		}
 	}
 
 	IEnumerator CheckBulletType ()
@@ -337,7 +370,10 @@ public class PlayerController : MonoBehaviour
 	{
 		if (CurrentShot == StandardShot)
 		{
-			Instantiate (StandardShot, StandardShotSpawn.position, StandardShotSpawn.rotation);
+			GameObject shot = Instantiate (StandardShot, StandardShotSpawn.position, StandardShotSpawn.rotation);
+			shot.GetComponent<Bullet> ().playerControllerScript = this;
+			shot.GetComponent<Bullet> ().playerPos = playerCol.transform;
+			shot.name = "Standard Shot_P" + PlayerId + "";
 		}
 	}
 
@@ -452,6 +488,50 @@ public class PlayerController : MonoBehaviour
 				isHidingLivesUI = false;
 			}
 		}
+
+		// WAVE TEXT
+		// When the player is close to the wave text.
+		// Vertical position.
+		if (PlayerRb.position.y > WaveCheckPlayerPos.y) 
+		{
+			// Horizontal position too far.
+			if (PlayerRb.position.x > WaveCheckPlayerPos.x) 
+			{
+				if (WaveAnim.GetCurrentAnimatorStateInfo (0).IsName ("WaveUIExit") == false && isHidingWaveUI == false) 
+				{
+					WaveAnim.Play ("WaveUIExit");
+					isHidingWaveUI = true;
+				}
+			}
+
+			// Horizontal position in range.
+			if (PlayerRb.position.x <= WaveCheckPlayerPos.x) 
+			{
+				if (WaveAnim.GetCurrentAnimatorStateInfo (0).IsName ("WaveUIEnter") == false && isHidingWaveUI == true) 
+				{
+					WaveAnim.Play ("WaveUIEnter");
+					isHidingWaveUI = false;
+				}
+			}
+		}
+
+		// Vertical position too far from lives text.
+		if (PlayerRb.position.y <= WaveCheckPlayerPos.y) 
+		{
+			if (WaveAnim.GetCurrentAnimatorStateInfo (0).IsName ("WaveUIEnter") == false && isHidingWaveUI == true) 
+			{
+				WaveAnim.Play ("WaveUIEnter");
+				isHidingWaveUI = false;
+			}
+		}
+	}
+
+	public void ResetPowerups ()
+	{
+		ShotType = shotType.Standard;
+		CurrentShot = StandardShot;
+		CurrentFireRate = StandardFireRate;
+
 	}
 
 	// This is for InControl for initialization.

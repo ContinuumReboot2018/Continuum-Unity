@@ -28,6 +28,9 @@ public class GameController : MonoBehaviour
 	public float FirstWaveTimeDuration;
 	public float WaveTimeDuration;
 	public float WaveTimeRemaining;
+	public TextMeshProUGUI WaveText;
+	public Animator WaveAnim;
+	public RawImage WaveBackground;
 
 	[Header ("Scoring")]
 	public bool CountScore;
@@ -59,6 +62,19 @@ public class GameController : MonoBehaviour
 	public float BlockSpawnYPosition;
 	public float BlockSpawnZPosition;
 
+	[Header ("Powerup General")]
+	public float PowerupTimeRemaining;
+	public float PowerupTimeDuration;
+	public int powerupsInUse;
+	public int MaxSimultaneousPowerups = 4;
+	public Animator PowerupAnim;
+
+	public GameObject[] PowerupPickups;
+	public float PowerupPickupSpawnRate;
+	private float NextPowerupPickupSpawn;
+	public float PowerupPickupSpawnRangeX;
+	public float PowerupPickupSpawnY;
+
 	[Header ("Pausing")]
 	public bool isPaused;
 	public float PauseCooldown = 1;
@@ -83,6 +99,10 @@ public class GameController : MonoBehaviour
 	public ParticleSystem StarFieldForeground;
 
 	[Header ("Debug")]
+	public TextMeshProUGUI P1_Ability;
+	public TextMeshProUGUI P1_AbilityTimeRemaining;
+	public TextMeshProUGUI P1_AbilityTimeDuration;
+	public TextMeshProUGUI P1_AbilityTimeProportion;
 	public TextMeshProUGUI WaveText_Debug;
 	public TextMeshProUGUI ComboText_Debug;
 	public TextMeshProUGUI CurrentPitch_Debug;
@@ -98,22 +118,28 @@ public class GameController : MonoBehaviour
 
 	void Start () 
 	{
-		ScoreText.text = "0";
+		ScoreText.text = "";
 		ScoreBackground.enabled = false;
+
 		Lives = 3;
 		LivesText.text = "";
 		LivesBackground.enabled = false;
+
+		Wave = 1;
+		WaveTimeDuration = FirstWaveTimeDuration;
+		WaveText.text = "";
+		WaveAnim.enabled = false;
+		WaveBackground.enabled = false;
+
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
-		Wave = 1;
-		WaveTimeDuration = FirstWaveTimeDuration;
+	
 		StartCoroutines ();
 	}
 
 	public void StartCoroutines ()
 	{
-		ScoreText.text = "";
 		StartCoroutine (UpdateImageEffects ());
 		StartCoroutine (UpdateStarFieldparticleEffectTrail ());
 	}
@@ -123,10 +149,13 @@ public class GameController : MonoBehaviour
 	{
 		StartCoroutine (LevelTimer ());
 		StartCoroutine (StartBlockSpawn ());
+		StartCoroutine (PowerupSpawner ());
 		ScoreAnim.enabled = true;
 		LivesAnim.enabled = true;
+		WaveAnim.enabled = true;
 		ScoreBackground.enabled = true;
 		LivesBackground.enabled = true;
+		WaveBackground.enabled = true;
 	}
 
 	void Update ()
@@ -135,6 +164,7 @@ public class GameController : MonoBehaviour
 		UpdateLives ();
 		UpdateTimeStats ();
 		CheckCombo ();
+		CheckPowerupTime ();
 	}
 
 	IEnumerator UpdateStarFieldparticleEffectTrail ()
@@ -174,6 +204,11 @@ public class GameController : MonoBehaviour
 				FixedTimeStepText_Debug.text = "FixedTimeStep: " + System.Math.Round (Time.fixedDeltaTime, 5);
 
 				SpawnWaitText_Debug.text = "Spawn Rate: " + BlockSpawnRate;
+
+				P1_Ability.text = "P1 Ability: " + playerControllerScript_P1.AbilityName;
+				P1_AbilityTimeRemaining.text = "P1 Ability Remain: " + System.Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
+				P1_AbilityTimeDuration.text = "P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
+				P1_AbilityTimeProportion.text = "P1 Ability Fill: " + System.Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
 			}
 		}
 	}
@@ -268,6 +303,36 @@ public class GameController : MonoBehaviour
 				comboTimeRemaining = comboDuration;
 			}
 		}
+	}
+
+	void CheckPowerupTime ()
+	{
+		if (PowerupTimeRemaining > 0 && isPaused == false) 
+		{
+			PowerupTimeRemaining -= Time.unscaledDeltaTime;
+
+			if (PowerupTimeRemaining < 3) 
+			{
+				if (PowerupAnim.GetCurrentAnimatorStateInfo (0).IsName ("PowerupTimeRunningOut") == false) 
+				{
+					PowerupAnim.Play ("PowerupTimeRunningOut");
+				}
+			}
+		}
+
+		if (PowerupTimeRemaining < 0) 
+		{
+			PowerupTimeRemaining = 0;
+			PowerupAnim.StopPlayback ();
+			playerControllerScript_P1.ResetPowerups ();
+			// Reset all powerups for both players.
+		}
+	}
+
+	public void SetPowerupTime (float Duration)
+	{
+		PowerupTimeDuration = Duration;
+		PowerupTimeRemaining = PowerupTimeDuration;
 	}
 
 	void UpdateTimeStats ()
@@ -415,6 +480,8 @@ public class GameController : MonoBehaviour
 
 	IEnumerator StartBlockSpawn ()
 	{
+		WaveText.text = "WAVE " + Wave;
+
 		int StartXPosId = Random.Range (0, BlockSpawnXPositions.Length);
 		int NextXPosId = StartXPosId;
 
@@ -469,6 +536,19 @@ public class GameController : MonoBehaviour
 
 				NextBlockSpawn = Time.time + BlockSpawnRate;
 			}
+			yield return null;
+		}
+	}
+
+	IEnumerator PowerupSpawner ()
+	{
+		while (true) 
+		{
+			yield return new WaitForSecondsRealtime (Random.Range (PowerupPickupSpawnRate, PowerupPickupSpawnRate * 2));
+			GameObject PowerupPickup = PowerupPickups[Random.Range (0, PowerupPickups.Length)];
+			Vector3 PowerupPickupSpawnPos = new Vector3 (Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), PowerupPickupSpawnY, 0);
+			Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.Euler (0, 0, 90));
+
 			yield return null;
 		}
 	}
