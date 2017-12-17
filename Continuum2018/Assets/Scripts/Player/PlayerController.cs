@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using InControl;
 using XInputDotNetPure;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour 
 {
@@ -59,6 +61,30 @@ public class PlayerController : MonoBehaviour
 	public float cooldownDuration;
 	public float cooldownTimeRemaining;
 
+	[Header ("Ability")]
+	public abilityState CurrentAbilityState;
+	public enum abilityState
+	{
+		Charging,
+		Ready,
+		Active
+	}
+	public float CurrentAbilityTimeRemaining;
+	public float CurrentAbulityDuration;
+	public float AbilityTimeAmountProportion;
+	public float AbilityChargeSpeedMultiplier = 0.5f;
+	public float AbilityUseSpeedMultiplier = 4;
+	public ability Ability;
+	public enum ability
+	{
+		Shield,
+		Emp
+	}
+	public Image AbilityFillImage;
+	public TextMeshProUGUI AbilityReadyText;
+	public RawImage AbilityReadyBackground;
+	public Color AbilityUseColor, AbilityChargingColor, AbilityChargingFullColor;
+
 	[Header ("Powerups")]
 
 	[Header ("Shield")]
@@ -78,6 +104,7 @@ public class PlayerController : MonoBehaviour
 
 	void Start () 
 	{
+		AbilityReadyText.text = "";
 		CreatePlayerActions ();
 		AssignActionControls ();
 	}
@@ -95,6 +122,7 @@ public class PlayerController : MonoBehaviour
 		CheckPlayerVibration ();
 		CheckUIVisibility ();
 		CheckCooldownTime ();
+		CheckAbilityTime ();
 	}
 
 	void CheckCooldownTime ()
@@ -189,6 +217,79 @@ public class PlayerController : MonoBehaviour
 				Mathf.Clamp (PlayerFollow.position.y, YBounds.x, YBounds.y),
 				0
 			);
+	}
+
+	void CheckAbilityTime ()
+	{
+		// Updates the ability UI involved.
+		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbulityDuration;
+		AbilityFillImage.fillAmount = AbilityTimeAmountProportion; // Fills to a third.
+
+		// Player presses ability button.
+		if (playerActions.Ability.WasPressed) 
+		{
+			// Ability is charged.
+			if (CurrentAbilityState == abilityState.Ready && cooldownTimeRemaining <= 0 &&
+				timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) 
+			{
+				ActivateAbility ();
+				AbilityReadyText.text = "";
+				AbilityReadyBackground.enabled = false;
+				CurrentAbilityState = abilityState.Active;
+			}
+		}
+
+		// Updates the ability timers.
+		if (CurrentAbilityState == abilityState.Active) 
+		{
+			AbilityFillImage.color = AbilityUseColor;
+
+			if (CurrentAbilityTimeRemaining > 0)
+			{
+				CurrentAbilityTimeRemaining -= AbilityUseSpeedMultiplier * Time.unscaledDeltaTime;
+			}
+
+			if (CurrentAbilityTimeRemaining <= 0) 
+			{
+				CurrentAbilityState = abilityState.Charging;
+			}
+		}
+
+		if (CurrentAbilityState == abilityState.Charging) 
+		{
+			if (CurrentAbilityTimeRemaining < CurrentAbulityDuration && cooldownTimeRemaining <= 0 &&
+				timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) 
+			{
+				AbilityReadyText.text = "";
+				AbilityReadyBackground.enabled = false;
+				CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
+			}
+
+			if (CurrentAbilityTimeRemaining >= CurrentAbulityDuration) 
+			{
+				CurrentAbilityTimeRemaining = CurrentAbulityDuration;
+				AbilityReadyText.text = "READY";
+				AbilityReadyBackground.enabled = true;
+				CurrentAbilityState = abilityState.Ready;
+			}
+
+			AbilityChargingColor = new Color (1 - (0.765f * AbilityTimeAmountProportion), 1, 1 - 0.376f * AbilityTimeAmountProportion, 1);
+
+			if (AbilityTimeAmountProportion < 1f)
+			{
+				AbilityFillImage.color = AbilityChargingColor;
+			}
+
+			if (AbilityTimeAmountProportion == 1)
+			{
+				AbilityFillImage.color = AbilityChargingFullColor;
+			}
+		}
+	}
+
+	void ActivateAbility ()
+	{
+		
 	}
 
 	IEnumerator CheckBulletType ()
@@ -384,7 +485,8 @@ public class PlayerController : MonoBehaviour
 		playerActions.Shoot.AddDefaultBinding (InputControlType.RightTrigger);
 		playerActions.Shoot.AddDefaultBinding (InputControlType.Action1);
 
-		playerActions.Ability.AddDefaultBinding (Key.LeftShift);
+		//playerActions.Ability.AddDefaultBinding (Key.LeftShift);
+		playerActions.Ability.AddDefaultBinding (Key.LeftAlt);
 		playerActions.Ability.AddDefaultBinding (Mouse.RightButton);
 		playerActions.Ability.AddDefaultBinding (InputControlType.LeftTrigger);
 

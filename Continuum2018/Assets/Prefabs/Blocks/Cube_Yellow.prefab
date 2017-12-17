@@ -130,6 +130,7 @@ MonoBehaviour:
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
   FollowPosMethod: 0
+  FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 20, y: 20, z: 0}
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
@@ -138,6 +139,7 @@ MonoBehaviour:
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
+  FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
 --- !u!114 &114212151734931360
 MonoBehaviour:
@@ -194,7 +196,7 @@ MonoBehaviour:
   PinkExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
     type: 2}
   AquaTextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
-  BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
+  BlueTextColor: {r: 0, g: 0.2395544, b: 1, a: 1}
   GreenTextColor: {r: 0, g: 1, b: 0.0055708885, a: 1}
   PurpleTextColor: {r: 0.846797, g: 0, b: 1, a: 1}
   PinkTextColor: {r: 1, g: 0, b: 0.4846797, a: 1}

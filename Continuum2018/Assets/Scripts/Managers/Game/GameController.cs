@@ -37,12 +37,14 @@ public class GameController : MonoBehaviour
 	public float ScoreSmoothing;
 	public TextMeshProUGUI ScoreText;
 	public Animator ScoreAnim;
+	public RawImage ScoreBackground;
 
 	[Header ("Lives")]
 	public int Lives;
 	public TextMeshProUGUI LivesText;
 	public Animator LivesAnim;
 	public RawImage LifeOne, LifeTwo, LifeThree;
+	public RawImage LivesBackground;
 
 	[Header ("Combo")]
 	public int combo = 1;
@@ -97,8 +99,10 @@ public class GameController : MonoBehaviour
 	void Start () 
 	{
 		ScoreText.text = "0";
+		ScoreBackground.enabled = false;
 		Lives = 3;
 		LivesText.text = "";
+		LivesBackground.enabled = false;
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
@@ -110,7 +114,6 @@ public class GameController : MonoBehaviour
 	public void StartCoroutines ()
 	{
 		ScoreText.text = "";
-		//LivesText.text = "" + Lives;
 		StartCoroutine (UpdateImageEffects ());
 		StartCoroutine (UpdateStarFieldparticleEffectTrail ());
 	}
@@ -122,6 +125,8 @@ public class GameController : MonoBehaviour
 		StartCoroutine (StartBlockSpawn ());
 		ScoreAnim.enabled = true;
 		LivesAnim.enabled = true;
+		ScoreBackground.enabled = true;
+		LivesBackground.enabled = true;
 	}
 
 	void Update ()
@@ -203,30 +208,35 @@ public class GameController : MonoBehaviour
 				LifeOne.enabled = false;
 				LifeTwo.enabled = false;
 				LifeThree.enabled = false;
+				LivesBackground.enabled = false;
 				LivesText.text = "";
 				break;
 			case 1:
 				LifeOne.enabled = false;
 				LifeTwo.enabled = false;
 				LifeThree.enabled = false;
+				LivesBackground.enabled = false;
 				LivesText.text = "";
 				break;
 			case 2:
 				LifeOne.enabled = true;
 				LifeTwo.enabled = false;
 				LifeThree.enabled = false;
+				LivesBackground.enabled = true;
 				LivesText.text = "";
 				break;
 			case 3:
 				LifeOne.enabled = true;
 				LifeTwo.enabled = true;
 				LifeThree.enabled = false;
+				LivesBackground.enabled = true;
 				LivesText.text = "";
 				break;
 			case 4:
 				LifeOne.enabled = true;
 				LifeTwo.enabled = true;
 				LifeThree.enabled = true;
+				LivesBackground.enabled = true;
 				LivesText.text = "";
 				break;
 			}
@@ -235,6 +245,7 @@ public class GameController : MonoBehaviour
 				LifeOne.enabled = true;
 				LifeTwo.enabled = false;
 				LifeThree.enabled = false;
+				LivesBackground.enabled = true;
 				LivesText.text = "" + Lives;
 			}
 		}
