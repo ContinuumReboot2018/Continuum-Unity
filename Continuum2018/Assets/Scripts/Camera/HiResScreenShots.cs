@@ -79,7 +79,7 @@ public class HiResScreenShots : MonoBehaviour
 			string filename = ScreenShotName (resWidth * 2, resHeight * 2);
 			System.IO.File.WriteAllBytes (filename, bytes);
 			Debug.Log (string.Format("Took screenshot to: {0}", filename));
-			takeDoubleHiResShot = false;
+			takeHiDoubleResShot = false;
 		}
 	}
 }
