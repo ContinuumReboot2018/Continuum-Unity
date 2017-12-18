@@ -116,7 +116,7 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI TargetScoreText_Debug;
 	public TextMeshProUGUI SpawnWaitText_Debug;
 
-	void Start () 
+	void Awake () 
 	{
 		ScoreText.text = "";
 		ScoreBackground.enabled = false;
@@ -134,7 +134,10 @@ public class GameController : MonoBehaviour
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
-	
+	}
+
+	void Start ()
+	{
 		StartCoroutines ();
 	}
 
@@ -322,10 +325,12 @@ public class GameController : MonoBehaviour
 
 		if (PowerupTimeRemaining < 0) 
 		{
+			powerupsInUse = 0;
 			PowerupTimeRemaining = 0;
 			PowerupAnim.StopPlayback ();
-			playerControllerScript_P1.ResetPowerups ();
+
 			// Reset all powerups for both players.
+			playerControllerScript_P1.ResetPowerups ();
 		}
 	}
 

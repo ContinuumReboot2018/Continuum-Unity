@@ -40,17 +40,17 @@ public class Bullet : MonoBehaviour
 	void Awake ()
 	{
 		AwakeAudio = GetComponent<AudioSource> ();
+		AwakeAudio.panStereo = 0.04f * transform.position.x;
+		BulletCol.enabled = false;
+		movedEnough = false;
+		Lifetime = 0;
+		InvokeRepeating ("CheckForDestroy", 0, 1);
 	}
 
 	void Start ()
 	{
-		AwakeAudio.panStereo = 0.04f * transform.position.x;
-		BulletCol.enabled = false;
-		movedEnough = false;
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		StartCameraShake ();
-		Lifetime = 0;
-		InvokeRepeating ("CheckForDestroy", 0, 1);
 	}
 
 	void FixedUpdate ()

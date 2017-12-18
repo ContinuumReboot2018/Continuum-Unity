@@ -89,15 +89,19 @@ public class Block : MonoBehaviour
 	public float newCamShakeDuration = 0.1f;
 	public float newCamShakeAmount = 0.1f;
 
+	void Awake ()
+	{
+		rb = GetComponent<Rigidbody> ();
+		rend = GetComponent<MeshRenderer> ();
+		InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
+	}
+
 	void Start () 
 	{
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
-		rb = GetComponent<Rigidbody> ();
-		rend = GetComponent<MeshRenderer> ();
-		InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
 	}
 
 	void Update () 

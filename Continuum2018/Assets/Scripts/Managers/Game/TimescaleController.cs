@@ -41,7 +41,7 @@ public class TimescaleController : MonoBehaviour
 	public float OverrideTimeScaleTimeRemaining;
 	public float OverrideTimeScaleSmoothing = 10;
 
-	void Start () 
+	void Awake () 
 	{
 		isInInitialSequence = true;
 	}

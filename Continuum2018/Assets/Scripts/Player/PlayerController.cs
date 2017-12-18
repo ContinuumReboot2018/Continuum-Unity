@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour
 
 	[Header ("Shooting")]
 	public bool canShoot = true;
-	public GameObject CurrentShot;
 	public float CurrentFireRate = 0.1f;
 	private float NextFire;
 
@@ -91,6 +90,12 @@ public class PlayerController : MonoBehaviour
 	public Color AbilityUseColor, AbilityChargingColor, AbilityChargingFullColor;
 
 	[Header ("Powerups")]
+	public GameObject DoubleShotL;
+	public GameObject DoubleShotR;
+	public Transform DoubleShotSpawnL;
+	public Transform DoubleShotSpawnR;
+	public float DoubleShotFireRate = 0.25f;
+	private float DoubleShotNextFire;
 
 	[Header ("Shield")]
 	public bool isShieldOn;
@@ -111,12 +116,18 @@ public class PlayerController : MonoBehaviour
 
 	public PlayerActions playerActions;
 
-	void Start () 
+	void Awake ()
 	{
+		Application.targetFrameRate = 60;
 		AbilityReadyText.text = "";
 		RefreshAbilityName ();
 		CreatePlayerActions ();
 		AssignActionControls ();
+	}
+
+	void Start () 
+	{
+		
 	}
 
 	public void StartCoroutines ()
@@ -332,8 +343,10 @@ public class PlayerController : MonoBehaviour
 			switch (ShotType) 
 			{
 			case shotType.Standard:
-				CurrentShot = StandardShot;
 				CurrentFireRate = StandardFireRate;
+				break;
+			case shotType.Double:
+				CurrentFireRate = DoubleShotFireRate;
 				break;
 			}
 
@@ -346,11 +359,6 @@ public class PlayerController : MonoBehaviour
 	{
 		if (canShoot == true) 
 		{
-			if (CurrentShot == null) 
-			{
-				CurrentShot = StandardShot;
-			}
-
 			if (playerActions.Shoot.Value > 0.75f && Time.unscaledTime > NextFire && gameControllerScript.isPaused == false) 
 			{
 				// Every time the player shoots, decremement the combo.
@@ -368,12 +376,24 @@ public class PlayerController : MonoBehaviour
 
 	void Shoot ()
 	{
-		if (CurrentShot == StandardShot)
+		switch (ShotType) 
 		{
+		case shotType.Standard:
 			GameObject shot = Instantiate (StandardShot, StandardShotSpawn.position, StandardShotSpawn.rotation);
 			shot.GetComponent<Bullet> ().playerControllerScript = this;
 			shot.GetComponent<Bullet> ().playerPos = playerCol.transform;
 			shot.name = "Standard Shot_P" + PlayerId + "";
+			break;
+		case shotType.Double:
+			GameObject doubleshotL = Instantiate (DoubleShotL, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
+			GameObject doubleshotR = Instantiate (DoubleShotR, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
+			doubleshotL.GetComponent<Bullet> ().playerControllerScript = this;
+			doubleshotL.GetComponent<Bullet> ().playerPos = playerCol.transform;
+			doubleshotR.GetComponent<Bullet> ().playerControllerScript = this;
+			doubleshotR.GetComponent<Bullet> ().playerPos = playerCol.transform;
+			doubleshotL.name = "Double ShotL_P" + PlayerId + "";
+			doubleshotR.name = "Double ShotR_P" + PlayerId + "";
+			break;
 		}
 	}
 
@@ -529,9 +549,7 @@ public class PlayerController : MonoBehaviour
 	public void ResetPowerups ()
 	{
 		ShotType = shotType.Standard;
-		CurrentShot = StandardShot;
 		CurrentFireRate = StandardFireRate;
-
 	}
 
 	// This is for InControl for initialization.

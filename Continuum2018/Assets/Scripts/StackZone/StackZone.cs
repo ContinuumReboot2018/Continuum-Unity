@@ -11,9 +11,13 @@ public class StackZone : MonoBehaviour
 	public GameObject CapturedBlock;
 	public AudioSource stackSound;
 
-	void Start ()
+	void Awake ()
 	{
 		isOccupied = false;
+	}
+
+	void Start ()
+	{
 		stackSound = GameObject.Find ("StackSound").GetComponent<AudioSource> ();
 	}
 

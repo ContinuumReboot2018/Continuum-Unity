@@ -35,7 +35,7 @@ public class PowerupPickup : MonoBehaviour
 	{
 		if (other.tag == "Bullet") 
 		{
-			if (other.name.Contains ("P1")) 
+			if (other.name.Contains ("P1") || other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
 			{
 				if (gameControllerScript.powerupsInUse < gameControllerScript.MaxSimultaneousPowerups) 
 				{
@@ -60,9 +60,16 @@ public class PowerupPickup : MonoBehaviour
 
 				if (gameControllerScript.powerupsInUse >= gameControllerScript.MaxSimultaneousPowerups) 
 				{
+					gameControllerScript.SetPowerupTime (PowerupTime);
 					Instantiate (PowerupDeathExplosion, transform.position, Quaternion.identity);
+					Destroy (gameObject);
 				}
 			}
+		}
+
+		if (other.tag == "Boundary") 
+		{
+			Destroy (gameObject);
 		}
 	}
 
@@ -75,6 +82,7 @@ public class PowerupPickup : MonoBehaviour
 		switch (ThisPowerup) 
 		{
 		case powerups.DoubleShot: 
+			playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 			break;
 		case powerups.TripleShot:
 			break;
