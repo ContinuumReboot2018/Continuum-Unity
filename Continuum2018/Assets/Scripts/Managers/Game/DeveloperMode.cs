@@ -192,6 +192,14 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.RefreshAbilityName ();
 				ShowCheatNotification ("CHEAT ACTIVATED");
 			}
+
+			if (CheatString == "double") 
+			{
+				gameControllerScript.powerupsInUse += 1;
+				gameControllerScript.SetPowerupTime (20);
+				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
+				ShowCheatNotification ("CHEAT ACTIVATED");
+			}
 		}
 	}
 
