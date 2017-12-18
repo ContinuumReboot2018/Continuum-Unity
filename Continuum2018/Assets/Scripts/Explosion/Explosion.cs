@@ -20,7 +20,8 @@ public class Explosion : MonoBehaviour
 
 	void Awake ()
 	{
-		ExplosionSound = GetComponent<AudioSource> ();
+		ExplosionSound = GameObject.Find("ComboSound").GetComponent<AudioSource> ();
+		ExplosionSound.Play ();
 	}
 
 	void Start () 

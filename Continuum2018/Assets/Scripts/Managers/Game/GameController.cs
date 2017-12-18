@@ -68,7 +68,8 @@ public class GameController : MonoBehaviour
 	public int powerupsInUse;
 	public int MaxSimultaneousPowerups = 4;
 	public Animator PowerupAnim;
-
+	public AudioSource PowerupTimeRunningOutAudio;
+	public AudioSource PowerupResetAudio;
 	public GameObject[] PowerupPickups;
 	public float PowerupPickupSpawnRate;
 	private float NextPowerupPickupSpawn;
@@ -320,6 +321,10 @@ public class GameController : MonoBehaviour
 			{
 				if (PowerupAnim.GetCurrentAnimatorStateInfo (0).IsName ("PowerupTimeRunningOut") == false) 
 				{
+					if (PowerupTimeRunningOutAudio.isPlaying == false) 
+					{
+						PowerupTimeRunningOutAudio.Play ();
+					}
 					PowerupAnim.Play ("PowerupTimeRunningOut");
 				}
 			}
@@ -330,7 +335,7 @@ public class GameController : MonoBehaviour
 			powerupsInUse = 0;
 			PowerupTimeRemaining = 0;
 			PowerupAnim.StopPlayback ();
-
+			PowerupResetAudio.Play ();
 			// Reset all powerups for both players.
 			playerControllerScript_P1.ResetPowerups ();
 		}
