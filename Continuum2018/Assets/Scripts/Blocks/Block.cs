@@ -124,10 +124,13 @@ public class Block : MonoBehaviour
 			GetTotalPointValue ();
 			CreateExplosion ();
 
-			// Stops the bullet that hit it from hanging around.
-			other.GetComponent<Bullet> ().BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
-			other.GetComponent<Bullet> ().BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
-			other.GetComponent<Bullet> ().StartCoroutine (other.GetComponent<Bullet> ().DestroyDelay ());
+			if (other.GetComponent<Bullet> () != null)
+			{
+				// Stops the bullet that hit it from hanging around.
+				other.GetComponent<Bullet> ().BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+				other.GetComponent<Bullet> ().BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+				other.GetComponent<Bullet> ().StartCoroutine (other.GetComponent<Bullet> ().DestroyDelay ());
+			}
 
 			DoCamShake ();
 
@@ -143,6 +146,7 @@ public class Block : MonoBehaviour
 
 			if (gameControllerScript.Lives >= 1) 
 			{
+				gameControllerScript.combo = 1;
 				timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
 				timeScaleControllerScript.OverridingTimeScale = 0.25f;
 

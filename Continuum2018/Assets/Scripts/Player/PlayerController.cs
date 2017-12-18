@@ -99,7 +99,13 @@ public class PlayerController : MonoBehaviour
 
 	[Header ("Shield")]
 	public bool isShieldOn;
+	public GameObject Shield;
 	public Lens lensScript;
+	public float TargetShieldScale;
+	public float ShieldScaleSmoothTime = 1;
+	public float LensOnRadius = 0.7f;
+	public float TargetLensRadius;
+	public float LensRadiusSmoothTime = 1;
 
 	[Header ("UI")]
 	public bool isHidingScoreUI;
@@ -121,13 +127,12 @@ public class PlayerController : MonoBehaviour
 		Application.targetFrameRate = 60;
 		AbilityReadyText.text = "";
 		RefreshAbilityName ();
-		CreatePlayerActions ();
-		AssignActionControls ();
 	}
 
 	void Start () 
 	{
-		
+		CreatePlayerActions ();
+		AssignActionControls ();
 	}
 
 	public void StartCoroutines ()
@@ -275,6 +280,7 @@ public class PlayerController : MonoBehaviour
 			if (CurrentAbilityTimeRemaining <= 0) 
 			{
 				CurrentAbilityState = abilityState.Charging;
+				DeactivateAbility ();
 			}
 		}
 
@@ -310,6 +316,13 @@ public class PlayerController : MonoBehaviour
 				AbilityFillImageR.color = AbilityChargingFullColor;
 			}
 		}
+
+		lensScript.radius = Mathf.Lerp (lensScript.radius, TargetLensRadius, LensRadiusSmoothTime * Time.deltaTime);
+		Shield.transform.localScale = new Vector3 (
+			Mathf.Lerp(Shield.transform.localScale.x, TargetShieldScale, ShieldScaleSmoothTime * Time.deltaTime), 
+			Mathf.Lerp(Shield.transform.localScale.y, TargetShieldScale, ShieldScaleSmoothTime * Time.deltaTime), 
+			Mathf.Lerp(Shield.transform.localScale.z, TargetShieldScale, ShieldScaleSmoothTime * Time.deltaTime)
+		);
 	}
 
 	void ActivateAbility ()
@@ -317,10 +330,36 @@ public class PlayerController : MonoBehaviour
 		switch (Ability) 
 		{
 		case ability.Shield:
+			isShieldOn = true;
+			playerCol.enabled = false;
+			Shield.SetActive (true);
+			TargetLensRadius = LensOnRadius;
+			TargetShieldScale = 1;
 			break;
 		case ability.Emp:
 			break;
 		}
+	}
+
+	void DeactivateAbility ()
+	{
+		switch (Ability) 
+		{
+		case ability.Shield:
+			isShieldOn = false;
+			TargetLensRadius = 0;
+			TargetShieldScale = 0;
+			Invoke ("DeactivateShield", 3);
+			break;
+		case ability.Emp:
+			break;
+		}
+	}
+
+	void DeactivateShield ()
+	{
+		playerCol.enabled = true;
+		Shield.SetActive (false);
 	}
 
 	public void RefreshAbilityName ()

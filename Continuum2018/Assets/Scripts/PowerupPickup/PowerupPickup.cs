@@ -53,11 +53,13 @@ public class PowerupPickup : MonoBehaviour
 		{
 			if (other.name.Contains ("P1")) 
 			{
+				// Activate the powerup.
 				if (gameControllerScript.powerupsInUse < gameControllerScript.MaxSimultaneousPowerups) 
 				{
 					ActivatePowerup_P1 ();
 				}
 
+				// Already has enough powerups, just top up powerup time.
 				if (gameControllerScript.powerupsInUse >= gameControllerScript.MaxSimultaneousPowerups) 
 				{
 					gameControllerScript.SetPowerupTime (PowerupTime);
