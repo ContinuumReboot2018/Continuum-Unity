@@ -198,6 +198,7 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.powerupsInUse += 1;
 				gameControllerScript.SetPowerupTime (20);
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRate;
 				ShowCheatNotification ("CHEAT ACTIVATED");
 			}
 		}

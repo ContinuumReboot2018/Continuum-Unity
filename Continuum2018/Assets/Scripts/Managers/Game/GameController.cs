@@ -99,6 +99,7 @@ public class GameController : MonoBehaviour
 	public ParticleSystem StarFieldForeground;
 
 	[Header ("Debug")]
+	public TextMeshProUGUI P1_CurrentFireRate;
 	public TextMeshProUGUI P1_Ability;
 	public TextMeshProUGUI P1_AbilityTimeRemaining;
 	public TextMeshProUGUI P1_AbilityTimeDuration;
@@ -208,6 +209,7 @@ public class GameController : MonoBehaviour
 
 				SpawnWaitText_Debug.text = "Spawn Rate: " + BlockSpawnRate;
 
+				P1_CurrentFireRate.text = "P1 Fire Rate: " + playerControllerScript_P1.CurrentFireRate;
 				P1_Ability.text = "P1 Ability: " + playerControllerScript_P1.AbilityName;
 				P1_AbilityTimeRemaining.text = "P1 Ability Remain: " + System.Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
 				P1_AbilityTimeDuration.text = "P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
