@@ -287,6 +287,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   BulletSpeed: 3500
   BulletRb: {fileID: 54741967111145026}
+  BulletTypeName: DoubleShot
   Lifetime: 0
   MaxLifetime: 30
   DestroyMaxYPos: 30
@@ -296,6 +297,7 @@ MonoBehaviour:
   playerPos: {fileID: 0}
   movedEnough: 0
   VelocityLimits: {x: -50, y: 50}
+  allowBulletColDeactivate: 1
   BulletOuterParticles: {fileID: 198282017849224738}
   BulletCoreParticles: {fileID: 198924453795005252}
   AwakeAudio: {fileID: 82325980282301756}

@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
 	public Rigidbody BulletRb;
 
 	[Header ("Stats")]
+	public string BulletTypeName;
 	public float Lifetime;
 	public float MaxLifetime = 30;
 	public float DestroyMaxYPos = 30;
@@ -18,6 +19,7 @@ public class Bullet : MonoBehaviour
 	public Transform playerPos;
 	public bool movedEnough;
 	public Vector2 VelocityLimits;
+	public bool allowBulletColDeactivate = true;
 
 	[Header ("Visuals")]
 	public ParticleSystem BulletOuterParticles;
@@ -51,6 +53,7 @@ public class Bullet : MonoBehaviour
 	{
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		StartCameraShake ();
+		CheckBulletIteration ();
 	}
 
 	void FixedUpdate ()
@@ -114,6 +117,30 @@ public class Bullet : MonoBehaviour
 		if (BulletRb.transform.position.y > DestroyMaxYPos) 
 		{
 			Destroy (gameObject);
+		}
+	}
+
+	void CheckBulletIteration ()
+	{
+		switch (BulletTypeName) 
+		{
+		case "DoubleShot":
+			switch (playerControllerScript.DoubleShotIteration)
+			{
+			case PlayerController.doubleShotIteration.Standard:
+				allowBulletColDeactivate = true;
+				break;
+			case PlayerController.doubleShotIteration.Enhanced:
+				allowBulletColDeactivate = true;
+				break;
+			case PlayerController.doubleShotIteration.Faster:
+				allowBulletColDeactivate = true;
+				break;
+			case PlayerController.doubleShotIteration.Overdrive:
+				allowBulletColDeactivate = false;
+				break;
+			}
+			break;
 		}
 	}
 

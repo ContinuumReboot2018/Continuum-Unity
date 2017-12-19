@@ -127,9 +127,12 @@ public class Block : MonoBehaviour
 			if (other.GetComponent<Bullet> () != null)
 			{
 				// Stops the bullet that hit it from hanging around.
-				other.GetComponent<Bullet> ().BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
-				other.GetComponent<Bullet> ().BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
-				other.GetComponent<Bullet> ().StartCoroutine (other.GetComponent<Bullet> ().DestroyDelay ());
+				if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true)
+				{
+					other.GetComponent<Bullet> ().BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+					other.GetComponent<Bullet> ().BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+					other.GetComponent<Bullet> ().StartCoroutine (other.GetComponent<Bullet> ().DestroyDelay ());
+				}
 			}
 
 			DoCamShake ();
@@ -154,7 +157,8 @@ public class Block : MonoBehaviour
 
 				playerControllerScript_P1.ResetPowerups ();
 				playerControllerScript_P1.playerCol.enabled = false;
-				playerControllerScript_P1.playerMesh.SetActive (false);
+				playerControllerScript_P1.playerCol.gameObject.SetActive (false);
+				//playerControllerScript_P1.playerMesh.SetActive (false);
 				playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
 				playerControllerScript_P1.PlayerFollowRb.velocity = Vector3.zero;
 				playerControllerScript_P1.MovementX = 0;

@@ -287,6 +287,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   BulletSpeed: 2000
   BulletRb: {fileID: 54411608822263048}
+  BulletTypeName: StandardShot
   Lifetime: 0
   MaxLifetime: 30
   DestroyMaxYPos: 30
@@ -296,6 +297,7 @@ MonoBehaviour:
   playerPos: {fileID: 0}
   movedEnough: 0
   VelocityLimits: {x: -50, y: 50}
+  allowBulletColDeactivate: 1
   BulletOuterParticles: {fileID: 198411590459158762}
   BulletCoreParticles: {fileID: 198739177880214716}
   AwakeAudio: {fileID: 0}

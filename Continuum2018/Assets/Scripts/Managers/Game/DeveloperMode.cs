@@ -123,83 +123,110 @@ public class DeveloperMode : MonoBehaviour
 			{
 				timeScaleControllerScript.SwitchInitialSequence ();
 				playerControllerScript_P1.StartCoroutines ();
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
 			}
 
 			if (CheatString == "restart") 
 			{
 				localSceneLoaderScript.sceneLoaderScript.SceneName = SceneManager.GetActiveScene().name;
 				localSceneLoaderScript.sceneLoaderScript.StartLoadSequence ();
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("");
 			}
 
 			if (CheatString == "nexttrack") 
 			{
 				audioControllerScript.NextTrack ();
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: NEXT TRACK");
 			}
 
 			if (CheatString == "previoustrack") 
 			{
 				audioControllerScript.PreviousTrack ();
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: PREVIOUS TRACK");
 			}
 
 			if (CheatString == "randomtrack") 
 			{
 				audioControllerScript.RandomTrack ();
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: RANDOM TRACK");
 			}
 
 			if (CheatString == "savesettings") 
 			{
 				saveAndLoadScript.SaveSettingsData ();
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS SAVE");
 			}
 
 			if (CheatString == "loadsettings") 
 			{
 				saveAndLoadScript.LoadSettingsData ();
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS LOAD");
 			}
 
-			if (CheatString == "morelives") 
+			if (CheatString == "morelife") 
 			{
 				gameControllerScript.Lives += 3;
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: MORE LIFE");
 			}
 
 			if (CheatString == "god") 
 			{
 				playerControllerScript_P1.playerCol.enabled = false;
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
 			}
 
 			if (CheatString == "ungod") 
 			{
 				playerControllerScript_P1.playerCol.enabled = true;
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
 			}
 
 			if (CheatString == "chargeability") 
 			{
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY CHARGED");
 			}
 
 			if (CheatString == "refreshability") 
 			{
 				playerControllerScript_P1.RefreshAbilityName ();
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY REFRESH");
 			}
 
 			if (CheatString == "double") 
 			{
-				gameControllerScript.powerupsInUse += 1;
-				gameControllerScript.SetPowerupTime (20);
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRate;
-				ShowCheatNotification ("CHEAT ACTIVATED");
+				gameControllerScript.SetPowerupTime (20);
+
+				// Apply tweaks to conditions based on which iteration the player is on.
+				switch (playerControllerScript_P1.NextDoubleShotIteration) 
+				{
+				case 0:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
+					break;
+				case 1:
+					break;
+				case 2:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+					break;
+				case 3:
+					break;
+				}
+					
+				// Sets double shot iteration (enum) as the next double shot iteration (int).
+				if (playerControllerScript_P1.NextDoubleShotIteration < 4) 
+				{
+					playerControllerScript_P1.DoubleShotIteration = 
+						(PlayerController.doubleShotIteration)playerControllerScript_P1.NextDoubleShotIteration;
+				}
+
+				// Increases iteration count.
+				if (playerControllerScript_P1.NextDoubleShotIteration < 4) 
+				{
+					playerControllerScript_P1.NextDoubleShotIteration += 1;
+				}
+
+				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT");
 			}
 		}
 	}

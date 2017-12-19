@@ -48,6 +48,7 @@ public class GameController : MonoBehaviour
 	public Animator LivesAnim;
 	public RawImage LifeOne, LifeTwo, LifeThree;
 	public RawImage LivesBackground;
+	public GameObject LivesSpacing;
 
 	[Header ("Combo")]
 	public int combo = 1;
@@ -65,7 +66,6 @@ public class GameController : MonoBehaviour
 	[Header ("Powerup General")]
 	public float PowerupTimeRemaining;
 	public float PowerupTimeDuration;
-	public int powerupsInUse;
 	public int MaxSimultaneousPowerups = 4;
 	public Animator PowerupAnim;
 	public AudioSource PowerupTimeRunningOutAudio;
@@ -100,6 +100,8 @@ public class GameController : MonoBehaviour
 	public ParticleSystem StarFieldForeground;
 
 	[Header ("Debug")]
+	public TextMeshProUGUI P1_DoubleShotIteration;
+	public TextMeshProUGUI P1_DoubleShotIterationNumber;
 	public TextMeshProUGUI P1_CurrentFireRate;
 	public TextMeshProUGUI P1_Ability;
 	public TextMeshProUGUI P1_AbilityTimeRemaining;
@@ -205,8 +207,8 @@ public class GameController : MonoBehaviour
 				TargetPitch_Debug.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
 				CurrentPitch_Debug.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
 
-				TimeScaleText_Debug.text = "TimeScale: " + System.Math.Round (Time.timeScale, 2);
-				FixedTimeStepText_Debug.text = "FixedTimeStep: " + System.Math.Round (Time.fixedDeltaTime, 5);
+				TimeScaleText_Debug.text = "Time Scale: " + System.Math.Round (Time.timeScale, 2);
+				FixedTimeStepText_Debug.text = "Fixed Time Step: " + System.Math.Round (Time.fixedDeltaTime, 5);
 
 				SpawnWaitText_Debug.text = "Spawn Rate: " + BlockSpawnRate;
 
@@ -215,6 +217,8 @@ public class GameController : MonoBehaviour
 				P1_AbilityTimeRemaining.text = "P1 Ability Remain: " + System.Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
 				P1_AbilityTimeDuration.text = "P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
 				P1_AbilityTimeProportion.text = "P1 Ability Fill: " + System.Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
+				P1_DoubleShotIteration.text = "Double Shot Stage: " + playerControllerScript_P1.DoubleShotIteration.ToString ();
+				P1_DoubleShotIterationNumber.text = "Double Shot Iteration: " + playerControllerScript_P1.NextDoubleShotIteration;
 			}
 		}
 	}
@@ -236,57 +240,77 @@ public class GameController : MonoBehaviour
 	{
 		if (timescaleControllerScript.isInInitialSequence == true || timescaleControllerScript.isInInitialCountdownSequence == true) 
 		{
-			LifeOne.enabled = false;
-			LifeTwo.enabled = false;
-			LifeThree.enabled = false;
-			LivesText.text = "";
+			if (LivesText.gameObject.activeSelf == true) 
+			{
+				LifeOne.gameObject.SetActive (false);
+				LifeTwo.gameObject.SetActive (false);
+				LifeThree.gameObject.SetActive (false);
+
+				LivesText.gameObject.SetActive (false);
+				LivesText.text = "";
+			}
 		}
 
 		if (timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) {
 			// Check how many life images are supposed to be there
 			switch (Lives) {
 			case 0:
-				LifeOne.enabled = false;
-				LifeTwo.enabled = false;
-				LifeThree.enabled = false;
-				LivesBackground.enabled = false;
-				LivesText.text = "";
+				if (LivesText.gameObject.activeSelf == true) 
+				{
+					LifeOne.gameObject.SetActive (false);
+					LifeTwo.gameObject.SetActive (false);
+					LifeThree.gameObject.SetActive (false);
+					LivesSpacing.SetActive (false);
+					LivesText.gameObject.SetActive (false);
+					LivesText.text = "";
+				}
 				break;
 			case 1:
-				LifeOne.enabled = false;
-				LifeTwo.enabled = false;
-				LifeThree.enabled = false;
-				LivesBackground.enabled = false;
+				LivesText.gameObject.SetActive (false);
+				LifeOne.gameObject.SetActive (false);
+				LifeTwo.gameObject.SetActive (false);
+				LifeThree.gameObject.SetActive (false);
+				LivesSpacing.SetActive (false);
+				//LivesBackground.enabled = false;
 				LivesText.text = "";
 				break;
 			case 2:
-				LifeOne.enabled = true;
-				LifeTwo.enabled = false;
-				LifeThree.enabled = false;
-				LivesBackground.enabled = true;
+				LivesText.gameObject.SetActive (false);
+				LifeOne.gameObject.SetActive (true);
+				LifeTwo.gameObject.SetActive (false);
+				LifeThree.gameObject.SetActive (false);
+				LivesSpacing.SetActive (false);
+				//LivesBackground.enabled = true;
 				LivesText.text = "";
 				break;
 			case 3:
-				LifeOne.enabled = true;
-				LifeTwo.enabled = true;
-				LifeThree.enabled = false;
-				LivesBackground.enabled = true;
+				LivesText.gameObject.SetActive (false);
+				LifeOne.gameObject.SetActive (true);
+				LifeTwo.gameObject.SetActive (true);
+				LifeThree.gameObject.SetActive (false);
+				LivesSpacing.SetActive (false);
+				//LivesBackground.enabled = true;
 				LivesText.text = "";
 				break;
 			case 4:
-				LifeOne.enabled = true;
-				LifeTwo.enabled = true;
-				LifeThree.enabled = true;
-				LivesBackground.enabled = true;
+				LivesText.gameObject.SetActive (false);
+				LifeOne.gameObject.SetActive (true);
+				LifeTwo.gameObject.SetActive (true);
+				LifeThree.gameObject.SetActive (true);
+				LivesSpacing.SetActive (false);
+				//LivesBackground.enabled = true;
 				LivesText.text = "";
 				break;
 			}
 
-			if (Lives > 4) {
-				LifeOne.enabled = true;
-				LifeTwo.enabled = false;
-				LifeThree.enabled = false;
-				LivesBackground.enabled = true;
+			if (Lives > 4) 
+			{
+				LivesText.gameObject.SetActive (true);
+				LifeOne.gameObject.SetActive (true);
+				LifeTwo.gameObject.SetActive (false);
+				LifeThree.gameObject.SetActive (false);
+				LivesSpacing.SetActive (true);
+				//LivesBackground.enabled = true;
 				LivesText.text = "" + Lives;
 			}
 		}
@@ -297,7 +321,7 @@ public class GameController : MonoBehaviour
 	{
 		if (comboTimeRemaining > 0) 
 		{
-			comboTimeRemaining -= Time.unscaledDeltaTime * (0.05f * combo);
+			comboTimeRemaining -= Time.unscaledDeltaTime * (1f * combo);
 		}
 
 		// Decrements a combo when the timer runs out and resets.
@@ -332,7 +356,7 @@ public class GameController : MonoBehaviour
 
 		if (PowerupTimeRemaining < 0) 
 		{
-			powerupsInUse = 0;
+			playerControllerScript_P1.powerupsInUse = 0;
 			PowerupTimeRemaining = 0;
 			PowerupAnim.StopPlayback ();
 			PowerupResetAudio.Play ();

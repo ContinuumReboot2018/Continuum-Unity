@@ -90,11 +90,27 @@ public class PlayerController : MonoBehaviour
 	public Color AbilityUseColor, AbilityChargingColor, AbilityChargingFullColor;
 
 	[Header ("Powerups")]
+	public int powerupsInUse;
+
+	// Double shot.
 	public GameObject DoubleShotL;
+	public GameObject DoubleShotLEnhanced;
+	public GameObject DoubleShotLOverdrive;
 	public GameObject DoubleShotR;
+	public GameObject DoubleShotREnhanced;
+	public GameObject DoubleShotROverdrive;
 	public Transform DoubleShotSpawnL;
 	public Transform DoubleShotSpawnR;
-	public float DoubleShotFireRate = 0.25f;
+	public float[] DoubleShotFireRates;
+	public doubleShotIteration DoubleShotIteration;
+	public int NextDoubleShotIteration;
+	public enum doubleShotIteration
+	{
+		Standard = 0,
+		Enhanced = 1,
+		Faster = 2,
+		Overdrive = 3
+	}
 	private float DoubleShotNextFire;
 
 	[Header ("Shield")]
@@ -157,13 +173,14 @@ public class PlayerController : MonoBehaviour
 		{
 			if (cooldownTimeRemaining > 0) 
 			{
-				UsePlayerFollow = false;
+				//UsePlayerFollow = false;
 				cooldownTimeRemaining -= Time.unscaledDeltaTime;
 			}
 
 			if (cooldownTimeRemaining <= 0) 
 			{
 				RejoinGame ();
+				playerCol.gameObject.SetActive (true);
 				gameControllerScript.Lives -= 1;
 				Invoke ("EnableCollider", 3);
 				isInCooldownMode = false;
@@ -205,7 +222,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (UsePlayerFollow == true) 
 		{
-			if (gameControllerScript.isPaused == false && cooldownTimeRemaining <= 0) 
+			if (gameControllerScript.isPaused == false)// && cooldownTimeRemaining <= 0) 
 			{
 				// Reads movement input on two axis.
 				MovementX = playerActions.Move.Value.x;
@@ -385,7 +402,7 @@ public class PlayerController : MonoBehaviour
 				CurrentFireRate = StandardFireRate;
 				break;
 			case shotType.Double:
-				CurrentFireRate = DoubleShotFireRate;
+				
 				break;
 			}
 
@@ -423,15 +440,52 @@ public class PlayerController : MonoBehaviour
 			shot.GetComponent<Bullet> ().playerPos = playerCol.transform;
 			shot.name = "Standard Shot_P" + PlayerId + "";
 			break;
+
 		case shotType.Double:
-			GameObject doubleshotL = Instantiate (DoubleShotL, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
-			GameObject doubleshotR = Instantiate (DoubleShotR, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
-			doubleshotL.GetComponent<Bullet> ().playerControllerScript = this;
-			doubleshotL.GetComponent<Bullet> ().playerPos = playerCol.transform;
-			doubleshotR.GetComponent<Bullet> ().playerControllerScript = this;
-			doubleshotR.GetComponent<Bullet> ().playerPos = playerCol.transform;
-			doubleshotL.name = "Double ShotL_P" + PlayerId + "";
-			doubleshotR.name = "Double ShotR_P" + PlayerId + "";
+			switch (DoubleShotIteration)
+			{
+				case doubleShotIteration.Standard:
+					GameObject doubleshotL = Instantiate (DoubleShotL, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
+					GameObject doubleshotR = Instantiate (DoubleShotR, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
+					doubleshotL.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotL.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotR.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotR.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotL.name = "Double ShotL_P" + PlayerId + " (Standard)";
+					doubleshotR.name = "Double ShotR_P" + PlayerId + " (Standard)";
+					break;
+				case doubleShotIteration.Enhanced:
+					GameObject doubleshotLEnhanced = Instantiate (DoubleShotLEnhanced, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
+					GameObject doubleshotREnhanced = Instantiate (DoubleShotREnhanced, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
+					doubleshotLEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotLEnhanced.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotREnhanced.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotREnhanced.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotLEnhanced.name = "Double ShotL_P" + PlayerId + " (Enhanced)";
+					doubleshotREnhanced.name = "Double ShotR_P" + PlayerId + " (Enhanced)";
+					break;
+				case doubleShotIteration.Faster:
+					GameObject doubleshotLFaster = Instantiate (DoubleShotLEnhanced, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
+					GameObject doubleshotRFaster = Instantiate (DoubleShotREnhanced, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
+					doubleshotLFaster.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotLFaster.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotRFaster.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotRFaster.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotLFaster.name = "Double ShotL_P" + PlayerId + " (Faster)";
+					doubleshotRFaster.name = "Double ShotR_P" + PlayerId + " (Faster)";
+					break;
+				case doubleShotIteration.Overdrive:
+					GameObject doubleshotLOverdrive = Instantiate (DoubleShotLOverdrive, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
+					GameObject doubleshotROverdrive = Instantiate (DoubleShotROverdrive, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
+					doubleshotLOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotLOverdrive.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotROverdrive.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotROverdrive.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotLOverdrive.name = "Double ShotL_P" + PlayerId + " (Overdrive)";
+					doubleshotROverdrive.name = "Double ShotR_P" + PlayerId + " (Overdrive)";
+					break;
+			}
+
 			break;
 		}
 	}
@@ -518,7 +572,7 @@ public class PlayerController : MonoBehaviour
 		if (PlayerRb.position.y > LivesCheckPlayerPos.y) 
 		{
 			// Horizontal position too far.
-			if (PlayerRb.position.x < LivesCheckPlayerPos.x) 
+			if (PlayerRb.position.x > -LivesCheckPlayerPos.x && PlayerRb.position.x < LivesCheckPlayerPos.x) 
 			{
 				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeOut") == false && isHidingLivesUI == false) 
 				{
@@ -528,7 +582,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			// Horizontal position in range.
-			if (PlayerRb.position.x >= LivesCheckPlayerPos.x) 
+			if (PlayerRb.position.x <= -LivesCheckPlayerPos.x || PlayerRb.position.x >= LivesCheckPlayerPos.x) 
 			{
 				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true) 
 				{
@@ -554,7 +608,7 @@ public class PlayerController : MonoBehaviour
 		if (PlayerRb.position.y > WaveCheckPlayerPos.y) 
 		{
 			// Horizontal position too far.
-			if (PlayerRb.position.x > WaveCheckPlayerPos.x) 
+			if (PlayerRb.position.x > -WaveCheckPlayerPos.x && PlayerRb.position.x < WaveCheckPlayerPos.x) 
 			{
 				if (WaveAnim.GetCurrentAnimatorStateInfo (0).IsName ("WaveUIExit") == false && isHidingWaveUI == false) 
 				{
@@ -564,7 +618,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			// Horizontal position in range.
-			if (PlayerRb.position.x <= WaveCheckPlayerPos.x) 
+			if (PlayerRb.position.x <= -WaveCheckPlayerPos.x || PlayerRb.position.x >= WaveCheckPlayerPos.x) 
 			{
 				if (WaveAnim.GetCurrentAnimatorStateInfo (0).IsName ("WaveUIEnter") == false && isHidingWaveUI == true) 
 				{
@@ -589,6 +643,8 @@ public class PlayerController : MonoBehaviour
 	{
 		ShotType = shotType.Standard;
 		CurrentFireRate = StandardFireRate;
+		DoubleShotIteration = doubleShotIteration.Standard;
+		NextDoubleShotIteration = 0;
 	}
 
 	// This is for InControl for initialization.
