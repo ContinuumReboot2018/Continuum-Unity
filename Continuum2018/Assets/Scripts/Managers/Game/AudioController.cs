@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class AudioController : MonoBehaviour 
 {
@@ -12,6 +13,14 @@ public class AudioController : MonoBehaviour
 
 	public bool updateVolumeAndPitches = true;
 	public float Distance;
+
+	public AudioMixer AudioMix;
+	public float curFreq;
+	public float TargetCutoffFreq;
+	public float CutoffFreqSmoothing;
+	public float curRes;
+	public float TargetResonance;
+	public float ResonanceSmoothing;
 
 	// Distances to edit
 	[Header ("Distance values")]
@@ -73,6 +82,11 @@ public class AudioController : MonoBehaviour
 	public Image StereoImageR;
 	public float LoudnessSmoothing = 0.1f;
 
+	void Awake ()
+	{
+		TargetCutoffFreq = 22000;
+	}
+
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
@@ -82,6 +96,9 @@ public class AudioController : MonoBehaviour
 
 	void Update ()
 	{
+		GetMasterLowPassValue ();
+		GetMasterResonanceValue ();
+
 		if (gameControllerScript.isPaused == false && 
 			timescaleControllerScript.isInInitialCountdownSequence == false && 
 			timescaleControllerScript.isInInitialSequence == false)
@@ -95,6 +112,34 @@ public class AudioController : MonoBehaviour
 			//BassTrack.pitch = 0.25f;
 			BassTargetPitch = Time.timeScale;
 			BassTrack.pitch = Mathf.Lerp (BassTrack.pitch, BassTargetPitch, PitchSmoothTime * Time.unscaledDeltaTime);
+		}
+
+		float SmoothLowFreqVal = Mathf.Lerp (curFreq, TargetCutoffFreq, CutoffFreqSmoothing * Time.unscaledDeltaTime);
+		AudioMix.SetFloat ("LowCutoffFrequency", SmoothLowFreqVal);
+
+		float SmoothResVal = Mathf.Lerp (curRes, TargetResonance, ResonanceSmoothing * Time.unscaledDeltaTime);
+		AudioMix.SetFloat ("Resonance", SmoothResVal);
+	}
+
+	public float GetMasterLowPassValue ()
+	{
+		bool curFreqResult = AudioMix.GetFloat ("LowCutoffFrequency", out curFreq);
+
+		if (curFreqResult) {
+			return curFreq;
+		} else {
+			return 0f;
+		}
+	}
+
+	public float GetMasterResonanceValue ()
+	{
+		bool curResResult = AudioMix.GetFloat ("Resonance", out curRes);
+
+		if (curResResult) {
+			return curRes;
+		} else {
+			return 0f;
 		}
 	}
 

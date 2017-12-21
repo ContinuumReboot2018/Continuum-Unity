@@ -594,7 +594,7 @@ public class GameController : MonoBehaviour
 		WaveText.text = "WAVE " + Wave;
 
 		int StartXPosId = Random.Range (0, BlockSpawnXPositions.Length);
-		int NextXPosId = StartXPosId;
+		//int NextXPosId = StartXPosId;
 
 		while (WaveTimeRemaining > 0) 
 		{

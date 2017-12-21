@@ -8,6 +8,7 @@ public class Block : MonoBehaviour
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
 	public TimescaleController timeScaleControllerScript;
+	public AudioController audioControllerScript;
 	public MeshRenderer rend;
 
 	[Header ("Stats")]
@@ -89,6 +90,9 @@ public class Block : MonoBehaviour
 	public float newCamShakeDuration = 0.1f;
 	public float newCamShakeAmount = 0.1f;
 
+	public float LowPassTargetFreq = 1500;
+	public float ResonanceTargetFreq = 1;
+
 	void Awake ()
 	{
 		rb = GetComponent<Rigidbody> ();
@@ -101,6 +105,7 @@ public class Block : MonoBehaviour
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
+		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 	}
 
@@ -149,6 +154,8 @@ public class Block : MonoBehaviour
 
 			if (gameControllerScript.Lives >= 1) 
 			{
+				SetTargetLowPassFreq (LowPassTargetFreq);
+				SetTargetResonance (ResonanceTargetFreq);
 				gameControllerScript.combo = 1;
 				timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
 				timeScaleControllerScript.OverridingTimeScale = 0.25f;
@@ -200,6 +207,16 @@ public class Block : MonoBehaviour
 
 		// Resets combo time.
 		gameControllerScript.comboTimeRemaining = gameControllerScript.comboDuration;
+	}
+
+	void SetTargetLowPassFreq (float lowPassFreq)
+	{
+		audioControllerScript.TargetCutoffFreq = lowPassFreq;
+	}
+
+	void SetTargetResonance (float resAmt)
+	{
+		audioControllerScript.TargetResonance = resAmt;
 	}
 
 	void DoCamShake ()

@@ -10265,7 +10265,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 680966673}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 960.00006, y: 0, z: 0}
+  m_LocalPosition: {x: 958.9655, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1074315503}
@@ -16699,7 +16699,7 @@ RectTransform:
   m_GameObject: {fileID: 1074315502}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -90}
-  m_LocalScale: {x: 0.022222223, y: 0.022222223, z: 0.022222223}
+  m_LocalScale: {x: 0.022246193, y: 0.022246193, z: 0.022246193}
   m_Children:
   - {fileID: 1314035617}
   - {fileID: 1092400648}
@@ -16933,6 +16933,13 @@ MonoBehaviour:
   saveAndLoadScript: {fileID: 0}
   updateVolumeAndPitches: 1
   Distance: 0
+  AudioMix: {fileID: 24100000, guid: 225559eda49a9e042ab15aab35cca149, type: 2}
+  curFreq: 22000
+  TargetCutoffFreq: 22000
+  CutoffFreqSmoothing: 2
+  curRes: 1
+  TargetResonance: 1
+  ResonanceSmoothing: 0.5
   BaseDistance: 1
   LowDistance: 5
   MediumDistance: 10
@@ -28861,8 +28868,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1816846808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 808, y: 454.5, z: 0}
-  m_LocalScale: {x: 0.84166664, y: 0.84166664, z: 0.84166664}
+  m_LocalPosition: {x: 360.5, y: 203, z: 0}
+  m_LocalScale: {x: 0.37592593, y: 0.37592593, z: 0.37592593}
   m_Children:
   - {fileID: 2023690795}
   - {fileID: 223707680}
@@ -29271,7 +29278,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1888853072}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960.00006, y: 0, z: 0}
+  m_LocalPosition: {x: -958.9655, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1074315503}

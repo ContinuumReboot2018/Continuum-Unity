@@ -164,9 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5ca2f7eacc8ee499648e986b2a0095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerControllerScript: {fileID: 0}
+  playerControllerScript_P1: {fileID: 0}
   gameControllerScript: {fileID: 0}
   timeScaleControllerScript: {fileID: 0}
+  audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   speed: -150
   OverwriteVelocity: 0
@@ -215,3 +216,5 @@ MonoBehaviour:
   camShakeScript: {fileID: 0}
   newCamShakeDuration: 0.2
   newCamShakeAmount: 0.2
+  LowPassTargetFreq: 400
+  ResonanceTargetFreq: 2.5

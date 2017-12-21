@@ -5,6 +5,7 @@ using InControl;
 using XInputDotNetPure;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
 
 public class PlayerController : MonoBehaviour 
 {
@@ -253,6 +254,8 @@ public class PlayerController : MonoBehaviour
 		canShoot = true;
 		UsePlayerFollow = true;
 		playerMesh.SetActive (true);
+		audioControllerScript.TargetCutoffFreq = 22000;
+		audioControllerScript.TargetResonance = 1;
 	}
 
 	public void EnablePlayerInput ()
@@ -273,13 +276,10 @@ public class PlayerController : MonoBehaviour
 				MovementY = playerActions.Move.Value.y;
 			}
 		}
-
-
 	}
 
 	void CheckAbilityTime ()
 	{
-		
 		// Updates the ability UI involved.
 		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbilityDuration;
 		AbilityFillImageL.fillAmount = 0.16f * AbilityTimeAmountProportion; // Fills to a sixth.
