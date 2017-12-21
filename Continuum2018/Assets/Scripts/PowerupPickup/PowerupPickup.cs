@@ -43,7 +43,7 @@ public class PowerupPickup : MonoBehaviour
 			{
 				if (IsInvoking ("CheckActivatePowerup") == false) 
 				{
-					Invoke("CheckActivatePowerup", 0.05f);
+					Invoke("CheckActivatePowerup", 0.01667f);
 				}
 			}
 		}
@@ -54,7 +54,7 @@ public class PowerupPickup : MonoBehaviour
 			{
 				if (IsInvoking ("CheckActivatePowerup") == false) 
 				{
-					Invoke("CheckActivatePowerup", 0.05f);
+					Invoke("CheckActivatePowerup", 0.01667f);
 				}
 			}
 		}
@@ -107,7 +107,6 @@ public class PowerupPickup : MonoBehaviour
 			switch (playerControllerScript_P1.DoubleShotIteration) 
 			{
 			case PlayerController.doubleShotIteration.Standard:
-				gameControllerScript.NextAvailablePowerupSlot_P1 += 1;
 				playerControllerScript_P1.powerupsInUse += 1; // Increases powerups in use on first iteration.
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];

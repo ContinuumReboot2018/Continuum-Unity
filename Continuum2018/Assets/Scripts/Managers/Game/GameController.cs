@@ -658,7 +658,7 @@ public class GameController : MonoBehaviour
 			yield return new WaitForSecondsRealtime (Random.Range (PowerupPickupSpawnRate, PowerupPickupSpawnRate * 2));
 			GameObject PowerupPickup = PowerupPickups[Random.Range (0, PowerupPickups.Length)];
 			Vector3 PowerupPickupSpawnPos = new Vector3 (Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), PowerupPickupSpawnY, 0);
-			Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.Euler (0, 0, 90));
+			Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.Euler (0, 180, 0));
 
 			yield return null;
 		}

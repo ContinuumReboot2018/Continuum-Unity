@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 54780075782019652}
   - component: {fileID: 114835695993013006}
   m_Layer: 9
-  m_Name: DoubleShotL
+  m_Name: DoubleShotL_Enhanced
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.02, z: 0.05}
+  m_Size: {x: 0.4, y: 0.1, z: 0.4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82990723350922720
 AudioSource:
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
-  BulletSpeed: 3500
+  BulletSpeed: 2000
   BulletRb: {fileID: 54780075782019652}
   BulletTypeName: DoubleShot
   Lifetime: 0
@@ -266,17 +266,17 @@ MonoBehaviour:
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
   movedEnough: 0
-  VelocityLimits: {x: -50, y: 50}
+  VelocityLimits: {x: -20000, y: 20000}
   allowBulletColDeactivate: 1
   BulletOuterParticles: {fileID: 198487507246269020}
   BulletCoreParticles: {fileID: 198470721190944236}
   AwakeAudio: {fileID: 82990723350922720}
   camShakeScript: {fileID: 0}
-  shakeDuration: 0.1
+  shakeDuration: 0.15
   shakeTimeRemaining: 0.2
-  shakeAmount: 0.1
+  shakeAmount: 0.15
   LeftMotorRumble: 0.2
-  RightMotorRumble: 0.1
+  RightMotorRumble: 0.2
   VibrationDuration: 0.15
 --- !u!114 &114834305301445172
 MonoBehaviour:
@@ -457,8 +457,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.66176474, g: 0.8320488, b: 1, a: 1}
-      maxColor: {r: 0.33823532, g: 0.8020615, b: 1, a: 1}
+      minColor: {r: 0.7252893, g: 0.118728384, b: 0.89705884, a: 1}
+      maxColor: {r: 0.33823532, g: 1, b: 0.673726, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -764,7 +764,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 200
+    maxNumParticles: 2000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -969,7 +969,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 12
+      scalar: 19
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -3691,7 +3691,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1209643180
+  randomSeed: -290002954
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3780,8 +3780,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.75735295, g: 0.8694726, b: 1, a: 1}
-      maxColor: {r: 0.31617647, g: 0.6321502, b: 1, a: 1}
+      minColor: {r: 0.75735295, g: 1, b: 0.8803662, a: 1}
+      maxColor: {r: 0.31617647, g: 1, b: 0.6628502, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -3843,7 +3843,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
+      scalar: 0.1
       minScalar: 0.1
       maxCurve:
         serializedVersion: 2
@@ -4087,7 +4087,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 500
+    maxNumParticles: 2000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -4292,7 +4292,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 18
+      scalar: 26
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5215,7 +5215,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0.7
+    dampen: 0.6
     drag:
       serializedVersion: 2
       minMaxState: 0

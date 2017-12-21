@@ -279,13 +279,14 @@ public class PlayerController : MonoBehaviour
 
 	void CheckAbilityTime ()
 	{
+		
 		// Updates the ability UI involved.
 		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbilityDuration;
 		AbilityFillImageL.fillAmount = 0.16f * AbilityTimeAmountProportion; // Fills to a sixth.
 		AbilityFillImageR.fillAmount = 0.16f * AbilityTimeAmountProportion; // Fills to a sixth.
 
 		// Player presses ability button.
-		if (playerActions.Ability.WasPressed) 
+		if (playerActions.Ability.WasPressed && gameControllerScript.isPaused == false) 
 		{
 			// Ability is charged.
 			if (CurrentAbilityState == abilityState.Ready && cooldownTimeRemaining <= 0 &&
@@ -319,7 +320,8 @@ public class PlayerController : MonoBehaviour
 		if (CurrentAbilityState == abilityState.Charging) 
 		{
 			if (CurrentAbilityTimeRemaining < CurrentAbilityDuration && cooldownTimeRemaining <= 0 &&
-				timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) 
+				timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false && 
+				gameControllerScript.isPaused == false) 
 			{
 				AbilityReadyText.text = "";
 				AbilityReadyBackground.enabled = false;
@@ -690,18 +692,22 @@ public class PlayerController : MonoBehaviour
 		playerActions.MoveLeft.AddDefaultBinding (Key.A);
 		playerActions.MoveLeft.AddDefaultBinding (Key.LeftArrow);
 		playerActions.MoveLeft.AddDefaultBinding (InputControlType.LeftStickLeft);
+		playerActions.MoveLeft.AddDefaultBinding (InputControlType.DPadLeft);
 
 		playerActions.MoveRight.AddDefaultBinding (Key.D);
 		playerActions.MoveRight.AddDefaultBinding (Key.RightArrow);
 		playerActions.MoveRight.AddDefaultBinding (InputControlType.LeftStickRight);
+		playerActions.MoveRight.AddDefaultBinding (InputControlType.DPadRight);
 
 		playerActions.MoveUp.AddDefaultBinding (Key.W);
 		playerActions.MoveUp.AddDefaultBinding (Key.UpArrow);
 		playerActions.MoveUp.AddDefaultBinding (InputControlType.LeftStickUp);
+		playerActions.MoveUp.AddDefaultBinding (InputControlType.DPadUp);
 
 		playerActions.MoveDown.AddDefaultBinding (Key.S);
 		playerActions.MoveDown.AddDefaultBinding (Key.DownArrow);
 		playerActions.MoveDown.AddDefaultBinding (InputControlType.LeftStickDown);
+		playerActions.MoveDown.AddDefaultBinding (InputControlType.DPadDown);
 
 		playerActions.Shoot.AddDefaultBinding (Key.Space);
 		playerActions.Shoot.AddDefaultBinding (Key.LeftControl);

@@ -29,7 +29,7 @@ public class SimpleFollow : MonoBehaviour
 	public Vector3 FollowRotOffset;
 	public Vector3 FollowRotSmoothTime;
 
-	void Update () 
+	void LateUpdate () 
 	{
 		if (FollowPosition == true) 
 		{
