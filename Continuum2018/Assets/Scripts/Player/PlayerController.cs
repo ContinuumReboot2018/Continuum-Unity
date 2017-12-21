@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 	public CursorManager cursorManagerScript;
 	public CameraShake camShakeScript;
 	public int PlayerId = 1;
+	public TextMeshProUGUI PlayerText;
+	public bool isJoined;
 
 	[Header ("Player Movement")]
 	[Range (-1, 1)]
@@ -108,7 +110,7 @@ public class PlayerController : MonoBehaviour
 	{
 		Standard = 0,
 		Enhanced = 1,
-		Faster = 2,
+		Rapid = 2,
 		Overdrive = 3
 	}
 	private float DoubleShotNextFire;
@@ -142,6 +144,7 @@ public class PlayerController : MonoBehaviour
 	{
 		Application.targetFrameRate = 60;
 		AbilityReadyText.text = "";
+		PlayerText.text = " ";
 		RefreshAbilityName ();
 	}
 
@@ -149,12 +152,14 @@ public class PlayerController : MonoBehaviour
 	{
 		CreatePlayerActions ();
 		AssignActionControls ();
+		InvokeRepeating ("CheckJoinState", 0, 0.5f);
 	}
 
 	public void StartCoroutines ()
 	{
 		StartCoroutine (CheckPause ());
 		StartCoroutine (CheckBulletType ());
+		PlayerText.text = "Player " + PlayerId;
 	}
 
 	void Update ()
@@ -167,6 +172,45 @@ public class PlayerController : MonoBehaviour
 		CheckAbilityTime ();
 	}
 
+	void FixedUpdate ()
+	{
+		MovePlayerPhysics ();
+	}
+
+	void MovePlayerPhysics ()
+	{
+		// This moves the transform position which the player will follow.
+		PlayerFollowRb.velocity = new Vector3 
+			(
+				MovementX * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
+				MovementY * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
+				0
+			);
+				
+		// Player follows [follow position] with smoothing.
+		PlayerRb.position = new Vector3 (
+			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
+			Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
+			0
+		);
+
+		// Rotates on y-axis by x velocity.
+		PlayerRb.rotation = Quaternion.Euler
+			(
+				0, 
+				Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, SmoothFollowTime * Time.unscaledDeltaTime) * YRotationMultiplier, -YRotationAmount, YRotationAmount), 
+				0
+			);
+
+		// Clamps the bounds of the player follow transform.
+		PlayerFollow.position = new Vector3 
+			(
+				Mathf.Clamp (PlayerFollow.position.x, XBounds.x, XBounds.y),
+				Mathf.Clamp (PlayerFollow.position.y, YBounds.x, YBounds.y),
+				0
+			);
+	}
+		
 	void CheckCooldownTime ()
 	{
 		if (isInCooldownMode == true)
@@ -227,39 +271,10 @@ public class PlayerController : MonoBehaviour
 				// Reads movement input on two axis.
 				MovementX = playerActions.Move.Value.x;
 				MovementY = playerActions.Move.Value.y;
-
-				// This moves the transform position which the player will follow.
-				PlayerFollowRb.velocity = new Vector3 
-				(
-					MovementX * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
-					MovementY * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
-					0
-				);
-						
-				// Player follows [follow position] with smoothing.
-				PlayerRb.position = new Vector3 (
-					Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
-					Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
-					0
-				);
 			}
 		}
 
-		// Rotates on y-axis by x velocity.
-		PlayerRb.rotation = Quaternion.Euler
-			(
-				0, 
-				Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, 10 * Time.deltaTime) * YRotationMultiplier, -YRotationAmount, YRotationAmount), 
-				0
-			);
 
-		// Clamps the bounds of the player follow transform.
-		PlayerFollow.position = new Vector3 
-			(
-				Mathf.Clamp (PlayerFollow.position.x, XBounds.x, XBounds.y),
-				Mathf.Clamp (PlayerFollow.position.y, YBounds.x, YBounds.y),
-				0
-			);
 	}
 
 	void CheckAbilityTime ()
@@ -464,15 +479,15 @@ public class PlayerController : MonoBehaviour
 					doubleshotLEnhanced.name = "Double ShotL_P" + PlayerId + " (Enhanced)";
 					doubleshotREnhanced.name = "Double ShotR_P" + PlayerId + " (Enhanced)";
 					break;
-				case doubleShotIteration.Faster:
-					GameObject doubleshotLFaster = Instantiate (DoubleShotLEnhanced, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
-					GameObject doubleshotRFaster = Instantiate (DoubleShotREnhanced, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
-					doubleshotLFaster.GetComponent<Bullet> ().playerControllerScript = this;
-					doubleshotLFaster.GetComponent<Bullet> ().playerPos = playerCol.transform;
-					doubleshotRFaster.GetComponent<Bullet> ().playerControllerScript = this;
-					doubleshotRFaster.GetComponent<Bullet> ().playerPos = playerCol.transform;
-					doubleshotLFaster.name = "Double ShotL_P" + PlayerId + " (Faster)";
-					doubleshotRFaster.name = "Double ShotR_P" + PlayerId + " (Faster)";
+				case doubleShotIteration.Rapid:
+					GameObject doubleshotLRapid = Instantiate (DoubleShotLEnhanced, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
+					GameObject doubleshotRRapid = Instantiate (DoubleShotREnhanced, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
+					doubleshotLRapid.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotLRapid.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotRRapid.GetComponent<Bullet> ().playerControllerScript = this;
+					doubleshotRRapid.GetComponent<Bullet> ().playerPos = playerCol.transform;
+					doubleshotLRapid.name = "Double ShotL_P" + PlayerId + " (Rapid)";
+					doubleshotRRapid.name = "Double ShotR_P" + PlayerId + " (Rapid)";
 					break;
 				case doubleShotIteration.Overdrive:
 					GameObject doubleshotLOverdrive = Instantiate (DoubleShotLOverdrive, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
@@ -645,6 +660,22 @@ public class PlayerController : MonoBehaviour
 		CurrentFireRate = StandardFireRate;
 		DoubleShotIteration = doubleShotIteration.Standard;
 		NextDoubleShotIteration = 0;
+
+		gameControllerScript.PowerupShootingImage_P1.texture = null; // Replace with standard shot texture.
+		gameControllerScript.PowerupShootingImage_P1.color = new Color (0, 0, 0, 0); // Replace with full color once standard shot texture is in.
+		gameControllerScript.PowerupShootingText_P1.text = " ";
+
+		gameControllerScript.PowerupOneImage_P1.texture = null;
+		gameControllerScript.PowerupOneImage_P1.color = new Color (0, 0, 0, 0);
+		gameControllerScript.PowerupOneText_P1.text = " ";
+
+		gameControllerScript.PowerupTwoImage_P1.texture = null;
+		gameControllerScript.PowerupTwoImage_P1.color = new Color (0, 0, 0, 0);
+		gameControllerScript.PowerupTwoText_P1.text = " ";
+
+		gameControllerScript.PowerupThreeImage_P1.texture = null;
+		gameControllerScript.PowerupThreeImage_P1.color = new Color (0, 0, 0, 0);
+		gameControllerScript.PowerupThreeText_P1.text = " ";
 	}
 
 	// This is for InControl for initialization.
@@ -718,4 +749,22 @@ public class PlayerController : MonoBehaviour
 	{
 		GamePad.SetVibration (PlayerIndex.One, 0, 0);
 	}
+
+	void CheckJoinState ()
+	{
+		if (this.enabled == true) 
+		{
+			isJoined = true;
+		}
+	}
+
+	void OnDisable ()
+	{
+		if (isJoined == true) 
+		{
+			isJoined = false;
+			PlayerText.text = " ";
+		}
+	}
+
 }

@@ -133,7 +133,7 @@ public class Bullet : MonoBehaviour
 			case PlayerController.doubleShotIteration.Enhanced:
 				allowBulletColDeactivate = true;
 				break;
-			case PlayerController.doubleShotIteration.Faster:
+			case PlayerController.doubleShotIteration.Rapid:
 				allowBulletColDeactivate = true;
 				break;
 			case PlayerController.doubleShotIteration.Overdrive:

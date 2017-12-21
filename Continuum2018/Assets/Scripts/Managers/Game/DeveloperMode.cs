@@ -30,6 +30,8 @@ public class DeveloperMode : MonoBehaviour
 	public TextMeshProUGUI CheatNotifcationText;
 	public GameObject CheatSound;
 
+	public Texture2D DoubleShotTexture;
+
 	[Header ("Debug Menu")]
 	public bool showDebugMenu;
 	public GameObject DebugMenu;
@@ -225,6 +227,10 @@ public class DeveloperMode : MonoBehaviour
 				{
 					playerControllerScript_P1.NextDoubleShotIteration += 1;
 				}
+
+				gameControllerScript.PowerupShootingImage_P1.texture = DoubleShotTexture;
+				gameControllerScript.PowerupShootingImage_P1.color = new Color (1, 1, 1, 1);
+				gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.DoubleShotIteration.ToString ();
 
 				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT");
 			}

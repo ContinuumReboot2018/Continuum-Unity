@@ -76,6 +76,41 @@ public class GameController : MonoBehaviour
 	public float PowerupPickupSpawnRangeX;
 	public float PowerupPickupSpawnY;
 
+	// UI for powerup list
+	public int NextAvailablePowerupSlot_P1;
+	public RawImage PowerupShootingImage_P1;
+	public TextMeshProUGUI PowerupShootingText_P1;
+
+	public bool PowerupOneOccupied_P1;
+	public RawImage PowerupOneImage_P1;
+	public TextMeshProUGUI PowerupOneText_P1;
+
+	public bool PowerupTwoOccupied_P1;
+	public RawImage PowerupTwoImage_P1;
+	public TextMeshProUGUI PowerupTwoText_P1;
+
+	public bool PowerupThreeOccupied_P1;
+	public RawImage PowerupThreeImage_P1;
+	public TextMeshProUGUI PowerupThreeText_P1;
+
+	// UI for powerup list
+	public int NextAvailablePowerupSlot_P2;
+	public RawImage PowerupShootingImage_P2;
+	public TextMeshProUGUI PowerupShootingText_P2;
+
+	public bool PowerupOneOccupied_P2;
+	public RawImage PowerupOneImage_P2;
+	public TextMeshProUGUI PowerupOneText_P2;
+
+	public bool PowerupTwoOccupied_P2;
+	public RawImage PowerupTwoImage_P2;
+	public TextMeshProUGUI PowerupTwoText_P2;
+
+	public bool PowerupThreeOccupied_P2;
+	public RawImage PowerupThreeImage_P2;
+	public TextMeshProUGUI PowerupThreeText_P2;
+
+
 	[Header ("Pausing")]
 	public bool isPaused;
 	public float PauseCooldown = 1;
@@ -122,6 +157,7 @@ public class GameController : MonoBehaviour
 
 	void Awake () 
 	{
+		StartPowerupUI ();
 		ScoreText.text = "";
 		ScoreBackground.enabled = false;
 
@@ -138,6 +174,42 @@ public class GameController : MonoBehaviour
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
+	}
+
+	void StartPowerupUI ()
+	{
+		PowerupShootingImage_P1.texture = null;
+		PowerupShootingImage_P1.color = new Color (0, 0, 0, 0);
+		PowerupShootingText_P1.text = " ";
+
+		PowerupOneImage_P1.texture = null;
+		PowerupOneImage_P1.color = new Color (0, 0, 0, 0);
+		PowerupOneText_P1.text = " ";
+
+		PowerupTwoImage_P1.texture = null;
+		PowerupTwoImage_P1.color = new Color (0, 0, 0, 0);
+		PowerupTwoText_P1.text = " ";
+
+		PowerupThreeImage_P1.texture = null;
+		PowerupThreeImage_P1.color = new Color (0, 0, 0, 0);
+		PowerupThreeText_P1.text = " ";
+
+
+		PowerupShootingImage_P2.texture = null;
+		PowerupShootingImage_P2.color = new Color (0, 0, 0, 0);
+		PowerupShootingText_P2.text = " ";
+
+		PowerupOneImage_P2.texture = null;
+		PowerupOneImage_P2.color = new Color (0, 0, 0, 0);
+		PowerupOneText_P2.text = " ";
+
+		PowerupTwoImage_P2.texture = null;
+		PowerupTwoImage_P2.color = new Color (0, 0, 0, 0);
+		PowerupTwoText_P2.text = " ";
+
+		PowerupThreeImage_P2.texture = null;
+		PowerupThreeImage_P2.color = new Color (0, 0, 0, 0);
+		PowerupThreeText_P2.text = " ";
 	}
 
 	void Start ()
@@ -373,10 +445,13 @@ public class GameController : MonoBehaviour
 
 	void UpdateTimeStats ()
 	{
-		Distance = timescaleControllerScript.Distance;
-		GameTime += Time.deltaTime;
-		RealTime += Time.unscaledDeltaTime;
-		TimeRatio = GameTime / RealTime;
+		if (isPaused == false) 
+		{
+			Distance = timescaleControllerScript.Distance;
+			GameTime += Time.deltaTime;
+			RealTime += Time.unscaledDeltaTime;
+			TimeRatio = GameTime / RealTime;
+		}
 	}
 
 	public void ResetScore ()

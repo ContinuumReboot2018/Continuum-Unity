@@ -100,12 +100,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameControllerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
+  PowerupTexture: {fileID: 2800000, guid: d2330acab737d8c47aa9888fca6f46ea, type: 3}
+  isShootingPowerup: 1
   ThisPowerup: 0
   PowerupTime: 20
   CollectExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
     type: 2}
   PowerupDeathExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
     type: 2}
+  PowerupUI: {fileID: 0}
 --- !u!114 &114275464952189920
 MonoBehaviour:
   m_ObjectHideFlags: 1
