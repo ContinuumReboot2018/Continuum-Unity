@@ -232,7 +232,7 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.PowerupShootingImage_P1.color = new Color (1, 1, 1, 1);
 				gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.DoubleShotIteration.ToString ();
 
-				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT");
+				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT: " + playerControllerScript_P1.DoubleShotIteration.ToString ());
 			}
 		}
 	}
@@ -243,6 +243,7 @@ public class DeveloperMode : MonoBehaviour
 		CheatNotifcationText.text = cheatText;
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
 		ClearCheatString ();
+		Debug.Log (cheatText);
 	}
 
 	void ShowCheatNotification (string cheatText)
@@ -252,5 +253,6 @@ public class DeveloperMode : MonoBehaviour
 		CheatNotifcationText.text = cheatText;
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
 		ClearCheatString ();
+		Debug.Log (cheatText);
 	}
 }

@@ -136,6 +136,7 @@ public class Block : MonoBehaviour
 				{
 					other.GetComponent<Bullet> ().BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
 					other.GetComponent<Bullet> ().BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+					other.GetComponent<Bullet> ().BulletCol.enabled = false;
 					other.GetComponent<Bullet> ().StartCoroutine (other.GetComponent<Bullet> ().DestroyDelay ());
 				}
 			}

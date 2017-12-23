@@ -127,7 +127,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false) 
 		{
-			Debug.Log ("Unable to load from " +
+			Debug.LogWarning ("Unable to load from " +
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 		}
 	}
@@ -244,7 +244,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == false) 
 		{
-			Debug.Log ("Unable to load from " +
+			Debug.LogWarning ("Unable to load from " +
 				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 		}
 	}

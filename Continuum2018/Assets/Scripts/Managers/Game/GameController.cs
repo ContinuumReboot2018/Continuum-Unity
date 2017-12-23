@@ -244,6 +244,7 @@ public class GameController : MonoBehaviour
 		UpdateTimeStats ();
 		CheckCombo ();
 		CheckPowerupTime ();
+		//CheckOrthSize ();
 	}
 
 	IEnumerator UpdateStarFieldparticleEffectTrail ()
@@ -393,7 +394,7 @@ public class GameController : MonoBehaviour
 	{
 		if (comboTimeRemaining > 0) 
 		{
-			comboTimeRemaining -= Time.unscaledDeltaTime * (1f * combo);
+			comboTimeRemaining -= Time.unscaledDeltaTime * combo;
 		}
 
 		// Decrements a combo when the timer runs out and resets.
@@ -566,10 +567,10 @@ public class GameController : MonoBehaviour
 
 	void CheckOrthSize ()
 	{
-		//OrthSize = -0.27f * (timeScaleControllerScript.Distance) + 10;
-		//OrthSize = 4 * Mathf.Sin (0.17f * timeScaleControllerScript.Distance) + 8;
+		OrthSize = -0.27f * (timescaleControllerScript.Distance) + 10;
+		OrthSize = 4 * Mathf.Sin (0.17f * timescaleControllerScript.Distance) + 8;
 
-		//MainCamera.orthographicSize = Mathf.SmoothDamp (MainCamera.orthographicSize, OrthSize, ref OrthSizeVel, OrthSizeSmoothTime * Time.deltaTime);
+		MainCamera.orthographicSize = Mathf.SmoothDamp (MainCamera.orthographicSize, OrthSize, ref OrthSizeVel, OrthSizeSmoothTime * Time.deltaTime);
 	}
 
 	public IEnumerator LevelTimer ()

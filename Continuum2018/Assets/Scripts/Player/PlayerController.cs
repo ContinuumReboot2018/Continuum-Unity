@@ -187,7 +187,15 @@ public class PlayerController : MonoBehaviour
 				MovementY * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
 				0
 			);
-				
+	}
+
+	void LateUpdate ()
+	{
+		MovePlayerSmoothing ();
+	}
+
+	void MovePlayerSmoothing ()
+	{
 		// Player follows [follow position] with smoothing.
 		PlayerRb.position = new Vector3 (
 			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
@@ -269,7 +277,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (UsePlayerFollow == true) 
 		{
-			if (gameControllerScript.isPaused == false)// && cooldownTimeRemaining <= 0) 
+			if (gameControllerScript.isPaused == false)
 			{
 				// Reads movement input on two axis.
 				MovementX = playerActions.Move.Value.x;
