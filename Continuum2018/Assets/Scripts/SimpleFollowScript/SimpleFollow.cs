@@ -50,9 +50,38 @@ public class SimpleFollow : MonoBehaviour
 		{
 			transform.position = new Vector3 
 				(
-					Mathf.Clamp (Mathf.Lerp (transform.position.x, FollowPosX.position.x + FollowPosOffset.x, FollowPosSmoothTime.x * Time.deltaTime), PosBoundsX.x, PosBoundsX.y),
-					Mathf.Clamp (Mathf.Lerp (transform.position.y, FollowPosY.position.y + FollowPosOffset.y, FollowPosSmoothTime.y * Time.deltaTime), PosBoundsY.x, PosBoundsY.y),
-					Mathf.Clamp (Mathf.Lerp (transform.position.z, FollowPosZ.position.z + FollowPosOffset.z, FollowPosSmoothTime.z * Time.deltaTime), PosBoundsZ.x, PosBoundsZ.y)
+					// X position.
+					Mathf.Clamp (
+						Mathf.Lerp (
+							transform.position.x, 
+							FollowPosX.position.x + FollowPosOffset.x, 
+							FollowPosSmoothTime.x * Time.unscaledDeltaTime), 
+
+						PosBoundsX.x, 
+						PosBoundsX.y
+					),
+
+					// Y position.
+					Mathf.Clamp (
+						Mathf.Lerp (
+							transform.position.y, 
+							FollowPosY.position.y + FollowPosOffset.y, 
+							FollowPosSmoothTime.y * Time.unscaledDeltaTime), 
+
+						PosBoundsY.x, 
+						PosBoundsY.y
+					),
+
+					// Z position.
+					Mathf.Clamp (
+						Mathf.Lerp (
+							transform.position.z, 
+							FollowPosZ.position.z + FollowPosOffset.z, 
+							FollowPosSmoothTime.z * Time.unscaledDeltaTime), 
+
+						PosBoundsZ.x, 
+						PosBoundsZ.y
+					)
 				);
 		}
 
@@ -60,9 +89,41 @@ public class SimpleFollow : MonoBehaviour
 		{
 			transform.position = new Vector3 
 				(
-					Mathf.Clamp(Mathf.SmoothDamp (transform.position.x, FollowPosX.position.x + FollowPosOffset.x, ref FollowPosVelX, FollowPosSmoothTime.x * Time.deltaTime), PosBoundsX.x, PosBoundsX.y),
-					Mathf.Clamp(Mathf.SmoothDamp (transform.position.y, FollowPosY.position.y + FollowPosOffset.y, ref FollowPosVelY, FollowPosSmoothTime.y * Time.deltaTime), PosBoundsY.x, PosBoundsY.y),
-					Mathf.Clamp(Mathf.SmoothDamp (transform.position.z, FollowPosZ.position.z + FollowPosOffset.z, ref FollowPosVelZ, FollowPosSmoothTime.z * Time.deltaTime), PosBoundsZ.x, PosBoundsZ.y)
+					// X position.
+					Mathf.Clamp (
+						Mathf.SmoothDamp (
+							transform.position.x, 
+							FollowPosX.position.x + FollowPosOffset.x, 
+							ref FollowPosVelX, 
+							FollowPosSmoothTime.x * Time.unscaledDeltaTime), 
+
+						PosBoundsX.x, 
+						PosBoundsX.y
+					),
+
+					// Y position.
+					Mathf.Clamp (
+						Mathf.SmoothDamp (
+							transform.position.y, 
+							FollowPosY.position.y + FollowPosOffset.y, 
+							ref FollowPosVelY, 
+							FollowPosSmoothTime.y * Time.unscaledDeltaTime), 
+
+						PosBoundsY.x, 
+						PosBoundsY.y
+					),
+
+					// Z position.
+					Mathf.Clamp (
+						Mathf.SmoothDamp (
+							transform.position.z, 
+							FollowPosZ.position.z + FollowPosOffset.z, 
+							ref FollowPosVelZ, 
+							FollowPosSmoothTime.z * Time.unscaledDeltaTime), 
+
+						PosBoundsZ.x, 
+						PosBoundsZ.y
+					)
 				);
 		}
 	}
@@ -89,9 +150,20 @@ public class SimpleFollow : MonoBehaviour
 	{
 		Vector3 RotationAngle = new Vector3 
 			(
-				Mathf.LerpAngle (transform.eulerAngles.x, FollowRotX.eulerAngles.x + FollowRotOffset.x, FollowRotSmoothTime.x * Time.deltaTime),
-				Mathf.LerpAngle (transform.eulerAngles.y, FollowRotY.eulerAngles.y + FollowRotOffset.y, FollowRotSmoothTime.y * Time.deltaTime),
-				Mathf.LerpAngle (transform.eulerAngles.z, FollowRotZ.eulerAngles.z + FollowRotOffset.z, FollowRotSmoothTime.z * Time.deltaTime)
+				Mathf.LerpAngle (
+					transform.eulerAngles.x, 
+					FollowRotX.eulerAngles.x + FollowRotOffset.x, 
+					FollowRotSmoothTime.x * Time.unscaledDeltaTime),
+				
+				Mathf.LerpAngle (
+					transform.eulerAngles.y, 
+					FollowRotY.eulerAngles.y + FollowRotOffset.y, 
+					FollowRotSmoothTime.y * Time.unscaledDeltaTime),
+				
+				Mathf.LerpAngle (
+					transform.eulerAngles.z, 
+					FollowRotZ.eulerAngles.z + FollowRotOffset.z, 
+					FollowRotSmoothTime.z * Time.unscaledDeltaTime)
 			);
 
 		transform.rotation = Quaternion.Euler(RotationAngle);

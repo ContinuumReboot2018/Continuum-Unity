@@ -33,7 +33,10 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - WebGL
+    - Android
+    - iPhone
   - serializedVersion: 2
     name: High End
     pixelLightCount: 2
@@ -54,7 +57,7 @@ QualitySettings:
     softVegetation: 0
     realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 0
-    vSyncCount: 1
+    vSyncCount: 0
     lodBias: 0.3
     maximumLODLevel: 0
     particleRaycastBudget: 4
@@ -70,7 +73,7 @@ QualitySettings:
     PSM: 0
     PSP2: 0
     Samsung TV: 0
-    Standalone: 0
+    Standalone: 1
     Tizen: 0
     WebGL: 0
     WiiU: 0

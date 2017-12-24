@@ -109,11 +109,11 @@ public class Block : MonoBehaviour
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 	}
 
-	void Update () 
+	void FixedUpdate () 
 	{
 		if (OverwriteVelocity == false) 
 		{
-			rb.velocity = new Vector3 (0, speed * Time.deltaTime * Time.timeScale, 0);
+			rb.velocity = new Vector3 (0, speed * Time.fixedDeltaTime * Time.timeScale, 0);
 		}
 
 		if (transform.position.y < MinYPos) 

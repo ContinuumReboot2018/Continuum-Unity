@@ -13,6 +13,7 @@ public class DeveloperMode : MonoBehaviour
 	public LocalSceneLoader localSceneLoaderScript;
 	public AudioController audioControllerScript;
 	public SaveAndLoadScript saveAndLoadScript;
+	public TargetFPS targetFramerateScript;
 
 	[Header ("Cheats")]
 	public string CheatString;
@@ -133,6 +134,36 @@ public class DeveloperMode : MonoBehaviour
 				localSceneLoaderScript.sceneLoaderScript.SceneName = SceneManager.GetActiveScene().name;
 				localSceneLoaderScript.sceneLoaderScript.StartLoadSequence ();
 				ShowCheatNotification ("");
+			}
+
+			if (CheatString == "fps-1") 
+			{
+				targetFramerateScript.SetTargetFramerate (-1);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: -1");
+			}
+
+			if (CheatString == "fps60") 
+			{
+				targetFramerateScript.SetTargetFramerate (60);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 60");
+			}
+
+			if (CheatString == "fps30") 
+			{
+				targetFramerateScript.SetTargetFramerate (30);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 30");
+			}
+
+			if (CheatString == "fps90") 
+			{
+				targetFramerateScript.SetTargetFramerate (90);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 90");
+			}
+
+			if (CheatString == "fps120") 
+			{
+				targetFramerateScript.SetTargetFramerate (120);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 120");
 			}
 
 			if (CheatString == "nexttrack") 

@@ -10,4 +10,9 @@ public class TargetFPS : MonoBehaviour
 	{
 		Application.targetFrameRate = targetFramerate; 
 	}
+
+	public void SetTargetFramerate (int framerate)
+	{
+		Application.targetFrameRate = framerate; 
+	}
 }

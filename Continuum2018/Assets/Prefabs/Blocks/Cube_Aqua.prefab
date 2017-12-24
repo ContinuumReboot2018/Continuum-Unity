@@ -171,11 +171,11 @@ MonoBehaviour:
   rend: {fileID: 0}
   speed: -150
   OverwriteVelocity: 0
-  AquaSpeed: -250
-  BlueSpeed: -350
-  GreenSpeed: -450
-  PurpleSpeed: -550
-  PinkSpeed: -650
+  AquaSpeed: -650
+  BlueSpeed: -750
+  GreenSpeed: -850
+  PurpleSpeed: -950
+  PinkSpeed: -1050
   AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
   BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
   GreenMat: {fileID: 2100000, guid: 56fec50062bff284fa9a26dcec179845, type: 2}

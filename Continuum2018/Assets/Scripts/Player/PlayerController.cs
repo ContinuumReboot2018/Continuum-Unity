@@ -183,8 +183,8 @@ public class PlayerController : MonoBehaviour
 		// This moves the transform position which the player will follow.
 		PlayerFollowRb.velocity = new Vector3 
 			(
-				MovementX * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
-				MovementY * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
+				MovementX * PlayerFollowMoveSpeed * Time.fixedDeltaTime * (1 / (Time.timeScale + 0.1f)),
+				MovementY * PlayerFollowMoveSpeed * Time.fixedDeltaTime * (1 / (Time.timeScale + 0.1f)),
 				0
 			);
 	}
@@ -198,8 +198,8 @@ public class PlayerController : MonoBehaviour
 	{
 		// Player follows [follow position] with smoothing.
 		PlayerRb.position = new Vector3 (
-			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
-			Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
+			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.fixedDeltaTime),
+			Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.fixedDeltaTime),
 			0
 		);
 

@@ -36,12 +36,12 @@ public class HiResScreenShots : MonoBehaviour
 
 	void LateUpdate() 
 	{
-		if (Input.GetKeyDown (KeyCode.Alpha9))
+		if (Input.GetKeyDown (KeyCode.F9))
 		{
 			TakeHiResShot ();
 		}
 
-		if (Input.GetKeyDown (KeyCode.Alpha8)) 
+		if (Input.GetKeyDown (KeyCode.F8)) 
 		{
 			TakeHiDoubleResShot ();
 		}
