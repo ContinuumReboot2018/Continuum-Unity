@@ -58,18 +58,19 @@ public class Bullet : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		BulletRb.velocity = transform.InverseTransformDirection (
-				new Vector3 (
+		BulletRb.velocity = transform.InverseTransformDirection 
+		(
+				new Vector3 
+				(
 					0, 
-				Mathf.Clamp(BulletSpeed * Time.fixedDeltaTime * (6 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
+					Mathf.Clamp(BulletSpeed * Time.fixedDeltaTime * (6 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
 					0
-				));
+				)
+		);
 		
 		Lifetime += Time.unscaledDeltaTime;
 		CheckForDestroy ();
-
 		CheckForColliderDeactivate ();
-
 		CheckColActivate ();
 	}
 

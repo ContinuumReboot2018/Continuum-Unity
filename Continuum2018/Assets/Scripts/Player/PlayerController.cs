@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
 	void Awake ()
 	{
-		Application.targetFrameRate = 60;
+		//Application.targetFrameRate = 60;
 		AbilityReadyText.text = "";
 		PlayerText.text = " ";
 		RefreshAbilityName ();
