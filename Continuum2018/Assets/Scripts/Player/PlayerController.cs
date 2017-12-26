@@ -250,10 +250,15 @@ public class PlayerController : MonoBehaviour
 	public void StartCooldown ()
 	{
 		isInCooldownMode = true;
+		UsePlayerFollow = false;
+		playerCol.transform.localPosition = Vector3.zero;
+		PlayerFollow.transform.localPosition = Vector3.zero;
+		playerMesh.transform.localPosition = Vector3.zero;
 	}
 
 	void EnableCollider ()
 	{
+		UsePlayerFollow = true;
 		playerCol.enabled = true;
 	}
 
@@ -359,11 +364,11 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		lensScript.radius = Mathf.Lerp (lensScript.radius, TargetLensRadius, LensRadiusSmoothTime * Time.deltaTime);
+		lensScript.radius = Mathf.Lerp (lensScript.radius, TargetLensRadius, LensRadiusSmoothTime * Time.unscaledDeltaTime);
 		Shield.transform.localScale = new Vector3 (
-			Mathf.Lerp(Shield.transform.localScale.x, TargetShieldScale, ShieldScaleSmoothTime * Time.deltaTime), 
-			Mathf.Lerp(Shield.transform.localScale.y, TargetShieldScale, ShieldScaleSmoothTime * Time.deltaTime), 
-			Mathf.Lerp(Shield.transform.localScale.z, TargetShieldScale, ShieldScaleSmoothTime * Time.deltaTime)
+			Mathf.Lerp (Shield.transform.localScale.x, TargetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime), 
+			Mathf.Lerp (Shield.transform.localScale.y, TargetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime), 
+			Mathf.Lerp (Shield.transform.localScale.z, TargetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime)
 		);
 	}
 
@@ -391,7 +396,7 @@ public class PlayerController : MonoBehaviour
 			isShieldOn = false;
 			TargetLensRadius = 0;
 			TargetShieldScale = 0;
-			Invoke ("DeactivateShield", 3);
+			Invoke ("DeactivateShield", 1);
 			break;
 		case ability.Emp:
 			break;

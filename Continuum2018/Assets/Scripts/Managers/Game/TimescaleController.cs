@@ -9,6 +9,7 @@ public class TimescaleController : MonoBehaviour
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
 	public LocalSceneLoader localSceneLoaderScript;
+	public FPSCounter fpsCounterScript;
 
 	[Header ("Read Only")]
 	public float TimeScaleView;
@@ -97,7 +98,8 @@ public class TimescaleController : MonoBehaviour
 					
 				// Updates fixed time step based on time scale.
 				Time.fixedDeltaTime = Time.timeScale * 0.005f;
-				Time.maximumParticleDeltaTime = Time.timeScale * 0.01f;
+				//Time.fixedDeltaTime = Time.timeScale / (fpsCounterScript.FramesPerSec * 4);
+				Time.maximumParticleDeltaTime = Time.timeScale * 0.005f;
 			}
 		}
 	}

@@ -154,6 +154,7 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI FixedTimeStepText_Debug;
 	public TextMeshProUGUI TargetScoreText_Debug;
 	public TextMeshProUGUI SpawnWaitText_Debug;
+	public TextMeshProUGUI WaveTimeRemainingText_Debug;
 
 	void Awake () 
 	{
@@ -244,6 +245,7 @@ public class GameController : MonoBehaviour
 		UpdateTimeStats ();
 		CheckCombo ();
 		CheckPowerupTime ();
+		UpdateScoreIncrements ();
 		//CheckOrthSize ();
 	}
 
@@ -272,26 +274,22 @@ public class GameController : MonoBehaviour
 				TargetScoreText_Debug.text = "Target Score: " + Mathf.Round (TargetScore);
 				ComboText_Debug.text = "Combo: " + combo; 
 				DistanceText_Debug.text = "Distance: " + System.Math.Round (Distance, 2);
-
 				GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
 				RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
 				TimeRatioText_Debug.text = "Time Ratio: " + System.Math.Round (TimeRatio, 2);
-
 				TargetPitch_Debug.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
 				CurrentPitch_Debug.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
-
 				TimeScaleText_Debug.text = "Time Scale: " + System.Math.Round (Time.timeScale, 2);
 				FixedTimeStepText_Debug.text = "Fixed Time Step: " + System.Math.Round (Time.fixedDeltaTime, 5);
-
 				SpawnWaitText_Debug.text = "Spawn Rate: " + BlockSpawnRate;
-
+				WaveTimeRemainingText_Debug.text = "Wave Time Remain: " + System.Math.Round (WaveTimeRemaining, 1) + " s";
 				P1_CurrentFireRate.text = "P1 Fire Rate: " + playerControllerScript_P1.CurrentFireRate;
 				P1_Ability.text = "P1 Ability: " + playerControllerScript_P1.AbilityName;
 				P1_AbilityTimeRemaining.text = "P1 Ability Remain: " + System.Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
 				P1_AbilityTimeDuration.text = "P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
 				P1_AbilityTimeProportion.text = "P1 Ability Fill: " + System.Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
-				P1_DoubleShotIteration.text = "Double Shot Stage: " + playerControllerScript_P1.DoubleShotIteration.ToString ();
-				P1_DoubleShotIterationNumber.text = "Double Shot Iteration: " + playerControllerScript_P1.NextDoubleShotIteration;
+				P1_DoubleShotIteration.text = "P1 Double Shot Stage: " + playerControllerScript_P1.DoubleShotIteration.ToString ();
+				P1_DoubleShotIterationNumber.text = "P1 Double Shot Iteration: " + playerControllerScript_P1.NextDoubleShotIteration;
 			}
 		}
 	}
@@ -577,8 +575,10 @@ public class GameController : MonoBehaviour
 	{
 		while (WaveTimeRemaining > 0) 
 		{
-			WaveTimeRemaining -= Time.deltaTime;
-			UpdateScoreIncrements ();
+			if (playerControllerScript_P1.isInCooldownMode == false && isPaused == false) 
+			{
+				WaveTimeRemaining -= Time.deltaTime;
+			}
 			yield return null;
 		}
 	}
@@ -594,12 +594,12 @@ public class GameController : MonoBehaviour
 	{
 		WaveText.text = "WAVE " + Wave;
 
-		int StartXPosId = Random.Range (0, BlockSpawnXPositions.Length);
+		//int StartXPosId = Random.Range (0, BlockSpawnXPositions.Length);
 		//int NextXPosId = StartXPosId;
 
 		while (WaveTimeRemaining > 0) 
 		{
-			if (Time.time > NextBlockSpawn)
+			if (Time.time > NextBlockSpawn && playerControllerScript_P1.isInCooldownMode == false && isPaused == false)
 			{
 				GameObject Block = Blocks [Random.Range (0, Blocks.Length)];
 
