@@ -2517,7 +2517,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 2
       minColor: {r: 0.07352942, g: 0.57829624, b: 1, a: 0.947}
-      maxColor: {r: 0.2794118, g: 0.49310344, b: 1, a: 0.941}
+      maxColor: {r: 0.68387765, g: 0.78416586, b: 1.0220588, a: 0.941}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -15691,7 +15691,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.16
+  m_FillAmount: 0.159
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!114 &911121450
@@ -18601,8 +18601,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288610107
-  m_fontColor: {r: 0.2352941, g: 1, b: 0.62297225, a: 1}
+    rgba: 4289331017
+  m_fontColor: {r: 0.28762978, g: 1.0294118, b: 0.66368634, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -20069,7 +20069,7 @@ MonoBehaviour:
   - {fileID: 1750224001074990, guid: 1938bcd0a1e1eab47a28123cb1b57947, type: 2}
   - {fileID: 1750224001074990, guid: ef8131cf54cbe064694425710ceab07d, type: 2}
   - {fileID: 1750224001074990, guid: d83b7ab5dbead6b4198eaa6cb15f6e8e, type: 2}
-  BlockSpawnRate: 0.25
+  BlockSpawnRate: 0.5
   BlockSpawnXPositions:
   - -20.25
   - -18.75
@@ -24953,7 +24953,7 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.19706964, g: 0.63052225, b: 0.99264705, a: 1}
+      minColor: {r: 0.60294116, g: 0.81926984, b: 1, a: 1}
       maxColor: {r: 0.30147058, g: 0.59533465, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
@@ -28886,7 +28886,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -100
+  near clip plane: 0.01
   far clip plane: 200
   field of view: 60
   orthographic: 1
@@ -28935,8 +28935,8 @@ MonoBehaviour:
   FollowPosMethod: 1
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 1, y: 1, z: 0}
-  PosBoundsX: {x: -1, y: 1}
-  PosBoundsY: {x: -1, y: 1}
+  PosBoundsX: {x: -10, y: 10}
+  PosBoundsY: {x: -10, y: 10}
   PosBoundsZ: {x: -100, y: -100}
   FollowRotation: 0
   FollowRotX: {fileID: 0}
@@ -30929,7 +30929,7 @@ GameObject:
   - component: {fileID: 2127062650}
   - component: {fileID: 2127062649}
   m_Layer: 0
-  m_Name: AbilityFillBackground (1)
+  m_Name: AbilityFillBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30941,13 +30941,13 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2127062647}
-  m_LocalRotation: {x: 0, y: 0, z: 0.48098874, w: 0.8767268}
+  m_LocalRotation: {x: 0, y: 0, z: 0.4825182, w: 0.87588596}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1530967, y: 1.1530969, z: 1.1530969}
   m_Children: []
   m_Father: {fileID: 1341154667}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 57.5}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 57.7}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -30977,7 +30977,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.32
+  m_FillAmount: 0.321
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!114 &2127062650

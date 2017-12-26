@@ -18,31 +18,26 @@ public class Block : MonoBehaviour
 
 	public float AquaSpeed;
 	public float BlueSpeed;
-	public float GreenSpeed;
 	public float PurpleSpeed;
 	public float PinkSpeed;
 
 	public Material AquaMat;
 	public Material BlueMat;
-	public Material GreenMat;
 	public Material PurpleMat;
 	public Material PinkMat;
 
-	public float AquaBasePointValue = 1;
-	public float BlueBasePointValue = 2;
-	public float GreenBasePointValue = 3;
-	public float PurpleBasePointValue = 4;
-	public float PinkBasePointValue = 5;
+	public float AquaBasePointValue   = 1;
+	public float BlueBasePointValue   = 2;
+	public float PurpleBasePointValue = 3;
+	public float PinkBasePointValue   = 4;
 
 	public GameObject AquaExplosion;
 	public GameObject BlueExplosion;
-	public GameObject GreenExplosion;
 	public GameObject PurpleExplosion;
 	public GameObject PinkExplosion;
 
 	public Color AquaTextColor;
 	public Color BlueTextColor;
-	public Color GreenTextColor;
 	public Color PurpleTextColor;
 	public Color PinkTextColor;
 
@@ -50,11 +45,10 @@ public class Block : MonoBehaviour
 	public mainBlockType BlockType;
 	public enum mainBlockType
 	{
-		Aqua = 0,
-		Blue = 1,
-		Green = 2, 
-		Purple = 3, 
-		Pink = 4
+		Aqua   = 0,
+		Blue   = 1,
+		Purple = 2, 
+		Pink   = 3
 	}
 
 	public float ChangeRate;
@@ -177,13 +171,18 @@ public class Block : MonoBehaviour
 				DoCamShake ();
 				playerControllerScript_P1.StartCooldown ();
 
-				GameObject[] Blocks = GameObject.FindGameObjectsWithTag ("Block");
-
-				foreach (GameObject block in Blocks) 
-				{
-					Destroy (block);
-				}
+				Invoke ("DestroyAllBlocks", 1);
 			}
+		}
+	}
+
+	void DestroyAllBlocks ()
+	{
+		GameObject[] Blocks = GameObject.FindGameObjectsWithTag ("Block");
+
+		foreach (GameObject block in Blocks) 
+		{
+			Destroy (block);
 		}
 	}
 
@@ -204,7 +203,15 @@ public class Block : MonoBehaviour
 		}
 
 		// Adds to next combo.
-		gameControllerScript.combo += 2;
+		if (gameControllerScript.combo > 1)
+		{
+			gameControllerScript.combo += 2;
+		}
+
+		if (gameControllerScript.combo <= 1) 
+		{
+			gameControllerScript.combo += 1;
+		}
 
 		// Resets combo time.
 		gameControllerScript.comboTimeRemaining = gameControllerScript.comboDuration;
@@ -259,13 +266,6 @@ public class Block : MonoBehaviour
 				BasePointValue = BlueBasePointValue;
 				TextColor = BlueTextColor;
 				Explosion = BlueExplosion;
-				break;
-			case mainBlockType.Green:
-				speed = GreenSpeed;
-				rend.material = GreenMat;
-				BasePointValue = GreenBasePointValue;
-				TextColor = GreenTextColor;
-				Explosion = GreenExplosion;
 				break;
 			case mainBlockType.Purple:
 				speed = PurpleSpeed;

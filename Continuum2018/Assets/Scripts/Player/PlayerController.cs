@@ -192,6 +192,7 @@ public class PlayerController : MonoBehaviour
 	void LateUpdate ()
 	{
 		MovePlayerSmoothing ();
+		//Camera.main.transform.LookAt (playerCol.transform);
 	}
 
 	void MovePlayerSmoothing ()
