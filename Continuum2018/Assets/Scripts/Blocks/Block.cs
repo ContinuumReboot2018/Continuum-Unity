@@ -107,7 +107,7 @@ public class Block : MonoBehaviour
 	{
 		if (OverwriteVelocity == false) 
 		{
-			rb.velocity = new Vector3 (0, speed * Time.fixedDeltaTime * Time.timeScale, 0);
+			rb.velocity = new Vector3 (0, speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 0);
 		}
 
 		if (transform.position.y < MinYPos) 

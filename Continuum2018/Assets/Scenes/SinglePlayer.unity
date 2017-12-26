@@ -16592,7 +16592,7 @@ MonoBehaviour:
   UsePlayerFollow: 0
   PlayerFollow: {fileID: 2043035884}
   PlayerFollowRb: {fileID: 2043035885}
-  PlayerFollowMoveSpeed: 5000
+  PlayerFollowMoveSpeed: 4000
   XBounds: {x: -20, y: 20}
   YBounds: {x: -10.5, y: 10.5}
   PlayerRb: {fileID: 815677230}

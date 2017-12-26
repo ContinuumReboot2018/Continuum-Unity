@@ -183,8 +183,8 @@ public class PlayerController : MonoBehaviour
 		// This moves the transform position which the player will follow.
 		PlayerFollowRb.velocity = new Vector3 
 			(
-				MovementX * PlayerFollowMoveSpeed * Time.fixedDeltaTime * (1 / (Time.timeScale + 0.1f)),
-				MovementY * PlayerFollowMoveSpeed * Time.fixedDeltaTime * (1 / (Time.timeScale + 0.1f)),
+				MovementX * PlayerFollowMoveSpeed * Time.fixedUnscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
+				MovementY * PlayerFollowMoveSpeed * Time.fixedUnscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
 				0
 			);
 	}
