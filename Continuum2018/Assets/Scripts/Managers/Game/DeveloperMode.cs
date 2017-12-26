@@ -112,7 +112,10 @@ public class DeveloperMode : MonoBehaviour
 			ClearCheatString ();
 		}
 
-		if (CheatString == "continuum" && allowCheats == true) 
+		if ((CheatString == "continuum" || 
+			CheatString == "CONTINUUM" || 
+			CheatString == "Continuum")
+			&& allowCheats == true) 
 		{
 			useCheats = true;
 			Debug.Log ("Enabled cheats.");
@@ -122,111 +125,131 @@ public class DeveloperMode : MonoBehaviour
 		if (useCheats == true)
 		{
 			// Insert cheats here.
-			if (CheatString == "start") 
+			if (CheatString == "start" || 
+				CheatString == "Start" || 
+				CheatString == "START") 
 			{
 				timeScaleControllerScript.SwitchInitialSequence ();
 				playerControllerScript_P1.StartCoroutines ();
 				ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
 			}
 
-			if (CheatString == "restart") 
+			if (CheatString == "restart" || 
+				CheatString == "Restart" || 
+				CheatString == "RESTART") 
 			{
 				localSceneLoaderScript.sceneLoaderScript.SceneName = SceneManager.GetActiveScene().name;
 				localSceneLoaderScript.sceneLoaderScript.StartLoadSequence ();
 				ShowCheatNotification ("");
 			}
 
-			if (CheatString == "fps-1") 
+			if (CheatString == "fpsunlock" || 
+				CheatString == "FPSUNLOCK") 
 			{
 				targetFramerateScript.SetTargetFramerate (-1);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: -1");
 			}
 
-			if (CheatString == "fps60") 
+			if (CheatString == "fps60" || 
+				CheatString == "FPS60") 
 			{
 				targetFramerateScript.SetTargetFramerate (60);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 60");
 			}
 
-			if (CheatString == "fps30") 
+			if (CheatString == "fps30" || 
+				CheatString == "FPS30") 
 			{
 				targetFramerateScript.SetTargetFramerate (30);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 30");
 			}
 
-			if (CheatString == "fps90") 
+			if (CheatString == "fps90" || 
+				CheatString == "FPS90") 
 			{
 				targetFramerateScript.SetTargetFramerate (90);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 90");
 			}
 
-			if (CheatString == "fps120") 
+			if (CheatString == "fps120" || 
+				CheatString == "FPS120") 
 			{
 				targetFramerateScript.SetTargetFramerate (120);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 120");
 			}
 
-			if (CheatString == "nexttrack") 
+			if (CheatString == "nexttrack" || 
+				CheatString == "NEXTTRACK") 
 			{
 				audioControllerScript.NextTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT TRACK");
 			}
 
-			if (CheatString == "previoustrack") 
+			if (CheatString == "previoustrack" || 
+				CheatString == "PREVIOUSTRACK") 
 			{
 				audioControllerScript.PreviousTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: PREVIOUS TRACK");
 			}
 
-			if (CheatString == "randomtrack") 
+			if (CheatString == "randomtrack" || 
+				CheatString == "RANDOMTRACK") 
 			{
 				audioControllerScript.RandomTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: RANDOM TRACK");
 			}
 
-			if (CheatString == "savesettings") 
+			if (CheatString == "savesettings" || 
+				CheatString == "SAVESETTINGS") 
 			{
 				saveAndLoadScript.SaveSettingsData ();
 				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS SAVE");
 			}
 
-			if (CheatString == "loadsettings") 
+			if (CheatString == "loadsettings" || 
+				CheatString == "LOADSETTINGS") 
 			{
 				saveAndLoadScript.LoadSettingsData ();
 				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS LOAD");
 			}
 
-			if (CheatString == "morelife") 
+			if (CheatString == "life" || 
+				CheatString == "LIFE") 
 			{
 				gameControllerScript.Lives += 3;
 				ShowCheatNotification ("CHEAT ACTIVATED: MORE LIFE");
 			}
 
-			if (CheatString == "god") 
+			if (CheatString == "god" || 
+				CheatString == "GOD") 
 			{
 				playerControllerScript_P1.playerCol.enabled = false;
 				ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
 			}
 
-			if (CheatString == "ungod") 
+			if (CheatString == "mortal" || 
+				CheatString == "MORTAL") 
 			{
 				playerControllerScript_P1.playerCol.enabled = true;
 				ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
 			}
 
-			if (CheatString == "chargeability") 
+			if (CheatString == "chargeability" || 
+				CheatString == "CHARGEABILITY") 
 			{
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY CHARGED");
 			}
 
-			if (CheatString == "refreshability") 
+			if (CheatString == "refreshability" || 
+				CheatString == "REFRESHABILITY") 
 			{
 				playerControllerScript_P1.RefreshAbilityName ();
 				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY REFRESH");
 			}
 
-			if (CheatString == "double") 
+			if (CheatString == "double" || 
+				CheatString == "DOUBLE") 
 			{
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 				gameControllerScript.SetPowerupTime (20);

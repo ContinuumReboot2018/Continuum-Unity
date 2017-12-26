@@ -320,7 +320,7 @@ public class PlayerController : MonoBehaviour
 
 			if (CurrentAbilityTimeRemaining > 0)
 			{
-				CurrentAbilityTimeRemaining -= AbilityUseSpeedMultiplier * Time.unscaledDeltaTime;
+				CurrentAbilityTimeRemaining -= 0.75f * AbilityUseSpeedMultiplier * Time.unscaledDeltaTime;
 			}
 
 			if (CurrentAbilityTimeRemaining <= 0) 
