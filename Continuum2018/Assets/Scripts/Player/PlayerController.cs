@@ -738,7 +738,7 @@ public class PlayerController : MonoBehaviour
 		playerActions.Pause.AddDefaultBinding (InputControlType.Command);
 
 		playerActions.DebugMenu.AddDefaultBinding (Key.Tab);
-		playerActions.DebugMenu.AddDefaultBinding (InputControlType.DPadUp);
+		playerActions.DebugMenu.AddDefaultBinding (InputControlType.LeftBumper);
 	}
 
 	// Creates vibration.

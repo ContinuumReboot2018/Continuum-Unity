@@ -71,6 +71,7 @@ public class PowerupPickup : MonoBehaviour
 			//(playerControllerScript_P1.powerupsInUse < gameControllerScript.MaxSimultaneousPowerups) 
 		{
 			ActivatePowerup_P1 ();
+			playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f);
 		}
 
 		if (gameControllerScript.NextAvailablePowerupSlot_P1 >= gameControllerScript.MaxSimultaneousPowerups)

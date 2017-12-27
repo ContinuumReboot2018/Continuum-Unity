@@ -232,6 +232,7 @@ public class Block : MonoBehaviour
 		camShakeScript.shakeDuration = newCamShakeDuration;
 		camShakeScript.shakeAmount = newCamShakeAmount;
 		camShakeScript.Shake ();
+		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
 	}
 
 	void CreateExplosion ()
