@@ -601,7 +601,7 @@ public class GameController : MonoBehaviour
 		{
 			if (Time.time > NextBlockSpawn && playerControllerScript_P1.isInCooldownMode == false && isPaused == false)
 			{
-				GameObject Block = Blocks [Random.Range (0, Blocks.Length)];
+				SpawnBlock ();
 
 				/*
 				// Creates a stream of blocks.
@@ -643,13 +643,17 @@ public class GameController : MonoBehaviour
 				//Vector3 SpawnPos = new Vector3 (BlockSpawnXPositions[NextXPosId], BlockSpawnYPosition, BlockSpawnZPosition);
 				//Instantiate (Block, SpawnPos, Quaternion.identity);
 
-				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions[Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-				Instantiate (Block, SpawnPosRand, Quaternion.identity);
-
 				NextBlockSpawn = Time.time + BlockSpawnRate;
 			}
 			yield return null;
 		}
+	}
+
+	public void SpawnBlock ()
+	{
+		GameObject Block = Blocks [Random.Range (0, Blocks.Length)];
+		Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions[Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+		Instantiate (Block, SpawnPosRand, Quaternion.identity);
 	}
 
 	IEnumerator PowerupSpawner ()
@@ -657,11 +661,15 @@ public class GameController : MonoBehaviour
 		while (true) 
 		{
 			yield return new WaitForSecondsRealtime (Random.Range (PowerupPickupSpawnRate, PowerupPickupSpawnRate * 2));
-			GameObject PowerupPickup = PowerupPickups[Random.Range (0, PowerupPickups.Length)];
-			Vector3 PowerupPickupSpawnPos = new Vector3 (Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), PowerupPickupSpawnY, 0);
-			Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.Euler (0, 180, 0));
-
+			SpawnPowerupPickup ();
 			yield return null;
 		}
+	}
+
+	public void SpawnPowerupPickup ()
+	{
+		GameObject PowerupPickup = PowerupPickups[Random.Range (0, PowerupPickups.Length)];
+		Vector3 PowerupPickupSpawnPos = new Vector3 (Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), PowerupPickupSpawnY, 0);
+		Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.Euler (0, 180, 0));
 	}
 }

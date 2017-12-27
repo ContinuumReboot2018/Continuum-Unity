@@ -17,6 +17,7 @@ public class DeveloperMode : MonoBehaviour
 
 	[Header ("Cheats")]
 	public string CheatString;
+	public string LastCheatName;
 	public float CheatStringResetTimeRemaining = 1.0f;
 	public float CheatStringResetDuration = 1.0f;
 	public int maxCheatCharacters = 12;
@@ -248,6 +249,18 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY REFRESH");
 			}
 
+			if (CheatString == "spblock") 
+			{
+				gameControllerScript.SpawnBlock ();
+				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN BLOCK");
+			}
+
+			if (CheatString == "sppow") 
+			{
+				gameControllerScript.SpawnPowerupPickup ();
+				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN POWERUP");
+			}
+
 			if (CheatString == "double" || 
 				CheatString == "DOUBLE") 
 			{
@@ -288,6 +301,11 @@ public class DeveloperMode : MonoBehaviour
 
 				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT: " + playerControllerScript_P1.DoubleShotIteration.ToString ());
 			}
+
+			if (Input.GetKeyDown (KeyCode.Alpha7)) 
+			{
+				CheatString = LastCheatName;
+			}
 		}
 	}
 
@@ -306,6 +324,7 @@ public class DeveloperMode : MonoBehaviour
 		CheatNotificationAnim.Play ("CheatNotification");
 		CheatNotifcationText.text = cheatText;
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
+		LastCheatName = CheatString;
 		ClearCheatString ();
 		Debug.Log (cheatText);
 	}
