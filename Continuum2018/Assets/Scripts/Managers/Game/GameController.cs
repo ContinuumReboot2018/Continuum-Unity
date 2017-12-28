@@ -669,7 +669,10 @@ public class GameController : MonoBehaviour
 	public void SpawnPowerupPickup ()
 	{
 		GameObject PowerupPickup = PowerupPickups[Random.Range (0, PowerupPickups.Length)];
-		Vector3 PowerupPickupSpawnPos = new Vector3 (Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), PowerupPickupSpawnY, 0);
+		Vector3 PowerupPickupSpawnPos = new Vector3 (
+			Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), 
+			Random.Range (-PowerupPickupSpawnY, PowerupPickupSpawnY), 
+			-2.5f);
 		Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.Euler (0, 180, 0));
 	}
 }

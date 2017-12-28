@@ -9,6 +9,13 @@ public class PowerupPickup : MonoBehaviour
 	public Texture2D PowerupTexture;
 	public bool isShootingPowerup = true;
 
+	[Header ("On Awake")]
+	public AudioSource AwakeAudio;
+	public MeshRenderer meshrend;
+	public SphereCollider col;
+	public ParticleSystem AwakeParticles;
+	public float AwakeDelay = 1;
+
 	[Header ("Powerup Stats")]
 	public powerups ThisPowerup;
 	public enum powerups
@@ -27,6 +34,23 @@ public class PowerupPickup : MonoBehaviour
 	public GameObject CollectExplosion;
 	public GameObject PowerupDeathExplosion;
 	public Animator PowerupUI;
+
+	void Awake ()
+	{
+		meshrend.enabled = false;
+		col.enabled = false;
+		//AwakeAudio.Play ();
+		StartCoroutine (ShowPowerup ());
+	}
+
+	IEnumerator ShowPowerup ()
+	{
+		//yield return new WaitForSecondsRealtime (AwakeDelay);
+		yield return new WaitForSeconds (AwakeDelay);
+		meshrend.enabled = true;
+		col.enabled = true;
+		AwakeParticles.Play ();
+	}
 
 	void Start ()
 	{

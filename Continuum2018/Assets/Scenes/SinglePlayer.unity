@@ -6064,7 +6064,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 495375289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 817838701}
@@ -20209,9 +20209,9 @@ MonoBehaviour:
   PowerupPickups:
   - {fileID: 1219794950772602, guid: 5d0c7a69914eed442a68521979712ee2, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
-  PowerupPickupSpawnRate: 3
+  PowerupPickupSpawnRate: 6
   PowerupPickupSpawnRangeX: 20
-  PowerupPickupSpawnY: 15
+  PowerupPickupSpawnY: 10
   NextAvailablePowerupSlot_P1: 0
   PowerupShootingImage_P1: {fileID: 1848533216}
   PowerupShootingText_P1: {fileID: 1519678243}
@@ -28916,6 +28916,7 @@ MonoBehaviour:
   saveAndLoadScript: {fileID: 0}
   targetFramerateScript: {fileID: 1334309453}
   CheatString: 
+  LastCheatName: 
   CheatStringResetTimeRemaining: 0
   CheatStringResetDuration: 0.5
   maxCheatCharacters: 50
@@ -29659,8 +29660,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1816846808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 808, y: 454.5, z: 0}
-  m_LocalScale: {x: 0.84166664, y: 0.84166664, z: 0.84166664}
+  m_LocalPosition: {x: 335, y: 188.5, z: 0}
+  m_LocalScale: {x: 0.34907407, y: 0.34907407, z: 0.34907407}
   m_Children:
   - {fileID: 2023690795}
   - {fileID: 223707680}
