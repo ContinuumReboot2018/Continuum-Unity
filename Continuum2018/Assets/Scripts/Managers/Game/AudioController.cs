@@ -107,17 +107,9 @@ public class AudioController : MonoBehaviour
 			//UpdateStereoUI ();
 		}
 
-		if (playerControllerScript_P1.isInCooldownMode == true) 
+		if (timescaleControllerScript.isOverridingTimeScale == true) 
 		{
-			if (timescaleControllerScript.isOverridingTimeScale == false) 
-			{
-				//BassTargetPitch = 0.25f;
-				//BassTargetPitch = Time.timeScale;
-				//BassTargetPitch = 1.25f;
-				BassTargetPitch = 1;
-			}
-
-			BassTrack.pitch = Mathf.Lerp (BassTrack.pitch, BassTargetPitch, PitchSmoothTime * Time.unscaledDeltaTime);
+			BassTargetPitch = Time.timeScale;
 		}
 
 		float SmoothLowFreqVal = Mathf.Lerp (curFreq, TargetCutoffFreq, CutoffFreqSmoothing * Time.unscaledDeltaTime);

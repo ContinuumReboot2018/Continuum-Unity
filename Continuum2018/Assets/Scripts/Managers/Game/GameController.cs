@@ -155,6 +155,9 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI TargetScoreText_Debug;
 	public TextMeshProUGUI SpawnWaitText_Debug;
 	public TextMeshProUGUI WaveTimeRemainingText_Debug;
+	public TextMeshProUGUI CheatTimeRemainText_Debug;
+	public TextMeshProUGUI CheatStringText_Debug;
+	public TextMeshProUGUI LastCheatText_Debug;
 
 	void Awake () 
 	{
@@ -290,6 +293,9 @@ public class GameController : MonoBehaviour
 				P1_AbilityTimeProportion.text = "P1 Ability Fill: " + System.Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
 				P1_DoubleShotIteration.text = "P1 Double Shot Stage: " + playerControllerScript_P1.DoubleShotIteration.ToString ();
 				P1_DoubleShotIterationNumber.text = "P1 Double Shot Iteration: " + playerControllerScript_P1.NextDoubleShotIteration;
+				CheatTimeRemainText_Debug.text = "Cheat Time Remain: " + System.Math.Round (developerModeScript.CheatStringResetTimeRemaining, 1);
+				CheatStringText_Debug.text = "Cheat Input Field: " + developerModeScript.CheatString;
+				LastCheatText_Debug.text = "Last Cheat: " + developerModeScript.LastCheatName;
 			}
 		}
 	}
