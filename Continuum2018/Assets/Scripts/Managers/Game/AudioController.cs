@@ -109,10 +109,14 @@ public class AudioController : MonoBehaviour
 
 		if (playerControllerScript_P1.isInCooldownMode == true) 
 		{
-			//BassTrack.pitch = 0.25f;
-			//BassTargetPitch = Time.timeScale;
-			BassTargetPitch = 1;
-			//BassTargetPitch = 1.25f;
+			if (timescaleControllerScript.isOverridingTimeScale == false) 
+			{
+				//BassTargetPitch = 0.25f;
+				//BassTargetPitch = Time.timeScale;
+				//BassTargetPitch = 1.25f;
+				BassTargetPitch = 1;
+			}
+
 			BassTrack.pitch = Mathf.Lerp (BassTrack.pitch, BassTargetPitch, PitchSmoothTime * Time.unscaledDeltaTime);
 		}
 
