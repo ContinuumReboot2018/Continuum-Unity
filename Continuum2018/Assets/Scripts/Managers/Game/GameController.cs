@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -158,6 +159,7 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI CheatTimeRemainText_Debug;
 	public TextMeshProUGUI CheatStringText_Debug;
 	public TextMeshProUGUI LastCheatText_Debug;
+	public TextMeshProUGUI PowerupTimeRemain_Debug;
 
 	void Awake () 
 	{
@@ -276,26 +278,27 @@ public class GameController : MonoBehaviour
 				WaveText_Debug.text = "Wave: " + Wave;
 				TargetScoreText_Debug.text = "Target Score: " + Mathf.Round (TargetScore);
 				ComboText_Debug.text = "Combo: " + combo; 
-				DistanceText_Debug.text = "Distance: " + System.Math.Round (Distance, 2);
+				DistanceText_Debug.text = "Distance: " + Math.Round (Distance, 2);
 				GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
 				RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
-				TimeRatioText_Debug.text = "Time Ratio: " + System.Math.Round (TimeRatio, 2);
+				TimeRatioText_Debug.text = "Time Ratio: " + Math.Round (TimeRatio, 2);
 				TargetPitch_Debug.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
-				CurrentPitch_Debug.text = "Current Pitch: " + System.Math.Round (BassTrack.pitch, 4);
-				TimeScaleText_Debug.text = "Time Scale: " + System.Math.Round (Time.timeScale, 2);
-				FixedTimeStepText_Debug.text = "Fixed Time Step: " + System.Math.Round (Time.fixedDeltaTime, 5);
+				CurrentPitch_Debug.text = "Current Pitch: " + Math.Round (BassTrack.pitch, 4);
+				TimeScaleText_Debug.text = "Time Scale: " + Math.Round (Time.timeScale, 2);
+				FixedTimeStepText_Debug.text = "Fixed Time Step: " + Math.Round (Time.fixedDeltaTime, 5);
 				SpawnWaitText_Debug.text = "Spawn Rate: " + BlockSpawnRate;
-				WaveTimeRemainingText_Debug.text = "Wave Time Remain: " + System.Math.Round (WaveTimeRemaining, 1) + " s";
+				WaveTimeRemainingText_Debug.text = "Wave Time Remain: " + Math.Round (WaveTimeRemaining, 1) + " s";
 				P1_CurrentFireRate.text = "P1 Fire Rate: " + playerControllerScript_P1.CurrentFireRate;
 				P1_Ability.text = "P1 Ability: " + playerControllerScript_P1.AbilityName;
-				P1_AbilityTimeRemaining.text = "P1 Ability Remain: " + System.Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
+				P1_AbilityTimeRemaining.text = "P1 Ability Remain: " + Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
 				P1_AbilityTimeDuration.text = "P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
-				P1_AbilityTimeProportion.text = "P1 Ability Fill: " + System.Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
+				P1_AbilityTimeProportion.text = "P1 Ability Fill: " + Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
 				P1_DoubleShotIteration.text = "P1 Double Shot Stage: " + playerControllerScript_P1.DoubleShotIteration.ToString ();
 				P1_DoubleShotIterationNumber.text = "P1 Double Shot Iteration: " + playerControllerScript_P1.NextDoubleShotIteration;
-				CheatTimeRemainText_Debug.text = "Cheat Time Remain: " + System.Math.Round (developerModeScript.CheatStringResetTimeRemaining, 1);
+				CheatTimeRemainText_Debug.text = "Cheat Time Remain: " + Math.Round (developerModeScript.CheatStringResetTimeRemaining, 1);
 				CheatStringText_Debug.text = "Cheat Input Field: " + developerModeScript.CheatString;
 				LastCheatText_Debug.text = "Last Cheat: " + developerModeScript.LastCheatName;
+				PowerupTimeRemain_Debug.text = "Powerup Time Remain: " + Math.Round (PowerupTimeRemaining, 1);
 			}
 		}
 	}
@@ -657,8 +660,8 @@ public class GameController : MonoBehaviour
 
 	public void SpawnBlock ()
 	{
-		GameObject Block = Blocks [Random.Range (0, Blocks.Length)];
-		Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions[Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+		GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Length)];
+		Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions[UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 		Instantiate (Block, SpawnPosRand, Quaternion.identity);
 	}
 
@@ -666,7 +669,7 @@ public class GameController : MonoBehaviour
 	{
 		while (true) 
 		{
-			yield return new WaitForSecondsRealtime (Random.Range (PowerupPickupSpawnRate, PowerupPickupSpawnRate * 2));
+			yield return new WaitForSecondsRealtime (UnityEngine.Random.Range (PowerupPickupSpawnRate, PowerupPickupSpawnRate * 2));
 			SpawnPowerupPickup ();
 			yield return null;
 		}
@@ -674,10 +677,10 @@ public class GameController : MonoBehaviour
 
 	public void SpawnPowerupPickup ()
 	{
-		GameObject PowerupPickup = PowerupPickups[Random.Range (0, PowerupPickups.Length)];
+		GameObject PowerupPickup = PowerupPickups[UnityEngine.Random.Range (0, PowerupPickups.Length)];
 		Vector3 PowerupPickupSpawnPos = new Vector3 (
-			Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), 
-			Random.Range (-PowerupPickupSpawnY, PowerupPickupSpawnY), 
+			UnityEngine.Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), 
+			UnityEngine.Random.Range (-PowerupPickupSpawnY, PowerupPickupSpawnY), 
 			-2.5f);
 		Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.identity);
 	}

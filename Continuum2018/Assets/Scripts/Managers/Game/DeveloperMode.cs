@@ -261,6 +261,12 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN POWERUP");
 			}
 
+			if (CheatString == "poweruptime") 
+			{
+				gameControllerScript.PowerupTimeRemaining = gameControllerScript.PowerupTimeDuration;
+				ShowCheatNotification ("CHEAT ACTIVATED: POWERUP TIME REFRESH");
+			}
+
 			if (CheatString == "double" || 
 				CheatString == "DOUBLE") 
 			{
@@ -300,6 +306,12 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.DoubleShotIteration.ToString ();
 
 				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT: " + playerControllerScript_P1.DoubleShotIteration.ToString ());
+			}
+
+			if (CheatString == "clone") 
+			{
+				playerControllerScript_P1.Clone.SetActive (true);
+				ShowCheatNotification ("CHEAT ACTIVATED: CLONE");
 			}
 
 			if (Input.GetKeyDown (KeyCode.Alpha7)) 

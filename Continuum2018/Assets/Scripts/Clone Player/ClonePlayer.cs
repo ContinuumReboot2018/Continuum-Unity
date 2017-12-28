@@ -5,6 +5,7 @@ using UnityEngine;
 public class ClonePlayer : MonoBehaviour 
 {
 	public PlayerController playerControllerScript;
+	public GameController gameControllerScript;
 	public Transform ShotSpawn;
 	public GameObject Shot;
 	public float FireRate = 0.25f;
@@ -12,6 +13,8 @@ public class ClonePlayer : MonoBehaviour
 
 	void Start () 
 	{
+		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+
 		if (playerControllerScript == null) 
 		{
 			playerControllerScript = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
@@ -20,6 +23,11 @@ public class ClonePlayer : MonoBehaviour
 
 	void Update () 
 	{
+		if (gameControllerScript.PowerupTimeRemaining <= 0) 
+		{
+			gameObject.SetActive (false);
+		}
+
 		CheckForBlock ();
 	}
 

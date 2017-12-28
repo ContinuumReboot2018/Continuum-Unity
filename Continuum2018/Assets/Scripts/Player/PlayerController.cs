@@ -126,6 +126,9 @@ public class PlayerController : MonoBehaviour
 	public float TargetLensRadius;
 	public float LensRadiusSmoothTime = 1;
 
+	[Header ("Clone Player")]
+	public GameObject Clone;
+
 	[Header ("UI")]
 	public bool isHidingScoreUI;
 	public Animator ScoreAnim;
