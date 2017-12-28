@@ -5,10 +5,12 @@ using UnityEngine;
 public class TargetFPS : MonoBehaviour 
 {
 	public int targetFramerate = 60;
+	public int RefreshRate;
 
 	void Start ()
 	{
-		Application.targetFrameRate = targetFramerate; 
+		RefreshRate = Screen.currentResolution.refreshRate;
+		Application.targetFrameRate = RefreshRate; 
 	}
 
 	public void SetTargetFramerate (int framerate)
