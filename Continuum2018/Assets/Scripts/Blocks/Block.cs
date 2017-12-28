@@ -179,10 +179,16 @@ public class Block : MonoBehaviour
 	void DestroyAllBlocks ()
 	{
 		GameObject[] Blocks = GameObject.FindGameObjectsWithTag ("Block");
+		GameObject[] PowerupPickups = GameObject.FindGameObjectsWithTag ("PowerupPickup");
 
 		foreach (GameObject block in Blocks) 
 		{
 			Destroy (block);
+		}
+
+		foreach (GameObject powerupPickup in PowerupPickups) 
+		{
+			Destroy (powerupPickup);
 		}
 	}
 

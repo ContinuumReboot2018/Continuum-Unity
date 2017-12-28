@@ -35,6 +35,8 @@ public class PowerupPickup : MonoBehaviour
 	public GameObject PowerupDeathExplosion;
 	public Animator PowerupUI;
 
+	public GameObject Clone;
+
 	void Awake ()
 	{
 		meshrend.enabled = false;
@@ -160,20 +162,11 @@ public class PowerupPickup : MonoBehaviour
 			break;
 		case powerups.SlowEnemies:
 			break;
-		case powerups.Clone: 
 
-			switch (gameControllerScript.NextAvailablePowerupSlot_P1) 
-			{
-			case 1:
-				SetPowerupOneTexture ();
-				break;
-			case 2:
-				SetPowerupTwoTexture ();
-				break;
-			case 3:
-				SetPowerupThreeTexture ();
-				break;
-			}
+		case powerups.Clone:
+			
+			GameObject clone = Instantiate (Clone, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+			clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
 
 			break;
 		}

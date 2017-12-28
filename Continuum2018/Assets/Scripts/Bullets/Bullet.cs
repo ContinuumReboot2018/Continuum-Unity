@@ -43,14 +43,19 @@ public class Bullet : MonoBehaviour
 	{
 		AwakeAudio = GetComponent<AudioSource> ();
 		AwakeAudio.panStereo = 0.04f * transform.position.x;
-		BulletCol.enabled = false;
-		movedEnough = false;
+		//BulletCol.enabled = false;
+		//movedEnough = false;
 		Lifetime = 0;
 		InvokeRepeating ("CheckForDestroy", 0, 1);
 	}
 
 	void Start ()
 	{
+		if (playerControllerScript == null) 
+		{
+			playerControllerScript = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController>();
+		}
+
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		StartCameraShake ();
 		CheckBulletIteration ();
@@ -92,6 +97,7 @@ public class Bullet : MonoBehaviour
 
 	void CheckColActivate ()
 	{
+		/*
 		if (movedEnough == false) 
 		{
 			//Debug.Log (Vector3.Distance(transform.position, playerPos.position));
@@ -105,7 +111,7 @@ public class Bullet : MonoBehaviour
 				BulletCol.enabled = true;
 				movedEnough = true;
 			}
-		}
+		}*/
 	}
 
 	void CheckForDestroy ()

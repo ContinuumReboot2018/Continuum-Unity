@@ -87,7 +87,7 @@ public class TimescaleController : MonoBehaviour
 
 	void UpdateMainTargetTimeScale ()
 	{
-		if (useTwoPlayers == false && gameControllerScript.isPaused == false && Application.isFocused == true) 
+		if (useTwoPlayers == false && gameControllerScript.isPaused == false && Application.isFocused == true && Application.isPlaying == true) 
 		{
 			if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
 			{

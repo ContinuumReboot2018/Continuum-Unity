@@ -679,6 +679,6 @@ public class GameController : MonoBehaviour
 			Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), 
 			Random.Range (-PowerupPickupSpawnY, PowerupPickupSpawnY), 
 			-2.5f);
-		Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.Euler (0, 180, 0));
+		Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.identity);
 	}
 }
