@@ -10,6 +10,9 @@ public class Block : MonoBehaviour
 	public TimescaleController timeScaleControllerScript;
 	public AudioController audioControllerScript;
 	public MeshRenderer rend;
+	public ScrollTextureOverTime textureScrollScript;
+	public bool isBossPart = false;
+	public bool GotDetached;
 
 	[Header ("Stats")]
 	public float speed;
@@ -69,6 +72,9 @@ public class Block : MonoBehaviour
 		Red = 1
 	}
 
+	public Material noiseMat;
+	public GameObject NoiseExplosion;
+
 	[Header ("Explosion Combo")]
 	public GameObject Explosion;
 	public float BasePointValue;
@@ -101,11 +107,37 @@ public class Block : MonoBehaviour
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
+		if (textureScrollScript == null) 
+		{
+			textureScrollScript = GetComponent<ScrollTextureOverTime> ();
+		}
+	}
+
+	void Update ()
+	{
+		if (isBossPart == true && transform.parent == null && GotDetached == false) 
+		{
+			textureScrollScript.enabled = true;
+			isSpecialBlockType = true;
+			SpecialBlockType = specialBlockType.Noise;
+			speed = 0;
+			rend.material = noiseMat;
+			BasePointValue = 0;
+			TextColor = new Color (0.5f, 0.5f, 0.5f, 1);
+			Explosion = NoiseExplosion;
+			transform.localScale = new Vector3 
+				(
+					0.75f * transform.localScale.x,
+					0.75f * transform.localScale.y,
+					0.75f * transform.localScale.z
+				);
+			GotDetached = true;
+		}
 	}
 
 	void FixedUpdate () 
 	{
-		if (OverwriteVelocity == false) 
+		if (OverwriteVelocity == false && isBossPart == false) 
 		{
 			rb.velocity = new Vector3 (0, speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 0);
 		}
@@ -113,6 +145,11 @@ public class Block : MonoBehaviour
 		if (transform.position.y < MinYPos) 
 		{
 			Destroy (gameObject);
+		}
+
+		if (isBossPart == true) 
+		{
+			rb.velocity = Vector3.zero;
 		}
 	}
 
@@ -183,7 +220,10 @@ public class Block : MonoBehaviour
 
 		foreach (GameObject block in Blocks) 
 		{
-			Destroy (block);
+			if (block.GetComponent<Block> ().isBossPart == false)
+			{
+				Destroy (block);
+			}
 		}
 
 		foreach (GameObject powerupPickup in PowerupPickups) 
@@ -252,6 +292,20 @@ public class Block : MonoBehaviour
 
 	void UpdateBlockType ()
 	{
+		if (isSpecialBlockType == true) 
+		{
+			switch (SpecialBlockType) 
+			{
+			case specialBlockType.Noise:
+				speed = 0;
+				rend.material = noiseMat;
+				BasePointValue = 0;
+				TextColor = new Color (0.5f, 0.5f, 0.5f, 1);
+				Explosion = NoiseExplosion;
+				break;
+			}
+		}
+
 		if (isSpecialBlockType == false) 
 		{
 			// Update speed stat.

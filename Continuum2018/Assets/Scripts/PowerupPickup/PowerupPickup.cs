@@ -65,7 +65,8 @@ public class PowerupPickup : MonoBehaviour
 	{
 		if (other.tag == "Bullet") 
 		{
-			if (other.name.Contains ("P1") || other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
+			if (other.name.Contains ("P1") || other.name.Contains ("Shield_Col") || 
+				other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
 			{
 				if (IsInvoking ("CheckActivatePowerup") == false) 
 				{

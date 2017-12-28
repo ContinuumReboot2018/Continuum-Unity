@@ -153,6 +153,11 @@ public class Bullet : MonoBehaviour
 
 	void StartCameraShake ()
 	{
+		if (camShakeScript.shakeAmount < shakeAmount) 
+		{
+			camShakeScript.shakeAmount = shakeAmount;
+		}
+
 		if (camShakeScript.shakeDuration < shakeDuration)
 		{
 			camShakeScript.shakeDuration = shakeDuration;
@@ -162,8 +167,6 @@ public class Bullet : MonoBehaviour
 		{
 			camShakeScript.shakeTimeRemaining = shakeTimeRemaining;
 		}
-			
-		camShakeScript.shakeAmount = shakeAmount;
 	}
 
 	public IEnumerator DestroyDelay ()

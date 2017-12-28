@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 54244710924662194}
   - component: {fileID: 114045489295494334}
   - component: {fileID: 114212151734931360}
+  - component: {fileID: 114630544366289342}
   m_Layer: 0
   m_Name: Cube_Pink
   m_TagString: Block
@@ -153,6 +154,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+--- !u!114 &114630544366289342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750224001074990}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeed: 100
+  offset: 0
+  rend: {fileID: 0}
+  ignoreTimescale: 1
+  ScrollMode: 2
 --- !u!114 &114859730920538306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,6 +186,8 @@ MonoBehaviour:
   timeScaleControllerScript: {fileID: 0}
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
+  textureScrollScript: {fileID: 0}
+  isBossPart: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -200,6 +219,9 @@ MonoBehaviour:
   BlockChangeType: 0
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
+  NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
+    type: 2}
   Explosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706, type: 2}
   BasePointValue: 1
   totalPointValue: 0

@@ -99,7 +99,7 @@ public class TimescaleController : MonoBehaviour
 				// Updates fixed time step based on time scale.
 				Time.fixedDeltaTime = Time.timeScale * 0.005f;
 				//Time.fixedDeltaTime = Time.timeScale / (fpsCounterScript.FramesPerSec * 4);
-				Time.maximumParticleDeltaTime = Time.timeScale * 0.005f;
+				Time.maximumParticleDeltaTime = 0.01f;
 			}
 		}
 	}

@@ -27,7 +27,7 @@ public class Explosion : MonoBehaviour
 	{
 		ExplosionSound = GameObject.Find("ComboSound").GetComponent<AudioSource> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController>();
-		ExplosionSound.pitch = 0.005f * gameControllerScript.combo + 0.5f;
+		ExplosionSound.pitch = 0.008f * gameControllerScript.combo + 0.25f;
 		ExplosionSound.Play ();
 
 		// Scales points text based on combo.

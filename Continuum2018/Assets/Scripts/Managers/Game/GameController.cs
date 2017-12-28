@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI WaveText;
 	public Animator WaveAnim;
 	public RawImage WaveBackground;
+	public ParticleSystem WaveTransitionParticles;
 
 	[Header ("Scoring")]
 	public bool CountScore;
@@ -60,6 +61,7 @@ public class GameController : MonoBehaviour
 	public GameObject[] Blocks;
 	public float BlockSpawnRate;
 	private float NextBlockSpawn;
+	public float blockSpawnStartDelay = 2;
 	public float[] BlockSpawnXPositions;
 	public float BlockSpawnYPosition;
 	public float BlockSpawnZPosition;
@@ -111,6 +113,10 @@ public class GameController : MonoBehaviour
 	public RawImage PowerupThreeImage_P2;
 	public TextMeshProUGUI PowerupThreeText_P2;
 
+	[Header ("BossSpawner")]
+	public GameObject[] MiniBosses;
+	public Transform MiniBossSpawnPos;
+	public float bossSpawnDelay = 4;
 
 	[Header ("Pausing")]
 	public bool isPaused;
@@ -232,6 +238,7 @@ public class GameController : MonoBehaviour
 	// Timescale controller calls this initially after the countdown.
 	public void StartGame ()
 	{
+		WaveTransitionParticles.Play (true);
 		StartCoroutine (LevelTimer ());
 		StartCoroutine (StartBlockSpawn ());
 		StartCoroutine (PowerupSpawner ());
@@ -241,6 +248,7 @@ public class GameController : MonoBehaviour
 		ScoreBackground.enabled = true;
 		LivesBackground.enabled = true;
 		WaveBackground.enabled = true;
+
 	}
 
 	void Update ()
@@ -252,6 +260,12 @@ public class GameController : MonoBehaviour
 		CheckPowerupTime ();
 		UpdateScoreIncrements ();
 		//CheckOrthSize ();
+
+		if (WaveTimeRemaining < 0) 
+		{
+			StartCoroutine (SpawnMiniBoss ());
+			WaveTimeRemaining = 0;
+		}
 	}
 
 	IEnumerator UpdateStarFieldparticleEffectTrail ()
@@ -596,11 +610,17 @@ public class GameController : MonoBehaviour
 	{
 		WaveTimeDuration += WaveTimeIncreaseRate;
 		WaveTimeRemaining = WaveTimeDuration;
+		WaveTransitionParticles.Play (true);
+		playerControllerScript_P1.camShakeScript.shakeAmount = 0.5f;
+		playerControllerScript_P1.camShakeScript.shakeDuration = 2.7f;
+		playerControllerScript_P1.camShakeScript.Shake ();
+		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 3);
 		StartCoroutine (LevelTimer ());
 	}
 
 	IEnumerator StartBlockSpawn ()
 	{
+		yield return new WaitForSeconds (blockSpawnStartDelay);
 		WaveText.text = "WAVE " + Wave;
 
 		//int StartXPosId = Random.Range (0, BlockSpawnXPositions.Length);
@@ -683,5 +703,25 @@ public class GameController : MonoBehaviour
 			UnityEngine.Random.Range (-PowerupPickupSpawnY, PowerupPickupSpawnY), 
 			-2.5f);
 		Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.identity);
+	}
+
+	public IEnumerator SpawnMiniBoss ()
+	{
+		yield return new WaitForSeconds (bossSpawnDelay);
+		GameObject MiniBoss = MiniBosses [UnityEngine.Random.Range (0, MiniBosses.Length)];
+		Instantiate (MiniBoss, MiniBossSpawnPos.position, MiniBossSpawnPos.rotation);
+	}
+
+	public void StartNewWave ()
+	{
+		StartCoroutine (GoToNextWave ());
+	}
+
+	public IEnumerator GoToNextWave ()
+	{
+		yield return new WaitForSecondsRealtime (5);
+		Wave += 1;
+		NextLevel ();
+		StartCoroutine (StartBlockSpawn ());
 	}
 }
