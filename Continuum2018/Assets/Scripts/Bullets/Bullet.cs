@@ -153,19 +153,27 @@ public class Bullet : MonoBehaviour
 
 	void StartCameraShake ()
 	{
+		// Current shake strength is less than this shake strength. 
 		if (camShakeScript.shakeAmount < shakeAmount) 
 		{
-			camShakeScript.shakeAmount = shakeAmount;
+			// Current shake time remaining is less than this shake time remain.
+			if (camShakeScript.shakeTimeRemaining <= shakeTimeRemaining) 
+			{
+				// Give it the new shake amounts.
+				camShakeScript.shakeAmount = shakeAmount; 
+				camShakeScript.shakeDuration = shakeDuration;
+				camShakeScript.shakeTimeRemaining = shakeTimeRemaining;
+			}
 		}
 
-		if (camShakeScript.shakeDuration < shakeDuration)
+		if (camShakeScript.shakeAmount > shakeAmount) 
 		{
-			camShakeScript.shakeDuration = shakeDuration;
-		}
-
-		if (camShakeScript.shakeTimeRemaining < shakeTimeRemaining)
-		{
-			camShakeScript.shakeTimeRemaining = shakeTimeRemaining;
+			if (camShakeScript.shakeTimeRemaining <= shakeTimeRemaining) 
+			{
+				//camShakeScript.shakeAmount = shakeAmount;
+				//camShakeScript.shakeDuration = shakeDuration;
+				//camShakeScript.shakeTimeRemaining = shakeTimeRemaining;
+			}
 		}
 	}
 

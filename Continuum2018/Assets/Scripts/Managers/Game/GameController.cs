@@ -33,6 +33,8 @@ public class GameController : MonoBehaviour
 	public Animator WaveAnim;
 	public RawImage WaveBackground;
 	public ParticleSystem WaveTransitionParticles;
+	public Animator WaveTransitionAnim;
+	public TextMeshProUGUI WaveTransitionText;
 
 	[Header ("Scoring")]
 	public bool CountScore;
@@ -239,6 +241,7 @@ public class GameController : MonoBehaviour
 	public void StartGame ()
 	{
 		WaveTransitionParticles.Play (true);
+		WaveTransitionAnim.Play ("WaveTransition");
 		StartCoroutine (LevelTimer ());
 		StartCoroutine (StartBlockSpawn ());
 		StartCoroutine (PowerupSpawner ());
@@ -611,6 +614,8 @@ public class GameController : MonoBehaviour
 		WaveTimeDuration += WaveTimeIncreaseRate;
 		WaveTimeRemaining = WaveTimeDuration;
 		WaveTransitionParticles.Play (true);
+		WaveTransitionAnim.Play ("WaveTransition");
+		WaveTransitionText.text = "WAVE " + Wave;
 		playerControllerScript_P1.camShakeScript.shakeAmount = 0.5f;
 		playerControllerScript_P1.camShakeScript.shakeDuration = 2.7f;
 		playerControllerScript_P1.camShakeScript.Shake ();
