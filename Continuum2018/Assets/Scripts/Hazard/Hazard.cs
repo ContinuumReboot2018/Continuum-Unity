@@ -24,6 +24,7 @@ public class Hazard : MonoBehaviour
 
 	public float LowPassTargetFreq = 1500;
 	public float ResonanceTargetFreq = 1;
+
 	void Start () 
 	{
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
@@ -48,7 +49,7 @@ public class Hazard : MonoBehaviour
 			{
 				playerControllerScript_P1.SetCooldownTime (5);
 
-				if (gameControllerScript.Lives >= 1) 
+				if (gameControllerScript.Lives > 1) 
 				{
 					SetTargetLowPassFreq (LowPassTargetFreq);
 					SetTargetResonance (ResonanceTargetFreq);
@@ -69,9 +70,17 @@ public class Hazard : MonoBehaviour
 
 					newCamShakeAmount = 0.5f;
 					newCamShakeDuration = 1.5f;
+					DoCamShake ();
 					playerControllerScript_P1.StartCooldown ();
+					playerControllerScript_P1.PlayerExplosionParticles.Play ();
+					playerControllerScript_P1.PlayerExplosionAudio.Play ();
 
-					Invoke ("DestroyAllBlocks", 1);
+					Invoke ("DestroyAllBlocks", 0.5f);
+				}
+
+				if (gameControllerScript.Lives == 1) 
+				{
+					playerControllerScript_P1.GameOver ();
 				}
 			}
 
@@ -83,7 +92,7 @@ public class Hazard : MonoBehaviour
 
 	void CreateExplosion ()
 	{
-		GameObject _Explosion = Instantiate (Explosion, transform.position, Quaternion.identity);
+		Instantiate (Explosion, transform.position, Quaternion.identity);
 	}
 
 	void DestroyAllBlocks ()

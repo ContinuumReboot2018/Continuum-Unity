@@ -3842,8 +3842,8 @@ MonoBehaviour:
   OscillatePosX: 1
   OscillatePosY: 1
   OscillatePosZ: 0
-  MoveAmount: {x: 7, y: 0.5, z: 0}
-  MovePeriod: {x: 1.4, y: 8, z: 0}
+  MoveAmount: {x: 7, y: 0.4, z: 0}
+  MovePeriod: {x: 1.1, y: 3, z: 0}
   MoveOffset: {x: 0, y: 0, z: 0}
   CircularPosFunctionX: 0
   CircularPosFunctionY: 1
@@ -3858,8 +3858,8 @@ MonoBehaviour:
   OscillateRotX: 0
   OscillateRotY: 0
   OscillateRotZ: 1
-  RotAmount: {x: 0, y: 0, z: 5}
-  RotPeriod: {x: 0, y: 0, z: 6}
+  RotAmount: {x: 0, y: 0, z: 3}
+  RotPeriod: {x: 0, y: 0, z: 2}
   RotOffset: {x: 0, y: 0, z: 0}
   CircularRotFunctionX: 0
   CircularRotFunctionY: 0
@@ -3871,6 +3871,30 @@ MonoBehaviour:
   UseWorldRotationX: 0
   UseWorldRotationY: 0
   UseWorldRotationZ: 1
+  NewPosSinScaledX: 0
+  NewPosSinUnscaledX: 0
+  NewPosCosScaledX: 0
+  NewPosCosUnscaledX: 0
+  NewPosSinScaledY: 0
+  NewPosSinUnscaledY: 0
+  NewPosCosScaledY: 0
+  NewPosCosUnscaledY: 0
+  NewPosSinScaledZ: 0
+  NewPosSinUnscaledZ: 0
+  NewPosCosScaledZ: 0
+  NewPosCosUnscaledZ: 0
+  NewRotSinScaledX: 0
+  NewRotSinUnscaledX: 0
+  NewRotCosScaledX: 0
+  NewRotCosUnscaledX: 0
+  NewRotSinScaledY: 0
+  NewRotSinUnscaledY: 0
+  NewRotCosScaledY: 0
+  NewRotCosUnscaledY: 0
+  NewRotSinScaledZ: 0
+  NewRotSinUnscaledZ: 0
+  NewRotCosScaledZ: 0
+  NewRotCosUnscaledZ: 0
 --- !u!114 &114352661695007832
 MonoBehaviour:
   m_ObjectHideFlags: 1

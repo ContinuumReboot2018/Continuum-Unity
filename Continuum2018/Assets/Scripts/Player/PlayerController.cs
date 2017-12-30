@@ -63,6 +63,10 @@ public class PlayerController : MonoBehaviour
 	public bool isInCooldownMode;
 	public float cooldownDuration;
 	public float cooldownTimeRemaining;
+	public ParticleSystem PlayerExplosionParticles;
+	public AudioSource PlayerExplosionAudio;
+	public ParticleSystem GameOverExplosionParticles;
+	public AudioSource GameOverExplosionAudio;
 
 	[Header ("Ability")]
 	public abilityState CurrentAbilityState;
@@ -183,13 +187,14 @@ public class PlayerController : MonoBehaviour
 
 	void MovePlayerPhysics ()
 	{
-		// This moves the transform position which the player will follow.
-		PlayerFollowRb.velocity = new Vector3 
-			(
+		if (timescaleControllerScript.isEndSequence == false) {
+			// This moves the transform position which the player will follow.
+			PlayerFollowRb.velocity = new Vector3 (
 				MovementX * PlayerFollowMoveSpeed * Time.fixedUnscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
 				MovementY * PlayerFollowMoveSpeed * Time.fixedUnscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
 				0
 			);
+		}
 	}
 
 	void LateUpdate ()
@@ -234,7 +239,7 @@ public class PlayerController : MonoBehaviour
 				cooldownTimeRemaining -= Time.unscaledDeltaTime;
 			}
 
-			if (cooldownTimeRemaining <= 0) 
+			if (cooldownTimeRemaining <= 0 && gameControllerScript.Lives > 0) 
 			{
 				RejoinGame ();
 				playerCol.gameObject.SetActive (true);
@@ -253,11 +258,29 @@ public class PlayerController : MonoBehaviour
 
 	public void StartCooldown ()
 	{
-		isInCooldownMode = true;
+		if (gameControllerScript.Lives > 0) 
+		{
+			isInCooldownMode = true;
+			UsePlayerFollow = false;
+			playerCol.transform.localPosition = Vector3.zero;
+			PlayerFollow.transform.localPosition = Vector3.zero;
+			playerMesh.transform.localPosition = Vector3.zero;
+		}
+	}
+
+	public void GameOver ()
+	{
+		gameControllerScript.isGameOver = true;
+		timescaleControllerScript.isEndSequence = true;
+		canShoot = false;
 		UsePlayerFollow = false;
-		playerCol.transform.localPosition = Vector3.zero;
-		PlayerFollow.transform.localPosition = Vector3.zero;
-		playerMesh.transform.localPosition = Vector3.zero;
+		playerCol.enabled = false;
+		playerMesh.SetActive (false);
+		PlayerFollowRb.velocity = Vector3.zero;
+		GameOverExplosionParticles.Play ();
+		GameOverExplosionAudio.Play ();
+		audioControllerScript.StopAllSoundtracks ();
+		StartCoroutine (timescaleControllerScript.EndSequenceTimeScale ());
 	}
 
 	void EnableCollider ()
@@ -284,7 +307,7 @@ public class PlayerController : MonoBehaviour
 
 	void MovePlayer ()
 	{
-		if (UsePlayerFollow == true) 
+		if (UsePlayerFollow == true && timescaleControllerScript.isEndSequence == false) 
 		{
 			if (gameControllerScript.isPaused == false)
 			{
@@ -789,5 +812,4 @@ public class PlayerController : MonoBehaviour
 			PlayerText.text = " ";
 		}
 	}
-
 }

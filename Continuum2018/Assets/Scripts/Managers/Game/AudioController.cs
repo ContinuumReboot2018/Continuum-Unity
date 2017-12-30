@@ -338,4 +338,12 @@ public class AudioController : MonoBehaviour
 		TrackNumber = Random.Range (0, BassTracks.Length);
 		LoadTracks ();
 	}
+
+	public void StopAllSoundtracks ()
+	{
+		BassTrack.Pause ();
+		LayerOneTrack.Pause ();
+		LayerTwoTrack.Pause ();
+		LayerThreeTrack.Pause ();
+	}
 }

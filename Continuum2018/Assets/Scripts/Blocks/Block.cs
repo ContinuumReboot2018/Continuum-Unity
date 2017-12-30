@@ -185,7 +185,7 @@ public class Block : MonoBehaviour
 		{
 			playerControllerScript_P1.SetCooldownTime (5);
 
-			if (gameControllerScript.Lives >= 1) 
+			if (gameControllerScript.Lives > 1) 
 			{
 				SetTargetLowPassFreq (LowPassTargetFreq);
 				SetTargetResonance (ResonanceTargetFreq);
@@ -208,8 +208,15 @@ public class Block : MonoBehaviour
 				newCamShakeDuration = 1.5f;
 				DoCamShake ();
 				playerControllerScript_P1.StartCooldown ();
+				playerControllerScript_P1.PlayerExplosionParticles.Play ();
+				playerControllerScript_P1.PlayerExplosionAudio.Play ();
 
-				Invoke ("DestroyAllBlocks", 1);
+				Invoke ("DestroyAllBlocks", 0.5f);
+			}
+
+			if (gameControllerScript.Lives == 1) 
+			{
+				playerControllerScript_P1.GameOver ();
 			}
 		}
 	}
@@ -221,9 +228,12 @@ public class Block : MonoBehaviour
 
 		foreach (GameObject block in Blocks) 
 		{
-			if (block.GetComponent<Block> ().isBossPart == false)
+			if (block.GetComponent<Block> () != null) 
 			{
-				Destroy (block);
+				if (block.GetComponent<Block> ().isBossPart == false) 
+				{
+					Destroy (block);
+				}
 			}
 		}
 

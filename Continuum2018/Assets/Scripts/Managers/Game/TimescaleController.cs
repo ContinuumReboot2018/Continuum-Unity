@@ -42,6 +42,9 @@ public class TimescaleController : MonoBehaviour
 	public float OverrideTimeScaleTimeRemaining;
 	public float OverrideTimeScaleSmoothing = 10;
 
+	public bool isEndSequence;
+	public float EndSequenceInitialDelay;
+
 	void Awake () 
 	{
 		isInInitialSequence = true;
@@ -70,27 +73,30 @@ public class TimescaleController : MonoBehaviour
 
 	void CheckTargetTimeScale ()
 	{
-		if (UpdateTargetTimeScale == true) 
+		if (UpdateTargetTimeScale == true && isEndSequence == false) 
 		{
-			if (isOverridingTimeScale == false)
+			if (isOverridingTimeScale == false) 
 			{
-				Time.timeScale = Mathf.Lerp(Time.timeScale, TargetTimeScale, TargetTimeScaleSmoothing * Time.unscaledDeltaTime);
+				Time.timeScale = Mathf.Lerp (Time.timeScale, TargetTimeScale, TargetTimeScaleSmoothing * Time.unscaledDeltaTime);
 				UpdateMainTargetTimeScale ();
 			}
 
-			if (isOverridingTimeScale == true)
+			if (isOverridingTimeScale == true) 
 			{
 				Time.timeScale = Mathf.Lerp (Time.timeScale, OverridingTimeScale, OverrideTimeScaleSmoothing * Time.unscaledDeltaTime);
 			}
+		} else {
+			Time.timeScale = Mathf.Lerp (Time.timeScale, TargetTimeScale, TargetTimeScaleSmoothing * Time.unscaledDeltaTime);
 		}
 	}
 
 	void UpdateMainTargetTimeScale ()
 	{
-		if (useTwoPlayers == false && gameControllerScript.isPaused == false && Application.isFocused == true && Application.isPlaying == true) 
-		{
-			if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
-			{
+		if (useTwoPlayers == false &&
+		    gameControllerScript.isPaused == false &&
+		    Application.isFocused == true &&
+		    Application.isPlaying == true && isEndSequence == false) {
+			if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) {
 				Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
 
 				TargetTimeScaleAdd += TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime;
@@ -101,6 +107,8 @@ public class TimescaleController : MonoBehaviour
 				//Time.fixedDeltaTime = Time.timeScale / (fpsCounterScript.FramesPerSec * 4);
 				Time.maximumParticleDeltaTime = 0.01f;
 			}
+		} else {
+			Time.timeScale = Mathf.Clamp (Time.timeScale, 0, 1);
 		}
 	}
 
@@ -153,5 +161,18 @@ public class TimescaleController : MonoBehaviour
 				gameControllerScript.StartGame ();
 			}
 		}
+	}
+
+	public IEnumerator EndSequenceTimeScale ()
+	{
+		TargetTimeScale = 0.02f;
+		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
+		TargetTimeScale = 1.5f;
+		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
+		TargetTimeScale = 0;
+		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
+		gameControllerScript.GameoverUI.SetActive (true);
+		playerControllerScript_P1.cursorManagerScript.UnlockMouse ();
+		playerControllerScript_P1.cursorManagerScript.ShowMouse ();
 	}
 }

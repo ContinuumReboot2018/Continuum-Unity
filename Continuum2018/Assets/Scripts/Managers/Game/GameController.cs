@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
 	public ParticleSystem WaveTransitionParticles;
 	public Animator WaveTransitionAnim;
 	public TextMeshProUGUI WaveTransitionText;
+	public AudioSource NextLevelAudio;
 
 	[Header ("Scoring")]
 	public bool CountScore;
@@ -128,6 +129,10 @@ public class GameController : MonoBehaviour
 	[HideInInspector]
 	public float NextPauseCooldown;
 	public bool isInOtherMenu;
+
+	[Header ("Game Over")]
+	public bool isGameOver;
+	public GameObject GameoverUI;
 
 	[Header ("Camera")]
 	public Camera MainCamera;
@@ -416,9 +421,9 @@ public class GameController : MonoBehaviour
 	// Combo time remaining variable is timed and decreases based on what combo it is already on.
 	void CheckCombo ()
 	{
-		if (comboTimeRemaining > 0) 
+		if (comboTimeRemaining > 0 && isGameOver == false) 
 		{
-			comboTimeRemaining -= Time.unscaledDeltaTime * combo;
+			comboTimeRemaining -= Time.unscaledDeltaTime * 0.5f * combo;
 		}
 
 		// Decrements a combo when the timer runs out and resets.
@@ -434,7 +439,7 @@ public class GameController : MonoBehaviour
 
 	void CheckPowerupTime ()
 	{
-		if (PowerupTimeRemaining > 0 && isPaused == false) 
+		if (PowerupTimeRemaining > 0 && isPaused == false && isGameOver == false) 
 		{
 			PowerupTimeRemaining -= Time.unscaledDeltaTime;
 
@@ -601,7 +606,7 @@ public class GameController : MonoBehaviour
 	{
 		while (WaveTimeRemaining > 0) 
 		{
-			if (playerControllerScript_P1.isInCooldownMode == false && isPaused == false) 
+			if (playerControllerScript_P1.isInCooldownMode == false && isPaused == false && isGameOver == false) 
 			{
 				WaveTimeRemaining -= Time.deltaTime;
 			}
@@ -620,6 +625,7 @@ public class GameController : MonoBehaviour
 		playerControllerScript_P1.camShakeScript.shakeDuration = 2.7f;
 		playerControllerScript_P1.camShakeScript.Shake ();
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 3);
+		NextLevelAudio.Play ();
 		StartCoroutine (LevelTimer ());
 	}
 
@@ -685,14 +691,17 @@ public class GameController : MonoBehaviour
 
 	public void SpawnBlock ()
 	{
-		GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Length)];
-		Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions[UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-		Instantiate (Block, SpawnPosRand, Quaternion.identity);
+		if (isGameOver == false) 
+		{
+			GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Length)];
+			Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+			Instantiate (Block, SpawnPosRand, Quaternion.identity);
+		}
 	}
 
 	IEnumerator PowerupSpawner ()
 	{
-		while (true) 
+		while (isGameOver == false) 
 		{
 			yield return new WaitForSecondsRealtime (UnityEngine.Random.Range (PowerupPickupSpawnRate, PowerupPickupSpawnRate * 2));
 			SpawnPowerupPickup ();

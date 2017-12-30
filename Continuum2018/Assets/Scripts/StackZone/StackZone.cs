@@ -67,16 +67,46 @@ public class StackZone : MonoBehaviour
 		}
 	}
 
+	void OnTriggerStay (Collider other)
+	{
+		if (other.GetComponent<Collider> ().tag == "Block") 
+		{
+			if (StackZoneBelow != null) 
+			{
+				if (StackZoneBelow.isOccupied == true) 
+				{
+					if (CapturedBlock == null)
+					{
+						CapturedBlock = other.gameObject;
+						CaptureBlock ();
+					}
+				}
+			}
+
+			if (StackZoneBelow == null) 
+			{
+				if (CapturedBlock == null) 
+				{
+					CapturedBlock = other.gameObject;
+					CaptureBlock ();
+				}
+			}
+		}
+	}
+
 	void CaptureBlock ()
 	{
-		CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
-		CapturedBlock.GetComponent<Rigidbody> ().velocity = Vector3.zero;
-		CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
-		CapturedBlock.GetComponent<SimpleFollow> ().FollowPosX = transform;
-		CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = transform;
-		CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = transform;
-		isOccupied = true;
-		stackSound.Play ();
+		if (CapturedBlock.GetComponent<Block> ().isBossPart == false)
+		{
+			CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
+			CapturedBlock.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+			CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
+			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosX = transform;
+			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = transform;
+			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = transform;
+			isOccupied = true;
+			stackSound.Play ();
+		}
 	}
 
 	void VacateBlock ()

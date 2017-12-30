@@ -54,41 +54,41 @@ public class OscillateByTime : MonoBehaviour
 	public bool UseWorldRotationZ;
 
 	// Current Values.
-	float NewPosSinScaledX;
-	float NewPosSinUnscaledX;
+	public float NewPosSinScaledX;
+	public float NewPosSinUnscaledX;
 
-	float NewPosCosScaledX;
-	float NewPosCosUnscaledX;
+	public float NewPosCosScaledX;
+	public float NewPosCosUnscaledX;
 
-	float NewPosSinScaledY;
-	float NewPosSinUnscaledY;
+	public float NewPosSinScaledY;
+	public float NewPosSinUnscaledY;
 
-	float NewPosCosScaledY;
-	float NewPosCosUnscaledY;
+	public float NewPosCosScaledY;
+	public float NewPosCosUnscaledY;
 
-	float NewPosSinScaledZ;
-	float NewPosSinUnscaledZ;
+	public float NewPosSinScaledZ;
+	public float NewPosSinUnscaledZ;
 
-	float NewPosCosScaledZ;
-	float NewPosCosUnscaledZ;
+	public float NewPosCosScaledZ;
+	public float NewPosCosUnscaledZ;
 
-	float NewRotSinScaledX;
-	float NewRotSinUnscaledX;
+	public float NewRotSinScaledX;
+	public float NewRotSinUnscaledX;
 
-	float NewRotCosScaledX;
-	float NewRotCosUnscaledX;
+	public float NewRotCosScaledX;
+	public float NewRotCosUnscaledX;
 
-	float NewRotSinScaledY;
-	float NewRotSinUnscaledY;
+	public float NewRotSinScaledY;
+	public float NewRotSinUnscaledY;
 
-	float NewRotCosScaledY;
-	float NewRotCosUnscaledY;
+	public float NewRotCosScaledY;
+	public float NewRotCosUnscaledY;
 
-	float NewRotSinScaledZ;
-	float NewRotSinUnscaledZ;
+	public float NewRotSinScaledZ;
+	public float NewRotSinUnscaledZ;
 
-	float NewRotCosScaledZ;
-	float NewRotCosUnscaledZ;
+	public float NewRotCosScaledZ;
+	public float NewRotCosUnscaledZ;
 
 	public enum CircularMethod
 	{
