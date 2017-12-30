@@ -188,6 +188,8 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   isBossPart: 0
+  GotDetached: 0
+  Stackable: 1
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650

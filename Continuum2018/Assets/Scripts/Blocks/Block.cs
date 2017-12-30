@@ -13,6 +13,7 @@ public class Block : MonoBehaviour
 	public ScrollTextureOverTime textureScrollScript;
 	public bool isBossPart = false;
 	public bool GotDetached;
+	public bool Stackable;
 
 	[Header ("Stats")]
 	public float speed;
