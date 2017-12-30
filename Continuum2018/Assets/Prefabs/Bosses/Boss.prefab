@@ -3838,7 +3838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OscillateObject: {fileID: 0}
+  OscillateObject: {fileID: 4518587635197738}
   OscillatePosX: 1
   OscillatePosY: 1
   OscillatePosZ: 0
