@@ -26,6 +26,7 @@ public class OscillateByTime : MonoBehaviour
 	public bool UseUnscaledPosTimeY;
 	public bool UseUnscaledPosTimeZ;
 
+	public bool useGlobalPosition;
 	public bool UseWorldPositionX;
 	public bool UseWorldPositionY;
 	public bool UseWorldPositionZ;
@@ -47,6 +48,7 @@ public class OscillateByTime : MonoBehaviour
 	public bool UseUnscaledRotTimeY;
 	public bool UseUnscaledRotTimeZ;
 
+	public bool useGlobalRotation;
 	public bool UseWorldRotationX;
 	public bool UseWorldRotationY;
 	public bool UseWorldRotationZ;
@@ -206,11 +208,23 @@ public class OscillateByTime : MonoBehaviour
 	{
 		if (OscillateObject != null)
 		{
-			transform.position = new Vector3 (
-				UseUnscaledPosTimeX ? NewPosSinScaledX : NewPosSinUnscaledX,
-				UseUnscaledPosTimeY ? NewPosSinScaledY : NewPosSinUnscaledY,
-				UseUnscaledPosTimeZ ? NewPosSinScaledZ : NewPosSinUnscaledZ
-			);
+			if (useGlobalPosition == true) 
+			{
+				transform.position = new Vector3 (
+					UseUnscaledPosTimeX ? NewPosSinScaledX : NewPosSinUnscaledX,
+					UseUnscaledPosTimeY ? NewPosSinScaledY : NewPosSinUnscaledY,
+					UseUnscaledPosTimeZ ? NewPosSinScaledZ : NewPosSinUnscaledZ
+				);
+			}
+
+			if (useGlobalPosition == false) 
+			{
+				transform.localPosition = new Vector3 (
+					UseUnscaledPosTimeX ? NewPosSinScaledX : NewPosSinUnscaledX,
+					UseUnscaledPosTimeY ? NewPosSinScaledY : NewPosSinUnscaledY,
+					UseUnscaledPosTimeZ ? NewPosSinScaledZ : NewPosSinUnscaledZ
+				);
+			}
 		}
 	}
 
@@ -293,11 +307,22 @@ public class OscillateByTime : MonoBehaviour
 	{
 		if (OscillateObject != null)
 		{
-			transform.rotation = Quaternion.Euler (
-				UseUnscaledRotTimeX ? NewRotSinScaledX : NewRotSinUnscaledX,
-				UseUnscaledRotTimeY ? NewRotSinScaledY : NewRotSinUnscaledY,
-				UseUnscaledRotTimeZ ? NewRotSinScaledZ : NewRotSinUnscaledZ
-			);
+			if (useGlobalRotation == true) 
+			{
+				transform.rotation = Quaternion.Euler (
+					UseUnscaledRotTimeX ? NewRotSinScaledX : NewRotSinUnscaledX,
+					UseUnscaledRotTimeY ? NewRotSinScaledY : NewRotSinUnscaledY,
+					UseUnscaledRotTimeZ ? NewRotSinScaledZ : NewRotSinUnscaledZ
+				);
+			}
+
+			if (useGlobalRotation == false) {
+				transform.localRotation = Quaternion.Euler (
+					UseUnscaledRotTimeX ? NewRotSinScaledX : NewRotSinUnscaledX,
+					UseUnscaledRotTimeY ? NewRotSinScaledY : NewRotSinUnscaledY,
+					UseUnscaledRotTimeZ ? NewRotSinScaledZ : NewRotSinUnscaledZ
+				);
+			}
 		}
 	}
 }

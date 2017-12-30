@@ -13,7 +13,7 @@ Prefab:
   m_IsPrefabParent: 1
 --- !u!1 &1002692490630458
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -144,7 +144,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1194339922029956
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -380,6 +380,22 @@ GameObject:
   m_Layer: 0
   m_Name: Cube_Pink
   m_TagString: Block
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1481848380163146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4518587635197738}
+  - component: {fileID: 114347890682074520}
+  m_Layer: 0
+  m_Name: BossContainer
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -719,13 +735,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1194339922029956}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4962701989205940}
-  m_Father: {fileID: 4609264021300890}
-  m_RootOrder: 0
+  m_Father: {fileID: 4518587635197738}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4262530780382684
 Transform:
@@ -831,6 +847,21 @@ Transform:
   m_Father: {fileID: 4618346809507676}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4518587635197738
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481848380163146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4618346809507676}
+  - {fileID: 4159193236650686}
+  m_Father: {fileID: 4609264021300890}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4547774426343096
 Transform:
   m_ObjectHideFlags: 1
@@ -867,8 +898,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
-  - {fileID: 4159193236650686}
-  - {fileID: 4618346809507676}
+  - {fileID: 4518587635197738}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -878,7 +908,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002692490630458}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -906,8 +936,8 @@ Transform:
   - {fileID: 4642032497142726}
   - {fileID: 4497752390244200}
   - {fileID: 4709974536538160}
-  m_Father: {fileID: 4609264021300890}
-  m_RootOrder: 1
+  m_Father: {fileID: 4518587635197738}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4642032497142726
 Transform:
@@ -3346,7 +3376,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002692490630458}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
@@ -3797,6 +3827,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+--- !u!114 &114347890682074520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481848380163146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OscillateObject: {fileID: 4518587635197738}
+  OscillatePosX: 1
+  OscillatePosY: 1
+  OscillatePosZ: 0
+  MoveAmount: {x: 7, y: 0.3, z: 0}
+  MovePeriod: {x: 3, y: 3, z: 0}
+  MoveOffset: {x: 0, y: 0, z: 0}
+  CircularPosFunctionX: 0
+  CircularPosFunctionY: 1
+  CircularPosFunctionZ: 0
+  UseUnscaledPosTimeX: 1
+  UseUnscaledPosTimeY: 1
+  UseUnscaledPosTimeZ: 0
+  useGlobalPosition: 0
+  UseWorldPositionX: 0
+  UseWorldPositionY: 0
+  UseWorldPositionZ: 0
+  OscillateRotX: 0
+  OscillateRotY: 0
+  OscillateRotZ: 1
+  RotAmount: {x: 0, y: 0, z: 15}
+  RotPeriod: {x: 0, y: 0, z: 1.5}
+  RotOffset: {x: 0, y: 0, z: 0}
+  CircularRotFunctionX: 0
+  CircularRotFunctionY: 0
+  CircularRotFunctionZ: 0
+  UseUnscaledRotTimeX: 0
+  UseUnscaledRotTimeY: 0
+  UseUnscaledRotTimeZ: 1
+  useGlobalRotation: 0
+  UseWorldRotationX: 0
+  UseWorldRotationY: 0
+  UseWorldRotationZ: 1
 --- !u!114 &114352661695007832
 MonoBehaviour:
   m_ObjectHideFlags: 1

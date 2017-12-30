@@ -128,6 +128,8 @@ public class MiniBoss : MonoBehaviour
 		AllowShoot = false;
 		Line.enabled = false;
 		yield return new WaitForSeconds (LineTimerOffDuration);
+		Line.SetPosition (0, transform.position + new Vector3 (0, 0, 0.36f));
+		Line.SetPosition (1, FollowPlayerPos.position);
 		Line.enabled = true;
 		Line.positionCount = 2;
 		yield return new WaitForSeconds (1);
