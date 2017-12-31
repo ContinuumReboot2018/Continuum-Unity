@@ -48,6 +48,8 @@ public class TimescaleController : MonoBehaviour
 	void Awake () 
 	{
 		isInInitialSequence = true;
+		Time.timeScale = 1;
+		Time.fixedDeltaTime = 0.005f;
 	}
 
 	void Update () 

@@ -68,6 +68,7 @@ public class GameController : MonoBehaviour
 	public float[] BlockSpawnXPositions;
 	public float BlockSpawnYPosition;
 	public float BlockSpawnZPosition;
+	public float BlockSpawnIncreaseRate;
 
 	[Header ("Powerup General")]
 	public float PowerupTimeRemaining;
@@ -267,6 +268,7 @@ public class GameController : MonoBehaviour
 		CheckCombo ();
 		CheckPowerupTime ();
 		UpdateScoreIncrements ();
+		UpdateBlockSpawnTime ();
 		//CheckOrthSize ();
 
 		if (WaveTimeRemaining < 0) 
@@ -693,10 +695,51 @@ public class GameController : MonoBehaviour
 	{
 		if (isGameOver == false) 
 		{
-			GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Length)];
-			Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-			Instantiate (Block, SpawnPosRand, Quaternion.identity);
+			if (Wave == 1) 
+			{
+				GameObject Block = Blocks [UnityEngine.Random.Range (0, 1)];
+				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+				Instantiate (Block, SpawnPosRand, Quaternion.identity);
+			}
+
+			if (Wave == 2) 
+			{
+				GameObject Block = Blocks [UnityEngine.Random.Range (0, 2)];
+				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+				Instantiate (Block, SpawnPosRand, Quaternion.identity);
+			}
+
+			if (Wave == 3) 
+			{
+				GameObject Block = Blocks [UnityEngine.Random.Range (0, 3)];
+				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+				Instantiate (Block, SpawnPosRand, Quaternion.identity);
+			}
+
+			if (Wave == 4) 
+			{
+				GameObject Block = Blocks [UnityEngine.Random.Range (0, 4)];
+				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+				Instantiate (Block, SpawnPosRand, Quaternion.identity);
+			}
+
+			if (Wave >= 5) 
+			{
+				GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Length)];
+				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+				Instantiate (Block, SpawnPosRand, Quaternion.identity);
+			}
 		}
+	}
+
+	void UpdateBlockSpawnTime ()
+	{
+		if (isPaused == false && Lives > 0 && WaveTimeRemaining > 0) 
+		{
+			BlockSpawnRate -= BlockSpawnIncreaseRate * Time.unscaledDeltaTime;
+		}
+
+		BlockSpawnRate = Mathf.Clamp (BlockSpawnRate, 0.0333f, 10);
 	}
 
 	IEnumerator PowerupSpawner ()

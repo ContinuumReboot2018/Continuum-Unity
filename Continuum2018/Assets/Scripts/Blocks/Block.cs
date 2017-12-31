@@ -152,7 +152,7 @@ public class Block : MonoBehaviour
 		{
 			rb.velocity = Vector3.zero;
 
-			if (transform.position.y > 11.5f) 
+			if (transform.position.y > 11.5f && GotDetached == true) 
 			{
 				Destroy (gameObject);
 			}
