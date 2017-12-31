@@ -14,6 +14,7 @@ public class DeveloperMode : MonoBehaviour
 	public AudioController audioControllerScript;
 	public SaveAndLoadScript saveAndLoadScript;
 	public TargetFPS targetFramerateScript;
+	public bool forceStarted;
 
 	[Header ("Cheats")]
 	public string CheatString;
@@ -33,6 +34,7 @@ public class DeveloperMode : MonoBehaviour
 	public GameObject CheatSound;
 
 	public Texture2D DoubleShotTexture;
+	public Texture2D TripleShotTexture;
 
 	[Header ("Debug Menu")]
 	public bool showDebugMenu;
@@ -123,6 +125,16 @@ public class DeveloperMode : MonoBehaviour
 			ShowCheatActivation ("CHEATS ON");
 		}
 
+		if ((CheatString == "nocheat" || 
+			CheatString == "NOCHEAT" || 
+			CheatString == "Nocheat")
+			&& allowCheats == true) 
+		{
+			useCheats = false;
+			Debug.Log ("Disabled cheats.");
+			ShowCheatActivation ("CHEATS OFF");
+		}
+
 		if (useCheats == true)
 		{
 			// Insert cheats here.
@@ -130,9 +142,13 @@ public class DeveloperMode : MonoBehaviour
 				CheatString == "Start" || 
 				CheatString == "START") 
 			{
-				timeScaleControllerScript.SwitchInitialSequence ();
-				playerControllerScript_P1.StartCoroutines ();
-				ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
+				if (forceStarted == false) 
+				{
+					timeScaleControllerScript.SwitchInitialSequence ();
+					playerControllerScript_P1.StartCoroutines ();
+					ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
+					forceStarted = true;
+				}
 			}
 
 			if (CheatString == "restart" || 
@@ -270,7 +286,9 @@ public class DeveloperMode : MonoBehaviour
 			if (CheatString == "double" || 
 				CheatString == "DOUBLE") 
 			{
+				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
+				playerControllerScript_P1.NextTripleShotIteration = 0;
 				gameControllerScript.SetPowerupTime (20);
 
 				// Apply tweaks to conditions based on which iteration the player is on.
@@ -292,7 +310,7 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.NextDoubleShotIteration < 4) 
 				{
 					playerControllerScript_P1.DoubleShotIteration = 
-						(PlayerController.doubleShotIteration)playerControllerScript_P1.NextDoubleShotIteration;
+						(PlayerController.shotIteration)playerControllerScript_P1.NextDoubleShotIteration;
 				}
 
 				// Increases iteration count.
@@ -306,6 +324,49 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.DoubleShotIteration.ToString ();
 
 				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT: " + playerControllerScript_P1.DoubleShotIteration.ToString ());
+			}
+
+			if (CheatString == "triple" || 
+				CheatString == "TRIPLE") 
+			{
+				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
+				playerControllerScript_P1.NextDoubleShotIteration = 0;
+				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
+				gameControllerScript.SetPowerupTime (20);
+
+				// Apply tweaks to conditions based on which iteration the player is on.
+				switch (playerControllerScript_P1.NextTripleShotIteration) 
+				{
+				case 0:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
+					break;
+				case 1:
+					break;
+				case 2:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+					break;
+				case 3:
+					break;
+				}
+
+				// Sets double shot iteration (enum) as the next double shot iteration (int).
+				if (playerControllerScript_P1.NextTripleShotIteration < 4) 
+				{
+					playerControllerScript_P1.TripleShotIteration = 
+						(PlayerController.shotIteration)playerControllerScript_P1.NextTripleShotIteration;
+				}
+
+				// Increases iteration count.
+				if (playerControllerScript_P1.NextTripleShotIteration < 4) 
+				{
+					playerControllerScript_P1.NextTripleShotIteration += 1;
+				}
+
+				gameControllerScript.PowerupShootingImage_P1.texture = TripleShotTexture;
+				gameControllerScript.PowerupShootingImage_P1.color = new Color (1, 1, 1, 1);
+				gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.TripleShotIteration.ToString ();
+
+				ShowCheatNotification ("CHEAT ACTIVATED: TRIPLE SHOT: " + playerControllerScript_P1.TripleShotIteration.ToString ());
 			}
 
 			if (CheatString == "clone") 

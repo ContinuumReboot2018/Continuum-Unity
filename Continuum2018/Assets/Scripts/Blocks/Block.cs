@@ -151,6 +151,11 @@ public class Block : MonoBehaviour
 		if (isBossPart == true) 
 		{
 			rb.velocity = Vector3.zero;
+
+			if (transform.position.y > 11.5f) 
+			{
+				Destroy (gameObject);
+			}
 		}
 	}
 
@@ -246,7 +251,7 @@ public class Block : MonoBehaviour
 	public void GetTotalPointValue ()
 	{
 		// Calculates total point value based on current combo from game controller and time scale.
-		totalPointValue = Mathf.Clamp (BasePointValue * gameControllerScript.combo * Time.timeScale, 1, 10000);
+		totalPointValue = Mathf.Clamp ((BasePointValue + gameControllerScript.Wave) * gameControllerScript.combo * Time.timeScale, 1, 10000);
 	}
 
 	public void RefreshCombo ()

@@ -426,6 +426,103 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 26016400}
+--- !u!1 &30487446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 30487447}
+  - component: {fileID: 30487448}
+  m_Layer: 10
+  m_Name: TripleShotSpawnL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &30487447
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 30487446}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: -0.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 563357995}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &30487448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 30487446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OscillateObject: {fileID: 30487447}
+  OscillatePosX: 0
+  OscillatePosY: 0
+  OscillatePosZ: 0
+  MoveAmount: {x: 0, y: 0, z: 0}
+  MovePeriod: {x: 0, y: 0, z: 0}
+  MoveOffset: {x: 0, y: 0, z: 0}
+  CircularPosFunctionX: 0
+  CircularPosFunctionY: 0
+  CircularPosFunctionZ: 0
+  UseUnscaledPosTimeX: 0
+  UseUnscaledPosTimeY: 0
+  UseUnscaledPosTimeZ: 0
+  useGlobalPosition: 0
+  UseWorldPositionX: 0
+  UseWorldPositionY: 0
+  UseWorldPositionZ: 0
+  OscillateRotX: 0
+  OscillateRotY: 0
+  OscillateRotZ: 1
+  RotAmount: {x: 0, y: 0, z: 10}
+  RotPeriod: {x: 0, y: 0, z: 5}
+  RotOffset: {x: 0, y: 0, z: 45}
+  CircularRotFunctionX: 0
+  CircularRotFunctionY: 0
+  CircularRotFunctionZ: 0
+  UseUnscaledRotTimeX: 0
+  UseUnscaledRotTimeY: 0
+  UseUnscaledRotTimeZ: 1
+  useGlobalRotation: 0
+  UseWorldRotationX: 0
+  UseWorldRotationY: 0
+  UseWorldRotationZ: 0
+  NewPosSinScaledX: 0
+  NewPosSinUnscaledX: 0
+  NewPosCosScaledX: 0
+  NewPosCosUnscaledX: 0
+  NewPosSinScaledY: 0
+  NewPosSinUnscaledY: 0
+  NewPosCosScaledY: 0
+  NewPosCosUnscaledY: 0
+  NewPosSinScaledZ: 0
+  NewPosSinUnscaledZ: 0
+  NewPosCosScaledZ: 0
+  NewPosCosUnscaledZ: 0
+  NewRotSinScaledX: 0
+  NewRotSinUnscaledX: 0
+  NewRotCosScaledX: 0
+  NewRotCosUnscaledX: 0
+  NewRotSinScaledY: 0
+  NewRotSinUnscaledY: 0
+  NewRotCosScaledY: 0
+  NewRotCosUnscaledY: 0
+  NewRotSinScaledZ: 0
+  NewRotSinUnscaledZ: 0
+  NewRotCosScaledZ: 0
+  NewRotCosUnscaledZ: 0
 --- !u!1 &39155525
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,6 +664,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 77031333}
+  - component: {fileID: 77031334}
   m_Layer: 10
   m_Name: DoubleShotSpawnL
   m_TagString: Untagged
@@ -587,6 +685,74 @@ Transform:
   m_Father: {fileID: 563357995}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &77031334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 77031332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OscillateObject: {fileID: 77031333}
+  OscillatePosX: 0
+  OscillatePosY: 0
+  OscillatePosZ: 0
+  MoveAmount: {x: 0, y: 0, z: 0}
+  MovePeriod: {x: 0, y: 0, z: 0}
+  MoveOffset: {x: 0, y: 0, z: 0}
+  CircularPosFunctionX: 0
+  CircularPosFunctionY: 0
+  CircularPosFunctionZ: 0
+  UseUnscaledPosTimeX: 0
+  UseUnscaledPosTimeY: 0
+  UseUnscaledPosTimeZ: 0
+  useGlobalPosition: 0
+  UseWorldPositionX: 0
+  UseWorldPositionY: 0
+  UseWorldPositionZ: 0
+  OscillateRotX: 0
+  OscillateRotY: 0
+  OscillateRotZ: 1
+  RotAmount: {x: 0, y: 0, z: 3}
+  RotPeriod: {x: 0, y: 0, z: 16}
+  RotOffset: {x: 0, y: 0, z: 4}
+  CircularRotFunctionX: 0
+  CircularRotFunctionY: 0
+  CircularRotFunctionZ: 0
+  UseUnscaledRotTimeX: 0
+  UseUnscaledRotTimeY: 0
+  UseUnscaledRotTimeZ: 1
+  useGlobalRotation: 0
+  UseWorldRotationX: 0
+  UseWorldRotationY: 0
+  UseWorldRotationZ: 0
+  NewPosSinScaledX: 0
+  NewPosSinUnscaledX: 0
+  NewPosCosScaledX: 0
+  NewPosCosUnscaledX: 0
+  NewPosSinScaledY: 0
+  NewPosSinUnscaledY: 0
+  NewPosCosScaledY: 0
+  NewPosCosUnscaledY: 0
+  NewPosSinScaledZ: 0
+  NewPosSinUnscaledZ: 0
+  NewPosCosScaledZ: 0
+  NewPosCosUnscaledZ: 0
+  NewRotSinScaledX: 0
+  NewRotSinUnscaledX: 0
+  NewRotCosScaledX: 0
+  NewRotCosUnscaledX: 0
+  NewRotSinScaledY: 0
+  NewRotSinUnscaledY: 0
+  NewRotCosScaledY: 0
+  NewRotCosUnscaledY: 0
+  NewRotSinScaledZ: 0
+  NewRotSinUnscaledZ: 0
+  NewRotCosScaledZ: 0
+  NewRotCosUnscaledZ: 0
 --- !u!1 &86415231
 GameObject:
   m_ObjectHideFlags: 0
@@ -15508,7 +15674,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 495375289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 11.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 817838701}
@@ -16211,6 +16377,9 @@ Transform:
   - {fileID: 859732702}
   - {fileID: 77031333}
   - {fileID: 889347058}
+  - {fileID: 30487447}
+  - {fileID: 945773979}
+  - {fileID: 2053581876}
   m_Father: {fileID: 815677226}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -32919,6 +33088,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 889347058}
+  - component: {fileID: 889347059}
   m_Layer: 10
   m_Name: DoubleShotSpawnR
   m_TagString: Untagged
@@ -32939,6 +33109,74 @@ Transform:
   m_Father: {fileID: 563357995}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &889347059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 889347057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OscillateObject: {fileID: 889347058}
+  OscillatePosX: 0
+  OscillatePosY: 0
+  OscillatePosZ: 0
+  MoveAmount: {x: 0, y: 0, z: 0}
+  MovePeriod: {x: 0, y: 0, z: 0}
+  MoveOffset: {x: 0, y: 0, z: 0}
+  CircularPosFunctionX: 0
+  CircularPosFunctionY: 0
+  CircularPosFunctionZ: 0
+  UseUnscaledPosTimeX: 0
+  UseUnscaledPosTimeY: 0
+  UseUnscaledPosTimeZ: 0
+  useGlobalPosition: 0
+  UseWorldPositionX: 0
+  UseWorldPositionY: 0
+  UseWorldPositionZ: 0
+  OscillateRotX: 0
+  OscillateRotY: 0
+  OscillateRotZ: 1
+  RotAmount: {x: 0, y: 0, z: 3}
+  RotPeriod: {x: 0, y: 0, z: -16}
+  RotOffset: {x: 0, y: 0, z: -4}
+  CircularRotFunctionX: 0
+  CircularRotFunctionY: 0
+  CircularRotFunctionZ: 0
+  UseUnscaledRotTimeX: 0
+  UseUnscaledRotTimeY: 0
+  UseUnscaledRotTimeZ: 1
+  useGlobalRotation: 0
+  UseWorldRotationX: 0
+  UseWorldRotationY: 0
+  UseWorldRotationZ: 0
+  NewPosSinScaledX: 0
+  NewPosSinUnscaledX: 0
+  NewPosCosScaledX: 0
+  NewPosCosUnscaledX: 0
+  NewPosSinScaledY: 0
+  NewPosSinUnscaledY: 0
+  NewPosCosScaledY: 0
+  NewPosCosUnscaledY: 0
+  NewPosSinScaledZ: 0
+  NewPosSinUnscaledZ: 0
+  NewPosCosScaledZ: 0
+  NewPosCosUnscaledZ: 0
+  NewRotSinScaledX: 0
+  NewRotSinUnscaledX: 0
+  NewRotCosScaledX: 0
+  NewRotCosUnscaledX: 0
+  NewRotSinScaledY: 0
+  NewRotSinUnscaledY: 0
+  NewRotCosScaledY: 0
+  NewRotCosUnscaledY: 0
+  NewRotSinScaledZ: 0
+  NewRotSinUnscaledZ: 0
+  NewRotCosScaledZ: 0
+  NewRotCosUnscaledZ: 0
 --- !u!1 &899933970
 GameObject:
   m_ObjectHideFlags: 0
@@ -34050,6 +34288,103 @@ Transform:
   m_Father: {fileID: 1585313106}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &945773978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 945773979}
+  - component: {fileID: 945773980}
+  m_Layer: 10
+  m_Name: TripleShotSpawnM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &945773979
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945773978}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 563357995}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &945773980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945773978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OscillateObject: {fileID: 945773979}
+  OscillatePosX: 0
+  OscillatePosY: 0
+  OscillatePosZ: 0
+  MoveAmount: {x: 0, y: 0, z: 0}
+  MovePeriod: {x: 0, y: 0, z: 0}
+  MoveOffset: {x: 0, y: 0, z: 0}
+  CircularPosFunctionX: 0
+  CircularPosFunctionY: 0
+  CircularPosFunctionZ: 0
+  UseUnscaledPosTimeX: 0
+  UseUnscaledPosTimeY: 0
+  UseUnscaledPosTimeZ: 0
+  useGlobalPosition: 0
+  UseWorldPositionX: 0
+  UseWorldPositionY: 0
+  UseWorldPositionZ: 0
+  OscillateRotX: 0
+  OscillateRotY: 0
+  OscillateRotZ: 1
+  RotAmount: {x: 0, y: 0, z: 2}
+  RotPeriod: {x: 0, y: 0, z: 16}
+  RotOffset: {x: 0, y: 0, z: 0}
+  CircularRotFunctionX: 0
+  CircularRotFunctionY: 0
+  CircularRotFunctionZ: 0
+  UseUnscaledRotTimeX: 0
+  UseUnscaledRotTimeY: 0
+  UseUnscaledRotTimeZ: 1
+  useGlobalRotation: 0
+  UseWorldRotationX: 0
+  UseWorldRotationY: 0
+  UseWorldRotationZ: 0
+  NewPosSinScaledX: 0
+  NewPosSinUnscaledX: 0
+  NewPosCosScaledX: 0
+  NewPosCosUnscaledX: 0
+  NewPosSinScaledY: 0
+  NewPosSinUnscaledY: 0
+  NewPosCosScaledY: 0
+  NewPosCosUnscaledY: 0
+  NewPosSinScaledZ: 0
+  NewPosSinUnscaledZ: 0
+  NewPosCosScaledZ: 0
+  NewPosCosUnscaledZ: 0
+  NewRotSinScaledX: 0
+  NewRotSinUnscaledX: 0
+  NewRotCosScaledX: 0
+  NewRotCosUnscaledX: 0
+  NewRotSinScaledY: 0
+  NewRotSinUnscaledY: 0
+  NewRotCosScaledY: 0
+  NewRotCosUnscaledY: 0
+  NewRotSinScaledZ: 0
+  NewRotSinUnscaledZ: 0
+  NewRotCosScaledZ: 0
+  NewRotCosUnscaledZ: 0
 --- !u!1 &950120394
 GameObject:
   m_ObjectHideFlags: 0
@@ -37564,6 +37899,32 @@ MonoBehaviour:
   - 0.15
   DoubleShotIteration: 0
   NextDoubleShotIteration: 0
+  TripleShotL: {fileID: 1269433964671182, guid: 9a5594d97d1871249b041d3acf644c0e,
+    type: 2}
+  TripleShotLEnhanced: {fileID: 1274823252740296, guid: ce80b4bcbd8c76c45913b5645283703d,
+    type: 2}
+  TripleShotLOverdrive: {fileID: 1723503575457920, guid: c9c6dd836739fc7409b72ad08e024e6e,
+    type: 2}
+  TripleShotM: {fileID: 1605225337937698, guid: c23a5281898237e409436888356faf8a,
+    type: 2}
+  TripleShotMEnhanced: {fileID: 1263447338723324, guid: a71206a1b766a1a4cbd47c5326958b79,
+    type: 2}
+  TripleShotMOverdrive: {fileID: 1946333366677798, guid: 67788e5fb8657634db8f176006f6aa12,
+    type: 2}
+  TripleShotR: {fileID: 1522726526187294, guid: 66b675640d6d07c41b2746ed0c1ba04e,
+    type: 2}
+  TripleShotREnhanced: {fileID: 1733402807702666, guid: 9010ce18f963ef94fb3de9d0eb5b0ed6,
+    type: 2}
+  TripleShotROverdrive: {fileID: 1224567524949552, guid: 1d46dac995e8ba14db74279b32eb2c73,
+    type: 2}
+  TripleShotSpawnL: {fileID: 30487447}
+  TripleShotSpawnM: {fileID: 945773979}
+  TripleShotSpawnR: {fileID: 2053581876}
+  TripleShotFireRates:
+  - 0.22
+  - 0.12
+  TripleShotIteration: 0
+  NextTripleShotIteration: 0
   isShieldOn: 0
   Shield: {fileID: 347779641}
   lensScript: {fileID: 1771333222}
@@ -58923,6 +59284,7 @@ MonoBehaviour:
   PowerupResetAudio: {fileID: 1598546898}
   PowerupPickups:
   - {fileID: 1219794950772602, guid: 5d0c7a69914eed442a68521979712ee2, type: 2}
+  - {fileID: 1219794950772602, guid: 9cc199be71df33d45bd65fef064d9b37, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   PowerupPickupSpawnRate: 6
   PowerupPickupSpawnRangeX: 20
@@ -67813,6 +68175,7 @@ MonoBehaviour:
   audioControllerScript: {fileID: 1084482489}
   saveAndLoadScript: {fileID: 0}
   targetFramerateScript: {fileID: 1334309453}
+  forceStarted: 0
   CheatString: 
   LastCheatName: 
   CheatStringResetTimeRemaining: 0
@@ -67827,6 +68190,7 @@ MonoBehaviour:
   CheatNotifcationText: {fileID: 2113267495}
   CheatSound: {fileID: 1079460939476350, guid: 68b6421d662d2314e89ced28d506e087, type: 2}
   DoubleShotTexture: {fileID: 2800000, guid: d2330acab737d8c47aa9888fca6f46ea, type: 3}
+  TripleShotTexture: {fileID: 2800000, guid: 9d152a8688d493e428a780b1948b7591, type: 3}
   showDebugMenu: 0
   DebugMenu: {fileID: 2023690794}
   DebugMenuAnim: {fileID: 2023690796}
@@ -70276,6 +70640,103 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1876309033}
   m_Script: {fileID: 1453722849, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
+--- !u!1 &2053581875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2053581876}
+  - component: {fileID: 2053581877}
+  m_Layer: 10
+  m_Name: TripleShotSpawnR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2053581876
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2053581875}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: -0.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 563357995}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+--- !u!114 &2053581877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2053581875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OscillateObject: {fileID: 2053581876}
+  OscillatePosX: 0
+  OscillatePosY: 0
+  OscillatePosZ: 0
+  MoveAmount: {x: 0, y: 0, z: 0}
+  MovePeriod: {x: 0, y: 0, z: 0}
+  MoveOffset: {x: 0, y: 0, z: 0}
+  CircularPosFunctionX: 0
+  CircularPosFunctionY: 0
+  CircularPosFunctionZ: 0
+  UseUnscaledPosTimeX: 0
+  UseUnscaledPosTimeY: 0
+  UseUnscaledPosTimeZ: 0
+  useGlobalPosition: 0
+  UseWorldPositionX: 0
+  UseWorldPositionY: 0
+  UseWorldPositionZ: 0
+  OscillateRotX: 0
+  OscillateRotY: 0
+  OscillateRotZ: 1
+  RotAmount: {x: 0, y: 0, z: 10}
+  RotPeriod: {x: 0, y: 0, z: -5}
+  RotOffset: {x: 0, y: 0, z: -45}
+  CircularRotFunctionX: 0
+  CircularRotFunctionY: 0
+  CircularRotFunctionZ: 0
+  UseUnscaledRotTimeX: 0
+  UseUnscaledRotTimeY: 0
+  UseUnscaledRotTimeZ: 1
+  useGlobalRotation: 0
+  UseWorldRotationX: 0
+  UseWorldRotationY: 0
+  UseWorldRotationZ: 0
+  NewPosSinScaledX: 0
+  NewPosSinUnscaledX: 0
+  NewPosCosScaledX: 0
+  NewPosCosUnscaledX: 0
+  NewPosSinScaledY: 0
+  NewPosSinUnscaledY: 0
+  NewPosCosScaledY: 0
+  NewPosCosUnscaledY: 0
+  NewPosSinScaledZ: 0
+  NewPosSinUnscaledZ: 0
+  NewPosCosScaledZ: 0
+  NewPosCosUnscaledZ: 0
+  NewRotSinScaledX: 0
+  NewRotSinUnscaledX: 0
+  NewRotCosScaledX: 0
+  NewRotCosUnscaledX: 0
+  NewRotSinScaledY: 0
+  NewRotSinUnscaledY: 0
+  NewRotCosScaledY: 0
+  NewRotCosUnscaledY: 0
+  NewRotSinScaledZ: 0
+  NewRotSinUnscaledZ: 0
+  NewRotCosScaledZ: 0
+  NewRotCosUnscaledZ: 0
 --- !u!1 &2056022827
 GameObject:
   m_ObjectHideFlags: 0

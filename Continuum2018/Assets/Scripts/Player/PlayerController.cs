@@ -109,16 +109,35 @@ public class PlayerController : MonoBehaviour
 	public Transform DoubleShotSpawnL;
 	public Transform DoubleShotSpawnR;
 	public float[] DoubleShotFireRates;
-	public doubleShotIteration DoubleShotIteration;
+	public shotIteration DoubleShotIteration;
 	public int NextDoubleShotIteration;
-	public enum doubleShotIteration
+	private float DoubleShotNextFire;
+
+	// Triple shot.
+	public GameObject TripleShotL;
+	public GameObject TripleShotLEnhanced;
+	public GameObject TripleShotLOverdrive;
+	public GameObject TripleShotM;
+	public GameObject TripleShotMEnhanced;
+	public GameObject TripleShotMOverdrive;
+	public GameObject TripleShotR;
+	public GameObject TripleShotREnhanced;
+	public GameObject TripleShotROverdrive;
+	public Transform TripleShotSpawnL;
+	public Transform TripleShotSpawnM;
+	public Transform TripleShotSpawnR;
+	public float[] TripleShotFireRates;
+	public shotIteration TripleShotIteration;
+	public int NextTripleShotIteration;
+	private float TripleShotNextFire;
+
+	public enum shotIteration
 	{
 		Standard = 0,
 		Enhanced = 1,
 		Rapid = 2,
 		Overdrive = 3
 	}
-	private float DoubleShotNextFire;
 
 	[Header ("Shield")]
 	public bool isShieldOn;
@@ -501,7 +520,7 @@ public class PlayerController : MonoBehaviour
 		case shotType.Double:
 			switch (DoubleShotIteration)
 			{
-				case doubleShotIteration.Standard:
+				case shotIteration.Standard:
 					GameObject doubleshotL = Instantiate (DoubleShotL, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
 					GameObject doubleshotR = Instantiate (DoubleShotR, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
 					doubleshotL.GetComponent<Bullet> ().playerControllerScript = this;
@@ -511,7 +530,7 @@ public class PlayerController : MonoBehaviour
 					doubleshotL.name = "Double ShotL_P" + PlayerId + " (Standard)";
 					doubleshotR.name = "Double ShotR_P" + PlayerId + " (Standard)";
 					break;
-				case doubleShotIteration.Enhanced:
+				case shotIteration.Enhanced:
 					GameObject doubleshotLEnhanced = Instantiate (DoubleShotLEnhanced, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
 					GameObject doubleshotREnhanced = Instantiate (DoubleShotREnhanced, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
 					doubleshotLEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
@@ -521,7 +540,7 @@ public class PlayerController : MonoBehaviour
 					doubleshotLEnhanced.name = "Double ShotL_P" + PlayerId + " (Enhanced)";
 					doubleshotREnhanced.name = "Double ShotR_P" + PlayerId + " (Enhanced)";
 					break;
-				case doubleShotIteration.Rapid:
+				case shotIteration.Rapid:
 					GameObject doubleshotLRapid = Instantiate (DoubleShotLEnhanced, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
 					GameObject doubleshotRRapid = Instantiate (DoubleShotREnhanced, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
 					doubleshotLRapid.GetComponent<Bullet> ().playerControllerScript = this;
@@ -531,7 +550,7 @@ public class PlayerController : MonoBehaviour
 					doubleshotLRapid.name = "Double ShotL_P" + PlayerId + " (Rapid)";
 					doubleshotRRapid.name = "Double ShotR_P" + PlayerId + " (Rapid)";
 					break;
-				case doubleShotIteration.Overdrive:
+				case shotIteration.Overdrive:
 					GameObject doubleshotLOverdrive = Instantiate (DoubleShotLOverdrive, DoubleShotSpawnL.position, DoubleShotSpawnL.rotation);
 					GameObject doubleshotROverdrive = Instantiate (DoubleShotROverdrive, DoubleShotSpawnR.position, DoubleShotSpawnR.rotation);
 					doubleshotLOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
@@ -540,6 +559,57 @@ public class PlayerController : MonoBehaviour
 					doubleshotROverdrive.GetComponent<Bullet> ().playerPos = playerCol.transform;
 					doubleshotLOverdrive.name = "Double ShotL_P" + PlayerId + " (Overdrive)";
 					doubleshotROverdrive.name = "Double ShotR_P" + PlayerId + " (Overdrive)";
+					break;
+			}
+
+			break;
+
+		case shotType.Triple:
+			switch (TripleShotIteration) 
+			{
+			case shotIteration.Standard:
+				GameObject tripleShotLStandard = Instantiate (TripleShotL, TripleShotSpawnL.position, TripleShotSpawnL.rotation);
+				GameObject tripleShotMStandard = Instantiate (TripleShotM, TripleShotSpawnM.position, TripleShotSpawnM.rotation);
+				GameObject tripleShotRStandard = Instantiate (TripleShotR, TripleShotSpawnR.position, TripleShotSpawnR.rotation);
+				tripleShotLStandard.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotMStandard.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotRStandard.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotLStandard.name = "Triple ShotL_P" + PlayerId + " (Standard)";
+				tripleShotMStandard.name = "Triple ShotM_P" + PlayerId + " (Standard)";
+				tripleShotRStandard.name = "Triple ShotR_P" + PlayerId + " (Standard)";
+					break;
+				case shotIteration.Enhanced:
+				GameObject tripleShotLEnhanced = Instantiate (TripleShotLEnhanced, TripleShotSpawnL.position, TripleShotSpawnL.rotation);
+				GameObject tripleShotMEnhanced = Instantiate (TripleShotMEnhanced, TripleShotSpawnM.position, TripleShotSpawnM.rotation);
+				GameObject tripleShotREnhanced = Instantiate (TripleShotREnhanced, TripleShotSpawnR.position, TripleShotSpawnR.rotation);
+				tripleShotLEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotMEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotREnhanced.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotLEnhanced.name = "Triple ShotL_P" + PlayerId + " (Enhanced)";
+				tripleShotMEnhanced.name = "Triple ShotM_P" + PlayerId + " (Enhanced)";
+				tripleShotREnhanced.name = "Triple ShotR_P" + PlayerId + " (Enhanced)";
+					break;
+				case shotIteration.Rapid:
+				GameObject tripleShotLRapid = Instantiate (TripleShotLEnhanced, TripleShotSpawnL.position, TripleShotSpawnL.rotation);
+				GameObject tripleShotMRapid = Instantiate (TripleShotMEnhanced, TripleShotSpawnM.position, TripleShotSpawnM.rotation);
+				GameObject tripleShotRRapid = Instantiate (TripleShotREnhanced, TripleShotSpawnR.position, TripleShotSpawnR.rotation);
+				tripleShotLRapid.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotMRapid.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotRRapid.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotLRapid.name = "Triple ShotL_P" + PlayerId + " (Rapid)";
+				tripleShotMRapid.name = "Triple ShotM_P" + PlayerId + " (Rapid)";
+				tripleShotRRapid.name = "Triple ShotR_P" + PlayerId + " (Rapid)";
+					break;
+				case shotIteration.Overdrive:
+				GameObject tripleShotLOverdrive = Instantiate (TripleShotLOverdrive, TripleShotSpawnL.position, TripleShotSpawnL.rotation);
+				GameObject tripleShotMOverdrive = Instantiate (TripleShotMOverdrive, TripleShotSpawnM.position, TripleShotSpawnM.rotation);
+				GameObject tripleShotROverdrive = Instantiate (TripleShotROverdrive, TripleShotSpawnR.position, TripleShotSpawnR.rotation);
+				tripleShotLOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotMOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotROverdrive.GetComponent<Bullet> ().playerControllerScript = this;
+				tripleShotLOverdrive.name = "Triple ShotL_P" + PlayerId + " (Overdrive)";
+				tripleShotMOverdrive.name = "Triple ShotM_P" + PlayerId + " (Overdrive)";
+				tripleShotROverdrive.name = "Triple ShotR_P" + PlayerId + " (Overdrive)";
 					break;
 			}
 
@@ -700,8 +770,10 @@ public class PlayerController : MonoBehaviour
 	{
 		ShotType = shotType.Standard;
 		CurrentFireRate = StandardFireRate;
-		DoubleShotIteration = doubleShotIteration.Standard;
+		DoubleShotIteration = shotIteration.Standard;
+		TripleShotIteration = shotIteration.Standard;
 		NextDoubleShotIteration = 0;
+		NextTripleShotIteration = 0;
 
 		gameControllerScript.PowerupShootingImage_P1.texture = null; // Replace with standard shot texture.
 		gameControllerScript.PowerupShootingImage_P1.color = new Color (0, 0, 0, 0); // Replace with full color once standard shot texture is in.

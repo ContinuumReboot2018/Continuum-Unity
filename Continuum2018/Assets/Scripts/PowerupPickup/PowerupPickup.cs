@@ -118,11 +118,18 @@ public class PowerupPickup : MonoBehaviour
 		{
 		case powerups.DoubleShot: 
 
+			// Resets other shooting powerup stats.
+			playerControllerScript_P1.NextTripleShotIteration = 0;
+			playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
+
+			// Switches to double shot mode.
+			playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
+
 			// Sets double shot iteration (enum) as the next double shot iteration (int).
 			if (playerControllerScript_P1.NextDoubleShotIteration < 4) 
 			{
 				playerControllerScript_P1.DoubleShotIteration = 
-					(PlayerController.doubleShotIteration)playerControllerScript_P1.NextDoubleShotIteration;
+					(PlayerController.shotIteration)playerControllerScript_P1.NextDoubleShotIteration;
 			}
 
 			// Increases iteration count.
@@ -134,17 +141,17 @@ public class PowerupPickup : MonoBehaviour
 			// Tweaks to conditions based on which iteration the player is on.
 			switch (playerControllerScript_P1.DoubleShotIteration) 
 			{
-			case PlayerController.doubleShotIteration.Standard:
-				playerControllerScript_P1.powerupsInUse += 1; // Increases powerups in use on first iteration.
+			case PlayerController.shotIteration.Standard:
+				//playerControllerScript_P1.powerupsInUse += 1; // Increases powerups in use on first iteration.
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
 				break;
-			case PlayerController.doubleShotIteration.Enhanced:
+			case PlayerController.shotIteration.Enhanced:
 				break;
-			case PlayerController.doubleShotIteration.Rapid:
+			case PlayerController.shotIteration.Rapid:
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 				break;
-			case PlayerController.doubleShotIteration.Overdrive:
+			case PlayerController.shotIteration.Overdrive:
 				break;
 			}
 
@@ -154,6 +161,48 @@ public class PowerupPickup : MonoBehaviour
 				break;
 
 		case powerups.TripleShot:
+
+			// Resets other shooting powerup stats.
+			playerControllerScript_P1.NextDoubleShotIteration = 0;
+			playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
+
+			// Switches to triple shot mode
+			playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
+
+			// Sets double shot iteration (enum) as the next Triple shot iteration (int).
+			if (playerControllerScript_P1.NextTripleShotIteration < 4) 
+			{
+				playerControllerScript_P1.TripleShotIteration = 
+					(PlayerController.shotIteration)playerControllerScript_P1.NextTripleShotIteration;
+			}
+
+			// Increases iteration count.
+			if (playerControllerScript_P1.NextTripleShotIteration < 4) 
+			{
+				playerControllerScript_P1.NextTripleShotIteration += 1;
+			}
+
+			// Tweaks to conditions based on which iteration the player is on.
+			switch (playerControllerScript_P1.TripleShotIteration) 
+			{
+			case PlayerController.shotIteration.Standard:
+				//playerControllerScript_P1.powerupsInUse += 1; // Increases powerups in use on first iteration.
+				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
+				break;
+			case PlayerController.shotIteration.Enhanced:
+				break;
+			case PlayerController.shotIteration.Rapid:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+				break;
+			case PlayerController.shotIteration.Overdrive:
+				break;
+			}
+
+			SetPowerupShootingTexture ();
+			gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.TripleShotIteration.ToString ();
+
+
 			break;
 		case powerups.ExtraLife: 
 			break;
