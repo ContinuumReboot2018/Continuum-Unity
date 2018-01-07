@@ -237,6 +237,7 @@ public class Block : MonoBehaviour
 				newCamShakeDuration = 1.5f;
 				DoCamShake ();
 				playerControllerScript_P1.StartCooldown ();
+				playerControllerScript_P1.PlayerExplosionParticles.transform.position = gameObject.transform.position;
 				playerControllerScript_P1.PlayerExplosionParticles.Play ();
 				playerControllerScript_P1.PlayerExplosionAudio.Play ();
 

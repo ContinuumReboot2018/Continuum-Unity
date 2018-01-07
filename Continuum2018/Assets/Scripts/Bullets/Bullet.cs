@@ -130,9 +130,8 @@ public class Bullet : MonoBehaviour
 
 	void CheckBulletIteration ()
 	{
-		switch (BulletTypeName) 
+		if (BulletTypeName.Contains ("DoubleShot")) 
 		{
-		case "DoubleShot":
 			switch (playerControllerScript.DoubleShotIteration)
 			{
 			case PlayerController.shotIteration.Standard:
@@ -148,7 +147,25 @@ public class Bullet : MonoBehaviour
 				allowBulletColDeactivate = false;
 				break;
 			}
-			break;
+		}
+
+		if (BulletTypeName.Contains ("TripleShot")) 
+		{
+			switch (playerControllerScript.TripleShotIteration)
+			{
+			case PlayerController.shotIteration.Standard:
+				allowBulletColDeactivate = true;
+				break;
+			case PlayerController.shotIteration.Enhanced:
+				allowBulletColDeactivate = true;
+				break;
+			case PlayerController.shotIteration.Rapid:
+				allowBulletColDeactivate = true;
+				break;
+			case PlayerController.shotIteration.Overdrive:
+				allowBulletColDeactivate = false;
+				break;
+			}
 		}
 	}
 
@@ -195,10 +212,13 @@ public class Bullet : MonoBehaviour
 
 	public void BlockHit ()
 	{
-		BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
-		BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
-		StopEmittingTrail ();
-		BulletCol.enabled = false;
-		StartCoroutine (DestroyDelay ());
+		if (BulletTypeName.Contains ("Overdrive") == false) 
+		{
+			BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+			BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+			StopEmittingTrail ();
+			BulletCol.enabled = false;
+			StartCoroutine (DestroyDelay ());
+		}
 	}
 }

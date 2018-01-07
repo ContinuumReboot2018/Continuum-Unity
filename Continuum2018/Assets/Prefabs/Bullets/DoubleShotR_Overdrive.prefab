@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 65462425597561536}
   - component: {fileID: 54780075782019652}
   - component: {fileID: 114835695993013006}
+  - component: {fileID: 114776737887368580}
   m_Layer: 9
   m_Name: DoubleShotR_Overdrive
   m_TagString: Bullet
@@ -257,7 +258,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   BulletSpeed: 2800
   BulletRb: {fileID: 54780075782019652}
-  BulletTypeName: DoubleShot
+  BulletTypeName: DoubleShot_Overdrive
   Lifetime: 0
   MaxLifetime: 30
   DestroyMaxYPos: 30
@@ -281,6 +282,74 @@ MonoBehaviour:
   LeftMotorRumble: 0.4
   RightMotorRumble: 0.4
   VibrationDuration: 0.15
+--- !u!114 &114776737887368580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1598089217073352}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OscillateObject: {fileID: 4275069203554002}
+  OscillatePosX: 1
+  OscillatePosY: 0
+  OscillatePosZ: 0
+  MoveAmount: {x: -1, y: 0, z: 0}
+  MovePeriod: {x: 12, y: 0, z: 0}
+  MoveOffset: {x: 0, y: 0, z: 0}
+  CircularPosFunctionX: 0
+  CircularPosFunctionY: 0
+  CircularPosFunctionZ: 0
+  UseUnscaledPosTimeX: 0
+  UseUnscaledPosTimeY: 0
+  UseUnscaledPosTimeZ: 0
+  useGlobalPosition: 0
+  UseWorldPositionX: 0
+  UseWorldPositionY: 0
+  UseWorldPositionZ: 0
+  OscillateRotX: 0
+  OscillateRotY: 0
+  OscillateRotZ: 0
+  RotAmount: {x: 0, y: 0, z: 0}
+  RotPeriod: {x: 0, y: 0, z: 0}
+  RotOffset: {x: 0, y: 0, z: 0}
+  CircularRotFunctionX: 0
+  CircularRotFunctionY: 0
+  CircularRotFunctionZ: 0
+  UseUnscaledRotTimeX: 0
+  UseUnscaledRotTimeY: 0
+  UseUnscaledRotTimeZ: 0
+  useGlobalRotation: 0
+  UseWorldRotationX: 0
+  UseWorldRotationY: 0
+  UseWorldRotationZ: 0
+  NewPosSinScaledX: 0
+  NewPosSinUnscaledX: 0
+  NewPosCosScaledX: 0
+  NewPosCosUnscaledX: 0
+  NewPosSinScaledY: 0
+  NewPosSinUnscaledY: 0
+  NewPosCosScaledY: 0
+  NewPosCosUnscaledY: 0
+  NewPosSinScaledZ: 0
+  NewPosSinUnscaledZ: 0
+  NewPosCosScaledZ: 0
+  NewPosCosUnscaledZ: 0
+  NewRotSinScaledX: 0
+  NewRotSinUnscaledX: 0
+  NewRotCosScaledX: 0
+  NewRotCosUnscaledX: 0
+  NewRotSinScaledY: 0
+  NewRotSinUnscaledY: 0
+  NewRotCosScaledY: 0
+  NewRotCosUnscaledY: 0
+  NewRotSinScaledZ: 0
+  NewRotSinUnscaledZ: 0
+  NewRotCosScaledZ: 0
+  NewRotCosUnscaledZ: 0
 --- !u!114 &114834305301445172
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -18,6 +18,8 @@ public class Explosion : MonoBehaviour
 	public Color TextColor;
 	public float MaxScale = 2;
 
+	public Vector2 TextPos;
+
 	void Awake ()
 	{
 		Destroy (gameObject, Lifetime);
@@ -35,6 +37,13 @@ public class Explosion : MonoBehaviour
 			Mathf.Clamp (0.02f * gameControllerScript.combo + 0.6f, 0, MaxScale), 
 			Mathf.Clamp (0.02f * gameControllerScript.combo + 0.6f, 0, MaxScale), 
 			1);
+
+		ComboPointsText.gameObject.transform.localPosition = new Vector3 
+			(
+				Random.Range (-TextPos.x, TextPos.x),
+				Random.Range (-TextPos.y, TextPos.y),
+				0
+			);
 	}
 
 	public void Anim ()

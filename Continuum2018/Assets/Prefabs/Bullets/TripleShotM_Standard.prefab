@@ -543,7 +543,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   BulletSpeed: 1200
   BulletRb: {fileID: 54298432661940900}
-  BulletTypeName: TripleShot
+  BulletTypeName: TripleShot_Standard
   Lifetime: 0
   MaxLifetime: 30
   DestroyMaxYPos: 30
@@ -3933,7 +3933,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.1
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -3974,7 +3974,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1992432006
+  randomSeed: -1901076738
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10573,7 +10573,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.1
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -10614,7 +10614,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2019773327
+  randomSeed: -1348510653
   InitialModule:
     serializedVersion: 3
     enabled: 1

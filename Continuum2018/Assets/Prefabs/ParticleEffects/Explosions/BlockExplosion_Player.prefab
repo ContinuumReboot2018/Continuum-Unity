@@ -308,6 +308,7 @@ MonoBehaviour:
   ComboPointsText: {fileID: 0}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
+  TextPos: {x: 0, y: 0}
 --- !u!114 &114201206547933330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -339,6 +340,7 @@ MonoBehaviour:
   ComboPointsText: {fileID: 0}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
+  TextPos: {x: 1, y: 1}
 --- !u!114 &114538948711491612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7081,7 +7083,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

@@ -75,6 +75,7 @@ public class Hazard : MonoBehaviour
 					DoCamShake ();
 
 					playerControllerScript_P1.StartCooldown ();
+					playerControllerScript_P1.PlayerExplosionParticles.transform.position = gameObject.transform.position;
 					playerControllerScript_P1.PlayerExplosionParticles.Play ();
 					playerControllerScript_P1.PlayerExplosionAudio.Play ();
 

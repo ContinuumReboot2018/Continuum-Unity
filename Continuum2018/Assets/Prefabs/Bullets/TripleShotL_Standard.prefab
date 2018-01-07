@@ -287,7 +287,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   BulletSpeed: 1200
   BulletRb: {fileID: 54089352730586512}
-  BulletTypeName: TripleShot
+  BulletTypeName: TripleShot_Standard
   Lifetime: 0
   MaxLifetime: 30
   DestroyMaxYPos: 30

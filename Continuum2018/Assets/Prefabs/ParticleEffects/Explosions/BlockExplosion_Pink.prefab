@@ -293,6 +293,7 @@ MonoBehaviour:
   ComboPointsText: {fileID: 114731813035183860}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
+  TextPos: {x: 1, y: 1}
 --- !u!114 &114201206547933330
 MonoBehaviour:
   m_ObjectHideFlags: 1

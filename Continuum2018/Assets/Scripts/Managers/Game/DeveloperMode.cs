@@ -256,12 +256,12 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.playerCol.enabled == true) 
 				{
-					ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
+					ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
 				}
 
 				if (playerControllerScript_P1.playerCol.enabled == false) 
 				{
-					ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
+					ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
 				}
 			}
 
@@ -395,6 +395,7 @@ public class DeveloperMode : MonoBehaviour
 			{
 				gameControllerScript.Wave += 1;
 				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
+				gameControllerScript.BlockSpawnRate -= gameControllerScript.BlockSpawnIncreaseRate;
 				//gameControllerScript.NextLevel ();
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT WAVE");
 			}
@@ -404,6 +405,7 @@ public class DeveloperMode : MonoBehaviour
 				if (gameControllerScript.Wave > 1) 
 				{
 					gameControllerScript.Wave -= 1;
+					gameControllerScript.BlockSpawnRate += gameControllerScript.BlockSpawnIncreaseRate;
 				}
 
 				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
