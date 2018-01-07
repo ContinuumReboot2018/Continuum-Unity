@@ -389,6 +389,7 @@ public class DeveloperMode : MonoBehaviour
 			{
 				gameControllerScript.Wave += 1;
 				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
+				//gameControllerScript.NextLevel ();
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT WAVE");
 			}
 
