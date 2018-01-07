@@ -53,7 +53,9 @@ public class Hazard : MonoBehaviour
 				{
 					SetTargetLowPassFreq (LowPassTargetFreq);
 					SetTargetResonance (ResonanceTargetFreq);
+
 					gameControllerScript.combo = 1;
+
 					timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
 					timeScaleControllerScript.OverridingTimeScale = 0.25f;
 
@@ -71,11 +73,14 @@ public class Hazard : MonoBehaviour
 					newCamShakeAmount = 0.5f;
 					newCamShakeDuration = 1.5f;
 					DoCamShake ();
+
 					playerControllerScript_P1.StartCooldown ();
 					playerControllerScript_P1.PlayerExplosionParticles.Play ();
 					playerControllerScript_P1.PlayerExplosionAudio.Play ();
 
 					Invoke ("DestroyAllBlocks", 0.5f);
+					DoCamShake ();
+					Destroy (gameObject, 0.5f);
 				}
 
 				if (gameControllerScript.Lives == 1) 
@@ -83,11 +88,7 @@ public class Hazard : MonoBehaviour
 					playerControllerScript_P1.GameOver ();
 				}
 			}
-
-			DoCamShake ();
-			Destroy (gameObject);
 		}
-
 	}
 
 	void CreateExplosion ()

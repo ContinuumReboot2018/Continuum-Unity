@@ -606,6 +606,11 @@ public class GameController : MonoBehaviour
 
 	public IEnumerator LevelTimer ()
 	{
+		if (Wave > 1) 
+		{
+			BlockSpawnRate -= BlockSpawnIncreaseRate;
+		}
+
 		while (WaveTimeRemaining > 0) 
 		{
 			if (playerControllerScript_P1.isInCooldownMode == false && isPaused == false && isGameOver == false) 
@@ -643,7 +648,7 @@ public class GameController : MonoBehaviour
 		{
 			if (Time.time > NextBlockSpawn && playerControllerScript_P1.isInCooldownMode == false && isPaused == false)
 			{
-				SpawnBlock ();
+				SpawnBlock (false);
 
 				/*
 				// Creates a stream of blocks.
@@ -691,39 +696,45 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	public void SpawnBlock ()
+	public void SpawnBlock (bool anyBlock)
 	{
-		if (isGameOver == false) 
+		if (anyBlock == false) {
+			if (isGameOver == false) {
+				if (Wave == 1) {
+					GameObject Block = Blocks [UnityEngine.Random.Range (0, 1)];
+					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+					Instantiate (Block, SpawnPosRand, Quaternion.identity);
+				}
+
+				if (Wave == 2) {
+					GameObject Block = Blocks [UnityEngine.Random.Range (0, 2)];
+					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+					Instantiate (Block, SpawnPosRand, Quaternion.identity);
+				}
+
+				if (Wave == 3) {
+					GameObject Block = Blocks [UnityEngine.Random.Range (0, 3)];
+					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+					Instantiate (Block, SpawnPosRand, Quaternion.identity);
+				}
+
+				if (Wave == 4) {
+					GameObject Block = Blocks [UnityEngine.Random.Range (0, 4)];
+					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+					Instantiate (Block, SpawnPosRand, Quaternion.identity);
+				}
+
+				if (Wave >= 5) {
+					GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Length)];
+					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+					Instantiate (Block, SpawnPosRand, Quaternion.identity);
+				}
+			}
+		}
+
+		if (anyBlock == true) 
 		{
-			if (Wave == 1) 
-			{
-				GameObject Block = Blocks [UnityEngine.Random.Range (0, 1)];
-				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-				Instantiate (Block, SpawnPosRand, Quaternion.identity);
-			}
-
-			if (Wave == 2) 
-			{
-				GameObject Block = Blocks [UnityEngine.Random.Range (0, 2)];
-				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-				Instantiate (Block, SpawnPosRand, Quaternion.identity);
-			}
-
-			if (Wave == 3) 
-			{
-				GameObject Block = Blocks [UnityEngine.Random.Range (0, 3)];
-				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-				Instantiate (Block, SpawnPosRand, Quaternion.identity);
-			}
-
-			if (Wave == 4) 
-			{
-				GameObject Block = Blocks [UnityEngine.Random.Range (0, 4)];
-				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-				Instantiate (Block, SpawnPosRand, Quaternion.identity);
-			}
-
-			if (Wave >= 5) 
+			if (isGameOver == false) 
 			{
 				GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Length)];
 				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
@@ -736,7 +747,7 @@ public class GameController : MonoBehaviour
 	{
 		if (isPaused == false && Lives > 0 && WaveTimeRemaining > 0) 
 		{
-			BlockSpawnRate -= BlockSpawnIncreaseRate * Time.unscaledDeltaTime;
+			//BlockSpawnRate -= BlockSpawnIncreaseRate * Time.unscaledDeltaTime;
 		}
 
 		BlockSpawnRate = Mathf.Clamp (BlockSpawnRate, 0.0333f, 10);

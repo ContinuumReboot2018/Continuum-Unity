@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
 	public AudioSource PlayerExplosionAudio;
 	public ParticleSystem GameOverExplosionParticles;
 	public AudioSource GameOverExplosionAudio;
+	public MeshRenderer InvincibleMesh;
 
 	[Header ("Ability")]
 	public abilityState CurrentAbilityState;
@@ -169,7 +170,6 @@ public class PlayerController : MonoBehaviour
 
 	void Awake ()
 	{
-		//Application.targetFrameRate = 60;
 		AbilityReadyText.text = "";
 		PlayerText.text = " ";
 		RefreshAbilityName ();
@@ -180,6 +180,9 @@ public class PlayerController : MonoBehaviour
 		CreatePlayerActions ();
 		AssignActionControls ();
 		InvokeRepeating ("CheckJoinState", 0, 0.5f);
+
+		// This is for WSA platforms.
+		//lensScript.ratio = 1;
 	}
 
 	public void StartCoroutines ()
@@ -306,6 +309,7 @@ public class PlayerController : MonoBehaviour
 	{
 		UsePlayerFollow = true;
 		playerCol.enabled = true;
+		InvincibleMesh.enabled = false;
 	}
 
 	void RejoinGame ()
@@ -315,6 +319,11 @@ public class PlayerController : MonoBehaviour
 		playerMesh.SetActive (true);
 		audioControllerScript.TargetCutoffFreq = 22000;
 		audioControllerScript.TargetResonance = 1;
+
+		if (InvincibleMesh.enabled == false) 
+		{
+			InvincibleMesh.enabled = true;
+		}
 	}
 
 	public void EnablePlayerInput ()

@@ -11,6 +11,8 @@ public class Block : MonoBehaviour
 	public AudioController audioControllerScript;
 	public MeshRenderer rend;
 	public ScrollTextureOverTime textureScrollScript;
+	public BlockFormation blockFormationScript;
+	public bool isBlockFormationConnected;
 	public bool isBossPart = false;
 	public bool GotDetached;
 	public bool Stackable;
@@ -61,7 +63,8 @@ public class Block : MonoBehaviour
 	{
 		Static = 0,
 		Sequential = 1,
-		Random = 2,
+		RandomOnce = 2,
+		RandomScroll = 3
 	}
 
 	public bool isSpecialBlockType = false;
@@ -99,6 +102,28 @@ public class Block : MonoBehaviour
 		rb = GetComponent<Rigidbody> ();
 		rend = GetComponent<MeshRenderer> ();
 		InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
+
+		if (blockFormationScript == null) 
+		{
+			isBlockFormationConnected = false;
+		}
+
+		if (blockFormationScript != null) 
+		{
+			isBlockFormationConnected = true;
+		}
+			
+		if (isBlockFormationConnected == true) 
+		{
+			OverwriteVelocity = true;
+			rb.velocity = Vector3.zero;
+		}
+
+		if (BlockChangeType == blockChangeType.RandomOnce) 
+		{
+			BlockType = (mainBlockType)(Random.Range (0, 4));
+			UpdateBlockType ();
+		}
 	}
 
 	void Start () 
@@ -132,6 +157,8 @@ public class Block : MonoBehaviour
 					0.75f * transform.localScale.y,
 					0.75f * transform.localScale.z
 				);
+
+			transform.rotation = Quaternion.identity;
 			GotDetached = true;
 		}
 	}
@@ -171,10 +198,7 @@ public class Block : MonoBehaviour
 				// Stops the bullet that hit it from hanging around.
 				if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true)
 				{
-					other.GetComponent<Bullet> ().BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
-					other.GetComponent<Bullet> ().BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
-					other.GetComponent<Bullet> ().BulletCol.enabled = false;
-					other.GetComponent<Bullet> ().StartCoroutine (other.GetComponent<Bullet> ().DestroyDelay ());
+					other.GetComponent<Bullet> ().BlockHit ();
 				}
 			}
 

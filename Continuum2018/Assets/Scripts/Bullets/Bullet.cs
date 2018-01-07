@@ -24,6 +24,7 @@ public class Bullet : MonoBehaviour
 	[Header ("Visuals")]
 	public ParticleSystem BulletOuterParticles;
 	public ParticleSystem BulletCoreParticles;
+	public ParticleSystem[] TrailParticles;
 
 	[Header ("Audio")]
 	public AudioSource AwakeAudio;
@@ -182,5 +183,22 @@ public class Bullet : MonoBehaviour
 		BulletCol.enabled = false;
 		yield return new WaitForSecondsRealtime (DestroyDelayTime);
 		Destroy (gameObject);
+	}
+
+	public void StopEmittingTrail ()
+	{
+		foreach (ParticleSystem particletrail in TrailParticles) 
+		{
+			particletrail.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		}
+	}
+
+	public void BlockHit ()
+	{
+		BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		StopEmittingTrail ();
+		BulletCol.enabled = false;
+		StartCoroutine (DestroyDelay ());
 	}
 }

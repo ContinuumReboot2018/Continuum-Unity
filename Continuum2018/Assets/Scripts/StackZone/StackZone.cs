@@ -98,6 +98,8 @@ public class StackZone : MonoBehaviour
 	{
 		if (CapturedBlock.GetComponent<Block> ().isBossPart == false)
 		{
+			CapturedBlock.transform.parent = null;
+			CapturedBlock.GetComponent<Rigidbody> ().isKinematic = false;
 			CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
 			CapturedBlock.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
@@ -111,6 +113,7 @@ public class StackZone : MonoBehaviour
 
 	void VacateBlock ()
 	{
+		CapturedBlock.GetComponent<Rigidbody> ().isKinematic = false;
 		CapturedBlock.GetComponent<Block> ().OverwriteVelocity = false;
 		CapturedBlock.GetComponent<SimpleFollow> ().enabled = false;
 		CapturedBlock = null;

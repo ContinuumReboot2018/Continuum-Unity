@@ -68,11 +68,13 @@ public class DeveloperMode : MonoBehaviour
 			if (showDebugMenu == true)
 			{
 				DebugMenuAnim.Play ("DebugMenuEnter");
+				CheatsMenuAnim.Play ("CheatsMenuEnter");
 			}
 
 			if (showDebugMenu == false) 
 			{
 				DebugMenuAnim.Play ("DebugMenuExit");
+				CheatsMenuAnim.Play ("CheatsMenuExit");
 			}
 		}
 	}
@@ -120,21 +122,21 @@ public class DeveloperMode : MonoBehaviour
 			CheatString == "Continuum")
 			&& allowCheats == true) 
 		{
-			useCheats = true;
-			Debug.Log ("Enabled cheats.");
-			ShowCheatActivation ("CHEATS ON");
-		}
+			useCheats = !useCheats;
 
-		if ((CheatString == "nocheat" || 
-			CheatString == "NOCHEAT" || 
-			CheatString == "Nocheat")
-			&& allowCheats == true) 
-		{
-			useCheats = false;
-			Debug.Log ("Disabled cheats.");
-			ShowCheatActivation ("CHEATS OFF");
-		}
+			if (useCheats == true) 
+			{
+				Debug.Log ("Enabled cheats.");
+				ShowCheatActivation ("CHEATS ON");
+			}
 
+			if (useCheats == false) 
+			{
+				Debug.Log ("Disabled cheats.");
+				ShowCheatActivation ("CHEATS OFF");
+			}
+		}
+			
 		if (useCheats == true)
 		{
 			// Insert cheats here.
@@ -234,21 +236,23 @@ public class DeveloperMode : MonoBehaviour
 				CheatString == "LIFE") 
 			{
 				gameControllerScript.Lives += 3;
-				ShowCheatNotification ("CHEAT ACTIVATED: MORE LIFE");
+				ShowCheatNotification ("CHEAT ACTIVATED: LIFE");
 			}
 
 			if (CheatString == "god" || 
 				CheatString == "GOD") 
 			{
-				playerControllerScript_P1.playerCol.enabled = false;
-				ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
-			}
+				playerControllerScript_P1.playerCol.enabled = !playerControllerScript_P1.playerCol.enabled;
 
-			if (CheatString == "mortal" || 
-				CheatString == "MORTAL") 
-			{
-				playerControllerScript_P1.playerCol.enabled = true;
-				ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
+				if (playerControllerScript_P1.playerCol.enabled == true) 
+				{
+					ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
+				}
+
+				if (playerControllerScript_P1.playerCol.enabled == false) 
+				{
+					ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
+				}
 			}
 
 			if (CheatString == "chargeability" || 
@@ -267,7 +271,7 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == "spblock") 
 			{
-				gameControllerScript.SpawnBlock ();
+				gameControllerScript.SpawnBlock (true);
 				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN BLOCK");
 			}
 
@@ -289,20 +293,23 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 				playerControllerScript_P1.NextTripleShotIteration = 0;
-				gameControllerScript.SetPowerupTime (20);
 
 				// Apply tweaks to conditions based on which iteration the player is on.
 				switch (playerControllerScript_P1.NextDoubleShotIteration) 
 				{
 				case 0:
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
+					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 1:
+					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 2:
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 3:
+					gameControllerScript.SetPowerupTime (5);
 					break;
 				}
 					
@@ -332,20 +339,23 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
 				playerControllerScript_P1.NextDoubleShotIteration = 0;
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
-				gameControllerScript.SetPowerupTime (20);
 
 				// Apply tweaks to conditions based on which iteration the player is on.
 				switch (playerControllerScript_P1.NextTripleShotIteration) 
 				{
 				case 0:
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
+					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 1:
+					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 2:
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 3:
+					gameControllerScript.SetPowerupTime (5);
 					break;
 				}
 
@@ -373,6 +383,24 @@ public class DeveloperMode : MonoBehaviour
 			{
 				playerControllerScript_P1.Clone.SetActive (true);
 				ShowCheatNotification ("CHEAT ACTIVATED: CLONE");
+			}
+
+			if (CheatString == "nextwave") 
+			{
+				gameControllerScript.Wave += 1;
+				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
+				ShowCheatNotification ("CHEAT ACTIVATED: NEXT WAVE");
+			}
+
+			if (CheatString == "lastwave") 
+			{
+				if (gameControllerScript.Wave > 1) 
+				{
+					gameControllerScript.Wave -= 1;
+				}
+
+				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
+				ShowCheatNotification ("CHEAT ACTIVATED: LAST WAVE");
 			}
 
 			if (Input.GetKeyDown (KeyCode.Alpha7)) 

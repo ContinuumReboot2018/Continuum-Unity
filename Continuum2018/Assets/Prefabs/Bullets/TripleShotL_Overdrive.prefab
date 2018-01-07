@@ -300,6 +300,7 @@ MonoBehaviour:
   allowBulletColDeactivate: 1
   BulletOuterParticles: {fileID: 198669762781668244}
   BulletCoreParticles: {fileID: 198330421933922668}
+  TrailParticles: []
   AwakeAudio: {fileID: 82625519741913872}
   camShakeScript: {fileID: 0}
   shakeDuration: 0.15
