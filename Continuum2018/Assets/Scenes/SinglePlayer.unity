@@ -40136,6 +40136,7 @@ MonoBehaviour:
   PlayerVibrationTimeRemaining: 0
   canShoot: 0
   CurrentFireRate: 0.55
+  FireRateTimeMultiplier: 2
   ShotType: 0
   StandardShot: {fileID: 1451733020400380, guid: 60c2c0aa7dbdfa448926c420c63004d3,
     type: 2}
@@ -72703,6 +72704,31 @@ MonoBehaviour:
   useCheats: 0
   allowCheats: 1
   showCheats: 0
+  ToggleCheatsCommand: continuum
+  ForceStartCommand: start
+  ForceRestartCommand: restart
+  FpsUnlockCommand: fpsunlock
+  Fps30Command: fps30
+  Fps60Command: fps60
+  Fps90Command: fps90
+  Fps120Command: fps120
+  NextTrackCommand: nexttrack
+  PreviousTrackCommand: previoustrack
+  RandomTrackCommand: randomtrack
+  SaveSettingsCommand: savesettings
+  LoadSettingsCommand: loadsettings
+  ToggleGodmodeCommand: god
+  AddLifeCommand: life
+  ChargeAbilityCommand: chargeability
+  RefreshAbilityCommand: refreshability
+  SpawnBlockCommand: spblock
+  SpawnPowerupPickupCommand: sppow
+  PowerupTimeCommand: poweruptime
+  DoubleShotCommand: double
+  TripleShotCommand: triple
+  CloneCommand: clone
+  NextWaveCommand: nextwave
+  PreviousWaveCommand: lastwave
   CheatsMenu: {fileID: 1896707571}
   CheatsMenuAnim: {fileID: 1896707573}
   CheatNotificationAnim: {fileID: 573544159}
