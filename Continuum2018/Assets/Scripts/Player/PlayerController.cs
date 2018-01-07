@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 	[Header ("Shooting")]
 	public bool canShoot = true;
 	public float CurrentFireRate = 0.1f;
+	public float FireRateTimeMultiplier = 2;
 	private float NextFire;
 
 	public shotType ShotType; 
@@ -510,7 +511,7 @@ public class PlayerController : MonoBehaviour
 
 				Shoot ();
 
-				NextFire = Time.time + CurrentFireRate / (2 * Time.timeScale);
+				NextFire = Time.time + CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale);
 			}
 		}
 	}
