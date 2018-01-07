@@ -500,7 +500,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (canShoot == true) 
 		{
-			if (playerActions.Shoot.Value > 0.75f && Time.unscaledTime > NextFire && gameControllerScript.isPaused == false) 
+			if (playerActions.Shoot.Value > 0.75f && Time.time > NextFire && gameControllerScript.isPaused == false) 
 			{
 				// Every time the player shoots, decremement the combo.
 				if (gameControllerScript.combo > 1)
@@ -510,7 +510,7 @@ public class PlayerController : MonoBehaviour
 
 				Shoot ();
 
-				NextFire = Time.unscaledTime + CurrentFireRate / (2 * Time.timeScale);
+				NextFire = Time.time + CurrentFireRate / (2 * Time.timeScale);
 			}
 		}
 	}
