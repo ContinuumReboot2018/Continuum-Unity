@@ -27,6 +27,34 @@ public class DeveloperMode : MonoBehaviour
 	public bool allowCheats = false;
 	public bool showCheats;
 
+	[Header ("Cheat Commands")]
+	public string ToggleCheatsCommand = "continuum";
+	public string ForceStartCommand = "start";
+	public string ForceRestartCommand = "restart";
+	public string FpsUnlockCommand = "fpsunlock";
+	public string Fps30Command = "fps30";
+	public string Fps60Command = "fps60";
+	public string Fps90Command = "fps90";
+	public string Fps120Command = "fps120";
+	public string NextTrackCommand = "nexttrack";
+	public string PreviousTrackCommand = "previoustrack";
+	public string RandomTrackCommand = "randomtrack";
+	public string SaveSettingsCommand = "savesettings";
+	public string LoadSettingsCommand = "loadsettings";
+	public string ToggleGodmodeCommand = "god";
+	public string AddLifeCommand = "life";
+	public string ChargeAbilityCommand = "chargeability";
+	public string RefreshAbilityCommand = "refreshability";
+	public string SpawnBlockCommand = "spblock";
+	public string SpawnPowerupPickupCommand = "sppow";
+	public string PowerupTimeCommand = "poweruptime";
+	public string DoubleShotCommand = "double";
+	public string TripleShotCommand = "triple";
+	public string CloneCommand = "clone";
+	public string NextWaveCommand = "nextwave";
+	public string PreviousWaveCommand = "lastwave";
+
+	[Header ("UI and Animations")]
 	public GameObject CheatsMenu;
 	public Animator CheatsMenuAnim;
 	public Animator CheatNotificationAnim;
@@ -117,9 +145,7 @@ public class DeveloperMode : MonoBehaviour
 			ClearCheatString ();
 		}
 
-		if ((CheatString == "continuum" || 
-			CheatString == "CONTINUUM" || 
-			CheatString == "Continuum")
+		if (CheatString == ToggleCheatsCommand
 			&& allowCheats == true) 
 		{
 			useCheats = !useCheats;
@@ -140,9 +166,7 @@ public class DeveloperMode : MonoBehaviour
 		if (useCheats == true)
 		{
 			// Insert cheats here.
-			if (CheatString == "start" || 
-				CheatString == "Start" || 
-				CheatString == "START") 
+			if (CheatString == ForceStartCommand)
 			{
 				if (forceStarted == false) 
 				{
@@ -153,94 +177,80 @@ public class DeveloperMode : MonoBehaviour
 				}
 			}
 
-			if (CheatString == "restart" || 
-				CheatString == "Restart" || 
-				CheatString == "RESTART") 
+			if (CheatString == ForceRestartCommand) 
 			{
 				localSceneLoaderScript.sceneLoaderScript.SceneName = SceneManager.GetActiveScene().name;
 				localSceneLoaderScript.sceneLoaderScript.StartLoadSequence ();
 				ShowCheatNotification ("");
 			}
 
-			if (CheatString == "fpsunlock" || 
-				CheatString == "FPSUNLOCK") 
+			if (CheatString == FpsUnlockCommand) 
 			{
 				targetFramerateScript.SetTargetFramerate (-1);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: -1");
 			}
 
-			if (CheatString == "fps60" || 
-				CheatString == "FPS60") 
+			if (CheatString == Fps60Command) 
 			{
 				targetFramerateScript.SetTargetFramerate (60);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 60");
 			}
 
-			if (CheatString == "fps30" || 
-				CheatString == "FPS30") 
+			if (CheatString == Fps30Command) 
 			{
 				targetFramerateScript.SetTargetFramerate (30);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 30");
 			}
 
-			if (CheatString == "fps90" || 
-				CheatString == "FPS90") 
+			if (CheatString == Fps90Command) 
 			{
 				targetFramerateScript.SetTargetFramerate (90);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 90");
 			}
 
-			if (CheatString == "fps120" || 
-				CheatString == "FPS120") 
+			if (CheatString == Fps120Command) 
 			{
 				targetFramerateScript.SetTargetFramerate (120);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 120");
 			}
 
-			if (CheatString == "nexttrack" || 
-				CheatString == "NEXTTRACK") 
+			if (CheatString == NextTrackCommand) 
 			{
 				audioControllerScript.NextTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT TRACK");
 			}
 
-			if (CheatString == "previoustrack" || 
-				CheatString == "PREVIOUSTRACK") 
+			if (CheatString == PreviousTrackCommand) 
 			{
 				audioControllerScript.PreviousTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: PREVIOUS TRACK");
 			}
 
-			if (CheatString == "randomtrack" || 
-				CheatString == "RANDOMTRACK") 
+			if (CheatString == RandomTrackCommand) 
 			{
 				audioControllerScript.RandomTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: RANDOM TRACK");
 			}
 
-			if (CheatString == "savesettings" || 
-				CheatString == "SAVESETTINGS") 
+			if (CheatString == SaveSettingsCommand) 
 			{
 				saveAndLoadScript.SaveSettingsData ();
 				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS SAVE");
 			}
 
-			if (CheatString == "loadsettings" || 
-				CheatString == "LOADSETTINGS") 
+			if (CheatString == LoadSettingsCommand) 
 			{
 				saveAndLoadScript.LoadSettingsData ();
 				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS LOAD");
 			}
 
-			if (CheatString == "life" || 
-				CheatString == "LIFE") 
+			if (CheatString == AddLifeCommand) 
 			{
 				gameControllerScript.Lives += 3;
 				ShowCheatNotification ("CHEAT ACTIVATED: LIFE");
 			}
 
-			if (CheatString == "god" || 
-				CheatString == "GOD") 
+			if (CheatString == ToggleGodmodeCommand) 
 			{
 				playerControllerScript_P1.playerCol.enabled = !playerControllerScript_P1.playerCol.enabled;
 
@@ -255,40 +265,37 @@ public class DeveloperMode : MonoBehaviour
 				}
 			}
 
-			if (CheatString == "chargeability" || 
-				CheatString == "CHARGEABILITY") 
+			if (CheatString == ChargeAbilityCommand) 
 			{
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY CHARGED");
 			}
 
-			if (CheatString == "refreshability" || 
-				CheatString == "REFRESHABILITY") 
+			if (CheatString == RefreshAbilityCommand) 
 			{
 				playerControllerScript_P1.RefreshAbilityName ();
 				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY REFRESH");
 			}
 
-			if (CheatString == "spblock") 
+			if (CheatString == SpawnBlockCommand) 
 			{
 				gameControllerScript.SpawnBlock (true);
 				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN BLOCK");
 			}
 
-			if (CheatString == "sppow") 
+			if (CheatString == SpawnPowerupPickupCommand) 
 			{
 				gameControllerScript.SpawnPowerupPickup ();
 				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN POWERUP");
 			}
 
-			if (CheatString == "poweruptime") 
+			if (CheatString == PowerupTimeCommand) 
 			{
 				gameControllerScript.PowerupTimeRemaining = gameControllerScript.PowerupTimeDuration;
 				ShowCheatNotification ("CHEAT ACTIVATED: POWERUP TIME REFRESH");
 			}
 
-			if (CheatString == "double" || 
-				CheatString == "DOUBLE") 
+			if (CheatString == DoubleShotCommand) 
 			{
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
@@ -333,8 +340,7 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT: " + playerControllerScript_P1.DoubleShotIteration.ToString ());
 			}
 
-			if (CheatString == "triple" || 
-				CheatString == "TRIPLE") 
+			if (CheatString == TripleShotCommand) 
 			{
 				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
 				playerControllerScript_P1.NextDoubleShotIteration = 0;
@@ -379,13 +385,13 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: TRIPLE SHOT: " + playerControllerScript_P1.TripleShotIteration.ToString ());
 			}
 
-			if (CheatString == "clone") 
+			if (CheatString == CloneCommand) 
 			{
 				playerControllerScript_P1.Clone.SetActive (true);
 				ShowCheatNotification ("CHEAT ACTIVATED: CLONE");
 			}
 
-			if (CheatString == "nextwave") 
+			if (CheatString == NextWaveCommand) 
 			{
 				gameControllerScript.Wave += 1;
 				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
@@ -393,7 +399,7 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT WAVE");
 			}
 
-			if (CheatString == "lastwave") 
+			if (CheatString == PreviousWaveCommand) 
 			{
 				if (gameControllerScript.Wave > 1) 
 				{
