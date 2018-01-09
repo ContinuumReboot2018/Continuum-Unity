@@ -8955,10 +8955,10 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithTransform: 2
+  moveWithCustomTransform: {fileID: 994778591}
   scalingMode: 1
-  randomSeed: -1355759165
+  randomSeed: -804341366
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9110,7 +9110,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -9559,7 +9559,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 12
+      scalar: 5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -50345,7 +50345,7 @@ MonoBehaviour:
   PlayerVibrationTimeRemaining: 0
   canShoot: 0
   CurrentFireRate: 0.55
-  FireRateTimeMultiplier: 2
+  FireRateTimeMultiplier: 1.15
   ShotType: 0
   StandardShot: {fileID: 1451733020400380, guid: 60c2c0aa7dbdfa448926c420c63004d3,
     type: 2}
@@ -72991,7 +72991,7 @@ MonoBehaviour:
   developerModeScript: {fileID: 1748041315}
   cursorManagerScript: {fileID: 2095137864}
   ImageEffects: {fileID: 11400000, guid: cb1c9f0b292c9e84fa25332b580b675a, type: 2}
-  TrackStats: 1
+  TrackStats: 0
   GameTime: 0
   RealTime: 0
   TimeRatio: 0

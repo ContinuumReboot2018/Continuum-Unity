@@ -180,6 +180,7 @@ public class GameController : MonoBehaviour
 		StartPowerupUI ();
 		ScoreText.text = "";
 		ScoreBackground.enabled = false;
+		TrackStats = false;
 
 		Lives = 3;
 		LivesText.text = "";
@@ -246,6 +247,7 @@ public class GameController : MonoBehaviour
 	// Timescale controller calls this initially after the countdown.
 	public void StartGame ()
 	{
+		TrackStats = true;
 		WaveTransitionParticles.Play (true);
 		WaveTransitionAnim.Play ("WaveTransition");
 		StartCoroutine (LevelTimer ());
@@ -477,7 +479,7 @@ public class GameController : MonoBehaviour
 
 	void UpdateTimeStats ()
 	{
-		if (isPaused == false) 
+		if (isPaused == false && TrackStats == true) 
 		{
 			Distance = timescaleControllerScript.Distance;
 			GameTime += Time.deltaTime;
@@ -606,11 +608,6 @@ public class GameController : MonoBehaviour
 
 	public IEnumerator LevelTimer ()
 	{
-		if (Wave > 1) 
-		{
-			BlockSpawnRate -= BlockSpawnIncreaseRate;
-		}
-
 		while (WaveTimeRemaining > 0) 
 		{
 			if (playerControllerScript_P1.isInCooldownMode == false && isPaused == false && isGameOver == false) 
@@ -623,6 +620,11 @@ public class GameController : MonoBehaviour
 
 	public void NextLevel ()
 	{
+		if (Wave > 1) 
+		{
+			BlockSpawnRate -= BlockSpawnIncreaseRate;
+		}
+
 		WaveTimeDuration += WaveTimeIncreaseRate;
 		WaveTimeRemaining = WaveTimeDuration;
 		WaveTransitionParticles.Play (true);
