@@ -276,6 +276,7 @@ public class AudioController : MonoBehaviour
 
 	void LoadTracks ()
 	{
+		TrackName = TrackNames [TrackNumber];
 		BassTrack.clip = BassTracks [TrackNumber];
 		LayerOneTrack.clip = LayerOneTracks [TrackNumber];
 		LayerTwoTrack.clip = LayerTwoTracks [TrackNumber];

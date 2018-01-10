@@ -45637,7 +45637,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -58427,7 +58427,14 @@ MonoBehaviour:
   HighDistance: 18
   TrackNumber: 5
   TrackName: 
-  TrackNames: []
+  TrackNames:
+  - Carpenter Brut - paradise Warfare - Nightdrive
+  - The Midnight - Daytona
+  - LaserHawk - Shoulder of Orion
+  - Le Matos - Sarah
+  - Out Run - Tommy '86
+  - Converter - Lost Years
+  - It Came From the 80's
   TrackSequenceMode: 0
   BassTrack: {fileID: 901118414}
   LayerOneTrack: {fileID: 1696915252}
@@ -58435,11 +58442,12 @@ MonoBehaviour:
   LayerThreeTrack: {fileID: 161556219}
   BassTracks:
   - {fileID: 8300000, guid: bbd0f46df7459ad4e89ee4ce6b1ebda0, type: 3}
-  - {fileID: 8300000, guid: f8696538bfee5df43995ad0071f31754, type: 3}
+  - {fileID: 8300000, guid: 7980cf9d8ee99cc45ace2628dad43459, type: 3}
   - {fileID: 8300000, guid: bce69487d9f15c14fbadfaa5d68e28f2, type: 3}
   - {fileID: 8300000, guid: e3f8797cfea0b9549835c41585c8199a, type: 3}
   - {fileID: 8300000, guid: c45bc8d520a6e974fb902468ed35ff09, type: 3}
   - {fileID: 8300000, guid: aaf2e7e5b151f784fae342cbae15aa0e, type: 3}
+  - {fileID: 8300000, guid: f8696538bfee5df43995ad0071f31754, type: 3}
   LayerOneTracks:
   - {fileID: 0}
   - {fileID: 0}
