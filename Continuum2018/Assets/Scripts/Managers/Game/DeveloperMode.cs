@@ -26,6 +26,7 @@ public class DeveloperMode : MonoBehaviour
 	public bool useCheats;
 	public bool allowCheats = false;
 	public bool showCheats;
+	public bool isGod;
 
 	[Header ("Cheat Commands")]
 	public string ToggleCheatsCommand = "continuum";
@@ -252,15 +253,18 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == ToggleGodmodeCommand) 
 			{
-				playerControllerScript_P1.playerCol.enabled = !playerControllerScript_P1.playerCol.enabled;
+				isGod = !isGod;
+				//playerControllerScript_P1.playerCol.enabled = !playerControllerScript_P1.playerCol.enabled;
 
-				if (playerControllerScript_P1.playerCol.enabled == true) 
+				if (isGod == true) 
 				{
+					playerControllerScript_P1.playerCol.enabled = true;
 					ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
 				}
 
-				if (playerControllerScript_P1.playerCol.enabled == false) 
+				if (isGod == false) 
 				{
+					playerControllerScript_P1.playerCol.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
 				}
 			}

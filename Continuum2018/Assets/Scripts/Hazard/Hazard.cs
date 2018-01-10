@@ -80,8 +80,8 @@ public class Hazard : MonoBehaviour
 					playerControllerScript_P1.PlayerExplosionAudio.Play ();
 
 					Invoke ("DestroyAllBlocks", 0.5f);
-					DoCamShake ();
-					Destroy (gameObject, 0.5f);
+
+					Destroy (gameObject, 0.52f);
 				}
 
 				if (gameControllerScript.Lives == 1) 
@@ -104,9 +104,12 @@ public class Hazard : MonoBehaviour
 
 		foreach (GameObject block in Blocks) 
 		{
-			if (block.GetComponent<Block> ().isBossPart == false)
+			if (block.GetComponent<Block> () != null)
 			{
-				Destroy (block);
+				if (block.GetComponent<Block> ().isBossPart == false)
+				{
+					Destroy (block);
+				}
 			}
 		}
 

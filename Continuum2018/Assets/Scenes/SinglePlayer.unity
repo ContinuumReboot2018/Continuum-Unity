@@ -19800,15 +19800,15 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -105325827
+  randomSeed: -1792104658
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 9
-      minScalar: 5
+      scalar: 4
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -19889,8 +19889,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.07352942, g: 0.57829624, b: 1, a: 0.947}
-      maxColor: {r: 0.68387765, g: 0.78416586, b: 1.0220588, a: 0.941}
+      minColor: {r: 0.07352942, g: 0.57829624, b: 1, a: 0.241}
+      maxColor: {r: 0.68387765, g: 0.78416586, b: 1.0220588, a: 0.203}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19952,7 +19952,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.03
+      scalar: 0.1
       minScalar: 0.01
       maxCurve:
         serializedVersion: 2
@@ -20360,7 +20360,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 30
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -22494,14 +22494,14 @@ ParticleSystem:
         - serializedVersion: 2
           time: 0
           value: 1
-          inSlope: 0
-          outSlope: 0
+          inSlope: -1
+          outSlope: -1
           tangentMode: 0
         - serializedVersion: 2
           time: 1
           value: 0
-          inSlope: -3.219243
-          outSlope: -3.219243
+          inSlope: -1
+          outSlope: -1
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -23390,7 +23390,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 495375289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.49, z: 0}
+  m_LocalPosition: {x: 20.8, y: 11.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 817838701}
@@ -27804,7 +27804,7 @@ Transform:
   - {fileID: 945773979}
   - {fileID: 2053581876}
   m_Father: {fileID: 815677226}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &567623204
 GameObject:
@@ -37563,7 +37563,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1948467312}
   - {fileID: 1081056887}
   - {fileID: 563357995}
   m_Father: {fileID: 269466428}
@@ -50326,6 +50325,7 @@ MonoBehaviour:
   audioControllerScript: {fileID: 1084482489}
   cursorManagerScript: {fileID: 2095137864}
   camShakeScript: {fileID: 525356116}
+  developerModeScript: {fileID: 1748041315}
   PlayerId: 1
   PlayerText: {fileID: 24889417}
   isJoined: 0
@@ -50344,13 +50344,13 @@ MonoBehaviour:
   PlayerVibrationDuration: 0
   PlayerVibrationTimeRemaining: 0
   canShoot: 0
-  CurrentFireRate: 0.55
-  FireRateTimeMultiplier: 1.15
+  CurrentFireRate: 0.45
+  FireRateTimeMultiplier: 1.8
   ShotType: 0
   StandardShot: {fileID: 1451733020400380, guid: 60c2c0aa7dbdfa448926c420c63004d3,
     type: 2}
   StandardShotSpawn: {fileID: 859732702}
-  StandardFireRate: 0.55
+  StandardFireRate: 0.45
   playerMesh: {fileID: 815677225}
   playerCol: {fileID: 1081056890}
   isInCooldownMode: 0
@@ -58311,7 +58311,7 @@ Transform:
   - {fileID: 1766484093}
   - {fileID: 994778591}
   m_Father: {fileID: 815677226}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!23 &1081056888
 MeshRenderer:
@@ -68474,6 +68474,7 @@ Transform:
   - {fileID: 1710304313}
   - {fileID: 184718925}
   - {fileID: 257516872}
+  - {fileID: 1948467312}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73124,9 +73125,13 @@ MonoBehaviour:
   OrthSizeSmoothTime: 1
   isUpdatingImageEffects: 1
   isUpdatingParticleEffects: 1
-  StarFieldForegroundLifetimeMultipler: 0.1
-  StarFieldForegroundSimulationSpeed: 3
+  StarFieldForegroundLifetimeMultipler: 0.05
+  StarFieldForegroundSimulationSpeed: 2.25
+  StarFieldBackgroundLifetimeMultipler: 0.05
+  StarFieldBackgroundSimulationSpeed: 2.25
   StarFieldForeground: {fileID: 420624925}
+  StarFieldBackground: {fileID: 1614595944}
+  TargetDepthDistance: 0
   P1_DoubleShotIteration: {fileID: 2141758948}
   P1_DoubleShotIterationNumber: {fileID: 26016402}
   P1_CurrentFireRate: {fileID: 257152977}
@@ -78096,14 +78101,14 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1961278339
+  randomSeed: 95033247
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 8
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -78185,8 +78190,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.60294116, g: 0.81926984, b: 1, a: 1}
-      maxColor: {r: 0.30147058, g: 0.59533465, b: 1, a: 1}
+      minColor: {r: 0.60294116, g: 0.81926984, b: 1, a: 0.241}
+      maxColor: {r: 0.30147058, g: 0.59533465, b: 1, a: 0.184}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -78248,7 +78253,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.04
+      scalar: 0.07
       minScalar: 0.02
       maxCurve:
         serializedVersion: 2
@@ -78492,7 +78497,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1440
+    maxNumParticles: 10000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -78656,7 +78661,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 250
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -80670,7 +80675,7 @@ ParticleSystem:
     lifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.01
+      scalar: 0.005
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -80708,7 +80713,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minVertexDistance: 0.01
+    minVertexDistance: 0.001
     textureMode: 0
     worldSpace: 0
     dieWithParticles: 1
@@ -80781,7 +80786,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     widthOverTrail:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -80790,18 +80795,18 @@ ParticleSystem:
         - serializedVersion: 2
           time: 0
           value: 1
-          inSlope: 0
-          outSlope: 0
+          inSlope: -1
+          outSlope: -1
           tangentMode: 0
         - serializedVersion: 2
           time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
+          value: 0
+          inSlope: -1
+          outSlope: -1
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -82916,6 +82921,7 @@ MonoBehaviour:
   useCheats: 0
   allowCheats: 1
   showCheats: 0
+  isGod: 0
   ToggleCheatsCommand: continuum
   ForceStartCommand: start
   ForceRestartCommand: restart
@@ -84666,6 +84672,7 @@ GameObject:
   - component: {fileID: 1948467312}
   - component: {fileID: 1948467313}
   - component: {fileID: 1948467314}
+  - component: {fileID: 1948467315}
   m_Layer: 10
   m_Name: InvincibleMesh
   m_TagString: Player
@@ -84681,10 +84688,10 @@ Transform:
   m_GameObject: {fileID: 1948467311}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.5000014, y: 1.500001, z: 1.500001}
   m_Children: []
-  m_Father: {fileID: 815677226}
-  m_RootOrder: 0
+  m_Father: {fileID: 1331735202}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!33 &1948467313
 MeshFilter:
@@ -84727,6 +84734,33 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1948467315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1948467311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FollowPosition: 1
+  FollowPosX: {fileID: 815677226}
+  FollowPosY: {fileID: 815677226}
+  FollowPosZ: {fileID: 815677226}
+  FollowPosMethod: 0
+  FollowPosOffset: {x: 0, y: 0, z: 0}
+  FollowPosSmoothTime: {x: 1000, y: 1000, z: 0}
+  PosBoundsX: {x: -100, y: 100}
+  PosBoundsY: {x: -100, y: 100}
+  PosBoundsZ: {x: -100, y: 100}
+  FollowRotation: 0
+  FollowRotX: {fileID: 0}
+  FollowRotY: {fileID: 0}
+  FollowRotZ: {fileID: 0}
+  FollowRotOffset: {x: 0, y: 0, z: 0}
+  FollowRotSmoothTime: {x: 0, y: 0, z: 0}
 --- !u!1 &1968131946
 GameObject:
   m_ObjectHideFlags: 0

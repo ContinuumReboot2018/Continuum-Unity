@@ -2853,9 +2853,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114285471905302846}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -2919,9 +2923,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114447613559997058}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -3052,9 +3060,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114033176591005386}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -3173,9 +3185,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114679360581996650}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -3239,9 +3255,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114644702733596854}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -3321,9 +3341,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114205559095628182}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -3426,9 +3450,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114199767176137102}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -3519,9 +3547,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114938127631474528}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -3715,9 +3747,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114439651259415332}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -4112,9 +4148,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114905342070703862}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -4177,9 +4217,9 @@ MonoBehaviour:
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
   FollowPosMethod: 0
-  FollowPosOffset: {x: 0, y: 10.5, z: 0}
+  FollowPosOffset: {x: 0, y: 8.5, z: 0}
   FollowPosSmoothTime: {x: 1, y: 2, z: 0}
-  PosBoundsX: {x: -20, y: 20}
+  PosBoundsX: {x: -10, y: 10}
   PosBoundsY: {x: 0, y: 25}
   PosBoundsZ: {x: 0, y: 0}
   FollowRotation: 0
@@ -4374,9 +4414,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114848613251569498}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -4440,9 +4484,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114653380838901650}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -4506,9 +4554,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114754741074238210}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -4572,9 +4624,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114096589657056588}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -4835,9 +4891,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114686127443877124}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -4972,9 +5032,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114250059742051130}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -5038,9 +5102,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114015287457280358}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5143,9 +5211,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114810312329163268}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5292,9 +5364,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114647702381058450}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5358,9 +5434,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114608787098663510}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5495,9 +5575,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114765514329450232}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5600,9 +5684,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114657114211597792}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -5738,9 +5826,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114487793645991452}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -5845,9 +5937,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114914715527262552}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   isBossPart: 1
   GotDetached: 0
   Stackable: 0
+  BoundaryX: {x: -20.8, y: 20.8}
+  BoundaryY: {x: -11.5, y: 11.5}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550

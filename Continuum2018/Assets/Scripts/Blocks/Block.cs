@@ -17,6 +17,9 @@ public class Block : MonoBehaviour
 	public bool GotDetached;
 	public bool Stackable;
 
+	public Vector2 BoundaryX;
+	public Vector2 BoundaryY;
+
 	[Header ("Stats")]
 	public float speed;
 	public bool OverwriteVelocity;
@@ -188,6 +191,22 @@ public class Block : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
+		if (other.gameObject.name.Contains ("Missile")) 
+		{
+			if (isBossPart == false) 
+			{
+				GetTotalPointValue ();
+				CreateExplosion ();
+				DoCamShake ();
+
+				if (other.tag != "Bullet") 
+				{
+					Destroy (other.gameObject);
+					Destroy (gameObject);
+				}
+			}
+		}
+
 		if (other.tag == "Bullet") 
 		{
 			GetTotalPointValue ();
@@ -206,7 +225,6 @@ public class Block : MonoBehaviour
 
 			//timeScaleControllerScript.OverrideTimeScaleTimeRemaining = OverwriteTimeDuration;
 			//timeScaleControllerScript.OverridingTimeScale = OverwriteTimeScale;
-
 			Destroy (gameObject);
 		}
 
@@ -331,6 +349,17 @@ public class Block : MonoBehaviour
 		_Explosion.GetComponent<Explosion> ().Anim ();
 	}
 
+	void CheckForBoundary ()
+	{
+		if (transform.position.x > BoundaryX.y || 
+			transform.position.x < BoundaryX.x || 
+			transform.position.y > BoundaryY.y || 
+			transform.position.y < BoundaryY.x) 
+		{
+			Destroy (gameObject);
+		}
+	}
+
 	void UpdateBlockType ()
 	{
 		if (isSpecialBlockType == true) 
@@ -343,6 +372,7 @@ public class Block : MonoBehaviour
 				BasePointValue = 0;
 				TextColor = new Color (0.5f, 0.5f, 0.5f, 1);
 				Explosion = NoiseExplosion;
+				CheckForBoundary ();
 				break;
 			}
 		}

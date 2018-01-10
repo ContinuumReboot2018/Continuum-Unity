@@ -102,7 +102,7 @@ Transform:
   m_GameObject: {fileID: 1045013552950902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.43, z: -0.07931858}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 4054007848946618}
   - {fileID: 4444867974145156}
@@ -260,7 +260,7 @@ TrailRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: df1c1f3934d7f7a49ad9dd2d53e85160, type: 2}
+  - {fileID: 2100000, guid: 51790ac4ec7008247a730ce433b9eab4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -283,15 +283,15 @@ TrailRenderer:
   m_Time: 0.3
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.5
+    widthMultiplier: 0.75
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
         time: 0
         value: 1
-        inSlope: -2.969746
-        outSlope: -2.969746
+        inSlope: 0.22160251
+        outSlope: 0.22160251
         tangentMode: 0
       - serializedVersion: 2
         time: 1
@@ -331,8 +331,8 @@ TrailRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 4
+    numCapVertices: 4
     alignment: 0
     textureMode: 0
     generateLightingData: 0
@@ -414,7 +414,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.75
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198314344163430812
 ParticleSystem:
@@ -483,8 +483,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 2
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:

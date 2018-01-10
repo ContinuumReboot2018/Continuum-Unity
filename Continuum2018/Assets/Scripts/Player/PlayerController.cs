@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 	public AudioController audioControllerScript;
 	public CursorManager cursorManagerScript;
 	public CameraShake camShakeScript;
+	public DeveloperMode developerModeScript;
 	public int PlayerId = 1;
 	public TextMeshProUGUI PlayerText;
 	public bool isJoined;
@@ -283,6 +284,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (gameControllerScript.Lives > 0) 
 		{
+			gameControllerScript.TargetDepthDistance = 0.1f;
 			isInCooldownMode = true;
 			UsePlayerFollow = false;
 			playerCol.transform.localPosition = Vector3.zero;
@@ -309,12 +311,17 @@ public class PlayerController : MonoBehaviour
 	void EnableCollider ()
 	{
 		UsePlayerFollow = true;
-		playerCol.enabled = true;
+
+		if (developerModeScript.isGod == false) 
+		{
+			playerCol.enabled = true;
+		}
 		InvincibleMesh.enabled = false;
 	}
 
 	void RejoinGame ()
 	{
+		gameControllerScript.TargetDepthDistance = 100;
 		canShoot = true;
 		UsePlayerFollow = true;
 		playerMesh.SetActive (true);
@@ -461,7 +468,10 @@ public class PlayerController : MonoBehaviour
 
 	void DeactivateShield ()
 	{
-		playerCol.enabled = true;
+		if (developerModeScript.isGod == false) 
+		{
+			playerCol.enabled = true;
+		}
 		Shield.SetActive (false);
 	}
 
