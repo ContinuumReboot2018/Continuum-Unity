@@ -258,14 +258,14 @@ public class DeveloperMode : MonoBehaviour
 
 				if (isGod == true) 
 				{
-					playerControllerScript_P1.playerCol.enabled = true;
-					ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
+					playerControllerScript_P1.playerCol.enabled = false;
+					ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
 				}
 
 				if (isGod == false) 
 				{
-					playerControllerScript_P1.playerCol.enabled = false;
-					ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
+					playerControllerScript_P1.playerCol.enabled = true;
+					ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
 				}
 			}
 

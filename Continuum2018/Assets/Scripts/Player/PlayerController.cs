@@ -41,6 +41,10 @@ public class PlayerController : MonoBehaviour
 	public float PlayerVibrationDuration;
 	public float PlayerVibrationTimeRemaining;
 
+	public ParticleSystem MainEngineParticles;
+	public float MainEngineParticleEmissionAmount = 1;
+	public float MainEngineParticleEmissionLerpSpeed = 4;
+
 	[Header ("Shooting")]
 	public bool canShoot = true;
 	public float CurrentFireRate = 0.1f;
@@ -352,6 +356,15 @@ public class PlayerController : MonoBehaviour
 				MovementY = playerActions.Move.Value.y;
 			}
 		}
+
+		var MainEngineEmissionRate = MainEngineParticles.emission;
+		float SmoothEmissionRate = 
+			Mathf.Lerp (
+				MainEngineEmissionRate.rateOverTime.constant, 
+				MainEngineParticleEmissionAmount * playerActions.Move.Up.Value,
+				MainEngineParticleEmissionLerpSpeed * Time.deltaTime
+			);
+		MainEngineEmissionRate.rateOverTime = SmoothEmissionRate;
 	}
 
 	void CheckAbilityTime ()
