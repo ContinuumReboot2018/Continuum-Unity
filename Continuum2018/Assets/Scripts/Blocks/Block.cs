@@ -21,6 +21,7 @@ public class Block : MonoBehaviour
 	public Vector2 BoundaryY;
 
 	[Header ("Stats")]
+	public bool isTutorialBlock;
 	public float speed;
 	public bool OverwriteVelocity;
 	private Rigidbody rb;
@@ -228,7 +229,7 @@ public class Block : MonoBehaviour
 			Destroy (gameObject);
 		}
 
-		if (other.tag == "Player") 
+		if (other.tag == "Player" && isTutorialBlock == false) 
 		{
 			playerControllerScript_P1.SetCooldownTime (5);
 

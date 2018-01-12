@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OscillateByTime : MonoBehaviour 
 {
 	private float scaledTime;
 	private float unscaledTime;
 
-	public Transform OscillateObject;
+	public Vector3 OscillateObject;
+	public Transform OscillateTransform;
+	public bool useRectTransform;
+	public RectTransform OscillateRectTransform;
 
 	[Header ("Oscillate Position")]
 	public bool OscillatePosX;
@@ -94,6 +98,20 @@ public class OscillateByTime : MonoBehaviour
 	{
 		Sin,
 		Cos
+	}
+
+	void Start ()
+	{
+		if (transform != null) 
+		{
+			OscillateTransform = this.transform;
+		}
+
+		if (useRectTransform == true) {
+			OscillateRectTransform.localPosition = OscillateObject;
+		} else {
+			OscillateTransform.localPosition = OscillateObject;
+		}
 	}
 
 	void Update ()

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.PostProcessing;
+using System.Diagnostics;
 
 public class GameController : MonoBehaviour 
 {
@@ -279,7 +280,6 @@ public class GameController : MonoBehaviour
 		UpdateBlockSpawnTime ();
 		UpdateStarFieldparticleEffectTrail ();
 		UpdateImageEffects ();
-
 		//CheckOrthSize ();
 
 		if (WaveTimeRemaining < 0) 
