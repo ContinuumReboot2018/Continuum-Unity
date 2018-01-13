@@ -54,9 +54,10 @@ public class PlayerController : MonoBehaviour
 	public shotType ShotType; 
 	public enum shotType
 	{
-		Standard,
-		Double,
-		Triple,
+		Standard = 0,
+		Double = 1,
+		Triple = 2,
+		Ripple = 3
 	}
 
 	public GameObject StandardShot;
@@ -139,6 +140,15 @@ public class PlayerController : MonoBehaviour
 	public shotIteration TripleShotIteration;
 	public int NextTripleShotIteration;
 	private float TripleShotNextFire;
+
+	// Ripple shot.
+	public GameObject RippleShot;
+	public GameObject RippleShotEnhanced;
+	public Transform RippleShotSpawn;
+	public float[] RippleShotFireRates;
+	public shotIteration RippleShotIteration;
+	public int NextRippleShotIteration;
+	private float RippleShotNextFire;
 
 	public enum shotIteration
 	{
@@ -517,7 +527,10 @@ public class PlayerController : MonoBehaviour
 				CurrentFireRate = StandardFireRate;
 				break;
 			case shotType.Double:
-				
+				break;
+			case shotType.Triple:
+				break;
+			case shotType.Ripple:
 				break;
 			}
 
@@ -653,6 +666,27 @@ public class PlayerController : MonoBehaviour
 			}
 
 			break;
+
+		case shotType.Ripple:
+			switch (RippleShotIteration)
+			{
+			case shotIteration.Standard:
+				GameObject rippleShotStandard = Instantiate (RippleShot, RippleShotSpawn.position, Quaternion.Euler (90, 0, 0));
+				rippleShotStandard.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotStandard.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotStandard.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotStandard.name = "Ripple Shot_P" + PlayerId + " (Standard)";
+				break;
+			case shotIteration.Enhanced:
+				GameObject rippleShotEnhanced = Instantiate (RippleShotEnhanced, RippleShotSpawn.position, Quaternion.Euler (90, 0, 0));
+				rippleShotEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotEnhanced.name = "Ripple Shot_P" + PlayerId + " (Enhanced)";
+				break;
+			}
+			break;
+
 		}
 	}
 
@@ -735,7 +769,7 @@ public class PlayerController : MonoBehaviour
 		// LIVES TEXT
 		// When the player is close to the lives text.
 		// Vertical position.
-		if (PlayerRb.position.y > LivesCheckPlayerPosY.y) 
+		if (PlayerRb.position.y > LivesCheckPlayerPosY.y && LivesAnim.gameObject.activeInHierarchy == true) 
 		{
 			// Horizontal position too far.
 			if (PlayerRb.position.x < LivesCheckPlayerPosX.x) 
@@ -759,7 +793,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Vertical position too far from lives text.
-		if (PlayerRb.position.y <= LivesCheckPlayerPosY.y) 
+		if (PlayerRb.position.y <= LivesCheckPlayerPosY.y && LivesAnim.gameObject.activeInHierarchy == true) 
 		{
 			if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true) 
 			{
@@ -812,8 +846,10 @@ public class PlayerController : MonoBehaviour
 		CurrentFireRate = StandardFireRate;
 		DoubleShotIteration = shotIteration.Standard;
 		TripleShotIteration = shotIteration.Standard;
+		RippleShotIteration = shotIteration.Standard;
 		NextDoubleShotIteration = 0;
 		NextTripleShotIteration = 0;
+		NextRippleShotIteration = 0;
 
 		gameControllerScript.PowerupShootingImage_P1.texture = null; // Replace with standard shot texture.
 		gameControllerScript.PowerupShootingImage_P1.color = new Color (0, 0, 0, 0); // Replace with full color once standard shot texture is in.

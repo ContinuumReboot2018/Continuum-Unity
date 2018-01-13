@@ -47,8 +47,8 @@ public class TimescaleController : MonoBehaviour
 
 	void Awake () 
 	{
-		isInInitialSequence = true;
-		Time.timeScale = 1;
+		//isInInitialSequence = true;
+		Time.timeScale = MinimumTimeScale ;
 		Time.fixedDeltaTime = 0.005f;
 	}
 
@@ -97,8 +97,10 @@ public class TimescaleController : MonoBehaviour
 		if (useTwoPlayers == false &&
 		    gameControllerScript.isPaused == false &&
 		    Application.isFocused == true &&
-		    Application.isPlaying == true && isEndSequence == false) {
-			if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) {
+		    Application.isPlaying == true && isEndSequence == false) 
+		{
+			if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
+			{
 				Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
 
 				TargetTimeScaleAdd += TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime;
@@ -109,8 +111,11 @@ public class TimescaleController : MonoBehaviour
 				//Time.fixedDeltaTime = Time.timeScale / (fpsCounterScript.FramesPerSec * 4);
 				Time.maximumParticleDeltaTime = 0.01f;
 			}
-		} else {
-			Time.timeScale = Mathf.Clamp (Time.timeScale, 0, 1);
+		} else 
+		{
+			Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
+			TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance, MinimumTimeScale, MaximumTimeScale);
+			//Time.timeScale = Mathf.Clamp (Time.timeScale, 0, 1);
 		}
 	}
 

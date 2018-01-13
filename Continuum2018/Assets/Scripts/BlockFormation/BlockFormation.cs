@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlockFormation : MonoBehaviour 
 {
-	private Rigidbody rb;
+	public Rigidbody rb;
 	public GameController gameControllerScript;
 
 	[Header ("Stats")]

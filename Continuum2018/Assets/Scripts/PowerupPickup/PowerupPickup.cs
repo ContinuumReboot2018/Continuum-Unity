@@ -119,6 +119,8 @@ public class PowerupPickup : MonoBehaviour
 			// Resets other shooting powerup stats.
 			playerControllerScript_P1.NextTripleShotIteration = 0;
 			playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
+			playerControllerScript_P1.NextRippleShotIteration = 0;
+			playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
 
 			// Switches to double shot mode.
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
@@ -167,6 +169,8 @@ public class PowerupPickup : MonoBehaviour
 			// Resets other shooting powerup stats.
 			playerControllerScript_P1.NextDoubleShotIteration = 0;
 			playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
+			playerControllerScript_P1.NextRippleShotIteration = 0;
+			playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
 
 			// Switches to triple shot mode
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
@@ -215,7 +219,55 @@ public class PowerupPickup : MonoBehaviour
 		case powerups.BouncingShot:
 			break;
 		case powerups.RippleShot: 
+
+			// Resets other shooting powerup stats.
+			playerControllerScript_P1.NextDoubleShotIteration = 0;
+			playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
+			playerControllerScript_P1.NextTripleShotIteration = 0;
+			playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
+
+			// Switches to double shot mode.
+			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
+
+			// Sets double shot iteration (enum) as the next double shot iteration (int).
+			if (playerControllerScript_P1.NextRippleShotIteration < 2) 
+			{
+				playerControllerScript_P1.RippleShotIteration = 
+					(PlayerController.shotIteration)playerControllerScript_P1.NextRippleShotIteration;
+			}
+
+			// Increases iteration count.
+			if (playerControllerScript_P1.NextRippleShotIteration < 1) 
+			{
+				playerControllerScript_P1.NextRippleShotIteration += 1;
+			}
+
+			// Tweaks to conditions based on which iteration the player is on.
+			switch (playerControllerScript_P1.RippleShotIteration) 
+			{
+			case PlayerController.shotIteration.Standard:
+				gameControllerScript.SetPowerupTime (PowerupTime);
+				//playerControllerScript_P1.powerupsInUse += 1; // Increases powerups in use on first iteration.
+				playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
+				break;
+			case PlayerController.shotIteration.Enhanced:
+				gameControllerScript.SetPowerupTime (PowerupTime);
+				break;
+			case PlayerController.shotIteration.Rapid:
+				gameControllerScript.SetPowerupTime (PowerupTime);
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+				break;
+			case PlayerController.shotIteration.Overdrive:
+				gameControllerScript.SetPowerupTime (5);
+				break;
+			}
+
+			SetPowerupShootingTexture ();
+			gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.RippleShotIteration.ToString ();
+
 			break;
+
 		case powerups.SlowEnemies:
 			break;
 

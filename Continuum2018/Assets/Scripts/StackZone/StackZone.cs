@@ -98,7 +98,7 @@ public class StackZone : MonoBehaviour
 	{
 		if (CapturedBlock.GetComponent<Block> ().isBossPart == false)
 		{
-			CapturedBlock.transform.parent = null;
+			//CapturedBlock.transform.parent = null;
 			CapturedBlock.GetComponent<Rigidbody> ().isKinematic = false;
 			CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
 			CapturedBlock.GetComponent<Rigidbody> ().velocity = Vector3.zero;
@@ -108,6 +108,14 @@ public class StackZone : MonoBehaviour
 			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = transform;
 			isOccupied = true;
 			stackSound.Play ();
+
+			if (CapturedBlock.GetComponentInParent<BlockFormation> () != null &&
+				CapturedBlock.GetComponentInParent<Rigidbody>() != null) 
+			{
+				CapturedBlock.GetComponentInParent<Rigidbody> ().velocity = Vector3.zero;
+				CapturedBlock.GetComponentInParent<BlockFormation> ().enabled = false;
+				CapturedBlock.GetComponent<ParentToTransform> ().ParentNow ();
+			}
 		}
 	}
 

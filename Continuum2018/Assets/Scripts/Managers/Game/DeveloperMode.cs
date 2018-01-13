@@ -14,6 +14,7 @@ public class DeveloperMode : MonoBehaviour
 	public AudioController audioControllerScript;
 	public SaveAndLoadScript saveAndLoadScript;
 	public TargetFPS targetFramerateScript;
+	public TutorialManager tutorialManagerScript;
 	public bool forceStarted;
 
 	[Header ("Cheats")]
@@ -35,26 +36,36 @@ public class DeveloperMode : MonoBehaviour
 	public string ToggleCheatsCommand = "continuum";
 	public string ForceStartCommand = "start";
 	public string ForceRestartCommand = "restart";
+
 	public string FpsUnlockCommand = "fpsunlock";
 	public string Fps30Command = "fps30";
 	public string Fps60Command = "fps60";
 	public string Fps90Command = "fps90";
 	public string Fps120Command = "fps120";
+
 	public string NextTrackCommand = "nexttrack";
 	public string PreviousTrackCommand = "previoustrack";
 	public string RandomTrackCommand = "randomtrack";
+
 	public string SaveSettingsCommand = "savesettings";
 	public string LoadSettingsCommand = "loadsettings";
+
 	public string ToggleGodmodeCommand = "god";
 	public string AddLifeCommand = "life";
+
 	public string ChargeAbilityCommand = "chargeability";
 	public string RefreshAbilityCommand = "refreshability";
+
 	public string SpawnBlockCommand = "spblock";
 	public string SpawnPowerupPickupCommand = "sppow";
+
 	public string PowerupTimeCommand = "poweruptime";
+
 	public string DoubleShotCommand = "double";
 	public string TripleShotCommand = "triple";
+	public string RippleShotCommand = "ripple";
 	public string CloneCommand = "clone";
+
 	public string NextWaveCommand = "nextwave";
 	public string PreviousWaveCommand = "lastwave";
 
@@ -67,6 +78,7 @@ public class DeveloperMode : MonoBehaviour
 
 	public Texture2D DoubleShotTexture;
 	public Texture2D TripleShotTexture;
+	public Texture2D RippleShotTexture;
 
 	[Header ("Debug Menu")]
 	public bool showDebugMenu;
@@ -186,8 +198,7 @@ public class DeveloperMode : MonoBehaviour
 				{
 					if (forceStarted == false) 
 					{
-						timeScaleControllerScript.SwitchInitialSequence ();
-						playerControllerScript_P1.StartCoroutines ();
+						tutorialManagerScript.TurnOffTutorial ();
 						ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
 						forceStarted = true;
 					}
@@ -400,6 +411,51 @@ public class DeveloperMode : MonoBehaviour
 
 					ShowCheatNotification ("CHEAT ACTIVATED: TRIPLE SHOT: " + playerControllerScript_P1.TripleShotIteration.ToString ());
 				}
+
+			if (CheatString == RippleShotCommand)
+			{
+				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
+				playerControllerScript_P1.NextRippleShotIteration = 0;
+				playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
+
+				// Apply tweaks to conditions based on which iteration the player is on.
+				switch (playerControllerScript_P1.NextRippleShotIteration)
+				{
+				case 0:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
+					gameControllerScript.SetPowerupTime (20);
+					break;
+				case 1:
+					gameControllerScript.SetPowerupTime (20);
+					break;
+				case 2:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+					gameControllerScript.SetPowerupTime (20);
+					break;
+				case 3:
+					gameControllerScript.SetPowerupTime (5);
+					break;
+				}
+
+				// Sets double shot iteration (enum) as the next double shot iteration (int).
+				if (playerControllerScript_P1.NextRippleShotIteration < 2)
+				{
+					playerControllerScript_P1.RippleShotIteration = 
+						(PlayerController.shotIteration)playerControllerScript_P1.NextRippleShotIteration;
+				}
+
+				// Increases iteration count.
+				if (playerControllerScript_P1.NextRippleShotIteration < 1)
+				{
+					playerControllerScript_P1.NextRippleShotIteration += 1;
+				}
+
+				gameControllerScript.PowerupShootingImage_P1.texture = RippleShotTexture;
+				gameControllerScript.PowerupShootingImage_P1.color = new Color (1, 1, 1, 1);
+				gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.RippleShotIteration.ToString ();
+
+				ShowCheatNotification ("CHEAT ACTIVATED: RIPPLE SHOT: " + playerControllerScript_P1.RippleShotIteration.ToString ());
+			}
 
 				if (CheatString == CloneCommand)
 				{

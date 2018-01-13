@@ -120,9 +120,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 25705bd3ed11d4148942811a4788a14b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5242a15455c70814ebc06b5b51e17282, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -197,7 +197,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1072586396597310}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a024edd45c0ac1b40a2f295a7fdbc311, type: 3}
@@ -308,6 +308,7 @@ MonoBehaviour:
   ComboPointsText: {fileID: 0}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
+  TextPos: {x: 0, y: 0}
 --- !u!114 &114201206547933330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -339,6 +340,7 @@ MonoBehaviour:
   ComboPointsText: {fileID: 0}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
+  TextPos: {x: 0, y: 0}
 --- !u!114 &114538948711491612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -429,7 +431,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1308347745
+  randomSeed: 41314890
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3773,7 +3775,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1745152294
+  randomSeed: -497289837
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7123,7 +7125,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -877647501
+  randomSeed: -1466724322
   InitialModule:
     serializedVersion: 3
     enabled: 1

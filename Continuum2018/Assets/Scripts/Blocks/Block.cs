@@ -11,17 +11,14 @@ public class Block : MonoBehaviour
 	public AudioController audioControllerScript;
 	public MeshRenderer rend;
 	public ScrollTextureOverTime textureScrollScript;
-	public BlockFormation blockFormationScript;
-	public bool isBlockFormationConnected;
+
 	public bool isBossPart = false;
 	public bool GotDetached;
-	public bool Stackable;
 
 	public Vector2 BoundaryX;
 	public Vector2 BoundaryY;
 
 	[Header ("Stats")]
-	public bool isTutorialBlock;
 	public float speed;
 	public bool OverwriteVelocity;
 	private Rigidbody rb;
@@ -51,6 +48,8 @@ public class Block : MonoBehaviour
 	public Color PurpleTextColor;
 	public Color PinkTextColor;
 
+	public bool Stackable;
+
 	[Header ("Block Types")]
 	public mainBlockType BlockType;
 	public enum mainBlockType
@@ -77,7 +76,8 @@ public class Block : MonoBehaviour
 	public enum specialBlockType
 	{
 		Noise = 0,
-		Red = 1
+		Red = 1,
+		Tutorial = 2
 	}
 
 	public Material noiseMat;
@@ -93,6 +93,10 @@ public class Block : MonoBehaviour
 
 	public GameObject playerExplosion;
 
+	[Header ("Block Formation")]
+	public BlockFormation blockFormationScript;
+	public bool isBlockFormationConnected;
+
 	[Header ("Camera Shake")]
 	public CameraShake camShakeScript;
 	public float newCamShakeDuration = 0.1f;
@@ -100,6 +104,11 @@ public class Block : MonoBehaviour
 
 	public float LowPassTargetFreq = 1500;
 	public float ResonanceTargetFreq = 1;
+
+	[Header ("Tutorial")]
+	public bool isTutorialBlock;
+	public TutorialManager tutorialManagerScript;
+	public int tutorialBlockIndex;
 
 	void Awake ()
 	{
@@ -210,6 +219,21 @@ public class Block : MonoBehaviour
 
 		if (other.tag == "Bullet") 
 		{
+			if (tutorialManagerScript != null)
+			{
+				if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info)
+				{
+					tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+				}
+
+				if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
+				{
+					Debug.Log ("Attempted to turn off tutorial.");
+					tutorialManagerScript.TurnOffTutorial ();
+
+				}
+			}
+
 			GetTotalPointValue ();
 			CreateExplosion ();
 
@@ -306,6 +330,7 @@ public class Block : MonoBehaviour
 	{
 		// Adds point value to target score in game controller and plays animation.
 		gameControllerScript.TargetScore += totalPointValue;
+		gameControllerScript.ScoreAnim.Play ("ScorePoints");
 
 		if (gameControllerScript.ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false) 
 		{

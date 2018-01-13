@@ -190,6 +190,7 @@ public class GameController : MonoBehaviour
 		ScoreBackground.enabled = false;
 		TrackStats = false;
 
+		LivesAnim.gameObject.SetActive (false);
 		Lives = 3;
 		LivesText.text = "";
 		LivesBackground.enabled = false;
@@ -264,6 +265,7 @@ public class GameController : MonoBehaviour
 		StartCoroutine (StartBlockSpawn ());
 		StartCoroutine (PowerupSpawner ());
 		ScoreAnim.enabled = true;
+		LivesAnim.gameObject.SetActive (true);
 		LivesAnim.enabled = true;
 		WaveAnim.enabled = true;
 		ScoreBackground.enabled = true;

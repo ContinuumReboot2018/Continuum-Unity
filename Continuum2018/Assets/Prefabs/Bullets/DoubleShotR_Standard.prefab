@@ -269,7 +269,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0cc988cab3dfdf143b828e6408c72160, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.8
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -541,7 +541,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OscillateObject: {fileID: 4969308916557164}
+  OscillateObject: {x: 0, y: 0, z: 0}
+  OscillateTransform: {fileID: 0}
+  useRectTransform: 0
+  OscillateRectTransform: {fileID: 0}
   OscillatePosX: 1
   OscillatePosY: 0
   OscillatePosZ: 0
