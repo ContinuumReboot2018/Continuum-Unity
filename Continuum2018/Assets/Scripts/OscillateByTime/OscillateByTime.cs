@@ -224,7 +224,7 @@ public class OscillateByTime : MonoBehaviour
 
 	void SetPosValues ()
 	{
-		if (OscillateObject != null)
+		if (OscillateTransform != null)
 		{
 			if (useGlobalPosition == true) 
 			{
@@ -323,7 +323,7 @@ public class OscillateByTime : MonoBehaviour
 
 	void SetRotValues ()
 	{
-		if (OscillateObject != null)
+		if (OscillateTransform != null)
 		{
 			if (useGlobalRotation == true) 
 			{

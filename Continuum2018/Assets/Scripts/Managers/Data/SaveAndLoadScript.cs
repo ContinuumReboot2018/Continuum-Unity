@@ -27,7 +27,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	public int QualitySettingsIndex;
 	public bool useHdr;
 	public bool sunShaftsEnabled;
-	public bool noiseGrainEnabled;
+	//public bool noiseGrainEnabled;
 
 	public float MasterVolume;
 	public float SoundtrackVolume;
@@ -46,6 +46,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			cam = settingsManagerScript.cam;
 			VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 			LoadPlayerData ();
+			//SaveSettingsData (); // Comment this out.
 			LoadSettingsData ();
 			CheckUsername ();
 		}
@@ -157,7 +158,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			VisualSettingsComponent.enabled = false;
 			sunShaftsEnabled = false;
-			noiseGrainEnabled = false;
+			//noiseGrainEnabled = false;
 			useHdr = false;
 		}
 
@@ -165,7 +166,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			VisualSettingsComponent.enabled = true;
 			sunShaftsEnabled = true;
-			noiseGrainEnabled = true;
+			//noiseGrainEnabled = true;
 			useHdr = true;
 		}
 
@@ -208,14 +209,14 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			data.useHdr = false;
 			data.sunShaftsEnabled = false;
-			data.noiseGrainEnabled = false;
+			//data.noiseGrainEnabled = false;
 		}
 
 		if (data.QualitySettingsIndex == 1) 
 		{
 			data.useHdr = true;
 			data.sunShaftsEnabled = true;
-			data.noiseGrainEnabled = true;
+			//data.noiseGrainEnabled = true;
 		}
 
 		data.MasterVolume 	  = Mathf.Clamp (MasterVolume, 	   0, 1);
@@ -259,7 +260,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			VisualSettingsComponent.enabled = false;
 			useHdr = false;
 			sunShaftsEnabled = false;
-			noiseGrainEnabled = false;
+			//noiseGrainEnabled = false;
 		}
 
 		if (QualitySettingsIndex == 1) 
@@ -267,7 +268,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			VisualSettingsComponent.enabled = true;
 			useHdr = true;
 			sunShaftsEnabled = true;
-			noiseGrainEnabled = true;
+			//noiseGrainEnabled = true;
 		}
 			
 		MasterVolume = data.MasterVolume;
@@ -290,7 +291,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			VisualSettingsComponent.enabled = false;
 			useHdr = false;
 			sunShaftsEnabled = false;
-			noiseGrainEnabled = false;
+			//noiseGrainEnabled = false;
 		}
 
 		if (QualitySettingsIndex == 1) 
@@ -298,12 +299,12 @@ public class SaveAndLoadScript : MonoBehaviour
 			VisualSettingsComponent.enabled = true;
 			useHdr = true;
 			sunShaftsEnabled = true;
-			noiseGrainEnabled = true;
+			//noiseGrainEnabled = true;
 		}
 			
 		cam.allowHDR = useHdr;
 		cam.GetComponent<SunShafts> ().enabled = sunShaftsEnabled;
-		cam.GetComponent<NoiseAndGrain> ().enabled = noiseGrainEnabled;
+		//cam.GetComponent<NoiseAndGrain> ().enabled = noiseGrainEnabled;
 	}
 
 	// Variables stored in data files.
@@ -322,7 +323,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		public int QualitySettingsIndex;
 		public bool useHdr;
 		public bool sunShaftsEnabled;
-		public bool noiseGrainEnabled;
+		///public bool noiseGrainEnabled;
 
 		public float MasterVolume;
 		public float SoundtrackVolume;

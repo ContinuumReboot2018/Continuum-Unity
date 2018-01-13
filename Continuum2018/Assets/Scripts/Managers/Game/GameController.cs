@@ -185,7 +185,6 @@ public class GameController : MonoBehaviour
 
 	void Awake () 
 	{
-		//TargetDepthDistance = 100;
 		StartPowerupUI ();
 		ScoreText.text = "";
 		ScoreBackground.enabled = false;
