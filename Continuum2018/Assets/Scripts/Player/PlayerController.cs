@@ -293,7 +293,7 @@ public class PlayerController : MonoBehaviour
 				AbilityUI.SetActive (true);
 				playerCol.gameObject.SetActive (true);
 				gameControllerScript.Lives -= 1;
-				Invoke ("EnableCollider", 3);
+				Invoke ("EnableCollider", 5);
 				isInCooldownMode = false;
 			}
 		}
