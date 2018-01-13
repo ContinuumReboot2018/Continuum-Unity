@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
 	public ParticleSystem GameOverExplosionParticles;
 	public AudioSource GameOverExplosionAudio;
 	public MeshRenderer InvincibleMesh;
+	public GameObject PlayerGuides;
+	public GameObject AbilityUI;
 
 	[Header ("Ability")]
 	public abilityState CurrentAbilityState;
@@ -272,6 +274,8 @@ public class PlayerController : MonoBehaviour
 			if (cooldownTimeRemaining <= 0 && gameControllerScript.Lives > 0) 
 			{
 				RejoinGame ();
+				PlayerGuides.SetActive (true);
+				AbilityUI.SetActive (true);
 				playerCol.gameObject.SetActive (true);
 				gameControllerScript.Lives -= 1;
 				Invoke ("EnableCollider", 3);

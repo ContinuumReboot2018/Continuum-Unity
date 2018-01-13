@@ -124,14 +124,14 @@ public class PowerupPickup : MonoBehaviour
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 
 			// Sets double shot iteration (enum) as the next double shot iteration (int).
-			if (playerControllerScript_P1.NextDoubleShotIteration < 4) 
+			if (playerControllerScript_P1.NextDoubleShotIteration < 2) 
 			{
 				playerControllerScript_P1.DoubleShotIteration = 
 					(PlayerController.shotIteration)playerControllerScript_P1.NextDoubleShotIteration;
 			}
 
 			// Increases iteration count.
-			if (playerControllerScript_P1.NextDoubleShotIteration < 4) 
+			if (playerControllerScript_P1.NextDoubleShotIteration < 1) 
 			{
 				playerControllerScript_P1.NextDoubleShotIteration += 1;
 			}
@@ -172,14 +172,14 @@ public class PowerupPickup : MonoBehaviour
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
 
 			// Sets double shot iteration (enum) as the next Triple shot iteration (int).
-			if (playerControllerScript_P1.NextTripleShotIteration < 4) 
+			if (playerControllerScript_P1.NextTripleShotIteration < 2) 
 			{
 				playerControllerScript_P1.TripleShotIteration = 
 					(PlayerController.shotIteration)playerControllerScript_P1.NextTripleShotIteration;
 			}
 
 			// Increases iteration count.
-			if (playerControllerScript_P1.NextTripleShotIteration < 4) 
+			if (playerControllerScript_P1.NextTripleShotIteration < 1) 
 			{
 				playerControllerScript_P1.NextTripleShotIteration += 1;
 			}

@@ -246,6 +246,10 @@ public class Block : MonoBehaviour
 				playerControllerScript_P1.ResetPowerups ();
 				playerControllerScript_P1.playerCol.enabled = false;
 				playerControllerScript_P1.playerCol.gameObject.SetActive (false);
+				playerControllerScript_P1.PlayerGuides.transform.position = Vector3.zero;
+				playerControllerScript_P1.PlayerGuides.SetActive (false);
+				playerControllerScript_P1.AbilityUI.transform.position = Vector3.zero;
+				playerControllerScript_P1.AbilityUI.SetActive (false);
 				playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
 				playerControllerScript_P1.PlayerFollowRb.velocity = Vector3.zero;
 				playerControllerScript_P1.MovementX = 0;
