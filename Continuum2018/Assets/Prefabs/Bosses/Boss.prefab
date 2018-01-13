@@ -150,7 +150,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4159193236650686}
-  - component: {fileID: 114969203678113156}
   m_Layer: 0
   m_Name: BrainParent
   m_TagString: Untagged
@@ -334,6 +333,22 @@ GameObject:
   m_Layer: 0
   m_Name: Cube_Blue (5)
   m_TagString: Block
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1467028720138482
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4582387705948122}
+  - component: {fileID: 114083033213590696}
+  m_Layer: 0
+  m_Name: LookAt
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -674,7 +689,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4962701989205940}
+  m_Father: {fileID: 4582387705948122}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4062845652002176
@@ -740,6 +755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4962701989205940}
+  - {fileID: 4582387705948122}
   m_Father: {fileID: 4518587635197738}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -875,6 +891,20 @@ Transform:
   m_Father: {fileID: 4618346809507676}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4582387705948122
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467028720138482}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4037493145120294}
+  m_Father: {fileID: 4159193236650686}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4595076897840678
 Transform:
   m_ObjectHideFlags: 1
@@ -895,7 +925,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1673628375318398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 8.45, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4518587635197738}
@@ -1075,14 +1105,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1421135165290760}
-  m_LocalRotation: {x: 0.3535534, y: -0.3535534, z: 0.61237246, w: 0.61237246}
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4037493145120294}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_Children: []
   m_Father: {fileID: 4159193236650686}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!23 &23007322467931116
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2037,7 +2066,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1421135165290760}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33740276191721408
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -2860,6 +2889,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -2930,6 +2960,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -3067,6 +3098,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -3168,6 +3200,20 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+--- !u!114 &114083033213590696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467028720138482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194d76aa598fd824ab951d1308e70905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LookAtPos: {fileID: 0}
+  LookMethod: 0
+  RotDegPerSec: 100
 --- !u!114 &114084395193156610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3192,6 +3238,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -3262,6 +3309,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -3348,6 +3396,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -3457,6 +3506,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -3554,6 +3604,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -3754,6 +3805,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -3874,7 +3926,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bdabfc04e9b0b499cc0c06b2727a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OscillateObject: {fileID: 4518587635197738}
+  OscillateObject: {x: 0, y: 0, z: 0}
+  OscillateTransform: {fileID: 0}
+  useRectTransform: 0
+  OscillateRectTransform: {fileID: 0}
   OscillatePosX: 1
   OscillatePosY: 1
   OscillatePosZ: 0
@@ -4155,6 +4210,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -4278,7 +4334,7 @@ MonoBehaviour:
   FollowPlayerPos: {fileID: 0}
   PlayerPos: {fileID: 0}
   simpleFollowScript: {fileID: 114455932795321784}
-  BrainLookScript: {fileID: 114969203678113156}
+  BrainLookScript: {fileID: 114083033213590696}
   BossPartsParent: {fileID: 1002692490630458}
   BossParts: []
   AllowShoot: 0
@@ -4421,6 +4477,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -4491,6 +4548,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -4561,6 +4619,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -4631,6 +4690,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -4898,6 +4958,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5039,6 +5100,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -5109,6 +5171,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5218,6 +5281,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5371,6 +5435,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5441,6 +5506,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5582,6 +5648,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -5691,6 +5758,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -5833,6 +5901,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -5879,20 +5948,6 @@ MonoBehaviour:
   newCamShakeAmount: 0.2
   LowPassTargetFreq: 400
   ResonanceTargetFreq: 2.5
---- !u!114 &114969203678113156
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1194339922029956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 194d76aa598fd824ab951d1308e70905, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LookAtPos: {fileID: 0}
-  LookMethod: 0
-  RotDegPerSec: 100
 --- !u!114 &114985442191200932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5944,6 +5999,7 @@ MonoBehaviour:
   Stackable: 0
   BoundaryX: {x: -20.8, y: 20.8}
   BoundaryY: {x: -11.5, y: 11.5}
+  isTutorialBlock: 0
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550

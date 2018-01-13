@@ -12,6 +12,7 @@ public class PlayerActions : PlayerActionSet
 	public PlayerAction Ability;
 	public PlayerAction Pause;
 	public PlayerAction DebugMenu;
+	public PlayerAction CheatConsole;
 
 	public PlayerActions ()
 	{
@@ -25,5 +26,6 @@ public class PlayerActions : PlayerActionSet
 		Ability = CreatePlayerAction ("Ability");
 		Pause = CreatePlayerAction ("Pause");
 		DebugMenu = CreatePlayerAction ("Debug Menu");
+		CheatConsole = CreatePlayerAction ("CheatConsole");
 	}
 }

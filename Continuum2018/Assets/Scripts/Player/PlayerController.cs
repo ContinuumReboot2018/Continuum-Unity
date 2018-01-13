@@ -166,7 +166,8 @@ public class PlayerController : MonoBehaviour
 
 	public bool isHidingLivesUI;
 	public Animator LivesAnim;
-	public Vector3 LivesCheckPlayerPos;
+	public Vector2 LivesCheckPlayerPosX;
+	public Vector2 LivesCheckPlayerPosY;
 
 	public bool isHidingWaveUI;
 	public Animator WaveAnim;
@@ -206,6 +207,7 @@ public class PlayerController : MonoBehaviour
 		CheckUIVisibility ();
 		CheckCooldownTime ();
 		CheckAbilityTime ();
+		//CheckCheatConsoleInput ();
 	}
 
 	void FixedUpdate ()
@@ -729,10 +731,10 @@ public class PlayerController : MonoBehaviour
 		// LIVES TEXT
 		// When the player is close to the lives text.
 		// Vertical position.
-		if (PlayerRb.position.y > LivesCheckPlayerPos.y) 
+		if (PlayerRb.position.y > LivesCheckPlayerPosY.y) 
 		{
 			// Horizontal position too far.
-			if (PlayerRb.position.x > -LivesCheckPlayerPos.x && PlayerRb.position.x < LivesCheckPlayerPos.x) 
+			if (PlayerRb.position.x < LivesCheckPlayerPosX.x) 
 			{
 				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeOut") == false && isHidingLivesUI == false) 
 				{
@@ -742,7 +744,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			// Horizontal position in range.
-			if (PlayerRb.position.x <= -LivesCheckPlayerPos.x || PlayerRb.position.x >= LivesCheckPlayerPos.x) 
+			if (PlayerRb.position.x >= LivesCheckPlayerPosX.x) 
 			{
 				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true) 
 				{
@@ -753,7 +755,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Vertical position too far from lives text.
-		if (PlayerRb.position.y <= LivesCheckPlayerPos.y) 
+		if (PlayerRb.position.y <= LivesCheckPlayerPosY.y) 
 		{
 			if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true) 
 			{
@@ -762,6 +764,7 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
+		/*
 		// WAVE TEXT
 		// When the player is close to the wave text.
 		// Vertical position.
@@ -796,7 +799,7 @@ public class PlayerController : MonoBehaviour
 				WaveAnim.Play ("WaveUIEnter");
 				isHidingWaveUI = false;
 			}
-		}
+		}*/
 	}
 
 	public void ResetPowerups ()
@@ -870,6 +873,8 @@ public class PlayerController : MonoBehaviour
 
 		playerActions.DebugMenu.AddDefaultBinding (Key.Tab);
 		playerActions.DebugMenu.AddDefaultBinding (InputControlType.LeftBumper);
+
+		playerActions.CheatConsole.AddDefaultBinding (Key.Backquote);
 	}
 
 	// Creates vibration.
@@ -907,6 +912,32 @@ public class PlayerController : MonoBehaviour
 		{
 			isJoined = true;
 		}
+	}
+
+	void CheckCheatConsoleInput ()
+	{
+		/*
+		if (playerActions.CheatConsole.WasPressed) 
+		{
+			developerModeScript.CheatConsole.SetActive (!developerModeScript.CheatConsole.activeSelf);
+			developerModeScript.ClearCheatString ();
+
+			if (developerModeScript.CheatConsole.activeSelf) 
+			{
+				Debug.Log ("Cheat console opened.");
+			}
+
+			if (!developerModeScript.CheatConsole.activeSelf) 
+			{
+				Debug.Log ("Cheat console closed.");
+			}
+		}
+
+		if (playerActions.CheatConsole.WasReleased) 
+		{
+			developerModeScript.ClearCheatString ();
+			developerModeScript.CheatInputText.text = ">_ ";
+		}*/
 	}
 
 	void OnDisable ()

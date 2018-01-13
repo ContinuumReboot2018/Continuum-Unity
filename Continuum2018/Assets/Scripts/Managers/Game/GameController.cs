@@ -253,6 +253,10 @@ public class GameController : MonoBehaviour
 	// Timescale controller calls this initially after the countdown.
 	public void StartGame ()
 	{
+		CurrentScore = 0;
+		TargetScore = 0;
+		DisplayScore = 0;
+
 		TrackStats = true;
 		WaveTransitionParticles.Play (true);
 		WaveTransitionAnim.Play ("WaveTransition");
