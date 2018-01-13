@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
 	public AudioSource PlayerExplosionAudio;
 	public ParticleSystem GameOverExplosionParticles;
 	public AudioSource GameOverExplosionAudio;
+	public MeshCollider InvincibleCollider;
 	public MeshRenderer InvincibleMesh;
 	public GameObject PlayerGuides;
 	public GameObject AbilityUI;
@@ -242,8 +243,11 @@ public class PlayerController : MonoBehaviour
 
 	void LateUpdate ()
 	{
-		MovePlayerSmoothing ();
-		//Camera.main.transform.LookAt (playerCol.transform);
+		if (UsePlayerFollow == true)
+		{
+			MovePlayerSmoothing ();
+			//Camera.main.transform.LookAt (playerCol.transform);
+		}
 	}
 
 	void MovePlayerSmoothing ()
@@ -308,9 +312,10 @@ public class PlayerController : MonoBehaviour
 			gameControllerScript.TargetDepthDistance = 0.1f;
 			isInCooldownMode = true;
 			UsePlayerFollow = false;
-			playerCol.transform.localPosition = Vector3.zero;
-			PlayerFollow.transform.localPosition = Vector3.zero;
-			playerMesh.transform.localPosition = Vector3.zero;
+			//playerCol.transform.localPosition = new Vector3 (0, -15, 0);
+			//PlayerRb.transform.localPosition = new Vector3 (0, 0, 0);
+			PlayerFollow.transform.localPosition = new Vector3 (0, 0, 0);
+			playerMesh.transform.localPosition = new Vector3 (0, -15, 0);
 		}
 	}
 
@@ -318,6 +323,7 @@ public class PlayerController : MonoBehaviour
 	{
 		gameControllerScript.isGameOver = true;
 		timescaleControllerScript.isEndSequence = true;
+		PlayerGuides.SetActive (false);
 		canShoot = false;
 		UsePlayerFollow = false;
 		playerCol.enabled = false;
@@ -337,12 +343,14 @@ public class PlayerController : MonoBehaviour
 		{
 			playerCol.enabled = true;
 		}
+
 		InvincibleMesh.enabled = false;
+		InvincibleCollider.enabled = false;
 	}
 
 	void RejoinGame ()
 	{
-		gameControllerScript.TargetDepthDistance = 100;
+		//gameControllerScript.TargetDepthDistance = 100;
 		canShoot = true;
 		UsePlayerFollow = true;
 		playerMesh.SetActive (true);
@@ -352,6 +360,7 @@ public class PlayerController : MonoBehaviour
 		if (InvincibleMesh.enabled == false) 
 		{
 			InvincibleMesh.enabled = true;
+			InvincibleCollider.enabled = true;
 		}
 	}
 

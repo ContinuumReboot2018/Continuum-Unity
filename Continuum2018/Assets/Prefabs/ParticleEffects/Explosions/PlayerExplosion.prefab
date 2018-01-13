@@ -129,8 +129,8 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1026703781888602}
   serializedVersion: 5
-  lengthInSec: 2
-  simulationSpeed: 1
+  lengthInSec: 4
+  simulationSpeed: 3
   stopAction: 0
   looping: 0
   prewarm: 0
@@ -179,10 +179,10 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1567696245
+  randomSeed: -1908619318
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -682,7 +682,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 250
+      scalar: 500
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -768,7 +768,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 100
+        scalar: 200
         minScalar: 100
         maxCurve:
           serializedVersion: 2
@@ -1070,7 +1070,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 0}
+        key1: {r: 1, g: 1, b: 1, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1085,8 +1085,8 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 51272
-        atime1: 62837
+        atime0: 0
+        atime1: 65535
         atime2: 0
         atime3: 0
         atime4: 0
@@ -1823,7 +1823,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.2
+    frequency: 0.6
     damping: 1
     octaves: 2
     octaveMultiplier: 0.5
@@ -2705,7 +2705,7 @@ ParticleSystem:
     lifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.4
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2857,8 +2857,8 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 0, g: 0.4862745, b: 0.99215686, a: 1}
-        key2: {r: 0.0627451, g: 0.45490196, b: 0.972549, a: 1}
+        key1: {r: 0, g: 0.4901185, b: 1, a: 1}
+        key2: {r: 0.44852942, g: 0.6862323, b: 1, a: 1}
         key3: {r: 1, g: 0, b: 0.68235296, a: 0}
         key4: {r: 0, g: 0.99215686, b: 1, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -2866,7 +2866,7 @@ ParticleSystem:
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 964
         ctime1: 6361
-        ctime2: 20432
+        ctime2: 38743
         ctime3: 48766
         ctime4: 64764
         ctime5: 0

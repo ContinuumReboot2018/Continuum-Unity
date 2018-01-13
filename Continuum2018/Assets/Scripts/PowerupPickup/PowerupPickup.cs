@@ -148,11 +148,11 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
 				break;
 			case PlayerController.shotIteration.Enhanced:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				break;
 			case PlayerController.shotIteration.Rapid:
 				gameControllerScript.SetPowerupTime (PowerupTime);
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 				break;
 			case PlayerController.shotIteration.Overdrive:
 				gameControllerScript.SetPowerupTime (5);
@@ -198,11 +198,11 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
 				break;
 			case PlayerController.shotIteration.Enhanced:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				break;
 			case PlayerController.shotIteration.Rapid:
 				gameControllerScript.SetPowerupTime (PowerupTime);
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
 				break;
 			case PlayerController.shotIteration.Overdrive:
 				gameControllerScript.SetPowerupTime (5);
@@ -215,6 +215,7 @@ public class PowerupPickup : MonoBehaviour
 
 			break;
 		case powerups.ExtraLife: 
+			gameControllerScript.Lives += 1;
 			break;
 		case powerups.BouncingShot:
 			break;
@@ -252,11 +253,11 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
 				break;
 			case PlayerController.shotIteration.Enhanced:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				break;
 			case PlayerController.shotIteration.Rapid:
 				gameControllerScript.SetPowerupTime (PowerupTime);
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 				break;
 			case PlayerController.shotIteration.Overdrive:
 				gameControllerScript.SetPowerupTime (5);

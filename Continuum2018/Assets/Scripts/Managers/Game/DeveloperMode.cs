@@ -325,8 +325,11 @@ public class DeveloperMode : MonoBehaviour
 				if (CheatString == DoubleShotCommand) 
 				{
 					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
-					playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 					playerControllerScript_P1.NextTripleShotIteration = 0;
+					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
+					playerControllerScript_P1.NextRippleShotIteration = 0;
+
+					playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 
 					// Apply tweaks to conditions based on which iteration the player is on.
 					switch (playerControllerScript_P1.NextDoubleShotIteration) 
@@ -336,10 +339,10 @@ public class DeveloperMode : MonoBehaviour
 						gameControllerScript.SetPowerupTime (20);
 						break;
 					case 1:
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 						gameControllerScript.SetPowerupTime (20);
 						break;
 					case 2:
-						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 						gameControllerScript.SetPowerupTime (20);
 						break;
 					case 3:
@@ -371,6 +374,9 @@ public class DeveloperMode : MonoBehaviour
 				{
 					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
 					playerControllerScript_P1.NextDoubleShotIteration = 0;
+					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
+					playerControllerScript_P1.NextRippleShotIteration = 0;
+
 					playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
 
 					// Apply tweaks to conditions based on which iteration the player is on.
@@ -381,10 +387,11 @@ public class DeveloperMode : MonoBehaviour
 						gameControllerScript.SetPowerupTime (20);
 						break;
 					case 1:
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
 						gameControllerScript.SetPowerupTime (20);
 						break;
 					case 2:
-						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+						
 						gameControllerScript.SetPowerupTime (20);
 						break;
 					case 3:
@@ -414,8 +421,11 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == RippleShotCommand)
 			{
-				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
-				playerControllerScript_P1.NextRippleShotIteration = 0;
+				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
+				playerControllerScript_P1.NextDoubleShotIteration = 0;
+				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
+				playerControllerScript_P1.NextTripleShotIteration = 0;
+
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
 
 				// Apply tweaks to conditions based on which iteration the player is on.
@@ -426,10 +436,10 @@ public class DeveloperMode : MonoBehaviour
 					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 1:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 2:
-					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 3:
