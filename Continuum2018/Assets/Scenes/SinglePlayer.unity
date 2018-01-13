@@ -50859,6 +50859,7 @@ MonoBehaviour:
   cursorManagerScript: {fileID: 2095137864}
   camShakeScript: {fileID: 525356116}
   developerModeScript: {fileID: 1748041315}
+  tutorialManagerScript: {fileID: 1662711581}
   PlayerId: 1
   PlayerText: {fileID: 24889417}
   isJoined: 0

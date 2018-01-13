@@ -7,6 +7,7 @@ public class TutorialManager : MonoBehaviour
 	public PlayerController playerControllerScript_P1;
 	public TimescaleController timeScaleControllerScript;
 	public GameController gameControllerScript;
+	public bool tutorialComplete;
 	public tutorialPhase TutorialPhase;
 	public enum tutorialPhase
 	{
@@ -24,6 +25,7 @@ public class TutorialManager : MonoBehaviour
 
 	void Start ()
 	{
+		tutorialComplete = false;
 		MovementObject.SetActive (false);
 		//ControlsObject.SetActive (true);
 		BlocksObject.SetActive (false);
@@ -108,6 +110,7 @@ public class TutorialManager : MonoBehaviour
 
 	public void TurnOffTutorial ()
 	{
+		tutorialComplete = true;
 		TutorialPhase = tutorialPhase.Info;
 		InfoObject.SetActive (false);
 		ControlsObject.SetActive (false);

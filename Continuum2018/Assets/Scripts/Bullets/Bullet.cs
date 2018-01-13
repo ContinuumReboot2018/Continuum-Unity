@@ -221,4 +221,9 @@ public class Bullet : MonoBehaviour
 			StartCoroutine (DestroyDelay ());
 		}
 	}
+
+	public void DestroyObject ()
+	{
+		Destroy (gameObject);
+	}
 }

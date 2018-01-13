@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 	public CursorManager cursorManagerScript;
 	public CameraShake camShakeScript;
 	public DeveloperMode developerModeScript;
+	public TutorialManager tutorialManagerScript;
 	public int PlayerId = 1;
 	public TextMeshProUGUI PlayerText;
 	public bool isJoined;
@@ -424,9 +425,12 @@ public class PlayerController : MonoBehaviour
 
 		if (CurrentAbilityState == abilityState.Charging) 
 		{
-			if (CurrentAbilityTimeRemaining < CurrentAbilityDuration && cooldownTimeRemaining <= 0 &&
-				timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false && 
-				gameControllerScript.isPaused == false) 
+			if (CurrentAbilityTimeRemaining < CurrentAbilityDuration && 
+				cooldownTimeRemaining <= 0 &&
+				timescaleControllerScript.isInInitialSequence == false && 
+				timescaleControllerScript.isInInitialCountdownSequence == false && 
+				gameControllerScript.isPaused == false &&
+				tutorialManagerScript.tutorialComplete == true) 
 			{
 				AbilityReadyText.text = "";
 				AbilityReadyBackground.enabled = false;

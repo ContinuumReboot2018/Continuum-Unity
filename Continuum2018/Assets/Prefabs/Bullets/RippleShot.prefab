@@ -377,7 +377,7 @@ MonoBehaviour:
   BulletRb: {fileID: 54135192644018154}
   BulletTypeName: Ripple
   Lifetime: 0
-  MaxLifetime: 10
+  MaxLifetime: 60
   DestroyMaxYPos: 30
   ColliderYMaxPos: 12
   BulletCol: {fileID: 136682191184681828}
@@ -421,7 +421,7 @@ ParticleSystem:
   simulationSpeed: 2
   stopAction: 0
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
