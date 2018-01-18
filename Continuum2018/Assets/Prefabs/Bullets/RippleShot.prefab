@@ -484,10 +484,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingPitch: 1
-  multiplierPitch: 1
+  multiplierPitch: 0.5
   minimumPitch: 0.0001
   maximumPitch: 20
-  addPitch: 0
+  addPitch: -0.25
   reachedMaxPitch: 0
   dontUseStartPitch: 1
 --- !u!114 &114801109339224676
