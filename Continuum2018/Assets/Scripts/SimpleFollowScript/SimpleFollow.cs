@@ -29,9 +29,11 @@ public class SimpleFollow : MonoBehaviour
 	public Vector3 FollowRotOffset;
 	public Vector3 FollowRotSmoothTime;
 
+	public bool DontUseSmoothing;
+
 	void LateUpdate () 
 	{
-		if (FollowPosition == true) 
+		if (FollowPosition == true && DontUseSmoothing == false) 
 		{
 			FollowObjectPosition ();
 		}
@@ -41,6 +43,11 @@ public class SimpleFollow : MonoBehaviour
 		if (FollowRotation == true) 
 		{
 			FollowObjectRotation ();
+		}
+
+		if (DontUseSmoothing == true) 
+		{
+			transform.position = new Vector3 (FollowPosX.position.x, FollowPosY.position.y, FollowPosZ.position.z);
 		}
 	}
 
@@ -55,7 +62,7 @@ public class SimpleFollow : MonoBehaviour
 						Mathf.Lerp (
 							transform.position.x, 
 							FollowPosX.position.x + FollowPosOffset.x, 
-							FollowPosSmoothTime.x * Time.fixedUnscaledDeltaTime), 
+							FollowPosSmoothTime.x * Time.unscaledDeltaTime), 
 
 						PosBoundsX.x, 
 						PosBoundsX.y
@@ -66,7 +73,7 @@ public class SimpleFollow : MonoBehaviour
 						Mathf.Lerp (
 							transform.position.y, 
 							FollowPosY.position.y + FollowPosOffset.y, 
-							FollowPosSmoothTime.y * Time.fixedUnscaledDeltaTime), 
+							FollowPosSmoothTime.y * Time.unscaledDeltaTime), 
 
 						PosBoundsY.x, 
 						PosBoundsY.y
@@ -77,7 +84,7 @@ public class SimpleFollow : MonoBehaviour
 						Mathf.Lerp (
 							transform.position.z, 
 							FollowPosZ.position.z + FollowPosOffset.z, 
-							FollowPosSmoothTime.z * Time.fixedUnscaledDeltaTime), 
+							FollowPosSmoothTime.z * Time.unscaledDeltaTime), 
 
 						PosBoundsZ.x, 
 						PosBoundsZ.y
@@ -95,7 +102,7 @@ public class SimpleFollow : MonoBehaviour
 							transform.position.x, 
 							FollowPosX.position.x + FollowPosOffset.x, 
 							ref FollowPosVelX, 
-							FollowPosSmoothTime.x * Time.fixedUnscaledDeltaTime), 
+							FollowPosSmoothTime.x * Time.unscaledDeltaTime), 
 
 						PosBoundsX.x, 
 						PosBoundsX.y
@@ -107,7 +114,7 @@ public class SimpleFollow : MonoBehaviour
 							transform.position.y, 
 							FollowPosY.position.y + FollowPosOffset.y, 
 							ref FollowPosVelY, 
-							FollowPosSmoothTime.y * Time.fixedUnscaledDeltaTime), 
+							FollowPosSmoothTime.y * Time.unscaledDeltaTime), 
 
 						PosBoundsY.x, 
 						PosBoundsY.y
@@ -119,7 +126,7 @@ public class SimpleFollow : MonoBehaviour
 							transform.position.z, 
 							FollowPosZ.position.z + FollowPosOffset.z, 
 							ref FollowPosVelZ, 
-							FollowPosSmoothTime.z * Time.fixedUnscaledDeltaTime), 
+							FollowPosSmoothTime.z * Time.unscaledDeltaTime), 
 
 						PosBoundsZ.x, 
 						PosBoundsZ.y
@@ -153,17 +160,17 @@ public class SimpleFollow : MonoBehaviour
 				Mathf.LerpAngle (
 					transform.eulerAngles.x, 
 					FollowRotX.eulerAngles.x + FollowRotOffset.x, 
-					FollowRotSmoothTime.x * Time.fixedUnscaledDeltaTime),
+					FollowRotSmoothTime.x * Time.unscaledDeltaTime),
 				
 				Mathf.LerpAngle (
 					transform.eulerAngles.y, 
 					FollowRotY.eulerAngles.y + FollowRotOffset.y, 
-					FollowRotSmoothTime.y * Time.fixedUnscaledDeltaTime),
+					FollowRotSmoothTime.y * Time.unscaledDeltaTime),
 				
 				Mathf.LerpAngle (
 					transform.eulerAngles.z, 
 					FollowRotZ.eulerAngles.z + FollowRotOffset.z, 
-					FollowRotSmoothTime.z * Time.fixedUnscaledDeltaTime)
+					FollowRotSmoothTime.z * Time.unscaledDeltaTime)
 			);
 
 		transform.rotation = Quaternion.Euler(RotationAngle);

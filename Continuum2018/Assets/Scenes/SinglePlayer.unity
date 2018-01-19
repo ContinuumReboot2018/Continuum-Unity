@@ -5532,6 +5532,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 815677226}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 2, y: 5, z: 2}
+  DontUseSmoothing: 0
 --- !u!1 &223707679
 GameObject:
   m_ObjectHideFlags: 0
@@ -5723,6 +5724,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 1081056887}
   FollowRotOffset: {x: 0, y: 0, z: -45}
   FollowRotSmoothTime: {x: 0, y: 0, z: 10000}
+  DontUseSmoothing: 0
 --- !u!222 &237733452
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8287,6 +8289,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!23 &297859870
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8816,6 +8819,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &350038584 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114516608026411696, guid: 18d5f7b4b80bcf64c82a68f1c08a1261,
@@ -19724,6 +19728,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!23 &412507433
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23730,6 +23735,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 815677226}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 2, y: 5, z: 2}
+  DontUseSmoothing: 0
 --- !u!1 &506410281
 GameObject:
   m_ObjectHideFlags: 0
@@ -35396,6 +35402,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 815677226}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 2, y: 5, z: 2}
+  DontUseSmoothing: 0
 --- !u!4 &587095185
 Transform:
   m_ObjectHideFlags: 0
@@ -51391,6 +51398,7 @@ MonoBehaviour:
   MainEngineParticles: {fileID: 351026105}
   MainEngineParticleEmissionAmount: 100
   MainEngineParticleEmissionLerpSpeed: 8
+  ReferencePoint: {fileID: 2056022828}
   canShoot: 0
   CurrentFireRate: 0.45
   FireRateTimeMultiplier: 1.8
@@ -59361,6 +59369,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!1 &1081056886
 GameObject:
   m_ObjectHideFlags: 0
@@ -60663,6 +60672,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 1081056887}
   FollowRotOffset: {x: 0, y: 0, z: -45}
   FollowRotSmoothTime: {x: 0, y: 0, z: 10000}
+  DontUseSmoothing: 0
 --- !u!222 &1188240971
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -69698,8 +69708,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60afcb647de8b9b4a8e9e6c97e136524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetFramerate: 60
+  targetFramerate: -1
   RefreshRate: 0
+  useScreenRefreshRate: 0
 --- !u!1 &1341154666
 GameObject:
   m_ObjectHideFlags: 0
@@ -69793,6 +69804,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 1081056887}
   FollowRotOffset: {x: 0, y: 0, z: 30}
   FollowRotSmoothTime: {x: 0, y: 0, z: 10000}
+  DontUseSmoothing: 0
 --- !u!222 &1341154670
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -74981,6 +74993,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &1539165818 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114008728590491188, guid: 18d5f7b4b80bcf64c82a68f1c08a1261,
@@ -83590,6 +83603,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!23 &1634629447
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -85373,6 +85387,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &1771333221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85865,6 +85880,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!1 &1816846808
 GameObject:
   m_ObjectHideFlags: 0
@@ -86214,6 +86230,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!23 &1892256468
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -86558,6 +86575,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!64 &1948467316
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -86630,6 +86648,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!23 &1968131949
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -86727,6 +86746,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!1 &1981017515
 GameObject:
   m_ObjectHideFlags: 0
@@ -87611,6 +87631,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!23 &2042435104
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -87813,6 +87834,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2056022828}
+  - component: {fileID: 2056022829}
   m_Layer: 0
   m_Name: ReferencePoint
   m_TagString: Untagged
@@ -87833,6 +87855,34 @@ Transform:
   m_Father: {fileID: 1643956534}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2056022829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2056022827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FollowPosition: 1
+  FollowPosX: {fileID: 815677226}
+  FollowPosY: {fileID: 2056022828}
+  FollowPosZ: {fileID: 2056022828}
+  FollowPosMethod: 0
+  FollowPosOffset: {x: 0, y: 0, z: 0}
+  FollowPosSmoothTime: {x: 0, y: 0, z: 0}
+  PosBoundsX: {x: 0, y: 0}
+  PosBoundsY: {x: 0, y: 0}
+  PosBoundsZ: {x: 0, y: 0}
+  FollowRotation: 0
+  FollowRotX: {fileID: 0}
+  FollowRotY: {fileID: 0}
+  FollowRotZ: {fileID: 0}
+  FollowRotOffset: {x: 0, y: 0, z: 0}
+  FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 1
 --- !u!1 &2065423145
 GameObject:
   m_ObjectHideFlags: 0

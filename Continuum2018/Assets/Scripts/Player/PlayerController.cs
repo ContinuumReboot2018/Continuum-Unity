@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
 	public float MainEngineParticleEmissionAmount = 1;
 	public float MainEngineParticleEmissionLerpSpeed = 4;
 
+	public Transform ReferencePoint;
+
 	[Header ("Shooting")]
 	public bool canShoot = true;
 	public float CurrentFireRate = 0.1f;
@@ -221,6 +223,7 @@ public class PlayerController : MonoBehaviour
 		CheckUIVisibility ();
 		CheckCooldownTime ();
 		CheckAbilityTime ();
+		DrawReferencePointLine ();
 		//CheckCheatConsoleInput ();
 	}
 
@@ -528,6 +531,11 @@ public class PlayerController : MonoBehaviour
 			AbilityName = "Emp";
 			break;
 		}
+	}
+
+	void DrawReferencePointLine ()
+	{
+		Debug.DrawLine (playerCol.transform.position, ReferencePoint.transform.position, Color.red);
 	}
 
 	IEnumerator CheckBulletType ()
