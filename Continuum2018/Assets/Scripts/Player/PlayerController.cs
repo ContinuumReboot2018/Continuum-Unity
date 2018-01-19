@@ -257,8 +257,8 @@ public class PlayerController : MonoBehaviour
 	{
 		// Player follows [follow position] with smoothing.
 		PlayerRb.position = new Vector3 (
-			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.fixedDeltaTime),
-			Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.fixedDeltaTime),
+			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
+			Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
 			0
 		);
 

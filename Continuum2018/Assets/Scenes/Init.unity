@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 112000002, guid: 555b063324586ac40b0e6657b7c8713d,
     type: 2}
   m_UseShadowmask: 1
@@ -194,27 +195,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 224744159932316728, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -450
-      objectReference: {fileID: 0}
-    - target: {fileID: 224672172472713772, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -540
-      objectReference: {fileID: 0}
-    - target: {fileID: 224519156560303308, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -540
-      objectReference: {fileID: 0}
     - target: {fileID: 114787568378713720, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114787568378713720, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114767664278466576, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114767664278466576, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1

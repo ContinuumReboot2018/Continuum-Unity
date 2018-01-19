@@ -23547,21 +23547,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 198834951086578662, guid: c8959a91a1eb34249aad84caed3eb712,
-        type: 2}
-      propertyPath: NoiseModule.strength.scalar
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 198834951086578662, guid: c8959a91a1eb34249aad84caed3eb712,
-        type: 2}
-      propertyPath: randomSeed
-      value: -1908619318
-      objectReference: {fileID: 0}
-    - target: {fileID: 198834951086578662, guid: c8959a91a1eb34249aad84caed3eb712,
-        type: 2}
-      propertyPath: NoiseModule.frequency
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c8959a91a1eb34249aad84caed3eb712, type: 2}
   m_IsPrefabParent: 0
@@ -32051,7 +32036,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -46126193
+  randomSeed: -759905881
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -51390,7 +51375,7 @@ MonoBehaviour:
   XBounds: {x: -20, y: 20}
   YBounds: {x: -10.5, y: 10.5}
   PlayerRb: {fileID: 815677230}
-  SmoothFollowTime: 10
+  SmoothFollowTime: 30
   YRotationAmount: 40
   YRotationMultiplier: 100
   PlayerVibrationDuration: 0
@@ -84618,12 +84603,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 223488268694642848, guid: ce34054baf2feec468e00fa4810db95c,
+    - target: {fileID: 223309348129192866, guid: ce34054baf2feec468e00fa4810db95c,
         type: 2}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1771333218}
     - target: {fileID: 223550364330062924, guid: ce34054baf2feec468e00fa4810db95c,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1771333218}
+    - target: {fileID: 223488268694642848, guid: ce34054baf2feec468e00fa4810db95c,
         type: 2}
       propertyPath: m_Camera
       value: 
@@ -84648,31 +84638,6 @@ Prefab:
       propertyPath: ControlsObject
       value: 
       objectReference: {fileID: 1537621169}
-    - target: {fileID: 223309348129192866, guid: ce34054baf2feec468e00fa4810db95c,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1771333218}
-    - target: {fileID: 1359675277405048, guid: ce34054baf2feec468e00fa4810db95c, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4445659715956438, guid: ce34054baf2feec468e00fa4810db95c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -2.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4658762599433070, guid: ce34054baf2feec468e00fa4810db95c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -2.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4744981814722674, guid: ce34054baf2feec468e00fa4810db95c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 13.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309464551027702, guid: ce34054baf2feec468e00fa4810db95c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 13.6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ce34054baf2feec468e00fa4810db95c, type: 2}
   m_IsPrefabParent: 0
@@ -85870,7 +85835,7 @@ MonoBehaviour:
   FollowPosZ: {fileID: 815677226}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
-  FollowPosSmoothTime: {x: 60, y: 200, z: 0}
+  FollowPosSmoothTime: {x: 20, y: 100, z: 0}
   PosBoundsX: {x: -30, y: 30}
   PosBoundsY: {x: -20, y: 20}
   PosBoundsZ: {x: 0, y: 0}

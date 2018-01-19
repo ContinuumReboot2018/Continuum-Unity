@@ -3486,6 +3486,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114020900031464288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3626,6 +3627,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114083033213590696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3914,6 +3916,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114128001514539316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4026,6 +4029,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114145926289613174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4053,6 +4057,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114162728107387492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4153,6 +4158,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114195547389086750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4180,6 +4186,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114199767176137102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4251,6 +4258,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114250059742051130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4383,6 +4391,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114303637259412912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4569,6 +4578,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114368666373487988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4596,6 +4606,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114376060377704308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4635,6 +4646,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114414108301552172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4718,6 +4730,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114455915155381050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4808,7 +4821,7 @@ MonoBehaviour:
   FollowPosZ: {fileID: 0}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 8.5, z: 0}
-  FollowPosSmoothTime: {x: 1, y: 2, z: 0}
+  FollowPosSmoothTime: {x: 0.5, y: 1, z: 0}
   PosBoundsX: {x: -10, y: 10}
   PosBoundsY: {x: 0, y: 25}
   PosBoundsZ: {x: 0, y: 0}
@@ -4818,6 +4831,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114460150309154654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4845,6 +4859,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114463363620991038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5006,6 +5021,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114529347946084928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5033,6 +5049,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114543706771715104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5060,6 +5077,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114546384647888604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5087,6 +5105,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114554486996616206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5418,6 +5437,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114586099429458054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5445,6 +5465,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114587451727362354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5472,6 +5493,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114608787098663510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5539,6 +5561,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114644702733596854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5820,6 +5843,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114721679047743786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5993,6 +6017,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114735286729899094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6161,6 +6186,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114785563973506798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6350,6 +6376,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114814135115415910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6583,6 +6610,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114868863487897782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6953,6 +6981,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114993352153540766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7053,6 +7082,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!120 &120808835583190282
 LineRenderer:
   m_ObjectHideFlags: 1
