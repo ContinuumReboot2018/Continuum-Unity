@@ -112,6 +112,8 @@ public class PlayerController : MonoBehaviour
 
 	[Header ("Powerups")]
 	public int powerupsInUse;
+	public bool isInRapidFire;
+	public bool isInOverdrive;
 
 	// Double shot.
 	public GameObject DoubleShotL;
@@ -148,6 +150,7 @@ public class PlayerController : MonoBehaviour
 	// Ripple shot.
 	public GameObject RippleShot;
 	public GameObject RippleShotEnhanced;
+	public GameObject RippleShotOverdrive;
 	public Transform RippleShotSpawn;
 	public float[] RippleShotFireRates;
 	public shotIteration RippleShotIteration;
@@ -173,7 +176,9 @@ public class PlayerController : MonoBehaviour
 	public float LensRadiusSmoothTime = 1;
 
 	[Header ("Clone Player")]
-	public GameObject Clone;
+	[Range (0, 3)]
+	public int nextCloneSpawn;
+	public GameObject[] Clones;
 
 	[Header ("UI")]
 	public bool isHidingScoreUI;
@@ -705,6 +710,20 @@ public class PlayerController : MonoBehaviour
 				rippleShotEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
 				rippleShotEnhanced.name = "Ripple Shot_P" + PlayerId + " (Enhanced)";
 				break;
+			case shotIteration.Rapid:
+				GameObject rippleShotRapid = Instantiate (RippleShotEnhanced, RippleShotSpawn.position, Quaternion.Euler (90, 0, 0));
+				rippleShotRapid.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotRapid.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotRapid.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotRapid.name = "Ripple Shot_P" + PlayerId + " (Rapid)";
+				break;
+			case shotIteration.Overdrive:
+				GameObject rippleShotOverdrive = Instantiate (RippleShotOverdrive, RippleShotSpawn.position, Quaternion.Euler (90, 0, 0));
+				rippleShotOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
+				rippleShotOverdrive.name = "Ripple Shot_P" + PlayerId + " (Overdrive)";
+				break;
 			}
 			break;
 
@@ -872,21 +891,12 @@ public class PlayerController : MonoBehaviour
 		NextTripleShotIteration = 0;
 		NextRippleShotIteration = 0;
 
-		gameControllerScript.PowerupShootingImage_P1.texture = null; // Replace with standard shot texture.
-		gameControllerScript.PowerupShootingImage_P1.color = new Color (0, 0, 0, 0); // Replace with full color once standard shot texture is in.
-		gameControllerScript.PowerupShootingText_P1.text = " ";
+		foreach (GameObject clone in Clones) 
+		{
+			clone.SetActive (false);
+		}
 
-		gameControllerScript.PowerupOneImage_P1.texture = null;
-		gameControllerScript.PowerupOneImage_P1.color = new Color (0, 0, 0, 0);
-		gameControllerScript.PowerupOneText_P1.text = " ";
-
-		gameControllerScript.PowerupTwoImage_P1.texture = null;
-		gameControllerScript.PowerupTwoImage_P1.color = new Color (0, 0, 0, 0);
-		gameControllerScript.PowerupTwoText_P1.text = " ";
-
-		gameControllerScript.PowerupThreeImage_P1.texture = null;
-		gameControllerScript.PowerupThreeImage_P1.color = new Color (0, 0, 0, 0);
-		gameControllerScript.PowerupThreeText_P1.text = " ";
+		gameControllerScript.ClearPowerupUI ();
 	}
 
 	// This is for InControl for initialization.

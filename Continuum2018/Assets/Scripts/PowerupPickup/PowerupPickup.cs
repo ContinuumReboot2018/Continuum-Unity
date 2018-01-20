@@ -23,10 +23,12 @@ public class PowerupPickup : MonoBehaviour
 		DoubleShot,
 		TripleShot,
 		ExtraLife,
-		BouncingShot,
 		RippleShot,
 		SlowEnemies,
-		Clone
+		Clone,
+		Rapidfire,
+		Overdrive,
+		Ricochet
 	}
 
 	[Header ("On Pickup")]
@@ -41,13 +43,11 @@ public class PowerupPickup : MonoBehaviour
 	{
 		meshrend.enabled = false;
 		col.enabled = false;
-		//AwakeAudio.Play ();
 		StartCoroutine (ShowPowerup ());
 	}
 
 	IEnumerator ShowPowerup ()
 	{
-		//yield return new WaitForSecondsRealtime (AwakeDelay);
 		yield return new WaitForSeconds (AwakeDelay);
 		meshrend.enabled = true;
 		col.enabled = true;
@@ -94,153 +94,114 @@ public class PowerupPickup : MonoBehaviour
 
 	void CheckActivatePowerup ()
 	{
-		if (gameControllerScript.NextAvailablePowerupSlot_P1 < gameControllerScript.MaxSimultaneousPowerups)
-			//(playerControllerScript_P1.powerupsInUse < gameControllerScript.MaxSimultaneousPowerups) 
-		{
-			ActivatePowerup_P1 ();
-			playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f);
-		}
-
-		if (gameControllerScript.NextAvailablePowerupSlot_P1 >= gameControllerScript.MaxSimultaneousPowerups)
-			//(playerControllerScript_P1.powerupsInUse >= gameControllerScript.MaxSimultaneousPowerups) 
-		{
-			Instantiate (PowerupDeathExplosion, transform.position, Quaternion.identity);
-			Destroy (gameObject);
-		}
+		ActivatePowerup_P1 ();
+		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f);
+		Instantiate (PowerupDeathExplosion, transform.position, Quaternion.identity);
+		Destroy (gameObject);
 	}
 
 	void ActivatePowerup_P1 ()
 	{
 		Instantiate (CollectExplosion, transform.position, Quaternion.identity);
+
 		switch (ThisPowerup) 
 		{
 		case powerups.DoubleShot: 
 
-			// Resets other shooting powerup stats.
-			playerControllerScript_P1.NextTripleShotIteration = 0;
-			playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
-			playerControllerScript_P1.NextRippleShotIteration = 0;
-			playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
-
-			// Switches to double shot mode.
+			// Switches to triple shot mode
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 
-			// Sets double shot iteration (enum) as the next double shot iteration (int).
-			if (playerControllerScript_P1.NextDoubleShotIteration < 2) 
+			if (playerControllerScript_P1.isInOverdrive == true) 
 			{
-				playerControllerScript_P1.DoubleShotIteration = 
-					(PlayerController.shotIteration)playerControllerScript_P1.NextDoubleShotIteration;
+				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
 			}
 
-			// Increases iteration count.
-			if (playerControllerScript_P1.NextDoubleShotIteration < 1) 
+			if (playerControllerScript_P1.isInRapidFire == true) 
 			{
-				playerControllerScript_P1.NextDoubleShotIteration += 1;
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 			}
-				
+
 			// Tweaks to conditions based on which iteration the player is on.
 			switch (playerControllerScript_P1.DoubleShotIteration) 
 			{
 			case PlayerController.shotIteration.Standard:
 				gameControllerScript.SetPowerupTime (PowerupTime);
-				//playerControllerScript_P1.powerupsInUse += 1; // Increases powerups in use on first iteration.
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
 				break;
 			case PlayerController.shotIteration.Enhanced:
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				break;
 			case PlayerController.shotIteration.Rapid:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				break;
 			case PlayerController.shotIteration.Overdrive:
-				gameControllerScript.SetPowerupTime (5);
+				//gameControllerScript.SetPowerupTime (5);
 				break;
 			}
 
-			SetPowerupShootingTexture ();
-			gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.DoubleShotIteration.ToString ();
-
+			SetPowerupTexture (0);
+			gameControllerScript.PowerupText_P1[0].text = "";
 				break;
 
 		case powerups.TripleShot:
-
-			// Resets other shooting powerup stats.
-			playerControllerScript_P1.NextDoubleShotIteration = 0;
-			playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
-			playerControllerScript_P1.NextRippleShotIteration = 0;
-			playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
-
+			
 			// Switches to triple shot mode
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
 
-			// Sets double shot iteration (enum) as the next Triple shot iteration (int).
-			if (playerControllerScript_P1.NextTripleShotIteration < 2) 
+			if (playerControllerScript_P1.isInOverdrive == true) 
 			{
-				playerControllerScript_P1.TripleShotIteration = 
-					(PlayerController.shotIteration)playerControllerScript_P1.NextTripleShotIteration;
+				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
 			}
 
-			// Increases iteration count.
-			if (playerControllerScript_P1.NextTripleShotIteration < 1) 
+			if (playerControllerScript_P1.isInRapidFire == true) 
 			{
-				playerControllerScript_P1.NextTripleShotIteration += 1;
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
 			}
-
+				
 			// Tweaks to conditions based on which iteration the player is on.
 			switch (playerControllerScript_P1.TripleShotIteration) 
 			{
 			case PlayerController.shotIteration.Standard:
 				gameControllerScript.SetPowerupTime (PowerupTime);
-				//playerControllerScript_P1.powerupsInUse += 1; // Increases powerups in use on first iteration.
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
 				break;
+
 			case PlayerController.shotIteration.Enhanced:
+				gameControllerScript.SetPowerupTime (PowerupTime);
+				break;
+
+			case PlayerController.shotIteration.Rapid:
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				break;
-			case PlayerController.shotIteration.Rapid:
-				gameControllerScript.SetPowerupTime (PowerupTime);
-				break;
+
 			case PlayerController.shotIteration.Overdrive:
-				gameControllerScript.SetPowerupTime (5);
 				break;
 			}
 
-			SetPowerupShootingTexture ();
-			gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.TripleShotIteration.ToString ();
-
-
+			SetPowerupTexture (0);
+			gameControllerScript.PowerupText_P1[0].text = "";
 			break;
+
 		case powerups.ExtraLife: 
 			gameControllerScript.Lives += 1;
 			break;
-		case powerups.BouncingShot:
-			break;
+
 		case powerups.RippleShot: 
 
-			// Resets other shooting powerup stats.
-			playerControllerScript_P1.NextDoubleShotIteration = 0;
-			playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
-			playerControllerScript_P1.NextTripleShotIteration = 0;
-			playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
-
-			// Switches to double shot mode.
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
 
-			// Sets double shot iteration (enum) as the next double shot iteration (int).
-			if (playerControllerScript_P1.NextRippleShotIteration < 2) 
+			if (playerControllerScript_P1.isInOverdrive == true) 
 			{
-				playerControllerScript_P1.RippleShotIteration = 
-					(PlayerController.shotIteration)playerControllerScript_P1.NextRippleShotIteration;
+				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
 			}
 
-			// Increases iteration count.
-			if (playerControllerScript_P1.NextRippleShotIteration < 1) 
+			if (playerControllerScript_P1.isInRapidFire == true) 
 			{
-				playerControllerScript_P1.NextRippleShotIteration += 1;
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 			}
 
 			// Tweaks to conditions based on which iteration the player is on.
@@ -248,62 +209,112 @@ public class PowerupPickup : MonoBehaviour
 			{
 			case PlayerController.shotIteration.Standard:
 				gameControllerScript.SetPowerupTime (PowerupTime);
-				//playerControllerScript_P1.powerupsInUse += 1; // Increases powerups in use on first iteration.
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
 				break;
+
 			case PlayerController.shotIteration.Enhanced:
+				gameControllerScript.SetPowerupTime (PowerupTime);
+				break;
+
+			case PlayerController.shotIteration.Rapid:
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				break;
-			case PlayerController.shotIteration.Rapid:
-				gameControllerScript.SetPowerupTime (PowerupTime);
-				break;
+
 			case PlayerController.shotIteration.Overdrive:
-				gameControllerScript.SetPowerupTime (5);
 				break;
 			}
 
-			SetPowerupShootingTexture ();
-			gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.RippleShotIteration.ToString ();
-
+			SetPowerupTexture (0);
+			gameControllerScript.PowerupText_P1[0].text = "";
 			break;
 
 		case powerups.SlowEnemies:
 			break;
 
 		case powerups.Clone:
-			
-			GameObject clone = Instantiate (Clone, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
-			clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
+			//GameObject clone = Instantiate (Clone, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+			if (playerControllerScript_P1.nextCloneSpawn < 4) 
+			{
+				GameObject clone = playerControllerScript_P1.Clones [playerControllerScript_P1.nextCloneSpawn];
+				clone.SetActive (true);
+				clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
+				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "CLONE";
+				gameControllerScript.NextPowerupSlot_P1 += 1;
 
+			}
+
+			if (playerControllerScript_P1.nextCloneSpawn < 3) 
+			{
+				playerControllerScript_P1.nextCloneSpawn += 1;
+			}
+			break;
+
+		case powerups.Rapidfire:
+			
+			gameControllerScript.SetPowerupTime (PowerupTime);
+
+			if (playerControllerScript_P1.isInRapidFire == false)
+			{
+				if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard) 
+				{
+					switch (playerControllerScript_P1.ShotType) 
+					{
+					case PlayerController.shotType.Double:
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+						break;
+					case PlayerController.shotType.Triple:
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+						break;
+					case PlayerController.shotType.Ripple:
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+						break;
+					}
+
+					SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "RAPID";
+					gameControllerScript.NextPowerupSlot_P1 += 1;
+				}
+
+				playerControllerScript_P1.isInRapidFire = true;
+			}
+
+			break;
+
+		case powerups.Overdrive:
+
+			gameControllerScript.SetPowerupTime (PowerupTime);
+
+			if (playerControllerScript_P1.isInOverdrive == false) 
+			{
+				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
+				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
+				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+
+				if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard)
+				{
+					SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "OVERDRIVE";
+					gameControllerScript.NextPowerupSlot_P1 += 1;
+				}
+
+				playerControllerScript_P1.isInOverdrive = true;
+			}
+			break;
+
+		case powerups.Ricochet:
+			
 			break;
 		}
 
 		Destroy (gameObject);
 	}
 
-	void SetPowerupShootingTexture ()
+	void SetPowerupTexture (int index)
 	{
-		gameControllerScript.PowerupShootingImage_P1.texture = PowerupTexture;
-		gameControllerScript.PowerupShootingImage_P1.color = new Color (1, 1, 1, 1);
-	}
-
-	void SetPowerupOneTexture ()
-	{
-		gameControllerScript.PowerupOneImage_P1.texture = PowerupTexture;
-		gameControllerScript.PowerupOneImage_P1.color = new Color (1, 1, 1, 1);
-	}
-
-	void SetPowerupTwoTexture ()
-	{
-		gameControllerScript.PowerupTwoImage_P1.texture = PowerupTexture;
-		gameControllerScript.PowerupTwoImage_P1.color = new Color (1, 1, 1, 1);
-	}
-
-	void SetPowerupThreeTexture ()
-	{
-		gameControllerScript.PowerupThreeImage_P1.texture = PowerupTexture;
-		gameControllerScript.PowerupThreeImage_P1.color = new Color (1, 1, 1, 1);
+		gameControllerScript.PowerupImage_P1[index].texture = PowerupTexture;
+		gameControllerScript.PowerupImage_P1[index].color = new Color (1, 1, 1, 1);
 	}
 }

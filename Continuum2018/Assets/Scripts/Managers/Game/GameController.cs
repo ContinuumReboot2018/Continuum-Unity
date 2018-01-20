@@ -84,39 +84,11 @@ public class GameController : MonoBehaviour
 	public float PowerupPickupSpawnRangeX;
 	public float PowerupPickupSpawnY;
 
-	// UI for powerup list
-	public int NextAvailablePowerupSlot_P1;
-	public RawImage PowerupShootingImage_P1;
-	public TextMeshProUGUI PowerupShootingText_P1;
+	[Header ("Powerup List UI")]
+	public int NextPowerupSlot_P1;
 
-	public bool PowerupOneOccupied_P1;
-	public RawImage PowerupOneImage_P1;
-	public TextMeshProUGUI PowerupOneText_P1;
-
-	public bool PowerupTwoOccupied_P1;
-	public RawImage PowerupTwoImage_P1;
-	public TextMeshProUGUI PowerupTwoText_P1;
-
-	public bool PowerupThreeOccupied_P1;
-	public RawImage PowerupThreeImage_P1;
-	public TextMeshProUGUI PowerupThreeText_P1;
-
-	// UI for powerup list
-	public int NextAvailablePowerupSlot_P2;
-	public RawImage PowerupShootingImage_P2;
-	public TextMeshProUGUI PowerupShootingText_P2;
-
-	public bool PowerupOneOccupied_P2;
-	public RawImage PowerupOneImage_P2;
-	public TextMeshProUGUI PowerupOneText_P2;
-
-	public bool PowerupTwoOccupied_P2;
-	public RawImage PowerupTwoImage_P2;
-	public TextMeshProUGUI PowerupTwoText_P2;
-
-	public bool PowerupThreeOccupied_P2;
-	public RawImage PowerupThreeImage_P2;
-	public TextMeshProUGUI PowerupThreeText_P2;
+	public RawImage[] PowerupImage_P1;
+	public TextMeshProUGUI[] PowerupText_P1;
 
 	[Header ("BossSpawner")]
 	public GameObject[] MiniBosses;
@@ -185,7 +157,7 @@ public class GameController : MonoBehaviour
 
 	void Awake () 
 	{
-		StartPowerupUI ();
+		ClearPowerupUI ();
 		ScoreText.text = "";
 		ScoreBackground.enabled = false;
 		TrackStats = false;
@@ -206,40 +178,20 @@ public class GameController : MonoBehaviour
 		cursorManagerScript.LockMouse ();
 	}
 
-	void StartPowerupUI ()
+	public void ClearPowerupUI ()
 	{
-		PowerupShootingImage_P1.texture = null;
-		PowerupShootingImage_P1.color = new Color (0, 0, 0, 0);
-		PowerupShootingText_P1.text = " ";
+		foreach (RawImage powerupImage in PowerupImage_P1) 
+		{
+			powerupImage.texture = null;
+			powerupImage.color = new Color (0, 0, 0, 0);
+		}
 
-		PowerupOneImage_P1.texture = null;
-		PowerupOneImage_P1.color = new Color (0, 0, 0, 0);
-		PowerupOneText_P1.text = " ";
+		foreach (TextMeshProUGUI powerupText in PowerupText_P1)
+		{
+			powerupText.text = String.Empty;
+		}
 
-		PowerupTwoImage_P1.texture = null;
-		PowerupTwoImage_P1.color = new Color (0, 0, 0, 0);
-		PowerupTwoText_P1.text = " ";
-
-		PowerupThreeImage_P1.texture = null;
-		PowerupThreeImage_P1.color = new Color (0, 0, 0, 0);
-		PowerupThreeText_P1.text = " ";
-
-
-		PowerupShootingImage_P2.texture = null;
-		PowerupShootingImage_P2.color = new Color (0, 0, 0, 0);
-		PowerupShootingText_P2.text = " ";
-
-		PowerupOneImage_P2.texture = null;
-		PowerupOneImage_P2.color = new Color (0, 0, 0, 0);
-		PowerupOneText_P2.text = " ";
-
-		PowerupTwoImage_P2.texture = null;
-		PowerupTwoImage_P2.color = new Color (0, 0, 0, 0);
-		PowerupTwoText_P2.text = " ";
-
-		PowerupThreeImage_P2.texture = null;
-		PowerupThreeImage_P2.color = new Color (0, 0, 0, 0);
-		PowerupThreeText_P2.text = " ";
+		NextPowerupSlot_P1 = 1;
 	}
 
 	void Start ()
@@ -435,7 +387,7 @@ public class GameController : MonoBehaviour
 				LifeThree.gameObject.SetActive (false);
 				LivesSpacing.SetActive (true);
 				//LivesBackground.enabled = true;
-				LivesText.text = "" + Lives;
+				LivesText.text = "x " + (Lives - 1);
 			}
 		}
 	}

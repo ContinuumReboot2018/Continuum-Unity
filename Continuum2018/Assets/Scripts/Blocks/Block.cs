@@ -323,7 +323,15 @@ public class Block : MonoBehaviour
 	public void GetTotalPointValue ()
 	{
 		// Calculates total point value based on current combo from game controller and time scale.
-		totalPointValue = Mathf.Clamp ((BasePointValue + gameControllerScript.Wave) * gameControllerScript.combo * Time.timeScale, 1, 10000);
+		if (isTutorialBlock == false)
+		{
+			totalPointValue = Mathf.Clamp ((BasePointValue + gameControllerScript.Wave) * gameControllerScript.combo * Time.timeScale, 1, 10000);
+		}
+
+		if (isTutorialBlock == true) 
+		{
+			totalPointValue = BasePointValue;
+		}
 	}
 
 	public void RefreshCombo ()

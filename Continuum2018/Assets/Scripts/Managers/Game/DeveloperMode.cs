@@ -69,6 +69,10 @@ public class DeveloperMode : MonoBehaviour
 	public string NextWaveCommand = "nextwave";
 	public string PreviousWaveCommand = "lastwave";
 
+	public string RapidfireCommand = "rapid";
+	public string OverdriveCommand = "overdrive";
+	public string StandardShotCommand = "standard";
+
 	[Header ("UI and Animations")]
 	public GameObject CheatsMenu;
 	public Animator CheatsMenuAnim;
@@ -79,6 +83,11 @@ public class DeveloperMode : MonoBehaviour
 	public Texture2D DoubleShotTexture;
 	public Texture2D TripleShotTexture;
 	public Texture2D RippleShotTexture;
+
+	public Texture2D RapidfireTexture;
+	public Texture2D OverdriveTexture;
+
+	public Texture2D CloneTexture;
 
 	[Header ("Debug Menu")]
 	public bool showDebugMenu;
@@ -131,312 +140,218 @@ public class DeveloperMode : MonoBehaviour
 
 	void UpdateCheats ()
 	{
-		//if (CheatConsole.activeSelf == true) 
-		//{
-			if (CheatStringResetTimeRemaining > 0) 
-			{
-				CheatStringResetTimeRemaining -= Time.unscaledDeltaTime;
-			}
+		if (CheatStringResetTimeRemaining > 0) 
+		{
+			CheatStringResetTimeRemaining -= Time.unscaledDeltaTime;
+		}
 
-			if (CheatStringResetTimeRemaining <= 0) 
-			{
-				ClearCheatString ();
-				//CheatInputText.text = ">_ ";
-			}
+		if (CheatStringResetTimeRemaining <= 0) 
+		{
+			ClearCheatString ();
+			//CheatInputText.text = ">_ ";
+		}
 
-			foreach (char c in Input.inputString) 
-			{		
-				CheatStringResetTimeRemaining = CheatStringResetDuration;
-				CheatString += c;
+		foreach (char c in Input.inputString) 
+		{		
+			CheatStringResetTimeRemaining = CheatStringResetDuration;
+			CheatString += c;
 
-				//CheatInputText.text = "> " + CheatString;
+			//CheatInputText.text = "> " + CheatString;
 
-				if (CheatString.Contains (c.ToString () + c.ToString () + c.ToString ()))
-				{
-					ClearCheatString ();
-					//CheatInputText.text = ">_ ";
-				}
-
-				if (CheatString.Contains ("`")) 
-				{
-					ClearCheatString ();
-				}
-			}
-
-			if (CheatString.Length > maxCheatCharacters) 
+			if (CheatString.Contains (c.ToString () + c.ToString () + c.ToString ()))
 			{
 				ClearCheatString ();
 				//CheatInputText.text = ">_ ";
 			}
 
-			if (Input.GetKeyDown (KeyCode.Backspace)) 
+			if (CheatString.Contains ("`")) 
 			{
 				ClearCheatString ();
-				//CheatInputText.text = ">_ ";
+			}
+		}
+
+		if (CheatString.Length > maxCheatCharacters) 
+		{
+			ClearCheatString ();
+			//CheatInputText.text = ">_ ";
+		}
+
+		if (Input.GetKeyDown (KeyCode.Backspace)) 
+		{
+			ClearCheatString ();
+			//CheatInputText.text = ">_ ";
+		}
+
+		if (CheatString == ToggleCheatsCommand
+		   && allowCheats == true)
+		{
+			useCheats = !useCheats;
+
+			if (useCheats == true) {
+				Debug.Log ("Enabled cheats.");
+				ShowCheatActivation ("CHEATS ON");
 			}
 
-			if (CheatString == ToggleCheatsCommand
-			   && allowCheats == true)
+			if (useCheats == false) {
+				Debug.Log ("Disabled cheats.");
+				ShowCheatActivation ("CHEATS OFF");
+			}
+		}
+		
+		if (useCheats == true) 
+		{
+			// Insert cheats here.
+			if (CheatString == ForceStartCommand) 
 			{
-				useCheats = !useCheats;
-
-				if (useCheats == true) {
-					Debug.Log ("Enabled cheats.");
-					ShowCheatActivation ("CHEATS ON");
-				}
-
-				if (useCheats == false) {
-					Debug.Log ("Disabled cheats.");
-					ShowCheatActivation ("CHEATS OFF");
+				if (forceStarted == false) 
+				{
+					tutorialManagerScript.TurnOffTutorial ();
+					ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
+					forceStarted = true;
 				}
 			}
-			
-			if (useCheats == true) 
+
+			if (CheatString == ForceRestartCommand) 
 			{
-				// Insert cheats here.
-				if (CheatString == ForceStartCommand) 
-				{
-					if (forceStarted == false) 
-					{
-						tutorialManagerScript.TurnOffTutorial ();
-						ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
-						forceStarted = true;
-					}
-				}
+				localSceneLoaderScript.sceneLoaderScript.SceneName = SceneManager.GetActiveScene ().name;
+				localSceneLoaderScript.sceneLoaderScript.StartLoadSequence ();
+				ShowCheatNotification ("");
+			}
 
-				if (CheatString == ForceRestartCommand) 
-				{
-					localSceneLoaderScript.sceneLoaderScript.SceneName = SceneManager.GetActiveScene ().name;
-					localSceneLoaderScript.sceneLoaderScript.StartLoadSequence ();
-					ShowCheatNotification ("");
-				}
-
-				if (CheatString == FpsUnlockCommand) 
-				{
-					targetFramerateScript.SetTargetFramerate (-1);
-					ShowCheatNotification ("CHEAT ACTIVATED: FPS: -1");
-				}
-
-				if (CheatString == Fps60Command) 
-				{
-					targetFramerateScript.SetTargetFramerate (60);
-					ShowCheatNotification ("CHEAT ACTIVATED: FPS: 60");
-				}
-
-				if (CheatString == Fps30Command) 
-				{
-					targetFramerateScript.SetTargetFramerate (30);
-					ShowCheatNotification ("CHEAT ACTIVATED: FPS: 30");
-				}
-
-				if (CheatString == Fps90Command) {
-					targetFramerateScript.SetTargetFramerate (90);
-					ShowCheatNotification ("CHEAT ACTIVATED: FPS: 90");
-				}
-
-				if (CheatString == Fps120Command) 
-				{
-					targetFramerateScript.SetTargetFramerate (120);
-					ShowCheatNotification ("CHEAT ACTIVATED: FPS: 120");
-				}
-
-				if (CheatString == NextTrackCommand) 
-				{
-					audioControllerScript.NextTrack ();
-					ShowCheatNotification ("CHEAT ACTIVATED: NEXT TRACK");
-				}
-
-				if (CheatString == PreviousTrackCommand) {
-					audioControllerScript.PreviousTrack ();
-					ShowCheatNotification ("CHEAT ACTIVATED: PREVIOUS TRACK");
-				}
-
-				if (CheatString == RandomTrackCommand)
-				{
-					audioControllerScript.RandomTrack ();
-					ShowCheatNotification ("CHEAT ACTIVATED: RANDOM TRACK");
-				}
-
-				if (CheatString == SaveSettingsCommand)
-				{
-					saveAndLoadScript.SaveSettingsData ();
-					ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS SAVE");
-				}
-
-				if (CheatString == LoadSettingsCommand)
-				{
-					saveAndLoadScript.LoadSettingsData ();
-					ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS LOAD");
-				}
-
-				if (CheatString == AddLifeCommand) {
-					gameControllerScript.Lives += 3;
-					ShowCheatNotification ("CHEAT ACTIVATED: LIFE");
-				}
-
-				if (CheatString == ToggleGodmodeCommand) 
-				{
-					isGod = !isGod;
-					//playerControllerScript_P1.playerCol.enabled = !playerControllerScript_P1.playerCol.enabled;
-
-					if (isGod == true)
-					{
-						playerControllerScript_P1.playerCol.enabled = false;
-						ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
-					}
-
-					if (isGod == false) 
-					{
-						playerControllerScript_P1.playerCol.enabled = true;
-						ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
-					}
-				}
-
-				if (CheatString == ChargeAbilityCommand) 
-				{
-					playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
-					ShowCheatNotification ("CHEAT ACTIVATED: ABILITY CHARGED");
-				}
-
-				if (CheatString == RefreshAbilityCommand) 
-				{
-					playerControllerScript_P1.RefreshAbilityName ();
-					ShowCheatNotification ("CHEAT ACTIVATED: ABILITY REFRESH");
-				}
-
-				if (CheatString == SpawnBlockCommand)
-				{
-					gameControllerScript.SpawnBlock (true);
-					ShowCheatNotification ("CHEAT ACTIVATED: SPAWN BLOCK");
-				}
-
-				if (CheatString == SpawnPowerupPickupCommand)
-				{
-					gameControllerScript.SpawnPowerupPickup ();
-					ShowCheatNotification ("CHEAT ACTIVATED: SPAWN POWERUP");
-				}
-
-				if (CheatString == PowerupTimeCommand)
-				{
-					gameControllerScript.PowerupTimeRemaining = gameControllerScript.PowerupTimeDuration;
-					ShowCheatNotification ("CHEAT ACTIVATED: POWERUP TIME REFRESH");
-				}
-
-				if (CheatString == DoubleShotCommand) 
-				{
-					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
-					playerControllerScript_P1.NextTripleShotIteration = 0;
-					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
-					playerControllerScript_P1.NextRippleShotIteration = 0;
-
-					playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
-
-					// Apply tweaks to conditions based on which iteration the player is on.
-					switch (playerControllerScript_P1.NextDoubleShotIteration) 
-					{
-					case 0:
-						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
-						gameControllerScript.SetPowerupTime (20);
-						break;
-					case 1:
-						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
-						gameControllerScript.SetPowerupTime (20);
-						break;
-					case 2:
-						gameControllerScript.SetPowerupTime (20);
-						break;
-					case 3:
-						gameControllerScript.SetPowerupTime (5);
-						break;
-					}
-					
-					// Sets double shot iteration (enum) as the next double shot iteration (int).
-					if (playerControllerScript_P1.NextDoubleShotIteration < 2) 
-					{
-						playerControllerScript_P1.DoubleShotIteration = 
-						(PlayerController.shotIteration)playerControllerScript_P1.NextDoubleShotIteration;
-					}
-
-					// Increases iteration count.
-					if (playerControllerScript_P1.NextDoubleShotIteration < 1)
-					{
-						playerControllerScript_P1.NextDoubleShotIteration += 1;
-					}
-
-					gameControllerScript.PowerupShootingImage_P1.texture = DoubleShotTexture;
-					gameControllerScript.PowerupShootingImage_P1.color = new Color (1, 1, 1, 1);
-					gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.DoubleShotIteration.ToString ();
-
-					ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT: " + playerControllerScript_P1.DoubleShotIteration.ToString ());
-				}
-
-				if (CheatString == TripleShotCommand)
-				{
-					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
-					playerControllerScript_P1.NextDoubleShotIteration = 0;
-					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Standard;
-					playerControllerScript_P1.NextRippleShotIteration = 0;
-
-					playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
-
-					// Apply tweaks to conditions based on which iteration the player is on.
-					switch (playerControllerScript_P1.NextTripleShotIteration)
-					{
-					case 0:
-						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
-						gameControllerScript.SetPowerupTime (20);
-						break;
-					case 1:
-						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
-						gameControllerScript.SetPowerupTime (20);
-						break;
-					case 2:
-						
-						gameControllerScript.SetPowerupTime (20);
-						break;
-					case 3:
-						gameControllerScript.SetPowerupTime (5);
-						break;
-					}
-
-					// Sets double shot iteration (enum) as the next double shot iteration (int).
-					if (playerControllerScript_P1.NextTripleShotIteration < 2)
-					{
-						playerControllerScript_P1.TripleShotIteration = 
-						(PlayerController.shotIteration)playerControllerScript_P1.NextTripleShotIteration;
-					}
-
-					// Increases iteration count.
-					if (playerControllerScript_P1.NextTripleShotIteration < 1)
-					{
-						playerControllerScript_P1.NextTripleShotIteration += 1;
-					}
-
-					gameControllerScript.PowerupShootingImage_P1.texture = TripleShotTexture;
-					gameControllerScript.PowerupShootingImage_P1.color = new Color (1, 1, 1, 1);
-					gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.TripleShotIteration.ToString ();
-
-					ShowCheatNotification ("CHEAT ACTIVATED: TRIPLE SHOT: " + playerControllerScript_P1.TripleShotIteration.ToString ());
-				}
-
-			if (CheatString == RippleShotCommand)
+			if (CheatString == FpsUnlockCommand) 
 			{
-				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Standard;
-				playerControllerScript_P1.NextDoubleShotIteration = 0;
-				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Standard;
-				playerControllerScript_P1.NextTripleShotIteration = 0;
+				targetFramerateScript.SetTargetFramerate (-1);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: -1");
+			}
 
-				playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
+			if (CheatString == Fps60Command) 
+			{
+				targetFramerateScript.SetTargetFramerate (60);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 60");
+			}
+
+			if (CheatString == Fps30Command) 
+			{
+				targetFramerateScript.SetTargetFramerate (30);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 30");
+			}
+
+			if (CheatString == Fps90Command) {
+				targetFramerateScript.SetTargetFramerate (90);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 90");
+			}
+
+			if (CheatString == Fps120Command) 
+			{
+				targetFramerateScript.SetTargetFramerate (120);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 120");
+			}
+
+			if (CheatString == NextTrackCommand) 
+			{
+				audioControllerScript.NextTrack ();
+				ShowCheatNotification ("CHEAT ACTIVATED: NEXT TRACK");
+			}
+
+			if (CheatString == PreviousTrackCommand) {
+				audioControllerScript.PreviousTrack ();
+				ShowCheatNotification ("CHEAT ACTIVATED: PREVIOUS TRACK");
+			}
+
+			if (CheatString == RandomTrackCommand)
+			{
+				audioControllerScript.RandomTrack ();
+				ShowCheatNotification ("CHEAT ACTIVATED: RANDOM TRACK");
+			}
+
+			if (CheatString == SaveSettingsCommand)
+			{
+				saveAndLoadScript.SaveSettingsData ();
+				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS SAVE");
+			}
+
+			if (CheatString == LoadSettingsCommand)
+			{
+				saveAndLoadScript.LoadSettingsData ();
+				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS LOAD");
+			}
+
+			if (CheatString == AddLifeCommand) {
+				gameControllerScript.Lives += 3;
+				ShowCheatNotification ("CHEAT ACTIVATED: LIFE");
+			}
+
+			if (CheatString == ToggleGodmodeCommand) 
+			{
+				isGod = !isGod;
+				//playerControllerScript_P1.playerCol.enabled = !playerControllerScript_P1.playerCol.enabled;
+
+				if (isGod == true)
+				{
+					playerControllerScript_P1.playerCol.enabled = false;
+					ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
+				}
+
+				if (isGod == false) 
+				{
+					playerControllerScript_P1.playerCol.enabled = true;
+					ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
+				}
+			}
+
+			if (CheatString == ChargeAbilityCommand) 
+			{
+				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY CHARGED");
+			}
+
+			if (CheatString == RefreshAbilityCommand) 
+			{
+				playerControllerScript_P1.RefreshAbilityName ();
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY REFRESH");
+			}
+
+			if (CheatString == SpawnBlockCommand)
+			{
+				gameControllerScript.SpawnBlock (true);
+				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN BLOCK");
+			}
+
+			if (CheatString == SpawnPowerupPickupCommand)
+			{
+				gameControllerScript.SpawnPowerupPickup ();
+				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN POWERUP");
+			}
+
+			if (CheatString == PowerupTimeCommand)
+			{
+				gameControllerScript.PowerupTimeRemaining = gameControllerScript.PowerupTimeDuration;
+				ShowCheatNotification ("CHEAT ACTIVATED: POWERUP TIME REFRESH");
+			}
+
+			if (CheatString == DoubleShotCommand) 
+			{
+				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
+
+				if (playerControllerScript_P1.isInOverdrive == true) 
+				{
+					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
+				}
+
+				if (playerControllerScript_P1.isInRapidFire == true) 
+				{
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+				}
 
 				// Apply tweaks to conditions based on which iteration the player is on.
-				switch (playerControllerScript_P1.NextRippleShotIteration)
+				switch (playerControllerScript_P1.NextDoubleShotIteration) 
 				{
 				case 0:
-					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
 					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 1:
-					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 					gameControllerScript.SetPowerupTime (20);
 					break;
 				case 2:
@@ -447,60 +362,207 @@ public class DeveloperMode : MonoBehaviour
 					break;
 				}
 
-				// Sets double shot iteration (enum) as the next double shot iteration (int).
-				if (playerControllerScript_P1.NextRippleShotIteration < 2)
-				{
-					playerControllerScript_P1.RippleShotIteration = 
-						(PlayerController.shotIteration)playerControllerScript_P1.NextRippleShotIteration;
-				}
+				gameControllerScript.PowerupImage_P1[0].texture = DoubleShotTexture;
+				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
+				gameControllerScript.PowerupText_P1[0].text = "" + playerControllerScript_P1.DoubleShotIteration.ToString ();
 
-				// Increases iteration count.
-				if (playerControllerScript_P1.NextRippleShotIteration < 1)
-				{
-					playerControllerScript_P1.NextRippleShotIteration += 1;
-				}
-
-				gameControllerScript.PowerupShootingImage_P1.texture = RippleShotTexture;
-				gameControllerScript.PowerupShootingImage_P1.color = new Color (1, 1, 1, 1);
-				gameControllerScript.PowerupShootingText_P1.text = "" + playerControllerScript_P1.RippleShotIteration.ToString ();
-
-				ShowCheatNotification ("CHEAT ACTIVATED: RIPPLE SHOT: " + playerControllerScript_P1.RippleShotIteration.ToString ());
+				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT");
 			}
 
-				if (CheatString == CloneCommand)
+			if (CheatString == TripleShotCommand)
+			{
+				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
+
+				if (playerControllerScript_P1.isInOverdrive == true) 
 				{
-					playerControllerScript_P1.Clone.SetActive (true);
+					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
+				}
+
+				if (playerControllerScript_P1.isInRapidFire == true) 
+				{
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+				}
+
+				// Apply tweaks to conditions based on which iteration the player is on.
+				switch (playerControllerScript_P1.NextTripleShotIteration)
+				{
+				case 0:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
+					gameControllerScript.SetPowerupTime (20);
+					break;
+				case 1:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+					gameControllerScript.SetPowerupTime (20);
+					break;
+				case 2:
+					
+					gameControllerScript.SetPowerupTime (20);
+					break;
+				case 3:
+					gameControllerScript.SetPowerupTime (5);
+					break;
+				}
+
+				gameControllerScript.PowerupImage_P1[0].texture = TripleShotTexture;
+				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
+				gameControllerScript.PowerupText_P1[0].text = "" + playerControllerScript_P1.TripleShotIteration.ToString ();
+
+				ShowCheatNotification ("CHEAT ACTIVATED: TRIPLE SHOT");
+			}
+
+		if (CheatString == RippleShotCommand)
+		{
+			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
+
+			if (playerControllerScript_P1.isInOverdrive == true) 
+			{
+				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+			}
+
+			if (playerControllerScript_P1.isInRapidFire == true) 
+			{
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+			}
+
+			// Apply tweaks to conditions based on which iteration the player is on.
+			switch (playerControllerScript_P1.NextRippleShotIteration)
+			{
+			case 0:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
+				gameControllerScript.SetPowerupTime (20);
+				break;
+			case 1:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+				gameControllerScript.SetPowerupTime (20);
+				break;
+			case 2:
+				gameControllerScript.SetPowerupTime (20);
+				break;
+			case 3:
+				gameControllerScript.SetPowerupTime (5);
+				break;
+			}
+
+			gameControllerScript.PowerupImage_P1[0].texture = RippleShotTexture;
+			gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
+			gameControllerScript.PowerupText_P1[0].text = "" + playerControllerScript_P1.RippleShotIteration.ToString ();
+
+			ShowCheatNotification ("CHEAT ACTIVATED: RIPPLE SHOT");
+		}
+
+			if (CheatString == CloneCommand)
+			{
+				if (playerControllerScript_P1.nextCloneSpawn < 4) 
+				{
+					gameControllerScript.SetPowerupTime (20);
+					GameObject clone = playerControllerScript_P1.Clones [playerControllerScript_P1.nextCloneSpawn];
+					clone.SetActive (true);
+					clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
+					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "CLONE";
+					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = CloneTexture;
+					gameControllerScript.NextPowerupSlot_P1 += 1;
 					ShowCheatNotification ("CHEAT ACTIVATED: CLONE");
 				}
 
-				if (CheatString == NextWaveCommand) 
+				if (playerControllerScript_P1.nextCloneSpawn < 3)
 				{
-					gameControllerScript.Wave += 1;
-					gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
-					gameControllerScript.BlockSpawnRate -= gameControllerScript.BlockSpawnIncreaseRate;
-					//gameControllerScript.NextLevel ();
-					ShowCheatNotification ("CHEAT ACTIVATED: NEXT WAVE");
-				}
-
-
-				if (CheatString == PreviousWaveCommand)
-				{
-					if (gameControllerScript.Wave > 1)
-					{
-						gameControllerScript.Wave -= 1;
-						gameControllerScript.BlockSpawnRate += gameControllerScript.BlockSpawnIncreaseRate;
-					}
-
-					gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
-					ShowCheatNotification ("CHEAT ACTIVATED: LAST WAVE");
-				}
-					
-				if (Input.GetKeyDown (KeyCode.Alpha7))
-				{
-					CheatString = LastCheatName;
+					playerControllerScript_P1.nextCloneSpawn += 1;
 				}
 			}
-		//}
+
+			if (CheatString == NextWaveCommand) 
+			{
+				gameControllerScript.Wave += 1;
+				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
+				gameControllerScript.BlockSpawnRate -= gameControllerScript.BlockSpawnIncreaseRate;
+				ShowCheatNotification ("CHEAT ACTIVATED: NEXT WAVE");
+			}
+			
+			if (CheatString == PreviousWaveCommand)
+			{
+				if (gameControllerScript.Wave > 1)
+				{
+					gameControllerScript.Wave -= 1;
+					gameControllerScript.BlockSpawnRate += gameControllerScript.BlockSpawnIncreaseRate;
+				}
+
+				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
+				ShowCheatNotification ("CHEAT ACTIVATED: LAST WAVE");
+			}
+
+			if (CheatString == RapidfireCommand) 
+			{
+				gameControllerScript.SetPowerupTime (20);
+
+				if (playerControllerScript_P1.isInRapidFire == false)
+				{
+					if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard) 
+					{
+						switch (playerControllerScript_P1.ShotType) 
+						{
+						case PlayerController.shotType.Double:
+							playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+							ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE DOUBLE SHOT");
+							break;
+						case PlayerController.shotType.Triple:
+							playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+							ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE TRIPLE SHOT");
+							break;
+						case PlayerController.shotType.Ripple:
+							playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+							ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE RIPPLE SHOT");
+							break;
+						}
+
+						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = RapidfireTexture;
+						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
+						gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "RAPID";
+						gameControllerScript.NextPowerupSlot_P1 += 1;
+					}
+
+					playerControllerScript_P1.isInRapidFire = true;
+				}
+			}
+
+			if (CheatString == OverdriveCommand) 
+			{
+				gameControllerScript.SetPowerupTime (20);
+
+				if (playerControllerScript_P1.isInOverdrive == false) 
+				{
+					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
+					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
+					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+
+					if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard)
+					{
+						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = OverdriveTexture;
+						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
+						gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "OVERDRIVE";
+						gameControllerScript.NextPowerupSlot_P1 += 1;
+					}
+
+					playerControllerScript_P1.isInOverdrive = true;
+				}
+
+				ShowCheatNotification ("CHEAT ACTIVATED: OVERDRIVE MODE");
+			}
+
+			if (CheatString == StandardShotCommand) 
+			{
+				gameControllerScript.PowerupImage_P1 [0].texture = null;
+				gameControllerScript.PowerupImage_P1 [0].color = new Color (0, 0, 0, 0);
+				gameControllerScript.PowerupText_P1 [0].text = "";
+				playerControllerScript_P1.ShotType = PlayerController.shotType.Standard;
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.StandardFireRate;
+				ShowCheatNotification ("CHEAT ACTIVATED: STANDARD SHOT");
+			}
+				
+			if (Input.GetKeyDown (KeyCode.Alpha7))
+			{
+				CheatString = LastCheatName;
+			}
+		}
 	}
 
 	void ShowCheatActivation (string cheatText)
@@ -522,7 +584,6 @@ public class DeveloperMode : MonoBehaviour
 		CheatNotifcationText.text = cheatText;
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
 		LastCheatName = CheatString;
-		//CheatInputText.text = LastCheatName;
 		ClearCheatString ();
 		Debug.Log (cheatText);
 		Invoke ("DisableCheatConsole", 0.5f);
@@ -530,6 +591,5 @@ public class DeveloperMode : MonoBehaviour
 
 	void DisableCheatConsole ()
 	{
-		//CheatConsole.SetActive (false);
 	}
 }
