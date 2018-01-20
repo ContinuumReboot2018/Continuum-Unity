@@ -114,6 +114,7 @@ public class PlayerController : MonoBehaviour
 	public int powerupsInUse;
 	public bool isInRapidFire;
 	public bool isInOverdrive;
+	public bool isRicochet;
 
 	// Double shot.
 	public GameObject DoubleShotL;
@@ -126,7 +127,6 @@ public class PlayerController : MonoBehaviour
 	public Transform DoubleShotSpawnR;
 	public float[] DoubleShotFireRates;
 	public shotIteration DoubleShotIteration;
-	public int NextDoubleShotIteration;
 	private float DoubleShotNextFire;
 
 	// Triple shot.
@@ -144,7 +144,6 @@ public class PlayerController : MonoBehaviour
 	public Transform TripleShotSpawnR;
 	public float[] TripleShotFireRates;
 	public shotIteration TripleShotIteration;
-	public int NextTripleShotIteration;
 	private float TripleShotNextFire;
 
 	// Ripple shot.
@@ -154,7 +153,6 @@ public class PlayerController : MonoBehaviour
 	public Transform RippleShotSpawn;
 	public float[] RippleShotFireRates;
 	public shotIteration RippleShotIteration;
-	public int NextRippleShotIteration;
 	private float RippleShotNextFire;
 
 	public enum shotIteration
@@ -199,7 +197,8 @@ public class PlayerController : MonoBehaviour
 	void Awake ()
 	{
 		AbilityReadyText.text = "";
-		PlayerText.text = " ";
+		PlayerText.text = "";
+		LivesAnim.gameObject.SetActive (false);
 		RefreshAbilityName ();
 	}
 
@@ -208,9 +207,6 @@ public class PlayerController : MonoBehaviour
 		CreatePlayerActions ();
 		AssignActionControls ();
 		InvokeRepeating ("CheckJoinState", 0, 0.5f);
-
-		// This is for WSA platforms.
-		//lensScript.ratio = 1;
 	}
 
 	public void StartCoroutines ()
@@ -239,7 +235,8 @@ public class PlayerController : MonoBehaviour
 
 	void MovePlayerPhysics ()
 	{
-		if (timescaleControllerScript.isEndSequence == false) {
+		if (timescaleControllerScript.isEndSequence == false) 
+		{
 			// This moves the transform position which the player will follow.
 			PlayerFollowRb.velocity = new Vector3 (
 				MovementX * PlayerFollowMoveSpeed * Time.fixedUnscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
@@ -254,7 +251,6 @@ public class PlayerController : MonoBehaviour
 		if (UsePlayerFollow == true)
 		{
 			MovePlayerSmoothing ();
-			//Camera.main.transform.LookAt (playerCol.transform);
 		}
 	}
 
@@ -262,8 +258,8 @@ public class PlayerController : MonoBehaviour
 	{
 		// Player follows [follow position] with smoothing.
 		PlayerRb.position = new Vector3 (
-			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
-			Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
+			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.fixedUnscaledDeltaTime),
+			Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.fixedUnscaledDeltaTime),
 			0
 		);
 
@@ -320,8 +316,6 @@ public class PlayerController : MonoBehaviour
 			gameControllerScript.TargetDepthDistance = 0.1f;
 			isInCooldownMode = true;
 			UsePlayerFollow = false;
-			//playerCol.transform.localPosition = new Vector3 (0, -15, 0);
-			//PlayerRb.transform.localPosition = new Vector3 (0, 0, 0);
 			PlayerFollow.transform.localPosition = new Vector3 (0, 0, 0);
 			playerMesh.transform.localPosition = new Vector3 (0, -15, 0);
 		}
@@ -358,7 +352,6 @@ public class PlayerController : MonoBehaviour
 
 	void RejoinGame ()
 	{
-		//gameControllerScript.TargetDepthDistance = 100;
 		canShoot = true;
 		UsePlayerFollow = true;
 		playerMesh.SetActive (true);
@@ -887,9 +880,8 @@ public class PlayerController : MonoBehaviour
 		DoubleShotIteration = shotIteration.Standard;
 		TripleShotIteration = shotIteration.Standard;
 		RippleShotIteration = shotIteration.Standard;
-		NextDoubleShotIteration = 0;
-		NextTripleShotIteration = 0;
-		NextRippleShotIteration = 0;
+		nextCloneSpawn = 0;
+		isRicochet = false;
 
 		foreach (GameObject clone in Clones) 
 		{
@@ -897,6 +889,8 @@ public class PlayerController : MonoBehaviour
 		}
 
 		gameControllerScript.ClearPowerupUI ();
+		isInRapidFire = false;
+		isInOverdrive = false;
 	}
 
 	// This is for InControl for initialization.

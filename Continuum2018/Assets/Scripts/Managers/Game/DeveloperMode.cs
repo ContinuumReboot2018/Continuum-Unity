@@ -71,7 +71,9 @@ public class DeveloperMode : MonoBehaviour
 
 	public string RapidfireCommand = "rapid";
 	public string OverdriveCommand = "overdrive";
+	public string RicochetCommand = "ricochet";
 	public string StandardShotCommand = "standard";
+	public string ResetAllPowerupsCommand = "resetpow";
 
 	[Header ("UI and Animations")]
 	public GameObject CheatsMenu;
@@ -88,6 +90,9 @@ public class DeveloperMode : MonoBehaviour
 	public Texture2D OverdriveTexture;
 
 	public Texture2D CloneTexture;
+
+	public Color RapidFireColor;
+	public Color OverdriveColor;
 
 	[Header ("Debug Menu")]
 	public bool showDebugMenu;
@@ -343,28 +348,9 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 				}
 
-				// Apply tweaks to conditions based on which iteration the player is on.
-				switch (playerControllerScript_P1.NextDoubleShotIteration) 
-				{
-				case 0:
-					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
-					gameControllerScript.SetPowerupTime (20);
-					break;
-				case 1:
-					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
-					gameControllerScript.SetPowerupTime (20);
-					break;
-				case 2:
-					gameControllerScript.SetPowerupTime (20);
-					break;
-				case 3:
-					gameControllerScript.SetPowerupTime (5);
-					break;
-				}
-
 				gameControllerScript.PowerupImage_P1[0].texture = DoubleShotTexture;
 				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
-				gameControllerScript.PowerupText_P1[0].text = "" + playerControllerScript_P1.DoubleShotIteration.ToString ();
+				gameControllerScript.PowerupText_P1[0].text = "";
 
 				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT");
 			}
@@ -383,29 +369,9 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
 				}
 
-				// Apply tweaks to conditions based on which iteration the player is on.
-				switch (playerControllerScript_P1.NextTripleShotIteration)
-				{
-				case 0:
-					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
-					gameControllerScript.SetPowerupTime (20);
-					break;
-				case 1:
-					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
-					gameControllerScript.SetPowerupTime (20);
-					break;
-				case 2:
-					
-					gameControllerScript.SetPowerupTime (20);
-					break;
-				case 3:
-					gameControllerScript.SetPowerupTime (5);
-					break;
-				}
-
 				gameControllerScript.PowerupImage_P1[0].texture = TripleShotTexture;
 				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
-				gameControllerScript.PowerupText_P1[0].text = "" + playerControllerScript_P1.TripleShotIteration.ToString ();
+				gameControllerScript.PowerupText_P1[0].text = "";
 
 				ShowCheatNotification ("CHEAT ACTIVATED: TRIPLE SHOT");
 			}
@@ -424,28 +390,9 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 			}
 
-			// Apply tweaks to conditions based on which iteration the player is on.
-			switch (playerControllerScript_P1.NextRippleShotIteration)
-			{
-			case 0:
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
-				gameControllerScript.SetPowerupTime (20);
-				break;
-			case 1:
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
-				gameControllerScript.SetPowerupTime (20);
-				break;
-			case 2:
-				gameControllerScript.SetPowerupTime (20);
-				break;
-			case 3:
-				gameControllerScript.SetPowerupTime (5);
-				break;
-			}
-
 			gameControllerScript.PowerupImage_P1[0].texture = RippleShotTexture;
 			gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
-			gameControllerScript.PowerupText_P1[0].text = "" + playerControllerScript_P1.RippleShotIteration.ToString ();
+			gameControllerScript.PowerupText_P1[0].text = "";
 
 			ShowCheatNotification ("CHEAT ACTIVATED: RIPPLE SHOT");
 		}
@@ -458,15 +405,12 @@ public class DeveloperMode : MonoBehaviour
 					GameObject clone = playerControllerScript_P1.Clones [playerControllerScript_P1.nextCloneSpawn];
 					clone.SetActive (true);
 					clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
-					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "CLONE";
+					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = CloneTexture;
+					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 					gameControllerScript.NextPowerupSlot_P1 += 1;
-					ShowCheatNotification ("CHEAT ACTIVATED: CLONE");
-				}
-
-				if (playerControllerScript_P1.nextCloneSpawn < 3)
-				{
 					playerControllerScript_P1.nextCloneSpawn += 1;
+					ShowCheatNotification ("CHEAT ACTIVATED: CLONE");
 				}
 			}
 
@@ -496,32 +440,30 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isInRapidFire == false)
 				{
-					if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard) 
+					switch (playerControllerScript_P1.ShotType) 
 					{
-						switch (playerControllerScript_P1.ShotType) 
-						{
-						case PlayerController.shotType.Double:
-							playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
-							ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE DOUBLE SHOT");
-							break;
-						case PlayerController.shotType.Triple:
-							playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
-							ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE TRIPLE SHOT");
-							break;
-						case PlayerController.shotType.Ripple:
-							playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
-							ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE RIPPLE SHOT");
-							break;
-						}
-
-						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = RapidfireTexture;
-						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
-						gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "RAPID";
-						gameControllerScript.NextPowerupSlot_P1 += 1;
+					case PlayerController.shotType.Double:
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+						break;
+					case PlayerController.shotType.Triple:
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+						break;
+					case PlayerController.shotType.Ripple:
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+						break;
+					case PlayerController.shotType.Standard:
+						break;
 					}
 
+					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = RapidfireTexture;
+					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = RapidFireColor;
+					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+					gameControllerScript.NextPowerupSlot_P1 += 1;
+					gameControllerScript.RapidfireImage.enabled = true;
 					playerControllerScript_P1.isInRapidFire = true;
 				}
+
+				ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE: " + playerControllerScript_P1.ShotType.ToString());
 			}
 
 			if (CheatString == OverdriveCommand) 
@@ -537,15 +479,35 @@ public class DeveloperMode : MonoBehaviour
 					if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard)
 					{
 						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = OverdriveTexture;
-						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
-						gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "OVERDRIVE";
+						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = OverdriveColor;
+						gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 						gameControllerScript.NextPowerupSlot_P1 += 1;
 					}
 
+					gameControllerScript.OverdriveImage.enabled = true;
 					playerControllerScript_P1.isInOverdrive = true;
 				}
 
 				ShowCheatNotification ("CHEAT ACTIVATED: OVERDRIVE MODE");
+			}
+
+			if (CheatString == RicochetCommand) 
+			{
+				if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) {
+					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+				}
+
+				if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) {
+					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+				}
+
+				if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) {
+					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
+				}
+
+				playerControllerScript_P1.isRicochet = true;
+				gameControllerScript.RicochetImage.enabled = true;
+				ShowCheatNotification ("CHEAT ACTIVATED: RICOCHET MODE");
 			}
 
 			if (CheatString == StandardShotCommand) 
@@ -556,6 +518,15 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Standard;
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.StandardFireRate;
 				ShowCheatNotification ("CHEAT ACTIVATED: STANDARD SHOT");
+				playerControllerScript_P1.isInOverdrive = false;
+				playerControllerScript_P1.isInRapidFire = false;
+			}
+
+			if (CheatString == ResetAllPowerupsCommand) 
+			{
+				gameControllerScript.PowerupTimeRemaining = 0;
+				playerControllerScript_P1.ResetPowerups ();
+				ShowCheatNotification ("CHEAT ACTIVATED: RESET POWERUPS");
 			}
 				
 			if (Input.GetKeyDown (KeyCode.Alpha7))

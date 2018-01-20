@@ -20,6 +20,10 @@ public class Bullet : MonoBehaviour
 	public bool movedEnough;
 	public Vector2 VelocityLimits;
 	public bool allowBulletColDeactivate = true;
+	public bool isRicochet;
+	public float RicochetYpos = 11.75f;
+	public float RicochetXpos = 21.2f; 
+	public AudioSource RicochetSound;
 
 	[Header ("Visuals")]
 	public ParticleSystem BulletOuterParticles;
@@ -44,8 +48,6 @@ public class Bullet : MonoBehaviour
 	{
 		AwakeAudio = GetComponent<AudioSource> ();
 		AwakeAudio.panStereo = 0.04f * transform.position.x;
-		//BulletCol.enabled = false;
-		//movedEnough = false;
 		Lifetime = 0;
 		InvokeRepeating ("CheckForDestroy", 0, 1);
 	}
@@ -57,9 +59,27 @@ public class Bullet : MonoBehaviour
 			playerControllerScript = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController>();
 		}
 
+		if (BulletTypeName != "StandardShot" && BulletTypeName != "Ripple")
+		{
+			isRicochet = playerControllerScript.isRicochet;
+		}
+
+		if (isRicochet) 
+		{
+			RicochetSound = GameObject.Find ("RicochetSound").GetComponent<AudioSource> ();
+		}
+
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		StartCameraShake ();
 		CheckBulletIteration ();
+	}
+
+	void Update ()
+	{
+		if (isRicochet == true && BulletTypeName != "Ripple") 
+		{
+			CheckForRicochet ();
+		}
 	}
 
 	void FixedUpdate ()
@@ -85,6 +105,11 @@ public class Bullet : MonoBehaviour
 		if (other.tag == "Block") 
 		{
 			playerControllerScript.Vibrate (LeftMotorRumble, RightMotorRumble, VibrationDuration);
+
+			if (isRicochet == true && BulletTypeName != "Ripple") 
+			{
+				Ricochet ();
+			}
 		}
 	}
 
@@ -94,6 +119,50 @@ public class Bullet : MonoBehaviour
 		{
 			BulletCol.enabled = false;
 		}
+	}
+
+	void CheckForRicochet ()
+	{
+		// Moves to top of screen.
+		if (transform.position.y > RicochetYpos) 
+		{
+			float newZrot = Random.Range (100, 260);
+			transform.rotation = Quaternion.Euler (0, 0, newZrot);
+			RicochetSound.Play ();
+		}
+
+		// Moves to bottom of screen.
+		if (transform.position.y < -RicochetYpos) 
+		{
+			float newZrot = Random.Range (-80, 80);
+			transform.rotation = Quaternion.Euler (0, 0, newZrot);
+			RicochetSound.Play ();
+		}
+
+		// Moves to right of screen.
+		if (transform.position.x > RicochetXpos) 
+		{
+			//float newZrot = Random.Range (10, 170);
+			//transform.rotation = Quaternion.Euler (0, 0, newZrot);
+			//RicochetSound.Play ();
+			Destroy (gameObject);
+		}
+
+		// Moves to left of screen.
+		if (transform.position.x < -RicochetXpos) 
+		{
+			//float newZrot = Random.Range (-170, -10);
+			//transform.rotation = Quaternion.Euler (0, 0, newZrot);
+			//RicochetSound.Play ();
+			Destroy (gameObject);
+		}
+	}
+
+	void Ricochet ()
+	{
+		float newZrot = Random.Range (-180, 180);
+		transform.rotation = Quaternion.Euler (0, 0, newZrot);
+		RicochetSound.Play ();
 	}
 
 	void CheckColActivate ()

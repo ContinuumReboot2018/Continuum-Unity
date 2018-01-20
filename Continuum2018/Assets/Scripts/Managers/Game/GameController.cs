@@ -86,9 +86,11 @@ public class GameController : MonoBehaviour
 
 	[Header ("Powerup List UI")]
 	public int NextPowerupSlot_P1;
-
 	public RawImage[] PowerupImage_P1;
 	public TextMeshProUGUI[] PowerupText_P1;
+	public RawImage OverdriveImage;
+	public RawImage RapidfireImage;
+	public RawImage RicochetImage;
 
 	[Header ("BossSpawner")]
 	public GameObject[] MiniBosses;
@@ -130,8 +132,9 @@ public class GameController : MonoBehaviour
 	public float TargetDepthDistance;
 
 	[Header ("Debug")]
-	public TextMeshProUGUI P1_DoubleShotIteration;
-	public TextMeshProUGUI P1_DoubleShotIterationNumber;
+	public TextMeshProUGUI P1_ShootingIterationRapid;
+	public TextMeshProUGUI P1_ShootingIterationOverdrive;
+	public TextMeshProUGUI P1_ShootingIterationRicochet;
 	public TextMeshProUGUI P1_CurrentFireRate;
 	public TextMeshProUGUI P1_Ability;
 	public TextMeshProUGUI P1_AbilityTimeRemaining;
@@ -180,6 +183,10 @@ public class GameController : MonoBehaviour
 
 	public void ClearPowerupUI ()
 	{
+		OverdriveImage.enabled = false;
+		RapidfireImage.enabled = false;
+		RicochetImage.enabled = false;
+
 		foreach (RawImage powerupImage in PowerupImage_P1) 
 		{
 			powerupImage.texture = null;
@@ -289,12 +296,13 @@ public class GameController : MonoBehaviour
 				P1_AbilityTimeRemaining.text = "P1 Ability Remain: " + Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
 				P1_AbilityTimeDuration.text = "P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
 				P1_AbilityTimeProportion.text = "P1 Ability Fill: " + Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
-				P1_DoubleShotIteration.text = "P1 Double Shot Stage: " + playerControllerScript_P1.DoubleShotIteration.ToString ();
-				P1_DoubleShotIterationNumber.text = "P1 Double Shot Iteration: " + playerControllerScript_P1.NextDoubleShotIteration;
 				CheatTimeRemainText_Debug.text = "Cheat Time Remain: " + Math.Round (developerModeScript.CheatStringResetTimeRemaining, 1);
 				CheatStringText_Debug.text = "Cheat Input Field: " + developerModeScript.CheatString;
 				LastCheatText_Debug.text = "Last Cheat: " + developerModeScript.LastCheatName;
 				PowerupTimeRemain_Debug.text = "Powerup Time Remain: " + Math.Round (PowerupTimeRemaining, 1);
+				P1_ShootingIterationRapid.text = "Rapid Fire: " + (playerControllerScript_P1.isInRapidFire ? "ON" : "OFF");
+				P1_ShootingIterationOverdrive.text = "Overdrive: " + (playerControllerScript_P1.isInOverdrive ? "ON" : "OFF");
+				P1_ShootingIterationRicochet.text = "Ricochet: " + (playerControllerScript_P1.isRicochet ? "ON" : "OFF");
 			}
 		}
 	}

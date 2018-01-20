@@ -47,8 +47,7 @@ public class TimescaleController : MonoBehaviour
 
 	void Awake () 
 	{
-		//isInInitialSequence = true;
-		Time.timeScale = MinimumTimeScale ;
+		Time.timeScale = MinimumTimeScale;
 		Time.fixedDeltaTime = 0.005f;
 	}
 
@@ -97,7 +96,9 @@ public class TimescaleController : MonoBehaviour
 		if (useTwoPlayers == false &&
 		    gameControllerScript.isPaused == false &&
 		    Application.isFocused == true &&
-		    Application.isPlaying == true && isEndSequence == false) 
+			Application.isPlaying == true && 
+			isEndSequence == false && 
+			playerControllerScript_P1.isInCooldownMode == false) 
 		{
 			if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
 			{
@@ -108,8 +109,6 @@ public class TimescaleController : MonoBehaviour
 					
 				// Updates fixed time step based on time scale.
 				Time.fixedDeltaTime = Time.timeScale * 0.005f;
-				//Time.fixedDeltaTime = Time.timeScale / (fpsCounterScript.FramesPerSec * 4);
-				Time.maximumParticleDeltaTime = 0.01f;
 			}
 		} else 
 		{

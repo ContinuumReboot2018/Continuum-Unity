@@ -93,13 +93,10 @@ GameObject:
   - component: {fileID: 33392706163152578}
   - component: {fileID: 23905244323763318}
   - component: {fileID: 114406867051835354}
-  - component: {fileID: 114481715685991810}
-  - component: {fileID: 136921103578239244}
   - component: {fileID: 114709203764995736}
-  - component: {fileID: 114310818732299938}
-  - component: {fileID: 65042334016277706}
   - component: {fileID: 135963378595428836}
   - component: {fileID: 114545287872274978}
+  - component: {fileID: 95905126811485526}
   m_Layer: 0
   m_Name: PowerupPickup_Rapidfire
   m_TagString: PowerupPickup
@@ -217,18 +214,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1975600418711092}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65042334016277706
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1975600418711092}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82042554325612292
 AudioSource:
   m_ObjectHideFlags: 1
@@ -549,18 +534,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114310818732299938
-MonoBehaviour:
+--- !u!95 &95905126811485526
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1975600418711092}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daef74de5648d5647a119d2d579e6f18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delay: 60
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d44773bad608e7a439bae96490bb90b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114406867051835354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -574,8 +564,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameControllerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
-  PowerupTexture: {fileID: 2800000, guid: 46f5c58b11694364c9661a68dd95ec4e, type: 3}
-  isShootingPowerup: 1
+  PowerupTexture: {fileID: 2800000, guid: 8f67968c90b47a4439066579972a38d6, type: 3}
+  isShootingPowerup: 0
   AwakeAudio: {fileID: 82337156415251326}
   meshrend: {fileID: 23905244323763318}
   col: {fileID: 135963378595428836}
@@ -588,25 +578,9 @@ MonoBehaviour:
   PowerupDeathExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   PowerupUI: {fileID: 0}
+  anim: {fileID: 0}
+  destroyByTimeScript: {fileID: 0}
   Clone: {fileID: 0}
---- !u!114 &114481715685991810
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1975600418711092}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1347817507220a4384f3ff6f7c24546, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveUnitsPerSecond:
-    value: {x: 0, y: -10, z: 0}
-    space: 0
-  rotateDegreesPerSecond:
-    value: {x: 0, y: 0, z: 0}
-    space: 0
-  ignoreTimescale: 0
 --- !u!114 &114545287872274978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -661,19 +635,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 1}
---- !u!136 &136921103578239244
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1975600418711092}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 2.0000005
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198671605629378656
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -681,7 +642,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1715360058712192}
   serializedVersion: 5
-  lengthInSec: 3
+  lengthInSec: 6
   simulationSpeed: 1
   stopAction: 0
   looping: 0
@@ -794,22 +755,10 @@ ParticleSystem:
           outSlope: 0
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.43248802
-          value: -1
-          inSlope: Infinity
-          outSlope: 2.9999018
-          tangentMode: 7
-        - serializedVersion: 2
-          time: 0.4392889
-          value: 1
-          inSlope: 4.695058
-          outSlope: Infinity
-          tangentMode: 97
-        - serializedVersion: 2
           time: 1
           value: 1
-          inSlope: 0
-          outSlope: 0
+          inSlope: -0.31422377
+          outSlope: -0.31422377
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -898,8 +847,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.1
-      minScalar: 0.1
+      scalar: 0.15
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1305,7 +1254,7 @@ ParticleSystem:
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       scalar: 120
       minScalar: 10
       maxCurve:
@@ -1325,7 +1274,7 @@ ParticleSystem:
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -4086,7 +4035,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

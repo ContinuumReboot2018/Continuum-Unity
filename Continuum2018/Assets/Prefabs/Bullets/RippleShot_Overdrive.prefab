@@ -508,13 +508,17 @@ MonoBehaviour:
   Lifetime: 0
   MaxLifetime: 60
   DestroyMaxYPos: 30
-  ColliderYMaxPos: 12
+  ColliderYMaxPos: 13
   BulletCol: {fileID: 136682191184681828}
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
   movedEnough: 0
   VelocityLimits: {x: 0, y: 0}
   allowBulletColDeactivate: 0
+  isRicochet: 0
+  RicochetYpos: 11.75
+  RicochetXpos: 25
+  RicochetSound: {fileID: 0}
   BulletOuterParticles: {fileID: 198255940148576244}
   BulletCoreParticles: {fileID: 198833148022123132}
   TrailParticles: []

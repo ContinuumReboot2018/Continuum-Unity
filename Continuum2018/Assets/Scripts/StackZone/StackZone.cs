@@ -29,7 +29,7 @@ public class StackZone : MonoBehaviour
 	void OnTriggerEnter (Collider other)
 	{
 		// Trigger was by a block.
-		if (other.GetComponent<Collider>().tag == "Block")
+		if (other.GetComponent<Collider>().tag == "Block" && other.GetComponent<Block>().Stackable == true)
 		{
 			if (isOccupied == true) 
 			{
@@ -69,7 +69,7 @@ public class StackZone : MonoBehaviour
 
 	void OnTriggerStay (Collider other)
 	{
-		if (other.GetComponent<Collider> ().tag == "Block") 
+		if (other.GetComponent<Collider> ().tag == "Block" && other.GetComponent<Block>().Stackable == true) 
 		{
 			if (StackZoneBelow != null) 
 			{

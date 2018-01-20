@@ -36,6 +36,11 @@ public class PowerupPickup : MonoBehaviour
 	public GameObject CollectExplosion;
 	public GameObject PowerupDeathExplosion;
 	public Animator PowerupUI;
+	public AudioSource PowerupTimeRunningOutAudio;
+
+	[Header ("On End Life")]
+	public Animator anim;
+	public DestroyByTime destroyByTimeScript;
 
 	public GameObject Clone;
 
@@ -44,6 +49,9 @@ public class PowerupPickup : MonoBehaviour
 		meshrend.enabled = false;
 		col.enabled = false;
 		StartCoroutine (ShowPowerup ());
+		destroyByTimeScript = GetComponent<DestroyByTime> ();
+		StartCoroutine (DestroyAnimation ());
+		anim = GetComponent<Animator> ();
 	}
 
 	IEnumerator ShowPowerup ()
@@ -54,11 +62,18 @@ public class PowerupPickup : MonoBehaviour
 		AwakeParticles.Play ();
 	}
 
+	IEnumerator DestroyAnimation ()
+	{
+		yield return new WaitForSecondsRealtime (destroyByTimeScript.delay - 1);
+		anim.Play ("PowerupPickupDestroy");
+	}
+
 	void Start ()
 	{
 		PowerupUI = GameObject.Find ("PowerupUI").GetComponent<Animator> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
+		PowerupTimeRunningOutAudio = GameObject.Find ("PowerupRunningOutSound").GetComponent<AudioSource> ();
 	}
 
 	void OnTriggerEnter (Collider other)
@@ -97,6 +112,7 @@ public class PowerupPickup : MonoBehaviour
 		ActivatePowerup_P1 ();
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f);
 		Instantiate (PowerupDeathExplosion, transform.position, Quaternion.identity);
+		PowerupTimeRunningOutAudio.Stop ();
 		Destroy (gameObject);
 	}
 
@@ -137,7 +153,6 @@ public class PowerupPickup : MonoBehaviour
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				break;
 			case PlayerController.shotIteration.Overdrive:
-				//gameControllerScript.SetPowerupTime (5);
 				break;
 			}
 
@@ -234,20 +249,14 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Clone:
-			//GameObject clone = Instantiate (Clone, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 			if (playerControllerScript_P1.nextCloneSpawn < 4) 
 			{
 				GameObject clone = playerControllerScript_P1.Clones [playerControllerScript_P1.nextCloneSpawn];
 				clone.SetActive (true);
 				clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
 				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
-				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "CLONE";
+				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 				gameControllerScript.NextPowerupSlot_P1 += 1;
-
-			}
-
-			if (playerControllerScript_P1.nextCloneSpawn < 3) 
-			{
 				playerControllerScript_P1.nextCloneSpawn += 1;
 			}
 			break;
@@ -258,26 +267,22 @@ public class PowerupPickup : MonoBehaviour
 
 			if (playerControllerScript_P1.isInRapidFire == false)
 			{
-				if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard) 
+				switch (playerControllerScript_P1.ShotType) 
 				{
-					switch (playerControllerScript_P1.ShotType) 
-					{
-					case PlayerController.shotType.Double:
-						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
-						break;
-					case PlayerController.shotType.Triple:
-						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
-						break;
-					case PlayerController.shotType.Ripple:
-						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
-						break;
-					}
-
-					SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
-					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "RAPID";
-					gameControllerScript.NextPowerupSlot_P1 += 1;
+				case PlayerController.shotType.Double:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+					break;
+				case PlayerController.shotType.Triple:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+					break;
+				case PlayerController.shotType.Ripple:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+					break;
+				case PlayerController.shotType.Standard:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+					break;				
 				}
-
+				gameControllerScript.RapidfireImage.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
 			}
 
@@ -292,20 +297,25 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
-
-				if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard)
-				{
-					SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
-					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "OVERDRIVE";
-					gameControllerScript.NextPowerupSlot_P1 += 1;
-				}
-
+				gameControllerScript.OverdriveImage.enabled = true;
 				playerControllerScript_P1.isInOverdrive = true;
 			}
 			break;
 
 		case powerups.Ricochet:
-			
+			if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) {
+				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+			}
+
+			if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) {
+				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+			}
+
+			if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) {
+				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
+			}
+			playerControllerScript_P1.isRicochet = true;
+			gameControllerScript.RicochetImage.enabled = true;
 			break;
 		}
 
