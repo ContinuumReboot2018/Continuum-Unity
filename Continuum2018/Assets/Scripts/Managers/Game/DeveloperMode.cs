@@ -402,14 +402,18 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.nextCloneSpawn < 4) 
 				{
 					gameControllerScript.SetPowerupTime (20);
+
 					GameObject clone = playerControllerScript_P1.Clones [playerControllerScript_P1.nextCloneSpawn];
 					clone.SetActive (true);
 					clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
+
 					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = CloneTexture;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
+
 					gameControllerScript.NextPowerupSlot_P1 += 1;
 					playerControllerScript_P1.nextCloneSpawn += 1;
+
 					ShowCheatNotification ("CHEAT ACTIVATED: CLONE");
 				}
 			}
@@ -463,7 +467,7 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.isInRapidFire = true;
 				}
 
-				ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE: " + playerControllerScript_P1.ShotType.ToString());
+				ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE: " + playerControllerScript_P1.ShotType.ToString().ToUpper ());
 			}
 
 			if (CheatString == OverdriveCommand) 

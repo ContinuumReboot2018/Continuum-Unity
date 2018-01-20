@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour
 	public float LensRadiusSmoothTime = 1;
 
 	[Header ("Clone Player")]
-	[Range (0, 3)]
+	[Range (0, 4)]
 	public int nextCloneSpawn;
 	public GameObject[] Clones;
 

@@ -254,8 +254,10 @@ public class PowerupPickup : MonoBehaviour
 				GameObject clone = playerControllerScript_P1.Clones [playerControllerScript_P1.nextCloneSpawn];
 				clone.SetActive (true);
 				clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
+
 				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
 				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+
 				gameControllerScript.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.nextCloneSpawn += 1;
 			}

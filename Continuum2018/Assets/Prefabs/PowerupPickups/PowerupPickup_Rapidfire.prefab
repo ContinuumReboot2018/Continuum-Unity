@@ -572,12 +572,13 @@ MonoBehaviour:
   AwakeParticles: {fileID: 198683191148702020}
   AwakeDelay: 1
   ThisPowerup: 6
-  PowerupTime: 20
+  PowerupTime: 10
   CollectExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   PowerupDeathExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   PowerupUI: {fileID: 0}
+  PowerupTimeRunningOutAudio: {fileID: 0}
   anim: {fileID: 0}
   destroyByTimeScript: {fileID: 0}
   Clone: {fileID: 0}
