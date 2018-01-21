@@ -251,7 +251,7 @@ public class PowerupPickup : MonoBehaviour
 				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
 				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 				gameControllerScript.NextPowerupSlot_P1 += 1;
-				playerControllerScript_P1.SetHelixState (true);
+				playerControllerScript_P1.Helix.SetActive (true);
 			}
 			break;
 

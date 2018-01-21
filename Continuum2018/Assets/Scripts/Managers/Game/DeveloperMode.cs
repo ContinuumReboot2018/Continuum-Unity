@@ -529,7 +529,7 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (playerControllerScript_P1.Helix.activeInHierarchy == false)
 				{
-					playerControllerScript_P1.SetHelixState (true);
+					playerControllerScript_P1.Helix.SetActive (true);
 					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = HelixTexture;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;

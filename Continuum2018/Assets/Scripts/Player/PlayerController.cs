@@ -189,6 +189,7 @@ public class PlayerController : MonoBehaviour
 
 	[Header ("Helix")]
 	public GameObject Helix;
+	public ParticleSystem[] HelixParticles;
 
 	[Header ("UI")]
 	public bool isHidingScoreUI;
@@ -919,9 +920,9 @@ public class PlayerController : MonoBehaviour
 		}*/
 	}
 
-	public void SetHelixState (bool activeState)
+	void TurnOffHelix ()
 	{
-		Helix.SetActive (activeState);
+		Helix.SetActive (false);
 	}
 
 	public void ResetPowerups ()
@@ -934,7 +935,12 @@ public class PlayerController : MonoBehaviour
 		RippleShotIteration = shotIteration.Standard;
 		nextCloneSpawn = 0;
 		isRicochet = false;
-		SetHelixState (false);
+
+		Invoke ("TurnOffHelix", 1);
+		foreach (ParticleSystem helixparticle in HelixParticles)
+		{
+			helixparticle.Stop ();
+		}
 
 		foreach (GameObject clone in Clones) 
 		{
