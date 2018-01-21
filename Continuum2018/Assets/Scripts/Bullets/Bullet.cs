@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
 
 	[Header ("Stats")]
 	public string BulletTypeName;
+	public bool UseLifetime;
 	public float Lifetime;
 	public float MaxLifetime = 30;
 	public float DestroyMaxYPos = 30;
@@ -76,9 +77,14 @@ public class Bullet : MonoBehaviour
 
 	void Update ()
 	{
-		if (isRicochet == true && BulletTypeName != "Ripple") 
+		if (isRicochet == true && BulletTypeName.Contains ("Ripple") == false && BulletTypeName.Contains ("Helix") == false) 
 		{
 			CheckForRicochet ();
+		}
+
+		if (UseLifetime == true)
+		{
+			Lifetime += Time.unscaledDeltaTime;
 		}
 	}
 
@@ -93,8 +99,7 @@ public class Bullet : MonoBehaviour
 					0
 				)
 		);
-		
-		Lifetime += Time.unscaledDeltaTime;
+
 		CheckForDestroy ();
 		CheckForColliderDeactivate ();
 		CheckColActivate ();
@@ -106,7 +111,7 @@ public class Bullet : MonoBehaviour
 		{
 			playerControllerScript.Vibrate (LeftMotorRumble, RightMotorRumble, VibrationDuration);
 
-			if (isRicochet == true && BulletTypeName != "Ripple") 
+			if (isRicochet == true && BulletTypeName.Contains ("Ripple") == false && BulletTypeName.Contains ("Helix") == false) 
 			{
 				Ricochet ();
 			}
@@ -281,7 +286,7 @@ public class Bullet : MonoBehaviour
 
 	public void BlockHit ()
 	{
-		if (BulletTypeName.Contains ("Overdrive") == false) 
+		if (BulletTypeName.Contains ("Overdrive") == false && BulletTypeName.Contains ("Helix") == false) 
 		{
 			BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
 			BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);

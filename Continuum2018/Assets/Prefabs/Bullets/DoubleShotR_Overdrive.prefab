@@ -259,6 +259,7 @@ MonoBehaviour:
   BulletSpeed: 2800
   BulletRb: {fileID: 54780075782019652}
   BulletTypeName: DoubleShot_Overdrive
+  UseLifetime: 1
   Lifetime: 0
   MaxLifetime: 30
   DestroyMaxYPos: 30

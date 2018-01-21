@@ -505,6 +505,7 @@ MonoBehaviour:
   BulletSpeed: 0
   BulletRb: {fileID: 54135192644018154}
   BulletTypeName: Ripple
+  UseLifetime: 1
   Lifetime: 0
   MaxLifetime: 60
   DestroyMaxYPos: 30

@@ -628,6 +628,7 @@ MonoBehaviour:
   BulletSpeed: 1200
   BulletRb: {fileID: 54741967111145026}
   BulletTypeName: DoubleShot_Standard
+  UseLifetime: 1
   Lifetime: 0
   MaxLifetime: 30
   DestroyMaxYPos: 30

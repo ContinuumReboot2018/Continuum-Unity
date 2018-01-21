@@ -288,6 +288,7 @@ MonoBehaviour:
   BulletSpeed: 2800
   BulletRb: {fileID: 54532299519224760}
   BulletTypeName: TripleShot_Overdrive
+  UseLifetime: 1
   Lifetime: 0
   MaxLifetime: 30
   DestroyMaxYPos: 30

@@ -276,6 +276,7 @@ MonoBehaviour:
   BulletSpeed: 2000
   BulletRb: {fileID: 54017364466203416}
   BulletTypeName: TripleShot_Enhanced
+  UseLifetime: 1
   Lifetime: 0
   MaxLifetime: 30
   DestroyMaxYPos: 30
