@@ -246,10 +246,13 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Helix:
-			playerControllerScript_P1.SetHelixState (true);
-			SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
-			gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
-			gameControllerScript.NextPowerupSlot_P1 += 1;
+			if (playerControllerScript_P1.Helix.activeInHierarchy == false) 
+			{
+				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+				gameControllerScript.NextPowerupSlot_P1 += 1;
+				playerControllerScript_P1.SetHelixState (true);
+			}
 			break;
 
 		case powerups.Clone:

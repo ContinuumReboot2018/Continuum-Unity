@@ -524,12 +524,15 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == HelixCommand) 
 			{
-				playerControllerScript_P1.SetHelixState (true);
-				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = HelixTexture;
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
+				if (playerControllerScript_P1.Helix.activeInHierarchy == false)
+				{
+					playerControllerScript_P1.SetHelixState (true);
+					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = HelixTexture;
+					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 
-				gameControllerScript.NextPowerupSlot_P1 += 1;
+					gameControllerScript.NextPowerupSlot_P1 += 1;
+				}
 				ShowCheatNotification ("CHEAT ACTIVATED: HELIX");
 			}
 
