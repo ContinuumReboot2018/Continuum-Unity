@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198780000294355340}
   - component: {fileID: 199435951266431320}
   - component: {fileID: 82801598546898098}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PowerupParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 135165820523448290}
   - component: {fileID: 114983639055838528}
   - component: {fileID: 95596479112574954}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PowerupPickup_ExtraLife
   m_TagString: PowerupPickup
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 4467901094267188}
   - component: {fileID: 82212619999221132}
   - component: {fileID: 114783937586136572}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: AwakeAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 198024163176882726}
   - component: {fileID: 199431182294835682}
   - component: {fileID: 82629528199543578}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Underlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 198380329857634888}
   - component: {fileID: 199208261670637026}
   - component: {fileID: 82669333304840390}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: AwakeParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,6 +578,7 @@ MonoBehaviour:
   PowerupDeathExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   PowerupUI: {fileID: 0}
+  PowerupTimeRunningOutAudio: {fileID: 0}
   anim: {fileID: 0}
   destroyByTimeScript: {fileID: 0}
   Clone: {fileID: 0}

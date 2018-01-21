@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198161298012578400}
   - component: {fileID: 199387933404142788}
   - component: {fileID: 82586249761331510}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: AwakeParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 198402593163204954}
   - component: {fileID: 199553910077495834}
   - component: {fileID: 82883952596478204}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Underlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 4579950549248480}
   - component: {fileID: 82784934204331832}
   - component: {fileID: 114733430921439316}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: AwakeAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 135963053983500690}
   - component: {fileID: 114276927580187192}
   - component: {fileID: 95698940732013016}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PowerupPickup_Overdrive
   m_TagString: PowerupPickup
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 198371773662100424}
   - component: {fileID: 199373063537617938}
   - component: {fileID: 82007178472877670}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PowerupParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

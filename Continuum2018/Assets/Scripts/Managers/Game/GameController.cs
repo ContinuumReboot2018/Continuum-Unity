@@ -316,7 +316,11 @@ public class GameController : MonoBehaviour
 
 			CurrentScore = Mathf.Lerp (CurrentScore, TargetScore, ScoreSmoothing * Time.unscaledDeltaTime);
 			DisplayScore = Mathf.Round (CurrentScore);
-			ScoreText.text = DisplayScore.ToString ("00000000");
+
+			if (playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true)
+			{
+				ScoreText.text = DisplayScore.ToString ("00000000");
+			}
 		}
 	}
 
@@ -560,6 +564,7 @@ public class GameController : MonoBehaviour
 		cursorManagerScript.HideMouse ();
 		audioControllerScript.updateVolumeAndPitches = true;
 		audioControllerScript.BassTrack.pitch = 1;
+
 		if (timescaleControllerScript.isInInitialSequence == false && 
 			timescaleControllerScript.isInInitialCountdownSequence == false) 
 		{

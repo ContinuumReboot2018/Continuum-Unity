@@ -105,7 +105,9 @@ public class PlayerController : MonoBehaviour
 	public enum ability
 	{
 		Shield,
-		Emp
+		Emp,
+		VerticalBeam,
+		HorizontalBeam,
 	}
 	public Image AbilityFillImageL;
 	public Image AbilityFillImageR;
@@ -175,6 +177,10 @@ public class PlayerController : MonoBehaviour
 	public float LensOnRadius = 0.7f;
 	public float TargetLensRadius;
 	public float LensRadiusSmoothTime = 1;
+
+	[Header ("VerticalBeam")]
+	public GameObject VerticalBeam;
+	public ParticleSystem[] VerticalBeamParticles;
 
 	[Header ("Clone Player")]
 	[Range (0, 4)]
@@ -497,6 +503,11 @@ public class PlayerController : MonoBehaviour
 			break;
 		case ability.Emp:
 			break;
+		case ability.VerticalBeam:
+			VerticalBeam.SetActive (true);
+			break;
+		case ability.HorizontalBeam:
+			break;
 		}
 	}
 
@@ -512,6 +523,16 @@ public class PlayerController : MonoBehaviour
 			break;
 		case ability.Emp:
 			break;
+		case ability.VerticalBeam:
+			foreach (ParticleSystem vbParticles in VerticalBeamParticles) 
+			{
+				vbParticles.Stop ();
+			}
+
+			Invoke ("DeactivateVerticalBeam", 3);
+			break;
+		case ability.HorizontalBeam:
+			break;
 		}
 	}
 
@@ -522,6 +543,11 @@ public class PlayerController : MonoBehaviour
 			playerCol.enabled = true;
 		}
 		Shield.SetActive (false);
+	}
+
+	void DeactivateVerticalBeam ()
+	{
+		VerticalBeam.SetActive (false);
 	}
 
 	public void RefreshAbilityName ()

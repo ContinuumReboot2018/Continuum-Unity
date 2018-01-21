@@ -27,7 +27,8 @@ GameObject:
   - component: {fileID: 114045489295494334}
   - component: {fileID: 114212151734931360}
   - component: {fileID: 114924558848805850}
-  m_Layer: 0
+  - component: {fileID: 65666041205939006}
+  m_Layer: 11
   m_Name: Cube_Aqua
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -103,7 +104,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
---- !u!65 &65897293830135444
+--- !u!65 &65666041205939006
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -111,6 +112,18 @@ BoxCollider:
   m_GameObject: {fileID: 1750224001074990}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65897293830135444
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750224001074990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1000}
@@ -142,6 +155,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114212151734931360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,7 +187,8 @@ MonoBehaviour:
   textureScrollScript: {fileID: 0}
   isBossPart: 0
   GotDetached: 0
-  Stackable: 1
+  BoundaryX: {x: 0, y: 0}
+  BoundaryY: {x: 0, y: 0}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -200,6 +215,7 @@ MonoBehaviour:
   BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
   PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
   PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
+  Stackable: 1
   BlockType: 0
   ChangeRate: 0.5
   BlockChangeType: 0
@@ -215,11 +231,16 @@ MonoBehaviour:
   MinYPos: -15
   playerExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
     type: 2}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
   camShakeScript: {fileID: 0}
   newCamShakeDuration: 0.2
   newCamShakeAmount: 0.2
   LowPassTargetFreq: 400
   ResonanceTargetFreq: 2.5
+  isTutorialBlock: 0
+  tutorialManagerScript: {fileID: 0}
+  tutorialBlockIndex: 0
 --- !u!114 &114924558848805850
 MonoBehaviour:
   m_ObjectHideFlags: 1

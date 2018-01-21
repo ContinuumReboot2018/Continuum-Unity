@@ -45,7 +45,8 @@ GameObject:
   - component: {fileID: 114237502677288630}
   - component: {fileID: 114937928248750530}
   - component: {fileID: 114658066489155956}
-  m_Layer: 0
+  - component: {fileID: 65769232734384172}
+  m_Layer: 11
   m_Name: Cube_Blue
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -68,7 +69,8 @@ GameObject:
   - component: {fileID: 114357609058171418}
   - component: {fileID: 114864201779515446}
   - component: {fileID: 114591880979714786}
-  m_Layer: 0
+  - component: {fileID: 65235921779849386}
+  m_Layer: 11
   m_Name: Cube_Pink
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -91,7 +93,8 @@ GameObject:
   - component: {fileID: 114640528711853346}
   - component: {fileID: 114901883078075610}
   - component: {fileID: 114379751506882638}
-  m_Layer: 0
+  - component: {fileID: 65552814658534504}
+  m_Layer: 11
   m_Name: Cube_Aqua
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -114,7 +117,8 @@ GameObject:
   - component: {fileID: 114999461339374622}
   - component: {fileID: 114319553523265132}
   - component: {fileID: 114032481992968136}
-  m_Layer: 0
+  - component: {fileID: 65230494779444426}
+  m_Layer: 11
   m_Name: Cube_Purple
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -436,10 +440,34 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1692369566788584}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1000}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65230494779444426
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986105039237078}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65235921779849386
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1681018554043862}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65291975398416228
 BoxCollider:
@@ -448,7 +476,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1158625072325676}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1000}
@@ -460,10 +488,34 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1681018554043862}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1000}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65552814658534504
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1692369566788584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65769232734384172
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1158625072325676}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65942038204955702
 BoxCollider:
@@ -472,7 +524,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1986105039237078}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1000}
@@ -510,11 +562,10 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
-  blockFormationScript: {fileID: 114350571035505670}
-  isBlockFormationConnected: 0
   isBossPart: 0
   GotDetached: 0
-  Stackable: 1
+  BoundaryX: {x: 0, y: 0}
+  BoundaryY: {x: 0, y: 0}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -550
@@ -541,6 +592,7 @@ MonoBehaviour:
   BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
   PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
   PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
+  Stackable: 1
   BlockType: 0
   ChangeRate: 0.5
   BlockChangeType: 2
@@ -556,11 +608,16 @@ MonoBehaviour:
   MinYPos: -15
   playerExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
     type: 2}
+  blockFormationScript: {fileID: 114350571035505670}
+  isBlockFormationConnected: 0
   camShakeScript: {fileID: 0}
   newCamShakeDuration: 0.2
   newCamShakeAmount: 0.2
   LowPassTargetFreq: 400
   ResonanceTargetFreq: 2.5
+  isTutorialBlock: 0
+  tutorialManagerScript: {fileID: 0}
+  tutorialBlockIndex: 0
 --- !u!114 &114237502677288630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -588,6 +645,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114319553523265132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -611,6 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03106b28700b2a14495dea5bbdef7176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   gameControllerScript: {fileID: 0}
   speed: -700
   AccumulatedSpeed: 0
@@ -650,6 +709,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114379751506882638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -683,11 +743,10 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
-  blockFormationScript: {fileID: 114350571035505670}
-  isBlockFormationConnected: 0
   isBossPart: 0
   GotDetached: 0
-  Stackable: 1
+  BoundaryX: {x: 0, y: 0}
+  BoundaryY: {x: 0, y: 0}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -714,6 +773,7 @@ MonoBehaviour:
   BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
   PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
   PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
+  Stackable: 1
   BlockType: 2
   ChangeRate: 0.5
   BlockChangeType: 2
@@ -729,11 +789,16 @@ MonoBehaviour:
   MinYPos: -15
   playerExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
     type: 2}
+  blockFormationScript: {fileID: 114350571035505670}
+  isBlockFormationConnected: 0
   camShakeScript: {fileID: 0}
   newCamShakeDuration: 0.2
   newCamShakeAmount: 0.2
   LowPassTargetFreq: 400
   ResonanceTargetFreq: 2.5
+  isTutorialBlock: 0
+  tutorialManagerScript: {fileID: 0}
+  tutorialBlockIndex: 0
 --- !u!114 &114497340149033948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -751,11 +816,10 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
-  blockFormationScript: {fileID: 114350571035505670}
-  isBlockFormationConnected: 0
   isBossPart: 0
   GotDetached: 0
-  Stackable: 1
+  BoundaryX: {x: 0, y: 0}
+  BoundaryY: {x: 0, y: 0}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -782,6 +846,7 @@ MonoBehaviour:
   BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
   PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
   PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
+  Stackable: 1
   BlockType: 3
   ChangeRate: 0.5
   BlockChangeType: 2
@@ -797,11 +862,16 @@ MonoBehaviour:
   MinYPos: -15
   playerExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
     type: 2}
+  blockFormationScript: {fileID: 114350571035505670}
+  isBlockFormationConnected: 0
   camShakeScript: {fileID: 0}
   newCamShakeDuration: 0.2
   newCamShakeAmount: 0.2
   LowPassTargetFreq: 400
   ResonanceTargetFreq: 2.5
+  isTutorialBlock: 0
+  tutorialManagerScript: {fileID: 0}
+  tutorialBlockIndex: 0
 --- !u!114 &114541754380549866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -819,11 +889,10 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
-  blockFormationScript: {fileID: 114350571035505670}
-  isBlockFormationConnected: 0
   isBossPart: 0
   GotDetached: 0
-  Stackable: 1
+  BoundaryX: {x: 0, y: 0}
+  BoundaryY: {x: 0, y: 0}
   speed: -150
   OverwriteVelocity: 0
   AquaSpeed: -650
@@ -850,6 +919,7 @@ MonoBehaviour:
   BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
   PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
   PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
+  Stackable: 1
   BlockType: 1
   ChangeRate: 0.5
   BlockChangeType: 2
@@ -865,11 +935,16 @@ MonoBehaviour:
   MinYPos: -15
   playerExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
     type: 2}
+  blockFormationScript: {fileID: 114350571035505670}
+  isBlockFormationConnected: 0
   camShakeScript: {fileID: 0}
   newCamShakeDuration: 0.2
   newCamShakeAmount: 0.2
   LowPassTargetFreq: 400
   ResonanceTargetFreq: 2.5
+  isTutorialBlock: 0
+  tutorialManagerScript: {fileID: 0}
+  tutorialBlockIndex: 0
 --- !u!114 &114564958183464800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -925,6 +1000,7 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0
 --- !u!114 &114658066489155956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1004,3 +1080,4 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  DontUseSmoothing: 0

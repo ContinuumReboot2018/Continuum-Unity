@@ -112,6 +112,30 @@ public class MiniBoss : MonoBehaviour
 		}
 	}
 
+	void OnParticleCollision (GameObject col)
+	{
+		if (col.tag == "Bullet") 
+		{
+			if (hitPoints > 1) 
+			{
+				// Refreshes array of block components in children.
+				//BossParts = GetComponentsInChildren<Block> ();
+				hitPoints -= 1;
+				//Instantiate (SmallExplosion, transform.position, transform.rotation);
+			}
+
+			if (hitPoints <= 1) 
+			{
+				hitPoints = 0;
+				Instantiate (LargeExplosion, transform.position, transform.rotation);
+				BossPartsParent.transform.DetachChildren ();
+				BossPartsConvertToNoise ();
+				gameControllerScript.StartNewWave ();
+				Destroy (MiniBossParent.gameObject);
+			}
+		}
+	}
+
 	void BossPartsConvertToNoise ()
 	{
 		foreach (Block block in BossParts)

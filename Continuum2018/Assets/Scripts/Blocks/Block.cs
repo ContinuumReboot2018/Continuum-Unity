@@ -199,6 +199,17 @@ public class Block : MonoBehaviour
 		}
 	}
 
+	void OnParticleCollision (GameObject particle)
+	{
+		//if (particle.tag == "Bullet") 
+		//{
+			GetTotalPointValue ();
+			CreateExplosion ();
+			DoCamShake ();
+			Destroy (gameObject);
+		//}
+	}
+
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.gameObject.name.Contains ("Missile")) 
@@ -230,7 +241,6 @@ public class Block : MonoBehaviour
 				{
 					Debug.Log ("Attempted to turn off tutorial.");
 					tutorialManagerScript.TurnOffTutorial ();
-
 				}
 			}
 

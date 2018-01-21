@@ -21,9 +21,9 @@ TagManager:
   - SceneLoader
   - Bullet
   - Player
-  - 
-  - 
-  - 
+  - Block
+  - PowerupPickup
+  - StackZone
   - 
   - 
   - 
