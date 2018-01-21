@@ -65,6 +65,7 @@ public class DeveloperMode : MonoBehaviour
 	public string TripleShotCommand = "triple";
 	public string RippleShotCommand = "ripple";
 	public string CloneCommand = "clone";
+	public string HelixCommand = "helix";
 
 	public string NextWaveCommand = "nextwave";
 	public string PreviousWaveCommand = "lastwave";
@@ -90,6 +91,7 @@ public class DeveloperMode : MonoBehaviour
 	public Texture2D OverdriveTexture;
 
 	public Texture2D CloneTexture;
+	public Texture2D HelixTexture;
 
 	public Color RapidFireColor;
 	public Color OverdriveColor;
@@ -456,13 +458,14 @@ public class DeveloperMode : MonoBehaviour
 						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 						break;
 					case PlayerController.shotType.Standard:
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 						break;
 					}
 
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = RapidfireTexture;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = RapidFireColor;
 					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
-					gameControllerScript.NextPowerupSlot_P1 += 1;
+					//gameControllerScript.NextPowerupSlot_P1 += 1;
 					gameControllerScript.RapidfireImage.enabled = true;
 					playerControllerScript_P1.isInRapidFire = true;
 				}
@@ -476,6 +479,7 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isInOverdrive == false) 
 				{
+					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
@@ -485,7 +489,7 @@ public class DeveloperMode : MonoBehaviour
 						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = OverdriveTexture;
 						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = OverdriveColor;
 						gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
-						gameControllerScript.NextPowerupSlot_P1 += 1;
+						//gameControllerScript.NextPowerupSlot_P1 += 1;
 					}
 
 					gameControllerScript.OverdriveImage.enabled = true;
@@ -509,9 +513,24 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
 				}
 
+				if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) {
+					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+				}
+
 				playerControllerScript_P1.isRicochet = true;
 				gameControllerScript.RicochetImage.enabled = true;
 				ShowCheatNotification ("CHEAT ACTIVATED: RICOCHET MODE");
+			}
+
+			if (CheatString == HelixCommand) 
+			{
+				playerControllerScript_P1.SetHelixState (true);
+				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = HelixTexture;
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
+
+				gameControllerScript.NextPowerupSlot_P1 += 1;
+				ShowCheatNotification ("CHEAT ACTIVATED: HELIX");
 			}
 
 			if (CheatString == StandardShotCommand) 

@@ -64,6 +64,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public GameObject StandardShot;
+	public GameObject StandardShotEnhanced;
+	public GameObject StandardShotOverdrive;
+	public shotIteration StandardShotIteration;
 	public Transform StandardShotSpawn;
 	public float StandardFireRate = 0.1f;
 
@@ -177,6 +180,9 @@ public class PlayerController : MonoBehaviour
 	[Range (0, 4)]
 	public int nextCloneSpawn;
 	public GameObject[] Clones;
+
+	[Header ("Helix")]
+	public GameObject Helix;
 
 	[Header ("UI")]
 	public bool isHidingScoreUI;
@@ -582,10 +588,33 @@ public class PlayerController : MonoBehaviour
 		switch (ShotType) 
 		{
 		case shotType.Standard:
-			GameObject shot = Instantiate (StandardShot, StandardShotSpawn.position, StandardShotSpawn.rotation);
-			shot.GetComponent<Bullet> ().playerControllerScript = this;
-			shot.GetComponent<Bullet> ().playerPos = playerCol.transform;
-			shot.name = "Standard Shot_P" + PlayerId + "";
+			switch (StandardShotIteration)
+			{
+			case shotIteration.Standard:
+				GameObject shot = Instantiate (StandardShot, StandardShotSpawn.position, StandardShotSpawn.rotation);
+				shot.GetComponent<Bullet> ().playerControllerScript = this;
+				shot.GetComponent<Bullet> ().playerPos = playerCol.transform;
+				shot.name = "Standard Shot_P" + PlayerId + " (Standard)";
+				break;
+			case shotIteration.Enhanced:
+				GameObject shotEnhanced = Instantiate (StandardShotEnhanced, StandardShotSpawn.position, StandardShotSpawn.rotation);
+				shotEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
+				shotEnhanced.GetComponent<Bullet> ().playerPos = playerCol.transform;
+				shotEnhanced.name = "Standard Shot_P" + PlayerId + " (Enhanced)";
+				break;
+			case shotIteration.Rapid:
+				GameObject shotRapid = Instantiate (StandardShotEnhanced, StandardShotSpawn.position, StandardShotSpawn.rotation);
+				shotRapid.GetComponent<Bullet> ().playerControllerScript = this;
+				shotRapid.GetComponent<Bullet> ().playerPos = playerCol.transform;
+				shotRapid.name = "Standard Shot_P" + PlayerId + " (Enhanced)";
+				break;
+			case shotIteration.Overdrive:
+				GameObject shotOverdrive = Instantiate (StandardShotOverdrive, StandardShotSpawn.position, StandardShotSpawn.rotation);
+				shotOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
+				shotOverdrive.GetComponent<Bullet> ().playerPos = playerCol.transform;
+				shotOverdrive.name = "Standard Shot_P" + PlayerId + " (Overdrive)";
+				break;
+			}
 			break;
 
 		case shotType.Double:
@@ -873,15 +902,22 @@ public class PlayerController : MonoBehaviour
 		}*/
 	}
 
+	public void SetHelixState (bool activeState)
+	{
+		Helix.SetActive (activeState);
+	}
+
 	public void ResetPowerups ()
 	{
 		ShotType = shotType.Standard;
 		CurrentFireRate = StandardFireRate;
+		StandardShotIteration = shotIteration.Standard;
 		DoubleShotIteration = shotIteration.Standard;
 		TripleShotIteration = shotIteration.Standard;
 		RippleShotIteration = shotIteration.Standard;
 		nextCloneSpawn = 0;
 		isRicochet = false;
+		SetHelixState (false);
 
 		foreach (GameObject clone in Clones) 
 		{

@@ -60,7 +60,7 @@ public class Bullet : MonoBehaviour
 			playerControllerScript = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController>();
 		}
 
-		if (BulletTypeName != "StandardShot" && BulletTypeName != "Ripple")
+		if (BulletTypeName != "Ripple")
 		{
 			isRicochet = playerControllerScript.isRicochet;
 		}

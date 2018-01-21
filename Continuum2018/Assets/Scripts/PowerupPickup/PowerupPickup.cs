@@ -24,8 +24,8 @@ public class PowerupPickup : MonoBehaviour
 		TripleShot,
 		ExtraLife,
 		RippleShot,
-		SlowEnemies,
 		Clone,
+		Helix,
 		Rapidfire,
 		Overdrive,
 		Ricochet
@@ -245,7 +245,11 @@ public class PowerupPickup : MonoBehaviour
 			gameControllerScript.PowerupText_P1[0].text = "";
 			break;
 
-		case powerups.SlowEnemies:
+		case powerups.Helix:
+			playerControllerScript_P1.SetHelixState (true);
+			SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+			gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+			gameControllerScript.NextPowerupSlot_P1 += 1;
 			break;
 
 		case powerups.Clone:
@@ -296,6 +300,7 @@ public class PowerupPickup : MonoBehaviour
 
 			if (playerControllerScript_P1.isInOverdrive == false) 
 			{
+				playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Overdrive;
 				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
@@ -315,6 +320,10 @@ public class PowerupPickup : MonoBehaviour
 
 			if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) {
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
+			}
+
+			if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) {
+				playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
 			}
 			playerControllerScript_P1.isRicochet = true;
 			gameControllerScript.RicochetImage.enabled = true;
