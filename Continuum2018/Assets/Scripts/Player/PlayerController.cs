@@ -490,7 +490,7 @@ public class PlayerController : MonoBehaviour
 		);
 	}
 
-	void ActivateAbility ()
+	public void ActivateAbility ()
 	{
 		switch (Ability) 
 		{
@@ -511,28 +511,19 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void DeactivateAbility ()
+	public void DeactivateAbility ()
 	{
-		switch (Ability) 
-		{
-		case ability.Shield:
-			isShieldOn = false;
-			TargetLensRadius = 0;
-			TargetShieldScale = 0;
-			Invoke ("DeactivateShield", 1);
-			break;
-		case ability.Emp:
-			break;
-		case ability.VerticalBeam:
-			foreach (ParticleSystem vbParticles in VerticalBeamParticles) 
-			{
-				vbParticles.Stop ();
-			}
+		// Deactivates shield.
+		isShieldOn = false;
+		TargetLensRadius = 0;
+		TargetShieldScale = 0;
+		Invoke ("DeactivateShield", 1);
 
-			Invoke ("DeactivateVerticalBeam", 3);
-			break;
-		case ability.HorizontalBeam:
-			break;
+		// Deactivates vertcial beam.
+		Invoke ("DeactivateVerticalBeam", 3);
+		foreach (ParticleSystem vbParticles in VerticalBeamParticles) 
+		{
+			vbParticles.Stop ();
 		}
 	}
 

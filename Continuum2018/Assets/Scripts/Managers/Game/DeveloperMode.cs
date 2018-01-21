@@ -76,6 +76,9 @@ public class DeveloperMode : MonoBehaviour
 	public string StandardShotCommand = "standard";
 	public string ResetAllPowerupsCommand = "resetpow";
 
+	public string ShieldCommand = "shield";
+	public string VerticalBeamCommand = "vbeam";
+
 	[Header ("UI and Animations")]
 	public GameObject CheatsMenu;
 	public Animator CheatsMenuAnim;
@@ -553,6 +556,24 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.PowerupTimeRemaining = 0;
 				playerControllerScript_P1.ResetPowerups ();
 				ShowCheatNotification ("CHEAT ACTIVATED: RESET POWERUPS");
+			}
+
+			if (CheatString == ShieldCommand) 
+			{
+				playerControllerScript_P1.AbilityName = "shield";
+				playerControllerScript_P1.Ability = PlayerController.ability.Shield;
+				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
+				playerControllerScript_P1.ActivateAbility ();
+				ShowCheatNotification ("CHEAT ACTIVATED: SHIELD");
+			}
+
+			if (CheatString == VerticalBeamCommand) 
+			{
+				playerControllerScript_P1.AbilityName = "verticalbeam";
+				playerControllerScript_P1.Ability = PlayerController.ability.VerticalBeam;
+				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
+				playerControllerScript_P1.ActivateAbility ();
+				ShowCheatNotification ("CHEAT ACTIVATED: VERTICAL BEAM");
 			}
 				
 			if (Input.GetKeyDown (KeyCode.Alpha7))
