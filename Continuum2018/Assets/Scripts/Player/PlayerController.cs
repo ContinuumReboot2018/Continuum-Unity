@@ -387,24 +387,27 @@ public class PlayerController : MonoBehaviour
 
 	void MovePlayer ()
 	{
-		if (UsePlayerFollow == true && timescaleControllerScript.isEndSequence == false) 
+		if (gameControllerScript.isGameOver == false)
 		{
-			if (gameControllerScript.isPaused == false)
+			if (UsePlayerFollow == true && timescaleControllerScript.isEndSequence == false)
 			{
-				// Reads movement input on two axis.
-				MovementX = playerActions.Move.Value.x;
-				MovementY = playerActions.Move.Value.y;
+				if (gameControllerScript.isPaused == false) 
+				{
+					// Reads movement input on two axis.
+					MovementX = playerActions.Move.Value.x;
+					MovementY = playerActions.Move.Value.y;
+				}
 			}
-		}
 
-		var MainEngineEmissionRate = MainEngineParticles.emission;
-		float SmoothEmissionRate = 
-			Mathf.Lerp (
-				MainEngineEmissionRate.rateOverTime.constant, 
-				MainEngineParticleEmissionAmount * playerActions.Move.Up.Value,
-				MainEngineParticleEmissionLerpSpeed * Time.deltaTime
-			);
-		MainEngineEmissionRate.rateOverTime = SmoothEmissionRate;
+			var MainEngineEmissionRate = MainEngineParticles.emission;
+			float SmoothEmissionRate = 
+				Mathf.Lerp (
+					MainEngineEmissionRate.rateOverTime.constant, 
+					MainEngineParticleEmissionAmount * playerActions.Move.Up.Value,
+					MainEngineParticleEmissionLerpSpeed * Time.deltaTime
+				);
+			MainEngineEmissionRate.rateOverTime = SmoothEmissionRate;
+		}
 	}
 
 	void CheckAbilityTime ()

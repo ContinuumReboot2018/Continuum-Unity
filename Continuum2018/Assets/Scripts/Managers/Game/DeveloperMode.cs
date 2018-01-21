@@ -79,6 +79,10 @@ public class DeveloperMode : MonoBehaviour
 	public string ShieldCommand = "shield";
 	public string VerticalBeamCommand = "vbeam";
 
+	public string AddScoreCommand = "addscore";
+	public string LoseLifeCommand = "loselife";
+	public string GameOverCommand = "gameover";
+
 	[Header ("UI and Animations")]
 	public GameObject CheatsMenu;
 	public Animator CheatsMenuAnim;
@@ -579,6 +583,25 @@ public class DeveloperMode : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.Alpha7))
 			{
 				CheatString = LastCheatName;
+			}
+
+			if (CheatString == AddScoreCommand) 
+			{
+				gameControllerScript.TargetScore += 100000;
+				ShowCheatNotification ("CHEAT ACTIVATED: ADD SCORE");
+			}
+
+			if (CheatString == LoseLifeCommand) 
+			{
+				gameControllerScript.Lives -= 1;
+				ShowCheatNotification ("CHEAT ACTIVATED: LOSE LIFE");
+			}
+
+			if (CheatString == GameOverCommand)
+			{
+				playerControllerScript_P1.GameOver ();
+				Debug.Log ("Player forced game over.");
+				ShowCheatNotification ("CHEAT ACTIVATED: FORCE GAME OVER");
 			}
 		}
 	}

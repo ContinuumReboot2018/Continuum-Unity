@@ -16,7 +16,7 @@ public class SimpleLookAt : MonoBehaviour
 
 	void LateUpdate ()
 	{
-		if (LookMethod == lookType.LookTowards) 
+		if (LookMethod == lookType.LookTowards && LookAtPos != null) 
 		{
 			transform.LookAt (LookAtPos.position, Vector3.forward);
 		}

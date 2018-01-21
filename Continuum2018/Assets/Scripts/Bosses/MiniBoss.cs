@@ -38,8 +38,17 @@ public class MiniBoss : MonoBehaviour
 	void Awake ()
 	{
 		hitPoints = StartingHitPoints;
-		FollowPlayerPos = GameObject.Find ("PlayerFollow").transform;
-		PlayerPos = GameObject.Find ("PlayerCollider").transform;
+
+		if (GameObject.Find ("PlayerFollow").transform != null)
+		{
+			FollowPlayerPos = GameObject.Find ("PlayerFollow").transform;
+		}
+
+		if (GameObject.Find ("PlayerCollider").transform != null) 
+		{
+			PlayerPos = GameObject.Find ("PlayerCollider").transform;
+		}
+
 		BrainLookScript.LookAtPos = FollowPlayerPos.transform;
 		simpleFollowScript.FollowPosX = FollowPlayerPos;
 		simpleFollowScript.FollowPosY = FollowPlayerPos;

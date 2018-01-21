@@ -29,17 +29,18 @@ public class StackZone : MonoBehaviour
 	void OnTriggerEnter (Collider other)
 	{
 		// Trigger was by a block.
-		if (other.GetComponent<Collider>().tag == "Block" && other.GetComponent<Block>().Stackable == true)
+		if (other.GetComponent<Collider>().tag == "Block" && other.GetComponent<Block> ().Stackable == true)
 		{
+			// If already occupied.
 			if (isOccupied == true) 
 			{
 				// If a top zone.
-				if (StackZoneAbove == null) 
+				if (StackZoneAbove == null)
 				{
 					// If zone below is occupied.
 					if (StackZoneBelow.isOccupied == true) 
 					{
-						Destroy (other.gameObject);
+						//Destroy (other.gameObject);
 					}
 				}
 			}
