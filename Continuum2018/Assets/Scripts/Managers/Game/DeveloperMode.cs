@@ -64,7 +64,7 @@ public class DeveloperMode : MonoBehaviour
 	public string DoubleShotCommand = "double";
 	public string TripleShotCommand = "triple";
 	public string RippleShotCommand = "ripple";
-	public string CloneCommand = "clone";
+	public string TurretCommand = "Turret";
 	public string HelixCommand = "helix";
 
 	public string NextWaveCommand = "nextwave";
@@ -97,7 +97,7 @@ public class DeveloperMode : MonoBehaviour
 	public Texture2D RapidfireTexture;
 	public Texture2D OverdriveTexture;
 
-	public Texture2D CloneTexture;
+	public Texture2D TurretTexture;
 	public Texture2D HelixTexture;
 
 	public Color RapidFireColor;
@@ -345,11 +345,18 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == DoubleShotCommand) 
 			{
+				gameControllerScript.SetPowerupTime (20);
+
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 
 				if (playerControllerScript_P1.isInOverdrive == true) 
 				{
 					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
+				}
+
+				if (playerControllerScript_P1.isInRapidFire == false) 
+				{
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
 				}
 
 				if (playerControllerScript_P1.isInRapidFire == true) 
@@ -366,11 +373,18 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == TripleShotCommand)
 			{
+				gameControllerScript.SetPowerupTime (20);
+
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
 
 				if (playerControllerScript_P1.isInOverdrive == true) 
 				{
 					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
+				}
+
+				if (playerControllerScript_P1.isInRapidFire == false) 
+				{
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
 				}
 
 				if (playerControllerScript_P1.isInRapidFire == true) 
@@ -387,11 +401,18 @@ public class DeveloperMode : MonoBehaviour
 
 		if (CheatString == RippleShotCommand)
 		{
+			gameControllerScript.SetPowerupTime (20);
+
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
 
 			if (playerControllerScript_P1.isInOverdrive == true) 
 			{
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+			}
+
+			if (playerControllerScript_P1.isInRapidFire == false) 
+			{
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
 			}
 
 			if (playerControllerScript_P1.isInRapidFire == true) 
@@ -406,24 +427,24 @@ public class DeveloperMode : MonoBehaviour
 			ShowCheatNotification ("CHEAT ACTIVATED: RIPPLE SHOT");
 		}
 
-			if (CheatString == CloneCommand)
+			if (CheatString == TurretCommand)
 			{
-				if (playerControllerScript_P1.nextCloneSpawn < 4) 
+				if (playerControllerScript_P1.nextTurretSpawn < 4) 
 				{
 					gameControllerScript.SetPowerupTime (20);
 
-					GameObject clone = playerControllerScript_P1.Clones [playerControllerScript_P1.nextCloneSpawn];
-					clone.SetActive (true);
-					clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
+					GameObject Turret = playerControllerScript_P1.Turrets [playerControllerScript_P1.nextTurretSpawn];
+					Turret.SetActive (true);
+					Turret.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
 
 					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = CloneTexture;
+					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = TurretTexture;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 
 					gameControllerScript.NextPowerupSlot_P1 += 1;
-					playerControllerScript_P1.nextCloneSpawn += 1;
+					playerControllerScript_P1.nextTurretSpawn += 1;
 
-					ShowCheatNotification ("CHEAT ACTIVATED: CLONE");
+					ShowCheatNotification ("CHEAT ACTIVATED: Turret");
 				}
 			}
 
@@ -508,6 +529,8 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == RicochetCommand) 
 			{
+				gameControllerScript.SetPowerupTime (20);
+
 				if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) {
 					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
 				}
@@ -531,6 +554,8 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == HelixCommand) 
 			{
+				gameControllerScript.SetPowerupTime (20);
+
 				if (playerControllerScript_P1.Helix.activeInHierarchy == false)
 				{
 					playerControllerScript_P1.Helix.SetActive (true);

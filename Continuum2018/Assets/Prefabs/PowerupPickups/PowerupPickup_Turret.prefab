@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 114737801221547030}
   - component: {fileID: 95992147474980112}
   m_Layer: 12
-  m_Name: PowerupPickup_Clone
+  m_Name: PowerupPickup_Turret
   m_TagString: PowerupPickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameControllerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
-  PowerupTexture: {fileID: 2800000, guid: 3e99cfcc8d32d584ea81a6988e62ba2c, type: 3}
+  PowerupTexture: {fileID: 2800000, guid: e87d19c0b49335f47a33a6151c796cfd, type: 3}
   isShootingPowerup: 0
   AwakeAudio: {fileID: 82881147040108252}
   meshrend: {fileID: 23079873635863116}
@@ -581,7 +581,7 @@ MonoBehaviour:
   PowerupTimeRunningOutAudio: {fileID: 0}
   anim: {fileID: 0}
   destroyByTimeScript: {fileID: 0}
-  Clone: {fileID: 0}
+  Turret: {fileID: 0}
 --- !u!114 &114541107847095894
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClonePlayer : MonoBehaviour 
+public class Turret : MonoBehaviour 
 {
 	public PlayerController playerControllerScript;
 	public GameController gameControllerScript;
@@ -29,11 +29,13 @@ public class ClonePlayer : MonoBehaviour
 		}
 
 		CheckForBlock ();
+
+		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.up), Color.magenta);
 	}
 
 	void CheckForBlock ()
 	{
-		Vector3 up = transform.InverseTransformDirection (Vector3.up);
+		Vector3 up = transform.TransformDirection (Vector3.up);
 		RaycastHit hit;
 
 		if (Physics.Raycast (transform.position, up, out hit, 25)) 

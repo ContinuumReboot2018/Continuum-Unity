@@ -438,6 +438,7 @@ public class GameController : MonoBehaviour
 						PowerupTimeRunningOutAudio.Play ();
 					}
 					PowerupAnim.Play ("PowerupTimeRunningOut");
+					playerControllerScript_P1.TurretSpinSpeed = playerControllerScript_P1.TurretSpinSpeedFaster;
 				}
 			}
 		}

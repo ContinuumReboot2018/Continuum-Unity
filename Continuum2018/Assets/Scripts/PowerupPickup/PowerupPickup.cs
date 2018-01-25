@@ -24,7 +24,7 @@ public class PowerupPickup : MonoBehaviour
 		TripleShot,
 		ExtraLife,
 		RippleShot,
-		Clone,
+		Turret,
 		Helix,
 		Rapidfire,
 		Overdrive,
@@ -42,7 +42,7 @@ public class PowerupPickup : MonoBehaviour
 	public Animator anim;
 	public DestroyByTime destroyByTimeScript;
 
-	public GameObject Clone;
+	public GameObject Turret;
 
 	void Awake ()
 	{
@@ -132,6 +132,11 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
 			}
 
+			if (playerControllerScript_P1.isInRapidFire == false) 
+			{
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
+			}
+
 			if (playerControllerScript_P1.isInRapidFire == true) 
 			{
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
@@ -168,6 +173,11 @@ public class PowerupPickup : MonoBehaviour
 			if (playerControllerScript_P1.isInOverdrive == true) 
 			{
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
+			}
+
+			if (playerControllerScript_P1.isInRapidFire == false) 
+			{
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
 			}
 
 			if (playerControllerScript_P1.isInRapidFire == true) 
@@ -214,6 +224,11 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
 			}
 
+			if (playerControllerScript_P1.isInRapidFire == false) 
+			{
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
+			}
+
 			if (playerControllerScript_P1.isInRapidFire == true) 
 			{
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
@@ -246,6 +261,9 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Helix:
+			
+			gameControllerScript.SetPowerupTime (PowerupTime);
+
 			if (playerControllerScript_P1.Helix.activeInHierarchy == false) 
 			{
 				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
@@ -255,18 +273,22 @@ public class PowerupPickup : MonoBehaviour
 			}
 			break;
 
-		case powerups.Clone:
-			if (playerControllerScript_P1.nextCloneSpawn < 4) 
-			{
-				GameObject clone = playerControllerScript_P1.Clones [playerControllerScript_P1.nextCloneSpawn];
-				clone.SetActive (true);
-				clone.GetComponent<ClonePlayer> ().playerControllerScript = playerControllerScript_P1;
+		case powerups.Turret:
 
-				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+			gameControllerScript.SetPowerupTime (PowerupTime);
+
+			if (playerControllerScript_P1.nextTurretSpawn < 4) 
+			{
+				GameObject clone = playerControllerScript_P1.Turrets [playerControllerScript_P1.nextTurretSpawn];
+				clone.SetActive (true);
+				clone.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
+
 				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = PowerupTexture;
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 
 				gameControllerScript.NextPowerupSlot_P1 += 1;
-				playerControllerScript_P1.nextCloneSpawn += 1;
+				playerControllerScript_P1.nextTurretSpawn += 1;
 			}
 			break;
 
@@ -313,6 +335,8 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Ricochet:
+			gameControllerScript.SetPowerupTime (PowerupTime);
+
 			if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) {
 				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
 			}
