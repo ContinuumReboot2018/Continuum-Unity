@@ -945,6 +945,40 @@ public class PlayerController : MonoBehaviour
 				isHidingWaveUI = false;
 			}
 		}*/
+
+		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
+		{
+			if (powerupimage != gameControllerScript.PowerupImage_P1 [0] && 
+				powerupimage.color != new Color (0, 0, 0) && 
+				powerupimage.texture != null)
+			{
+				if (Vector3.Distance (powerupimage.transform.position, playerCol.transform.position) < 4) 
+				{
+					if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == false) 
+					{
+						powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOut");
+					}
+				}
+
+				if (Vector3.Distance (powerupimage.transform.position, playerCol.transform.position) >= 4) 
+				{
+					if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == true) 
+					{
+						powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeIn");
+					}
+				}
+			}
+
+			if (powerupimage != gameControllerScript.PowerupImage_P1 [0] && 
+				powerupimage.color == Color.black && 
+				powerupimage.texture == null) 
+			{
+				if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == false) 
+				{
+					powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOut");
+				}
+			}
+		}
 	}
 
 	void TurnOffHelix ()
