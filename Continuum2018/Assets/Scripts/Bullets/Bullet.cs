@@ -6,7 +6,9 @@ public class Bullet : MonoBehaviour
 {
 	public PlayerController playerControllerScript;
 	public float BulletSpeed;
+	public Vector2 VelocityLimits;
 	public Rigidbody BulletRb;
+	public Collider BulletCol;
 
 	[Header ("Stats")]
 	public string BulletTypeName;
@@ -15,16 +17,23 @@ public class Bullet : MonoBehaviour
 	public float MaxLifetime = 30;
 	public float DestroyMaxYPos = 30;
 	public float ColliderYMaxPos = 12;
-	public Collider BulletCol;
+
 	public float DestroyDelayTime = 1;
 	public Transform playerPos;
 	public bool movedEnough;
-	public Vector2 VelocityLimits;
+
+	[Header ("Overdrive")]
 	public bool allowBulletColDeactivate = true;
+
+	[Header ("Ricochet")]
 	public bool isRicochet;
 	public float RicochetYpos = 11.75f;
 	public float RicochetXpos = 21.2f; 
 	public AudioSource RicochetSound;
+
+	[Header ("Homing")]
+	public bool isHoming;
+	public Transform HomingPoint;
 
 	[Header ("Visuals")]
 	public ParticleSystem BulletOuterParticles;
@@ -86,19 +95,19 @@ public class Bullet : MonoBehaviour
 		{
 			Lifetime += Time.unscaledDeltaTime;
 		}
+
+		if (isHoming == true) 
+		{
+			MoveTowardsHomingObject ();
+		}
 	}
 
 	void FixedUpdate ()
 	{
-		BulletRb.velocity = transform.InverseTransformDirection 
-		(
-				new Vector3 
-				(
-					0, 
-					Mathf.Clamp(BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
-					0
-				)
-		);
+		if (isHoming == false)
+		{
+			SetBulletVelocity ();
+		}
 
 		CheckForDestroy ();
 		CheckForColliderDeactivate ();
@@ -168,6 +177,29 @@ public class Bullet : MonoBehaviour
 		float newZrot = Random.Range (-180, 180);
 		transform.rotation = Quaternion.Euler (0, 0, newZrot);
 		RicochetSound.Play ();
+	}
+
+	void MoveTowardsHomingObject ()
+	{
+		if (HomingPoint != null) 
+		{
+			transform.position = Vector3.MoveTowards (transform.position, HomingPoint.position, BulletSpeed * Time.deltaTime);
+		} else 
+		{
+			SetBulletVelocity ();
+		}
+	}
+
+	void SetBulletVelocity ()
+	{
+		BulletRb.velocity = transform.InverseTransformDirection 
+			(
+				new Vector3 (
+					0, 
+					Mathf.Clamp (BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
+					0
+				)
+			);
 	}
 
 	void CheckColActivate ()

@@ -80,6 +80,8 @@ public class MiniBoss : MonoBehaviour
 			Line.SetPosition (1, FollowPlayerPos.position);
 			Shoot ();
 		}
+
+		Debug.DrawLine (transform.position, FollowPlayerPos.position, Color.green);
 	}
 
 	void Shoot ()

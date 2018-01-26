@@ -5,15 +5,30 @@ using UnityEngine;
 public class DestroyByTime : MonoBehaviour
 {
 	public float delay = 1;
+	public bool useUnscaledTime;
 
 	void Awake () 
 	{
-		StartCoroutine (DestroyObject ());
+		if (useUnscaledTime == true) 
+		{
+			StartCoroutine (DestroyObjectUnscaled ());
+		}
+
+		if (useUnscaledTime == false) 
+		{
+			StartCoroutine (DestroyObjectScaled ());
+		}
 	}
 		
-	IEnumerator DestroyObject ()
+	IEnumerator DestroyObjectUnscaled ()
 	{
 		yield return new WaitForSecondsRealtime (delay);
+		Destroy (gameObject);
+	}
+
+	IEnumerator DestroyObjectScaled ()
+	{
+		yield return new WaitForSeconds(delay);
 		Destroy (gameObject);
 	}
 }

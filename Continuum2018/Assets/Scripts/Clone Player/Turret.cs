@@ -10,6 +10,7 @@ public class Turret : MonoBehaviour
 	public GameObject Shot;
 	public float FireRate = 0.25f;
 	private float nextFire;
+	//private Transform RaycastedPos;
 
 	void Start () 
 	{
@@ -30,7 +31,7 @@ public class Turret : MonoBehaviour
 
 		CheckForBlock ();
 
-		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.up), Color.magenta);
+		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.up) * 25, Color.magenta);
 	}
 
 	void CheckForBlock ()
@@ -42,6 +43,7 @@ public class Turret : MonoBehaviour
 		{
 			if (hit.collider.tag == ("Block"))
 			{
+				//RaycastedPos = hit.transform;
 				Shoot ();
 			}
 		}
@@ -52,6 +54,8 @@ public class Turret : MonoBehaviour
 		if (Time.unscaledTime > nextFire) 
 		{
 			Instantiate (Shot, ShotSpawn.position, ShotSpawn.rotation);
+			//GameObject shot = Instantiate (Shot, ShotSpawn.position, ShotSpawn.rotation);
+			//shot.GetComponent<Bullet> ().HomingPoint = RaycastedPos.transform;
 			nextFire = Time.unscaledTime + FireRate;
 		}
 	}
