@@ -192,7 +192,8 @@ public class Bullet : MonoBehaviour
 
 	void SetBulletVelocity ()
 	{
-		BulletRb.velocity = transform.InverseTransformDirection 
+		BulletRb.velocity = transform.TransformDirection 
+		//BulletRb.velocity = transform.InverseTransformDirection 
 			(
 				new Vector3 (
 					0, 
