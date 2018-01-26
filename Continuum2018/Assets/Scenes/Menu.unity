@@ -506,8 +506,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3523215359
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.822}
+    rgba: 3925868543
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.916}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -894,7 +894,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1342,7 +1342,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -734973341
+  randomSeed: -1686612121
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -1902,7 +1902,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 80
+      scalar: 160
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -2483,8 +2483,8 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -5
-      minScalar: -40
+      scalar: -30
+      minScalar: -60
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5134,7 +5134,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1180230802
+  randomSeed: -1235144109
   InitialModule:
     serializedVersion: 3
     enabled: 1

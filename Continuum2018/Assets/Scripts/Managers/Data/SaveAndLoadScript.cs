@@ -38,16 +38,32 @@ public class SaveAndLoadScript : MonoBehaviour
 
 	void Awake () 
 	{
+	}
+
+	void Start ()
+	{
 		if (SceneManager.GetActiveScene ().name != "Init")
 		{
 			settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
-			playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
+
+			if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () != null)
+			{
+				playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
+			}
+
+			if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () == null) 
+			{
+				Debug.LogWarning ("No player controller found.");
+			}
+
 			gameControllerScript = GameObject.Find ("GameController").GetComponent<GameController> ();
+
 			cam = settingsManagerScript.cam;
 			VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
+
 			LoadPlayerData ();
-			//SaveSettingsData (); // Comment this out.
 			LoadSettingsData ();
+
 			CheckUsername ();
 		}
 	}
