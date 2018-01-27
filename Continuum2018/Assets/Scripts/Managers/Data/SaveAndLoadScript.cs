@@ -46,18 +46,21 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
 
-			if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () != null && playerControllerScript_P1 == null)
+			if (SceneManager.GetActiveScene ().name != "Menu")
 			{
-				playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
+				if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () != null) 
+				{
+					playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
+				}
+
+				if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () == null) 
+				{
+					Debug.LogWarning ("No player controller found.");
+				}
+
+				gameControllerScript = GameObject.Find ("GameController").GetComponent<GameController> ();
 			}
-
-			if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () == null) 
-			{
-				Debug.LogWarning ("No player controller found.");
-			}
-
-			gameControllerScript = GameObject.Find ("GameController").GetComponent<GameController> ();
-
+				
 			cam = settingsManagerScript.cam;
 			VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 

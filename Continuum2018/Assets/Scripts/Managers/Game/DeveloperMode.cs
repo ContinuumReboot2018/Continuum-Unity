@@ -79,6 +79,7 @@ public class DeveloperMode : MonoBehaviour
 	public string ShieldCommand = "shield";
 	public string VerticalBeamCommand = "vbeam";
 	public string HorizontalBeamCommand = "hbeam";
+	public string EmpCommand = "emp";
 
 	public string AddScoreCommand = "addscore";
 	public string LoseLifeCommand = "loselife";
@@ -594,6 +595,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.Ability = PlayerController.ability.Shield;
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
+				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
 				ShowCheatNotification ("CHEAT ACTIVATED: SHIELD");
 			}
 
@@ -603,6 +605,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.Ability = PlayerController.ability.VerticalBeam;
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
+				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
 				ShowCheatNotification ("CHEAT ACTIVATED: VERTICAL BEAM");
 			}
 
@@ -612,7 +615,18 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.Ability = PlayerController.ability.HorizontalBeam;
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
+				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
 				ShowCheatNotification ("CHEAT ACTIVATED: HORIZONTAL BEAM");
+			}
+
+			if (CheatString == EmpCommand) 
+			{
+				playerControllerScript_P1.AbilityName = "emp";
+				playerControllerScript_P1.Ability = PlayerController.ability.Emp;
+				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
+				playerControllerScript_P1.ActivateAbility ();
+				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
+				ShowCheatNotification ("CHEAT ACTIVATED: EMP");
 			}
 				
 			if (Input.GetKeyDown (KeyCode.Alpha7))

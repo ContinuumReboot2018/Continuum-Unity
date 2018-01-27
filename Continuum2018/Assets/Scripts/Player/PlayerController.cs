@@ -538,6 +538,8 @@ public class PlayerController : MonoBehaviour
 			HorizontalBeam.SetActive (true);
 			break;
 		}
+
+		camShakeScript.ShakeCam (0.4f, CurrentAbilityDuration, 6);
 	}
 
 	public void DeactivateAbility ()
@@ -567,6 +569,8 @@ public class PlayerController : MonoBehaviour
 		{
 			empParticles.Stop ();
 		}
+
+		camShakeScript.ShakeCam (0.0f, 0, 7);
 	}
 
 	void DeactivateShield ()
