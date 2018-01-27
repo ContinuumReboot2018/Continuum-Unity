@@ -195,34 +195,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 20305503103227270, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_Depth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1082791161579882, guid: edd43ff69b5ac584ab6f733b01a9d6bc, type: 2}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1165558458554692, guid: edd43ff69b5ac584ab6f733b01a9d6bc, type: 2}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 20305503103227270, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_CullingMask.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 20305503103227270, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_HDR
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20305503103227270, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_AllowDynamicResolution
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: edd43ff69b5ac584ab6f733b01a9d6bc, type: 2}
   m_IsPrefabParent: 0

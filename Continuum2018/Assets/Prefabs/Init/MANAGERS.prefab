@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 20439028371073018}
   - component: {fileID: 124979209143594274}
   - component: {fileID: 114772280294189848}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SceneLoaderUICamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4842852468642538}
   - component: {fileID: 114621961245413214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SceneLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,9 +532,9 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
+  m_HDR: 1
   m_AllowMSAA: 0
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -570,7 +570,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 0
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
