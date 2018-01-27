@@ -191,7 +191,7 @@ MonoBehaviour:
   BoundaryY: {x: 0, y: 0}
   speed: -150
   OverwriteVelocity: 0
-  AquaSpeed: -550
+  AquaSpeed: -650
   BlueSpeed: -750
   PurpleSpeed: -950
   PinkSpeed: -1150

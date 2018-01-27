@@ -46,7 +46,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
 
-			if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () != null)
+			if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () != null && playerControllerScript_P1 == null)
 			{
 				playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
 			}

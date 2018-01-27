@@ -18,10 +18,13 @@ public class Block : MonoBehaviour
 	public Vector2 BoundaryX;
 	public Vector2 BoundaryY;
 
+	private Collider BoxCol;
+
 	[Header ("Stats")]
 	public float speed;
 	public bool OverwriteVelocity;
 	private Rigidbody rb;
+	public bool DontIncrementBlocksDestroyed;
 
 	public float AquaSpeed;
 	public float BlueSpeed;
@@ -112,6 +115,7 @@ public class Block : MonoBehaviour
 
 	void Awake ()
 	{
+		BoxCol = GetComponent<Collider> ();
 		rb = GetComponent<Rigidbody> ();
 		rend = GetComponent<MeshRenderer> ();
 		InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
@@ -174,6 +178,16 @@ public class Block : MonoBehaviour
 			transform.rotation = Quaternion.identity;
 			GotDetached = true;
 		}
+
+		if (transform.position.y > 14) 
+		{
+			BoxCol.enabled = false;
+		}
+
+		if (transform.position.y <= 14) 
+		{
+			BoxCol.enabled = true;
+		}
 	}
 
 	void FixedUpdate () 
@@ -206,6 +220,7 @@ public class Block : MonoBehaviour
 			GetTotalPointValue ();
 			CreateExplosion ();
 			DoCamShake ();
+			IncrementBlocksDestroyed ();
 			Destroy (gameObject);
 		//}
 	}
@@ -218,6 +233,7 @@ public class Block : MonoBehaviour
 			{
 				GetTotalPointValue ();
 				CreateExplosion ();
+				IncrementBlocksDestroyed ();
 				DoCamShake ();
 
 				if (other.tag != "Bullet") 
@@ -246,6 +262,7 @@ public class Block : MonoBehaviour
 
 			GetTotalPointValue ();
 			CreateExplosion ();
+			IncrementBlocksDestroyed ();
 
 			if (other.GetComponent<Bullet> () != null)
 			{
@@ -327,6 +344,14 @@ public class Block : MonoBehaviour
 		foreach (GameObject powerupPickup in PowerupPickups) 
 		{
 			Destroy (powerupPickup);
+		}
+	}
+
+	void IncrementBlocksDestroyed ()
+	{
+		if (DontIncrementBlocksDestroyed == false) 
+		{
+			gameControllerScript.BlocksDestroyed += 1;
 		}
 	}
 

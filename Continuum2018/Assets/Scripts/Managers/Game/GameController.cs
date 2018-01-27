@@ -22,7 +22,13 @@ public class GameController : MonoBehaviour
 	public float RealTime;
 	public float TimeRatio;
 	public float Distance;
+	public int BlocksDestroyed;
 	public AudioSource BassTrack;
+
+	public TextMeshProUGUI GameTimeText;
+	public TextMeshProUGUI RealTimeText;
+	public TextMeshProUGUI TimeRatioText;
+	public TextMeshProUGUI BlocksDestroyedText;
 
 	[Header ("Waves")]
 	public int Wave;
@@ -30,6 +36,7 @@ public class GameController : MonoBehaviour
 	public float FirstWaveTimeDuration;
 	public float WaveTimeDuration;
 	public float WaveTimeRemaining;
+	public bool IsInWaveTransition;
 	public TextMeshProUGUI WaveText;
 	public Animator WaveAnim;
 	public RawImage WaveBackground;
@@ -37,6 +44,8 @@ public class GameController : MonoBehaviour
 	public Animator WaveTransitionAnim;
 	public TextMeshProUGUI WaveTransitionText;
 	public AudioSource NextLevelAudio;
+	public Slider WaveTimeSlider;
+	public TextMeshProUGUI WaveTimeRemainText;
 
 	[Header ("Scoring")]
 	public bool CountScore;
@@ -79,7 +88,7 @@ public class GameController : MonoBehaviour
 	public AudioSource PowerupTimeRunningOutAudio;
 	public AudioSource PowerupResetAudio;
 	public GameObject[] PowerupPickups;
-	public float PowerupPickupSpawnRate;
+	public Vector2 PowerupPickupSpawnRate;
 	private float NextPowerupPickupSpawn;
 	public float PowerupPickupSpawnRangeX;
 	public float PowerupPickupSpawnY;
@@ -175,6 +184,9 @@ public class GameController : MonoBehaviour
 		WaveText.text = "";
 		WaveAnim.enabled = false;
 		WaveBackground.enabled = false;
+		IsInWaveTransition = true;
+		//WaveTimeSlider.value = 1;
+		//WaveTimeSlider.maxValue = 1;
 
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
@@ -220,7 +232,8 @@ public class GameController : MonoBehaviour
 		TrackStats = true;
 		WaveTransitionParticles.Play (true);
 		WaveTransitionAnim.Play ("WaveTransition");
-		StartCoroutine (LevelTimer ());
+		IsInWaveTransition = true;
+		WaveTimeRemaining = WaveTimeDuration;
 		StartCoroutine (StartBlockSpawn ());
 		StartCoroutine (PowerupSpawner ());
 		ScoreAnim.enabled = true;
@@ -230,7 +243,6 @@ public class GameController : MonoBehaviour
 		ScoreBackground.enabled = true;
 		LivesBackground.enabled = true;
 		WaveBackground.enabled = true;
-
 	}
 
 	void Update ()
@@ -244,7 +256,7 @@ public class GameController : MonoBehaviour
 		UpdateBlockSpawnTime ();
 		UpdateStarFieldparticleEffectTrail ();
 		UpdateImageEffects ();
-		//CheckOrthSize ();
+		LevelTimer ();
 
 		if (WaveTimeRemaining < 0) 
 		{
@@ -456,8 +468,10 @@ public class GameController : MonoBehaviour
 
 	public void SetPowerupTime (float Duration)
 	{
-		PowerupTimeDuration = Duration;
-		PowerupTimeRemaining = PowerupTimeDuration;
+		PowerupTimeRemaining += Duration;
+		PowerupTimeRemaining = Mathf.Clamp (PowerupTimeRemaining, 0, PowerupTimeDuration);
+		//PowerupTimeDuration = Duration;
+		//PowerupTimeRemaining = PowerupTimeDuration;
 	}
 
 	void UpdateTimeStats ()
@@ -468,6 +482,24 @@ public class GameController : MonoBehaviour
 			GameTime += Time.deltaTime;
 			RealTime += Time.unscaledDeltaTime;
 			TimeRatio = GameTime / RealTime;
+
+			GameTimeText.text = "GAME TIME: " + 
+				(GameTime / 60 / 60).ToString ("00") + " " + // To hours. 
+				(GameTime/60).ToString("00") + "\' " + // To minutes.
+				(GameTime % 60).ToString("00") + "\""; // To seconds.
+
+			RealTimeText.text = "REAL TIME: " + 
+				(RealTime / 60 / 60).ToString ("00") + " " + // To hours. 
+				(RealTime/60).ToString("00") + "\' " + // To minutes.
+				(RealTime % 60).ToString("00") + "\""; // To seconds.
+
+			TimeRatioText.text = "AVERAGE TIME SCALE: " + System.Math.Round((GameTime / RealTime), 2).ToString ("0.00") + "";
+
+			BlocksDestroyedText.text = "BLOCKS DESTROYED: " + BlocksDestroyed;
+			WaveTimeRemainText.text = "WAVE TIME: " + System.Math.Round (WaveTimeRemaining, 0);
+			//WaveTimeSlider.value = WaveTimeRemaining;
+			//WaveTimeSlider.minValue = 0;
+			//WaveTimeSlider.maxValue = WaveTimeDuration;
 		}
 	}
 
@@ -594,15 +626,14 @@ public class GameController : MonoBehaviour
 		MainCamera.orthographicSize = Mathf.SmoothDamp (MainCamera.orthographicSize, OrthSize, ref OrthSizeVel, OrthSizeSmoothTime * Time.deltaTime);
 	}
 
-	public IEnumerator LevelTimer ()
+	public void LevelTimer ()
 	{
-		while (WaveTimeRemaining > 0) 
+		if (WaveTimeRemaining > 0 && IsInWaveTransition == false) 
 		{
 			if (playerControllerScript_P1.isInCooldownMode == false && isPaused == false && isGameOver == false) 
 			{
 				WaveTimeRemaining -= Time.deltaTime;
 			}
-			yield return null;
 		}
 	}
 
@@ -618,12 +649,13 @@ public class GameController : MonoBehaviour
 		WaveTransitionParticles.Play (true);
 		WaveTransitionAnim.Play ("WaveTransition");
 		WaveTransitionText.text = "WAVE " + Wave;
+		IsInWaveTransition = true;
+		WaveTimeRemaining = WaveTimeDuration;
 		playerControllerScript_P1.camShakeScript.shakeAmount = 0.4f;
 		playerControllerScript_P1.camShakeScript.shakeDuration = 3.7f;
 		playerControllerScript_P1.camShakeScript.Shake ();
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 3);
 		NextLevelAudio.Play ();
-		StartCoroutine (LevelTimer ());
 	}
 
 	IEnumerator StartBlockSpawn ()
@@ -747,7 +779,7 @@ public class GameController : MonoBehaviour
 	{
 		while (isGameOver == false) 
 		{
-			yield return new WaitForSecondsRealtime (UnityEngine.Random.Range (PowerupPickupSpawnRate, PowerupPickupSpawnRate * 2));
+			yield return new WaitForSecondsRealtime (UnityEngine.Random.Range (PowerupPickupSpawnRate.x, PowerupPickupSpawnRate.y));
 			SpawnPowerupPickup ();
 			yield return null;
 		}

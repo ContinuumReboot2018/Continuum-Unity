@@ -184,6 +184,14 @@ public class PlayerController : MonoBehaviour
 	public GameObject VerticalBeam;
 	public ParticleSystem[] VerticalBeamParticles;
 
+	[Header ("HorizontalBeam")]
+	public GameObject HorizontalBeam;
+	public ParticleSystem[] HorizontalBeamParticles;
+
+	[Header ("Emp")]
+	public GameObject Emp;
+	public ParticleSystem[] EmpParticles;
+
 	[Header ("Turret Player")]
 	[Range (0, 4)]
 	public int nextTurretSpawn;
@@ -219,6 +227,7 @@ public class PlayerController : MonoBehaviour
 		PlayerText.text = "";
 		LivesAnim.gameObject.SetActive (false);
 		RefreshAbilityName ();
+		InvincibleMesh.enabled = false;
 	}
 
 	void Start () 
@@ -514,11 +523,13 @@ public class PlayerController : MonoBehaviour
 			TargetShieldScale = 1;
 			break;
 		case ability.Emp:
+			Emp.SetActive (true);
 			break;
 		case ability.VerticalBeam:
 			VerticalBeam.SetActive (true);
 			break;
 		case ability.HorizontalBeam:
+			HorizontalBeam.SetActive (true);
 			break;
 		}
 	}
@@ -537,6 +548,19 @@ public class PlayerController : MonoBehaviour
 		{
 			vbParticles.Stop ();
 		}
+
+		// Deactivates horizontal shield.
+		Invoke ("DeactivateHorizontalBeam", 3);
+		foreach (ParticleSystem hzParticles in HorizontalBeamParticles)
+		{
+			hzParticles.Stop ();
+		}
+
+		Invoke ("DeactivateEmp", 3);
+		foreach (ParticleSystem empParticles in EmpParticles) 
+		{
+			empParticles.Stop ();
+		}
 	}
 
 	void DeactivateShield ()
@@ -553,6 +577,16 @@ public class PlayerController : MonoBehaviour
 		VerticalBeam.SetActive (false);
 	}
 
+	void DeactivateHorizontalBeam ()
+	{
+		HorizontalBeam.SetActive (false);
+	}
+
+	void DeactivateEmp ()
+	{
+		Emp.SetActive (false);
+	}
+
 	public void RefreshAbilityName ()
 	{
 		switch (Ability) 
@@ -562,6 +596,12 @@ public class PlayerController : MonoBehaviour
 			break;
 		case ability.Emp:
 			AbilityName = "Emp";
+			break;
+		case ability.VerticalBeam:
+			AbilityName = "VerticalBeam";
+			break;
+		case ability.HorizontalBeam:
+			AbilityName = "HorizontalBeam";
 			break;
 		}
 	}
@@ -973,9 +1013,10 @@ public class PlayerController : MonoBehaviour
 				powerupimage.color == Color.black && 
 				powerupimage.texture == null) 
 			{
-				if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == false) 
+				//powerupimage.color = new Color (0, 0, 0, 0);
+				if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOutInstant") == false) 
 				{
-					powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOut");
+					powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOutInstant");
 				}
 			}
 		}

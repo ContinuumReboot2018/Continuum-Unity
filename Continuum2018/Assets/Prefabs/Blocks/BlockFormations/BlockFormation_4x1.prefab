@@ -568,7 +568,7 @@ MonoBehaviour:
   BoundaryY: {x: 0, y: 0}
   speed: -150
   OverwriteVelocity: 0
-  AquaSpeed: -550
+  AquaSpeed: -650
   BlueSpeed: -750
   PurpleSpeed: -950
   PinkSpeed: -1150
@@ -752,7 +752,7 @@ MonoBehaviour:
   AquaSpeed: -650
   BlueSpeed: -750
   PurpleSpeed: -950
-  PinkSpeed: -1050
+  PinkSpeed: -1150
   AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
   BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
   PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
@@ -825,7 +825,7 @@ MonoBehaviour:
   AquaSpeed: -650
   BlueSpeed: -750
   PurpleSpeed: -950
-  PinkSpeed: -1050
+  PinkSpeed: -1150
   AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
   BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
   PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
@@ -898,7 +898,7 @@ MonoBehaviour:
   AquaSpeed: -650
   BlueSpeed: -750
   PurpleSpeed: -950
-  PinkSpeed: -1050
+  PinkSpeed: -1150
   AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
   BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
   PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}

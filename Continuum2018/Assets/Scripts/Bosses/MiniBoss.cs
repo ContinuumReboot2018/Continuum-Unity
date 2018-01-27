@@ -37,16 +37,9 @@ public class MiniBoss : MonoBehaviour
 
 	void Awake ()
 	{
-		hitPoints = StartingHitPoints;
-
 		if (GameObject.Find ("PlayerFollow").transform != null)
 		{
 			FollowPlayerPos = GameObject.Find ("PlayerFollow").transform;
-		}
-
-		if (GameObject.Find ("PlayerCollider").transform != null) 
-		{
-			PlayerPos = GameObject.Find ("PlayerCollider").transform;
 		}
 
 		BrainLookScript.LookAtPos = FollowPlayerPos.transform;
@@ -58,18 +51,24 @@ public class MiniBoss : MonoBehaviour
 		{
 			Brain = this.gameObject;
 		}
-		StartCoroutine (DrawLineToPlayer ());
 	}
 
 	void Start () 
 	{
+		if (GameObject.Find ("PlayerCollider").transform != null) 
+		{
+			PlayerPos = GameObject.Find ("PlayerCollider").transform;
+		}
+			
 		if (gameControllerScript == null) 
 		{
 			gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		}
 
 		BossParts = GetComponentsInChildren<Block> (true);
+		hitPoints = StartingHitPoints + gameControllerScript.Wave;
 
+		StartCoroutine (DrawLineToPlayer ());
 	}
 
 	void Update ()
@@ -142,6 +141,7 @@ public class MiniBoss : MonoBehaviour
 				BossPartsParent.transform.DetachChildren ();
 				BossPartsConvertToNoise ();
 				gameControllerScript.StartNewWave ();
+				gameControllerScript.IsInWaveTransition = true;
 				Destroy (MiniBossParent.gameObject);
 			}
 		}

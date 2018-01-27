@@ -78,6 +78,7 @@ public class DeveloperMode : MonoBehaviour
 
 	public string ShieldCommand = "shield";
 	public string VerticalBeamCommand = "vbeam";
+	public string HorizontalBeamCommand = "hbeam";
 
 	public string AddScoreCommand = "addscore";
 	public string LoseLifeCommand = "loselife";
@@ -603,6 +604,15 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
 				ShowCheatNotification ("CHEAT ACTIVATED: VERTICAL BEAM");
+			}
+
+			if (CheatString == HorizontalBeamCommand) 
+			{
+				playerControllerScript_P1.AbilityName = "horizontalbeam";
+				playerControllerScript_P1.Ability = PlayerController.ability.HorizontalBeam;
+				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
+				playerControllerScript_P1.ActivateAbility ();
+				ShowCheatNotification ("CHEAT ACTIVATED: HORIZONTAL BEAM");
 			}
 				
 			if (Input.GetKeyDown (KeyCode.Alpha7))

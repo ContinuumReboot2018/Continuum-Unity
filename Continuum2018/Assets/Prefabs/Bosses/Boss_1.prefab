@@ -4854,7 +4854,7 @@ MonoBehaviour:
   UseWorldPositionZ: 0
   OscillateRotX: 0
   OscillateRotY: 0
-  OscillateRotZ: 1
+  OscillateRotZ: 0
   RotAmount: {x: 0, y: 0, z: 3}
   RotPeriod: {x: 0, y: 0, z: 2}
   RotOffset: {x: 0, y: 0, z: 0}
