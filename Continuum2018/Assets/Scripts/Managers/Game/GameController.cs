@@ -260,7 +260,17 @@ public class GameController : MonoBehaviour
 
 		if (WaveTimeRemaining < 0) 
 		{
-			StartCoroutine (SpawnMiniBoss ());
+			if (Wave % 5 != 0)
+			{
+				StartCoroutine (SpawnMiniBoss ());
+			}
+
+			if (Wave % 5 == 0)
+			{
+				audioControllerScript.StopAllSoundtracks ();
+				StartCoroutine (SpawnMiniBoss ()); // Supposed to spawn a big boss.
+			}
+
 			WaveTimeRemaining = 0;
 		}
 	}
@@ -651,9 +661,10 @@ public class GameController : MonoBehaviour
 		WaveTransitionText.text = "WAVE " + Wave;
 		IsInWaveTransition = true;
 		WaveTimeRemaining = WaveTimeDuration;
-		playerControllerScript_P1.camShakeScript.shakeAmount = 0.4f;
-		playerControllerScript_P1.camShakeScript.shakeDuration = 3.7f;
-		playerControllerScript_P1.camShakeScript.Shake ();
+		playerControllerScript_P1.camShakeScript.ShakeCam (0.4f, 3.7f, 99);
+		//playerControllerScript_P1.camShakeScript.shakeAmount = 0.4f;
+		//playerControllerScript_P1.camShakeScript.shakeDuration = 3.7f;
+		//playerControllerScript_P1.camShakeScript.Shake ();
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 3);
 		NextLevelAudio.Play ();
 	}
@@ -810,8 +821,15 @@ public class GameController : MonoBehaviour
 	public IEnumerator GoToNextWave ()
 	{
 		yield return new WaitForSecondsRealtime (5);
+
+		if (Wave % 5 == 0) 
+		{
+			audioControllerScript.LoadTracks ();
+		}
+
 		Wave += 1;
 		NextLevel ();
 		StartCoroutine (StartBlockSpawn ());
+
 	}
 }

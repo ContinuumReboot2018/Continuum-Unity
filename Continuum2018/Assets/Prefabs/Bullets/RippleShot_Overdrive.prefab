@@ -528,8 +528,8 @@ MonoBehaviour:
   AwakeAudio: {fileID: 0}
   camShakeScript: {fileID: 0}
   shakeDuration: 0
-  shakeTimeRemaining: 0
-  shakeAmount: 0
+  shakeTimeRemaining: 0.15
+  shakeAmount: 0.4
   LeftMotorRumble: 0.2
   RightMotorRumble: 0.2
   VibrationDuration: 0.25

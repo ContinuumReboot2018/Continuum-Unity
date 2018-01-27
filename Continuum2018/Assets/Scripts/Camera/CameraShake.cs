@@ -16,6 +16,8 @@ public class CameraShake : MonoBehaviour
 	public float decreaseFactor = 1.0f;
 	
 	Vector3 originalPos;
+
+	public int Priority;
 	
 	void Awake()
 	{
@@ -40,6 +42,7 @@ public class CameraShake : MonoBehaviour
 		}
 		else
 		{
+			Priority = 0;
 			shakeTimeRemaining = 0f;
 			camTransform.localPosition = originalPos;
 		}
@@ -48,5 +51,21 @@ public class CameraShake : MonoBehaviour
 	public void Shake ()
 	{
 		shakeTimeRemaining = shakeDuration;
+	}
+
+	public void ShakeCam (float strength, float time, int priority)
+	{
+		if (priority > Priority)
+		{
+			shakeAmount = strength;
+			shakeDuration = time;
+			shakeTimeRemaining = time;
+			Priority = priority;
+		}
+	}
+
+	public void OverwriteCamShakeDuration (float duration)
+	{
+		shakeDuration = duration;
 	}
 }

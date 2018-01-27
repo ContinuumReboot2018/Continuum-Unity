@@ -274,7 +274,7 @@ public class AudioController : MonoBehaviour
 		TrackName = TrackNames [TrackNumber];
 	}
 
-	void LoadTracks ()
+	public void LoadTracks ()
 	{
 		TrackName = TrackNames [TrackNumber];
 		BassTrack.clip = BassTracks [TrackNumber];

@@ -110,6 +110,14 @@ public class TimescaleController : MonoBehaviour
 				// Updates fixed time step based on time scale.
 				Time.fixedDeltaTime = Time.timeScale * 0.005f;
 			}
+
+			if (isOverridingTimeScale == true) 
+			{
+				if (Time.timeScale <= MinimumTimeScale) 
+				{
+					Time.fixedDeltaTime = Time.timeScale * 0.001f;
+				}
+			}
 		} else 
 		{
 			Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;

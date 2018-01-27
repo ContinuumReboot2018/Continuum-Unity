@@ -491,9 +491,9 @@ public class DeveloperMode : MonoBehaviour
 						break;
 					}
 
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = RapidfireTexture;
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = RapidFireColor;
-					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+					//gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = RapidfireTexture;
+					//gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = RapidFireColor;
+					//gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 					//gameControllerScript.NextPowerupSlot_P1 += 1;
 					gameControllerScript.RapidfireImage.enabled = true;
 					playerControllerScript_P1.isInRapidFire = true;
@@ -515,9 +515,9 @@ public class DeveloperMode : MonoBehaviour
 
 					if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard)
 					{
-						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = OverdriveTexture;
-						gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = OverdriveColor;
-						gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+						//gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = OverdriveTexture;
+						//gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = OverdriveColor;
+						//gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 						//gameControllerScript.NextPowerupSlot_P1 += 1;
 					}
 

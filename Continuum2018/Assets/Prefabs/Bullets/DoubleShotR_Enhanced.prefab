@@ -556,7 +556,7 @@ MonoBehaviour:
   shakeAmount: 0.15
   LeftMotorRumble: 0.2
   RightMotorRumble: 0.2
-  VibrationDuration: 0.15
+  VibrationDuration: 0.3
 --- !u!114 &114295994529349986
 MonoBehaviour:
   m_ObjectHideFlags: 1

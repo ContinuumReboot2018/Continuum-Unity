@@ -38517,6 +38517,7 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.1
   decreaseFactor: 1
+  Priority: 0
 --- !u!1 &533606132
 GameObject:
   m_ObjectHideFlags: 0
@@ -69103,11 +69104,11 @@ MonoBehaviour:
   UsePlayerFollow: 0
   PlayerFollow: {fileID: 2043035884}
   PlayerFollowRb: {fileID: 2043035885}
-  PlayerFollowMoveSpeed: 4000
+  PlayerFollowMoveSpeed: 3500
   XBounds: {x: -20, y: 20}
   YBounds: {x: -10.5, y: 10.5}
   PlayerRb: {fileID: 815677230}
-  SmoothFollowTime: 30
+  SmoothFollowTime: 15
   YRotationAmount: 40
   YRotationMultiplier: 100
   PlayerVibrationDuration: 0
@@ -110521,7 +110522,7 @@ MonoBehaviour:
   - 20.25
   BlockSpawnYPosition: 15
   BlockSpawnZPosition: 0
-  BlockSpawnIncreaseRate: 0.02
+  BlockSpawnIncreaseRate: 0.01
   PowerupTimeRemaining: 0
   PowerupTimeDuration: 10
   MaxSimultaneousPowerups: 10
@@ -110539,7 +110540,7 @@ MonoBehaviour:
   - {fileID: 1651301842688076, guid: 4ceeb18873029f84181bd27136f7105b, type: 2}
   - {fileID: 1418825471492646, guid: 96d28fca0bd3bcb40ae4656bad925885, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
-  PowerupPickupSpawnRate: {x: 4, y: 20}
+  PowerupPickupSpawnRate: {x: 2, y: 16}
   PowerupPickupSpawnRangeX: 20
   PowerupPickupSpawnY: 10
   NextPowerupSlot_P1: 0
@@ -110575,7 +110576,7 @@ MonoBehaviour:
   MiniBossSpawnPos: {fileID: 1499924279}
   bossSpawnDelay: 4
   isPaused: 0
-  PauseCooldown: 1
+  PauseCooldown: 0.25
   canPause: 1
   PauseUI: {fileID: 1314035616}
   NextPauseCooldown: 0
@@ -125125,7 +125126,7 @@ MonoBehaviour:
   isOverridingTimeScale: 0
   OverridingTimeScale: 0
   OverrideTimeScaleTimeRemaining: 0
-  OverrideTimeScaleSmoothing: 6000
+  OverrideTimeScaleSmoothing: 60
   isEndSequence: 0
   EndSequenceInitialDelay: 3
 --- !u!1 &1645029142
@@ -132976,6 +132977,36 @@ Prefab:
         type: 2}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114983123534242054, guid: ce34054baf2feec468e00fa4810db95c,
+        type: 2}
+      propertyPath: DontIncrementBlocksDestroyed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114478853057411468, guid: ce34054baf2feec468e00fa4810db95c,
+        type: 2}
+      propertyPath: DontIncrementBlocksDestroyed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114595696116751500, guid: ce34054baf2feec468e00fa4810db95c,
+        type: 2}
+      propertyPath: DontIncrementBlocksDestroyed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114925235934592614, guid: ce34054baf2feec468e00fa4810db95c,
+        type: 2}
+      propertyPath: DontIncrementBlocksDestroyed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070521992032722, guid: ce34054baf2feec468e00fa4810db95c,
+        type: 2}
+      propertyPath: DontIncrementBlocksDestroyed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114317498539841080, guid: ce34054baf2feec468e00fa4810db95c,
+        type: 2}
+      propertyPath: DontIncrementBlocksDestroyed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ce34054baf2feec468e00fa4810db95c, type: 2}

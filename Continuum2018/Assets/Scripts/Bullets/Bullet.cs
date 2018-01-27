@@ -123,6 +123,7 @@ public class Bullet : MonoBehaviour
 			if (isRicochet == true && BulletTypeName.Contains ("Ripple") == false && BulletTypeName.Contains ("Helix") == false) 
 			{
 				Ricochet ();
+				camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
 			}
 		}
 	}
@@ -143,6 +144,7 @@ public class Bullet : MonoBehaviour
 			float newZrot = Random.Range (100, 260);
 			transform.rotation = Quaternion.Euler (0, 0, newZrot);
 			RicochetSound.Play ();
+			camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
 		}
 
 		// Moves to bottom of screen.
@@ -151,6 +153,7 @@ public class Bullet : MonoBehaviour
 			float newZrot = Random.Range (-80, 80);
 			transform.rotation = Quaternion.Euler (0, 0, newZrot);
 			RicochetSound.Play ();
+			camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
 		}
 
 		// Moves to right of screen.
@@ -177,6 +180,7 @@ public class Bullet : MonoBehaviour
 		float newZrot = Random.Range (-180, 180);
 		transform.rotation = Quaternion.Euler (0, 0, newZrot);
 		RicochetSound.Play ();
+		camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
 	}
 
 	void MoveTowardsHomingObject ()
@@ -278,7 +282,9 @@ public class Bullet : MonoBehaviour
 
 	void StartCameraShake ()
 	{
-		// Current shake strength is less than this shake strength. 
+		camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
+
+		/*// Current shake strength is less than this shake strength. 
 		if (camShakeScript.shakeAmount < shakeAmount) 
 		{
 			// Current shake time remaining is less than this shake time remain.
@@ -299,7 +305,7 @@ public class Bullet : MonoBehaviour
 				//camShakeScript.shakeDuration = shakeDuration;
 				//camShakeScript.shakeTimeRemaining = shakeTimeRemaining;
 			}
-		}
+		}*/
 	}
 
 	public IEnumerator DestroyDelay ()
