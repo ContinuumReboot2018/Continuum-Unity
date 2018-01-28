@@ -100,7 +100,10 @@ public class TimescaleController : MonoBehaviour
 			isEndSequence == false && 
 			playerControllerScript_P1.isInCooldownMode == false) 
 		{
-			if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
+			if (isOverridingTimeScale == false && 
+				isInInitialSequence == false && 
+				isInInitialCountdownSequence == false && 
+				playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true) 
 			{
 				Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
 
