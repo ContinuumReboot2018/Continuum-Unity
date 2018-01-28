@@ -59,11 +59,13 @@ public class GameController : MonoBehaviour
 
 	[Header ("Lives")]
 	public int Lives;
+	public int MaxLives = 11;
 	public TextMeshProUGUI LivesText;
 	public Animator LivesAnim;
 	public RawImage[] LifeImages;
 	public RawImage LivesBackground;
 	public GameObject LivesSpacing;
+	public TextMeshProUGUI MaxLivesText;
 
 	[Header ("Combo")]
 	public int combo = 1;
@@ -417,6 +419,19 @@ public class GameController : MonoBehaviour
 				LivesText.gameObject.SetActive (true);
 				LivesText.text = "x " + (Lives - 1);
 			}
+		}
+
+		// Caps maximum lives.
+		Lives = Mathf.Clamp (Lives, 0, MaxLives);
+
+		if (Lives < MaxLives) 
+		{
+			MaxLivesText.text = "";
+		}
+
+		if (Lives >= MaxLives) 
+		{
+			MaxLivesText.text = "MAX";
 		}
 	}
 

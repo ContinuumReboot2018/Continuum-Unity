@@ -226,7 +226,7 @@ public class Block : MonoBehaviour
 		//}
 	}
 
-	void OnTriggerStay (Collider other)
+	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.name.Contains ("Missile")) 
 		{
