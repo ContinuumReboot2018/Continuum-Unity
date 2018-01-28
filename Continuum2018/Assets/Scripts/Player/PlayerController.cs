@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
 	public bool canShoot = true;
 	public float CurrentFireRate = 0.1f;
 	public float FireRateTimeMultiplier = 2;
-	private float NextFire;
+	public float NextFire;
 
 	public shotType ShotType; 
 	public enum shotType
@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
 	public AudioSource GameOverExplosionAudio;
 	public MeshCollider InvincibleCollider;
 	public MeshRenderer InvincibleMesh;
+	public Animator InvincibleMeshAnim;
 	public GameObject PlayerGuides;
 	public GameObject AbilityUI;
 
@@ -111,6 +112,9 @@ public class PlayerController : MonoBehaviour
 		VerticalBeam,
 		HorizontalBeam,
 	}
+
+	public RawImage AbilityImage;
+	public Texture2D[] AbilityTextures;
 	public Image AbilityFillImageL;
 	public Image AbilityFillImageR;
 	public TextMeshProUGUI AbilityReadyText;
@@ -134,7 +138,7 @@ public class PlayerController : MonoBehaviour
 	public Transform DoubleShotSpawnR;
 	public float[] DoubleShotFireRates;
 	public shotIteration DoubleShotIteration;
-	private float DoubleShotNextFire;
+	public float DoubleShotNextFire;
 
 	// Triple shot.
 	public GameObject TripleShotL;
@@ -151,7 +155,7 @@ public class PlayerController : MonoBehaviour
 	public Transform TripleShotSpawnR;
 	public float[] TripleShotFireRates;
 	public shotIteration TripleShotIteration;
-	private float TripleShotNextFire;
+	public float TripleShotNextFire;
 
 	// Ripple shot.
 	public GameObject RippleShot;
@@ -160,7 +164,7 @@ public class PlayerController : MonoBehaviour
 	public Transform RippleShotSpawn;
 	public float[] RippleShotFireRates;
 	public shotIteration RippleShotIteration;
-	private float RippleShotNextFire;
+	public float RippleShotNextFire;
 
 	public enum shotIteration
 	{
@@ -227,7 +231,10 @@ public class PlayerController : MonoBehaviour
 		PlayerText.text = "";
 		LivesAnim.gameObject.SetActive (false);
 		RefreshAbilityName ();
-		InvincibleMesh.enabled = false;
+		InvincibleMeshAnim.Play ("InvincibleMeshOffInstant");
+		//InvincibleMesh.enabled = false;
+		//InvincibleCollider.enabled = false;
+		RefreshAbilityImage ();
 	}
 
 	void Start () 
@@ -382,8 +389,8 @@ public class PlayerController : MonoBehaviour
 			playerCol.enabled = true;
 		}
 
-		InvincibleMesh.enabled = false;
-		InvincibleCollider.enabled = false;
+		//InvincibleMesh.enabled = false;
+		//InvincibleCollider.enabled = false;
 	}
 
 	void RejoinGame ()
@@ -394,11 +401,9 @@ public class PlayerController : MonoBehaviour
 		audioControllerScript.TargetCutoffFreq = 22000;
 		audioControllerScript.TargetResonance = 1;
 
-		if (InvincibleMesh.enabled == false) 
-		{
-			InvincibleMesh.enabled = true;
-			InvincibleCollider.enabled = true;
-		}
+		//InvincibleMesh.enabled = true;
+		//InvincibleCollider.enabled = true;
+		InvincibleMeshAnim.Play ("InvincibleMeshFlash");
 	}
 
 	public void EnablePlayerInput ()
@@ -439,6 +444,8 @@ public class PlayerController : MonoBehaviour
 		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbilityDuration;
 		AbilityFillImageL.fillAmount = 0.16f * AbilityTimeAmountProportion; // Fills to a sixth.
 		AbilityFillImageR.fillAmount = 0.16f * AbilityTimeAmountProportion; // Fills to a sixth.
+		//AbilityFillImageL.fillAmount = 0.5f * AbilityTimeAmountProportion; // Fills to a sixth.
+		//AbilityFillImageR.fillAmount = 0.5f * AbilityTimeAmountProportion; // Fills to a sixth.
 
 		// Player presses ability button.
 		if (playerActions.Ability.WasPressed && gameControllerScript.isPaused == false) 
@@ -612,6 +619,25 @@ public class PlayerController : MonoBehaviour
 			break;
 		case ability.HorizontalBeam:
 			AbilityName = "HorizontalBeam";
+			break;
+		}
+	}
+
+	public void RefreshAbilityImage ()
+	{
+		switch (Ability) 
+		{
+		case ability.Shield:
+			AbilityImage.texture = AbilityTextures [0];
+			break;
+		case ability.Emp:
+			AbilityImage.texture = AbilityTextures [1];
+			break;
+		case ability.VerticalBeam:
+			AbilityImage.texture = AbilityTextures [2];
+			break;
+		case ability.HorizontalBeam:
+			AbilityImage.texture = AbilityTextures [3];
 			break;
 		}
 	}

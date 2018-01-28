@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour
 	public int Lives;
 	public TextMeshProUGUI LivesText;
 	public Animator LivesAnim;
-	public RawImage LifeOne, LifeTwo, LifeThree;
+	public RawImage[] LifeImages;
 	public RawImage LivesBackground;
 	public GameObject LivesSpacing;
 
@@ -352,10 +352,9 @@ public class GameController : MonoBehaviour
 		{
 			if (LivesText.gameObject.activeSelf == true) 
 			{
-				LifeOne.gameObject.SetActive (false);
-				LifeTwo.gameObject.SetActive (false);
-				LifeThree.gameObject.SetActive (false);
-
+				LifeImages [0].enabled = false;
+				LifeImages [1].enabled = false;
+				LifeImages [2].enabled = false;
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
 			}
@@ -367,60 +366,55 @@ public class GameController : MonoBehaviour
 			case 0:
 				if (LivesText.gameObject.activeSelf == true) 
 				{
-					LifeOne.gameObject.SetActive (false);
-					LifeTwo.gameObject.SetActive (false);
-					LifeThree.gameObject.SetActive (false);
+					LifeImages [0].enabled = false;
+					LifeImages [1].enabled = false;
+					LifeImages [2].enabled = false;
 					LivesSpacing.SetActive (false);
 					LivesText.gameObject.SetActive (false);
 					LivesText.text = "";
 				}
 				break;
 			case 1:
-				LivesText.gameObject.SetActive (false);
-				LifeOne.gameObject.SetActive (false);
-				LifeTwo.gameObject.SetActive (false);
-				LifeThree.gameObject.SetActive (false);
+				LifeImages [0].enabled = false;
+				LifeImages [1].enabled = false;
+				LifeImages [2].enabled = false;
 				LivesSpacing.SetActive (false);
-				//LivesBackground.enabled = false;
+				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
 				break;
 			case 2:
-				LivesText.gameObject.SetActive (false);
-				LifeOne.gameObject.SetActive (true);
-				LifeTwo.gameObject.SetActive (false);
-				LifeThree.gameObject.SetActive (false);
+				LifeImages [0].enabled = true;
+				LifeImages [1].enabled = false;
+				LifeImages [2].enabled = false;
 				LivesSpacing.SetActive (false);
-				//LivesBackground.enabled = true;
+				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
 				break;
 			case 3:
-				LivesText.gameObject.SetActive (false);
-				LifeOne.gameObject.SetActive (true);
-				LifeTwo.gameObject.SetActive (true);
-				LifeThree.gameObject.SetActive (false);
+				LifeImages [0].enabled = true;
+				LifeImages [1].enabled = true;
+				LifeImages [2].enabled = false;
 				LivesSpacing.SetActive (false);
-				//LivesBackground.enabled = true;
+				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
 				break;
 			case 4:
-				LivesText.gameObject.SetActive (false);
-				LifeOne.gameObject.SetActive (true);
-				LifeTwo.gameObject.SetActive (true);
-				LifeThree.gameObject.SetActive (true);
+				LifeImages [0].enabled = true;
+				LifeImages [1].enabled = true;
+				LifeImages [2].enabled = true;
 				LivesSpacing.SetActive (false);
-				//LivesBackground.enabled = true;
+				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
 				break;
 			}
 
 			if (Lives > 4) 
 			{
-				LivesText.gameObject.SetActive (true);
-				LifeOne.gameObject.SetActive (true);
-				LifeTwo.gameObject.SetActive (false);
-				LifeThree.gameObject.SetActive (false);
+				LifeImages [0].enabled = true;
+				LifeImages [1].enabled = false;
+				LifeImages [2].enabled = false;
 				LivesSpacing.SetActive (true);
-				//LivesBackground.enabled = true;
+				LivesText.gameObject.SetActive (true);
 				LivesText.text = "x " + (Lives - 1);
 			}
 		}
@@ -471,7 +465,7 @@ public class GameController : MonoBehaviour
 			PowerupTimeRemaining = 0;
 			PowerupAnim.StopPlayback ();
 			PowerupResetAudio.Play ();
-			// Reset all powerups for both players.
+			// Reset all powerups for all players.
 			playerControllerScript_P1.ResetPowerups ();
 		}
 	}
@@ -633,7 +627,12 @@ public class GameController : MonoBehaviour
 		OrthSize = -0.27f * (timescaleControllerScript.Distance) + 10;
 		OrthSize = 4 * Mathf.Sin (0.17f * timescaleControllerScript.Distance) + 8;
 
-		MainCamera.orthographicSize = Mathf.SmoothDamp (MainCamera.orthographicSize, OrthSize, ref OrthSizeVel, OrthSizeSmoothTime * Time.deltaTime);
+		MainCamera.orthographicSize = Mathf.SmoothDamp (
+			MainCamera.orthographicSize, 
+			OrthSize, 
+			ref OrthSizeVel, 
+			OrthSizeSmoothTime * Time.deltaTime
+		);
 	}
 
 	public void LevelTimer ()
@@ -660,12 +659,10 @@ public class GameController : MonoBehaviour
 		WaveTransitionAnim.Play ("WaveTransition");
 		WaveTransitionText.text = "WAVE " + Wave;
 		IsInWaveTransition = true;
-		WaveTimeRemaining = WaveTimeDuration;
+
 		playerControllerScript_P1.camShakeScript.ShakeCam (0.4f, 3.7f, 99);
-		//playerControllerScript_P1.camShakeScript.shakeAmount = 0.4f;
-		//playerControllerScript_P1.camShakeScript.shakeDuration = 3.7f;
-		//playerControllerScript_P1.camShakeScript.Shake ();
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 3);
+
 		NextLevelAudio.Play ();
 	}
 
@@ -815,21 +812,32 @@ public class GameController : MonoBehaviour
 
 	public void StartNewWave ()
 	{
+		if (IsInvoking ("IncrementWaveNumber") == false) 
+		{
+			Invoke ("IncrementWaveNumber", 0);
+		}
+
 		StartCoroutine (GoToNextWave ());
+	}
+
+	void IncrementWaveNumber ()
+	{
+		Wave += 1;
 	}
 
 	public IEnumerator GoToNextWave ()
 	{
 		yield return new WaitForSecondsRealtime (5);
 
-		if (Wave % 5 == 0) 
+		if (Wave % 5 == 1) 
 		{
+			audioControllerScript.NextTrack ();
 			audioControllerScript.LoadTracks ();
 		}
 
-		Wave += 1;
 		NextLevel ();
-		StartCoroutine (StartBlockSpawn ());
 
+		StartCoroutine (StartBlockSpawn ());
+		StopCoroutine (GoToNextWave ());
 	}
 }

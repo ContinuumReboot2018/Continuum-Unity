@@ -576,6 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameControllerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
+  timescaleControllerScript: {fileID: 0}
   PowerupTexture: {fileID: 2800000, guid: 0f0a3e4b7ba9d2c44b55ce088305b893, type: 3}
   isShootingPowerup: 0
   AwakeAudio: {fileID: 82572145821240688}
@@ -591,9 +592,12 @@ MonoBehaviour:
     type: 2}
   PowerupUI: {fileID: 0}
   PowerupTimeRunningOutAudio: {fileID: 0}
+  PowerupPickupUI: {fileID: 1771047903743466, guid: 91bf4fd2a7e677c4e9ea72c391527dbf,
+    type: 2}
+  PowerupPickupUIColor: {r: 1, g: 0.2794118, b: 0.5626776, a: 1}
   anim: {fileID: 0}
   destroyByTimeScript: {fileID: 0}
-  Clone: {fileID: 0}
+  Turret: {fileID: 0}
 --- !u!114 &114548992433242758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -624,6 +628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 6
+  useUnscaledTime: 0
 --- !u!135 &135161475605405856
 SphereCollider:
   m_ObjectHideFlags: 1

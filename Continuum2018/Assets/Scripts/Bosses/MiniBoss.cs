@@ -101,15 +101,14 @@ public class MiniBoss : MonoBehaviour
 			if (other.name.Contains ("P1") || other.name.Contains ("Shield_Col") ||
 			    other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
 			{
-				if (hitPoints > 1) 
+				if (hitPoints > 0) 
 				{
-					// Refreshes array of block components in children.
 					BossParts = GetComponentsInChildren<Block> ();
 					hitPoints -= 1;
 					Instantiate (SmallExplosion, transform.position, transform.rotation);
 				}
 
-				if (hitPoints <= 1) 
+				if (hitPoints <= 0) 
 				{
 					hitPoints = 0;
 					Instantiate (LargeExplosion, transform.position, transform.rotation);
@@ -126,15 +125,12 @@ public class MiniBoss : MonoBehaviour
 	{
 		if (col.tag == "Bullet") 
 		{
-			if (hitPoints > 1) 
+			if (hitPoints > 0) 
 			{
-				// Refreshes array of block components in children.
-				//BossParts = GetComponentsInChildren<Block> ();
 				hitPoints -= 1;
-				//Instantiate (SmallExplosion, transform.position, transform.rotation);
 			}
 
-			if (hitPoints <= 1) 
+			if (hitPoints <= 0) 
 			{
 				hitPoints = 0;
 				Instantiate (LargeExplosion, transform.position, transform.rotation);
@@ -162,14 +158,20 @@ public class MiniBoss : MonoBehaviour
 	{
 		AllowShoot = false;
 		Line.enabled = false;
+
 		yield return new WaitForSeconds (LineTimerOffDuration);
+
 		Line.SetPosition (0, transform.position + new Vector3 (0, 0, 0.36f));
 		Line.SetPosition (1, FollowPlayerPos.position);
 		Line.enabled = true;
 		Line.positionCount = 2;
+
 		yield return new WaitForSeconds (1);
+
 		AllowShoot = true;
+
 		yield return new WaitForSeconds (LineTimerOnDuration);
+
 		StartCoroutine (DrawLineToPlayer ());
 	}
 }

@@ -324,6 +324,7 @@ public class DeveloperMode : MonoBehaviour
 			if (CheatString == RefreshAbilityCommand) 
 			{
 				playerControllerScript_P1.RefreshAbilityName ();
+				playerControllerScript_P1.RefreshAbilityImage ();
 				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY REFRESH");
 			}
 
@@ -491,11 +492,7 @@ public class DeveloperMode : MonoBehaviour
 						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 						break;
 					}
-
-					//gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = RapidfireTexture;
-					//gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = RapidFireColor;
-					//gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
-					//gameControllerScript.NextPowerupSlot_P1 += 1;
+						
 					gameControllerScript.RapidfireImage.enabled = true;
 					playerControllerScript_P1.isInRapidFire = true;
 				}
@@ -516,10 +513,6 @@ public class DeveloperMode : MonoBehaviour
 
 					if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard)
 					{
-						//gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = OverdriveTexture;
-						//gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = OverdriveColor;
-						//gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
-						//gameControllerScript.NextPowerupSlot_P1 += 1;
 					}
 
 					gameControllerScript.OverdriveImage.enabled = true;
@@ -594,6 +587,8 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.AbilityName = "shield";
 				playerControllerScript_P1.Ability = PlayerController.ability.Shield;
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
+				playerControllerScript_P1.RefreshAbilityName ();
+				playerControllerScript_P1.RefreshAbilityImage ();
 				playerControllerScript_P1.ActivateAbility ();
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
 				ShowCheatNotification ("CHEAT ACTIVATED: SHIELD");
@@ -603,6 +598,8 @@ public class DeveloperMode : MonoBehaviour
 			{
 				playerControllerScript_P1.AbilityName = "verticalbeam";
 				playerControllerScript_P1.Ability = PlayerController.ability.VerticalBeam;
+				playerControllerScript_P1.RefreshAbilityName ();
+				playerControllerScript_P1.RefreshAbilityImage ();
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
@@ -613,6 +610,8 @@ public class DeveloperMode : MonoBehaviour
 			{
 				playerControllerScript_P1.AbilityName = "horizontalbeam";
 				playerControllerScript_P1.Ability = PlayerController.ability.HorizontalBeam;
+				playerControllerScript_P1.RefreshAbilityName ();
+				playerControllerScript_P1.RefreshAbilityImage ();
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
@@ -623,6 +622,8 @@ public class DeveloperMode : MonoBehaviour
 			{
 				playerControllerScript_P1.AbilityName = "emp";
 				playerControllerScript_P1.Ability = PlayerController.ability.Emp;
+				playerControllerScript_P1.RefreshAbilityName ();
+				playerControllerScript_P1.RefreshAbilityImage ();
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;

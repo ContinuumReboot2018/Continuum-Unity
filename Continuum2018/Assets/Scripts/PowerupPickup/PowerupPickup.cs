@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerupPickup : MonoBehaviour 
 {
 	public GameController gameControllerScript;
 	public PlayerController playerControllerScript_P1;
+	public TimescaleController timescaleControllerScript;
 	public Texture2D PowerupTexture;
 	public bool isShootingPowerup = true;
 
@@ -37,6 +39,8 @@ public class PowerupPickup : MonoBehaviour
 	public GameObject PowerupDeathExplosion;
 	public Animator PowerupUI;
 	public AudioSource PowerupTimeRunningOutAudio;
+	public GameObject PowerupPickupUI;
+	public Color PowerupPickupUIColor = Color.white;
 
 	[Header ("On End Life")]
 	public Animator anim;
@@ -73,6 +77,7 @@ public class PowerupPickup : MonoBehaviour
 		PowerupUI = GameObject.Find ("PowerupUI").GetComponent<Animator> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
+		timescaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		PowerupTimeRunningOutAudio = GameObject.Find ("PowerupRunningOutSound").GetComponent<AudioSource> ();
 	}
 
@@ -85,6 +90,12 @@ public class PowerupPickup : MonoBehaviour
 			{
 				if (IsInvoking ("CheckActivatePowerup") == false) 
 				{
+					timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+					timescaleControllerScript.OverridingTimeScale = 0.2f;
+					playerControllerScript_P1.NextFire = 0;
+					playerControllerScript_P1.DoubleShotNextFire = 0;
+					playerControllerScript_P1.TripleShotNextFire = 0;
+					playerControllerScript_P1.RippleShotNextFire = 0;
 					Invoke("CheckActivatePowerup", 0.01667f);
 				}
 			}
@@ -96,6 +107,12 @@ public class PowerupPickup : MonoBehaviour
 			{
 				if (IsInvoking ("CheckActivatePowerup") == false) 
 				{
+					timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+					timescaleControllerScript.OverridingTimeScale = 0.2f;
+					playerControllerScript_P1.NextFire = 0;
+					playerControllerScript_P1.DoubleShotNextFire = 0;
+					playerControllerScript_P1.TripleShotNextFire = 0;
+					playerControllerScript_P1.RippleShotNextFire = 0;
 					Invoke("CheckActivatePowerup", 0.01667f);
 				}
 			}
@@ -109,6 +126,9 @@ public class PowerupPickup : MonoBehaviour
 
 	void CheckActivatePowerup ()
 	{
+		GameObject powerupPickupUI = Instantiate (PowerupPickupUI, transform.position, Quaternion.identity);
+		powerupPickupUI.GetComponentInChildren<RawImage> ().texture = PowerupTexture;
+		powerupPickupUI.GetComponentInChildren<RawImage> ().color = PowerupPickupUIColor;
 		ActivatePowerup_P1 ();
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f);
 		Instantiate (PowerupDeathExplosion, transform.position, Quaternion.identity);

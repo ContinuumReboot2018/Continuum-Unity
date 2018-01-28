@@ -13,7 +13,8 @@ public class SimpleFollow : MonoBehaviour
 	public enum followPosMethod
 	{
 		Lerp,
-		SmoothDamp
+		SmoothDamp,
+		NoSmoothing
 	}
 
 	private float FollowPosVelX, FollowPosVelY, FollowPosVelZ;
@@ -29,11 +30,9 @@ public class SimpleFollow : MonoBehaviour
 	public Vector3 FollowRotOffset;
 	public Vector3 FollowRotSmoothTime;
 
-	public bool DontUseSmoothing;
-
 	void LateUpdate () 
 	{
-		if (FollowPosition == true && DontUseSmoothing == false) 
+		if (FollowPosition == true && FollowPosMethod != followPosMethod.NoSmoothing) 
 		{
 			FollowObjectPosition ();
 		}
@@ -45,7 +44,7 @@ public class SimpleFollow : MonoBehaviour
 			FollowObjectRotation ();
 		}
 
-		if (DontUseSmoothing == true) 
+		if (FollowPosMethod == followPosMethod.NoSmoothing) 
 		{
 			transform.position = new Vector3 (FollowPosX.position.x, FollowPosY.position.y, FollowPosZ.position.z);
 		}

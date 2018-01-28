@@ -52,6 +52,7 @@ public class Block : MonoBehaviour
 	public Color PinkTextColor;
 
 	public bool Stackable;
+	public bool wasCollided;
 
 	[Header ("Block Types")]
 	public mainBlockType BlockType;
@@ -225,7 +226,7 @@ public class Block : MonoBehaviour
 		//}
 	}
 
-	void OnTriggerEnter (Collider other)
+	void OnTriggerStay (Collider other)
 	{
 		if (other.gameObject.name.Contains ("Missile")) 
 		{
@@ -275,8 +276,8 @@ public class Block : MonoBehaviour
 
 			DoCamShake ();
 
-			//timeScaleControllerScript.OverrideTimeScaleTimeRemaining = OverwriteTimeDuration;
-			//timeScaleControllerScript.OverridingTimeScale = OverwriteTimeScale;
+			//timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.05f;
+			//timeScaleControllerScript.OverridingTimeScale = 0.2f;
 			Destroy (gameObject);
 		}
 
