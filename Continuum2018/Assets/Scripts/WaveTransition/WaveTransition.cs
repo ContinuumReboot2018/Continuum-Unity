@@ -6,16 +6,33 @@ public class WaveTransition : MonoBehaviour
 {
 	public GameController gameControllerScript;
 	public GameObject WaveTransitionUI;
+	public GameObject SoundtrackUI;
+
+	void Start ()
+	{
+		WaveTransitionUI.SetActive (false);
+		SoundtrackUI.SetActive (false);
+	}
 
 	public void DeactivateWaveTransition ()
 	{
 		gameControllerScript.IsInWaveTransition = false;
-		WaveTransitionUI.SetActive (false);
+
+		if (gameControllerScript.Wave % 5 == 1 || gameControllerScript.Wave == 1) 
+		{
+			WaveTransitionUI.SetActive (false);
+			SoundtrackUI.SetActive (false);
+		}
 	}
 
 	public void ActivateWaveTransitionUI ()
 	{
 		gameControllerScript.IsInWaveTransition = true;
-		WaveTransitionUI.SetActive (true);
+
+		if (gameControllerScript.Wave % 5 == 1 || gameControllerScript.Wave == 1)
+		{
+			WaveTransitionUI.SetActive (true);
+			SoundtrackUI.SetActive (true);
+		}
 	}
 }

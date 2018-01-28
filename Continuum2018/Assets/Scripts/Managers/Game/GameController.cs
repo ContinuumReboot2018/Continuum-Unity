@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour
 	public AudioSource NextLevelAudio;
 	public Slider WaveTimeSlider;
 	public TextMeshProUGUI WaveTimeRemainText;
+	public TextMeshProUGUI SoundtrackText;
 
 	[Header ("Scoring")]
 	public bool CountScore;
@@ -265,15 +266,33 @@ public class GameController : MonoBehaviour
 			if (Wave % 5 != 0)
 			{
 				StartCoroutine (SpawnMiniBoss ());
+
+				if (Wave % 5 != 1)
+				{
+					SoundtrackText.text = "";
+				}
 			}
 
 			if (Wave % 5 == 0)
 			{
 				audioControllerScript.StopAllSoundtracks ();
 				StartCoroutine (SpawnMiniBoss ()); // Supposed to spawn a big boss.
+				SoundtrackText.text = "";
+			}
+
+			// For every wave after a major boss fight.
+			if (Wave % 5 == 1 || Wave == 1) 
+			{
+				SoundtrackText.text = audioControllerScript.TrackName + "";
 			}
 
 			WaveTimeRemaining = 0;
+		}
+
+		// For every wave after a major boss fight.
+		if (Wave % 5 == 1 || Wave == 1) 
+		{
+			SoundtrackText.text = audioControllerScript.TrackName + "";
 		}
 	}
 
@@ -302,31 +321,56 @@ public class GameController : MonoBehaviour
 			// Put debug stuff here.
 			if (developerModeScript.DebugMenu.activeInHierarchy == true)
 			{
-				WaveText_Debug.text = "Wave: " + Wave;
-				TargetScoreText_Debug.text = "Target Score: " + Mathf.Round (TargetScore);
-				ComboText_Debug.text = "Combo: " + combo; 
-				DistanceText_Debug.text = "Distance: " + Math.Round (Distance, 2);
-				GameTimeText_Debug.text = "Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
-				RealTimeText_Debug.text = "Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
-				TimeRatioText_Debug.text = "Time Ratio: " + Math.Round (TimeRatio, 2);
-				TargetPitch_Debug.text = "Target Pitch: " + audioControllerScript.BassTargetPitch;
-				CurrentPitch_Debug.text = "Current Pitch: " + Math.Round (BassTrack.pitch, 4);
-				TimeScaleText_Debug.text = "Time Scale: " + Math.Round (Time.timeScale, 2);
-				FixedTimeStepText_Debug.text = "Fixed Time Step: " + Math.Round (Time.fixedDeltaTime, 5);
-				SpawnWaitText_Debug.text = "Spawn Rate: " + BlockSpawnRate;
-				WaveTimeRemainingText_Debug.text = "Wave Time Remain: " + Math.Round (WaveTimeRemaining, 1) + " s";
-				P1_CurrentFireRate.text = "P1 Fire Rate: " + playerControllerScript_P1.CurrentFireRate;
-				P1_Ability.text = "P1 Ability: " + playerControllerScript_P1.AbilityName;
-				P1_AbilityTimeRemaining.text = "P1 Ability Remain: " + Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
-				P1_AbilityTimeDuration.text = "P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
-				P1_AbilityTimeProportion.text = "P1 Ability Fill: " + Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
-				CheatTimeRemainText_Debug.text = "Cheat Time Remain: " + Math.Round (developerModeScript.CheatStringResetTimeRemaining, 1);
-				CheatStringText_Debug.text = "Cheat Input Field: " + developerModeScript.CheatString;
-				LastCheatText_Debug.text = "Last Cheat: " + developerModeScript.LastCheatName;
-				PowerupTimeRemain_Debug.text = "Powerup Time Remain: " + Math.Round (PowerupTimeRemaining, 1);
-				P1_ShootingIterationRapid.text = "Rapid Fire: " + (playerControllerScript_P1.isInRapidFire ? "ON" : "OFF");
-				P1_ShootingIterationOverdrive.text = "Overdrive: " + (playerControllerScript_P1.isInOverdrive ? "ON" : "OFF");
-				P1_ShootingIterationRicochet.text = "Ricochet: " + (playerControllerScript_P1.isRicochet ? "ON" : "OFF");
+				WaveText_Debug.text = 
+					"Wave: " + Wave;
+				TargetScoreText_Debug.text = 
+					"Target Score: " + Mathf.Round (TargetScore);
+				ComboText_Debug.text = 
+					"Combo: " + combo; 
+				DistanceText_Debug.text = 
+					"Distance: " + Math.Round (Distance, 2);
+				GameTimeText_Debug.text = 
+					"Game Time: " + string.Format ("{0}:{1:00}", (int)GameTime / 60, (int)GameTime % 60);
+				RealTimeText_Debug.text = 
+					"Real Time: " + string.Format ("{0}:{1:00}", (int)RealTime / 60, (int)RealTime % 60);
+				TimeRatioText_Debug.text = 
+					"Time Ratio: " + Math.Round (TimeRatio, 2);
+				TargetPitch_Debug.text = 
+					"Target Pitch: " + audioControllerScript.BassTargetPitch;
+				CurrentPitch_Debug.text = 
+					"Current Pitch: " + Math.Round (BassTrack.pitch, 4);
+				TimeScaleText_Debug.text = 
+					"Time Scale: " + Math.Round (Time.timeScale, 2);
+				FixedTimeStepText_Debug.text = 
+					"Fixed Time Step: " + Math.Round (Time.fixedDeltaTime, 5);
+				SpawnWaitText_Debug.text = 
+					"Spawn Rate: " + BlockSpawnRate;
+				WaveTimeRemainingText_Debug.text = 
+					"Wave Time Remain: " + Math.Round (WaveTimeRemaining, 1) + " s";
+				P1_CurrentFireRate.text = 
+					"P1 Fire Rate: " + playerControllerScript_P1.CurrentFireRate;
+				P1_Ability.text = 
+					"P1 Ability: " + playerControllerScript_P1.AbilityName;
+				P1_AbilityTimeRemaining.text = 
+					"P1 Ability Remain: " + Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
+				P1_AbilityTimeDuration.text = 
+					"P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
+				P1_AbilityTimeProportion.text = 
+					"P1 Ability Fill: " + Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
+				CheatTimeRemainText_Debug.text = 
+					"Cheat Time Remain: " + Math.Round (developerModeScript.CheatStringResetTimeRemaining, 1);
+				CheatStringText_Debug.text = 
+					"Cheat Input Field: " + developerModeScript.CheatString;
+				LastCheatText_Debug.text = 
+					"Last Cheat: " + developerModeScript.LastCheatName;
+				PowerupTimeRemain_Debug.text = 
+					"Powerup Time Remain: " + Math.Round (PowerupTimeRemaining, 1);
+				P1_ShootingIterationRapid.text = 
+					"Rapid Fire: " + (playerControllerScript_P1.isInRapidFire ? "ON" : "OFF");
+				P1_ShootingIterationOverdrive.text = 
+					"Overdrive: " + (playerControllerScript_P1.isInOverdrive ? "ON" : "OFF");
+				P1_ShootingIterationRicochet.text = 
+					"Ricochet: " + (playerControllerScript_P1.isRicochet ? "ON" : "OFF");
 			}
 		}
 	}
