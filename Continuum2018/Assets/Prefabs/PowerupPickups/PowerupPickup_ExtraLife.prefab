@@ -565,7 +565,7 @@ MonoBehaviour:
   gameControllerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
   timescaleControllerScript: {fileID: 0}
-  PowerupTexture: {fileID: 2800000, guid: ab635ce8c8b1c6f4995415e828c1f836, type: 3}
+  PowerupTexture: {fileID: 2800000, guid: 61ac088d17cbb6e4ca52fef0896d7714, type: 3}
   isShootingPowerup: 0
   AwakeAudio: {fileID: 82212619999221132}
   meshrend: {fileID: 23905459439811988}
@@ -582,6 +582,7 @@ MonoBehaviour:
   PowerupTimeRunningOutAudio: {fileID: 0}
   PowerupPickupUI: {fileID: 1771047903743466, guid: 91bf4fd2a7e677c4e9ea72c391527dbf,
     type: 2}
+  PowerupPickupUIColor: {r: 1, g: 1, b: 1, a: 1}
   anim: {fileID: 0}
   destroyByTimeScript: {fileID: 0}
   Turret: {fileID: 0}

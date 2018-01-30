@@ -388,9 +388,6 @@ public class PlayerController : MonoBehaviour
 		{
 			playerCol.enabled = true;
 		}
-
-		//InvincibleMesh.enabled = false;
-		//InvincibleCollider.enabled = false;
 	}
 
 	void RejoinGame ()
@@ -400,9 +397,6 @@ public class PlayerController : MonoBehaviour
 		playerMesh.SetActive (true);
 		audioControllerScript.TargetCutoffFreq = 22000;
 		audioControllerScript.TargetResonance = 1;
-
-		//InvincibleMesh.enabled = true;
-		//InvincibleCollider.enabled = true;
 		InvincibleMeshAnim.Play ("InvincibleMeshFlash");
 	}
 
@@ -654,7 +648,7 @@ public class PlayerController : MonoBehaviour
 			switch (ShotType) 
 			{
 			case shotType.Standard:
-				CurrentFireRate = StandardFireRate;
+				//CurrentFireRate = StandardFireRate;
 				break;
 			case shotType.Double:
 				break;

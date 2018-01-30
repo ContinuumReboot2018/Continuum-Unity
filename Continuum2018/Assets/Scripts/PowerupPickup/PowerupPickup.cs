@@ -320,6 +320,9 @@ public class PowerupPickup : MonoBehaviour
 			{
 				switch (playerControllerScript_P1.ShotType) 
 				{
+				case PlayerController.shotType.Standard:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+					break;	
 				case PlayerController.shotType.Double:
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 					break;
@@ -329,9 +332,6 @@ public class PowerupPickup : MonoBehaviour
 				case PlayerController.shotType.Ripple:
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 					break;
-				case PlayerController.shotType.Standard:
-					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
-					break;				
 				}
 				gameControllerScript.RapidfireImage.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
