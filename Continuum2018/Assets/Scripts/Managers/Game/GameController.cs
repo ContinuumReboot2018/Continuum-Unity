@@ -169,13 +169,14 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI CheatStringText_Debug;
 	public TextMeshProUGUI LastCheatText_Debug;
 	public TextMeshProUGUI PowerupTimeRemain_Debug;
+	public TextMeshProUGUI AddedTimeText_Debug;
 
 	void Awake () 
 	{
 		ClearPowerupUI ();
 		ScoreText.text = "";
 		ScoreBackground.enabled = false;
-		TrackStats = false;
+		//TrackStats = false;
 
 		LivesAnim.gameObject.SetActive (false);
 		Lives = 3;
@@ -340,9 +341,9 @@ public class GameController : MonoBehaviour
 				CurrentPitch_Debug.text = 
 					"Current Pitch: " + Math.Round (BassTrack.pitch, 4);
 				TimeScaleText_Debug.text = 
-					"Time Scale: " + Math.Round (Time.timeScale, 2);
+					"Time.timeScale: " + Math.Round (Time.timeScale, 2);
 				FixedTimeStepText_Debug.text = 
-					"Fixed Time Step: " + Math.Round (Time.fixedDeltaTime, 5);
+					"Time.fixedDeltaTime: " + Math.Round (Time.fixedDeltaTime, 5);
 				SpawnWaitText_Debug.text = 
 					"Spawn Rate: " + BlockSpawnRate;
 				WaveTimeRemainingText_Debug.text = 
@@ -371,6 +372,8 @@ public class GameController : MonoBehaviour
 					"Overdrive: " + (playerControllerScript_P1.isInOverdrive ? "ON" : "OFF");
 				P1_ShootingIterationRicochet.text = 
 					"Ricochet: " + (playerControllerScript_P1.isRicochet ? "ON" : "OFF");
+				AddedTimeText_Debug.text = 
+					"Added Time: " + System.Math.Round((timescaleControllerScript.TargetTimeScaleAdd), 3);
 			}
 		}
 	}
