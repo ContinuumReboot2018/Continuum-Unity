@@ -55,7 +55,7 @@ public class CameraShake : MonoBehaviour
 
 	public void ShakeCam (float strength, float time, int priority)
 	{
-		if (priority > Priority)
+		if (priority >= Priority)
 		{
 			shakeAmount = strength;
 			shakeDuration = time;

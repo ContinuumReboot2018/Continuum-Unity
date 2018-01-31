@@ -18,7 +18,7 @@ public class WaveTransition : MonoBehaviour
 	{
 		gameControllerScript.IsInWaveTransition = false;
 
-		if (gameControllerScript.Wave % 5 == 1 || gameControllerScript.Wave == 1) 
+		if (gameControllerScript.Wave % 4 == 1 || gameControllerScript.Wave == 1) 
 		{
 			WaveTransitionUI.SetActive (false);
 			SoundtrackUI.SetActive (false);
@@ -29,7 +29,7 @@ public class WaveTransition : MonoBehaviour
 	{
 		gameControllerScript.IsInWaveTransition = true;
 
-		if (gameControllerScript.Wave % 5 == 1 || gameControllerScript.Wave == 1)
+		if (gameControllerScript.Wave % 4 == 1 || gameControllerScript.Wave == 1)
 		{
 			WaveTransitionUI.SetActive (true);
 			SoundtrackUI.SetActive (true);

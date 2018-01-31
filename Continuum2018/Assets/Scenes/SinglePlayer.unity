@@ -2064,6 +2064,11 @@ MonoBehaviour:
     value: {x: 0, y: 700, z: 0}
     space: 1
   ignoreTimescale: 0
+--- !u!1 &157250351 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1026703781888602, guid: c8959a91a1eb34249aad84caed3eb712,
+    type: 2}
+  m_PrefabInternal: {fileID: 491841970}
 --- !u!1 &159177269
 GameObject:
   m_ObjectHideFlags: 0
@@ -78085,6 +78090,9 @@ GameObject:
   - component: {fileID: 1081056889}
   - component: {fileID: 1081056888}
   - component: {fileID: 1081056890}
+  - component: {fileID: 1081056892}
+  - component: {fileID: 1081056891}
+  - component: {fileID: 1081056893}
   m_Layer: 10
   m_Name: Mesh_P1
   m_TagString: Player
@@ -78151,6 +78159,53 @@ MeshFilter:
   m_GameObject: {fileID: 1081056886}
   m_Mesh: {fileID: 4300000, guid: 8e45f8d579cf80043913a8a964fc205c, type: 3}
 --- !u!64 &1081056890
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1081056886}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 8e45f8d579cf80043913a8a964fc205c, type: 3}
+--- !u!54 &1081056891
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1081056886}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &1081056892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1081056886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84de9be21f1d93943b7ba39b3f6ccd63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControllerScript_P1: {fileID: 950826315}
+  gameControllerScript: {fileID: 1461897538}
+  timeScaleControllerScript: {fileID: 1643956535}
+  camShakeScript: {fileID: 525356116}
+  playerExplosion: {fileID: 157250351}
+  newCamShakeAmount: 0.3
+  newCamShakeDuration: 0.5
+--- !u!64 &1081056893
 MeshCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -111408,6 +111463,9 @@ MonoBehaviour:
   - {fileID: 1750224001074990, guid: d83b7ab5dbead6b4198eaa6cb15f6e8e, type: 2}
   - {fileID: 1155632282879928, guid: 5ecceb548fc0e2d4d9d0f7c740f6d385, type: 2}
   - {fileID: 1155632282879928, guid: 598adaea51672f94c863a9a70fac0f99, type: 2}
+  - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
+  - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
+  - {fileID: 1743466060572060, guid: a03fbb974e9046b48944076642c8c3c3, type: 2}
   BlockSpawnRate: 0.5
   blockSpawnStartDelay: 4
   BlockSpawnXPositions:

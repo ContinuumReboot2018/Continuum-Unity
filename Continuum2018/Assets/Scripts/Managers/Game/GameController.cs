@@ -264,17 +264,17 @@ public class GameController : MonoBehaviour
 
 		if (WaveTimeRemaining < 0) 
 		{
-			if (Wave % 5 != 0)
+			if (Wave % 4 != 0)
 			{
 				StartCoroutine (SpawnMiniBoss ());
 
-				if (Wave % 5 != 1)
+				if (Wave % 4 != 1)
 				{
 					SoundtrackText.text = "";
 				}
 			}
 
-			if (Wave % 5 == 0)
+			if (Wave % 4 == 0)
 			{
 				audioControllerScript.StopAllSoundtracks ();
 				StartCoroutine (SpawnMiniBoss ()); // Supposed to spawn a big boss.
@@ -282,16 +282,16 @@ public class GameController : MonoBehaviour
 			}
 
 			// For every wave after a major boss fight.
-			if (Wave % 5 == 1 || Wave == 1) 
-			{
-				SoundtrackText.text = audioControllerScript.TrackName + "";
-			}
+			//if (Wave % 4 == 0 || Wave == 1) 
+			//{
+			//	SoundtrackText.text = audioControllerScript.TrackName + "";
+			//}
 
 			WaveTimeRemaining = 0;
 		}
 
 		// For every wave after a major boss fight.
-		if (Wave % 5 == 1 || Wave == 1) 
+		if (Wave % 4 == 1 || Wave == 1) 
 		{
 			SoundtrackText.text = audioControllerScript.TrackName + "";
 		}
@@ -816,7 +816,14 @@ public class GameController : MonoBehaviour
 					Instantiate (Block, SpawnPosRand, Quaternion.identity);
 				}
 
-				if (Wave >= 5) {
+				if (Wave >= 5 && Wave < 9) {
+					GameObject Block = Blocks [UnityEngine.Random.Range (0, 8)];
+					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+					Instantiate (Block, SpawnPosRand, Quaternion.identity);
+				}
+
+				if (Wave >= 9) 
+				{
 					GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Length)];
 					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 					Instantiate (Block, SpawnPosRand, Quaternion.identity);
@@ -891,7 +898,7 @@ public class GameController : MonoBehaviour
 	{
 		yield return new WaitForSecondsRealtime (5);
 
-		if (Wave % 5 == 1) 
+		if (Wave % 4 == 1) 
 		{
 			audioControllerScript.NextTrack ();
 			audioControllerScript.LoadTracks ();
