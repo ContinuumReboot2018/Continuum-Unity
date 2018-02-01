@@ -305,12 +305,14 @@ public class DeveloperMode : MonoBehaviour
 				if (isGod == true)
 				{
 					playerControllerScript_P1.playerCol.enabled = false;
+					playerControllerScript_P1.playerTrigger.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: GOD ON");
 				}
 
 				if (isGod == false) 
 				{
 					playerControllerScript_P1.playerCol.enabled = true;
+					playerControllerScript_P1.playerTrigger.enabled = true;
 					ShowCheatNotification ("CHEAT ACTIVATED: GOD OFF");
 				}
 			}
@@ -673,6 +675,7 @@ public class DeveloperMode : MonoBehaviour
 		CheatNotificationAnim.StopPlayback ();
 		CheatNotificationAnim.Play ("CheatNotification");
 		CheatNotifcationText.text = cheatText;
+		playerControllerScript_P1.CheckPowerupImageUI ();
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
 		LastCheatName = CheatString;
 		ClearCheatString ();

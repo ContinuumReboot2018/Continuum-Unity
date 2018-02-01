@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
 	[Header ("Impact")]
 	public GameObject playerMesh;
 	public Collider playerCol;
+	public Collider playerTrigger;
 	public bool isInCooldownMode;
 	public float cooldownDuration;
 	public float cooldownTimeRemaining;
@@ -232,9 +233,8 @@ public class PlayerController : MonoBehaviour
 		LivesAnim.gameObject.SetActive (false);
 		RefreshAbilityName ();
 		InvincibleMeshAnim.Play ("InvincibleMeshOffInstant");
-		//InvincibleMesh.enabled = false;
-		//InvincibleCollider.enabled = false;
 		RefreshAbilityImage ();
+		CheckPowerupImageUI ();
 	}
 
 	void Start () 
@@ -339,6 +339,7 @@ public class PlayerController : MonoBehaviour
 				PlayerGuides.SetActive (true);
 				AbilityUI.SetActive (true);
 				playerCol.gameObject.SetActive (true);
+				playerTrigger.gameObject.SetActive (true);
 				gameControllerScript.Lives -= 1;
 				Invoke ("EnableCollider", 5);
 				isInCooldownMode = false;
@@ -372,6 +373,7 @@ public class PlayerController : MonoBehaviour
 		canShoot = false;
 		UsePlayerFollow = false;
 		playerCol.enabled = false;
+		playerTrigger.enabled = false;
 		playerMesh.SetActive (false);
 		PlayerFollowRb.velocity = Vector3.zero;
 		GameOverExplosionParticles.Play ();
@@ -387,6 +389,7 @@ public class PlayerController : MonoBehaviour
 		if (developerModeScript.isGod == false) 
 		{
 			playerCol.enabled = true;
+			playerTrigger.enabled = true;
 		}
 	}
 
@@ -525,6 +528,7 @@ public class PlayerController : MonoBehaviour
 		case ability.Shield:
 			isShieldOn = true;
 			playerCol.enabled = false;
+			playerTrigger.enabled = false;
 			Shield.SetActive (true);
 			TargetLensRadius = LensOnRadius;
 			TargetShieldScale = 1;
@@ -579,6 +583,7 @@ public class PlayerController : MonoBehaviour
 		if (developerModeScript.isGod == false) 
 		{
 			playerCol.enabled = true;
+			playerTrigger.enabled = true;
 		}
 		Shield.SetActive (false);
 	}
@@ -1015,6 +1020,11 @@ public class PlayerController : MonoBehaviour
 			}
 		}*/
 
+		CheckPowerupImageUI ();
+	}
+
+	public void CheckPowerupImageUI ()
+	{
 		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
 		{
 			if (powerupimage != gameControllerScript.PowerupImage_P1 [0] && 
@@ -1031,7 +1041,8 @@ public class PlayerController : MonoBehaviour
 
 				if (Vector3.Distance (powerupimage.transform.position, playerCol.transform.position) >= 4) 
 				{
-					if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == true) 
+					if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == true
+					||  powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOutInstant") == true) 
 					{
 						powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeIn");
 					}

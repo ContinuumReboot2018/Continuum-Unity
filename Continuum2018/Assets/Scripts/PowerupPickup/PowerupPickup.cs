@@ -90,6 +90,7 @@ public class PowerupPickup : MonoBehaviour
 			{
 				if (IsInvoking ("CheckActivatePowerup") == false) 
 				{
+					playerControllerScript_P1.CheckPowerupImageUI ();
 					timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
 					timescaleControllerScript.OverridingTimeScale = 0.2f;
 					playerControllerScript_P1.NextFire = 0;
@@ -107,6 +108,7 @@ public class PowerupPickup : MonoBehaviour
 			{
 				if (IsInvoking ("CheckActivatePowerup") == false) 
 				{
+					playerControllerScript_P1.CheckPowerupImageUI ();
 					timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
 					timescaleControllerScript.OverridingTimeScale = 0.2f;
 					playerControllerScript_P1.NextFire = 0;
