@@ -31,4 +31,10 @@ public class DestroyByTime : MonoBehaviour
 		yield return new WaitForSeconds(delay);
 		Destroy (gameObject);
 	}
+
+	public void CancelDestroy ()
+	{
+		StopCoroutine (DestroyObjectScaled ());
+		StopCoroutine (DestroyObjectUnscaled ());
+	}
 }
