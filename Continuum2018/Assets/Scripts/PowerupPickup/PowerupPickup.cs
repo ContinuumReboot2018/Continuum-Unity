@@ -48,7 +48,7 @@ public class PowerupPickup : MonoBehaviour
 
 	void Awake ()
 	{
-		meshrend.enabled = false;
+		//meshrend.enabled = false;
 		col.enabled = false;
 		StartCoroutine (ShowPowerup ());
 		destroyByTimeScript = GetComponent<DestroyByTime> ();

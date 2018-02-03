@@ -262,8 +262,13 @@ public class Block : MonoBehaviour
 			}
 
 			GetTotalPointValue ();
-			CreateExplosion ();
-			IncrementBlocksDestroyed ();
+			//CreateExplosion ();
+
+			if (IsInvoking ("CreateExplosion") == false) 
+			{
+				Invoke ("CreateExplosion", Random.Range(0.01667f, 0.033f));
+				IncrementBlocksDestroyed ();
+			}
 
 			if (other.GetComponent<Bullet> () != null)
 			{
@@ -278,7 +283,7 @@ public class Block : MonoBehaviour
 
 			//timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.05f;
 			//timeScaleControllerScript.OverridingTimeScale = 0.2f;
-			Destroy (gameObject);
+			Destroy (gameObject, 0.05f);
 		}
 
 		if (other.tag == "Player" && isTutorialBlock == false) 

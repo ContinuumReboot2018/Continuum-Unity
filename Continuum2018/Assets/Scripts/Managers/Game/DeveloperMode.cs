@@ -293,7 +293,7 @@ public class DeveloperMode : MonoBehaviour
 				if (gameControllerScript.Lives < gameControllerScript.MaxLives) 
 				{
 					gameControllerScript.Lives += 3;
-
+					gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
 					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = AddlifeTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 1f, 1, 1);

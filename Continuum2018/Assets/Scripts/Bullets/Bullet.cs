@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour 
 {
 	public PlayerController playerControllerScript;
+	public GameController gameControllerScript;
 	public float BulletSpeed;
 	public Vector2 VelocityLimits;
 	public Rigidbody BulletRb;
@@ -77,6 +78,16 @@ public class Bullet : MonoBehaviour
 		if (isRicochet) 
 		{
 			RicochetSound = GameObject.Find ("RicochetSound").GetComponent<AudioSource> ();
+		}
+
+		if (gameControllerScript == null) 
+		{
+			gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+		}
+
+		if (playerControllerScript.tutorialManagerScript.tutorialComplete == true) 
+		{
+			gameControllerScript.BulletsShot += 1;
 		}
 
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
@@ -209,21 +220,6 @@ public class Bullet : MonoBehaviour
 
 	void CheckColActivate ()
 	{
-		/*
-		if (movedEnough == false) 
-		{
-			//Debug.Log (Vector3.Distance(transform.position, playerPos.position));
-			if (Vector3.Distance(transform.position, playerPos.position) < 0.75f)
-			{
-				BulletCol.enabled = false;
-			}
-
-			if (Vector3.Distance(transform.position, playerPos.position) >= 0.75f)
-			{
-				BulletCol.enabled = true;
-				movedEnough = true;
-			}
-		}*/
 	}
 
 	void CheckForDestroy ()
@@ -283,29 +279,6 @@ public class Bullet : MonoBehaviour
 	void StartCameraShake ()
 	{
 		camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
-
-		/*// Current shake strength is less than this shake strength. 
-		if (camShakeScript.shakeAmount < shakeAmount) 
-		{
-			// Current shake time remaining is less than this shake time remain.
-			if (camShakeScript.shakeTimeRemaining <= shakeTimeRemaining) 
-			{
-				// Give it the new shake amounts.
-				camShakeScript.shakeAmount = shakeAmount; 
-				camShakeScript.shakeDuration = shakeDuration;
-				camShakeScript.shakeTimeRemaining = shakeTimeRemaining;
-			}
-		}
-
-		if (camShakeScript.shakeAmount > shakeAmount) 
-		{
-			if (camShakeScript.shakeTimeRemaining <= shakeTimeRemaining) 
-			{
-				//camShakeScript.shakeAmount = shakeAmount;
-				//camShakeScript.shakeDuration = shakeDuration;
-				//camShakeScript.shakeTimeRemaining = shakeTimeRemaining;
-			}
-		}*/
 	}
 
 	public IEnumerator DestroyDelay ()

@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour
 	public float TimeRatio;
 	public float Distance;
 	public int BlocksDestroyed;
+	public int BulletsShot;
+	public float BlockShotAccuracy;
 	public AudioSource BassTrack;
 
 	public TextMeshProUGUI GameTimeText;
@@ -177,6 +179,10 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI LastCheatText_Debug;
 	public TextMeshProUGUI PowerupTimeRemain_Debug;
 	public TextMeshProUGUI AddedTimeText_Debug;
+	public TextMeshProUGUI LivesText_Debug;
+	public TextMeshProUGUI BlocksDestroyedText_Debug;
+	public TextMeshProUGUI BulletsShotText_Debug;
+	public TextMeshProUGUI BlockShotAccuracyText_Debug;
 
 	void Awake () 
 	{
@@ -347,6 +353,16 @@ public class GameController : MonoBehaviour
 					"Ricochet: " + (playerControllerScript_P1.isRicochet ? "ON" : "OFF");
 				AddedTimeText_Debug.text = 
 					"Added Time: " + System.Math.Round((timescaleControllerScript.TargetTimeScaleAdd), 3);
+				LivesText_Debug.text = 
+					"Lives: " + Lives;
+				BlocksDestroyedText_Debug.text = 
+					"Blocks Destroyed: " + BlocksDestroyed;
+				BulletsShotText_Debug.text = 
+					"Bullets Shot: " + BulletsShot;
+
+				float accuracy = Mathf.Clamp (BlocksDestroyed / (BulletsShot + Mathf.Epsilon), 0, 10000);
+				BlockShotAccuracyText_Debug.text = 
+					"Block Shot Accuracy: " + (System.Math.Round((accuracy * 100), 2)) + "%";
 			}
 		}
 	}
@@ -396,6 +412,7 @@ public class GameController : MonoBehaviour
 					LivesSpacing.SetActive (false);
 					LivesText.gameObject.SetActive (false);
 					LivesText.text = "";
+					MaxLivesText.text = "";
 				}
 				break;
 			case 1:
@@ -405,6 +422,7 @@ public class GameController : MonoBehaviour
 				LivesSpacing.SetActive (false);
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
+				MaxLivesText.text = "";
 				break;
 			case 2:
 				LifeImages [0].enabled = true;
@@ -413,6 +431,7 @@ public class GameController : MonoBehaviour
 				LivesSpacing.SetActive (false);
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
+				MaxLivesText.text = "";
 				break;
 			case 3:
 				LifeImages [0].enabled = true;
@@ -421,6 +440,7 @@ public class GameController : MonoBehaviour
 				LivesSpacing.SetActive (false);
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
+				MaxLivesText.text = "";
 				break;
 			case 4:
 				LifeImages [0].enabled = true;
@@ -429,6 +449,13 @@ public class GameController : MonoBehaviour
 				LivesSpacing.SetActive (false);
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
+				MaxLivesText.text = "";
+				break;
+			case 10:
+				MaxLivesText.text = "";
+				break;
+			case 11:
+				MaxLivesText.text = "MAX";
 				break;
 			}
 
@@ -907,7 +934,7 @@ public class GameController : MonoBehaviour
 	void IncrementWaveNumber ()
 	{
 		Wave += 1;
-		UnityEngine.Debug.Log ("Wave number increased.");
+		UnityEngine.Debug.Log ("Wave number increased to " + Wave + ".");
 	}
 
 	public IEnumerator GoToNextWave ()
@@ -919,6 +946,7 @@ public class GameController : MonoBehaviour
 			audioControllerScript.NextTrack ();
 			audioControllerScript.LoadTracks ();
 			UnityEngine.Debug.Log ("New soundtrack loaded.");
+			UnityEngine.Debug.Log ("Soundtrack: " + audioControllerScript.TrackName);
 		}
 
 		NextLevel ();
