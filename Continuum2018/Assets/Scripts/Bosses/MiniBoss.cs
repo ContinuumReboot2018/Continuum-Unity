@@ -5,6 +5,7 @@ using UnityEngine;
 public class MiniBoss : MonoBehaviour
 {
 	public GameController gameControllerScript;
+	public TimescaleController timeScaleControllerScript;
 	public GameObject Brain;
 	public GameObject MiniBossParent;
 
@@ -59,10 +60,26 @@ public class MiniBoss : MonoBehaviour
 		{
 			PlayerPos = GameObject.Find ("PlayerCollider").transform;
 		}
+
+		if (GameObject.Find ("PlayerCollider").transform == null) 
+		{
+			hitPoints = 0;
+			Instantiate (LargeExplosion, transform.position, transform.rotation);
+			BossPartsParent.transform.DetachChildren ();
+			BossPartsConvertToNoise ();
+			gameControllerScript.StartNewWave ();
+			gameControllerScript.IsInWaveTransition = true;
+			Destroy (MiniBossParent.gameObject);
+		}
 			
 		if (gameControllerScript == null) 
 		{
 			gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+		}
+
+		if (timeScaleControllerScript == null) 
+		{
+			timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		}
 
 		BossParts = GetComponentsInChildren<Block> (true);
@@ -115,6 +132,9 @@ public class MiniBoss : MonoBehaviour
 					BossPartsParent.transform.DetachChildren ();
 					BossPartsConvertToNoise ();
 					gameControllerScript.StartNewWave ();
+					gameControllerScript.IsInWaveTransition = true;
+					timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
+					timeScaleControllerScript.OverridingTimeScale = 0.2f;
 					Destroy (MiniBossParent.gameObject);
 				}
 			}
@@ -138,6 +158,8 @@ public class MiniBoss : MonoBehaviour
 				BossPartsConvertToNoise ();
 				gameControllerScript.StartNewWave ();
 				gameControllerScript.IsInWaveTransition = true;
+				timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
+				timeScaleControllerScript.OverridingTimeScale = 0.2f;
 				Destroy (MiniBossParent.gameObject);
 			}
 		}

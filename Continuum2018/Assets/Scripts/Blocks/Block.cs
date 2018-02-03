@@ -12,20 +12,23 @@ public class Block : MonoBehaviour
 	public MeshRenderer rend;
 	public ScrollTextureOverTime textureScrollScript;
 
+	[Header ("Current Stats")]
+	public float speed;
+	public bool OverwriteVelocity;
+	public bool DontIncrementBlocksDestroyed;
+	public bool Stackable;
+	public bool wasCollided;
 	public bool isBossPart = false;
 	public bool GotDetached;
 
+	private Rigidbody rb;
+	private Collider BoxCol;
+
+	[Header ("Boundary")]
 	public Vector2 BoundaryX;
 	public Vector2 BoundaryY;
 
-	private Collider BoxCol;
-
-	[Header ("Stats")]
-	public float speed;
-	public bool OverwriteVelocity;
-	private Rigidbody rb;
-	public bool DontIncrementBlocksDestroyed;
-
+	[Header ("All block stats")]
 	public float AquaSpeed;
 	public float BlueSpeed;
 	public float PurpleSpeed;
@@ -50,9 +53,6 @@ public class Block : MonoBehaviour
 	public Color BlueTextColor;
 	public Color PurpleTextColor;
 	public Color PinkTextColor;
-
-	public bool Stackable;
-	public bool wasCollided;
 
 	[Header ("Block Types")]
 	public mainBlockType BlockType;
@@ -297,7 +297,9 @@ public class Block : MonoBehaviour
 
 				playerControllerScript_P1.ResetPowerups ();
 				playerControllerScript_P1.playerCol.enabled = false;
+				playerControllerScript_P1.playerTrigger.enabled = false;
 				playerControllerScript_P1.playerCol.gameObject.SetActive (false);
+				playerControllerScript_P1.playerTrigger.gameObject.SetActive (false);
 				playerControllerScript_P1.PlayerGuides.transform.position = Vector3.zero;
 				playerControllerScript_P1.PlayerGuides.SetActive (false);
 				playerControllerScript_P1.AbilityUI.transform.position = Vector3.zero;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlockFormation : MonoBehaviour 
 {
-	public Rigidbody rb;
+	private Rigidbody rb;
 	public GameController gameControllerScript;
 
 	[Header ("Stats")]
@@ -20,11 +20,14 @@ public class BlockFormation : MonoBehaviour
 	{
 		missingBlocks = Random.Range (Mathf.RoundToInt(MissingBlocksRange.x), Mathf.RoundToInt(MissingBlocksRange.y));
 		CheckMissingBlocks ();
+
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		SetSpawnPosition ();
+
 		GetAccumulatedSpeed ();
 		rb = GetComponent<Rigidbody> ();
 		rb.velocity = new Vector3 (0, speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 0);
+
 		InvokeRepeating ("CheckForChildObjects", 0, 1);
 	}
 

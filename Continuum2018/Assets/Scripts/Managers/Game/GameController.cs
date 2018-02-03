@@ -498,8 +498,6 @@ public class GameController : MonoBehaviour
 	{
 		PowerupTimeRemaining += Duration;
 		PowerupTimeRemaining = Mathf.Clamp (PowerupTimeRemaining, 0, PowerupTimeDuration);
-		//PowerupTimeDuration = Duration;
-		//PowerupTimeRemaining = PowerupTimeDuration;
 	}
 
 	void UpdateTimeStats ()
@@ -784,7 +782,7 @@ public class GameController : MonoBehaviour
 
 				if (Wave >= 5 && Wave < 9) 
 				{
-					GameObject Block = Blocks [UnityEngine.Random.Range (0, 8)];
+					GameObject Block = Blocks [UnityEngine.Random.Range (0, 6)];
 					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 					Instantiate (Block, SpawnPosRand, Quaternion.identity);
 				}

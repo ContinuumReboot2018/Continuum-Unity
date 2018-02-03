@@ -8,15 +8,14 @@ public class PowerupPickup : MonoBehaviour
 	public GameController gameControllerScript;
 	public PlayerController playerControllerScript_P1;
 	public TimescaleController timescaleControllerScript;
-	public Texture2D PowerupTexture;
-	public bool isShootingPowerup = true;
+	public DestroyByTime destroyByTimeScript;
 
 	[Header ("On Awake")]
-	public AudioSource AwakeAudio;
-	public MeshRenderer meshrend;
-	public SphereCollider col;
-	public ParticleSystem AwakeParticles;
-	public float AwakeDelay = 1;
+	public AudioSource AwakeAudio; // The audio effect to play when spawned.
+	public MeshRenderer meshrend; // The mesh renderer which has the powerup pickup texture.
+	public SphereCollider col; // The collider.
+	public ParticleSystem AwakeParticles; // The particle effect to play when spawned.
+	public float AwakeDelay = 1; // The delay to show the powerup after spawning.
 
 	[Header ("Powerup Stats")]
 	public powerups ThisPowerup;
@@ -34,18 +33,17 @@ public class PowerupPickup : MonoBehaviour
 	}
 
 	[Header ("On Pickup")]
-	public float PowerupTime = 20;
-	public GameObject CollectExplosion;
-	public GameObject PowerupDeathExplosion;
-	public Animator PowerupUI;
-	public AudioSource PowerupTimeRunningOutAudio;
-	//public GameObject PowerupPickupUI;
-	public Color PowerupPickupUIColor = Color.white;
+	public Texture2D PowerupTexture; // The powerup texture which will feed to the powerup list and explosion UI.
+	public bool isShootingPowerup = true; // Checks whether this is a shooting powerup.
+	public float PowerupTime = 20; // How much time the powerup adds to the powerup time remaining.
+	public GameObject CollectExplosion; // The explosion when the player or bullet collides with it.
+	public AudioSource PowerupTimeRunningOutAudio; // The sound that plays when the powerup time is running out.
+	public Color PowerupPickupUIColor = Color.white; // The color of the powerup explosion UI texture.
 
 	[Header ("On End Life")]
-	public Animator anim;
-	public DestroyByTime destroyByTimeScript;
+	public Animator anim; // The animator that the powerup pickup uses.
 
+	[Header ("Turret")]
 	public GameObject Turret;
 
 	void Awake ()
@@ -74,7 +72,6 @@ public class PowerupPickup : MonoBehaviour
 
 	void Start ()
 	{
-		PowerupUI = GameObject.Find ("PowerupUI").GetComponent<Animator> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
 		timescaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
@@ -131,7 +128,6 @@ public class PowerupPickup : MonoBehaviour
 		CreatePowerupPickupUI ();
 		ActivatePowerup_P1 ();
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f);
-		Instantiate (PowerupDeathExplosion, transform.position, Quaternion.identity);
 		PowerupTimeRunningOutAudio.Stop ();
 		Destroy (gameObject);
 	}
@@ -150,7 +146,6 @@ public class PowerupPickup : MonoBehaviour
 		switch (ThisPowerup) 
 		{
 		case powerups.DoubleShot: 
-
 			// Switches to triple shot mode
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 
@@ -193,7 +188,6 @@ public class PowerupPickup : MonoBehaviour
 				break;
 
 		case powerups.TripleShot:
-			
 			// Switches to triple shot mode
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
 
@@ -304,7 +298,6 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Helix:
-			
 			gameControllerScript.SetPowerupTime (PowerupTime);
 
 			if (playerControllerScript_P1.Helix.activeInHierarchy == false) 
@@ -317,7 +310,6 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Turret:
-
 			gameControllerScript.SetPowerupTime (PowerupTime);
 
 			if (playerControllerScript_P1.nextTurretSpawn < 4) 
@@ -336,7 +328,6 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Rapidfire:
-			
 			gameControllerScript.SetPowerupTime (PowerupTime);
 
 			if (playerControllerScript_P1.isInRapidFire == false)
@@ -356,6 +347,7 @@ public class PowerupPickup : MonoBehaviour
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 					break;
 				}
+
 				gameControllerScript.RapidfireImage.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
 			}
@@ -363,7 +355,6 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Overdrive:
-
 			gameControllerScript.SetPowerupTime (PowerupTime);
 
 			if (playerControllerScript_P1.isInOverdrive == false) 
@@ -380,21 +371,26 @@ public class PowerupPickup : MonoBehaviour
 		case powerups.Ricochet:
 			gameControllerScript.SetPowerupTime (PowerupTime);
 
-			if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) {
+			if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) 
+			{
 				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
 			}
 
-			if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) {
+			if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) 
+			{
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
 			}
 
-			if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) {
+			if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) 
+			{
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
 			}
 
-			if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) {
+			if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) 
+			{
 				playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
 			}
+
 			playerControllerScript_P1.isRicochet = true;
 			gameControllerScript.RicochetImage.enabled = true;
 			break;

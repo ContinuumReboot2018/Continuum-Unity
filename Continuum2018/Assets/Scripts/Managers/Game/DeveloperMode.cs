@@ -173,12 +173,9 @@ public class DeveloperMode : MonoBehaviour
 			CheatStringResetTimeRemaining = CheatStringResetDuration;
 			CheatString += c;
 
-			//CheatInputText.text = "> " + CheatString;
-
 			if (CheatString.Contains (c.ToString () + c.ToString () + c.ToString ()))
 			{
 				ClearCheatString ();
-				//CheatInputText.text = ">_ ";
 			}
 
 			if (CheatString.Contains ("`")) 
@@ -190,13 +187,11 @@ public class DeveloperMode : MonoBehaviour
 		if (CheatString.Length > maxCheatCharacters) 
 		{
 			ClearCheatString ();
-			//CheatInputText.text = ">_ ";
 		}
 
 		if (Input.GetKeyDown (KeyCode.Backspace)) 
 		{
 			ClearCheatString ();
-			//CheatInputText.text = ">_ ";
 		}
 
 		if (CheatString == ToggleCheatsCommand
@@ -321,7 +316,6 @@ public class DeveloperMode : MonoBehaviour
 			if (CheatString == ToggleGodmodeCommand) 
 			{
 				isGod = !isGod;
-				//playerControllerScript_P1.playerCol.enabled = !playerControllerScript_P1.playerCol.enabled;
 
 				if (isGod == true)
 				{

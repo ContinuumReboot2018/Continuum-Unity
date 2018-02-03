@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleCollisionPlayer : MonoBehaviour {
-
+public class ParticleCollisionPlayer : MonoBehaviour 
+{
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
 	public TimescaleController timeScaleControllerScript;
@@ -12,9 +12,11 @@ public class ParticleCollisionPlayer : MonoBehaviour {
 
 	public GameObject playerExplosion;
 
+	[Header ("Camera shake")]
 	public float newCamShakeAmount;
 	public float newCamShakeDuration;
 
+	[Header ("Audio")]
 	public float LowPassTargetFreq = 1500;
 	public float ResonanceTargetFreq = 1;
 
@@ -36,7 +38,9 @@ public class ParticleCollisionPlayer : MonoBehaviour {
 
 				playerControllerScript_P1.ResetPowerups ();
 				playerControllerScript_P1.playerCol.enabled = false;
+				playerControllerScript_P1.playerTrigger.enabled = false;
 				playerControllerScript_P1.playerCol.gameObject.SetActive (false);
+				playerControllerScript_P1.playerTrigger.gameObject.SetActive (false);
 				playerControllerScript_P1.PlayerGuides.transform.position = Vector3.zero;
 				playerControllerScript_P1.PlayerGuides.SetActive (false);
 				playerControllerScript_P1.AbilityUI.transform.position = Vector3.zero;

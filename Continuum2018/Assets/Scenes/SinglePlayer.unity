@@ -69855,8 +69855,8 @@ MonoBehaviour:
   AbilityTimeAmountProportion: 0
   AbilityChargeSpeedMultiplier: 0.5
   AbilityUseSpeedMultiplier: 6
-  AbilityName: Emp
-  Ability: 1
+  AbilityName: Shield
+  Ability: 0
   AbilityUI: {fileID: 1372790826}
   AbilityImage: {fileID: 293415163}
   AbilityTextures:
@@ -78144,7 +78144,7 @@ MonoBehaviour:
   playerControllerScript_P1: {fileID: 950826315}
   gameControllerScript: {fileID: 1461897538}
   timeScaleControllerScript: {fileID: 1643956535}
-  audioControllerScript: {fileID: 0}
+  audioControllerScript: {fileID: 1084482489}
   camShakeScript: {fileID: 525356116}
   playerExplosion: {fileID: 157250351}
   newCamShakeAmount: 0.3
@@ -78267,17 +78267,6 @@ MonoBehaviour:
   BassTargetPitch: 0
   PitchSmoothTime: 4
   TimePitch: {x: 0.5, y: 0.75, z: 1, w: 1.25}
-  bassLoudness: {fileID: 901118418}
-  layerOneLoudness: {fileID: 1696915256}
-  layerTwoLoudness: {fileID: 1098930922}
-  layerThreeLoudness: {fileID: 161556220}
-  CurrentBassLoudness: 0
-  CurrentLayerOneLoudness: 0
-  CurrentLayerTwoLoudness: 0
-  CurrentLayerThreeLoudness: 0
-  StereoImageL: {fileID: 1888853074}
-  StereoImageR: {fileID: 680966675}
-  LoudnessSmoothing: 20
 --- !u!1 &1087838621
 GameObject:
   m_ObjectHideFlags: 0
@@ -111352,7 +111341,7 @@ MonoBehaviour:
   BlocksDestroyedText: {fileID: 1868320333}
   Wave: 0
   WaveTimeIncreaseRate: 1.5
-  FirstWaveTimeDuration: 10
+  FirstWaveTimeDuration: 5
   WaveTimeDuration: 0.5
   WaveTimeRemaining: 0
   IsInWaveTransition: 0
@@ -111395,10 +111384,13 @@ MonoBehaviour:
   - {fileID: 1750224001074990, guid: d83b7ab5dbead6b4198eaa6cb15f6e8e, type: 2}
   - {fileID: 1155632282879928, guid: 5ecceb548fc0e2d4d9d0f7c740f6d385, type: 2}
   - {fileID: 1155632282879928, guid: 598adaea51672f94c863a9a70fac0f99, type: 2}
-  - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
-  - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
+  - {fileID: 1651237857054494, guid: 2f71bf3b29eeb5d43a49c8b1c03120ec, type: 2}
+  - {fileID: 1189099540251518, guid: ab14dfa85fcc335439b11cb84a753a64, type: 2}
+  - {fileID: 1504022097085502, guid: 6eace4c13b9d17b4fbb9520c0cc0cced, type: 2}
   - {fileID: 1743466060572060, guid: a03fbb974e9046b48944076642c8c3c3, type: 2}
-  BlockSpawnRate: 0.4
+  - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
+  - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
+  BlockSpawnRate: 1
   blockSpawnStartDelay: 4
   BlockSpawnXPositions:
   - -20.25
@@ -126036,7 +126028,7 @@ MonoBehaviour:
   TargetTimeScaleSmoothing: 6
   TargetTimeScaleMult: 0.07
   TargetTimeScaleAdd: 0.3
-  TargetTimeScaleIncreaseRate: 0.00125
+  TargetTimeScaleIncreaseRate: 0.0005
   ReferencePoint: {fileID: 2056022828}
   Distance: 8
   PlayerOne: {fileID: 815677226}
