@@ -7,12 +7,16 @@ public class ParticleCollisionPlayer : MonoBehaviour {
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
 	public TimescaleController timeScaleControllerScript;
+	public AudioController audioControllerScript; 
 	public CameraShake camShakeScript;
 
 	public GameObject playerExplosion;
 
 	public float newCamShakeAmount;
 	public float newCamShakeDuration;
+
+	public float LowPassTargetFreq = 1500;
+	public float ResonanceTargetFreq = 1;
 
 	void OnParticleCollision (GameObject particle)
 	{
@@ -22,8 +26,8 @@ public class ParticleCollisionPlayer : MonoBehaviour {
 
 			if (gameControllerScript.Lives > 1) 
 			{
-				//SetTargetLowPassFreq (LowPassTargetFreq);
-				//SetTargetResonance (ResonanceTargetFreq);
+				SetTargetLowPassFreq (LowPassTargetFreq);
+				SetTargetResonance (ResonanceTargetFreq);
 				gameControllerScript.combo = 1;
 				timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
 				timeScaleControllerScript.OverridingTimeScale = 0.25f;
@@ -64,9 +68,16 @@ public class ParticleCollisionPlayer : MonoBehaviour {
 	void DoCamShake ()
 	{
 		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 1);
-		//camShakeScript.shakeDuration = newCamShakeDuration;
-		//camShakeScript.shakeAmount = newCamShakeAmount;
-		//camShakeScript.Shake ();
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
+	}
+
+	void SetTargetLowPassFreq (float lowPassFreq)
+	{
+		audioControllerScript.TargetCutoffFreq = lowPassFreq;
+	}
+
+	void SetTargetResonance (float resAmt)
+	{
+		audioControllerScript.TargetResonance = resAmt;
 	}
 }

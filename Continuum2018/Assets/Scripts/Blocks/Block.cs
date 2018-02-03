@@ -409,9 +409,6 @@ public class Block : MonoBehaviour
 	void DoCamShake ()
 	{
 		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 1);
-		//camShakeScript.shakeDuration = newCamShakeDuration;
-		//camShakeScript.shakeAmount = newCamShakeAmount;
-		//camShakeScript.Shake ();
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
 	}
 

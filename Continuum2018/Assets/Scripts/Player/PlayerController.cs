@@ -17,9 +17,6 @@ public class PlayerController : MonoBehaviour
 	public CameraShake camShakeScript;
 	public DeveloperMode developerModeScript;
 	public TutorialManager tutorialManagerScript;
-	public int PlayerId = 1;
-	public TextMeshProUGUI PlayerText;
-	public bool isJoined;
 
 	[Header ("Player Movement")]
 	[Range (-1, 1)]
@@ -40,6 +37,11 @@ public class PlayerController : MonoBehaviour
 	public float YRotationMultiplier = 10;
 	private float RotVelY;
 
+	[Header ("Player stats")]
+	public int PlayerId = 1;
+	public TextMeshProUGUI PlayerText;
+	public bool isJoined;
+
 	public float PlayerVibrationDuration;
 	public float PlayerVibrationTimeRemaining;
 
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
 	public float MainEngineParticleEmissionLerpSpeed = 4;
 
 	public Transform ReferencePoint;
+	public GameObject PlayerGuides;
 
 	[Header ("Shooting")]
 	public GameObject CurrentShotObject;
@@ -74,20 +77,24 @@ public class PlayerController : MonoBehaviour
 
 	[Header ("Impact")]
 	public GameObject playerMesh;
+
+	// Player has two colliders, one is in trigger mode.
 	public Collider playerCol;
 	public Collider playerTrigger;
+
 	public bool isInCooldownMode;
 	public float cooldownDuration;
 	public float cooldownTimeRemaining;
+
 	public ParticleSystem PlayerExplosionParticles;
 	public AudioSource PlayerExplosionAudio;
 	public ParticleSystem GameOverExplosionParticles;
 	public AudioSource GameOverExplosionAudio;
+
 	public MeshCollider InvincibleCollider;
 	public MeshRenderer InvincibleMesh;
 	public Animator InvincibleMeshAnim;
-	public GameObject PlayerGuides;
-	public GameObject AbilityUI;
+
 
 	[Header ("Ability")]
 	public abilityState CurrentAbilityState;
@@ -98,6 +105,7 @@ public class PlayerController : MonoBehaviour
 		Active
 	}
 
+	// Ability stats.
 	public float CurrentAbilityTimeRemaining;
 	public float CurrentAbilityDuration;
 	public float AbilityTimeAmountProportion;
@@ -114,6 +122,8 @@ public class PlayerController : MonoBehaviour
 		HorizontalBeam,
 	}
 
+	// Ability UI.
+	public GameObject AbilityUI;
 	public RawImage AbilityImage;
 	public Texture2D[] AbilityTextures;
 	public Image AbilityFillImageL;
@@ -123,6 +133,7 @@ public class PlayerController : MonoBehaviour
 	public Color AbilityUseColor, AbilityChargingColor, AbilityChargingFullColor;
 
 	[Header ("Powerups")]
+	// General.
 	public int powerupsInUse;
 	public bool isInRapidFire;
 	public bool isInOverdrive;
@@ -211,15 +222,18 @@ public class PlayerController : MonoBehaviour
 	public ParticleSystem[] HelixParticles;
 
 	[Header ("UI")]
+	// Score UI.
 	public bool isHidingScoreUI;
 	public Animator ScoreAnim;
 	public Vector3 ScoreCheckPlayerPos;
 
+	// Lives UI.
 	public bool isHidingLivesUI;
 	public Animator LivesAnim;
 	public Vector2 LivesCheckPlayerPosX;
 	public Vector2 LivesCheckPlayerPosY;
 
+	// Wave UI.
 	public bool isHidingWaveUI;
 	public Animator WaveAnim;
 	public Vector3 WaveCheckPlayerPos;
@@ -256,15 +270,12 @@ public class PlayerController : MonoBehaviour
 	void Update ()
 	{
 		MovePlayer ();
-		//MovePlayerPhysics ();
-		//MovePlayerSmoothing ();
 		CheckShoot ();
 		CheckPlayerVibration ();
 		CheckUIVisibility ();
 		CheckCooldownTime ();
 		CheckAbilityTime ();
 		DrawReferencePointLine ();
-		//CheckCheatConsoleInput ();
 	}
 
 	void FixedUpdate ()
@@ -279,9 +290,7 @@ public class PlayerController : MonoBehaviour
 			// This moves the transform position which the player will follow.
 			PlayerFollowRb.velocity = new Vector3 (
 				MovementX * PlayerFollowMoveSpeed * Time.fixedUnscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
-				//MovementX * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
 				MovementY * PlayerFollowMoveSpeed * Time.fixedUnscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
-				//MovementY * PlayerFollowMoveSpeed * Time.unscaledDeltaTime * (1 / (Time.timeScale + 0.1f)),
 				0
 			);
 		}
@@ -300,9 +309,7 @@ public class PlayerController : MonoBehaviour
 		// Player follows [follow position] with smoothing.
 		PlayerRb.position = new Vector3 (
 			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.fixedUnscaledDeltaTime),
-			//Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.unscaledDeltaTime),
 			Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.fixedUnscaledDeltaTime),
-			//Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.unscaledDeltaTime),
 			0
 		);
 
@@ -395,6 +402,7 @@ public class PlayerController : MonoBehaviour
 
 	void RejoinGame ()
 	{
+		gameControllerScript.UpdateLives ();
 		canShoot = true;
 		UsePlayerFollow = true;
 		playerMesh.SetActive (true);
@@ -1081,17 +1089,21 @@ public class PlayerController : MonoBehaviour
 	{
 		ShotType = shotType.Standard;
 		CurrentFireRate = StandardFireRate;
+
 		StandardShotIteration = shotIteration.Standard;
 		DoubleShotIteration = shotIteration.Standard;
 		TripleShotIteration = shotIteration.Standard;
 		RippleShotIteration = shotIteration.Standard;
+
 		nextTurretSpawn = 0;
 		TurretSpinSpeed = TurretSpinSpeedNormal;
-		isRicochet = false;
 
-		gameControllerScript.PowerupTimeRemaining = 0;
+		isRicochet = false;
+		isInOverdrive = false;
+		isInRapidFire = false;
 
 		Invoke ("TurnOffHelix", 1);
+
 		foreach (ParticleSystem helixparticle in HelixParticles)
 		{
 			helixparticle.Stop ();
@@ -1102,9 +1114,8 @@ public class PlayerController : MonoBehaviour
 			clone.SetActive (false);
 		}
 
+		gameControllerScript.PowerupTimeRemaining = 0;
 		gameControllerScript.ClearPowerupUI ();
-		isInRapidFire = false;
-		isInOverdrive = false;
 	}
 
 	// This is for InControl for initialization.

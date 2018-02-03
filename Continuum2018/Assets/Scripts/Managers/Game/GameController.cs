@@ -104,10 +104,17 @@ public class GameController : MonoBehaviour
 	public RawImage RapidfireImage;
 	public RawImage RicochetImage;
 
+	public GameObject PowerupPickupUI;
+
 	[Header ("BossSpawner")]
 	public GameObject[] MiniBosses;
 	public Transform MiniBossSpawnPos;
-	public float bossSpawnDelay = 4;
+	public float MiniBossSpawnDelay = 4;
+
+	public GameObject[] BigBosses;
+	public Transform BigBossSpawnPos;
+	public float BigBossSpawnDelay = 4;
+	public int bossId;
 
 	[Header ("Pausing")]
 	public bool isPaused;
@@ -176,11 +183,11 @@ public class GameController : MonoBehaviour
 		ClearPowerupUI ();
 		ScoreText.text = "";
 		ScoreBackground.enabled = false;
-		//TrackStats = false;
 
 		LivesAnim.gameObject.SetActive (false);
 		Lives = 3;
 		LivesText.text = "";
+		MaxLivesText.text = "";
 		LivesBackground.enabled = false;
 
 		Wave = 1;
@@ -189,8 +196,7 @@ public class GameController : MonoBehaviour
 		WaveAnim.enabled = false;
 		WaveBackground.enabled = false;
 		IsInWaveTransition = true;
-		//WaveTimeSlider.value = 1;
-		//WaveTimeSlider.maxValue = 1;
+		bossId = 0;
 
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
@@ -219,11 +225,7 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
-		StartCoroutines ();
-	}
-
-	public void StartCoroutines ()
-	{
+		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1);
 	}
 
 	// Timescale controller calls this initially after the countdown.
@@ -234,12 +236,15 @@ public class GameController : MonoBehaviour
 		DisplayScore = 0;
 
 		TrackStats = true;
+
 		WaveTransitionParticles.Play (true);
 		WaveTransitionAnim.Play ("WaveTransition");
 		IsInWaveTransition = true;
 		WaveTimeRemaining = WaveTimeDuration;
+
 		StartCoroutine (StartBlockSpawn ());
 		StartCoroutine (PowerupSpawner ());
+
 		ScoreAnim.enabled = true;
 		LivesAnim.gameObject.SetActive (true);
 		LivesAnim.enabled = true;
@@ -247,57 +252,25 @@ public class GameController : MonoBehaviour
 		ScoreBackground.enabled = true;
 		LivesBackground.enabled = true;
 		WaveBackground.enabled = true;
+
+		Lives = 3;
+		UpdateLives ();
 	}
 
 	void Update ()
 	{
 		UpdateGameStats ();
-		UpdateLives ();
 		UpdateTimeStats ();
 		CheckCombo ();
 		CheckPowerupTime ();
+		CheckWaveTime ();
 		UpdateScoreIncrements ();
-		UpdateBlockSpawnTime ();
-		UpdateStarFieldparticleEffectTrail ();
-		UpdateImageEffects ();
+		UpdateStarFieldParticleEffects ();
+		//UpdateImageEffects ();
 		LevelTimer ();
-
-		if (WaveTimeRemaining < 0) 
-		{
-			if (Wave % 4 != 0)
-			{
-				StartCoroutine (SpawnMiniBoss ());
-
-				if (Wave % 4 != 1)
-				{
-					SoundtrackText.text = "";
-				}
-			}
-
-			if (Wave % 4 == 0)
-			{
-				audioControllerScript.StopAllSoundtracks ();
-				StartCoroutine (SpawnMiniBoss ()); // Supposed to spawn a big boss.
-				SoundtrackText.text = "";
-			}
-
-			// For every wave after a major boss fight.
-			//if (Wave % 4 == 0 || Wave == 1) 
-			//{
-			//	SoundtrackText.text = audioControllerScript.TrackName + "";
-			//}
-
-			WaveTimeRemaining = 0;
-		}
-
-		// For every wave after a major boss fight.
-		if (Wave % 4 == 1 || Wave == 1) 
-		{
-			SoundtrackText.text = audioControllerScript.TrackName + "";
-		}
 	}
 
-	void UpdateStarFieldparticleEffectTrail ()
+	void UpdateStarFieldParticleEffects ()
 	{
 		if (isUpdatingParticleEffects == true) 
 		{
@@ -395,7 +368,7 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	void UpdateLives ()
+	public void UpdateLives ()
 	{
 		if (timescaleControllerScript.isInInitialSequence == true || timescaleControllerScript.isInInitialCountdownSequence == true) 
 		{
@@ -409,9 +382,11 @@ public class GameController : MonoBehaviour
 			}
 		}
 
-		if (timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) {
+		if (timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) 
+		{
 			// Check how many life images are supposed to be there
-			switch (Lives) {
+			switch (Lives) 
+			{
 			case 0:
 				if (LivesText.gameObject.activeSelf == true) 
 				{
@@ -466,19 +441,6 @@ public class GameController : MonoBehaviour
 				LivesText.gameObject.SetActive (true);
 				LivesText.text = "x " + (Lives - 1);
 			}
-		}
-
-		// Caps maximum lives.
-		Lives = Mathf.Clamp (Lives, 0, MaxLives);
-
-		if (Lives < MaxLives) 
-		{
-			MaxLivesText.text = "";
-		}
-
-		if (Lives >= MaxLives) 
-		{
-			MaxLivesText.text = "MAX";
 		}
 	}
 
@@ -563,9 +525,6 @@ public class GameController : MonoBehaviour
 
 			BlocksDestroyedText.text = "BLOCKS DESTROYED: " + BlocksDestroyed;
 			WaveTimeRemainText.text = "WAVE TIME: " + System.Math.Round (WaveTimeRemaining, 0);
-			//WaveTimeSlider.value = WaveTimeRemaining;
-			//WaveTimeSlider.minValue = 0;
-			//WaveTimeSlider.maxValue = WaveTimeDuration;
 		}
 	}
 
@@ -713,6 +672,7 @@ public class GameController : MonoBehaviour
 		if (Wave > 1) 
 		{
 			BlockSpawnRate -= BlockSpawnIncreaseRate;
+			UnityEngine.Debug.Log ("Block spawn rate: " + BlockSpawnRate);
 		}
 
 		WaveTimeDuration += WaveTimeIncreaseRate;
@@ -790,33 +750,40 @@ public class GameController : MonoBehaviour
 
 	public void SpawnBlock (bool anyBlock)
 	{
-		if (anyBlock == false) {
-			if (isGameOver == false) {
-				if (Wave == 1) {
+		if (anyBlock == false) 
+		{
+			if (isGameOver == false) 
+			{
+				if (Wave == 1) 
+				{
 					GameObject Block = Blocks [UnityEngine.Random.Range (0, 1)];
 					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 					Instantiate (Block, SpawnPosRand, Quaternion.identity);
 				}
 
-				if (Wave == 2) {
+				if (Wave == 2) 
+				{
 					GameObject Block = Blocks [UnityEngine.Random.Range (0, 2)];
 					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 					Instantiate (Block, SpawnPosRand, Quaternion.identity);
 				}
 
-				if (Wave == 3) {
+				if (Wave == 3) 
+				{
 					GameObject Block = Blocks [UnityEngine.Random.Range (0, 3)];
 					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 					Instantiate (Block, SpawnPosRand, Quaternion.identity);
 				}
 
-				if (Wave == 4) {
+				if (Wave == 4) 
+				{
 					GameObject Block = Blocks [UnityEngine.Random.Range (0, 4)];
 					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 					Instantiate (Block, SpawnPosRand, Quaternion.identity);
 				}
 
-				if (Wave >= 5 && Wave < 9) {
+				if (Wave >= 5 && Wave < 9) 
+				{
 					GameObject Block = Blocks [UnityEngine.Random.Range (0, 8)];
 					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 					Instantiate (Block, SpawnPosRand, Quaternion.identity);
@@ -874,9 +841,59 @@ public class GameController : MonoBehaviour
 
 	public IEnumerator SpawnMiniBoss ()
 	{
-		yield return new WaitForSeconds (bossSpawnDelay);
+		yield return new WaitForSeconds (MiniBossSpawnDelay);
 		GameObject MiniBoss = MiniBosses [UnityEngine.Random.Range (0, MiniBosses.Length)];
 		Instantiate (MiniBoss, MiniBossSpawnPos.position, MiniBossSpawnPos.rotation);
+		UnityEngine.Debug.Log ("Spawned a mini boss.");
+	}
+
+	public IEnumerator SpawnBigBoss ()
+	{
+		yield return new WaitForSeconds (BigBossSpawnDelay);
+		GameObject BigBoss = BigBosses [UnityEngine.Random.Range (0, bossId)];
+		Instantiate (BigBoss, BigBossSpawnPos.position, BigBossSpawnPos.rotation);
+		UnityEngine.Debug.Log ("Oh snap! We spawned a big boss!");
+
+		if (bossId <= BigBosses.Length) 
+		{
+			bossId += 1;
+		}
+
+		if (bossId > BigBosses.Length) 
+		{
+			bossId = 0;
+		}
+	}
+
+	void CheckWaveTime ()
+	{
+		if (WaveTimeRemaining < 0) 
+		{
+			if (Wave % 4 != 0)
+			{
+				StartCoroutine (SpawnMiniBoss ());
+
+				if (Wave % 4 != 1)
+				{
+					SoundtrackText.text = "";
+				}
+			}
+
+			if (Wave % 4 == 0)
+			{
+				audioControllerScript.StopAllSoundtracks ();
+				StartCoroutine (SpawnBigBoss ());
+				SoundtrackText.text = "";
+			}
+
+			WaveTimeRemaining = 0;
+		}
+
+		// For every wave after a major boss fight.
+		if (Wave % 4 == 1 || Wave == 1) 
+		{
+			SoundtrackText.text = audioControllerScript.TrackName + "";
+		}
 	}
 
 	public void StartNewWave ()
@@ -892,6 +909,7 @@ public class GameController : MonoBehaviour
 	void IncrementWaveNumber ()
 	{
 		Wave += 1;
+		UnityEngine.Debug.Log ("Wave number increased.");
 	}
 
 	public IEnumerator GoToNextWave ()
@@ -902,6 +920,7 @@ public class GameController : MonoBehaviour
 		{
 			audioControllerScript.NextTrack ();
 			audioControllerScript.LoadTracks ();
+			UnityEngine.Debug.Log ("New soundtrack loaded.");
 		}
 
 		NextLevel ();

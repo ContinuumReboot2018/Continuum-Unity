@@ -15,100 +15,101 @@ public class DeveloperMode : MonoBehaviour
 	public SaveAndLoadScript saveAndLoadScript;
 	public TargetFPS targetFramerateScript;
 	public TutorialManager tutorialManagerScript;
-	public bool forceStarted;
+
+	public bool forceStarted; // Has the tutorial been skipped via force start command?
 
 	[Header ("Cheats")]
 	//public GameObject CheatConsole;
 	//public TextMeshProUGUI CheatInputText;
-	public string CheatString;
-	public string LastCheatName;
-	public float CheatStringResetTimeRemaining = 1.0f;
-	public float CheatStringResetDuration = 1.0f;
-	public int maxCheatCharacters = 12;
+	public string CheatString; // Current cheat string field value.
+	public string LastCheatName; // Logs last cheat name, referenced when player loads last cheat again.
+	public float CheatStringResetTimeRemaining = 1.0f; // Current time remaining before the cheat string is reset.
+	public float CheatStringResetDuration = 1.0f; // How long for the cheat string can remain idle until it is reset.
+	public int maxCheatCharacters = 12; // Cheat character limit.
 
-	public bool useCheats;
-	public bool allowCheats = false;
-	public bool showCheats;
-	public bool isGod;
+	public bool useCheats; // Toggles if cheats are being used.
+	public bool allowCheats = false; // Toggles if cheats are allowed.
+	public bool showCheats; // Toggles if cheats are being shown or not.
+	public bool isGod; // Toggles if god mode is on or off.
 	//public bool cheatInProcess;
 
+	public int AddScoreAmount = 100000; // Score added when addscore cheat is activated.
+
 	[Header ("Cheat Commands")]
-	public string ToggleCheatsCommand = "continuum";
-	public string ForceStartCommand = "start";
-	public string ForceRestartCommand = "restart";
+	public string ToggleCheatsCommand = "continuum"; // Toggles cheats ON or OFF.
+	public string ForceStartCommand = "start"; // Force starts the wave sequence and skips the tutorial.
+	public string ForceRestartCommand = "restart"; // Loads the scene again, taken to scene transition UI.
 
-	public string FpsUnlockCommand = "fpsunlock";
-	public string Fps30Command = "fps30";
-	public string Fps60Command = "fps60";
-	public string Fps90Command = "fps90";
-	public string Fps120Command = "fps120";
+	public string FpsUnlockCommand = "fpsunlock"; // Unlocks framerate.
+	public string Fps30Command = "fps30"; // Target framerate set to 30.
+	public string Fps60Command = "fps60"; // Target framerate set to 60.
+	public string Fps90Command = "fps90"; // Target framerate set to 90.
+	public string Fps120Command = "fps120"; // Target framerate set to 120.
 
-	public string NextTrackCommand = "nexttrack";
-	public string PreviousTrackCommand = "previoustrack";
-	public string RandomTrackCommand = "randomtrack";
+	public string NextTrackCommand = "nexttrack"; // Audio manager to load the next soundtrack.
+	public string PreviousTrackCommand = "previoustrack"; // Audio manager to load the previous soundtrack.
+	public string RandomTrackCommand = "randomtrack"; // Audio manager to load a random soundtrack.
 
-	public string SaveSettingsCommand = "savesettings";
-	public string LoadSettingsCommand = "loadsettings";
+	public string SaveSettingsCommand = "savesettings"; // Saves app settings to a file.
+	public string LoadSettingsCommand = "loadsettings"; // Loads app settings to a file.
 
-	public string ToggleGodmodeCommand = "god";
-	public string AddLifeCommand = "life";
+	public string ToggleGodmodeCommand = "god"; // Toggle god mode ON or OFF.
+	public string AddLifeCommand = "life"; // Adds lives to player.
 
-	public string ChargeAbilityCommand = "chargeability";
-	public string RefreshAbilityCommand = "refreshability";
+	public string ChargeAbilityCommand = "chargeability"; // Charges ability bar and sets to ready.
+	public string RefreshAbilityCommand = "refreshability"; // Refreshes ability name and stats.
 
-	public string SpawnBlockCommand = "spblock";
-	public string SpawnPowerupPickupCommand = "sppow";
+	public string SpawnBlockCommand = "spblock"; // Spawns a random block.
+	public string SpawnPowerupPickupCommand = "sppow"; // Spawns a random powerup.
 
-	public string PowerupTimeCommand = "poweruptime";
+	public string PowerupTimeCommand = "poweruptime"; // Replenishes powerup time.
 
-	public string DoubleShotCommand = "double";
-	public string TripleShotCommand = "triple";
-	public string RippleShotCommand = "ripple";
-	public string TurretCommand = "Turret";
-	public string HelixCommand = "helix";
+	public string StandardShotCommand = "standard"; // Player shooting to standard shot.
+	public string DoubleShotCommand = "double"; // Player shooting to double shot.
+	public string TripleShotCommand = "triple"; // Player shooting to triple shot.
+	public string RippleShotCommand = "ripple"; // Player shooting to ripple shot.
+	public string TurretCommand = "Turret"; // Player gets  a turret (Maximum 4).
+	public string HelixCommand = "helix"; // Player gets a helix.
 
-	public string NextWaveCommand = "nextwave";
-	public string PreviousWaveCommand = "lastwave";
+	public string NextWaveCommand = "nextwave"; // Wave number increases.
+	public string PreviousWaveCommand = "lastwave"; // Wave number decreases.
 
-	public string RapidfireCommand = "rapid";
-	public string OverdriveCommand = "overdrive";
-	public string RicochetCommand = "ricochet";
-	public string StandardShotCommand = "standard";
-	public string ResetAllPowerupsCommand = "resetpow";
+	public string RapidfireCommand = "rapid"; // Toggles rapid fire mode ON or OFF.
+	public string OverdriveCommand = "overdrive"; // Toggle overdrive mode ON or OFF.
+	public string RicochetCommand = "ricochet"; // Toggle ricochet mode ON or OFF.
 
-	public string ShieldCommand = "shield";
-	public string VerticalBeamCommand = "vbeam";
-	public string HorizontalBeamCommand = "hbeam";
-	public string EmpCommand = "emp";
+	public string ResetAllPowerupsCommand = "resetpow"; // Resets all powerups.
 
-	public string AddScoreCommand = "addscore";
-	public string LoseLifeCommand = "loselife";
-	public string GameOverCommand = "gameover";
+	public string ShieldCommand = "shield"; // Set ability to shield and turn on the shield + ability timer.
+	public string VerticalBeamCommand = "vbeam"; // Set ability to vertical beam and turn on the shield + ability timer.
+	public string HorizontalBeamCommand = "hbeam"; // Set ability to horizontal and turn on the shield + ability timer.
+	public string EmpCommand = "emp"; // Set ability to emp blast and turn on the shield + ability timer.
+
+	public string AddScoreCommand = "addscore"; // Adds current score by AddScoreAmount value.
+	public string LoseLifeCommand = "loselife"; // Loses a life.
+	public string GameOverCommand = "gameover"; // Force a game over regardless of how many lives remain.
 
 	[Header ("UI and Animations")]
-	public GameObject CheatsMenu;
-	public Animator CheatsMenuAnim;
-	public Animator CheatNotificationAnim;
-	public TextMeshProUGUI CheatNotifcationText;
-	public GameObject CheatSound;
+	public GameObject CheatsMenu; // Cheat menu for viewing possible cheats.
+	public Animator CheatsMenuAnim; // Animator for cheat menu.
+	public Animator CheatNotificationAnim; // Animator for cheat notification UI.
+	public TextMeshProUGUI CheatNotifcationText; // Text for cheat noticiation UI.
+	public GameObject CheatSound; // Sound to play when a cheat is activated.
 
-	public Texture2D DoubleShotTexture;
-	public Texture2D TripleShotTexture;
-	public Texture2D RippleShotTexture;
-
-	public Texture2D RapidfireTexture;
-	public Texture2D OverdriveTexture;
-
-	public Texture2D TurretTexture;
-	public Texture2D HelixTexture;
-
-	public Color RapidFireColor;
-	public Color OverdriveColor;
+	public Texture2D DoubleShotTexture; // Double shot display texture.
+	public Texture2D TripleShotTexture; // Triple shot display texture.
+	public Texture2D RippleShotTexture; // Ripple shot display texture.
+	public Texture2D TurretTexture; // Turret display texture.
+	public Texture2D HelixTexture; // Helix display texture.
+	public Texture2D RicochetTexture; // Ricochet texture.
+	public Texture2D RapidfireTexture; // Rapidfire texture.
+	public Texture2D OverdriveTexture; // Overdrive texture.
+	public Texture2D AddlifeTexture; // Add life texture.
 
 	[Header ("Debug Menu")]
-	public bool showDebugMenu;
-	public GameObject DebugMenu;
-	public Animator DebugMenuAnim;
+	public bool showDebugMenu; // Toggles whether debug menu is visible.
+	public GameObject DebugMenu; // Debug menu object for viewing stats.
+	public Animator DebugMenuAnim; // Animator for the debug menu object.
 
 	void Start () 
 	{
@@ -292,9 +293,29 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS LOAD");
 			}
 
-			if (CheatString == AddLifeCommand) {
-				gameControllerScript.Lives += 3;
-				ShowCheatNotification ("CHEAT ACTIVATED: LIFE");
+			if (CheatString == AddLifeCommand) 
+			{
+				if (gameControllerScript.Lives < gameControllerScript.MaxLives) 
+				{
+					gameControllerScript.Lives += 3;
+
+					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = AddlifeTexture;
+					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 1f, 1, 1);
+					gameControllerScript.MaxLivesText.text = "";
+					ShowCheatNotification ("CHEAT ACTIVATED: EXTRA LIFE");
+				}
+
+				if (gameControllerScript.Lives >= gameControllerScript.MaxLives) 
+				{
+					gameControllerScript.MaxLivesText.text = "MAX";
+					Debug.Log ("Reached maximum lives.");
+					ShowCheatNotification ("CHEAT ACTIVATED: MAX LIVES");
+				}
+
+				// Caps maximum lives.
+				gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
+				gameControllerScript.UpdateLives ();
 			}
 
 			if (CheatString == ToggleGodmodeCommand) 
@@ -373,6 +394,10 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
 				gameControllerScript.PowerupText_P1[0].text = "";
 
+				GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+				powerupPickupUI.GetComponentInChildren<RawImage> ().texture = DoubleShotTexture;
+				powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.3f, 0.7f, 1, 1);
+
 				ShowCheatNotification ("CHEAT ACTIVATED: DOUBLE SHOT");
 			}
 
@@ -400,6 +425,10 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.PowerupImage_P1[0].texture = TripleShotTexture;
 				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
 				gameControllerScript.PowerupText_P1[0].text = "";
+
+				GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+				powerupPickupUI.GetComponentInChildren<RawImage> ().texture = TripleShotTexture;
+				powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.435f, 0.717f, 1, 1);
 
 				ShowCheatNotification ("CHEAT ACTIVATED: TRIPLE SHOT");
 			}
@@ -429,6 +458,10 @@ public class DeveloperMode : MonoBehaviour
 			gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
 			gameControllerScript.PowerupText_P1[0].text = "";
 
+			GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+			powerupPickupUI.GetComponentInChildren<RawImage> ().texture = RippleShotTexture;
+			powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.31f, 0.372f, 1, 1);
+
 			ShowCheatNotification ("CHEAT ACTIVATED: RIPPLE SHOT");
 		}
 
@@ -448,6 +481,10 @@ public class DeveloperMode : MonoBehaviour
 
 					gameControllerScript.NextPowerupSlot_P1 += 1;
 					playerControllerScript_P1.nextTurretSpawn += 1;
+
+					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = TurretTexture;
+					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.31f, 0.372f, 1, 1);
 
 					ShowCheatNotification ("CHEAT ACTIVATED: Turret");
 				}
@@ -475,10 +512,14 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == RapidfireCommand) 
 			{
-				gameControllerScript.SetPowerupTime (20);
+				// Toggles rapid fire mode.
+				playerControllerScript_P1.isInRapidFire = !playerControllerScript_P1.isInRapidFire;
 
-				if (playerControllerScript_P1.isInRapidFire == false)
+				if (playerControllerScript_P1.isInRapidFire == true)
 				{
+					gameControllerScript.SetPowerupTime (20);
+					gameControllerScript.RapidfireImage.enabled = true;
+
 					switch (playerControllerScript_P1.ShotType) 
 					{
 					case PlayerController.shotType.Double:
@@ -494,59 +535,77 @@ public class DeveloperMode : MonoBehaviour
 						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 						break;
 					}
-						
-					gameControllerScript.RapidfireImage.enabled = true;
-					playerControllerScript_P1.isInRapidFire = true;
+
+					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = RapidfireTexture;
+					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.207f, 0.866f, 1, 1);
+
+					ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE: " + playerControllerScript_P1.ShotType.ToString().ToUpper ());
 				}
 
-				ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE: " + playerControllerScript_P1.ShotType.ToString().ToUpper ());
+				if (playerControllerScript_P1.isInRapidFire == false)
+				{
+					gameControllerScript.RapidfireImage.enabled = false;
+					ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE OFF");
+				}
 			}
 
 			if (CheatString == OverdriveCommand) 
 			{
-				gameControllerScript.SetPowerupTime (20);
+				// Toggles overdrive mode.
+				playerControllerScript_P1.isInOverdrive = !playerControllerScript_P1.isInOverdrive;
 
-				if (playerControllerScript_P1.isInOverdrive == false) 
+				if (playerControllerScript_P1.isInOverdrive == true) 
 				{
+					gameControllerScript.SetPowerupTime (20);					
+					gameControllerScript.OverdriveImage.enabled = true;
+
 					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
 
-					if (playerControllerScript_P1.ShotType != PlayerController.shotType.Standard)
-					{
-					}
+					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = OverdriveTexture;
+					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.898f, 0.25f, 1, 1);
 
-					gameControllerScript.OverdriveImage.enabled = true;
-					playerControllerScript_P1.isInOverdrive = true;
+					ShowCheatNotification ("CHEAT ACTIVATED: OVERDRIVE MODE ON");
 				}
 
-				ShowCheatNotification ("CHEAT ACTIVATED: OVERDRIVE MODE");
+				if (playerControllerScript_P1.isInOverdrive == false)
+				{
+					gameControllerScript.OverdriveImage.enabled = false;
+					ShowCheatNotification ("CHEAT ACTIVATED: OVERDRIVE MODE OFF");
+				}
 			}
 
 			if (CheatString == RicochetCommand) 
 			{
-				gameControllerScript.SetPowerupTime (20);
+				// Toggles ricochet mode.
+				playerControllerScript_P1.isRicochet = !playerControllerScript_P1.isRicochet;
 
-				if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) {
+				if (playerControllerScript_P1.isRicochet == true) 
+				{
+					gameControllerScript.SetPowerupTime (20);
+					gameControllerScript.RicochetImage.enabled = true;
+
 					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
-				}
-
-				if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) {
 					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
-				}
-
-				if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) {
 					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
-				}
-
-				if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) {
 					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+
+					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = RicochetTexture;
+					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.25f, 1, 0.565f, 1);
+
+					ShowCheatNotification ("CHEAT ACTIVATED: RICOCHET MODE ON");
 				}
 
-				playerControllerScript_P1.isRicochet = true;
-				gameControllerScript.RicochetImage.enabled = true;
-				ShowCheatNotification ("CHEAT ACTIVATED: RICOCHET MODE");
+				if (playerControllerScript_P1.isRicochet == false) 
+				{
+					gameControllerScript.RicochetImage.enabled = false;
+					ShowCheatNotification ("CHEAT ACTIVATED: RICOCHET MODE OFF");
+				}
 			}
 
 			if (CheatString == HelixCommand) 
@@ -562,6 +621,11 @@ public class DeveloperMode : MonoBehaviour
 
 					gameControllerScript.NextPowerupSlot_P1 += 1;
 				}
+
+				GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+				powerupPickupUI.GetComponentInChildren<RawImage> ().texture = HelixTexture;
+				powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 0.278f, 0.561f, 1);
+
 				ShowCheatNotification ("CHEAT ACTIVATED: HELIX");
 			}
 
@@ -570,17 +634,20 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.PowerupImage_P1 [0].texture = null;
 				gameControllerScript.PowerupImage_P1 [0].color = new Color (0, 0, 0, 0);
 				gameControllerScript.PowerupText_P1 [0].text = "";
+
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Standard;
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.StandardFireRate;
-				ShowCheatNotification ("CHEAT ACTIVATED: STANDARD SHOT");
 				playerControllerScript_P1.isInOverdrive = false;
 				playerControllerScript_P1.isInRapidFire = false;
+
+				ShowCheatNotification ("CHEAT ACTIVATED: STANDARD SHOT");
 			}
 
 			if (CheatString == ResetAllPowerupsCommand) 
 			{
 				gameControllerScript.PowerupTimeRemaining = 0;
 				playerControllerScript_P1.ResetPowerups ();
+
 				ShowCheatNotification ("CHEAT ACTIVATED: RESET POWERUPS");
 			}
 
@@ -593,6 +660,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.RefreshAbilityImage ();
 				playerControllerScript_P1.ActivateAbility ();
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
+
 				ShowCheatNotification ("CHEAT ACTIVATED: SHIELD");
 			}
 
@@ -605,6 +673,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
+
 				ShowCheatNotification ("CHEAT ACTIVATED: VERTICAL BEAM");
 			}
 
@@ -617,6 +686,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
+
 				ShowCheatNotification ("CHEAT ACTIVATED: HORIZONTAL BEAM");
 			}
 
@@ -629,6 +699,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.ActivateAbility ();
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
+
 				ShowCheatNotification ("CHEAT ACTIVATED: EMP");
 			}
 				
@@ -639,13 +710,14 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == AddScoreCommand) 
 			{
-				gameControllerScript.TargetScore += 100000;
+				gameControllerScript.TargetScore += AddScoreAmount;
 				ShowCheatNotification ("CHEAT ACTIVATED: ADD SCORE");
 			}
 
 			if (CheatString == LoseLifeCommand) 
 			{
 				gameControllerScript.Lives -= 1;
+				gameControllerScript.UpdateLives ();
 				ShowCheatNotification ("CHEAT ACTIVATED: LOSE LIFE");
 			}
 
@@ -666,6 +738,13 @@ public class DeveloperMode : MonoBehaviour
 		CheatNotifcationText.text = cheatText;
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
 		ClearCheatString ();
+		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+		timeScaleControllerScript.OverridingTimeScale = 0.2f;
+		playerControllerScript_P1.NextFire = 0;
+		playerControllerScript_P1.DoubleShotNextFire = 0;
+		playerControllerScript_P1.TripleShotNextFire = 0;
+		playerControllerScript_P1.RippleShotNextFire = 0;
+
 		Debug.Log (cheatText);
 		Invoke ("DisableCheatConsole", 0.5f);
 	}
@@ -679,6 +758,12 @@ public class DeveloperMode : MonoBehaviour
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
 		LastCheatName = CheatString;
 		ClearCheatString ();
+		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+		timeScaleControllerScript.OverridingTimeScale = 0.2f;
+		playerControllerScript_P1.NextFire = 0;
+		playerControllerScript_P1.DoubleShotNextFire = 0;
+		playerControllerScript_P1.TripleShotNextFire = 0;
+		playerControllerScript_P1.RippleShotNextFire = 0;
 		Debug.Log (cheatText);
 		Invoke ("DisableCheatConsole", 0.5f);
 	}

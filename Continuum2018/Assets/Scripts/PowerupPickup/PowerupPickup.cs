@@ -39,7 +39,7 @@ public class PowerupPickup : MonoBehaviour
 	public GameObject PowerupDeathExplosion;
 	public Animator PowerupUI;
 	public AudioSource PowerupTimeRunningOutAudio;
-	public GameObject PowerupPickupUI;
+	//public GameObject PowerupPickupUI;
 	public Color PowerupPickupUIColor = Color.white;
 
 	[Header ("On End Life")]
@@ -128,9 +128,7 @@ public class PowerupPickup : MonoBehaviour
 
 	void CheckActivatePowerup ()
 	{
-		GameObject powerupPickupUI = Instantiate (PowerupPickupUI, transform.position, Quaternion.identity);
-		powerupPickupUI.GetComponentInChildren<RawImage> ().texture = PowerupTexture;
-		powerupPickupUI.GetComponentInChildren<RawImage> ().color = PowerupPickupUIColor;
+		CreatePowerupPickupUI ();
 		ActivatePowerup_P1 ();
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f);
 		Instantiate (PowerupDeathExplosion, transform.position, Quaternion.identity);
@@ -138,6 +136,13 @@ public class PowerupPickup : MonoBehaviour
 		Destroy (gameObject);
 	}
 
+	public void CreatePowerupPickupUI ()
+	{
+		GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, transform.position, Quaternion.identity);
+		powerupPickupUI.GetComponentInChildren<RawImage> ().texture = PowerupTexture;
+		powerupPickupUI.GetComponentInChildren<RawImage> ().color = PowerupPickupUIColor;
+	}
+		
 	void ActivatePowerup_P1 ()
 	{
 		Instantiate (CollectExplosion, transform.position, Quaternion.identity);
@@ -235,6 +240,22 @@ public class PowerupPickup : MonoBehaviour
 
 		case powerups.ExtraLife: 
 			gameControllerScript.Lives += 1;
+
+			if (gameControllerScript.Lives < gameControllerScript.MaxLives)
+			{
+				gameControllerScript.MaxLivesText.text = "";
+			}
+
+			if (gameControllerScript.Lives >= gameControllerScript.MaxLives)
+			{
+				gameControllerScript.MaxLivesText.text = "MAX";
+				Debug.Log ("Reached maximum lives.");
+			}
+				
+			// Caps maximum lives.
+			gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
+
+			gameControllerScript.UpdateLives ();
 			break;
 
 		case powerups.RippleShot: 

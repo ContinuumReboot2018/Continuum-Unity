@@ -66203,6 +66203,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1499924279}
+  - {fileID: 1650385247}
   m_Father: {fileID: 1585313106}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -69798,9 +69799,6 @@ MonoBehaviour:
   camShakeScript: {fileID: 525356116}
   developerModeScript: {fileID: 1748041315}
   tutorialManagerScript: {fileID: 1662711581}
-  PlayerId: 1
-  PlayerText: {fileID: 24889417}
-  isJoined: 0
   MovementX: 0
   MovementY: 0
   UsePlayerFollow: 0
@@ -69813,12 +69811,16 @@ MonoBehaviour:
   SmoothFollowTime: 15
   YRotationAmount: 40
   YRotationMultiplier: 100
+  PlayerId: 1
+  PlayerText: {fileID: 24889417}
+  isJoined: 0
   PlayerVibrationDuration: 0
   PlayerVibrationTimeRemaining: 0
   MainEngineParticles: {fileID: 351026105}
   MainEngineParticleEmissionAmount: 100
   MainEngineParticleEmissionLerpSpeed: 8
   ReferencePoint: {fileID: 2056022828}
+  PlayerGuides: {fileID: 1813136818}
   CurrentShotObject: {fileID: 0}
   canShoot: 0
   CurrentFireRate: 0.45
@@ -69847,8 +69849,6 @@ MonoBehaviour:
   InvincibleCollider: {fileID: 1948467316}
   InvincibleMesh: {fileID: 1948467314}
   InvincibleMeshAnim: {fileID: 1948467317}
-  PlayerGuides: {fileID: 1813136818}
-  AbilityUI: {fileID: 1372790826}
   CurrentAbilityState: 0
   CurrentAbilityTimeRemaining: 0
   CurrentAbilityDuration: 20
@@ -69857,6 +69857,7 @@ MonoBehaviour:
   AbilityUseSpeedMultiplier: 6
   AbilityName: Emp
   Ability: 1
+  AbilityUI: {fileID: 1372790826}
   AbilityImage: {fileID: 293415163}
   AbilityTextures:
   - {fileID: 2800000, guid: 5a6af5750fc8d9c49a4951edddf447ef, type: 3}
@@ -78143,10 +78144,13 @@ MonoBehaviour:
   playerControllerScript_P1: {fileID: 950826315}
   gameControllerScript: {fileID: 1461897538}
   timeScaleControllerScript: {fileID: 1643956535}
+  audioControllerScript: {fileID: 0}
   camShakeScript: {fileID: 525356116}
   playerExplosion: {fileID: 157250351}
   newCamShakeAmount: 0.3
   newCamShakeDuration: 0.5
+  LowPassTargetFreq: 1500
+  ResonanceTargetFreq: 1
 --- !u!1 &1084482487
 GameObject:
   m_ObjectHideFlags: 0
@@ -111394,7 +111398,7 @@ MonoBehaviour:
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   - {fileID: 1743466060572060, guid: a03fbb974e9046b48944076642c8c3c3, type: 2}
-  BlockSpawnRate: 0.5
+  BlockSpawnRate: 0.4
   blockSpawnStartDelay: 4
   BlockSpawnXPositions:
   - -20.25
@@ -111445,7 +111449,9 @@ MonoBehaviour:
   - {fileID: 1651301842688076, guid: 4ceeb18873029f84181bd27136f7105b, type: 2}
   - {fileID: 1418825471492646, guid: 96d28fca0bd3bcb40ae4656bad925885, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
-  PowerupPickupSpawnRate: {x: 2, y: 16}
+  - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
+  - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
+  PowerupPickupSpawnRate: {x: 1, y: 12}
   PowerupPickupSpawnRangeX: 20
   PowerupPickupSpawnY: 10
   NextPowerupSlot_P1: 0
@@ -111476,10 +111482,17 @@ MonoBehaviour:
   OverdriveImage: {fileID: 543958907}
   RapidfireImage: {fileID: 759668293}
   RicochetImage: {fileID: 923794615}
+  PowerupPickupUI: {fileID: 1771047903743466, guid: 91bf4fd2a7e677c4e9ea72c391527dbf,
+    type: 2}
   MiniBosses:
   - {fileID: 1673628375318398, guid: 661a0a1199d3285428d429027009685c, type: 2}
   MiniBossSpawnPos: {fileID: 1499924279}
-  bossSpawnDelay: 4
+  MiniBossSpawnDelay: 4
+  BigBosses:
+  - {fileID: 1673628375318398, guid: 661a0a1199d3285428d429027009685c, type: 2}
+  BigBossSpawnPos: {fileID: 1650385247}
+  BigBossSpawnDelay: 4
+  bossId: 0
   isPaused: 0
   PauseCooldown: 0.25
   canPause: 1
@@ -126498,6 +126511,34 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1650206764}
+--- !u!1 &1650385246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1650385247}
+  m_Layer: 0
+  m_Name: BigBossSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1650385247
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1650385246}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 933246580}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1653783730
 GameObject:
   m_ObjectHideFlags: 0
@@ -141780,6 +141821,7 @@ MonoBehaviour:
   allowCheats: 1
   showCheats: 0
   isGod: 0
+  AddScoreAmount: 100000
   ToggleCheatsCommand: continuum
   ForceStartCommand: start
   ForceRestartCommand: restart
@@ -141800,6 +141842,7 @@ MonoBehaviour:
   SpawnBlockCommand: spblock
   SpawnPowerupPickupCommand: sppow
   PowerupTimeCommand: poweruptime
+  StandardShotCommand: standard
   DoubleShotCommand: double
   TripleShotCommand: triple
   RippleShotCommand: ripple
@@ -141810,7 +141853,6 @@ MonoBehaviour:
   RapidfireCommand: rapid
   OverdriveCommand: overdrive
   RicochetCommand: rico
-  StandardShotCommand: standard
   ResetAllPowerupsCommand: resetpow
   ShieldCommand: shield
   VerticalBeamCommand: vbeam
@@ -141827,12 +141869,12 @@ MonoBehaviour:
   DoubleShotTexture: {fileID: 2800000, guid: d2330acab737d8c47aa9888fca6f46ea, type: 3}
   TripleShotTexture: {fileID: 2800000, guid: 9d152a8688d493e428a780b1948b7591, type: 3}
   RippleShotTexture: {fileID: 2800000, guid: 26ffc94d157da9c49bd48c523d21313b, type: 3}
-  RapidfireTexture: {fileID: 2800000, guid: 8f67968c90b47a4439066579972a38d6, type: 3}
-  OverdriveTexture: {fileID: 2800000, guid: 78fc1bba443ca9749aeba398d0afb8ad, type: 3}
   TurretTexture: {fileID: 2800000, guid: e87d19c0b49335f47a33a6151c796cfd, type: 3}
   HelixTexture: {fileID: 2800000, guid: 0f0a3e4b7ba9d2c44b55ce088305b893, type: 3}
-  RapidFireColor: {r: 0, g: 0, b: 0, a: 0}
-  OverdriveColor: {r: 0, g: 0, b: 0, a: 0}
+  RicochetTexture: {fileID: 2800000, guid: 3b141e02e2495f44dbd3c34b82f89212, type: 3}
+  RapidfireTexture: {fileID: 2800000, guid: 8f67968c90b47a4439066579972a38d6, type: 3}
+  OverdriveTexture: {fileID: 2800000, guid: 78fc1bba443ca9749aeba398d0afb8ad, type: 3}
+  AddlifeTexture: {fileID: 2800000, guid: 61ac088d17cbb6e4ca52fef0896d7714, type: 3}
   showDebugMenu: 0
   DebugMenu: {fileID: 2023690794}
   DebugMenuAnim: {fileID: 2023690796}

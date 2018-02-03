@@ -125,9 +125,7 @@ public class Hazard : MonoBehaviour
 
 	void DoCamShake ()
 	{
-		camShakeScript.shakeDuration = newCamShakeDuration;
-		camShakeScript.shakeAmount = newCamShakeAmount;
-		camShakeScript.Shake ();
+		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 1);
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
 	}
 
