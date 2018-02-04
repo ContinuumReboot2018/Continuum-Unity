@@ -10,7 +10,15 @@ public class GameOverController : MonoBehaviour
 	public GameController gameControllerScript;
 	public DeveloperMode developerModeScript;
 
-	[Header ("UI")]
+	[Header ("Stats UI")]
+	public TextMeshProUGUI TotalGameTimeText;
+	public TextMeshProUGUI TotalRealTimeText;
+	public TextMeshProUGUI TimeRatioText;
+	public TextMeshProUGUI TotalBulletsShotText;
+	public TextMeshProUGUI TotalBlockDestroyedText;
+	public TextMeshProUGUI AccuracyText;
+
+	[Header ("Level Up UI")]
 	public TextMeshProUGUI FinalScoreText;
 	public TextMeshProUGUI HighScoreLabel;
 	public Slider LevelSlider;
@@ -38,6 +46,8 @@ public class GameOverController : MonoBehaviour
 
 	void Start ()
 	{
+		GetGameOverStats ();
+
 		LevelUpText.enabled = false;
 		RefreshLevelLabels ();
 		GetNewLevelAmounts ();
@@ -52,6 +62,16 @@ public class GameOverController : MonoBehaviour
 		{
 			CurrentXP = 0;
 		}
+	}
+
+	void GetGameOverStats ()
+	{
+		TotalGameTimeText.text = "Total Game Time: " + string.Format ("{0}:{1:00}", (int)gameControllerScript.GameTime / 60, (int)gameControllerScript.GameTime % 60);
+		TotalRealTimeText.text = "Total Real Time: " + string.Format ("{0}:{1:00}", (int)gameControllerScript.RealTime / 60, (int)gameControllerScript.RealTime % 60);	
+		TimeRatioText.text = "Time Ratio: " + System.Math.Round (gameControllerScript.TimeRatio, 2);
+		TotalBulletsShotText.text = "Total Bullets Shot: " + gameControllerScript.BulletsShot;
+		TotalBlockDestroyedText.text = "Total Blocks Destroyed: " + gameControllerScript.BlocksDestroyed;
+		AccuracyText.text = "Accuracy: " + (System.Math.Round((gameControllerScript.BlockShotAccuracy * 100), 2)) + "%";
 	}
 
 	void LevelUp ()

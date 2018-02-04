@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
 	[Header ("Impact")]
 	public GameObject playerMesh;
-
+	public Vector3 ImpactPoint;
 	// Player has two colliders, one is in trigger mode.
 	public Collider playerCol;
 	public Collider playerTrigger;
@@ -220,6 +220,7 @@ public class PlayerController : MonoBehaviour
 	[Header ("Helix")]
 	public GameObject Helix;
 	public ParticleSystem[] HelixParticles;
+	public Collider[] HelixCol;
 
 	[Header ("UI")]
 	// Score UI.
@@ -432,14 +433,14 @@ public class PlayerController : MonoBehaviour
 				}
 			}
 
-			var MainEngineEmissionRate = MainEngineParticles.emission;
+			/*var MainEngineEmissionRate = MainEngineParticles.emission;
 			float SmoothEmissionRate = 
 				Mathf.Lerp (
 					MainEngineEmissionRate.rateOverTime.constant, 
 					MainEngineParticleEmissionAmount * playerActions.Move.Up.Value,
 					MainEngineParticleEmissionLerpSpeed * Time.deltaTime
 				);
-			MainEngineEmissionRate.rateOverTime = SmoothEmissionRate;
+			MainEngineEmissionRate.rateOverTime = SmoothEmissionRate;*/
 		}
 	}
 
@@ -542,6 +543,7 @@ public class PlayerController : MonoBehaviour
 			TargetShieldScale = 1;
 			break;
 		case ability.Emp:
+			Emp.transform.position = playerCol.transform.position;
 			Emp.SetActive (true);
 			break;
 		case ability.VerticalBeam:
@@ -552,7 +554,23 @@ public class PlayerController : MonoBehaviour
 			break;
 		}
 
+		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1.5f;
+		timescaleControllerScript.OverridingTimeScale = 0.2f;
+
 		camShakeScript.ShakeCam (0.4f, CurrentAbilityDuration, 6);
+	}
+
+	public IEnumerator UseEmp ()
+	{
+		Emp.transform.position = ImpactPoint;
+		Emp.gameObject.SetActive (true);
+		EmpParticles [0].Play (true);
+		EmpParticles [1].Play (true);
+		yield return new WaitForSeconds (3);
+		EmpParticles [0].Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		EmpParticles [1].Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		yield return new WaitForSeconds (3);
+		Emp.gameObject.SetActive (false);
 	}
 
 	public void DeactivateAbility ()
@@ -1029,13 +1047,18 @@ public class PlayerController : MonoBehaviour
 		}*/
 
 		CheckPowerupImageUI ();
+		if (gameControllerScript.PowerupImage_P1 [0].texture == null) 
+		{
+			gameControllerScript.PowerupImage_P1 [0].color = Color.white;
+			gameControllerScript.PowerupImage_P1 [0].texture = gameControllerScript.StandardShotTexture;
+		}
 	}
 
 	public void CheckPowerupImageUI ()
 	{
 		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
 		{
-			if (powerupimage != gameControllerScript.PowerupImage_P1 [0] && 
+			if (/*powerupimage != gameControllerScript.PowerupImage_P1 [0] &&*/ 
 				powerupimage.color != new Color (0, 0, 0) && 
 				powerupimage.texture != null)
 			{
@@ -1057,7 +1080,7 @@ public class PlayerController : MonoBehaviour
 				}
 			}
 
-			if (powerupimage != gameControllerScript.PowerupImage_P1 [0] && 
+			if (/*powerupimage != gameControllerScript.PowerupImage_P1 [0] && */
 				powerupimage.color == Color.black && 
 				powerupimage.texture == null) 
 			{
@@ -1107,6 +1130,11 @@ public class PlayerController : MonoBehaviour
 		foreach (ParticleSystem helixparticle in HelixParticles)
 		{
 			helixparticle.Stop ();
+		}
+
+		foreach (Collider helixcol in HelixCol) 
+		{
+			helixcol.enabled = false;
 		}
 
 		foreach (GameObject clone in Turrets) 

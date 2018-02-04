@@ -55,8 +55,8 @@ public class SceneLoader : MonoBehaviour
 		while (!async.isDone) 
 		{
 			// UI checks load progress and displays for the player.
-			ProgressBarL.value = Mathf.Lerp (ProgressBarL.value, async.progress, ProgressBarSmoothTime * Time.deltaTime);
-			ProgressBarR.value = Mathf.Lerp (ProgressBarR.value, async.progress, ProgressBarSmoothTime * Time.deltaTime);
+			ProgressBarL.value = Mathf.Lerp (ProgressBarL.value, async.progress, ProgressBarSmoothTime * Time.unscaledDeltaTime);
+			ProgressBarR.value = Mathf.Lerp (ProgressBarR.value, async.progress, ProgressBarSmoothTime * Time.unscaledDeltaTime);
 
 			// Somehow async operations load up to 90% before loading the next scene,
 			// we have to compensate by adding 10% to the progress text.

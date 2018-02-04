@@ -101,6 +101,7 @@ public class GameController : MonoBehaviour
 	[Header ("Powerup List UI")]
 	public int NextPowerupSlot_P1;
 	public RawImage[] PowerupImage_P1;
+	public Texture2D StandardShotTexture;
 	public TextMeshProUGUI[] PowerupText_P1;
 	public RawImage OverdriveImage;
 	public RawImage RapidfireImage;
@@ -232,6 +233,7 @@ public class GameController : MonoBehaviour
 	void Start ()
 	{
 		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1);
+		InvokeRepeating ("UpdateLives", 0, 1);
 	}
 
 	// Timescale controller calls this initially after the countdown.
@@ -360,9 +362,9 @@ public class GameController : MonoBehaviour
 				BulletsShotText_Debug.text = 
 					"Bullets Shot: " + BulletsShot;
 
-				float accuracy = Mathf.Clamp (BlocksDestroyed / (BulletsShot + Mathf.Epsilon), 0, 10000);
+				BlockShotAccuracy = Mathf.Clamp (BlocksDestroyed / (BulletsShot + Mathf.Epsilon), 0, 10000);
 				BlockShotAccuracyText_Debug.text = 
-					"Block Shot Accuracy: " + (System.Math.Round((accuracy * 100), 2)) + "%";
+					"Block Shot Accuracy: " + (System.Math.Round((BlockShotAccuracy * 100), 2)) + "%";
 			}
 		}
 	}

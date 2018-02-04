@@ -34,8 +34,8 @@ public class Explosion : MonoBehaviour
 
 		// Scales points text based on combo.
 		ComboAnim.gameObject.transform.localScale = new Vector3 (
-			Mathf.Clamp (0.02f * gameControllerScript.combo + 0.6f, 0, MaxScale), 
-			Mathf.Clamp (0.02f * gameControllerScript.combo + 0.6f, 0, MaxScale), 
+			Mathf.Clamp (0.02f * gameControllerScript.combo + 1.2f, 0, MaxScale), 
+			Mathf.Clamp (0.02f * gameControllerScript.combo + 1.2f, 0, MaxScale), 
 			1);
 
 		ComboPointsText.gameObject.transform.localPosition = new Vector3 

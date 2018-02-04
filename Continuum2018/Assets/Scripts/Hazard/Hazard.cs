@@ -51,6 +51,8 @@ public class Hazard : MonoBehaviour
 
 				if (gameControllerScript.Lives > 1) 
 				{
+					playerControllerScript_P1.ImpactPoint = gameObject.transform.position;
+					playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.UseEmp ());
 					SetTargetLowPassFreq (LowPassTargetFreq);
 					SetTargetResonance (ResonanceTargetFreq);
 
@@ -85,7 +87,7 @@ public class Hazard : MonoBehaviour
 					playerControllerScript_P1.PlayerExplosionParticles.Play ();
 					playerControllerScript_P1.PlayerExplosionAudio.Play ();
 
-					Invoke ("DestroyAllBlocks", 0.5f);
+					//Invoke ("DestroyAllBlocks", 0.5f);
 
 					Destroy (gameObject, 0.52f);
 				}

@@ -306,6 +306,11 @@ public class PowerupPickup : MonoBehaviour
 				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 				gameControllerScript.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.Helix.SetActive (true);
+
+				foreach (Collider helixcol in playerControllerScript_P1.HelixCol) 
+				{
+					helixcol.enabled = true;
+				}
 			}
 			break;
 
