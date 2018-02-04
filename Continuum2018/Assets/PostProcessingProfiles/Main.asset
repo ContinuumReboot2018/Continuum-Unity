@@ -29,7 +29,7 @@ MonoBehaviour:
     m_Settings:
       excludeSkybox: 1
   antialiasing:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       method: 0
       fxaaSettings:
@@ -71,8 +71,8 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 0
     m_Settings:
-      focusDistance: 100
-      aperture: 0.1
+      focusDistance: 10.3
+      aperture: 22.5
       focalLength: 248
       useCameraFov: 0
       kernelSize: 3
@@ -83,7 +83,7 @@ MonoBehaviour:
       sampleCount: 32
       frameBlending: 0
   eyeAdaptation:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       lowPercent: 24.874517
       highPercent: 99
@@ -95,15 +95,15 @@ MonoBehaviour:
       speedUp: 2
       speedDown: 1
       logMin: -16
-      logMax: 6
+      logMax: 1
   bloom:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.05
-        threshold: 0.2
-        softKnee: 1
-        radius: 6.25
+        intensity: 0.03
+        threshold: 0
+        softKnee: 0
+        radius: 6.35
         antiFlicker: 1
       lensDirt:
         texture: {fileID: 2800000, guid: 4e59c075675385245878c2b676845b22, type: 3}
@@ -276,10 +276,10 @@ MonoBehaviour:
         e_CurveG: 0
         e_CurveB: 0
   userLut:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       lut: {fileID: 2800000, guid: 4f98e9c96c8a48541b5eb704e92d99b8, type: 3}
-      contribution: 1
+      contribution: 0
   chromaticAberration:
     m_Enabled: 0
     m_Settings:
@@ -298,7 +298,7 @@ MonoBehaviour:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.491
+      intensity: 0.556
       smoothness: 1
       roundness: 0.476
       mask: {fileID: 0}
