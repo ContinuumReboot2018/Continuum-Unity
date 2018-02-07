@@ -27,11 +27,6 @@ public class GameController : MonoBehaviour
 	public float BlockShotAccuracy;
 	public AudioSource BassTrack;
 
-	public TextMeshProUGUI GameTimeText;
-	public TextMeshProUGUI RealTimeText;
-	public TextMeshProUGUI TimeRatioText;
-	public TextMeshProUGUI BlocksDestroyedText;
-
 	[Header ("Waves")]
 	public int Wave;
 	public float WaveTimeIncreaseRate;
@@ -49,6 +44,14 @@ public class GameController : MonoBehaviour
 	public Slider WaveTimeSlider;
 	public TextMeshProUGUI WaveTimeRemainText;
 	public TextMeshProUGUI SoundtrackText;
+
+	// This is for wave transition UI only.
+	public TextMeshProUGUI GameTimeText;
+	public TextMeshProUGUI RealTimeText;
+	public TextMeshProUGUI TimeRatioText;
+	public TextMeshProUGUI BlocksDestroyedText;
+	public TextMeshProUGUI BulletsShotText;
+	public TextMeshProUGUI AccuracyText;
 
 	[Header ("Scoring")]
 	public bool CountScore;
@@ -551,6 +554,8 @@ public class GameController : MonoBehaviour
 			TimeRatioText.text = "AVERAGE TIME SCALE: " + System.Math.Round((GameTime / RealTime), 2).ToString ("0.00") + "";
 
 			BlocksDestroyedText.text = "BLOCKS DESTROYED: " + BlocksDestroyed;
+			BulletsShotText.text = "BULLETS SHOT: " + BulletsShot;
+			AccuracyText.text = "ACCURACY: " + System.Math.Round(BlockShotAccuracy * 100, 2) + "%";
 			WaveTimeRemainText.text = "WAVE TIME: " + System.Math.Round (WaveTimeRemaining, 0);
 		}
 	}
