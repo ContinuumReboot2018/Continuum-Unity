@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 114212151734931360}
   - component: {fileID: 114630544366289342}
   - component: {fileID: 65990786952471688}
+  - component: {fileID: 114595230029044104}
   m_Layer: 11
   m_Name: Cube_Pink
   m_TagString: Block
@@ -155,7 +156,6 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
-  DontUseSmoothing: 0
 --- !u!114 &114212151734931360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,6 +168,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+--- !u!114 &114595230029044104
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750224001074990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114630544366289342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,12 +215,15 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
+  speed: -150
+  OverwriteVelocity: 0
+  DontIncrementBlocksDestroyed: 0
+  Stackable: 1
+  wasCollided: 0
   isBossPart: 0
   GotDetached: 0
   BoundaryX: {x: 0, y: 0}
   BoundaryY: {x: 0, y: 0}
-  speed: -150
-  OverwriteVelocity: 0
   AquaSpeed: -650
   BlueSpeed: -750
   PurpleSpeed: -950
@@ -231,7 +248,6 @@ MonoBehaviour:
   BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
   PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
   PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
-  Stackable: 1
   BlockType: 3
   ChangeRate: 0.5
   BlockChangeType: 0

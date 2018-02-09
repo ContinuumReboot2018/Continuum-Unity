@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 114245117032977262}
   - component: {fileID: 114690924630899698}
   - component: {fileID: 65963199303156484}
+  - component: {fileID: 114771387765645474}
   m_Layer: 11
   m_Name: Cube_Blue (1)
   m_TagString: Block
@@ -52,6 +53,7 @@ GameObject:
   - component: {fileID: 114019167661622384}
   - component: {fileID: 114419968101369062}
   - component: {fileID: 65684148862800172}
+  - component: {fileID: 114687094032007124}
   m_Layer: 11
   m_Name: Cube_Pink
   m_TagString: Block
@@ -76,6 +78,7 @@ GameObject:
   - component: {fileID: 114327967046371976}
   - component: {fileID: 114979497709455980}
   - component: {fileID: 65808296360128794}
+  - component: {fileID: 114059278024635946}
   m_Layer: 11
   m_Name: Cube_Aqua (1)
   m_TagString: Block
@@ -118,6 +121,7 @@ GameObject:
   - component: {fileID: 114853945373260872}
   - component: {fileID: 114741724157176458}
   - component: {fileID: 65992137218541472}
+  - component: {fileID: 114944821075980412}
   m_Layer: 11
   m_Name: Cube_Blue
   m_TagString: Block
@@ -142,6 +146,7 @@ GameObject:
   - component: {fileID: 114187253963381714}
   - component: {fileID: 114202609638681294}
   - component: {fileID: 65005312301258844}
+  - component: {fileID: 114157224026487622}
   m_Layer: 11
   m_Name: Cube_Purple (1)
   m_TagString: Block
@@ -166,6 +171,7 @@ GameObject:
   - component: {fileID: 114423319157071656}
   - component: {fileID: 114514388765670354}
   - component: {fileID: 65764513456992282}
+  - component: {fileID: 114324275202610290}
   m_Layer: 11
   m_Name: Cube_Purple
   m_TagString: Block
@@ -190,6 +196,7 @@ GameObject:
   - component: {fileID: 114125040862741780}
   - component: {fileID: 114327094350342404}
   - component: {fileID: 65180185900383994}
+  - component: {fileID: 114662169814305550}
   m_Layer: 11
   m_Name: Cube_Aqua (2)
   m_TagString: Block
@@ -214,6 +221,7 @@ GameObject:
   - component: {fileID: 114543263698561752}
   - component: {fileID: 114082784586548646}
   - component: {fileID: 65841197756306380}
+  - component: {fileID: 114672318561053030}
   m_Layer: 11
   m_Name: Cube_Aqua
   m_TagString: Block
@@ -238,6 +246,7 @@ GameObject:
   - component: {fileID: 114775757819326794}
   - component: {fileID: 114537819279280934}
   - component: {fileID: 65939331362970620}
+  - component: {fileID: 114566155037487404}
   m_Layer: 11
   m_Name: Cube_Blue (2)
   m_TagString: Block
@@ -1131,6 +1140,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+--- !u!114 &114059278024635946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1074424101814946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114074741846847418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1288,6 +1311,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+--- !u!114 &114157224026487622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503601606527914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114187253963381714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1532,6 +1569,20 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+--- !u!114 &114324275202610290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508929934526152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114327094350342404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1836,6 +1887,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+--- !u!114 &114566155037487404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1615100218556920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114616809724104130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1864,6 +1929,20 @@ MonoBehaviour:
   - {fileID: 114724078764017442}
   MissingBlocksRange: {x: 4, y: 9}
   missingBlocks: 0
+--- !u!114 &114662169814305550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545099586101210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114667370036649904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1891,6 +1970,34 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+--- !u!114 &114672318561053030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585704011627936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
+--- !u!114 &114687094032007124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1065547558793448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114690924630899698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2073,6 +2180,20 @@ MonoBehaviour:
   rend: {fileID: 0}
   ignoreTimescale: 1
   ScrollMode: 2
+--- !u!114 &114771387765645474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1008988564818090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114775757819326794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2238,6 +2359,20 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+--- !u!114 &114944821075980412
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468617768867422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114967851784032410
 MonoBehaviour:
   m_ObjectHideFlags: 1

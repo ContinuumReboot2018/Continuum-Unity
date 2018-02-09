@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114937928248750530}
   - component: {fileID: 114658066489155956}
   - component: {fileID: 65769232734384172}
+  - component: {fileID: 114613338075754244}
   m_Layer: 11
   m_Name: Cube_Blue
   m_TagString: Block
@@ -70,6 +71,7 @@ GameObject:
   - component: {fileID: 114864201779515446}
   - component: {fileID: 114591880979714786}
   - component: {fileID: 65235921779849386}
+  - component: {fileID: 114584256507861750}
   m_Layer: 11
   m_Name: Cube_Pink
   m_TagString: Block
@@ -94,6 +96,7 @@ GameObject:
   - component: {fileID: 114901883078075610}
   - component: {fileID: 114379751506882638}
   - component: {fileID: 65552814658534504}
+  - component: {fileID: 114472913394274036}
   m_Layer: 11
   m_Name: Cube_Aqua
   m_TagString: Block
@@ -118,6 +121,7 @@ GameObject:
   - component: {fileID: 114319553523265132}
   - component: {fileID: 114032481992968136}
   - component: {fileID: 65230494779444426}
+  - component: {fileID: 114712489578305852}
   m_Layer: 11
   m_Name: Cube_Purple
   m_TagString: Block
@@ -670,7 +674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03106b28700b2a14495dea5bbdef7176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   gameControllerScript: {fileID: 0}
   speed: -700
   AccumulatedSpeed: 0
@@ -801,6 +804,20 @@ MonoBehaviour:
   isTutorialBlock: 0
   tutorialManagerScript: {fileID: 0}
   tutorialBlockIndex: 0
+--- !u!114 &114472913394274036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1692369566788584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114497340149033948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -963,6 +980,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+--- !u!114 &114584256507861750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1681018554043862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114591880979714786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -979,6 +1010,20 @@ MonoBehaviour:
   rend: {fileID: 0}
   ignoreTimescale: 1
   ScrollMode: 2
+--- !u!114 &114613338075754244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1158625072325676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114640528711853346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1022,6 +1067,20 @@ MonoBehaviour:
   rend: {fileID: 0}
   ignoreTimescale: 1
   ScrollMode: 2
+--- !u!114 &114712489578305852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986105039237078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  MaxRecordingTime: 5
+  rb: {fileID: 0}
 --- !u!114 &114864201779515446
 MonoBehaviour:
   m_ObjectHideFlags: 1
