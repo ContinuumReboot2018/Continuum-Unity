@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.Networking;
 
 public class AudioController : MonoBehaviour 
 {
@@ -13,6 +14,8 @@ public class AudioController : MonoBehaviour
 
 	public bool updateVolumeAndPitches = true; // If true, the music will update to volume and pitch.
 	public float Distance; // Gets distance from timescaleControllerScript.
+
+	//public UnityWebRequestMultimedia
 
 	public AudioMixer AudioMix; // Audio mixer on soundtracks.
 	public float curFreq; // Current low pass frequency from mixer.

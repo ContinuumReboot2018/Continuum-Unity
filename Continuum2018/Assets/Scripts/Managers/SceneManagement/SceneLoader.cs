@@ -58,9 +58,11 @@ public class SceneLoader : MonoBehaviour
 			ProgressBarL.value = Mathf.Lerp (ProgressBarL.value, async.progress, ProgressBarSmoothTime * Time.unscaledDeltaTime);
 			ProgressBarR.value = Mathf.Lerp (ProgressBarR.value, async.progress, ProgressBarSmoothTime * Time.unscaledDeltaTime);
 
+			//Debug.Log ("Scene load async progress: " + Mathf.Round((ProgressBarL.value * 100) / 0.9f) + "%");
+
 			// Somehow async operations load up to 90% before loading the next scene,
 			// we have to compensate by adding 10% to the progress text.
-			LoadProgressText.text = Mathf.Round((ProgressBarL.value * 100) + 10) + "%";
+			LoadProgressText.text = Mathf.Round((ProgressBarL.value * 100) / 0.9f) + "%";
 
 			// Checks if the scene has been completely loaded into memory. 
 			if (LoadProgressText.text == "100%") 
