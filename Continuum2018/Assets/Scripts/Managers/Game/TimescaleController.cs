@@ -45,6 +45,11 @@ public class TimescaleController : MonoBehaviour
 	public bool isEndSequence; // Set to true when GameOver sequence happens.
 	public float EndSequenceInitialDelay; // How long the initial part of the GaameOver sequence is delayed.
 
+	// Doesn't override Time.timeScale directly, but gives the illusion of rewinding time;
+	public bool isRewinding;
+	public float RewindTimeRemaining;
+	public float RewindDuration;
+
 	void Awake () 
 	{
 		Time.timeScale = MinimumTimeScale; // Set Time.timeScale to slowest possible value.
@@ -57,6 +62,7 @@ public class TimescaleController : MonoBehaviour
 		CheckTargetTimeScale ();
 		CheckOverrideTimeScale ();
 		CheckSceneLoadCommit ();
+		CheckRewindTimeState ();
 	}
 
 	void CheckViewTimeProperties ()
@@ -184,6 +190,23 @@ public class TimescaleController : MonoBehaviour
 		gameControllerScript.GameoverUI.SetActive (true);
 		playerControllerScript_P1.cursorManagerScript.UnlockMouse ();
 		playerControllerScript_P1.cursorManagerScript.ShowMouse ();
+	}
+
+	public void SetRewindTime (bool _isRewinding, float rewindTime)
+	{
+		isRewinding = _isRewinding;
+		RewindDuration = rewindTime;
+		RewindTimeRemaining = RewindDuration;
+	}
+
+	void CheckRewindTimeState ()
+	{
+		if (RewindTimeRemaining > 0) {
+			isRewinding = true;
+			RewindTimeRemaining -= Time.unscaledDeltaTime;
+		} else {
+			isRewinding = false;
+		}
 	}
 
 	void CheckSceneLoadCommit ()

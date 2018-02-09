@@ -815,9 +815,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScaleControllerScript: {fileID: 0}
   isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
+  isBlock: 1
 --- !u!114 &114497340149033948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -991,9 +993,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScaleControllerScript: {fileID: 0}
   isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
+  isBlock: 1
 --- !u!114 &114591880979714786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1021,9 +1025,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScaleControllerScript: {fileID: 0}
   isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
+  isBlock: 1
 --- !u!114 &114640528711853346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1078,9 +1084,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScaleControllerScript: {fileID: 0}
   isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
+  isBlock: 1
 --- !u!114 &114864201779515446
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -187,6 +187,8 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI BlocksDestroyedText_Debug;
 	public TextMeshProUGUI BulletsShotText_Debug;
 	public TextMeshProUGUI BlockShotAccuracyText_Debug;
+	public TextMeshProUGUI RewindTimeRemainingText_Debug;
+	public TextMeshProUGUI IsRewindingText_Debug;
 
 	void Awake () 
 	{
@@ -368,6 +370,11 @@ public class GameController : MonoBehaviour
 				BlockShotAccuracy = Mathf.Clamp (BlocksDestroyed / (BulletsShot + Mathf.Epsilon), 0, 10000);
 				BlockShotAccuracyText_Debug.text = 
 					"Block Shot Accuracy: " + (System.Math.Round((BlockShotAccuracy * 100), 2)) + "%";
+
+				RewindTimeRemainingText_Debug.text = 
+					"Rewind Time Remain: " + System.Math.Round(timescaleControllerScript.RewindTimeRemaining, 2);
+				IsRewindingText_Debug.text = 
+					"Is Rewinding: " + (timescaleControllerScript.isRewinding ? "ON" : "OFF");
 			}
 		}
 	}

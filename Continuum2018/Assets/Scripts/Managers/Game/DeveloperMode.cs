@@ -70,6 +70,7 @@ public class DeveloperMode : MonoBehaviour
 	public string RippleShotCommand = "ripple"; // Player shooting to ripple shot.
 	public string TurretCommand = "Turret"; // Player gets  a turret (Maximum 4).
 	public string HelixCommand = "helix"; // Player gets a helix.
+	public string RewindCommand = "rewind"; // All GameObjects with a TimeBody script should rewind position and rotation for some time.
 
 	public string NextWaveCommand = "nextwave"; // Wave number increases.
 	public string PreviousWaveCommand = "lastwave"; // Wave number decreases.
@@ -627,6 +628,12 @@ public class DeveloperMode : MonoBehaviour
 				powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 0.278f, 0.561f, 1);
 
 				ShowCheatNotification ("CHEAT ACTIVATED: HELIX");
+			}
+
+			if (CheatString == RewindCommand) 
+			{
+				timeScaleControllerScript.SetRewindTime (true, 5);
+				ShowCheatNotification ("CHEAT ACTIVATED: REWIND TIME");
 			}
 
 			if (CheatString == StandardShotCommand) 

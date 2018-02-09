@@ -17,6 +17,8 @@ public class Block : MonoBehaviour
 	public bool OverwriteVelocity;
 	public bool DontIncrementBlocksDestroyed;
 	public bool Stackable;
+	public bool isStacked;
+	public StackZone stack;
 	public bool wasCollided;
 	public bool isBossPart = false;
 	public bool GotDetached;

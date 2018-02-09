@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class TimeBody : MonoBehaviour 
 {
-	[SerializeField]
-	private bool isRewinding = false;
+	public TimescaleController timeScaleControllerScript;
 
 	List<PointInTime> pointsInTime; // This is where the data is captured of position and rotation;
 
@@ -13,9 +12,17 @@ public class TimeBody : MonoBehaviour
 	public Rigidbody rb; // Use Rigidbody component to turn on isKinematic property.
 
 	public bool isBlock;
+	private Block blockScript;
 
 	void Start ()
 	{
+		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
+
+		if (isBlock == true) 
+		{
+			blockScript = GetComponent<Block> ();
+		}
+
 		pointsInTime = new List<PointInTime> ();
 
 		if (GetComponent<Rigidbody> () != null) 
@@ -26,7 +33,7 @@ public class TimeBody : MonoBehaviour
 
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.Return)) 
+		/*if (Input.GetKeyDown (KeyCode.Return)) 
 		{
 			StartRewind ();
 		}
@@ -34,18 +41,35 @@ public class TimeBody : MonoBehaviour
 		if (Input.GetKeyUp (KeyCode.Return)) 
 		{
 			StopRewind ();
-		}
+		}*/
 	}
 
 	void FixedUpdate ()
 	{
-		if (isRewinding) 
+		if (timeScaleControllerScript.isRewinding == true) 
+		{
+			Rewind ();
+
+			if (isBlock == true) 
+			{
+				if (blockScript.isStacked == true)
+				{
+					blockScript.stack.VacateBlock ();
+					blockScript.isStacked = false;
+				}
+			}
+
+		} else {
+			Record ();
+		}
+
+		/*if (isRewinding) 
 		{
 			Rewind ();
 		} 
 		else {
 			Record ();
-		}
+		}*/
 	}
 
 	void Rewind ()
@@ -72,8 +96,6 @@ public class TimeBody : MonoBehaviour
 
 	public void StartRewind ()
 	{
-		isRewinding = true;
-
 		if (rb != null) 
 		{
 			rb.isKinematic = true;
@@ -82,8 +104,6 @@ public class TimeBody : MonoBehaviour
 
 	public void StopRewind ()
 	{
-		isRewinding = false;
-
 		if (rb != null) 
 		{
 			rb.isKinematic = false;

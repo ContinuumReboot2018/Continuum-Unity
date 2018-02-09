@@ -29,7 +29,8 @@ public class PowerupPickup : MonoBehaviour
 		Helix,
 		Rapidfire,
 		Overdrive,
-		Ricochet
+		Ricochet,
+		RewindTime
 	}
 
 	[Header ("On Pickup")]
@@ -398,6 +399,10 @@ public class PowerupPickup : MonoBehaviour
 
 			playerControllerScript_P1.isRicochet = true;
 			gameControllerScript.RicochetImage.enabled = true;
+			break;
+
+		case powerups.RewindTime:
+			timescaleControllerScript.SetRewindTime (true, 5);
 			break;
 		}
 

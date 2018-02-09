@@ -118,8 +118,8 @@ AnimationClip:
       - serializedVersion: 2
         time: 0
         value: 430
-        inSlope: -5187.9824
-        outSlope: -5187.9824
+        inSlope: -4847.1406
+        outSlope: -4847.1406
         tangentMode: 0
       - serializedVersion: 2
         time: 0.26666668
@@ -301,8 +301,8 @@ AnimationClip:
       - serializedVersion: 2
         time: 0
         value: 430
-        inSlope: -5187.9824
-        outSlope: -5187.9824
+        inSlope: -4847.1406
+        outSlope: -4847.1406
         tangentMode: 0
       - serializedVersion: 2
         time: 0.26666668

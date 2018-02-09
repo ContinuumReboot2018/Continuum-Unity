@@ -95,13 +95,15 @@ public class StackZone : MonoBehaviour
 		}
 	}
 
-	void CaptureBlock ()
+	public void CaptureBlock ()
 	{
 		if (CapturedBlock.GetComponent<Block> ().isBossPart == false)
 		{
 			//CapturedBlock.transform.parent = null;
 			CapturedBlock.GetComponent<Rigidbody> ().isKinematic = false;
 			CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
+			CapturedBlock.GetComponent<Block> ().isStacked = true;
+			CapturedBlock.GetComponent<Block> ().stack = this;
 			CapturedBlock.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
 			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosX = transform;
@@ -120,8 +122,10 @@ public class StackZone : MonoBehaviour
 		}
 	}
 
-	void VacateBlock ()
+	public void VacateBlock ()
 	{
+		CapturedBlock.GetComponent<Block> ().stack = null;
+		CapturedBlock.GetComponent<Block> ().isStacked = false;
 		CapturedBlock.GetComponent<Rigidbody> ().isKinematic = false;
 		CapturedBlock.GetComponent<Block> ().OverwriteVelocity = false;
 		CapturedBlock.GetComponent<SimpleFollow> ().enabled = false;
