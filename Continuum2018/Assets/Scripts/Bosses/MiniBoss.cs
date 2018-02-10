@@ -36,6 +36,9 @@ public class MiniBoss : MonoBehaviour
 	public float LineTimerOffDuration = 4;
 	public float LineTimerOnDuration = 3;
 
+	[Header ("Effects")]
+	public Animator FlipScreen;
+
 	void Awake ()
 	{
 		if (GameObject.Find ("PlayerFollow").transform != null)
@@ -86,6 +89,8 @@ public class MiniBoss : MonoBehaviour
 		hitPoints = StartingHitPoints + gameControllerScript.Wave;
 
 		StartCoroutine (DrawLineToPlayer ());
+
+		FlipScreen = GameObject.Find ("Camera Rig").GetComponent<Animator>();
 	}
 
 	void Update ()
@@ -136,6 +141,11 @@ public class MiniBoss : MonoBehaviour
 					timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
 					timeScaleControllerScript.OverridingTimeScale = 0.2f;
 					Destroy (MiniBossParent.gameObject);
+
+					if (FlipScreen.GetCurrentAnimatorStateInfo (0).IsName ("CameraRotateUpsideDown") == true) 
+					{
+						FlipScreen.SetBool ("Flipped", false);
+					}
 				}
 			}
 		}

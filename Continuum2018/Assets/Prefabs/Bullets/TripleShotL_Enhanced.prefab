@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 65386177501430712}
   - component: {fileID: 54820680646442434}
   - component: {fileID: 114711601639861248}
+  - component: {fileID: 114255534588785528}
   m_Layer: 9
   m_Name: TripleShotL_Enhanced
   m_TagString: Bullet
@@ -243,6 +244,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114255534588785528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274823252740296}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2394277c9053a8947ae1666d91fb3d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  findObject: Block
+  FindMode: 1
+  speed: 8
+  rotateSpeed: 500
+  homingTime: 5
 --- !u!114 &114685874121448212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -285,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
+  gameControllerScript: {fileID: 0}
   BulletSpeed: 2000
   VelocityLimits: {x: -20000, y: 20000}
   BulletRb: {fileID: 54820680646442434}
@@ -304,7 +323,7 @@ MonoBehaviour:
   RicochetXpos: 25
   RicochetSound: {fileID: 0}
   isHoming: 0
-  HomingPoint: {fileID: 0}
+  homingScript: {fileID: 0}
   BulletOuterParticles: {fileID: 198762360317941576}
   BulletCoreParticles: {fileID: 198309000124272910}
   TrailParticles: []

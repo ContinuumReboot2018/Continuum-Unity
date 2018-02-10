@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 114197611377504994}
   - component: {fileID: 54634545382208336}
   - component: {fileID: 114774265342218656}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BlockFormation_2x4
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -769,7 +769,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 8
   m_CollisionDetection: 0
 --- !u!54 &54798913743842984
@@ -1030,6 +1030,8 @@ MonoBehaviour:
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 1
+  isStacked: 0
+  stack: {fileID: 0}
   wasCollided: 0
   isBossPart: 0
   GotDetached: 0
@@ -1096,7 +1098,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
   isBlock: 1
@@ -1112,7 +1113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
   isBlock: 1
@@ -1218,6 +1218,8 @@ MonoBehaviour:
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 1
+  isStacked: 0
+  stack: {fileID: 0}
   wasCollided: 0
   isBossPart: 0
   GotDetached: 0
@@ -1308,7 +1310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
   isBlock: 1
@@ -1324,7 +1325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
   isBlock: 1
@@ -1352,7 +1352,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
   isBlock: 1
@@ -1393,6 +1392,8 @@ MonoBehaviour:
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 1
+  isStacked: 0
+  stack: {fileID: 0}
   wasCollided: 0
   isBossPart: 0
   GotDetached: 0
@@ -1468,6 +1469,8 @@ MonoBehaviour:
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 1
+  isStacked: 0
+  stack: {fileID: 0}
   wasCollided: 0
   isBossPart: 0
   GotDetached: 0
@@ -1562,7 +1565,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
   isBlock: 1
@@ -1578,7 +1580,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
   isBlock: 1
@@ -1654,6 +1655,8 @@ MonoBehaviour:
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 1
+  isStacked: 0
+  stack: {fileID: 0}
   wasCollided: 0
   isBossPart: 0
   GotDetached: 0
@@ -1761,6 +1764,8 @@ MonoBehaviour:
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 1
+  isStacked: 0
+  stack: {fileID: 0}
   wasCollided: 0
   isBossPart: 0
   GotDetached: 0
@@ -1863,6 +1868,8 @@ MonoBehaviour:
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 1
+  isStacked: 0
+  stack: {fileID: 0}
   wasCollided: 0
   isBossPart: 0
   GotDetached: 0
@@ -1983,7 +1990,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  isRewinding: 0
   MaxRecordingTime: 5
   rb: {fileID: 0}
   isBlock: 1
@@ -2162,6 +2168,8 @@ MonoBehaviour:
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 1
+  isStacked: 0
+  stack: {fileID: 0}
   wasCollided: 0
   isBossPart: 0
   GotDetached: 0

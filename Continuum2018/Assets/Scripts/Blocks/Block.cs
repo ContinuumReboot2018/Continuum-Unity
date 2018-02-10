@@ -182,12 +182,12 @@ public class Block : MonoBehaviour
 			GotDetached = true;
 		}
 
-		if (transform.position.y > 14) 
+		if (transform.position.y > 60) 
 		{
 			BoxCol.enabled = false;
 		}
 
-		if (transform.position.y <= 14) 
+		if (transform.position.y <= 60) 
 		{
 			BoxCol.enabled = true;
 		}

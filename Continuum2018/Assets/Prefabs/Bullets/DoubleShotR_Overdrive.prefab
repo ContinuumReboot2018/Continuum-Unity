@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 54780075782019652}
   - component: {fileID: 114835695993013006}
   - component: {fileID: 114776737887368580}
+  - component: {fileID: 114770451218976024}
   m_Layer: 9
   m_Name: DoubleShotR_Overdrive
   m_TagString: Bullet
@@ -256,6 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
+  gameControllerScript: {fileID: 0}
   BulletSpeed: 2800
   VelocityLimits: {x: -20000, y: 20000}
   BulletRb: {fileID: 54780075782019652}
@@ -275,7 +277,7 @@ MonoBehaviour:
   RicochetXpos: 25
   RicochetSound: {fileID: 0}
   isHoming: 0
-  HomingPoint: {fileID: 0}
+  homingScript: {fileID: 0}
   BulletOuterParticles: {fileID: 198487507246269020}
   BulletCoreParticles: {fileID: 198470721190944236}
   TrailParticles:
@@ -289,6 +291,23 @@ MonoBehaviour:
   LeftMotorRumble: 0.4
   RightMotorRumble: 0.4
   VibrationDuration: 0.15
+--- !u!114 &114770451218976024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1598089217073352}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2394277c9053a8947ae1666d91fb3d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  findObject: Block
+  FindMode: 1
+  speed: 8
+  rotateSpeed: 500
+  homingTime: 5
 --- !u!114 &114776737887368580
 MonoBehaviour:
   m_ObjectHideFlags: 1

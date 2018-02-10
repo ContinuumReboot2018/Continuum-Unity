@@ -110,7 +110,11 @@ public class StackZone : MonoBehaviour
 			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = transform;
 			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = transform;
 			isOccupied = true;
-			stackSound.Play ();
+
+			if (stackSound.isPlaying == false)
+			{
+				stackSound.Play ();
+			}
 
 			if (CapturedBlock.GetComponentInParent<BlockFormation> () != null &&
 				CapturedBlock.GetComponentInParent<Rigidbody>() != null) 

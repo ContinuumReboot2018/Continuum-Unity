@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 82218478568744322}
   - component: {fileID: 114761268872407208}
   - component: {fileID: 114248961705553410}
+  - component: {fileID: 114830708441588062}
   m_Layer: 9
   m_Name: RippleShot_Overdrive
   m_TagString: Bullet
@@ -502,6 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
+  gameControllerScript: {fileID: 0}
   BulletSpeed: 0
   VelocityLimits: {x: 0, y: 0}
   BulletRb: {fileID: 54135192644018154}
@@ -521,7 +523,7 @@ MonoBehaviour:
   RicochetXpos: 25
   RicochetSound: {fileID: 0}
   isHoming: 0
-  HomingPoint: {fileID: 0}
+  homingScript: {fileID: 0}
   BulletOuterParticles: {fileID: 198255940148576244}
   BulletCoreParticles: {fileID: 198833148022123132}
   TrailParticles: []
@@ -533,6 +535,23 @@ MonoBehaviour:
   LeftMotorRumble: 0.2
   RightMotorRumble: 0.2
   VibrationDuration: 0.25
+--- !u!114 &114830708441588062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527851726018156}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2394277c9053a8947ae1666d91fb3d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  findObject: Block
+  FindMode: 1
+  speed: 8
+  rotateSpeed: 500
+  homingTime: 5
 --- !u!136 &136682191184681828
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
 
 	[Header ("Homing")]
 	public bool isHoming;
-	public Transform HomingPoint;
+	public Homing homingScript;
 
 	[Header ("Visuals")]
 	public ParticleSystem BulletOuterParticles;
@@ -90,6 +90,15 @@ public class Bullet : MonoBehaviour
 			gameControllerScript.BulletsShot += 1;
 		}
 
+		if (playerControllerScript.isHoming == true && 
+			(!BulletTypeName.Contains ("Ripple") || !BulletTypeName.Contains ("Helix")))
+		{
+			homingScript = GetComponent<Homing> ();
+			isHoming = true;
+			homingScript.enabled = true;
+			homingScript.speed = Mathf.Clamp (BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), VelocityLimits.x, VelocityLimits.y);
+		}
+
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		StartCameraShake ();
 		CheckBulletIteration ();
@@ -109,7 +118,7 @@ public class Bullet : MonoBehaviour
 
 		if (isHoming == true) 
 		{
-			MoveTowardsHomingObject ();
+			//MoveTowardsHomingObject ();
 		}
 	}
 
@@ -194,16 +203,16 @@ public class Bullet : MonoBehaviour
 		camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
 	}
 
-	void MoveTowardsHomingObject ()
+	/*void MoveTowardsHomingObject ()
 	{
 		if (HomingPoint != null) 
 		{
-			transform.position = Vector3.MoveTowards (transform.position, HomingPoint.position, BulletSpeed * Time.deltaTime);
+			//transform.position = Vector3.MoveTowards (transform.position, HomingPoint.position, BulletSpeed * Time.deltaTime);
 		} else 
 		{
 			SetBulletVelocity ();
 		}
-	}
+	}*/
 
 	void SetBulletVelocity ()
 	{

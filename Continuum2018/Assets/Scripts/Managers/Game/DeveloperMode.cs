@@ -79,6 +79,7 @@ public class DeveloperMode : MonoBehaviour
 	public string RapidfireCommand = "rapid"; // Toggles rapid fire mode ON or OFF.
 	public string OverdriveCommand = "overdrive"; // Toggle overdrive mode ON or OFF.
 	public string RicochetCommand = "ricochet"; // Toggle ricochet mode ON or OFF.
+	public string HomingCommand = "homing"; // Toggle hominh mode ON or OFF.
 
 	public string ResetAllPowerupsCommand = "resetpow"; // Resets all powerups.
 
@@ -106,6 +107,7 @@ public class DeveloperMode : MonoBehaviour
 	public Texture2D RicochetTexture; // Ricochet texture.
 	public Texture2D RapidfireTexture; // Rapidfire texture.
 	public Texture2D OverdriveTexture; // Overdrive texture.
+	public Texture2D HomingTexture; // Homing texture.
 	public Texture2D AddlifeTexture; // Add life texture.
 
 	[Header ("Debug Menu")]
@@ -610,6 +612,35 @@ public class DeveloperMode : MonoBehaviour
 				}
 			}
 
+			if (CheatString == HomingCommand) 
+			{
+				// Toggles homing mode.
+				playerControllerScript_P1.isHoming = !playerControllerScript_P1.isHoming;
+
+				if (playerControllerScript_P1.isHoming == true) 
+				{
+					gameControllerScript.SetPowerupTime (20);
+					gameControllerScript.HomingImage.enabled = true;
+
+					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
+					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+
+					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = HomingTexture;
+					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.57f, 1, 0.277f, 1);
+
+					ShowCheatNotification ("CHEAT ACTIVATED: HOMING MODE ON");
+				}
+
+				if (playerControllerScript_P1.isHoming == false) 
+				{
+					gameControllerScript.HomingImage.enabled = false;
+					ShowCheatNotification ("CHEAT ACTIVATED: HOMING MODE OFF");
+				}
+			}
+
 			if (CheatString == HelixCommand) 
 			{
 				gameControllerScript.SetPowerupTime (20);
@@ -639,7 +670,7 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == RewindCommand) 
 			{
-				timeScaleControllerScript.SetRewindTime (true, 5);
+				timeScaleControllerScript.SetRewindTime (true, 3);
 				ShowCheatNotification ("CHEAT ACTIVATED: REWIND TIME");
 			}
 

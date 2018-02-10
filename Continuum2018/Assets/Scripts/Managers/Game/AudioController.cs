@@ -70,6 +70,7 @@ public class AudioController : MonoBehaviour
 	public float PitchSmoothTime; // Pitch smoothing time.
 
 	public Vector4 TimePitch; // Pitch values based on distance values.
+	public bool ReversePitch;
 
 	/*[Header ("StereoUI")]
 	public AudioSourceLoudnessTester bassLoudness; 
@@ -97,6 +98,7 @@ public class AudioController : MonoBehaviour
 
 	void Update ()
 	{
+		CheckReversePitch ();
 		GetMasterLowPassValue ();
 		GetMasterResonanceValue ();
 
@@ -118,6 +120,11 @@ public class AudioController : MonoBehaviour
 
 		float SmoothResVal = Mathf.Lerp (curRes, TargetResonance, ResonanceSmoothing * Time.unscaledDeltaTime);
 		AudioMix.SetFloat ("Resonance", SmoothResVal);
+	}
+
+	void CheckReversePitch ()
+	{
+		ReversePitch = timescaleControllerScript.isRewinding;
 	}
 
 	public float GetMasterLowPassValue ()
@@ -226,31 +233,31 @@ public class AudioController : MonoBehaviour
 		// Base distance.
 		if (Distance < BaseDistance) 
 		{
-			BassTargetPitch = TimePitch.x;
+			BassTargetPitch = TimePitch.x * (ReversePitch ? -1 : 1);
 		}
 
 		// Low distance.
 		if (Distance >= BaseDistance && Distance < LowDistance) 
 		{
-			BassTargetPitch = TimePitch.y;
+			BassTargetPitch = TimePitch.y * (ReversePitch ? -1 : 1);
 		}
 
 		// Medium distance.
 		if (Distance >= LowDistance && Distance < MediumDistance) 
 		{
-			BassTargetPitch = TimePitch.z;
+			BassTargetPitch = TimePitch.z * (ReversePitch ? -1 : 1);
 		}
 
 		// High distance.
 		if (Distance >= MediumDistance && Distance < HighDistance) 
 		{
-			BassTargetPitch = TimePitch.w;
+			BassTargetPitch = TimePitch.w * (ReversePitch ? -1 : 1);
 		}
 
 		// Top distance.
 		if (Distance >= HighDistance) 
 		{
-			BassTargetPitch = 1.5f;
+			BassTargetPitch = 1.5f * (ReversePitch ? -1 : 1);
 		}
 	}
 

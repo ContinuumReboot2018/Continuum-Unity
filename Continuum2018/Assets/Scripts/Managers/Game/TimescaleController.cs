@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityStandardAssets.ImageEffects;
 
 public class TimescaleController : MonoBehaviour 
 {
@@ -10,6 +11,7 @@ public class TimescaleController : MonoBehaviour
 	public GameController gameControllerScript;
 	public LocalSceneLoader localSceneLoaderScript;
 	public FPSCounter fpsCounterScript;
+	public NoiseAndGrain noiseScript;
 
 	[Header ("Read Only")]
 	public float TimeScaleView; // Time.timeScale property.
@@ -204,8 +206,10 @@ public class TimescaleController : MonoBehaviour
 		if (RewindTimeRemaining > 0) {
 			isRewinding = true;
 			RewindTimeRemaining -= Time.unscaledDeltaTime;
+			noiseScript.enabled = true;
 		} else {
 			isRewinding = false;
+			noiseScript.enabled = false;
 		}
 	}
 

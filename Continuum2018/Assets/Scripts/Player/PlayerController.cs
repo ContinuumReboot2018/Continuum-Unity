@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
 	public float YRotationAmount = 45;
 	public float YRotationMultiplier = 10;
 	private float RotVelY;
+	public Animator FlipScreenAnim;
 
 	[Header ("Player stats")]
 	public int PlayerId = 1;
@@ -138,6 +139,7 @@ public class PlayerController : MonoBehaviour
 	public bool isInRapidFire;
 	public bool isInOverdrive;
 	public bool isRicochet;
+	public bool isHoming;
 
 	// Double shot.
 	public GameObject DoubleShotL;
@@ -428,9 +430,32 @@ public class PlayerController : MonoBehaviour
 				if (gameControllerScript.isPaused == false) 
 				{
 					// Reads movement input on two axis.
-					MovementX = playerActions.Move.Value.x;
-					MovementY = playerActions.Move.Value.y;
+					if (FlipScreenAnim.transform.eulerAngles.z < 90) 
+					{
+						MovementX = playerActions.Move.Value.x;
+						MovementY = playerActions.Move.Value.y;
+					}
+
+					if (FlipScreenAnim.transform.eulerAngles.z >= 90)
+					{
+						MovementX = -playerActions.Move.Value.x;
+						MovementY = -playerActions.Move.Value.y;
+					}
 				}
+			}
+
+			if (Input.GetKeyDown (KeyCode.Return)) 
+			{
+				//FlipScreenAnim.Play ("CameraRotateUpsideDown");
+				FlipScreenAnim.SetBool ("Flipped", true);
+				//FlipScreenAnim.SetTrigger ("Flip");
+			}
+
+			if (Input.GetKeyDown (KeyCode.Quote)) 
+			{
+				//FlipScreenAnim.Play ("CameraRotateRightSideUp");
+				FlipScreenAnim.SetBool ("Flipped", false);
+				//FlipScreenAnim.SetTrigger ("Flip");
 			}
 
 			/*var MainEngineEmissionRate = MainEngineParticles.emission;
@@ -1124,6 +1149,7 @@ public class PlayerController : MonoBehaviour
 		isRicochet = false;
 		isInOverdrive = false;
 		isInRapidFire = false;
+		isHoming = false;
 
 		Invoke ("TurnOffHelix", 1);
 

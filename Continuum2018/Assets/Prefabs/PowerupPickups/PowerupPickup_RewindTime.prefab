@@ -585,7 +585,7 @@ MonoBehaviour:
   AwakeParticles: {fileID: 198398454443946130}
   AwakeDelay: 1
   ThisPowerup: 9
-  PowerupTexture: {fileID: 2800000, guid: 73ffa7c08bc43f64ba6b5b3f69756e5f, type: 3}
+  PowerupTexture: {fileID: 2800000, guid: dfe16e4f3fcd63f49a49ef9b89df4d39, type: 3}
   isShootingPowerup: 0
   PowerupTime: 20
   CollectExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,

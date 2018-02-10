@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 65224984149871998}
   - component: {fileID: 54425845829512714}
   - component: {fileID: 114993245428010694}
+  - component: {fileID: 114029805201727198}
   m_Layer: 9
   m_Name: TripleShotM_Enhanced
   m_TagString: Bullet
@@ -511,6 +512,23 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114029805201727198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1263447338723324}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2394277c9053a8947ae1666d91fb3d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  findObject: Block
+  FindMode: 1
+  speed: 8
+  rotateSpeed: 500
+  homingTime: 5
 --- !u!114 &114166730715540200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -535,6 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
+  gameControllerScript: {fileID: 0}
   BulletSpeed: 2000
   VelocityLimits: {x: -20000, y: 20000}
   BulletRb: {fileID: 54425845829512714}
@@ -554,7 +573,7 @@ MonoBehaviour:
   RicochetXpos: 25
   RicochetSound: {fileID: 0}
   isHoming: 0
-  HomingPoint: {fileID: 0}
+  homingScript: {fileID: 0}
   BulletOuterParticles: {fileID: 198616369339202866}
   BulletCoreParticles: {fileID: 198297745560809572}
   TrailParticles:

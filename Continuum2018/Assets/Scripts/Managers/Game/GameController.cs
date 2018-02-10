@@ -109,6 +109,7 @@ public class GameController : MonoBehaviour
 	public RawImage OverdriveImage;
 	public RawImage RapidfireImage;
 	public RawImage RicochetImage;
+	public RawImage HomingImage;
 
 	public GameObject PowerupPickupUI;
 
@@ -220,6 +221,7 @@ public class GameController : MonoBehaviour
 		OverdriveImage.enabled = false;
 		RapidfireImage.enabled = false;
 		RicochetImage.enabled = false;
+		HomingImage.enabled = false;
 
 		foreach (RawImage powerupImage in PowerupImage_P1) 
 		{

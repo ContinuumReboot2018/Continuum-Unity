@@ -30,7 +30,8 @@ public class PowerupPickup : MonoBehaviour
 		Rapidfire,
 		Overdrive,
 		Ricochet,
-		RewindTime
+		RewindTime,
+		Homing
 	}
 
 	[Header ("On Pickup")]
@@ -49,7 +50,6 @@ public class PowerupPickup : MonoBehaviour
 
 	void Awake ()
 	{
-		//meshrend.enabled = false;
 		col.enabled = false;
 		StartCoroutine (ShowPowerup ());
 		destroyByTimeScript = GetComponent<DestroyByTime> ();
@@ -402,7 +402,11 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.RewindTime:
-			timescaleControllerScript.SetRewindTime (true, 5);
+			timescaleControllerScript.SetRewindTime (true, 3);
+			break;
+
+		case powerups.Homing:
+			playerControllerScript_P1.isHoming = true;
 			break;
 		}
 

@@ -204,7 +204,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761358554297378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12, z: 0}
+  m_LocalPosition: {x: 0, y: 9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4766841199596548}
@@ -404,7 +404,7 @@ MonoBehaviour:
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
   FollowPosMethod: 0
-  FollowPosOffset: {x: 0, y: 12, z: 0}
+  FollowPosOffset: {x: 0, y: 9, z: 0}
   FollowPosSmoothTime: {x: 0.5, y: 1, z: 0}
   PosBoundsX: {x: -10, y: 10}
   PosBoundsY: {x: 0, y: 50}
