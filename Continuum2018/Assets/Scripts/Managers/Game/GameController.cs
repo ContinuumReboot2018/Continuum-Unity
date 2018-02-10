@@ -881,6 +881,11 @@ public class GameController : MonoBehaviour
 	public IEnumerator SpawnMiniBoss ()
 	{
 		yield return new WaitForSeconds (MiniBossSpawnDelay);
+		SpawnMiniBossObject ();
+	}
+
+	public void SpawnMiniBossObject ()
+	{
 		GameObject MiniBoss = MiniBosses [UnityEngine.Random.Range (0, MiniBosses.Length)];
 		Instantiate (MiniBoss, MiniBossSpawnPos.position, MiniBossSpawnPos.rotation);
 		UnityEngine.Debug.Log ("Spawned a mini boss.");

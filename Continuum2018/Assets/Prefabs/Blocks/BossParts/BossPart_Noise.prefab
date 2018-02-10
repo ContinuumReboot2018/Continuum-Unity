@@ -226,7 +226,7 @@ MonoBehaviour:
   isBossPart: 1
   GotDetached: 0
   BoundaryX: {x: -30, y: 30}
-  BoundaryY: {x: -30, y: 30}
+  BoundaryY: {x: -30, y: 60}
   AquaSpeed: -650
   BlueSpeed: -750
   PurpleSpeed: -950

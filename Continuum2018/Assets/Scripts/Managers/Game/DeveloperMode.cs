@@ -61,6 +61,7 @@ public class DeveloperMode : MonoBehaviour
 
 	public string SpawnBlockCommand = "spblock"; // Spawns a random block.
 	public string SpawnPowerupPickupCommand = "sppow"; // Spawns a random powerup.
+	public string SpawnMiniBossCommand = "spminiboss"; // Spawns a random mini boss.
 
 	public string PowerupTimeCommand = "poweruptime"; // Replenishes powerup time.
 
@@ -350,6 +351,12 @@ public class DeveloperMode : MonoBehaviour
 			{
 				gameControllerScript.SpawnBlock (true);
 				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN BLOCK");
+			}
+				
+			if (CheatString == SpawnMiniBossCommand) 
+			{
+				gameControllerScript.SpawnMiniBossObject ();
+				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN MINI BOSS");
 			}
 
 			if (CheatString == SpawnPowerupPickupCommand)
