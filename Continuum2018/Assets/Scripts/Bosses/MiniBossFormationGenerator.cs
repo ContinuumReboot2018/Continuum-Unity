@@ -15,12 +15,12 @@ public class MiniBossFormationGenerator : MonoBehaviour
 
 	void Start () 
 	{
-		GenerateMiniBossFormation ();
-
 		if (AutomaticallyCenter == true) 
 		{
 			AutoCenterImage ();
 		}
+
+		GenerateMiniBossFormation ();
 	}
 
 	void GenerateMiniBossFormation ()
@@ -52,7 +52,7 @@ public class MiniBossFormationGenerator : MonoBehaviour
 			if (colorMapping.color.Equals (pixelColor)) 
 			{
 				// Converts pixel position to unity transform position units.
-				Vector2 position = new Vector2 ((x-Center.x) * Spacing, (y-Center.y) * Spacing);
+				Vector2 position = new Vector2 ((x-Center.x) * Spacing, (y+Center.y) * Spacing);
 
 				// Creates the relevant prefab at the set position.
 				GameObject ColorMapObject = Instantiate (colorMapping.prefab, position, Quaternion.identity, ParentTransform);
@@ -63,6 +63,6 @@ public class MiniBossFormationGenerator : MonoBehaviour
 
 	void AutoCenterImage ()
 	{
-		Center = new Vector2 (0.5f * map.width, 0.5f * map.height);
+		//Center = new Vector2 ((0.5f * map.width) - 0.5f, (map.height));
 	}
 }

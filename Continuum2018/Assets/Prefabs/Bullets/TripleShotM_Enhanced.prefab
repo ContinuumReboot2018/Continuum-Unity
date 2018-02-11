@@ -257,7 +257,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.1, z: 0.4}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.05, z: 0}
 --- !u!82 &82319904305930672
 AudioSource:
   m_ObjectHideFlags: 1
@@ -525,7 +525,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   findObject: Block
-  FindMode: 1
   speed: 8
   rotateSpeed: 500
   homingTime: 5

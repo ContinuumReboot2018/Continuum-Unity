@@ -104,6 +104,15 @@ public class BlockFormation : MonoBehaviour
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
 			break;
 		}
+			
+		// Destroys the objects that were set inactive.
+		foreach (Block blockElement in BlockElements) 
+		{
+			if (blockElement.gameObject.activeSelf == false) 
+			{
+				Destroy (gameObject);
+			}
+		}
 	}
 
 	void CheckForChildObjects ()

@@ -91,12 +91,16 @@ public class Bullet : MonoBehaviour
 		}
 
 		if (playerControllerScript.isHoming == true && 
-			(!BulletTypeName.Contains ("Ripple") || !BulletTypeName.Contains ("Helix")))
+			(BulletTypeName != ("Ripple") && BulletTypeName != ("Helix")))
 		{
 			homingScript = GetComponent<Homing> ();
 			isHoming = true;
 			homingScript.enabled = true;
-			homingScript.speed = Mathf.Clamp (BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), VelocityLimits.x, VelocityLimits.y);
+			homingScript.speed = Mathf.Clamp (
+				BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), 
+				VelocityLimits.x, 
+				VelocityLimits.y
+			);
 		}
 
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
@@ -119,6 +123,11 @@ public class Bullet : MonoBehaviour
 		if (isHoming == true) 
 		{
 			//MoveTowardsHomingObject ();
+		}
+
+		if (transform.position.y < -30) 
+		{
+			Destroy (gameObject);
 		}
 	}
 
@@ -158,40 +167,38 @@ public class Bullet : MonoBehaviour
 
 	void CheckForRicochet ()
 	{
-		// Moves to top of screen.
-		if (transform.position.y > RicochetYpos) 
-		{
-			float newZrot = Random.Range (100, 260);
-			transform.rotation = Quaternion.Euler (0, 0, newZrot);
-			RicochetSound.Play ();
-			camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
-		}
+		if (playerControllerScript.isRicochet == true) {
+			// Moves to top of screen.
+			if (transform.position.y > RicochetYpos && transform.position.y < (RicochetYpos + 1)) {
+				float newZrot = Random.Range (100, 260);
+				transform.rotation = Quaternion.Euler (0, 0, newZrot);
+				RicochetSound.Play ();
+				camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
+			}
 
-		// Moves to bottom of screen.
-		if (transform.position.y < -RicochetYpos) 
-		{
-			float newZrot = Random.Range (-80, 80);
-			transform.rotation = Quaternion.Euler (0, 0, newZrot);
-			RicochetSound.Play ();
-			camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
-		}
+			// Moves to bottom of screen.
+			if (transform.position.y < -RicochetYpos && transform.position.y > (-RicochetYpos - 1)) {
+				float newZrot = Random.Range (-80, 80);
+				transform.rotation = Quaternion.Euler (0, 0, newZrot);
+				RicochetSound.Play ();
+				camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);
+			}
 
-		// Moves to right of screen.
-		if (transform.position.x > RicochetXpos) 
-		{
-			//float newZrot = Random.Range (10, 170);
-			//transform.rotation = Quaternion.Euler (0, 0, newZrot);
-			//RicochetSound.Play ();
-			Destroy (gameObject);
-		}
+			// Moves to right of screen.
+			if (transform.position.x > RicochetXpos) {
+				//float newZrot = Random.Range (10, 170);
+				//transform.rotation = Quaternion.Euler (0, 0, newZrot);
+				//RicochetSound.Play ();
+				Destroy (gameObject);
+			}
 
-		// Moves to left of screen.
-		if (transform.position.x < -RicochetXpos) 
-		{
-			//float newZrot = Random.Range (-170, -10);
-			//transform.rotation = Quaternion.Euler (0, 0, newZrot);
-			//RicochetSound.Play ();
-			Destroy (gameObject);
+			// Moves to left of screen.
+			if (transform.position.x < -RicochetXpos) {
+				//float newZrot = Random.Range (-170, -10);
+				//transform.rotation = Quaternion.Euler (0, 0, newZrot);
+				//RicochetSound.Play ();
+				Destroy (gameObject);
+			}
 		}
 	}
 

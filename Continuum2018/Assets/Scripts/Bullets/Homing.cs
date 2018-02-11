@@ -15,16 +15,18 @@ public class Homing : MonoBehaviour
 
 	void Start () 
 	{
+		rb = GetComponent<Rigidbody> ();
 		Invoke ("ReleaseHoming", homingTime);
 
 		GameObject CheckTagObject = FindClosestEnemyTag ();
 
-		if (CheckTagObject != null) 
-		{
+		if (CheckTagObject != null) {
 			target = FindClosestEnemyTag ().transform;
+		} else {
+			ReleaseHoming ();
 		}
 
-		rb = GetComponent<Rigidbody> ();
+
 	}
 
 	void FixedUpdate () 

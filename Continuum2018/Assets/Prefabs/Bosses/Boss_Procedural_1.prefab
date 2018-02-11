@@ -83,10 +83,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4783365366879060}
-  - component: {fileID: 114891131602691276}
-  - component: {fileID: 114386802413804974}
-  - component: {fileID: 82273504687962688}
   - component: {fileID: 114939170155976878}
+  - component: {fileID: 114386802413804974}
+  - component: {fileID: 114891131602691276}
+  - component: {fileID: 82273504687962688}
   m_Layer: 11
   m_Name: Boss_Procedural_1
   m_TagString: Untagged
@@ -204,7 +204,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761358554297378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 9, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4766841199596548}
@@ -520,6 +520,7 @@ MonoBehaviour:
   Line: {fileID: 120137052278231950}
   LineTimerOffDuration: 4
   LineTimerOnDuration: 3
+  FlipScreen: {fileID: 0}
 --- !u!114 &114891131602691276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -561,7 +562,7 @@ MonoBehaviour:
   Spacing: 1.5
   Scaling: {x: 1.35, y: 1.35, z: 1.35}
   AutomaticallyCenter: 0
-  Center: {x: 7.5, y: -7.85}
+  Center: {x: 7.5, y: 7.8}
 --- !u!120 &120137052278231950
 LineRenderer:
   m_ObjectHideFlags: 1

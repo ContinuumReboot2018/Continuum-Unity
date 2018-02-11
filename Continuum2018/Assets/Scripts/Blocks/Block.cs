@@ -184,7 +184,7 @@ public class Block : MonoBehaviour
 
 		if (transform.position.y > 60) 
 		{
-			BoxCol.enabled = false;
+			//BoxCol.enabled = false;
 		}
 
 		if (transform.position.y <= 60) 
