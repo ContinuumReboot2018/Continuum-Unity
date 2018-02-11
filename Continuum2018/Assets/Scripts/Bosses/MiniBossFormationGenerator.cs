@@ -52,10 +52,14 @@ public class MiniBossFormationGenerator : MonoBehaviour
 			if (colorMapping.color.Equals (pixelColor)) 
 			{
 				// Converts pixel position to unity transform position units.
-				Vector2 position = new Vector2 ((x-Center.x) * Spacing, (y+Center.y) * Spacing);
+				Vector2 position = new Vector2 (
+					(x * Spacing) - (Center.x * Spacing), 
+					(y * Spacing) - (Center.y * Spacing)
+				);
 
 				// Creates the relevant prefab at the set position.
 				GameObject ColorMapObject = Instantiate (colorMapping.prefab, position, Quaternion.identity, ParentTransform);
+				ColorMapObject.transform.localPosition = new Vector3 (position.x, position.y, 0);
 				ColorMapObject.transform.localScale = new Vector3 (Scaling.x, Scaling.y, Scaling.z);
 			}
 		}
@@ -63,6 +67,12 @@ public class MiniBossFormationGenerator : MonoBehaviour
 
 	void AutoCenterImage ()
 	{
-		//Center = new Vector2 ((0.5f * map.width) - 0.5f, (map.height));
+		if (map.height % 2 != 0) {
+			// If the map height is an odd number of pixels tall.
+			Center = new Vector2 ((0.5f * map.width) - 0.5f, Mathf.Round ((0.5f * map.height) - (0.333334f * Spacing)));
+		} else {
+			// The map height is even.
+			Center = new Vector2 ((0.5f * map.width) - 0.5f, Mathf.Round ((0.5f * map.height) - (0.333334f * Spacing)));
+		}
 	}
 }
