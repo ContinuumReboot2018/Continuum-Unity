@@ -111487,11 +111487,10 @@ MonoBehaviour:
   MiniBosses:
   - {fileID: 1761358554297378, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
   - {fileID: 1967204055347616, guid: 77104057d514be4458e53586bead3364, type: 2}
-  - {fileID: 1414357436659834, guid: 8eed69a530350ca4ca2f540c244455ac, type: 2}
   MiniBossSpawnPos: {fileID: 1499924279}
   MiniBossSpawnDelay: 4
   BigBosses:
-  - {fileID: 0}
+  - {fileID: 1414357436659834, guid: 8eed69a530350ca4ca2f540c244455ac, type: 2}
   BigBossSpawnPos: {fileID: 1650385247}
   BigBossSpawnDelay: 4
   bossId: 0
