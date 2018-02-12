@@ -5,6 +5,8 @@ using UnityEngine;
 public class SimpleFollow : MonoBehaviour 
 {
 	public bool FollowPosition;
+	public bool AutomaticallyFindPlayerPosObject;
+	public string LookForPosName = "Player";
 	public Transform FollowPosX;
 	public Transform FollowPosY;
 	public Transform FollowPosZ;
@@ -24,11 +26,34 @@ public class SimpleFollow : MonoBehaviour
 	public Vector2 PosBoundsX, PosBoundsY, PosBoundsZ;
 
 	public bool FollowRotation;
+	public bool AutomaticallyFindPlayerRotObject;
+	public string LookForRotName = "Player";
 	public Transform FollowRotX;
 	public Transform FollowRotY;
 	public Transform FollowRotZ;
 	public Vector3 FollowRotOffset;
 	public Vector3 FollowRotSmoothTime;
+
+	public void Start ()
+	{
+		if (AutomaticallyFindPlayerPosObject == true)
+		{
+			Transform PlayerPos = GameObject.Find (LookForPosName).transform;
+
+			FollowPosX = PlayerPos;
+			FollowPosY = PlayerPos;
+			FollowPosZ = PlayerPos;
+		}
+
+		if (AutomaticallyFindPlayerRotObject == true)
+		{
+			Transform PlayerRot = GameObject.Find (LookForRotName).transform;
+
+			FollowRotX = PlayerRot;
+			FollowRotY = PlayerRot;
+			FollowRotZ = PlayerRot;
+		}
+	}
 
 	void LateUpdate () 
 	{

@@ -227,10 +227,10 @@ MonoBehaviour:
   GotDetached: 0
   BoundaryX: {x: -30, y: 30}
   BoundaryY: {x: -30, y: 60}
-  AquaSpeed: -650
-  BlueSpeed: -750
-  PurpleSpeed: -950
-  PinkSpeed: -1150
+  AquaSpeed: 0
+  BlueSpeed: 0
+  PurpleSpeed: 0
+  PinkSpeed: 0
   AquaMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   BlueMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   PurpleMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}

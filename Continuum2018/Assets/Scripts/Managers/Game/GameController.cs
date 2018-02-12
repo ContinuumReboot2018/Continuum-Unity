@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
 	public DeveloperMode developerModeScript;
 	public CursorManager cursorManagerScript;
 	public PostProcessingProfile ImageEffects;
+	public ObjectPooler BlockObjectPooler;
 
 	[Header ("Game Stats")]
 	public bool TrackStats = true;

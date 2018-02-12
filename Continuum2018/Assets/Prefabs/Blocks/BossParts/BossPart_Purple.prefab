@@ -145,7 +145,7 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114540074128637224}
-  speed: -150
+  speed: 0
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 0
@@ -156,10 +156,10 @@ MonoBehaviour:
   GotDetached: 0
   BoundaryX: {x: -30, y: 30}
   BoundaryY: {x: -30, y: 60}
-  AquaSpeed: -650
-  BlueSpeed: -750
-  PurpleSpeed: -950
-  PinkSpeed: -1050
+  AquaSpeed: 0
+  BlueSpeed: 0
+  PurpleSpeed: 0
+  PinkSpeed: 0
   AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
   BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
   PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
