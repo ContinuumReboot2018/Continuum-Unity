@@ -67,12 +67,20 @@ public class MiniBossFormationGenerator : MonoBehaviour
 
 	void AutoCenterImage ()
 	{
-		if (map.height % 2 != 0) {
+		if (map.height % 2 != 0) 
+		{
 			// If the map height is an odd number of pixels tall.
-			Center = new Vector2 ((0.5f * map.width) - 0.5f, Mathf.Round ((0.5f * map.height) - (0.333334f * Spacing)));
-		} else {
+			Center = new Vector2 (
+				0.5f * map.width - 0.5f, 
+				Mathf.Round (0.5f * map.height - (0.333334f * Spacing))
+			);
+		} else
+		{
 			// The map height is even.
-			Center = new Vector2 ((0.5f * map.width) - 0.5f, Mathf.Round ((0.5f * map.height) - (0.333334f * Spacing)));
+			Center = new Vector2 (
+				0.5f * map.width - 0.5f, 
+				(float)System.Math.Round (0.5f * map.height - (0.33333f * Spacing), 2)
+			);
 		}
 	}
 }
