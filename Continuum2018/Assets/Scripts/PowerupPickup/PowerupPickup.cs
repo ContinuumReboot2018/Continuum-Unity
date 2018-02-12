@@ -50,7 +50,7 @@ public class PowerupPickup : MonoBehaviour
 
 	void Awake ()
 	{
-		col.enabled = false;
+		//col.enabled = false;
 		StartCoroutine (ShowPowerup ());
 		destroyByTimeScript = GetComponent<DestroyByTime> ();
 		StartCoroutine (DestroyAnimation ());
@@ -61,7 +61,7 @@ public class PowerupPickup : MonoBehaviour
 	{
 		yield return new WaitForSeconds (AwakeDelay);
 		meshrend.enabled = true;
-		col.enabled = true;
+		//col.enabled = true;
 		AwakeParticles.Play ();
 	}
 
@@ -406,7 +406,9 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Homing:
+			gameControllerScript.SetPowerupTime (PowerupTime);
 			playerControllerScript_P1.isHoming = true;
+			gameControllerScript.HomingImage.enabled = true;
 			break;
 		}
 

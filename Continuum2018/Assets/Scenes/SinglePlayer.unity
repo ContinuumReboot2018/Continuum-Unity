@@ -11577,6 +11577,34 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 334806855}
+--- !u!1 &345856194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 345856195}
+  m_Layer: 0
+  m_Name: ObjectPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &345856195
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 345856194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1585313106}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &346718503
 GameObject:
   m_ObjectHideFlags: 0
@@ -111457,13 +111485,13 @@ MonoBehaviour:
   PowerupPickupUI: {fileID: 1771047903743466, guid: 91bf4fd2a7e677c4e9ea72c391527dbf,
     type: 2}
   MiniBosses:
-  - {fileID: 1673628375318398, guid: 661a0a1199d3285428d429027009685c, type: 2}
   - {fileID: 1761358554297378, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
   - {fileID: 1967204055347616, guid: 77104057d514be4458e53586bead3364, type: 2}
+  - {fileID: 1414357436659834, guid: 8eed69a530350ca4ca2f540c244455ac, type: 2}
   MiniBossSpawnPos: {fileID: 1499924279}
   MiniBossSpawnDelay: 4
   BigBosses:
-  - {fileID: 1673628375318398, guid: 661a0a1199d3285428d429027009685c, type: 2}
+  - {fileID: 0}
   BigBossSpawnPos: {fileID: 1650385247}
   BigBossSpawnDelay: 4
   bossId: 0
@@ -120722,6 +120750,7 @@ Transform:
   - {fileID: 39155526}
   - {fileID: 933246580}
   - {fileID: 1710304313}
+  - {fileID: 345856195}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
