@@ -111399,7 +111399,7 @@ MonoBehaviour:
   BlockShotAccuracy: 0
   BassTrack: {fileID: 901118414}
   Wave: 0
-  WaveTimeIncreaseRate: 1.5
+  WaveTimeIncreaseRate: 1
   FirstWaveTimeDuration: 5
   WaveTimeDuration: 0.5
   WaveTimeRemaining: 0
@@ -111510,6 +111510,7 @@ MonoBehaviour:
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
+  powerupPickupTimeRemaining: 0
   PowerupPickupSpawnRate: {x: 1, y: 12}
   PowerupPickupSpawnRangeX: 20
   PowerupPickupSpawnY: 10
@@ -126220,7 +126221,7 @@ MonoBehaviour:
   TargetTimeScaleSmoothing: 6
   TargetTimeScaleMult: 0.07
   TargetTimeScaleAdd: 0.3
-  TargetTimeScaleIncreaseRate: 0.0005
+  TargetTimeScaleIncreaseRate: 0.0004
   ReferencePoint: {fileID: 2056022828}
   Distance: 8
   PlayerOne: {fileID: 815677226}
