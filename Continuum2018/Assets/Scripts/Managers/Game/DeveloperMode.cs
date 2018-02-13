@@ -443,7 +443,7 @@ public class DeveloperMode : MonoBehaviour
 
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
 
-			if (playerControllerScript_P1.isInOverdrive == true) 
+			if (playerControllerScript_P1.isInOverdrive == true || playerControllerScript_P1.isHoming == true) 
 			{
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
 			}
@@ -622,12 +622,17 @@ public class DeveloperMode : MonoBehaviour
 					gameControllerScript.SetPowerupTime (20);
 					gameControllerScript.HomingImage.enabled = true;
 
-					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
-					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
-					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
-					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+					//playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+					//playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+					//playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+					//playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
 
-					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					GameObject powerupPickupUI = Instantiate (
+						gameControllerScript.PowerupPickupUI, 
+						playerControllerScript_P1.playerCol.transform.position, 
+						Quaternion.identity
+					);
+
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = HomingTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.57f, 1, 0.277f, 1);
 

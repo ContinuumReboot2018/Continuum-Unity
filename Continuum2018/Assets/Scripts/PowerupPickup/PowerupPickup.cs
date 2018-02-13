@@ -257,7 +257,7 @@ public class PowerupPickup : MonoBehaviour
 
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
 
-			if (playerControllerScript_P1.isInOverdrive == true) 
+			if (playerControllerScript_P1.isInOverdrive == true || playerControllerScript_P1.isHoming == true) 
 			{
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
 			}

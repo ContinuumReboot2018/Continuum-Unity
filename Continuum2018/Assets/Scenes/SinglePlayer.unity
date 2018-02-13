@@ -7340,14 +7340,14 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 659915066
+  randomSeed: 2086747118
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -7492,8 +7492,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.4
-      minScalar: 0.2
+      scalar: 0.2
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10129,7 +10129,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minVertexDistance: 0.2
+    minVertexDistance: 0.01
     textureMode: 0
     ribbonCount: 1
     worldSpace: 0
@@ -11049,10 +11049,10 @@ Transform:
   - {fileID: 950826314}
   - {fileID: 2043035884}
   - {fileID: 815677226}
+  - {fileID: 1948467312}
   - {fileID: 1375680915}
   - {fileID: 563357995}
   - {fileID: 589654335}
-  - {fileID: 1948467312}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -42121,7 +42121,7 @@ Transform:
   - {fileID: 945773979}
   - {fileID: 2053581876}
   m_Father: {fileID: 269466428}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &563357996
 MonoBehaviour:
@@ -49781,7 +49781,7 @@ Transform:
   - {fileID: 1979437394}
   - {fileID: 1087838622}
   m_Father: {fileID: 269466428}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &589683006
 GameObject:
@@ -55690,7 +55690,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1042840433
+  randomSeed: -1924163644
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -55842,8 +55842,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0
+      scalar: 0.5
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -57393,7 +57393,7 @@ ParticleSystem:
     magnitude:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -57435,7 +57435,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0.1
+    dampen: 0.2
     drag:
       serializedVersion: 2
       minMaxState: 0
@@ -58486,8 +58486,8 @@ ParticleSystem:
     lifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.1
-      minScalar: 0.05
+      scalar: 0.03
+      minScalar: 0.03
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -58524,7 +58524,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minVertexDistance: 0.05
+    minVertexDistance: 0.01
     textureMode: 0
     ribbonCount: 1
     worldSpace: 0
@@ -104090,7 +104090,7 @@ Transform:
   - {fileID: 1757065104}
   - {fileID: 1220982612}
   m_Father: {fileID: 269466428}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1382605804 stripped
 MonoBehaviour:
@@ -145502,7 +145502,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 269466428}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!33 &1948467313
 MeshFilter:
