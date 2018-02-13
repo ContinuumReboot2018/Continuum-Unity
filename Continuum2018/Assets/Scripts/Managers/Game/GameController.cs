@@ -97,6 +97,7 @@ public class GameController : MonoBehaviour
 	public AudioSource PowerupTimeRunningOutAudio;
 	public AudioSource PowerupResetAudio;
 	public GameObject[] PowerupPickups;
+	public float powerupPickupTimeRemaining;
 	public Vector2 PowerupPickupSpawnRate;
 	private float NextPowerupPickupSpawn;
 	public float PowerupPickupSpawnRangeX;
@@ -259,7 +260,6 @@ public class GameController : MonoBehaviour
 		WaveTimeRemaining = WaveTimeDuration;
 
 		StartCoroutine (StartBlockSpawn ());
-		StartCoroutine (PowerupSpawner ());
 
 		ScoreAnim.enabled = true;
 		LivesAnim.gameObject.SetActive (true);
@@ -284,6 +284,7 @@ public class GameController : MonoBehaviour
 		UpdateStarFieldParticleEffects ();
 		//UpdateImageEffects ();
 		LevelTimer ();
+		PowerupSpawner ();
 	}
 
 	void UpdateStarFieldParticleEffects ()
@@ -861,13 +862,17 @@ public class GameController : MonoBehaviour
 		BlockSpawnRate = Mathf.Clamp (BlockSpawnRate, 0.0333f, 10);
 	}
 
-	IEnumerator PowerupSpawner ()
+	void PowerupSpawner ()
 	{
-		while (isGameOver == false) 
+		if (isGameOver == false && isPaused == false && playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true) 
 		{
-			yield return new WaitForSecondsRealtime (UnityEngine.Random.Range (PowerupPickupSpawnRate.x, PowerupPickupSpawnRate.y));
-			SpawnPowerupPickup ();
-			yield return null;
+			//powerupPickupTimeRemaining -= Time.unscaledDeltaTime;
+			powerupPickupTimeRemaining -= Time.deltaTime;
+
+			if (powerupPickupTimeRemaining <= 0) 
+			{
+				SpawnPowerupPickup ();
+			}
 		}
 	}
 
@@ -879,6 +884,7 @@ public class GameController : MonoBehaviour
 			UnityEngine.Random.Range (-PowerupPickupSpawnY, PowerupPickupSpawnY), 
 			-2.5f);
 		Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.identity);
+		powerupPickupTimeRemaining = UnityEngine.Random.Range (PowerupPickupSpawnRate.x, PowerupPickupSpawnRate.y);
 	}
 
 	public IEnumerator SpawnMiniBoss ()
