@@ -120,7 +120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4089782443844722
 Transform:
   m_ObjectHideFlags: 1
@@ -153,13 +153,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1958533049213422}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.0590003, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 1.000003, z: 1.000003}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4894206511941478}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4525839196145320
 Transform:
   m_ObjectHideFlags: 1
@@ -179,20 +179,20 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1487734643782892}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.059, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4894206511941478}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4894206511941478
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1527851726018156}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 7}
   m_Children:
@@ -203,7 +203,7 @@ Transform:
   - {fileID: 4248741427032430}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23829715999606706
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -450,7 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   findObject: Block
-  speed: 8
+  speed: 80
   rotateSpeed: 500
   homingTime: 5
 --- !u!114 &114185866525928708
@@ -521,7 +521,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   gameControllerScript: {fileID: 0}
   BulletSpeed: 0
-  VelocityLimits: {x: 0, y: 0}
+  VelocityLimits: {x: -10000, y: 10000}
   BulletRb: {fileID: 54135192644018154}
   BulletCol: {fileID: 136682191184681828}
   BulletTypeName: Ripple
@@ -624,7 +624,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -471205877
+  randomSeed: -694064375
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3991,7 +3991,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 997487085
+  randomSeed: 1781144957
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7358,7 +7358,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2035176931
+  randomSeed: 6548843
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10719,7 +10719,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1296062705
+  randomSeed: 988988794
   InitialModule:
     serializedVersion: 3
     enabled: 1

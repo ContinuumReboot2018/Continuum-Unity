@@ -70,10 +70,10 @@ public class Bullet : MonoBehaviour
 			playerControllerScript = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController>();
 		}
 
-		if (BulletTypeName != "Ripple")
-		{
+		//if (BulletTypeName != "Ripple")
+		//{
 			isRicochet = playerControllerScript.isRicochet;
-		}
+		//}
 
 		if (isRicochet) 
 		{
@@ -91,8 +91,13 @@ public class Bullet : MonoBehaviour
 		}
 
 		if (playerControllerScript.isHoming == true && 
-			(BulletTypeName != ("Ripple") && BulletTypeName != ("Helix")))
+			BulletTypeName != ("Helix"))
 		{
+			if (BulletTypeName == "Ripple") 
+			{
+				BulletSpeed = 1300;
+			}
+
 			homingScript = GetComponent<Homing> ();
 			isHoming = true;
 			homingScript.enabled = true;
@@ -110,8 +115,13 @@ public class Bullet : MonoBehaviour
 
 	void Update ()
 	{
-		if (isRicochet == true && BulletTypeName.Contains ("Ripple") == false && BulletTypeName.Contains ("Helix") == false) 
+		if (isRicochet == true && BulletTypeName.Contains ("Helix") == false) 
 		{
+			if (BulletTypeName == "Ripple") 
+			{
+				BulletSpeed = 1300;
+			}
+
 			CheckForRicochet ();
 		}
 
@@ -149,7 +159,7 @@ public class Bullet : MonoBehaviour
 		{
 			playerControllerScript.Vibrate (LeftMotorRumble, RightMotorRumble, VibrationDuration);
 
-			if (isRicochet == true && BulletTypeName.Contains ("Ripple") == false && BulletTypeName.Contains ("Helix") == false) 
+			if (isRicochet == true && BulletTypeName.Contains ("Helix") == false) 
 			{
 				Ricochet ();
 				camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);

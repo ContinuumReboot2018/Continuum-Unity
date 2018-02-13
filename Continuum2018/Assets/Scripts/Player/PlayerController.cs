@@ -886,7 +886,7 @@ public class PlayerController : MonoBehaviour
 			switch (RippleShotIteration)
 			{
 			case shotIteration.Standard:
-				GameObject rippleShotStandard = Instantiate (RippleShot, RippleShotSpawn.position, Quaternion.Euler (90, 0, 0));
+				GameObject rippleShotStandard = Instantiate (RippleShot, RippleShotSpawn.position, Quaternion.Euler (0, 0, 0));
 				rippleShotStandard.GetComponent<Bullet> ().playerControllerScript = this;
 				rippleShotStandard.GetComponent<Bullet> ().playerControllerScript = this;
 				rippleShotStandard.GetComponent<Bullet> ().playerControllerScript = this;
@@ -894,7 +894,7 @@ public class PlayerController : MonoBehaviour
 				CurrentShotObject = RippleShot;
 				break;
 			case shotIteration.Enhanced:
-				GameObject rippleShotEnhanced = Instantiate (RippleShotEnhanced, RippleShotSpawn.position, Quaternion.Euler (90, 0, 0));
+				GameObject rippleShotEnhanced = Instantiate (RippleShotEnhanced, RippleShotSpawn.position, Quaternion.Euler (0, 0, 0));
 				rippleShotEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
 				rippleShotEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
 				rippleShotEnhanced.GetComponent<Bullet> ().playerControllerScript = this;
@@ -902,7 +902,7 @@ public class PlayerController : MonoBehaviour
 				CurrentShotObject = RippleShotEnhanced;
 				break;
 			case shotIteration.Rapid:
-				GameObject rippleShotRapid = Instantiate (RippleShotEnhanced, RippleShotSpawn.position, Quaternion.Euler (90, 0, 0));
+				GameObject rippleShotRapid = Instantiate (RippleShotEnhanced, RippleShotSpawn.position, Quaternion.Euler (0, 0, 0));
 				rippleShotRapid.GetComponent<Bullet> ().playerControllerScript = this;
 				rippleShotRapid.GetComponent<Bullet> ().playerControllerScript = this;
 				rippleShotRapid.GetComponent<Bullet> ().playerControllerScript = this;
@@ -910,7 +910,7 @@ public class PlayerController : MonoBehaviour
 				CurrentShotObject = RippleShotEnhanced;
 				break;
 			case shotIteration.Overdrive:
-				GameObject rippleShotOverdrive = Instantiate (RippleShotOverdrive, RippleShotSpawn.position, Quaternion.Euler (90, 0, 0));
+				GameObject rippleShotOverdrive = Instantiate (RippleShotOverdrive, RippleShotSpawn.position, Quaternion.Euler (0, 0, 0));
 				rippleShotOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
 				rippleShotOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
 				rippleShotOverdrive.GetComponent<Bullet> ().playerControllerScript = this;
