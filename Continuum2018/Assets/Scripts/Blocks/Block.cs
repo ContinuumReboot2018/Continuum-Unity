@@ -248,7 +248,9 @@ public class Block : MonoBehaviour
 			}
 		}
 
-		if (other.tag == "Bullet" && other.GetComponentInChildren<ParticleSystem> () != null) 
+		if (other.tag == "Bullet" 
+			//&& other.GetComponentInChildren<ParticleSystem> () != null
+		) 
 		{
 			if (tutorialManagerScript != null)
 			{

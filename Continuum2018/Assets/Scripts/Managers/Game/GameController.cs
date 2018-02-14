@@ -212,6 +212,7 @@ public class GameController : MonoBehaviour
 		WaveBackground.enabled = false;
 		IsInWaveTransition = true;
 		bossId = 0;
+		powerupPickupTimeRemaining = UnityEngine.Random.Range (PowerupPickupSpawnRate.x, PowerupPickupSpawnRate.y);
 
 		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();

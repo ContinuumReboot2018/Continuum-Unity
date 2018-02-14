@@ -52,6 +52,11 @@ public class PlayerController : MonoBehaviour
 
 	public Transform ReferencePoint;
 	public GameObject PlayerGuides;
+	public RectTransform MiddlePoint;
+	public RectTransform ForegroundPoint;
+	public RectTransform InputUIPoint;
+	public LineRenderer InputLine;
+	public float inputSensitivity = 3;
 
 	[Header ("Shooting")]
 	public GameObject CurrentShotObject;
@@ -279,6 +284,7 @@ public class PlayerController : MonoBehaviour
 		CheckCooldownTime ();
 		CheckAbilityTime ();
 		DrawReferencePointLine ();
+		UpdateInputUI ();
 	}
 
 	void FixedUpdate ()
@@ -355,6 +361,18 @@ public class PlayerController : MonoBehaviour
 				isInCooldownMode = false;
 			}
 		}
+	}
+
+	void UpdateInputUI ()
+	{
+		InputUIPoint.anchoredPosition = new Vector3 (
+			inputSensitivity * playerActions.Move.Value.x * Mathf.Sqrt (1 - playerActions.Move.Value.y * playerActions.Move.Value.y * 0.5f),
+			inputSensitivity * playerActions.Move.Value.y * Mathf.Sqrt (1 - playerActions.Move.Value.x * playerActions.Move.Value.x * 0.5f),
+			0
+		);
+
+		InputLine.SetPosition (0, MiddlePoint.position);
+		InputLine.SetPosition (1, ForegroundPoint.position);
 	}
 
 	public void SetCooldownTime (float cooldownTime)
