@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
 	public float MaxLifetime = 30;
 	public float DestroyMaxYPos = 30;
 	public float ColliderYMaxPos = 12;
+	public bool hasDisappeared = false;
 
 	public float DestroyDelayTime = 1;
 	public Transform playerPos;
@@ -169,9 +170,16 @@ public class Bullet : MonoBehaviour
 
 	void CheckForColliderDeactivate ()
 	{
-		if (BulletRb.transform.position.y > ColliderYMaxPos) 
+		if (BulletRb.transform.position.y > ColliderYMaxPos && hasDisappeared == false) 
 		{
 			BulletCol.enabled = false;
+			hasDisappeared = true;
+		}
+
+		if (BulletRb.transform.position.y <= ColliderYMaxPos && hasDisappeared == true) 
+		{
+			BulletCol.enabled = true;
+			hasDisappeared = false;
 		}
 	}
 

@@ -4,22 +4,21 @@ using UnityEngine;
 public class MiniBossFormationGenerator : MonoBehaviour 
 {
 	public Texture2D map; // Drop the texture in this slot in the inspector to read from.
+	[Header ("Color texture  maps")]
 	public ColorToPrefab[] colorMappings; // Set prefabs to spawn by color.
 	[Space (10)]
+	[Header ("Transforms")]
 	public Transform ParentTransform; // Set where the spawned prefab should parent to.
 	public float Spacing = 1.5f; // Spacing multiplier.
 	public Vector3 Scaling = new Vector3 (1.35f, 1.35f, 1.35f); // Scaling amount. (Default is 1.35).
-	public bool AutomaticallyCenter; // Sets centre point to half width and half height if enabed.
+	[Header ("Centering")]
+	public bool AutomaticallyCenterX; // Sets centre point on horizontal axis.
+	public bool AutomaticallyCenterY; // Sets centre point on vertical axis.
 	public Vector2 Center; // Offset to center the image. (Can be in decimals).
-
 
 	void Start () 
 	{
-		if (AutomaticallyCenter == true) 
-		{
-			AutoCenterImage ();
-		}
-
+		AutoCenterImage ();
 		GenerateMiniBossFormation ();
 	}
 
@@ -71,15 +70,15 @@ public class MiniBossFormationGenerator : MonoBehaviour
 		{
 			// If the map height is an odd number of pixels tall.
 			Center = new Vector2 (
-				0.5f * map.width - 0.5f, 
-				Mathf.Round (0.5f * map.height - (0.333334f * Spacing))
+				AutomaticallyCenterX ? 0.5f * map.width - 0.5f : Center.x, 
+				AutomaticallyCenterY ? Mathf.Round (0.5f * map.height - (0.333334f * Spacing)) : Center.y
 			);
 		} else
 		{
 			// The map height is even.
 			Center = new Vector2 (
-				0.5f * map.width - 0.5f, 
-				(float)System.Math.Round (0.5f * map.height - (0.33333f * Spacing), 2)
+				AutomaticallyCenterX ? 0.5f * map.width - 0.5f : Center.x, 
+				AutomaticallyCenterY ? (float)System.Math.Round (0.5f * map.height - (0.33333f * Spacing), 2) : Center.y
 			);
 		}
 	}

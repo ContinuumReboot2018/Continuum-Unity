@@ -248,7 +248,7 @@ public class Block : MonoBehaviour
 			}
 		}
 
-		if (other.tag == "Bullet") 
+		if (other.tag == "Bullet" && other.GetComponentInChildren<ParticleSystem> () != null) 
 		{
 			if (tutorialManagerScript != null)
 			{
@@ -262,16 +262,18 @@ public class Block : MonoBehaviour
 					Debug.Log ("Attempted to turn off tutorial.");
 					tutorialManagerScript.TurnOffTutorial ();
 				}
-				return;
+				//return;
 			}
 
 			GetTotalPointValue ();
+			CreateExplosion ();
+			IncrementBlocksDestroyed ();
 
-			if (IsInvoking ("CreateExplosion") == false) 
+			/*if (IsInvoking ("CreateExplosion") == false) 
 			{
 				Invoke ("CreateExplosion", Random.Range(0.01667f, 0.033f));
 				IncrementBlocksDestroyed ();
-			}
+			}*/
 
 			if (other.GetComponent<Bullet> () != null)
 			{
@@ -286,7 +288,8 @@ public class Block : MonoBehaviour
 
 			//timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.05f;
 			//timeScaleControllerScript.OverridingTimeScale = 0.2f;
-			Destroy (gameObject, 0.05f);
+			//Destroy (gameObject, 0.05f);
+			Destroy (gameObject);
 		}
 
 		if (other.tag == "Player" && isTutorialBlock == false) 

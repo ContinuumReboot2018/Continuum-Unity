@@ -458,7 +458,8 @@ MonoBehaviour:
   ParentTransform: {fileID: 4423422975300952}
   Spacing: 1.5
   Scaling: {x: 1.35, y: 1.35, z: 1.35}
-  AutomaticallyCenter: 1
+  AutomaticallyCenterX: 1
+  AutomaticallyCenterY: 1
   Center: {x: 0, y: 0}
 --- !u!114 &114451544039717206
 MonoBehaviour:
@@ -507,6 +508,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 4261272856341010}
   FollowPosY: {fileID: 4261272856341010}
   FollowPosZ: {fileID: 4261272856341010}
@@ -517,6 +520,8 @@ MonoBehaviour:
   PosBoundsY: {x: 0, y: 25}
   PosBoundsZ: {x: 0, y: 0}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -548,6 +553,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -558,6 +565,8 @@ MonoBehaviour:
   PosBoundsY: {x: 0, y: 25}
   PosBoundsZ: {x: 0, y: 0}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
