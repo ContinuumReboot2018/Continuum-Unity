@@ -111,6 +111,7 @@ public class BlockFormation : MonoBehaviour
 			if (blockElement.gameObject.activeSelf == false) 
 			{
 				Destroy (gameObject);
+				return;
 			}
 		}
 	}
@@ -120,6 +121,7 @@ public class BlockFormation : MonoBehaviour
 		if (transform.childCount == 0) 
 		{
 			Destroy (gameObject);
+			return;
 		}
 	}
 }

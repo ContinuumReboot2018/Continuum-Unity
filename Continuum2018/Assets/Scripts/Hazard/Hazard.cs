@@ -41,6 +41,7 @@ public class Hazard : MonoBehaviour
 			CreateExplosion ();
 			DoCamShake ();
 			Destroy (gameObject);
+			return;
 		}
 
 		if (other.tag == "Player") 

@@ -121,7 +121,7 @@ public class Block : MonoBehaviour
 		BoxCol = GetComponent<Collider> ();
 		rb = GetComponent<Rigidbody> ();
 		rend = GetComponent<MeshRenderer> ();
-		InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
+
 
 		if (blockFormationScript == null) 
 		{
@@ -137,6 +137,23 @@ public class Block : MonoBehaviour
 		{
 			OverwriteVelocity = true;
 			rb.velocity = Vector3.zero;
+		}
+
+		if (BlockChangeType == blockChangeType.RandomScroll) 
+		{
+			InvokeRepeating ("RandomScroll", 0, ChangeRate);
+			InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
+		}
+
+		if (BlockChangeType == blockChangeType.Sequential) 
+		{
+			InvokeRepeating ("SequentialScroll", 0, ChangeRate);
+			InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
+		}
+
+		if (BlockChangeType == blockChangeType.Static) 
+		{
+			UpdateBlockType ();
 		}
 
 		if (BlockChangeType == blockChangeType.RandomOnce) 
@@ -204,6 +221,7 @@ public class Block : MonoBehaviour
 		if (transform.position.y < MinYPos) 
 		{
 			Destroy (gameObject);
+			return;
 		}
 
 		if (isBossPart == true) 
@@ -213,20 +231,19 @@ public class Block : MonoBehaviour
 			if (transform.position.y > 11.5f && GotDetached == true) 
 			{
 				Destroy (gameObject);
+				return;
 			}
 		}
 	}
 
 	void OnParticleCollision (GameObject particle)
 	{
-		//if (particle.tag == "Bullet") 
-		//{
-			GetTotalPointValue ();
-			CreateExplosion ();
-			DoCamShake ();
-			IncrementBlocksDestroyed ();
-			Destroy (gameObject);
-		//}
+		GetTotalPointValue ();
+		CreateExplosion ();
+		DoCamShake ();
+		IncrementBlocksDestroyed ();
+		Destroy (gameObject);
+		return;
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -244,13 +261,12 @@ public class Block : MonoBehaviour
 				{
 					Destroy (other.gameObject);
 					Destroy (gameObject);
+					return;
 				}
 			}
 		}
 
-		if (other.tag == "Bullet" 
-			//&& other.GetComponentInChildren<ParticleSystem> () != null
-		) 
+		if (other.tag == "Bullet") 
 		{
 			if (tutorialManagerScript != null)
 			{
@@ -264,18 +280,11 @@ public class Block : MonoBehaviour
 					Debug.Log ("Attempted to turn off tutorial.");
 					tutorialManagerScript.TurnOffTutorial ();
 				}
-				//return;
 			}
 
 			GetTotalPointValue ();
 			CreateExplosion ();
 			IncrementBlocksDestroyed ();
-
-			/*if (IsInvoking ("CreateExplosion") == false) 
-			{
-				Invoke ("CreateExplosion", Random.Range(0.01667f, 0.033f));
-				IncrementBlocksDestroyed ();
-			}*/
 
 			if (other.GetComponent<Bullet> () != null)
 			{
@@ -287,11 +296,8 @@ public class Block : MonoBehaviour
 			}
 
 			DoCamShake ();
-
-			//timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.05f;
-			//timeScaleControllerScript.OverridingTimeScale = 0.2f;
-			//Destroy (gameObject, 0.05f);
 			Destroy (gameObject);
+			return;
 		}
 
 		if (other.tag == "Player" && isTutorialBlock == false) 
@@ -329,7 +335,7 @@ public class Block : MonoBehaviour
 				newCamShakeDuration = 1.5f;
 				DoCamShake ();
 				playerControllerScript_P1.StartCooldown ();
-				playerControllerScript_P1.PlayerExplosionParticles.transform.position = gameObject.transform.position;
+				playerControllerScript_P1.PlayerExplosionParticles.transform.position = transform.position;
 				playerControllerScript_P1.PlayerExplosionParticles.Play ();
 				playerControllerScript_P1.PlayerExplosionAudio.Play ();
 			}
@@ -444,7 +450,29 @@ public class Block : MonoBehaviour
 			transform.position.y < BoundaryY.x) 
 		{
 			Destroy (gameObject);
+			return;
 		}
+	}
+
+	void SequentialScroll ()
+	{
+		int blockTypeLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
+
+		if (BlockType < (mainBlockType)blockTypeLength) 
+		{
+			BlockType += 1;
+		}
+
+		if (BlockType >= (mainBlockType)blockTypeLength) 
+		{
+			BlockType = 0;
+		}
+	}
+
+	void RandomScroll ()
+	{
+		int blockTypeLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
+		BlockType = (mainBlockType)Random.Range (0, blockTypeLength);
 	}
 
 	void UpdateBlockType ()

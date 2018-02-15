@@ -121,6 +121,7 @@ public class PowerupPickup : MonoBehaviour
 		if (other.tag == "Boundary") 
 		{
 			Destroy (gameObject);
+			return;
 		}
 	}
 
@@ -131,6 +132,7 @@ public class PowerupPickup : MonoBehaviour
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f);
 		PowerupTimeRunningOutAudio.Stop ();
 		Destroy (gameObject);
+		return;
 	}
 
 	public void CreatePowerupPickupUI ()
@@ -310,7 +312,7 @@ public class PowerupPickup : MonoBehaviour
 
 				foreach (Collider helixcol in playerControllerScript_P1.HelixCol) 
 				{
-					helixcol.enabled = true;
+					//helixcol.enabled = true;
 				}
 			}
 			break;
@@ -413,6 +415,7 @@ public class PowerupPickup : MonoBehaviour
 		}
 
 		Destroy (gameObject);
+		return;
 	}
 
 	void SetPowerupTexture (int index)

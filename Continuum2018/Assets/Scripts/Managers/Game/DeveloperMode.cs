@@ -656,7 +656,7 @@ public class DeveloperMode : MonoBehaviour
 
 					foreach (Collider helixcol in playerControllerScript_P1.HelixCol) 
 					{
-						helixcol.enabled = true;
+						//helixcol.enabled = true;
 					}
 
 					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";

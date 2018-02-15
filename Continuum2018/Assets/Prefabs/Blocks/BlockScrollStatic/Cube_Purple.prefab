@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -151,6 +153,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}

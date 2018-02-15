@@ -139,6 +139,7 @@ public class Bullet : MonoBehaviour
 		if (transform.position.y < -30) 
 		{
 			Destroy (gameObject);
+			return;
 		}
 	}
 
@@ -176,7 +177,7 @@ public class Bullet : MonoBehaviour
 			hasDisappeared = true;
 		}
 
-		if (BulletRb.transform.position.y <= ColliderYMaxPos && hasDisappeared == true) 
+		if (BulletRb.transform.position.y <= ColliderYMaxPos && hasDisappeared == true && BulletTypeName != "Helix") 
 		{
 			BulletCol.enabled = true;
 			hasDisappeared = false;
@@ -208,6 +209,7 @@ public class Bullet : MonoBehaviour
 				//transform.rotation = Quaternion.Euler (0, 0, newZrot);
 				//RicochetSound.Play ();
 				Destroy (gameObject);
+				return;
 			}
 
 			// Moves to left of screen.
@@ -216,6 +218,7 @@ public class Bullet : MonoBehaviour
 				//transform.rotation = Quaternion.Euler (0, 0, newZrot);
 				//RicochetSound.Play ();
 				Destroy (gameObject);
+				return;
 			}
 		}
 	}
@@ -261,11 +264,13 @@ public class Bullet : MonoBehaviour
 		if (Lifetime > MaxLifetime) 
 		{
 			Destroy (gameObject);
+			return;
 		}
 
 		if (BulletRb.transform.position.y > DestroyMaxYPos) 
 		{
 			Destroy (gameObject);
+			return;
 		}
 	}
 
@@ -345,5 +350,6 @@ public class Bullet : MonoBehaviour
 	public void DestroyObject ()
 	{
 		Destroy (gameObject);
+		return;
 	}
 }
