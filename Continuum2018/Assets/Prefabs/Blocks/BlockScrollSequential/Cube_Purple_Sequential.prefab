@@ -135,7 +135,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1254720616848240}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6129a3f33a82e494cb649fce0aab9eb5, type: 3}
   m_Name: 
@@ -208,14 +208,14 @@ MonoBehaviour:
   speed: 0
   OverwriteVelocity: 1
   DontIncrementBlocksDestroyed: 0
-  Stackable: 1
+  Stackable: 0
   isStacked: 0
   stack: {fileID: 0}
   wasCollided: 0
-  isBossPart: 0
+  isBossPart: 1
   GotDetached: 0
-  BoundaryX: {x: 0, y: 0}
-  BoundaryY: {x: 0, y: 0}
+  BoundaryX: {x: -100, y: 100}
+  BoundaryY: {x: -100, y: 100}
   AquaSpeed: 0
   BlueSpeed: 0
   PurpleSpeed: 0
@@ -242,13 +242,13 @@ MonoBehaviour:
   PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
   BlockType: 2
   ChangeRate: 0.125
-  BlockChangeType: 0
+  BlockChangeType: 3
   isSpecialBlockType: 0
   SpecialBlockType: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
-  Explosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706, type: 2}
+  Explosion: {fileID: 1081727288271718, guid: 2a66aaa9745d95349baee88eeb156b89, type: 2}
   BasePointValue: 1
   totalPointValue: 0
   TextColor: {r: 1, g: 0.33426183, b: 0, a: 1}
