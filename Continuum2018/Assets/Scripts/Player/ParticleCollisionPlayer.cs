@@ -28,6 +28,8 @@ public class ParticleCollisionPlayer : MonoBehaviour
 
 			if (gameControllerScript.Lives > 1) 
 			{
+				playerControllerScript_P1.ImpactPoint = gameObject.transform.position;
+				playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.UseEmp ());
 				SetTargetLowPassFreq (LowPassTargetFreq);
 				SetTargetResonance (ResonanceTargetFreq);
 				gameControllerScript.combo = 1;
@@ -59,7 +61,7 @@ public class ParticleCollisionPlayer : MonoBehaviour
 				playerControllerScript_P1.PlayerExplosionParticles.Play ();
 				playerControllerScript_P1.PlayerExplosionAudio.Play ();
 
-				Invoke ("DestroyAllBlocks", 0.5f);
+				//Invoke ("DestroyAllBlocks", 0.5f);
 			}
 
 			if (gameControllerScript.Lives == 1) 
