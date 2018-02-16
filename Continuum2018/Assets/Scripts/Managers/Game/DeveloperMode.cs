@@ -597,6 +597,7 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
 					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
 					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+					playerControllerScript_P1.EnableRicochetObject ();
 
 					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = RicochetTexture;

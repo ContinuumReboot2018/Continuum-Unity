@@ -339,6 +339,7 @@ MonoBehaviour:
   MaxLifetime: 30
   DestroyMaxYPos: 30
   ColliderYMaxPos: 13
+  hasDisappeared: 0
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
   movedEnough: 0

@@ -238,6 +238,7 @@ public class Block : MonoBehaviour
 
 	void OnParticleCollision (GameObject particle)
 	{
+		BoxCol.enabled = false;
 		GetTotalPointValue ();
 		CreateExplosion ();
 		DoCamShake ();
@@ -248,6 +249,8 @@ public class Block : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
+		BoxCol.enabled = false;
+
 		if (other.gameObject.name.Contains ("Missile")) 
 		{
 			if (isBossPart == false) 

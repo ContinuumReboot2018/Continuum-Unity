@@ -34,6 +34,17 @@ public class Hazard : MonoBehaviour
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 	}
 
+	void OnParticleCollision (GameObject particle)
+	{
+		if (particle.tag == "Bullet") 
+		{
+			CreateExplosion ();
+			DoCamShake ();
+			Destroy (gameObject);
+			return;
+		}
+	}
+
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "Bullet") 

@@ -115,10 +115,22 @@ public class TutorialManager : MonoBehaviour
 		InfoObject.SetActive (false);
 		ControlsObject.SetActive (false);
 		BlocksObject.SetActive (false);
-		InfoObject.SetActive (false);
+		MovementObject.SetActive (false);
 		Debug.Log ("Tutorial: Complete! Starting game.");
 		timeScaleControllerScript.SwitchInitialSequence ();
 		playerControllerScript_P1.StartCoroutines ();
-		this.gameObject.SetActive (false);
+
+		foreach (GameObject block in Blocks) 
+		{
+			Destroy (block);
+		}
+
+		//Destroy (MovementObject);
+		//Destroy (InfoObject);
+		//Destroy (ControlsObject);
+		//Destroy (BlocksObject);
+		Destroy (gameObject);
+		//this.gameObject.SetActive (false);
+		return;
 	}
 }

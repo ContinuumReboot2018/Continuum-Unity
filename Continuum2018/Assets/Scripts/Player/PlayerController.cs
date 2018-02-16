@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
 	public GameObject PlayerGuides;
 	public RectTransform MiddlePoint;
 	public RectTransform ForegroundPoint;
+	public RawImage InputForegroundImage;
+	public RawImage InputBackgroundImage;
 	public RectTransform InputUIPoint;
 	public LineRenderer InputLine;
 	public float inputSensitivity = 3;
@@ -144,6 +146,9 @@ public class PlayerController : MonoBehaviour
 	public bool isInRapidFire;
 	public bool isInOverdrive;
 	public bool isRicochet;
+	public GameObject RicochetGlowObject;
+	public ParticleSystem[] RicochetGlowParticles;
+	public MeshRenderer[] RicochetGlowMeshes;
 	public bool isHoming;
 
 	// Double shot.
@@ -365,14 +370,45 @@ public class PlayerController : MonoBehaviour
 
 	void UpdateInputUI ()
 	{
+		// This maps a square input into a circle.
 		InputUIPoint.anchoredPosition = new Vector3 (
 			inputSensitivity * playerActions.Move.Value.x * Mathf.Sqrt (1 - playerActions.Move.Value.y * playerActions.Move.Value.y * 0.5f),
 			inputSensitivity * playerActions.Move.Value.y * Mathf.Sqrt (1 - playerActions.Move.Value.x * playerActions.Move.Value.x * 0.5f),
 			0
 		);
 
+		InputForegroundImage.rectTransform.sizeDelta = new Vector2 (
+			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.x, 1 * (playerActions.Move.Value.normalized.magnitude), 8 * Time.unscaledDeltaTime), 
+			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.y, 1 * (playerActions.Move.Value.normalized.magnitude), 8 * Time.unscaledDeltaTime)
+		);
+
+		// Creates a line between the mid point of the player and the input point.
 		InputLine.SetPosition (0, MiddlePoint.position);
 		InputLine.SetPosition (1, ForegroundPoint.position);
+
+		// Sets input foreground image opacity color based on input.
+		InputForegroundImage.color = new Color (
+			0.375f, 
+			0.738f, 
+			1, 
+			Mathf.Lerp (
+				InputForegroundImage.color.a, 
+				0.2f * playerActions.Move.Value.normalized.magnitude, 
+				5 * Time.unscaledDeltaTime
+			)
+		);
+
+		// Sets input background image opacity color based on input.
+		InputBackgroundImage.color = new Color (
+			0.375f, 
+			0.738f, 
+			1, 
+			Mathf.Lerp (
+				InputForegroundImage.color.a, 
+				0.1f * playerActions.Move.Value.normalized.magnitude, 
+				5 * Time.unscaledDeltaTime
+			)
+		);
 	}
 
 	public void SetCooldownTime (float cooldownTime)
@@ -491,8 +527,8 @@ public class PlayerController : MonoBehaviour
 	{
 		// Updates the ability UI involved.
 		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbilityDuration;
-		AbilityFillImageL.fillAmount = 0.16f * AbilityTimeAmountProportion; // Fills to a sixth.
-		AbilityFillImageR.fillAmount = 0.16f * AbilityTimeAmountProportion; // Fills to a sixth.
+		AbilityFillImageL.fillAmount = 1f * AbilityTimeAmountProportion; // Fills to a sixth.
+		AbilityFillImageR.fillAmount = 1f * AbilityTimeAmountProportion; // Fills to a sixth.
 		//AbilityFillImageL.fillAmount = 0.5f * AbilityTimeAmountProportion; // Fills to a sixth.
 		//AbilityFillImageR.fillAmount = 0.5f * AbilityTimeAmountProportion; // Fills to a sixth.
 
@@ -1151,6 +1187,26 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void EnableRicochetObject ()
+	{
+		RicochetGlowObject.SetActive (true);
+
+		foreach (ParticleSystem glowParticles in RicochetGlowParticles)
+		{
+			glowParticles.Play ();
+		}
+
+		foreach (MeshRenderer meshrendglow in RicochetGlowMeshes) 
+		{
+			meshrendglow.enabled = true;
+		}
+	}
+
+	void DisableRicochetObject ()
+	{
+		RicochetGlowObject.SetActive (false);
+	}
+
 	public void ResetPowerups ()
 	{
 		ShotType = shotType.Standard;
@@ -1165,6 +1221,17 @@ public class PlayerController : MonoBehaviour
 		TurretSpinSpeed = TurretSpinSpeedNormal;
 
 		isRicochet = false;
+		Invoke ("DisableRicochetObject", 3);
+		foreach (ParticleSystem glowParticles in RicochetGlowParticles)
+		{
+			glowParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		}
+
+		foreach (MeshRenderer meshrendglow in RicochetGlowMeshes) 
+		{
+			meshrendglow.enabled = false;
+		}
+
 		isInOverdrive = false;
 		isInRapidFire = false;
 		isHoming = false;

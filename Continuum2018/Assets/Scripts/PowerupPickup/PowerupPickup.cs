@@ -79,6 +79,39 @@ public class PowerupPickup : MonoBehaviour
 		PowerupTimeRunningOutAudio = GameObject.Find ("PowerupRunningOutSound").GetComponent<AudioSource> ();
 	}
 
+	void OnParticleCollision (GameObject particle)
+	{
+		if (particle.tag == "Bullet") 
+		{
+			if (IsInvoking ("CheckActivatePowerup") == false) 
+			{
+				playerControllerScript_P1.CheckPowerupImageUI ();
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+				timescaleControllerScript.OverridingTimeScale = 0.2f;
+				playerControllerScript_P1.NextFire = 0;
+				playerControllerScript_P1.DoubleShotNextFire = 0;
+				playerControllerScript_P1.TripleShotNextFire = 0;
+				playerControllerScript_P1.RippleShotNextFire = 0;
+				Invoke("CheckActivatePowerup", 0.01667f);
+			}
+		}
+
+		if (particle.tag == "Player") 
+		{
+			if (IsInvoking ("CheckActivatePowerup") == false) 
+			{
+				playerControllerScript_P1.CheckPowerupImageUI ();
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+				timescaleControllerScript.OverridingTimeScale = 0.2f;
+				playerControllerScript_P1.NextFire = 0;
+				playerControllerScript_P1.DoubleShotNextFire = 0;
+				playerControllerScript_P1.TripleShotNextFire = 0;
+				playerControllerScript_P1.RippleShotNextFire = 0;
+				Invoke("CheckActivatePowerup", 0.01667f);
+			}
+		}
+	}
+
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "Bullet") 
@@ -378,6 +411,7 @@ public class PowerupPickup : MonoBehaviour
 
 		case powerups.Ricochet:
 			gameControllerScript.SetPowerupTime (PowerupTime);
+			playerControllerScript_P1.EnableRicochetObject ();
 
 			if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) 
 			{

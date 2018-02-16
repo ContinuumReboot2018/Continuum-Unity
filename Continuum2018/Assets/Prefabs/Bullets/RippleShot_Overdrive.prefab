@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 199241510844064626}
   m_Layer: 9
   m_Name: RippleParticles
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 114761268872407208}
   - component: {fileID: 114248961705553410}
   - component: {fileID: 114830708441588062}
+  - component: {fileID: 114657375628471760}
   m_Layer: 9
   m_Name: RippleShot_Overdrive
   m_TagString: Bullet
@@ -566,6 +567,18 @@ MonoBehaviour:
     value: {x: 0, y: -2000, z: 0}
     space: 1
   ignoreTimescale: 0
+--- !u!114 &114657375628471760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527851726018156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6129a3f33a82e494cb649fce0aab9eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParentTransformName: InstantiatedBullets
 --- !u!114 &114761268872407208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -653,7 +666,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1527851726018156}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 0
   m_Direction: 1
@@ -718,7 +731,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1903510043
+  randomSeed: -82977697
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -808,7 +821,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.35294116, g: 0.7322515, b: 1, a: 0.284}
-      maxColor: {r: 0.65517277, g: 0.2647059, b: 1, a: 0.466}
+      maxColor: {r: 0.65517277, g: 0.2647059, b: 1, a: 0.184}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -870,8 +883,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.08
-      minScalar: 0.08
+      scalar: 0.2
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4085,7 +4098,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 771644397
+  randomSeed: 1407264688
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4175,7 +4188,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.35294116, g: 0.7322515, b: 1, a: 0.284}
-      maxColor: {r: 0.7870179, g: 0.44852942, b: 1, a: 0.559}
+      maxColor: {r: 0.7870179, g: 0.44852942, b: 1, a: 0.665}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -6439,9 +6452,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 3
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -6585,7 +6598,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -20908,7 +20921,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 683064718
+  randomSeed: -627221190
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -20998,7 +21011,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.35294116, g: 0.7322515, b: 1, a: 0.284}
-      maxColor: {r: 0.7008113, g: 0.13235295, b: 1, a: 0.466}
+      maxColor: {r: 0.7008113, g: 0.13235295, b: 1, a: 0.572}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
