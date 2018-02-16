@@ -25,8 +25,6 @@ public class Homing : MonoBehaviour
 		} else {
 			ReleaseHoming ();
 		}
-
-
 	}
 
 	void FixedUpdate () 
