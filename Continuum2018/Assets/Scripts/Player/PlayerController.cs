@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
 	public MeshCollider InvincibleCollider;
 	public MeshRenderer InvincibleMesh;
 	public Animator InvincibleMeshAnim;
-
+	public Animator GlitchEffect;
 
 	[Header ("Ability")]
 	public abilityState CurrentAbilityState;
@@ -431,7 +431,7 @@ public class PlayerController : MonoBehaviour
 			isInCooldownMode = true;
 			UsePlayerFollow = false;
 			PlayerFollow.transform.localPosition = new Vector3 (0, 0, 0);
-			Invoke ("PlayerTransformPosCooldown", 2);
+			Invoke ("PlayerTransformPosCooldown", 0.1f);
 		}
 	}
 

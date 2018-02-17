@@ -63,6 +63,7 @@ public class Hazard : MonoBehaviour
 
 				if (gameControllerScript.Lives > 1) 
 				{
+					playerControllerScript_P1.GlitchEffect.Play ("CameraGlitchOn");
 					playerControllerScript_P1.ImpactPoint = gameObject.transform.position;
 					playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.UseEmp ());
 					SetTargetLowPassFreq (LowPassTargetFreq);

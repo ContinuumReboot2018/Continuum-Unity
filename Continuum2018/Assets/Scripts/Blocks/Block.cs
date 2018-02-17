@@ -309,6 +309,7 @@ public class Block : MonoBehaviour
 
 			if (gameControllerScript.Lives > 1) 
 			{
+				playerControllerScript_P1.GlitchEffect.Play ("CameraGlitchOn");
 				playerControllerScript_P1.ImpactPoint = gameObject.transform.position;
 				playerControllerScript_P1.PlayerExplosionParticles.transform.position = playerControllerScript_P1.ImpactPoint;
 				playerControllerScript_P1.PlayerExplosionParticles.Play ();
