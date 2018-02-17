@@ -7,6 +7,7 @@ public class SimpleFollow : MonoBehaviour
 	public bool FollowPosition;
 	public bool AutomaticallyFindPlayerPosObject;
 	public string LookForPosName = "Player";
+	public Transform OverrideTransform;
 	public Transform FollowPosX;
 	public Transform FollowPosY;
 	public Transform FollowPosZ;
@@ -57,6 +58,16 @@ public class SimpleFollow : MonoBehaviour
 
 	void LateUpdate () 
 	{
+		if (OverrideTransform != null) 
+		{
+			FollowPosX = OverrideTransform.transform;
+			FollowPosY = OverrideTransform.transform;
+			FollowPosZ = OverrideTransform.transform;
+			FollowRotX = OverrideTransform.transform;
+			FollowRotY = OverrideTransform.transform;
+			FollowRotZ = OverrideTransform.transform;
+		}
+
 		if (FollowPosition == true && FollowPosMethod != followPosMethod.NoSmoothing) 
 		{
 			FollowObjectPosition ();
