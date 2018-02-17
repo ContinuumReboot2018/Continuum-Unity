@@ -431,8 +431,13 @@ public class PlayerController : MonoBehaviour
 			isInCooldownMode = true;
 			UsePlayerFollow = false;
 			PlayerFollow.transform.localPosition = new Vector3 (0, 0, 0);
-			playerMesh.transform.localPosition = new Vector3 (0, -15, 0);
+			Invoke ("PlayerTransformPosCooldown", 2);
 		}
+	}
+
+	void PlayerTransformPosCooldown ()
+	{
+		playerMesh.transform.localPosition = new Vector3 (0, -15, 0);
 	}
 
 	public void GameOver ()

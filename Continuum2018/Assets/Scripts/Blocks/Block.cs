@@ -310,7 +310,10 @@ public class Block : MonoBehaviour
 			if (gameControllerScript.Lives > 1) 
 			{
 				playerControllerScript_P1.ImpactPoint = gameObject.transform.position;
+				playerControllerScript_P1.PlayerExplosionParticles.transform.position = playerControllerScript_P1.ImpactPoint;
+				playerControllerScript_P1.PlayerExplosionParticles.Play ();
 				playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.UseEmp ());
+	
 				SetTargetLowPassFreq (LowPassTargetFreq);
 				SetTargetResonance (ResonanceTargetFreq);
 				gameControllerScript.combo = 1;
@@ -325,8 +328,8 @@ public class Block : MonoBehaviour
 				playerControllerScript_P1.playerCol.gameObject.SetActive (false);
 				playerControllerScript_P1.playerTrigger.gameObject.SetActive (false);
 				playerControllerScript_P1.PlayerGuides.transform.position = Vector3.zero;
-				playerControllerScript_P1.PlayerGuides.SetActive (false);
-				playerControllerScript_P1.AbilityUI.transform.position = Vector3.zero;
+				//playerControllerScript_P1.PlayerGuides.SetActive (false);
+				//playerControllerScript_P1.AbilityUI.transform.position = Vector3.zero;
 				playerControllerScript_P1.AbilityUI.SetActive (false);
 				playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
 				playerControllerScript_P1.PlayerFollowRb.velocity = Vector3.zero;
@@ -338,8 +341,7 @@ public class Block : MonoBehaviour
 				newCamShakeDuration = 1.5f;
 				DoCamShake ();
 				playerControllerScript_P1.StartCooldown ();
-				playerControllerScript_P1.PlayerExplosionParticles.transform.position = transform.position;
-				playerControllerScript_P1.PlayerExplosionParticles.Play ();
+
 				playerControllerScript_P1.PlayerExplosionAudio.Play ();
 			}
 
