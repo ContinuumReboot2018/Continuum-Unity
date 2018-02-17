@@ -135,12 +135,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1254720616848240}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6129a3f33a82e494cb649fce0aab9eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 0
 --- !u!114 &114444953533648668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -155,6 +156,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}

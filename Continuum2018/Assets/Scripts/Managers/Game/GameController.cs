@@ -1032,6 +1032,7 @@ public class GameController : MonoBehaviour
 	public IEnumerator GoToNextWave ()
 	{
 		yield return new WaitForSecondsRealtime (5);
+		NextLevel ();
 
 		if (Wave % 4 == 1) 
 		{
@@ -1040,8 +1041,6 @@ public class GameController : MonoBehaviour
 			UnityEngine.Debug.Log ("New soundtrack loaded.");
 			UnityEngine.Debug.Log ("Soundtrack: " + audioControllerScript.TrackName);
 		}
-
-		NextLevel ();
 
 		if (gameModifier.BossSpawn != GameModifierManager.bossSpawnMode.BossesOnly) 
 		{
@@ -1052,12 +1051,20 @@ public class GameController : MonoBehaviour
 		{
 			if (Wave % 4 != 0)
 			{
-				Invoke("SpawnMiniBossObject", BossSpawnDelay);
+				if (IsInvoking ("SpawnMiniBossObject") == false)
+				{
+					Invoke ("SpawnMiniBossObject", BossSpawnDelay);
+					yield return null;
+				}
 			}
 
 			if (Wave % 4 == 0) 
 			{
-				Invoke("SpawnBigBossObject", BossSpawnDelay);
+				if (IsInvoking ("SpawnBigBossObject") == false) 
+				{
+					Invoke ("SpawnBigBossObject", BossSpawnDelay);
+					yield return null;
+				}
 			}
 		}
 

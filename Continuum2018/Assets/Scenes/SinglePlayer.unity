@@ -218,6 +218,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -1220,6 +1221,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -7118,6 +7120,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -14532,6 +14535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 269466429}
   playerControllerScript: {fileID: 950826315}
+  DontUsePlayerInput: 0
 --- !u!1001 &279619684
 Prefab:
   m_ObjectHideFlags: 0
@@ -14686,6 +14690,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -15266,6 +15271,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -33187,6 +33193,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -37267,6 +37274,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -44924,6 +44932,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -45651,6 +45660,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -55492,6 +55502,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -57845,6 +57856,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -68686,6 +68698,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -81491,6 +81504,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 525356115}
   FollowPosY: {fileID: 525356115}
   FollowPosZ: {fileID: 525356115}
@@ -97308,6 +97322,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -101360,6 +101375,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -107137,6 +107153,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -111336,6 +111353,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1932926925}
   FollowPosY: {fileID: 1932926925}
   FollowPosZ: {fileID: 1932926925}
@@ -118776,6 +118794,7 @@ MonoBehaviour:
   BigBossSpawnPos: {fileID: 1650385247}
   BigBossSpawnDelay: 4
   bossId: 0
+  BossSpawnDelay: 5
   isPaused: 0
   PauseCooldown: 0.25
   canPause: 1
@@ -119566,6 +119585,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -133022,6 +133042,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -150372,6 +150393,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -150517,6 +150539,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 525356115}
   FollowPosY: {fileID: 525356115}
   FollowPosZ: {fileID: 1771333215}
@@ -151353,6 +151376,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -151790,6 +151814,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1081056887}
   FollowPosY: {fileID: 1081056887}
   FollowPosZ: {fileID: 1081056887}
@@ -152419,6 +152444,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -153077,6 +153103,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 1771333215}
   FollowPosY: {fileID: 1771333215}
   FollowPosZ: {fileID: 1771333215}
@@ -153183,6 +153210,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -153362,6 +153390,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -153463,6 +153492,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -158273,6 +158303,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 815677226}
   FollowPosZ: {fileID: 815677226}
@@ -158544,6 +158575,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 815677226}
   FollowPosY: {fileID: 2056022828}
   FollowPosZ: {fileID: 2056022828}

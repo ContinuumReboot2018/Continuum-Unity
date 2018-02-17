@@ -10,8 +10,9 @@ public class MiniBoss : MonoBehaviour
 	public GameObject MiniBossParent;
 
 	[Header ("Stats")]
-	public int hitPoints = 5;
+	public float hitPoints = 5;
 	public int StartingHitPoints;
+	public float ParticleHitPointAmount = 0.01f;
 
 	public GameObject SmallExplosion;
 	public GameObject LargeExplosion;
@@ -157,7 +158,12 @@ public class MiniBoss : MonoBehaviour
 		{
 			if (hitPoints > 0) 
 			{
-				hitPoints -= 1;
+				hitPoints -= 1 * ParticleHitPointAmount;
+
+				if (IsInvoking ("InstanceExplosion") == false) 
+				{
+					Invoke ("InstanceExplosion", 0.25f);
+				}
 			}
 
 			if (hitPoints <= 0) 
@@ -173,6 +179,11 @@ public class MiniBoss : MonoBehaviour
 				Destroy (MiniBossParent.gameObject);
 			}
 		}
+	}
+
+	void InstanceExplosion ()
+	{
+		Instantiate (SmallExplosion, transform.position, transform.rotation);
 	}
 
 	void BossPartsConvertToNoise ()

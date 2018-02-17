@@ -5,10 +5,14 @@ using UnityEngine;
 public class ParentToTransform : MonoBehaviour 
 {
 	public string ParentTransformName = "Instantiated";
+	public bool OnStart = true;
 
 	void Start () 
 	{
-		ParentNow ();
+		if (OnStart)
+		{
+			ParentNow ();
+		}
 	}
 
 	public void ParentNow ()
