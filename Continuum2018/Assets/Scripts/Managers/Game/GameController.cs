@@ -197,6 +197,13 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI RewindTimeRemainingText_Debug;
 	public TextMeshProUGUI IsRewindingText_Debug;
 
+	public TextMeshProUGUI Modifier_Tutorial_Debug;
+	public TextMeshProUGUI Modifier_PowerupSpawn_Debug;
+	public TextMeshProUGUI Modifier_BossSpawn_Debug;
+	public TextMeshProUGUI Modifier_StartingLives_Debug;
+	public TextMeshProUGUI Modifier_AlwaysRapidfire_Debug;
+	public TextMeshProUGUI Modifier_TrialTime_Debug;
+
 	void Awake () 
 	{
 		ClearPowerupUI ();
@@ -411,6 +418,13 @@ public class GameController : MonoBehaviour
 					"Rewind Time Remain: " + System.Math.Round(timescaleControllerScript.RewindTimeRemaining, 2);
 				IsRewindingText_Debug.text = 
 					"Is Rewinding: " + (timescaleControllerScript.isRewinding ? "ON" : "OFF");
+
+				Modifier_Tutorial_Debug.text = "Use Tutorial: " + (gameModifier.Tutorial ? "ON" : "OFF");
+				Modifier_PowerupSpawn_Debug.text = "Powerup Spawn Mode: " + (gameModifier.PowerupSpawn.ToString ());
+				Modifier_BossSpawn_Debug.text = "Boss Spawn Mode: " + (gameModifier.BossSpawn.ToString ());
+				Modifier_StartingLives_Debug.text = "Starting Lives: " + (gameModifier.StartingLives);
+				Modifier_AlwaysRapidfire_Debug.text = "Always Rapidfire: " + (gameModifier.AlwaysRapidfire ? "ON" : "OFF");
+				Modifier_TrialTime_Debug.text = "Trial Time: " + (gameModifier.TrialTime);
 			}
 		}
 	}
