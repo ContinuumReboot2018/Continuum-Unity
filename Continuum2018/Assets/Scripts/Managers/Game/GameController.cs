@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
 	public CursorManager cursorManagerScript;
 	public PostProcessingProfile ImageEffects;
 	public ObjectPooler BlockObjectPooler;
+	public GameModifierManager gameModifier;
 
 	[Header ("Game Stats")]
 	public bool TrackStats = true;
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
 	public int BulletsShot;
 	public float BlockShotAccuracy;
 	public AudioSource BassTrack;
+	public float TrialTime = -1;
 
 	[Header ("Waves")]
 	public int Wave;
@@ -99,6 +101,7 @@ public class GameController : MonoBehaviour
 	public GameObject[] PowerupPickups;
 	public float powerupPickupTimeRemaining;
 	public Vector2 PowerupPickupSpawnRate;
+	public float powerupPickupSpawnModifier = 1;
 	private float NextPowerupPickupSpawn;
 	public float PowerupPickupSpawnRangeX;
 	public float PowerupPickupSpawnY;
@@ -124,6 +127,7 @@ public class GameController : MonoBehaviour
 	public Transform BigBossSpawnPos;
 	public float BigBossSpawnDelay = 4;
 	public int bossId;
+	public float BossSpawnDelay = 5;
 
 	[Header ("Pausing")]
 	public bool isPaused;
@@ -200,7 +204,7 @@ public class GameController : MonoBehaviour
 		ScoreBackground.enabled = false;
 
 		LivesAnim.gameObject.SetActive (false);
-		Lives = 3;
+		//Lives = 3;
 		LivesText.text = "";
 		MaxLivesText.text = "";
 		LivesBackground.enabled = false;
@@ -222,7 +226,12 @@ public class GameController : MonoBehaviour
 	public void ClearPowerupUI ()
 	{
 		OverdriveImage.enabled = false;
-		RapidfireImage.enabled = false;
+
+		if (gameModifier.AlwaysRapidfire == false) 
+		{
+			RapidfireImage.enabled = false;
+		}
+
 		RicochetImage.enabled = false;
 		HomingImage.enabled = false;
 
@@ -244,6 +253,12 @@ public class GameController : MonoBehaviour
 	{
 		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1);
 		InvokeRepeating ("UpdateLives", 0, 1);
+		SetGameModifiers ();
+
+		if (gameModifier.TrialTime > 0) 
+		{
+			playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
+		}
 	}
 
 	// Timescale controller calls this initially after the countdown.
@@ -260,7 +275,23 @@ public class GameController : MonoBehaviour
 		IsInWaveTransition = true;
 		WaveTimeRemaining = WaveTimeDuration;
 
-		StartCoroutine (StartBlockSpawn ());
+		if (gameModifier.BossSpawn != GameModifierManager.bossSpawnMode.BossesOnly)
+		{
+			StartCoroutine (StartBlockSpawn ());
+		}
+
+		if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.BossesOnly) 
+		{
+			if (Wave % 4 != 0)
+			{
+				Invoke("SpawnMiniBossObject", BossSpawnDelay);
+			}
+
+			if (Wave % 4 == 0) 
+			{
+				Invoke("SpawnBigBossObject", BossSpawnDelay);
+			}
+		}
 
 		ScoreAnim.enabled = true;
 		LivesAnim.gameObject.SetActive (true);
@@ -270,7 +301,7 @@ public class GameController : MonoBehaviour
 		LivesBackground.enabled = true;
 		WaveBackground.enabled = true;
 
-		Lives = 3;
+		Lives = gameModifier.StartingLives;
 		UpdateLives ();
 	}
 
@@ -880,12 +911,19 @@ public class GameController : MonoBehaviour
 	public void SpawnPowerupPickup ()
 	{
 		GameObject PowerupPickup = PowerupPickups[UnityEngine.Random.Range (0, PowerupPickups.Length)];
+
 		Vector3 PowerupPickupSpawnPos = new Vector3 (
 			UnityEngine.Random.Range (-PowerupPickupSpawnRangeX, PowerupPickupSpawnRangeX), 
 			UnityEngine.Random.Range (-PowerupPickupSpawnY, PowerupPickupSpawnY), 
-			-2.5f);
+			-2.5f
+		);
+
 		Instantiate (PowerupPickup, PowerupPickupSpawnPos, Quaternion.identity);
-		powerupPickupTimeRemaining = UnityEngine.Random.Range (PowerupPickupSpawnRate.x, PowerupPickupSpawnRate.y);
+
+		powerupPickupTimeRemaining = UnityEngine.Random.Range (
+			PowerupPickupSpawnRate.x * powerupPickupSpawnModifier, 
+			PowerupPickupSpawnRate.y * powerupPickupSpawnModifier
+		);
 	}
 
 	public IEnumerator SpawnMiniBoss ()
@@ -904,9 +942,7 @@ public class GameController : MonoBehaviour
 	public IEnumerator SpawnBigBoss ()
 	{
 		yield return new WaitForSeconds (BigBossSpawnDelay);
-		GameObject BigBoss = BigBosses [UnityEngine.Random.Range (0, bossId)];
-		Instantiate (BigBoss, BigBossSpawnPos.position, BigBossSpawnPos.rotation);
-		UnityEngine.Debug.Log ("Oh snap! We spawned a big boss!");
+		SpawnBigBossObject ();
 
 		if (bossId <= BigBosses.Length) 
 		{
@@ -919,13 +955,29 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	public void SpawnBigBossObject ()
+	{
+		GameObject BigBoss = BigBosses [UnityEngine.Random.Range (0, bossId)];
+		Instantiate (BigBoss, BigBossSpawnPos.position, BigBossSpawnPos.rotation);
+		UnityEngine.Debug.Log ("Oh snap! We spawned a big boss!");
+	}
+
 	void CheckWaveTime ()
 	{
 		if (WaveTimeRemaining < 0) 
 		{
 			if (Wave % 4 != 0)
 			{
-				StartCoroutine (SpawnMiniBoss ());
+				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
+				{
+					StartCoroutine (SpawnMiniBoss ());
+				}
+
+				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
+				{
+					StartNewWave ();
+					IsInWaveTransition = true;
+				}
 
 				if (Wave % 4 != 1)
 				{
@@ -936,7 +988,18 @@ public class GameController : MonoBehaviour
 			if (Wave % 4 == 0)
 			{
 				audioControllerScript.StopAllSoundtracks ();
-				StartCoroutine (SpawnBigBoss ());
+
+				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
+				{
+					StartCoroutine (SpawnBigBoss ());
+				}
+
+				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
+				{
+					StartNewWave ();
+					IsInWaveTransition = true;
+				}
+
 				SoundtrackText.text = "";
 			}
 
@@ -980,7 +1043,54 @@ public class GameController : MonoBehaviour
 
 		NextLevel ();
 
-		StartCoroutine (StartBlockSpawn ());
+		if (gameModifier.BossSpawn != GameModifierManager.bossSpawnMode.BossesOnly) 
+		{
+			StartCoroutine (StartBlockSpawn ());
+		}
+
+		if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.BossesOnly)
+		{
+			if (Wave % 4 != 0)
+			{
+				Invoke("SpawnMiniBossObject", BossSpawnDelay);
+			}
+
+			if (Wave % 4 == 0) 
+			{
+				Invoke("SpawnBigBossObject", BossSpawnDelay);
+			}
+		}
+
 		StopCoroutine (GoToNextWave ());
+	}
+
+	public void SetGameModifiers ()
+	{
+		if (gameModifier.Tutorial == false) 
+		{
+			playerControllerScript_P1.tutorialManagerScript.TurnOffTutorial ();
+		}
+
+		switch (gameModifier.PowerupSpawn) 
+		{
+		case GameModifierManager.powerupSpawnMode.Normal:
+			powerupPickupSpawnModifier = 1;
+			break;
+		case GameModifierManager.powerupSpawnMode.Faster:
+			powerupPickupSpawnModifier = 0.4f;
+			break;
+		case GameModifierManager.powerupSpawnMode.Off:
+			powerupPickupSpawnModifier = Mathf.Infinity;
+			break;
+		}
+
+		Lives = gameModifier.StartingLives;
+		playerControllerScript_P1.isInRapidFire = gameModifier.AlwaysRapidfire;
+
+		if (playerControllerScript_P1.isInRapidFire == true) 
+		{
+			playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+			RapidfireImage.enabled = true;
+		}
 	}
 }

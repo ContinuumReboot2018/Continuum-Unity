@@ -238,6 +238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 2113591550}
   FollowPosY: {fileID: 2113591550}
   FollowPosZ: {fileID: 2113591550}
@@ -248,6 +250,8 @@ MonoBehaviour:
   PosBoundsY: {x: -50, y: 50}
   PosBoundsZ: {x: -50, y: 50}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -14524,6 +14528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 1815671493}
   FollowPosY: {fileID: 1815671493}
   FollowPosZ: {fileID: 1815671493}
@@ -14534,6 +14540,8 @@ MonoBehaviour:
   PosBoundsY: {x: -10000, y: 10000}
   PosBoundsZ: {x: 0, y: 0}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -14732,6 +14740,7 @@ MonoBehaviour:
   SmoothFollowTime: 15
   YRotationAmount: 40
   YRotationMultiplier: 100
+  FlipScreenAnim: {fileID: 0}
   PlayerId: 1
   PlayerText: {fileID: 0}
   isJoined: 0
@@ -14742,6 +14751,13 @@ MonoBehaviour:
   MainEngineParticleEmissionLerpSpeed: 8
   ReferencePoint: {fileID: 0}
   PlayerGuides: {fileID: 0}
+  MiddlePoint: {fileID: 0}
+  ForegroundPoint: {fileID: 0}
+  InputForegroundImage: {fileID: 0}
+  InputBackgroundImage: {fileID: 0}
+  InputUIPoint: {fileID: 0}
+  InputLine: {fileID: 0}
+  inputSensitivity: 3
   CurrentShotObject: {fileID: 0}
   canShoot: 1
   CurrentFireRate: 0.45
@@ -14797,6 +14813,10 @@ MonoBehaviour:
   isInRapidFire: 0
   isInOverdrive: 0
   isRicochet: 0
+  RicochetGlowObject: {fileID: 0}
+  RicochetGlowParticles: []
+  RicochetGlowMeshes: []
+  isHoming: 0
   DoubleShotL: {fileID: 1598089217073352, guid: a90fba4ea764dee49a16a6ba698d8d51,
     type: 2}
   DoubleShotLEnhanced: {fileID: 1598089217073352, guid: fe612576a3b12c943a89f03278ec556f,
@@ -18477,6 +18497,7 @@ Transform:
   - {fileID: 1374931672}
   - {fileID: 454799595}
   - {fileID: 288136956}
+  - {fileID: 556564645}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22435,6 +22456,48 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &556564644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 556564645}
+  - component: {fileID: 556564646}
+  m_Layer: 0
+  m_Name: GameModifierReceiver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &556564645
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 556564644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 364231529}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &556564646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 556564644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6ba34d932cb56469f3d56a1e43ae01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModifierManagerScript: {fileID: 11400000, guid: ca0aa5b328c8b234cb1ce9f8a0a4da3b,
+    type: 2}
 --- !u!1 &582568699
 GameObject:
   m_ObjectHideFlags: 0
@@ -22640,6 +22703,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 2113591550}
   FollowPosY: {fileID: 2113591550}
   FollowPosZ: {fileID: 2113591550}
@@ -22650,6 +22715,8 @@ MonoBehaviour:
   PosBoundsY: {x: -50, y: 50}
   PosBoundsZ: {x: -50, y: 50}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -22780,6 +22847,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 1815671493}
   FollowPosY: {fileID: 1815671493}
   FollowPosZ: {fileID: 1815671493}
@@ -22790,6 +22859,8 @@ MonoBehaviour:
   PosBoundsY: {x: -10000, y: 10000}
   PosBoundsZ: {x: -10000, y: 10000}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -36979,6 +37050,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 2113591550}
   FollowPosY: {fileID: 1815671493}
   FollowPosZ: {fileID: 1815671493}
@@ -36989,6 +37062,8 @@ MonoBehaviour:
   PosBoundsY: {x: -1000, y: 1000}
   PosBoundsZ: {x: -1000, y: 1000}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -44016,6 +44091,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 1815671493}
   FollowPosY: {fileID: 1815671493}
   FollowPosZ: {fileID: 1815671493}
@@ -44026,6 +44103,8 @@ MonoBehaviour:
   PosBoundsY: {x: -10000, y: 10000}
   PosBoundsZ: {x: -10000, y: 10000}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -58839,6 +58918,7 @@ MonoBehaviour:
   MaxLifetime: 90
   DestroyMaxYPos: 99
   ColliderYMaxPos: 99
+  hasDisappeared: 0
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
   movedEnough: 0
@@ -58848,7 +58928,7 @@ MonoBehaviour:
   RicochetXpos: 21.2
   RicochetSound: {fileID: 0}
   isHoming: 0
-  HomingPoint: {fileID: 0}
+  homingScript: {fileID: 0}
   BulletOuterParticles: {fileID: 0}
   BulletCoreParticles: {fileID: 0}
   TrailParticles: []
@@ -59049,6 +59129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 1815671493}
   FollowPosY: {fileID: 1815671493}
   FollowPosZ: {fileID: 1815671493}
@@ -59059,6 +59141,8 @@ MonoBehaviour:
   PosBoundsY: {x: -1000, y: 1000}
   PosBoundsZ: {x: 0, y: 0}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -84019,6 +84103,7 @@ MonoBehaviour:
   MaxLifetime: 90
   DestroyMaxYPos: 99
   ColliderYMaxPos: 99
+  hasDisappeared: 0
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
   movedEnough: 0
@@ -84028,7 +84113,7 @@ MonoBehaviour:
   RicochetXpos: 21.2
   RicochetSound: {fileID: 0}
   isHoming: 0
-  HomingPoint: {fileID: 0}
+  homingScript: {fileID: 0}
   BulletOuterParticles: {fileID: 0}
   BulletCoreParticles: {fileID: 0}
   TrailParticles: []
@@ -84189,6 +84274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
   FollowPosX: {fileID: 2113591550}
   FollowPosY: {fileID: 2113591550}
   FollowPosZ: {fileID: 2113591550}
@@ -84199,6 +84286,8 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}

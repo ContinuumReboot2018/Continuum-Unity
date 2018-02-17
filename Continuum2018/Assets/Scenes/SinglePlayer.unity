@@ -7241,7 +7241,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: e3b944dec8f7885409f969b439e89c17, type: 2}
+  - {fileID: 2100000, guid: d9ef62b927c082f4ca6e40c82fcfe3b1, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -7268,7 +7268,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0.05
-  m_LengthScale: 2000
+  m_LengthScale: 10
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_RenderAlignment: 0
@@ -7288,11 +7288,11 @@ ParticleSystem:
   m_GameObject: {fileID: 250627084}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -7492,7 +7492,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.1
+      scalar: 0.05
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -8441,7 +8441,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: -1
-      minScalar: -5
+      minScalar: -2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -45910,7 +45910,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 574148146}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -54080,7 +54080,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 621887501}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -107810,7 +107810,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: e3b944dec8f7885409f969b439e89c17, type: 2}
+  - {fileID: 2100000, guid: d9ef62b927c082f4ca6e40c82fcfe3b1, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -107837,7 +107837,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0.05
-  m_LengthScale: 2000
+  m_LengthScale: 10
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_RenderAlignment: 0
@@ -107857,11 +107857,11 @@ ParticleSystem:
   m_GameObject: {fileID: 1376818370}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -107909,7 +107909,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1246821917
+  randomSeed: -905258523
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -108061,7 +108061,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.1
+      scalar: 0.05
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -109010,7 +109010,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: -1
-      minScalar: -5
+      minScalar: -2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -118606,6 +118606,7 @@ MonoBehaviour:
   cursorManagerScript: {fileID: 2095137864}
   ImageEffects: {fileID: 11400000, guid: cb1c9f0b292c9e84fa25332b580b675a, type: 2}
   BlockObjectPooler: {fileID: 0}
+  gameModifier: {fileID: 11400000, guid: ca0aa5b328c8b234cb1ce9f8a0a4da3b, type: 2}
   TrackStats: 0
   GameTime: 0
   RealTime: 0
@@ -118615,6 +118616,7 @@ MonoBehaviour:
   BulletsShot: 0
   BlockShotAccuracy: 0
   BassTrack: {fileID: 901118414}
+  TrialTime: -1
   Wave: 0
   WaveTimeIncreaseRate: 1
   FirstWaveTimeDuration: 5
@@ -118729,6 +118731,7 @@ MonoBehaviour:
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   powerupPickupTimeRemaining: 0
   PowerupPickupSpawnRate: {x: 1, y: 12}
+  powerupPickupSpawnModifier: 1
   PowerupPickupSpawnRangeX: 20
   PowerupPickupSpawnY: 10
   NextPowerupSlot_P1: 0
@@ -153044,7 +153047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1945200362
 Transform:
   m_ObjectHideFlags: 0

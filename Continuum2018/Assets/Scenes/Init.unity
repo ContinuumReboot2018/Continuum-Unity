@@ -156,7 +156,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 575d5a3c7ee47f64eb8fefe6d10cb766, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &797541270
+--- !u!1001 &869201160
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -194,21 +194,6 @@ Prefab:
     - target: {fileID: 4460546852102150, guid: edd43ff69b5ac584ab6f733b01a9d6bc, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114861755299008702, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_MatchWidthOrHeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 223694990216724898, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_PlaneDistance
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 223694990216724898, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: 920679569
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: edd43ff69b5ac584ab6f733b01a9d6bc, type: 2}
@@ -270,4 +255,4 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 1249277155576988, guid: edd43ff69b5ac584ab6f733b01a9d6bc,
     type: 2}
-  m_PrefabInternal: {fileID: 797541270}
+  m_PrefabInternal: {fileID: 869201160}

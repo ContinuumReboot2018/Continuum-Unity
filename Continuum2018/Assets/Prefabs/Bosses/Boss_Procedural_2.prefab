@@ -385,8 +385,8 @@ MonoBehaviour:
   - color: {r: 1, g: 0.3019608, b: 0.75686276, a: 0.5019608}
     prefab: {fileID: 1674629013997252, guid: 5c519a0f21a9d1f4887996de080c43d1, type: 2}
   ParentTransform: {fileID: 4058540009187738}
-  Spacing: 1.5
-  Scaling: {x: 1.35, y: 1.35, z: 1.35}
+  Spacing: 0.75
+  Scaling: {x: 0.675, y: 0.675, z: 0.675}
   AutomaticallyCenterX: 1
   AutomaticallyCenterY: 1
   Center: {x: 4, y: 1.35}

@@ -206,7 +206,11 @@ public class PowerupPickup : MonoBehaviour
 			case PlayerController.shotIteration.Standard:
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
+
+				if (gameControllerScript.gameModifier.AlwaysRapidfire == false)
+				{
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
+				}
 				break;
 			case PlayerController.shotIteration.Enhanced:
 				gameControllerScript.SetPowerupTime (PowerupTime);
@@ -248,7 +252,11 @@ public class PowerupPickup : MonoBehaviour
 			case PlayerController.shotIteration.Standard:
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
+
+				if (gameControllerScript.gameModifier.AlwaysRapidfire == false)
+				{
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
+				}
 				break;
 
 			case PlayerController.shotIteration.Enhanced:
@@ -313,7 +321,11 @@ public class PowerupPickup : MonoBehaviour
 			case PlayerController.shotIteration.Standard:
 				gameControllerScript.SetPowerupTime (PowerupTime);
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
+
+				if (gameControllerScript.gameModifier.AlwaysRapidfire == false)
+				{
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
+				}
 				break;
 
 			case PlayerController.shotIteration.Enhanced:

@@ -271,6 +271,7 @@ public class PlayerController : MonoBehaviour
 		InvokeRepeating ("CheckJoinState", 0, 0.5f);
 		InvokeRepeating ("TurretRotatorCheck", 0, 0.5f);
 		TurretSpinSpeed = TurretSpinSpeedNormal;
+		isInRapidFire = gameControllerScript.gameModifier.AlwaysRapidfire;
 	}
 
 	public void StartCoroutines ()
@@ -377,9 +378,14 @@ public class PlayerController : MonoBehaviour
 			0
 		);
 
-		InputForegroundImage.rectTransform.sizeDelta = new Vector2 (
+		/*InputForegroundImage.rectTransform.sizeDelta = new Vector2 (
 			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.x, 1 * (playerActions.Move.Value.normalized.magnitude), 8 * Time.unscaledDeltaTime), 
 			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.y, 1 * (playerActions.Move.Value.normalized.magnitude), 8 * Time.unscaledDeltaTime)
+		);*/
+
+		InputForegroundImage.rectTransform.sizeDelta = new Vector2 (
+			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.x, -(1 * (playerActions.Move.Value.normalized.magnitude)) + 2f, 8 * Time.unscaledDeltaTime), 
+			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.y, -(1 * (playerActions.Move.Value.normalized.magnitude)) + 2f, 8 * Time.unscaledDeltaTime)
 		);
 
 		// Creates a line between the mid point of the player and the input point.
@@ -393,7 +399,7 @@ public class PlayerController : MonoBehaviour
 			1, 
 			Mathf.Lerp (
 				InputForegroundImage.color.a, 
-				0.2f * playerActions.Move.Value.normalized.magnitude, 
+				0.4f * playerActions.Move.Value.normalized.magnitude, 
 				5 * Time.unscaledDeltaTime
 			)
 		);
@@ -405,7 +411,7 @@ public class PlayerController : MonoBehaviour
 			1, 
 			Mathf.Lerp (
 				InputForegroundImage.color.a, 
-				0.1f * playerActions.Move.Value.normalized.magnitude, 
+				0.05f * playerActions.Move.Value.normalized.magnitude, 
 				5 * Time.unscaledDeltaTime
 			)
 		);
@@ -1189,7 +1195,7 @@ public class PlayerController : MonoBehaviour
 
 	public void EnableRicochetObject ()
 	{
-		RicochetGlowObject.SetActive (true);
+		//RicochetGlowObject.SetActive (true);
 
 		foreach (ParticleSystem glowParticles in RicochetGlowParticles)
 		{
@@ -1204,13 +1210,12 @@ public class PlayerController : MonoBehaviour
 
 	void DisableRicochetObject ()
 	{
-		RicochetGlowObject.SetActive (false);
+		//RicochetGlowObject.SetActive (false);
 	}
 
 	public void ResetPowerups ()
 	{
 		ShotType = shotType.Standard;
-		CurrentFireRate = StandardFireRate;
 
 		StandardShotIteration = shotIteration.Standard;
 		DoubleShotIteration = shotIteration.Standard;
@@ -1233,7 +1238,13 @@ public class PlayerController : MonoBehaviour
 		}
 
 		isInOverdrive = false;
-		isInRapidFire = false;
+
+		if (gameControllerScript.gameModifier.AlwaysRapidfire == false) 
+		{
+			CurrentFireRate = StandardFireRate;
+			isInRapidFire = false;
+		}
+
 		isHoming = false;
 
 		Invoke ("TurnOffHelix", 1);
