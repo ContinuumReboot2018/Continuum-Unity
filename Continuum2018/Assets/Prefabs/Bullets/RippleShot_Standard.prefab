@@ -454,6 +454,8 @@ MonoBehaviour:
   speed: 80
   rotateSpeed: 500
   homingTime: 5
+  cutoffHeight: 12
+  maxRange: 45
 --- !u!114 &114185866525928708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -502,6 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBullets
+  OnStart: 1
 --- !u!114 &114761268872407208
 MonoBehaviour:
   m_ObjectHideFlags: 1
