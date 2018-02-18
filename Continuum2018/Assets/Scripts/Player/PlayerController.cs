@@ -272,6 +272,33 @@ public class PlayerController : MonoBehaviour
 		InvokeRepeating ("TurretRotatorCheck", 0, 0.5f);
 		TurretSpinSpeed = TurretSpinSpeedNormal;
 		isInRapidFire = gameControllerScript.gameModifier.AlwaysRapidfire;
+
+		isHoming = gameControllerScript.gameModifier.AlwaysHoming;
+
+		isRicochet = gameControllerScript.gameModifier.AlwaysRicochet;
+
+		if (gameControllerScript.gameModifier.AlwaysRicochet == true) 
+		{
+			StandardShotIteration = shotIteration.Enhanced;
+			DoubleShotIteration = shotIteration.Enhanced;
+			TripleShotIteration = shotIteration.Enhanced;
+			RippleShotIteration = shotIteration.Enhanced;
+		}
+
+		if (gameControllerScript.gameModifier.AlwaysRicochet == true)
+		{
+			EnableRicochetObject ();
+		}
+			
+		isInOverdrive = gameControllerScript.gameModifier.AlwaysOverdrive;
+
+		if (gameControllerScript.gameModifier.AlwaysOverdrive == true) 
+		{
+			StandardShotIteration = shotIteration.Overdrive;
+			DoubleShotIteration = shotIteration.Overdrive;
+			TripleShotIteration = shotIteration.Overdrive;
+			RippleShotIteration = shotIteration.Overdrive;
+		}
 	}
 
 	public void StartCoroutines ()
@@ -1222,27 +1249,34 @@ public class PlayerController : MonoBehaviour
 	{
 		ShotType = shotType.Standard;
 
-		StandardShotIteration = shotIteration.Standard;
-		DoubleShotIteration = shotIteration.Standard;
-		TripleShotIteration = shotIteration.Standard;
-		RippleShotIteration = shotIteration.Standard;
-
 		nextTurretSpawn = 0;
 		TurretSpinSpeed = TurretSpinSpeedNormal;
 
-		isRicochet = false;
-		Invoke ("DisableRicochetObject", 3);
-		foreach (ParticleSystem glowParticles in RicochetGlowParticles)
+		if (gameControllerScript.gameModifier.AlwaysRicochet == false)
 		{
-			glowParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
-		}
+			isRicochet = false;
+			Invoke ("DisableRicochetObject", 3);
 
-		foreach (MeshRenderer meshrendglow in RicochetGlowMeshes) 
+			foreach (ParticleSystem glowParticles in RicochetGlowParticles)
+			{
+				glowParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+			}
+
+			foreach (MeshRenderer meshrendglow in RicochetGlowMeshes) 
+			{
+				meshrendglow.enabled = false;
+			}
+		}
+			
+		if (gameControllerScript.gameModifier.AlwaysOverdrive == false) 
 		{
-			meshrendglow.enabled = false;
-		}
+			isInOverdrive = false;
 
-		isInOverdrive = false;
+			StandardShotIteration = shotIteration.Standard;
+			DoubleShotIteration = shotIteration.Standard;
+			TripleShotIteration = shotIteration.Standard;
+			RippleShotIteration = shotIteration.Standard;
+		}
 
 		if (gameControllerScript.gameModifier.AlwaysRapidfire == false) 
 		{
@@ -1250,7 +1284,10 @@ public class PlayerController : MonoBehaviour
 			isInRapidFire = false;
 		}
 
-		isHoming = false;
+		if (gameControllerScript.gameModifier.AlwaysHoming == false) 
+		{
+			isHoming = false;
+		}
 
 		Invoke ("TurnOffHelix", 1);
 

@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Game Modifier", menuName = "Game Modifier")]
 public class GameModifierManager : ScriptableObject
 {
-	//public SaveAndLoadScript saveAndLoadScript;
-	//public GameModifierReceiver gameModifierReceiverScript;
-
+	[Header ("Tutorial")]
 	public bool Tutorial = false;
 
+	[Header ("Powerups")]
 	public powerupSpawnMode PowerupSpawn;
 	public enum powerupSpawnMode
 	{
@@ -18,6 +15,7 @@ public class GameModifierManager : ScriptableObject
 		Off = 2
 	}
 
+	[Header ("Bosses")]
 	public bossSpawnMode BossSpawn;
 	public enum bossSpawnMode
 	{
@@ -26,7 +24,24 @@ public class GameModifierManager : ScriptableObject
 		NoBosses = 2
 	}
 
-	public int StartingLives = 3;
-	public bool AlwaysRapidfire = false;
+	[Header ("Time")]
+	public timeIncreaseMode TimeIncreaseMode;
+	public enum timeIncreaseMode 
+	{
+		Normal = 0,
+		Slow = 1,
+		Fast = 2,
+		Off = 3
+	}
 	public float TrialTime = -1;
+
+	[Header ("Shooting modifiers")]
+	public bool AlwaysHoming = false;
+	public bool AlwaysRicochet = false;
+	public bool AlwaysRapidfire = false;
+	public bool AlwaysOverdrive = false;
+
+	[Header ("Other modifiers")]
+	public int StartingLives = 3;
+	public float blockSpawnRateMultiplier = 1;
 }

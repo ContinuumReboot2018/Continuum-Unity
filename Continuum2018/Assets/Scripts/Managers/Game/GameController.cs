@@ -232,15 +232,25 @@ public class GameController : MonoBehaviour
 
 	public void ClearPowerupUI ()
 	{
-		OverdriveImage.enabled = false;
+		if (gameModifier.AlwaysOverdrive == false) 
+		{
+			OverdriveImage.enabled = false;
+		}
 
 		if (gameModifier.AlwaysRapidfire == false) 
 		{
 			RapidfireImage.enabled = false;
 		}
 
-		RicochetImage.enabled = false;
-		HomingImage.enabled = false;
+		if (gameModifier.AlwaysRicochet == false) 
+		{
+			RicochetImage.enabled = false;
+		}
+
+		if (gameModifier.AlwaysHoming == false) 
+		{
+			HomingImage.enabled = false;
+		}
 
 		foreach (RawImage powerupImage in PowerupImage_P1) 
 		{
@@ -760,7 +770,7 @@ public class GameController : MonoBehaviour
 	{
 		if (Wave > 1) 
 		{
-			BlockSpawnRate -= BlockSpawnIncreaseRate;
+			BlockSpawnRate -= (BlockSpawnIncreaseRate * gameModifier.blockSpawnRateMultiplier);
 			UnityEngine.Debug.Log ("Block spawn rate: " + BlockSpawnRate);
 		}
 
@@ -1106,12 +1116,28 @@ public class GameController : MonoBehaviour
 		}
 
 		Lives = gameModifier.StartingLives;
+
+		if (playerControllerScript_P1.isHoming == true)
+		{
+			HomingImage.enabled = true;
+		}
+
+		if (playerControllerScript_P1.isRicochet == true)
+		{
+			RicochetImage.enabled = true;
+		}
+
 		playerControllerScript_P1.isInRapidFire = gameModifier.AlwaysRapidfire;
 
 		if (playerControllerScript_P1.isInRapidFire == true) 
 		{
 			playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
 			RapidfireImage.enabled = true;
+		}
+
+		if (playerControllerScript_P1.isInOverdrive == true)
+		{
+			OverdriveImage.enabled = true;
 		}
 	}
 }

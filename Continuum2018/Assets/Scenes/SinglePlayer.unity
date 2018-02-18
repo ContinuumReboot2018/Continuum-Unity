@@ -134679,6 +134679,7 @@ MonoBehaviour:
   localSceneLoaderScript: {fileID: 192509888}
   fpsCounterScript: {fileID: 2039480600}
   noiseScript: {fileID: 1771333221}
+  gameModifier: {fileID: 11400000, guid: ca0aa5b328c8b234cb1ce9f8a0a4da3b, type: 2}
   TimeScaleView: 1
   FixedTimeStepView: 0.005
   MinimumTimeScale: 0.25

@@ -12,6 +12,7 @@ public class TimescaleController : MonoBehaviour
 	public LocalSceneLoader localSceneLoaderScript;
 	public FPSCounter fpsCounterScript;
 	public NoiseAndGrain noiseScript;
+	public GameModifierManager gameModifier;
 
 	[Header ("Read Only")]
 	public float TimeScaleView; // Time.timeScale property.
@@ -102,7 +103,20 @@ public class TimescaleController : MonoBehaviour
 			{
 				Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
 
-				TargetTimeScaleAdd += TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime;
+				switch (gameModifier.TimeIncreaseMode)
+				{
+				case GameModifierManager.timeIncreaseMode.Normal:
+					TargetTimeScaleAdd += (TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime);
+					break;
+				case GameModifierManager.timeIncreaseMode.Fast:
+					TargetTimeScaleAdd += (TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime * 2);
+					break;
+				case GameModifierManager.timeIncreaseMode.Slow:
+					TargetTimeScaleAdd += (TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime * 0.5f);
+					break;
+				case GameModifierManager.timeIncreaseMode.Off:
+					break;
+				}
 				TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance + TargetTimeScaleAdd, MinimumTimeScale, MaximumTimeScale);
 					
 				// Updates fixed time step based on time scale.
