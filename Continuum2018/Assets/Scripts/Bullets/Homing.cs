@@ -10,6 +10,8 @@ public class Homing : MonoBehaviour
 	public float speed = 5.0f;
 	public float rotateSpeed = 200.0f;
 	public float homingTime = 5;
+	public float cutoffHeight = 12;
+	public float maxRange = 5;
 
 	private Rigidbody rb;
 
@@ -76,7 +78,10 @@ public class Homing : MonoBehaviour
 		{
 			Vector3 diff = go.transform.position - position;
 			float curDistance = diff.sqrMagnitude;
-			if (curDistance < distance)
+
+			if (curDistance < distance && 
+				go.transform.position.y < cutoffHeight &&
+				diff.magnitude < maxRange)
 			{
 				closest = go;
 				distance = curDistance;

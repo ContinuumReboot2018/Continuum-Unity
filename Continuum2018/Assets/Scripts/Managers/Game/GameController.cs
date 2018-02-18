@@ -200,9 +200,14 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI Modifier_Tutorial_Debug;
 	public TextMeshProUGUI Modifier_PowerupSpawn_Debug;
 	public TextMeshProUGUI Modifier_BossSpawn_Debug;
+	public TextMeshProUGUI Modifier_TimeIncrease_Debug;
 	public TextMeshProUGUI Modifier_StartingLives_Debug;
+	public TextMeshProUGUI Modifier_AlwaysHoming_Debug;
+	public TextMeshProUGUI Modifier_AlwaysRicochet_Debug;
 	public TextMeshProUGUI Modifier_AlwaysRapidfire_Debug;
+	public TextMeshProUGUI Modifier_AlwaysOverdrive_Debug;
 	public TextMeshProUGUI Modifier_TrialTime_Debug;
+	public TextMeshProUGUI Modifier_BlockSpawnRateMult_Debug;
 
 	void Awake () 
 	{
@@ -318,6 +323,9 @@ public class GameController : MonoBehaviour
 		LivesBackground.enabled = true;
 		WaveBackground.enabled = true;
 
+		BlockSpawnRate -= (BlockSpawnIncreaseRate * gameModifier.blockSpawnRateMultiplier);
+		UnityEngine.Debug.Log ("Block spawn rate: " + BlockSpawnRate);
+
 		Lives = gameModifier.StartingLives;
 		UpdateLives ();
 	}
@@ -432,9 +440,14 @@ public class GameController : MonoBehaviour
 				Modifier_Tutorial_Debug.text = "Use Tutorial: " + (gameModifier.Tutorial ? "ON" : "OFF");
 				Modifier_PowerupSpawn_Debug.text = "Powerup Spawn Mode: " + (gameModifier.PowerupSpawn.ToString ());
 				Modifier_BossSpawn_Debug.text = "Boss Spawn Mode: " + (gameModifier.BossSpawn.ToString ());
+				Modifier_TimeIncrease_Debug.text = "Time Increase Mode: " + (gameModifier.TimeIncreaseMode.ToString ());
 				Modifier_StartingLives_Debug.text = "Starting Lives: " + (gameModifier.StartingLives);
-				Modifier_AlwaysRapidfire_Debug.text = "Always Rapidfire: " + (gameModifier.AlwaysRapidfire ? "ON" : "OFF");
+				Modifier_AlwaysHoming_Debug.text = "Always Homing: " + (gameModifier.AlwaysHoming ? "ON" : "OFF");
+				Modifier_AlwaysRicochet_Debug.text = "Always Ricochet: " + (gameModifier.AlwaysRicochet ? "ON" : "OFF");
+				Modifier_AlwaysRapidfire_Debug.text = "Always rapidfire: " + (gameModifier.AlwaysRapidfire ? "ON" : "OFF");
+				Modifier_AlwaysOverdrive_Debug.text = "Always overdrive: " + (gameModifier.AlwaysOverdrive ? "ON" : "OFF");
 				Modifier_TrialTime_Debug.text = "Trial Time: " + (gameModifier.TrialTime);
+				Modifier_BlockSpawnRateMult_Debug.text = "Block Spawn Rate Mult: " + gameModifier.blockSpawnRateMultiplier;
 			}
 		}
 	}
