@@ -134,10 +134,9 @@ public class PlayerController : MonoBehaviour
 	public GameObject AbilityUI;
 	public RawImage AbilityImage;
 	public Texture2D[] AbilityTextures;
-	public Image AbilityFillImageL;
-	public Image AbilityFillImageR;
-	public TextMeshProUGUI AbilityReadyText;
-	public RawImage AbilityReadyBackground;
+	public Image AbilityFillImage;
+	//public TextMeshProUGUI AbilityReadyText;
+	//public RawImage AbilityReadyBackground;
 	public Color AbilityUseColor, AbilityChargingColor, AbilityChargingFullColor;
 
 	[Header ("Powerups")]
@@ -239,7 +238,9 @@ public class PlayerController : MonoBehaviour
 	public bool isHidingScoreUI;
 	public Animator ScoreAnim;
 	public Vector3 ScoreCheckPlayerPos;
+	public Animator AbilityUIHexes;
 	public Animator ShootingUIHexes;
+	//public Animator[] PowerupListHexMasks;
 
 	// Lives UI.
 	public bool isHidingLivesUI;
@@ -256,7 +257,7 @@ public class PlayerController : MonoBehaviour
 
 	void Awake ()
 	{
-		AbilityReadyText.text = "";
+		//AbilityReadyText.text = "";
 		PlayerText.text = "";
 		LivesAnim.gameObject.SetActive (false);
 		RefreshAbilityName ();
@@ -566,8 +567,8 @@ public class PlayerController : MonoBehaviour
 	{
 		// Updates the ability UI involved.
 		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbilityDuration;
-		AbilityFillImageL.fillAmount = 1f * AbilityTimeAmountProportion; // Fills to a sixth.
-		AbilityFillImageR.fillAmount = 1f * AbilityTimeAmountProportion; // Fills to a sixth.
+		AbilityFillImage.fillAmount = 1f * AbilityTimeAmountProportion; // Fills to a sixth.
+		//AbilityFillImageR.fillAmount = 1f * AbilityTimeAmountProportion; // Fills to a sixth.
 		//AbilityFillImageL.fillAmount = 0.5f * AbilityTimeAmountProportion; // Fills to a sixth.
 		//AbilityFillImageR.fillAmount = 0.5f * AbilityTimeAmountProportion; // Fills to a sixth.
 
@@ -579,8 +580,8 @@ public class PlayerController : MonoBehaviour
 				timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) 
 			{
 				ActivateAbility ();
-				AbilityReadyText.text = "";
-				AbilityReadyBackground.enabled = false;
+				//AbilityReadyText.text = "";
+				//AbilityReadyBackground.enabled = false;
 				CurrentAbilityState = abilityState.Active;
 			}
 		}
@@ -588,8 +589,7 @@ public class PlayerController : MonoBehaviour
 		// Updates the ability timers.
 		if (CurrentAbilityState == abilityState.Active) 
 		{
-			AbilityFillImageL.color = AbilityUseColor;
-			AbilityFillImageR.color = AbilityUseColor;
+			AbilityFillImage.color = AbilityUseColor;
 
 			if (CurrentAbilityTimeRemaining > 0)
 			{
@@ -603,6 +603,11 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
+		if (CurrentAbilityState == abilityState.Ready) 
+		{
+			AbilityFillImage.color = AbilityChargingFullColor;
+		}
+
 		if (CurrentAbilityState == abilityState.Charging) 
 		{
 			if (CurrentAbilityTimeRemaining < CurrentAbilityDuration && 
@@ -612,31 +617,30 @@ public class PlayerController : MonoBehaviour
 				gameControllerScript.isPaused == false &&
 				tutorialManagerScript.tutorialComplete == true) 
 			{
-				AbilityReadyText.text = "";
-				AbilityReadyBackground.enabled = false;
+				//AbilityReadyText.text = "";
+				//AbilityReadyBackground.enabled = false;
 				CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
 			}
 
 			if (CurrentAbilityTimeRemaining >= CurrentAbilityDuration) 
 			{
 				CurrentAbilityTimeRemaining = CurrentAbilityDuration;
-				AbilityReadyText.text = "READY";
-				AbilityReadyBackground.enabled = true;
+				//AbilityReadyText.text = "READY";
+				//AbilityReadyBackground.enabled = true;
 				CurrentAbilityState = abilityState.Ready;
 			}
 
-			AbilityChargingColor = new Color (1 - (0.765f * AbilityTimeAmountProportion), 1, 1 - 0.376f * AbilityTimeAmountProportion, 1);
+			//AbilityChargingColor = new Color (1 - (0.765f * AbilityTimeAmountProportion), 1, 1 - 0.376f * AbilityTimeAmountProportion, 1);
+			//AbilityChargingColor = Color.Lerp (AbilityChargingColor, AbilityChargingFullColor, AbilityTimeAmountProportion);
 
 			if (AbilityTimeAmountProportion < 1f)
 			{
-				AbilityFillImageL.color = AbilityChargingColor;
-				AbilityFillImageR.color = AbilityChargingColor;
+				AbilityFillImage.color = AbilityChargingColor;
 			}
 
-			if (AbilityTimeAmountProportion == 1)
+			if (AbilityTimeAmountProportion > 0.99f)
 			{
-				AbilityFillImageL.color = AbilityChargingFullColor;
-				AbilityFillImageR.color = AbilityChargingFullColor;
+				AbilityFillImage.color = AbilityChargingFullColor;
 			}
 		}
 
@@ -1066,7 +1070,7 @@ public class PlayerController : MonoBehaviour
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false && isHidingScoreUI == false) 
 				{
 					ScoreAnim.Play ("ScoreFadeOut");
-					ShootingUIHexes.Play ("HexesFadeOut");
+					AbilityUIHexes.Play ("HexesFadeOut");
 					isHidingScoreUI = true;
 				}
 			}
@@ -1077,7 +1081,7 @@ public class PlayerController : MonoBehaviour
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 				{
 					ScoreAnim.Play ("ScoreFadeIn");
-					ShootingUIHexes.Play ("HexesFadeIn");
+					AbilityUIHexes.Play ("HexesFadeIn");
 					isHidingScoreUI = false;
 				}
 			}
@@ -1089,7 +1093,7 @@ public class PlayerController : MonoBehaviour
 			if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 			{
 				ScoreAnim.Play ("ScoreFadeIn");
-				ShootingUIHexes.Play ("HexesFadeIn");
+				AbilityUIHexes.Play ("HexesFadeIn");
 				isHidingScoreUI = false;
 			}
 		}
@@ -1177,6 +1181,22 @@ public class PlayerController : MonoBehaviour
 
 	public void CheckPowerupImageUI ()
 	{
+		if (playerCol.transform.position.y > 7 && playerCol.transform.position.x > 12) 
+		{
+			if (ShootingUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeOut") == false)
+			{
+				ShootingUIHexes.Play ("HexesFadeOut");
+			}
+		}
+
+		if (playerCol.transform.position.y <= 7 || playerCol.transform.position.x <= 12) 
+		{
+			if (ShootingUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeOut") == true)
+			{
+				ShootingUIHexes.Play ("HexesFadeIn");
+			}
+		}
+
 		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
 		{
 			if (

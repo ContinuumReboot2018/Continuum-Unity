@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
 	public PostProcessingProfile ImageEffects;
 	public ObjectPooler BlockObjectPooler;
 	public GameModifierManager gameModifier;
+	public Camera MainCam;
 
 	[Header ("Game Stats")]
 	public bool TrackStats = true;
@@ -284,10 +285,10 @@ public class GameController : MonoBehaviour
 		InvokeRepeating ("UpdateLives", 0, 1);
 		SetGameModifiers ();
 
+		UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
 		InvokeRepeating ("SetStartOrthSize", 0, 1);
 		//SetStartOrthSize ();
 		//MainCamera.orthographicSize = StartOrthSize;
-		UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
 
 		if (gameModifier.TrialTime > 0) 
 		{
@@ -308,7 +309,7 @@ public class GameController : MonoBehaviour
 		WaveTransitionAnim.Play ("WaveTransition");
 		IsInWaveTransition = true;
 		WaveTimeRemaining = WaveTimeDuration;
-		playerControllerScript_P1.ShootingUIHexes.Play ("HexesFadeIn");
+		playerControllerScript_P1.AbilityUIHexes.Play ("HexesFadeIn");
 
 		if (gameModifier.BossSpawn != GameModifierManager.bossSpawnMode.BossesOnly)
 		{
@@ -824,16 +825,18 @@ public class GameController : MonoBehaviour
 	public void SetStartOrthSize ()
 	{
 		// 16:9 ratio.
-		if (Camera.main.aspect >= 1.77f) 
+		if (MainCam.aspect > 1.6f) 
 		{
-			Camera.main.orthographicSize = 12.0f;
+			MainCam.orthographicSize = 12.0f;
 		}
 
 		// 16:10 ratio.
-		if (Camera.main.aspect == 1.6f) 
+		if (MainCam.aspect <= 1.6f) 
 		{
-			Camera.main.orthographicSize = 13.35f;
+			MainCam.orthographicSize = 13.35f;
 		}
+
+		playerControllerScript_P1.lensScript.ratio = 1 / MainCam.aspect;
 	}
 
 	void CheckOrthSize ()
