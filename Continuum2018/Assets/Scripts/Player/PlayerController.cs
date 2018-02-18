@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
 	public bool isRicochet;
 	public GameObject RicochetGlowObject;
 	public ParticleSystem[] RicochetGlowParticles;
-	public MeshRenderer[] RicochetGlowMeshes;
+	public RawImage[] RicochetGlowMeshes;
 	public bool isHoming;
 
 	// Double shot.
@@ -239,6 +239,7 @@ public class PlayerController : MonoBehaviour
 	public bool isHidingScoreUI;
 	public Animator ScoreAnim;
 	public Vector3 ScoreCheckPlayerPos;
+	public Animator ShootingUIHexes;
 
 	// Lives UI.
 	public bool isHidingLivesUI;
@@ -1065,6 +1066,7 @@ public class PlayerController : MonoBehaviour
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false && isHidingScoreUI == false) 
 				{
 					ScoreAnim.Play ("ScoreFadeOut");
+					ShootingUIHexes.Play ("HexesFadeOut");
 					isHidingScoreUI = true;
 				}
 			}
@@ -1075,6 +1077,7 @@ public class PlayerController : MonoBehaviour
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 				{
 					ScoreAnim.Play ("ScoreFadeIn");
+					ShootingUIHexes.Play ("HexesFadeIn");
 					isHidingScoreUI = false;
 				}
 			}
@@ -1086,6 +1089,7 @@ public class PlayerController : MonoBehaviour
 			if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 			{
 				ScoreAnim.Play ("ScoreFadeIn");
+				ShootingUIHexes.Play ("HexesFadeIn");
 				isHidingScoreUI = false;
 			}
 		}
@@ -1175,7 +1179,8 @@ public class PlayerController : MonoBehaviour
 	{
 		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
 		{
-			if (/*powerupimage != gameControllerScript.PowerupImage_P1 [0] &&*/ 
+			if (
+				powerupimage != gameControllerScript.PowerupImage_P1 [0] && 
 				powerupimage.color != new Color (0, 0, 0) && 
 				powerupimage.texture != null)
 			{
@@ -1197,7 +1202,7 @@ public class PlayerController : MonoBehaviour
 				}
 			}
 
-			if (/*powerupimage != gameControllerScript.PowerupImage_P1 [0] && */
+			if (powerupimage != gameControllerScript.PowerupImage_P1 [0] && 
 				powerupimage.color == Color.black && 
 				powerupimage.texture == null) 
 			{
@@ -1234,7 +1239,7 @@ public class PlayerController : MonoBehaviour
 			glowParticles.Play ();
 		}
 
-		foreach (MeshRenderer meshrendglow in RicochetGlowMeshes) 
+		foreach (RawImage meshrendglow in RicochetGlowMeshes) 
 		{
 			meshrendglow.enabled = true;
 		}
@@ -1262,7 +1267,7 @@ public class PlayerController : MonoBehaviour
 				glowParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
 			}
 
-			foreach (MeshRenderer meshrendglow in RicochetGlowMeshes) 
+			foreach (RawImage meshrendglow in RicochetGlowMeshes) 
 			{
 				meshrendglow.enabled = false;
 			}

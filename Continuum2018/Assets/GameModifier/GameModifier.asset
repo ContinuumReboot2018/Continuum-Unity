@@ -18,7 +18,7 @@ MonoBehaviour:
   TrialTime: -1
   AlwaysHoming: 0
   AlwaysRicochet: 0
-  AlwaysRapidfire: 0
+  AlwaysRapidfire: 1
   AlwaysOverdrive: 0
   StartingLives: 3
   blockSpawnRateMultiplier: 2

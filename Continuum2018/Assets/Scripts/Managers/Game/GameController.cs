@@ -111,10 +111,14 @@ public class GameController : MonoBehaviour
 	public RawImage[] PowerupImage_P1;
 	public Texture2D StandardShotTexture;
 	public TextMeshProUGUI[] PowerupText_P1;
-	public RawImage OverdriveImage;
-	public RawImage RapidfireImage;
-	public RawImage RicochetImage;
 	public RawImage HomingImage;
+	public RawImage HomingHex;
+	public RawImage RicochetImage;
+	public RawImage RicochetHex;
+	public RawImage RapidfireImage;
+	public RawImage RapidfireHex;
+	public RawImage OverdriveImage;
+	public RawImage OverdriveHex;
 
 	public GameObject PowerupPickupUI;
 
@@ -230,7 +234,6 @@ public class GameController : MonoBehaviour
 		bossId = 0;
 		powerupPickupTimeRemaining = UnityEngine.Random.Range (PowerupPickupSpawnRate.x, PowerupPickupSpawnRate.y);
 
-		SetStartOrthSize ();
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
 	}
@@ -240,21 +243,25 @@ public class GameController : MonoBehaviour
 		if (gameModifier.AlwaysOverdrive == false) 
 		{
 			OverdriveImage.enabled = false;
+			OverdriveHex.enabled = false;
 		}
 
 		if (gameModifier.AlwaysRapidfire == false) 
 		{
 			RapidfireImage.enabled = false;
+			RapidfireHex.enabled = false;
 		}
 
 		if (gameModifier.AlwaysRicochet == false) 
 		{
 			RicochetImage.enabled = false;
+			RicochetHex.enabled = false;
 		}
 
 		if (gameModifier.AlwaysHoming == false) 
 		{
 			HomingImage.enabled = false;
+			HomingHex.enabled = false;
 		}
 
 		foreach (RawImage powerupImage in PowerupImage_P1) 
@@ -277,6 +284,11 @@ public class GameController : MonoBehaviour
 		InvokeRepeating ("UpdateLives", 0, 1);
 		SetGameModifiers ();
 
+		InvokeRepeating ("SetStartOrthSize", 0, 1);
+		//SetStartOrthSize ();
+		//MainCamera.orthographicSize = StartOrthSize;
+		UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
+
 		if (gameModifier.TrialTime > 0) 
 		{
 			playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
@@ -296,6 +308,7 @@ public class GameController : MonoBehaviour
 		WaveTransitionAnim.Play ("WaveTransition");
 		IsInWaveTransition = true;
 		WaveTimeRemaining = WaveTimeDuration;
+		playerControllerScript_P1.ShootingUIHexes.Play ("HexesFadeIn");
 
 		if (gameModifier.BossSpawn != GameModifierManager.bossSpawnMode.BossesOnly)
 		{
@@ -464,7 +477,65 @@ public class GameController : MonoBehaviour
 
 			if (playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true)
 			{
-				ScoreText.text = DisplayScore.ToString ("00000000");
+				if (DisplayScore <= 0) 
+				{
+					ScoreText.text = "0";
+				}
+
+				if (DisplayScore > 0 && DisplayScore < 1000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("###");
+				}
+
+				if (DisplayScore >= 1000 && DisplayScore < 10000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("# ###");
+				}
+
+				if (DisplayScore >= 10000 && DisplayScore < 100000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("## ###");
+				}
+
+				if (DisplayScore >= 100000 && DisplayScore < 1000000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("### ###");
+				}
+
+				if (DisplayScore >= 1000000 && DisplayScore < 10000000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("# ### ###");
+				}
+
+				if (DisplayScore >= 10000000 && DisplayScore < 100000000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("## ### ###");
+				}
+
+				if (DisplayScore >= 100000000 && DisplayScore < 1000000000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("### ### ###");
+				}
+
+				if (DisplayScore >= 1000000000 && DisplayScore < 10000000000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("# ### ### ###");
+				}
+
+				if (DisplayScore >= 10000000000 && DisplayScore < 100000000000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("## ### ### ###");
+				}
+
+				if (DisplayScore >= 100000000000 && DisplayScore < 1000000000000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("### ### ### ###");
+				}
+
+				if (DisplayScore >= 1000000000000 && DisplayScore < 10000000000000) 
+				{
+					ScoreText.text = DisplayScore.ToString ("# ### ### ### ###");
+				}
 			}
 		}
 	}
@@ -750,9 +821,19 @@ public class GameController : MonoBehaviour
 		isInOtherMenu = otherMenu;
 	}
 
-	void SetStartOrthSize ()
+	public void SetStartOrthSize ()
 	{
-		MainCamera.orthographicSize = StartOrthSize;
+		// 16:9 ratio.
+		if (Camera.main.aspect >= 1.77f) 
+		{
+			Camera.main.orthographicSize = 12.0f;
+		}
+
+		// 16:10 ratio.
+		if (Camera.main.aspect == 1.6f) 
+		{
+			Camera.main.orthographicSize = 13.35f;
+		}
 	}
 
 	void CheckOrthSize ()

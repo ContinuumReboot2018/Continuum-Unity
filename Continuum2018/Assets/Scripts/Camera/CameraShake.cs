@@ -18,6 +18,11 @@ public class CameraShake : MonoBehaviour
 	Vector3 originalPos;
 
 	public int Priority;
+
+	public bool SyncWithShaker;
+	public CameraShake SyncShaker;
+	public float SyncMultiplier = 1;
+	public Vector3 Offset;
 	
 	void Awake()
 	{
@@ -34,17 +39,29 @@ public class CameraShake : MonoBehaviour
 
 	void Update()
 	{
-		if (shakeTimeRemaining > 0)
-		{
-			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+		//if (SyncWithShaker == false) 
+		//{
+			if (shakeTimeRemaining > 0)
+			{
+				camTransform.localPosition = originalPos + (Random.insideUnitSphere * shakeAmount) + Offset;
 			
-			shakeTimeRemaining -= Time.deltaTime * decreaseFactor;
-		}
-		else
+				shakeTimeRemaining -= Time.deltaTime * decreaseFactor;
+			} 
+
+			else 
+			
+			{
+				Priority = 0;
+				shakeTimeRemaining = 0f;
+				camTransform.localPosition = originalPos + Offset;
+			}
+		//}
+
+		if (SyncWithShaker == true) 
 		{
-			Priority = 0;
-			shakeTimeRemaining = 0f;
-			camTransform.localPosition = originalPos;
+			this.shakeDuration = SyncShaker.shakeDuration;
+			this.shakeTimeRemaining = SyncShaker.shakeTimeRemaining;
+			this.shakeAmount = SyncShaker.shakeAmount * SyncMultiplier;
 		}
 	}
 

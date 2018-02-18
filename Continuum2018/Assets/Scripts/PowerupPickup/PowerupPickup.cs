@@ -83,32 +83,28 @@ public class PowerupPickup : MonoBehaviour
 	{
 		if (particle.tag == "Bullet") 
 		{
-			if (IsInvoking ("CheckActivatePowerup") == false) 
-			{
-				playerControllerScript_P1.CheckPowerupImageUI ();
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
-				timescaleControllerScript.OverridingTimeScale = 0.2f;
-				playerControllerScript_P1.NextFire = 0;
-				playerControllerScript_P1.DoubleShotNextFire = 0;
-				playerControllerScript_P1.TripleShotNextFire = 0;
-				playerControllerScript_P1.RippleShotNextFire = 0;
-				Invoke("CheckActivatePowerup", 0.01667f);
-			}
+			playerControllerScript_P1.CheckPowerupImageUI ();
+			timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+			timescaleControllerScript.OverridingTimeScale = 0.2f;
+			playerControllerScript_P1.NextFire = 0;
+			playerControllerScript_P1.DoubleShotNextFire = 0;
+			playerControllerScript_P1.TripleShotNextFire = 0;
+			playerControllerScript_P1.RippleShotNextFire = 0;
+			//Invoke("CheckActivatePowerup", 0.01667f);
+			CheckActivatePowerup ();
 		}
 
 		if (particle.tag == "Player") 
 		{
-			if (IsInvoking ("CheckActivatePowerup") == false) 
-			{
-				playerControllerScript_P1.CheckPowerupImageUI ();
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
-				timescaleControllerScript.OverridingTimeScale = 0.2f;
-				playerControllerScript_P1.NextFire = 0;
-				playerControllerScript_P1.DoubleShotNextFire = 0;
-				playerControllerScript_P1.TripleShotNextFire = 0;
-				playerControllerScript_P1.RippleShotNextFire = 0;
-				Invoke("CheckActivatePowerup", 0.01667f);
-			}
+			playerControllerScript_P1.CheckPowerupImageUI ();
+			timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+			timescaleControllerScript.OverridingTimeScale = 0.2f;
+			playerControllerScript_P1.NextFire = 0;
+			playerControllerScript_P1.DoubleShotNextFire = 0;
+			playerControllerScript_P1.TripleShotNextFire = 0;
+			playerControllerScript_P1.RippleShotNextFire = 0;
+			//Invoke("CheckActivatePowerup", 0.01667f);
+			CheckActivatePowerup ();
 		}
 	}
 
@@ -119,17 +115,15 @@ public class PowerupPickup : MonoBehaviour
 			if (other.name.Contains ("P1") || other.name.Contains ("Shield_Col") || 
 				other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
 			{
-				if (IsInvoking ("CheckActivatePowerup") == false) 
-				{
-					playerControllerScript_P1.CheckPowerupImageUI ();
-					timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
-					timescaleControllerScript.OverridingTimeScale = 0.2f;
-					playerControllerScript_P1.NextFire = 0;
-					playerControllerScript_P1.DoubleShotNextFire = 0;
-					playerControllerScript_P1.TripleShotNextFire = 0;
-					playerControllerScript_P1.RippleShotNextFire = 0;
-					Invoke("CheckActivatePowerup", 0.01667f);
-				}
+				playerControllerScript_P1.CheckPowerupImageUI ();
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+				timescaleControllerScript.OverridingTimeScale = 0.2f;
+				playerControllerScript_P1.NextFire = 0;
+				playerControllerScript_P1.DoubleShotNextFire = 0;
+				playerControllerScript_P1.TripleShotNextFire = 0;
+				playerControllerScript_P1.RippleShotNextFire = 0;
+				//Invoke("CheckActivatePowerup", 0.01667f);
+				CheckActivatePowerup ();
 			}
 		}
 
@@ -137,17 +131,15 @@ public class PowerupPickup : MonoBehaviour
 		{
 			if (other.name.Contains ("P1")) 
 			{
-				if (IsInvoking ("CheckActivatePowerup") == false) 
-				{
-					playerControllerScript_P1.CheckPowerupImageUI ();
-					timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
-					timescaleControllerScript.OverridingTimeScale = 0.2f;
-					playerControllerScript_P1.NextFire = 0;
-					playerControllerScript_P1.DoubleShotNextFire = 0;
-					playerControllerScript_P1.TripleShotNextFire = 0;
-					playerControllerScript_P1.RippleShotNextFire = 0;
-					Invoke("CheckActivatePowerup", 0.01667f);
-				}
+				playerControllerScript_P1.CheckPowerupImageUI ();
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+				timescaleControllerScript.OverridingTimeScale = 0.2f;
+				playerControllerScript_P1.NextFire = 0;
+				playerControllerScript_P1.DoubleShotNextFire = 0;
+				playerControllerScript_P1.TripleShotNextFire = 0;
+				playerControllerScript_P1.RippleShotNextFire = 0;
+				//Invoke("CheckActivatePowerup", 0.01667f);
+				CheckActivatePowerup ();
 			}
 		}
 
@@ -402,6 +394,7 @@ public class PowerupPickup : MonoBehaviour
 				}
 
 				gameControllerScript.RapidfireImage.enabled = true;
+				gameControllerScript.RapidfireHex.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
 			}
 
@@ -417,6 +410,7 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
 				gameControllerScript.OverdriveImage.enabled = true;
+				gameControllerScript.OverdriveHex.enabled = true;
 				playerControllerScript_P1.isInOverdrive = true;
 			}
 			break;
@@ -425,28 +419,25 @@ public class PowerupPickup : MonoBehaviour
 			gameControllerScript.SetPowerupTime (PowerupTime);
 			playerControllerScript_P1.EnableRicochetObject ();
 
-			if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) 
-			{
+			if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) {
 				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
 			}
 
-			if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) 
-			{
+			if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) {
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
 			}
 
-			if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) 
-			{
+			if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) {
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
 			}
 
-			if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) 
-			{
+			if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) {
 				playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
 			}
 
 			playerControllerScript_P1.isRicochet = true;
 			gameControllerScript.RicochetImage.enabled = true;
+			gameControllerScript.RicochetHex.enabled = true;
 			break;
 
 		case powerups.RewindTime:
@@ -457,6 +448,7 @@ public class PowerupPickup : MonoBehaviour
 			gameControllerScript.SetPowerupTime (PowerupTime);
 			playerControllerScript_P1.isHoming = true;
 			gameControllerScript.HomingImage.enabled = true;
+			gameControllerScript.HomingHex.enabled = true;
 			break;
 		}
 

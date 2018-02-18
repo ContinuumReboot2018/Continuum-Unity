@@ -523,6 +523,7 @@ public class DeveloperMode : MonoBehaviour
 				{
 					gameControllerScript.SetPowerupTime (20);
 					gameControllerScript.RapidfireImage.enabled = true;
+					gameControllerScript.RapidfireHex.enabled = true;
 
 					switch (playerControllerScript_P1.ShotType) 
 					{
@@ -550,6 +551,7 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.isInRapidFire == false)
 				{
 					gameControllerScript.RapidfireImage.enabled = false;
+					gameControllerScript.RapidfireHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE OFF");
 				}
 			}
@@ -563,6 +565,7 @@ public class DeveloperMode : MonoBehaviour
 				{
 					gameControllerScript.SetPowerupTime (20);					
 					gameControllerScript.OverdriveImage.enabled = true;
+					gameControllerScript.OverdriveHex.enabled = true;
 
 					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
@@ -579,6 +582,7 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.isInOverdrive == false)
 				{
 					gameControllerScript.OverdriveImage.enabled = false;
+					gameControllerScript.OverdriveHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: OVERDRIVE MODE OFF");
 				}
 			}
@@ -592,6 +596,7 @@ public class DeveloperMode : MonoBehaviour
 				{
 					gameControllerScript.SetPowerupTime (20);
 					gameControllerScript.RicochetImage.enabled = true;
+					gameControllerScript.RicochetHex.enabled = true;
 
 					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
 					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
@@ -609,6 +614,7 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.isRicochet == false) 
 				{
 					gameControllerScript.RicochetImage.enabled = false;
+					gameControllerScript.RicochetHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: RICOCHET MODE OFF");
 				}
 			}
@@ -622,6 +628,7 @@ public class DeveloperMode : MonoBehaviour
 				{
 					gameControllerScript.SetPowerupTime (20);
 					gameControllerScript.HomingImage.enabled = true;
+					gameControllerScript.HomingHex.enabled = true;
 
 					//playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
 					//playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
@@ -643,6 +650,7 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.isHoming == false) 
 				{
 					gameControllerScript.HomingImage.enabled = false;
+					gameControllerScript.HomingHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: HOMING MODE OFF");
 				}
 			}
