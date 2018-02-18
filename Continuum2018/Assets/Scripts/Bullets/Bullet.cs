@@ -177,6 +177,14 @@ public class Bullet : MonoBehaviour
 			hasDisappeared = true;
 		}
 
+		if (BulletRb.transform.position.y > 10) 
+		{
+			if (homingScript != null)
+			{
+				homingScript.enabled = false;
+			}
+		}
+
 		if (BulletRb.transform.position.y <= ColliderYMaxPos && hasDisappeared == true && BulletTypeName != "Helix") 
 		{
 			BulletCol.enabled = true;
