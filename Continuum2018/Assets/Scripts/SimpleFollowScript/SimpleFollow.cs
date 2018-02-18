@@ -210,4 +210,9 @@ public class SimpleFollow : MonoBehaviour
 
 		transform.rotation = Quaternion.Euler(RotationAngle);
 	}
+
+	public void OverridePos (Transform pos)
+	{
+		OverrideTransform = pos;
+	}
 }

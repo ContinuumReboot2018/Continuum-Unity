@@ -16,6 +16,6 @@ public class LocalSceneLoader : MonoBehaviour
 	{
 		SceneLoadCommit = true;
 		sceneLoaderScript.SceneName = sceneName;
-		sceneLoaderScript.StartLoadSequence ();
+		sceneLoaderScript.Invoke ("StartLoadSequence", 1);
 	}
 }

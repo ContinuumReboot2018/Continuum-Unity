@@ -12,7 +12,8 @@ public class GameModifierManager : ScriptableObject
 	{
 		Normal = 0,
 		Faster = 1,
-		Off = 2
+		Slower = 2,
+		Off = 3
 	}
 
 	[Header ("Bosses")]

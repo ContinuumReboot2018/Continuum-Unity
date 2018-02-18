@@ -1110,6 +1110,9 @@ public class GameController : MonoBehaviour
 		case GameModifierManager.powerupSpawnMode.Faster:
 			powerupPickupSpawnModifier = 0.4f;
 			break;
+		case GameModifierManager.powerupSpawnMode.Slower:
+			powerupPickupSpawnModifier = 5f;
+			break;
 		case GameModifierManager.powerupSpawnMode.Off:
 			powerupPickupSpawnModifier = Mathf.Infinity;
 			break;

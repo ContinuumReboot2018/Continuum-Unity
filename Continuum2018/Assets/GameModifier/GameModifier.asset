@@ -16,9 +16,9 @@ MonoBehaviour:
   BossSpawn: 0
   TimeIncreaseMode: 0
   TrialTime: -1
-  AlwaysHoming: 1
+  AlwaysHoming: 0
   AlwaysRicochet: 0
-  AlwaysRapidfire: 1
-  AlwaysOverdrive: 1
+  AlwaysRapidfire: 0
+  AlwaysOverdrive: 0
   StartingLives: 3
-  blockSpawnRateMultiplier: 1
+  blockSpawnRateMultiplier: 2
