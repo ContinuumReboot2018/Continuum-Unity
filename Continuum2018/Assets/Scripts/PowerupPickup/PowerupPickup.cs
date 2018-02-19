@@ -396,6 +396,7 @@ public class PowerupPickup : MonoBehaviour
 				gameControllerScript.RapidfireImage.enabled = true;
 				gameControllerScript.RapidfireHex.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
+				gameControllerScript.RapidfireImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 			}
 
 			break;
@@ -412,6 +413,7 @@ public class PowerupPickup : MonoBehaviour
 				gameControllerScript.OverdriveImage.enabled = true;
 				gameControllerScript.OverdriveHex.enabled = true;
 				playerControllerScript_P1.isInOverdrive = true;
+				gameControllerScript.OverdriveImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 			}
 			break;
 
@@ -438,6 +440,7 @@ public class PowerupPickup : MonoBehaviour
 			playerControllerScript_P1.isRicochet = true;
 			gameControllerScript.RicochetImage.enabled = true;
 			gameControllerScript.RicochetHex.enabled = true;
+			gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 			break;
 
 		case powerups.RewindTime:
@@ -449,6 +452,7 @@ public class PowerupPickup : MonoBehaviour
 			playerControllerScript_P1.isHoming = true;
 			gameControllerScript.HomingImage.enabled = true;
 			gameControllerScript.HomingHex.enabled = true;
+			gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 			break;
 		}
 
@@ -460,5 +464,6 @@ public class PowerupPickup : MonoBehaviour
 	{
 		gameControllerScript.PowerupImage_P1[index].texture = PowerupTexture;
 		gameControllerScript.PowerupImage_P1[index].color = new Color (1, 1, 1, 1);
+		gameControllerScript.PowerupImage_P1 [index].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 	}
 }
