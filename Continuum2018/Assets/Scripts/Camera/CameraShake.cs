@@ -23,8 +23,10 @@ public class CameraShake : MonoBehaviour
 	public CameraShake SyncShaker;
 	public float SyncMultiplier = 1;
 	public Vector3 Offset;
+	public bool useSmoothing;
+	public float smoothAmount = 10;
 	
-	void Awake()
+	void Awake ()
 	{
 		if (camTransform == null)
 		{
@@ -32,30 +34,39 @@ public class CameraShake : MonoBehaviour
 		}
 	}
 	
-	void OnEnable()
+	void OnEnable ()
 	{
 		originalPos = camTransform.localPosition;
 	}
 
-	void Update()
+	void Update ()
 	{
-		//if (SyncWithShaker == false) 
-		//{
-			if (shakeTimeRemaining > 0)
+		if (shakeTimeRemaining > 0)
+		{
+			if (useSmoothing == false) 
 			{
 				camTransform.localPosition = originalPos + (Random.insideUnitSphere * shakeAmount) + Offset;
-			
-				shakeTimeRemaining -= Time.deltaTime * decreaseFactor;
-			} 
-
-			else 
-			
-			{
-				Priority = 0;
-				shakeTimeRemaining = 0f;
-				camTransform.localPosition = originalPos + Offset;
 			}
-		//}
+
+			if (useSmoothing == true) 
+			{
+				camTransform.localPosition = Vector3.Lerp (
+					camTransform.localPosition, 
+					originalPos + (Random.insideUnitSphere * shakeAmount) + Offset, 
+					smoothAmount * Time.deltaTime
+				);
+			}
+		
+			shakeTimeRemaining -= Time.deltaTime * decreaseFactor;
+		} 
+
+		else 
+		
+		{
+			Priority = 0;
+			shakeTimeRemaining = 0f;
+			camTransform.localPosition = originalPos + Offset;
+		}
 
 		if (SyncWithShaker == true) 
 		{

@@ -340,7 +340,9 @@ public class Block : MonoBehaviour
 
 				newCamShakeAmount = 0.5f;
 				newCamShakeDuration = 1.5f;
-				DoCamShake ();
+
+				camShakeScript.ShakeCam (newCamShakeAmount * 2, newCamShakeDuration * 2, 99);
+
 				playerControllerScript_P1.StartCooldown ();
 
 				playerControllerScript_P1.PlayerExplosionAudio.Play ();

@@ -638,10 +638,10 @@ public class PlayerController : MonoBehaviour
 				AbilityFillImage.color = AbilityChargingColor;
 			}
 
-			if (AbilityTimeAmountProportion > 0.99f)
+			/*if (AbilityTimeAmountProportion > 0.99f)
 			{
 				AbilityFillImage.color = AbilityChargingFullColor;
-			}
+			}*/
 		}
 
 		lensScript.radius = Mathf.Lerp (lensScript.radius, TargetLensRadius, LensRadiusSmoothTime * Time.unscaledDeltaTime);

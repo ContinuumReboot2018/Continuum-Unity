@@ -310,6 +310,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 8
 --- !u!1 &22739520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,6 +1437,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 8
 --- !u!1 &77031332
 GameObject:
   m_ObjectHideFlags: 0
@@ -15517,6 +15521,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 0
+  smoothAmount: 10
 --- !u!95 &290202330
 Animator:
   serializedVersion: 3
@@ -15731,6 +15737,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 10
 --- !u!1 &329273273
 GameObject:
   m_ObjectHideFlags: 0
@@ -38358,6 +38366,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 8
 --- !u!1 &489354266
 GameObject:
   m_ObjectHideFlags: 0
@@ -42415,6 +42425,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 0}
   SyncMultiplier: 1
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 0
+  smoothAmount: 10
 --- !u!1 &533606132
 GameObject:
   m_ObjectHideFlags: 0
@@ -46156,6 +46168,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 8
 --- !u!1 &545117063
 GameObject:
   m_ObjectHideFlags: 0
@@ -59475,6 +59489,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 8
 --- !u!1 &759831797
 GameObject:
   m_ObjectHideFlags: 0
@@ -69987,6 +70003,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 0
+  smoothAmount: 10
 --- !u!1 &907057592
 GameObject:
   m_ObjectHideFlags: 0
@@ -70651,6 +70669,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 8
 --- !u!1 &927288284
 GameObject:
   m_ObjectHideFlags: 0
@@ -105691,6 +105711,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 0
+  smoothAmount: 10
 --- !u!1 &1312266081
 GameObject:
   m_ObjectHideFlags: 0
@@ -109701,7 +109723,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -99.99999}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1357195700
 MonoBehaviour:
@@ -109715,7 +109737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.17647058, g: 0.17647058, b: 0.17647058, a: 0.391}
+  m_Color: {r: 0.08823532, g: 0.08823532, b: 0.08823532, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -153184,6 +153206,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 8
 --- !u!1 &1771333214
 GameObject:
   m_ObjectHideFlags: 0
@@ -153532,7 +153556,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 60, y: 60}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1775522380
 MonoBehaviour:
@@ -154786,7 +154810,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1843925015
 MonoBehaviour:
@@ -154807,7 +154831,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6928525d94be3434688ced5c01f44c20, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -154963,6 +154987,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 8
 --- !u!1 &1851377856
 GameObject:
   m_ObjectHideFlags: 0
@@ -155882,6 +155908,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 1
+  smoothAmount: 8
 --- !u!224 &1906098049 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224786223431324386, guid: 6fbaa60a398c9b745af7c23885072c1d,
@@ -157652,6 +157680,8 @@ MonoBehaviour:
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
   Offset: {x: 0, y: 0, z: 0}
+  useSmoothing: 0
+  smoothAmount: 10
 --- !u!1 &2019078236
 GameObject:
   m_ObjectHideFlags: 0
