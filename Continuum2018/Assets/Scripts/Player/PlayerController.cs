@@ -330,6 +330,7 @@ public class PlayerController : MonoBehaviour
 		DrawReferencePointLine ();
 		UpdateInputUI ();
 		CheckPause ();
+		CheckCheatConsoleInput ();
 	}
 
 	void FixedUpdate ()
@@ -1473,28 +1474,31 @@ public class PlayerController : MonoBehaviour
 
 	void CheckCheatConsoleInput ()
 	{
-		/*
-		if (playerActions.CheatConsole.WasPressed) 
+		if (developerModeScript.useCheats == true) 
 		{
-			developerModeScript.CheatConsole.SetActive (!developerModeScript.CheatConsole.activeSelf);
-			developerModeScript.ClearCheatString ();
-
-			if (developerModeScript.CheatConsole.activeSelf) 
+			if (playerActions.CheatConsole.WasPressed) 
 			{
-				Debug.Log ("Cheat console opened.");
+				developerModeScript.CheatConsole.SetActive (!developerModeScript.CheatConsole.activeSelf);
+				developerModeScript.ClearCheatString ();
+
+				if (developerModeScript.CheatConsole.activeSelf) 
+				{
+					Debug.Log ("Cheat console opened.");
+				}
+
+				if (!developerModeScript.CheatConsole.activeSelf) 
+				{
+					Debug.Log ("Cheat console closed.");
+				}
 			}
 
-			if (!developerModeScript.CheatConsole.activeSelf) 
-			{
-				Debug.Log ("Cheat console closed.");
+			if (playerActions.CheatConsole.WasReleased) {
+				developerModeScript.ClearCheatString ();
+				developerModeScript.CheatInputText.text = ">_ ";
 			}
+
+			developerModeScript.CheatInputText.text = developerModeScript.CheatString;
 		}
-
-		if (playerActions.CheatConsole.WasReleased) 
-		{
-			developerModeScript.ClearCheatString ();
-			developerModeScript.CheatInputText.text = ">_ ";
-		}*/
 	}
 
 	// Resets joined on disable.

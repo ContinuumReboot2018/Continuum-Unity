@@ -19,8 +19,8 @@ public class DeveloperMode : MonoBehaviour
 	public bool forceStarted; // Has the tutorial been skipped via force start command?
 
 	[Header ("Cheats")]
-	//public GameObject CheatConsole;
-	//public TextMeshProUGUI CheatInputText;
+	public GameObject CheatConsole;
+	public TextMeshProUGUI CheatInputText;
 	public string CheatString; // Current cheat string field value.
 	public string LastCheatName; // Logs last cheat name, referenced when player loads last cheat again.
 	public float CheatStringResetTimeRemaining = 1.0f; // Current time remaining before the cheat string is reset.
@@ -801,13 +801,17 @@ public class DeveloperMode : MonoBehaviour
 	void ShowCheatActivation (string cheatText)
 	{
 		LastCheatName = CheatString;
-		//CheatInputText.text = LastCheatName;
+		CheatInputText.text = LastCheatName;
 		CheatNotificationAnim.Play ("CheatNotification");
 		CheatNotifcationText.text = cheatText;
+
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
+
 		ClearCheatString ();
+
 		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
 		timeScaleControllerScript.OverridingTimeScale = 0.2f;
+
 		playerControllerScript_P1.NextFire = 0;
 		playerControllerScript_P1.DoubleShotNextFire = 0;
 		playerControllerScript_P1.TripleShotNextFire = 0;
@@ -822,21 +826,28 @@ public class DeveloperMode : MonoBehaviour
 		CheatNotificationAnim.StopPlayback ();
 		CheatNotificationAnim.Play ("CheatNotification");
 		CheatNotifcationText.text = cheatText;
+
 		playerControllerScript_P1.CheckPowerupImageUI ();
+
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
+
 		LastCheatName = CheatString;
 		ClearCheatString ();
+
 		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
 		timeScaleControllerScript.OverridingTimeScale = 0.2f;
+
 		playerControllerScript_P1.NextFire = 0;
 		playerControllerScript_P1.DoubleShotNextFire = 0;
 		playerControllerScript_P1.TripleShotNextFire = 0;
 		playerControllerScript_P1.RippleShotNextFire = 0;
+
 		Debug.Log (cheatText);
 		Invoke ("DisableCheatConsole", 0.5f);
 	}
 
 	void DisableCheatConsole ()
 	{
+		CheatConsole.SetActive (false);
 	}
 }
