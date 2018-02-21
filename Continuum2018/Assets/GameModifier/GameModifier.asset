@@ -22,3 +22,4 @@ MonoBehaviour:
   AlwaysOverdrive: 0
   StartingLives: 3
   blockSpawnRateMultiplier: 2
+  stacking: 1

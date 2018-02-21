@@ -82,6 +82,9 @@ public class GameController : MonoBehaviour
 	public float comboDuration = 0.5f;
 	public float comboTimeRemaining;
 
+	[Header ("Stacking")]
+	public GameObject StackingObject;
+
 	[Header ("Block Spawner")]
 	public GameObject[] Blocks;
 	public float BlockSpawnRate;
@@ -1214,9 +1217,7 @@ public class GameController : MonoBehaviour
 			powerupPickupSpawnModifier = Mathf.Infinity;
 			break;
 		}
-
-		Lives = gameModifier.StartingLives;
-
+			
 		if (playerControllerScript_P1.isHoming == true)
 		{
 			HomingImage.enabled = true;
@@ -1226,8 +1227,6 @@ public class GameController : MonoBehaviour
 		{
 			RicochetImage.enabled = true;
 		}
-
-		playerControllerScript_P1.isInRapidFire = gameModifier.AlwaysRapidfire;
 
 		if (playerControllerScript_P1.isInRapidFire == true) 
 		{
@@ -1239,5 +1238,12 @@ public class GameController : MonoBehaviour
 		{
 			OverdriveImage.enabled = true;
 		}
+
+		Lives = gameModifier.StartingLives;
+		playerControllerScript_P1.isHoming = gameModifier.AlwaysHoming;
+		playerControllerScript_P1.isRicochet = gameModifier.AlwaysRicochet;
+		playerControllerScript_P1.isInRapidFire = gameModifier.AlwaysRapidfire;
+		playerControllerScript_P1.isInOverdrive = gameModifier.AlwaysOverdrive;
+		StackingObject.SetActive (gameModifier.stacking);
 	}
 }

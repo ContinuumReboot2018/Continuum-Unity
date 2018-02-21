@@ -70,4 +70,9 @@ public class GameModifierReceiver : MonoBehaviour
 		gameModifierManagerScript.blockSpawnRateMultiplier = BlockSpawnMult;
 		Debug.Log ("MODIFIER: Block spawn multiplier: " + BlockSpawnMult.ToString ());
 	}
+
+	public void SetStackingMode (bool allowStacking)
+	{
+		gameModifierManagerScript.stacking = allowStacking;
+	}
 }

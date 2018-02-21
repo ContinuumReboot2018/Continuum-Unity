@@ -338,10 +338,11 @@ public class Block : MonoBehaviour
 				playerControllerScript_P1.MovementY = 0;
 				playerControllerScript_P1.canShoot = false;
 
-				newCamShakeAmount = 0.5f;
-				newCamShakeDuration = 1.5f;
+				//newCamShakeAmount = 0.5f;
+				//newCamShakeDuration = 1.5f;
 
-				camShakeScript.ShakeCam (newCamShakeAmount * 2, newCamShakeDuration * 2, 99);
+				camShakeScript.ShakeCam (newCamShakeAmount * 10, newCamShakeDuration * 2, 9);
+				//camShakeScript.Shake ();
 
 				playerControllerScript_P1.StartCooldown ();
 

@@ -1,58 +1,62 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using InControl;
-using XInputDotNetPure;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Audio;
-using UnityStandardAssets.Utility;
+using InControl; 					// Accessing InControl's cross platform controller input.
+using XInputDotNetPure; 			// Accessing controller vibration system and raw inputs.
+using UnityEngine.UI; 				// Accessing Unity's UI system.
+using TMPro; 						// Accessing Text Mesh Pro components.
+using UnityEngine.Audio; 			// Accessing Audio mixer settings.
+using UnityStandardAssets.Utility;  // Accessing some standard assets and scripts.
 
+// One instance per player.
 public class PlayerController : MonoBehaviour 
 {
-	public GameController gameControllerScript;
-	public TimescaleController timescaleControllerScript;
-	public AudioController audioControllerScript;
-	public CursorManager cursorManagerScript;
-	public CameraShake camShakeScript;
-	public DeveloperMode developerModeScript;
-	public TutorialManager tutorialManagerScript;
+	// Reference scripts.
+	public GameController 		gameControllerScript;
+	public TimescaleController  timescaleControllerScript;
+	public AudioController 		audioControllerScript;
+	public CursorManager 		cursorManagerScript;
+	public CameraShake 			camShakeScript;
+	public DeveloperMode 		developerModeScript;
+	public TutorialManager 		tutorialManagerScript;
 
 	[Header ("Player Movement")]
 	[Range (-1, 1)]
-	public float MovementX;
+	public float MovementX; // How much horizontal input is read.
 	[Range (-1, 1)]
-	public float MovementY;
+	public float MovementY; // How much vertical input is read.
 
-	public bool UsePlayerFollow = true;
-	public Transform PlayerFollow;
-	public Rigidbody PlayerFollowRb;
-	public float PlayerFollowMoveSpeed;
-	public Vector2 XBounds, YBounds;
-	public Rigidbody PlayerRb;
-	private float SmoothFollowVelX, SmoothFollowVelY;
-	public float SmoothFollowTime = 1;
+	public bool UsePlayerFollow = true; // Sets whether the PLayer visual object follows a specific point defined by input.
+	public Transform PlayerFollow; // The object the input is manipulating.
+	public Rigidbody PlayerFollowRb; // The object that follows the player follow GameObject.
+	public float PlayerFollowMoveSpeed; // How fast the player follow moves.
+	public Vector2 XBounds, YBounds; // Defines bounds for the player position.
+	public Rigidbody PlayerRb; // The player Rgidbody which is the same GameObject as the mesh collider for it.
+	private float SmoothFollowVelX, SmoothFollowVelY; // Moving with smooth damp provate velocity variables.
+	public float SmoothFollowTime = 1; // How much smoothing is applied to the player follow movement.
 
-	public float YRotationAmount = 45;
-	public float YRotationMultiplier = 10;
-	private float RotVelY;
-	public Animator FlipScreenAnim;
+	public float YRotationAmount = 45; // How many degrees the player objects rotates based on horizontal velocity.
+	public float YRotationMultiplier = 10; // Multiplier for the rotation.
+	private float RotVelY; // Smooth ref variable for player rotation.
+	public float PlayerVibrationDuration; // How long the controller vibrates for.
+	public float PlayerVibrationTimeRemaining; // How much time the controller still needs to be vibrating.
+
 
 	[Header ("Player stats")]
-	public int PlayerId = 1;
-	public TextMeshProUGUI PlayerText;
-	public bool isJoined;
+	public int PlayerId = 1; // Player's unique ID.
+	public TextMeshProUGUI PlayerText; // Player label.
+	public bool isJoined; // Is true if the player is active in the scene.
 
-	public float PlayerVibrationDuration;
-	public float PlayerVibrationTimeRemaining;
-
+	// Player's main engine particle effect settings.
 	public ParticleSystem MainEngineParticles;
-	public float MainEngineParticleEmissionAmount = 1;
+	public float MainEngineParticleEmissionAmount = 1; 
 	public float MainEngineParticleEmissionLerpSpeed = 4;
 
-	public Transform ReferencePoint;
-	public GameObject PlayerGuides;
-	public RectTransform MiddlePoint;
+	public Transform ReferencePoint; // To be used to calculate distance and therefore time scale.
+	public GameObject PlayerGuides; // Visuals for the player guides.
+
+	// To be shown only in tutorial.
+	public RectTransform MiddlePoint; 
 	public RectTransform ForegroundPoint;
 	public RawImage InputForegroundImage;
 	public RawImage InputBackgroundImage;
@@ -61,12 +65,13 @@ public class PlayerController : MonoBehaviour
 	public float inputSensitivity = 3;
 
 	[Header ("Shooting")]
-	public GameObject CurrentShotObject;
-	public bool canShoot = true;
-	public float CurrentFireRate = 0.1f;
-	public float FireRateTimeMultiplier = 2;
-	public float NextFire;
+	public GameObject CurrentShotObject; 	 // Base GameObject to instantiate when firing.
+	public bool canShoot = true; 			 // Allows the player to instantiate the bullet or not.
+	public float CurrentFireRate = 0.1f; 	 // Time between bullet spawns.
+	public float FireRateTimeMultiplier = 2; // How fast to spawn bullets based on Time.timeScale.
+	public float NextFire; 					 // Time.time must be >= for this to allow another shot to be spawned.
 
+	// Shot types.
 	public shotType ShotType; 
 	public enum shotType
 	{
@@ -76,208 +81,221 @@ public class PlayerController : MonoBehaviour
 		Ripple = 3
 	}
 
-	public GameObject StandardShot;
-	public GameObject StandardShotEnhanced;
-	public GameObject StandardShotOverdrive;
-	public shotIteration StandardShotIteration;
-	public Transform StandardShotSpawn;
-	public float StandardFireRate = 0.1f;
+	public GameObject StandardShot; 			// Default bullet to be used when there are no powerups.
+	public GameObject StandardShotEnhanced; 	// Bullet to be used when ricochet and/or homing are enabled.
+	public GameObject StandardShotOverdrive; 	// Bullet to be used when overdrive is enabled. Overrides enhanced shots and properties.
+	public shotIteration StandardShotIteration; // Enumerates what shot type to be using for standard shot.
+	public Transform StandardShotSpawn; 		// Where we spawn the standard shot.
+	public float StandardFireRate = 0.1f; 		// How fast the standard shot fire rate should fire.
 
 	[Header ("Impact")]
-	public GameObject playerMesh;
-	public Vector3 ImpactPoint;
+	public GameObject playerMesh; // The GameObject which holds the player's mesh and material.
+	public Vector3 ImpactPoint;   // Where the impact point was.
+
 	// Player has two colliders, one is in trigger mode.
 	public Collider playerCol;
 	public Collider playerTrigger;
 
-	public bool isInCooldownMode;
-	public float cooldownDuration;
-	public float cooldownTimeRemaining;
+	public bool isInCooldownMode; 		// Allows cooldown to happen.
+	public float cooldownDuration; 		// How long the cooldown duration happens (scaled by time).
+	public float cooldownTimeRemaining; // Timer for cooldown.
 
+	// Stuff to do when hit.
 	public ParticleSystem PlayerExplosionParticles;
 	public AudioSource PlayerExplosionAudio;
-	public ParticleSystem GameOverExplosionParticles;
-	public AudioSource GameOverExplosionAudio;
-
+	public Animator GlitchEffect; // Allows cool image effects tp play that simulates VHS glitch effects and animates them. 
 	public MeshCollider InvincibleCollider;
 	public MeshRenderer InvincibleMesh;
 	public Animator InvincibleMeshAnim;
-	public Animator GlitchEffect;
+
+	// Stuff to look at when the player runs out of lives on the impact.
+	public ParticleSystem GameOverExplosionParticles;
+	public AudioSource GameOverExplosionAudio;
 
 	[Header ("Ability")]
 	public abilityState CurrentAbilityState;
 	public enum abilityState
 	{
-		Charging,
-		Ready,
-		Active
+		Charging, // Ability cannot be used, it is charging in this state.
+		Ready, 	  // Ability can be used.
+		Active 	  // Ability is being used.
 	}
 
 	// Ability stats.
-	public float CurrentAbilityTimeRemaining;
-	public float CurrentAbilityDuration;
-	public float AbilityTimeAmountProportion;
-	public float AbilityChargeSpeedMultiplier = 0.5f;
-	public float AbilityUseSpeedMultiplier = 4;
+	public float CurrentAbilityDuration; 	  // Maximum ability time.
+	public float CurrentAbilityTimeRemaining; // Timer for the ability.
 
-	public string AbilityName;
-	public ability Ability;
+	[Range (0.0f, 1.0f)]
+	public float AbilityTimeAmountProportion; 		  // time remining / duration.
+	public float AbilityChargeSpeedMultiplier = 0.5f; // How fast the ability bar charges.
+	public float AbilityUseSpeedMultiplier = 4;		  // How fast the ability bar diminishes.
+
+	public string AbilityName; // Unique name of the ability.
+	public ability Ability;    // Ability list.
 	public enum ability
 	{
-		Shield,
-		Emp,
-		VerticalBeam,
-		HorizontalBeam,
+		Shield, // Creates a shield, invincibility for a short time, cool warp screen effect.
+		Emp, // Creates a quick exhaust blast of particles which interact with blocks and destroying them.
+		VerticalBeam, // Fires particles vertically up, destroying particles in the way.
+		HorizontalBeam, // Fires to streams of particles (left and right), destroying falling or stacked blocks that collide with it.
 	}
 
 	// Ability UI.
-	public GameObject AbilityUI;
-	public RawImage AbilityImage;
-	public Texture2D[] AbilityTextures;
-	public Image AbilityFillImage;
-	//public TextMeshProUGUI AbilityReadyText;
-	//public RawImage AbilityReadyBackground;
+	public GameObject AbilityUI; 		// Ability bar UI.
+	public RawImage AbilityImage; 		// Current RawImage of the ability.
+	public Texture2D[] AbilityTextures; // Array of ability icons.
+	public Image AbilityFillImage; 		// Image fill outline.
+	// Colors for each ability state.
 	public Color AbilityUseColor, AbilityChargingColor, AbilityChargingFullColor;
 
 	[Header ("Powerups")]
 	// General.
-	public int powerupsInUse;
-	public bool isInRapidFire;
-	public bool isInOverdrive;
-	public bool isRicochet;
-	public GameObject RicochetGlowObject;
-	public ParticleSystem[] RicochetGlowParticles;
-	public RawImage[] RicochetGlowMeshes;
-	public bool isHoming;
+	public int powerupsInUse;	// Tracks how many simultaneous powerups are active.
+	public bool isHoming; 		// Homing mode is on or off.
+	public bool isRicochet; 	// Ricochet mode is on or off.
+	public bool isInRapidFire;  // Rapidfire mode is on or off.
+	public bool isInOverdrive;  // Overdrive mode is on or off.
+
+	public GameObject RicochetGlowObject; 		   // Static glow bars on the top and bottom of the screen when ricochet mode is on.
+	public RawImage[] RicochetGlowMeshes; 		   // Components to access the rendering of the glow bars.
+	public ParticleSystem[] RicochetGlowParticles; // Particles that emit off the glow objects.
 
 	// Double shot.
-	public GameObject DoubleShotL;
-	public GameObject DoubleShotLEnhanced;
-	public GameObject DoubleShotLOverdrive;
-	public GameObject DoubleShotR;
-	public GameObject DoubleShotREnhanced;
-	public GameObject DoubleShotROverdrive;
-	public Transform DoubleShotSpawnL;
-	public Transform DoubleShotSpawnR;
-	public float[] DoubleShotFireRates;
-	public shotIteration DoubleShotIteration;
-	public float DoubleShotNextFire;
+	public GameObject DoubleShotL; 				// Left bullet normal.
+	public GameObject DoubleShotLEnhanced; 		// Left bullet enhanced.
+	public GameObject DoubleShotLOverdrive; 	// Left bullet overdrive.
+	public GameObject DoubleShotR;				// Right bullet normal.
+	public GameObject DoubleShotREnhanced;  	// Right bullet enhanced.
+	public GameObject DoubleShotROverdrive; 	// Right bullet overdrive.
+	public Transform DoubleShotSpawnL;			// Spawn point for left bullet.
+	public Transform DoubleShotSpawnR;			// Spawn point for right bullet.
+	public float[] DoubleShotFireRates;			// [0] = normal fire rate, [1] = rapid fire rate.
+	public shotIteration DoubleShotIteration;	// Enumerates what shot type to be using for double shot.
+	public float DoubleShotNextFire;			// Time.time must be >= for this to allow another shot to be spawned.
 
 	// Triple shot.
-	public GameObject TripleShotL;
-	public GameObject TripleShotLEnhanced;
-	public GameObject TripleShotLOverdrive;
-	public GameObject TripleShotM;
-	public GameObject TripleShotMEnhanced;
-	public GameObject TripleShotMOverdrive;
-	public GameObject TripleShotR;
-	public GameObject TripleShotREnhanced;
-	public GameObject TripleShotROverdrive;
-	public Transform TripleShotSpawnL;
-	public Transform TripleShotSpawnM;
-	public Transform TripleShotSpawnR;
-	public float[] TripleShotFireRates;
-	public shotIteration TripleShotIteration;
-	public float TripleShotNextFire;
+	public GameObject TripleShotL;				// Left bullet normal.
+	public GameObject TripleShotLEnhanced;		// Left bullet enhanced.
+	public GameObject TripleShotLOverdrive;		// Left bullet overdrive.
+	public GameObject TripleShotM;				// Middle bullet normal.
+	public GameObject TripleShotMEnhanced;		// Middle bullet enhanced.
+	public GameObject TripleShotMOverdrive;		// Middle bullet overdrive.
+	public GameObject TripleShotR;				// Right bullet normal.
+	public GameObject TripleShotREnhanced;		// Right bullet enhanced.
+	public GameObject TripleShotROverdrive;		// Right bullet overdrive.
+	public Transform TripleShotSpawnL;			// Spawn point for left bullet.
+	public Transform TripleShotSpawnM;			// Spawn point for middle bullet.
+	public Transform TripleShotSpawnR;			// Spawn point for right bullet.
+	public float[] TripleShotFireRates;			// [0] = normal fire rate, [1] = rapid fire rate.
+	public shotIteration TripleShotIteration;	// Enumerates what shot type to be using for triple shot.
+	public float TripleShotNextFire;			// Time.time must be >= for this to allow another shot to be spawned.
 
 	// Ripple shot.
-	public GameObject RippleShot;
-	public GameObject RippleShotEnhanced;
-	public GameObject RippleShotOverdrive;
-	public Transform RippleShotSpawn;
-	public float[] RippleShotFireRates;
-	public shotIteration RippleShotIteration;
-	public float RippleShotNextFire;
+	public GameObject RippleShot;				// Standard ripple shot.
+	public GameObject RippleShotEnhanced;		// Enhanced ripple shot.
+	public GameObject RippleShotOverdrive;		// Overdrive ripple shot.
+	public Transform RippleShotSpawn;			// Where the ripple shot will spawn.
+	public float[] RippleShotFireRates;			// [0] = normal fire rate, [1] = rapid fire rate.
+	public shotIteration RippleShotIteration;	// Enumerates what shot type to be using for ripple shot.
+	public float RippleShotNextFire;			// Time.time must be >= for this to allow another shot to be spawned.
 
+	// Shot iterations on bullet types.
 	public enum shotIteration
 	{
-		Standard = 0,
-		Enhanced = 1,
+		Standard = 0, // Default.
+		Enhanced = 1, // Ricochet or Homing.
 		Rapid = 2,
 		Overdrive = 3
 	}
 
 	[Header ("Shield")]
-	public bool isShieldOn;
-	public GameObject Shield;
-	public Lens lensScript;
-	public float TargetShieldScale;
-	public float ShieldScaleSmoothTime = 1;
-	public float LensOnRadius = 0.7f;
-	public float TargetLensRadius;
-	public float LensRadiusSmoothTime = 1;
+	public bool isShieldOn;					// Allows shield visuals and timer to activate.
+	public GameObject Shield;				// Shield main object.
+	public Lens lensScript;					// Camera effect to simulate gravitational lensing.
+	public float TargetShieldScale;			// How large the lensing is.
+	public float ShieldScaleSmoothTime = 1; // How slow the transition is for the shield lights to grow/shrink.
+	public float LensOnRadius = 0.7f;		// Target lens size when shield is active.
+	public float TargetLensRadius;			// Current target lens size.
+	public float LensRadiusSmoothTime = 1;	// How slow the transition is for the lensing to grow/shrink.
 
 	[Header ("VerticalBeam")]
-	public GameObject VerticalBeam;
-	public ParticleSystem[] VerticalBeamParticles;
+	public GameObject VerticalBeam; 			   // The GameObject to set active or not depending whether the ability is being active.
+	public ParticleSystem[] VerticalBeamParticles; // Array of particles to emit when enabled.
 
 	[Header ("HorizontalBeam")]
-	public GameObject HorizontalBeam;
-	public ParticleSystem[] HorizontalBeamParticles;
+	public GameObject HorizontalBeam; 				 // The GameObject to set active or not depending whether the ability is being active.
+	public ParticleSystem[] HorizontalBeamParticles; // Array of particles to emit when enabled.
 
 	[Header ("Emp")]
-	public GameObject Emp;
-	public ParticleSystem[] EmpParticles;
+	public GameObject Emp; 				  // The GameObject to set active or not depending whether the ability is being active.
+	public ParticleSystem[] EmpParticles; // Array of particles to emit when enabled.
 
 	[Header ("Turret Player")]
 	[Range (0, 4)]
-	public int nextTurretSpawn;
-	public GameObject[] Turrets;
-	public AutoMoveAndRotate TurretRotatorScript;
-	public float TurretSpinSpeed;
-	public float TurretSpinSpeedNormal = -220;
-	public float TurretSpinSpeedFaster = -660;
+	public int nextTurretSpawn; 					// Which turrent GameObject index to spawn next.
+	public GameObject[] Turrets; 					// Turrets in scene.
+	public AutoMoveAndRotate TurretRotatorScript; 	// Parented auto rotation script.
+	public float TurretSpinSpeed; 					// How fast the turrents spin around the player.
+	public float TurretSpinSpeedNormal = -220; 		// Setting while powerup time remaining is >= 3.
+	public float TurretSpinSpeedFaster = -660;		// Setting while powerup time remaining is < 3.
 
 	[Header ("Helix")]
-	public GameObject Helix;
-	public ParticleSystem[] HelixParticles;
-	public Collider[] HelixCol;
+	public GameObject Helix; 				// The GameObject to set active or not depending whether the powerup is activated.
+	public ParticleSystem[] HelixParticles; // Array of particles to emit when enabled.
+	public Collider[] HelixCol; 			// The helix has two colliders, stored here.
+
+	[Header ("Visuals")]
+	public Animator FlipScreenAnim; // Animator which controls animations for the screen orientation.
 
 	[Header ("UI")]
 	// Score UI.
-	public bool isHidingScoreUI;
-	public Animator ScoreAnim;
-	public Vector3 ScoreCheckPlayerPos;
-	public Animator AbilityUIHexes;
-	public Animator ShootingUIHexes;
-	//public Animator[] PowerupListHexMasks;
+	public bool isHidingScoreUI; 		// Enabled when player position is close to the top middle.
+	public Animator ScoreAnim; 			// Score fading in/out animator.
+	public Vector3 ScoreCheckPlayerPos; // Where to check for the player position range.
+	public Animator AbilityUIHexes; 	// Ability Hexes situated underneath the score.
+	public Animator ShootingUIHexes; 	// Shooting Hexes on the top right 
 
 	// Lives UI.
-	public bool isHidingLivesUI;
-	public Animator LivesAnim;
-	public Vector2 LivesCheckPlayerPosX;
-	public Vector2 LivesCheckPlayerPosY;
+	public bool isHidingLivesUI; 		 // Checks top left of the screen if player is too close to the edge/corner.
+	public Animator LivesAnim; 			 // Lives fade in/out animator.
+	public Vector2 LivesCheckPlayerPosX; // Range to check horizontal player position.
+	public Vector2 LivesCheckPlayerPosY; // Range to check vertical player position.
 
 	// Wave UI.
-	public bool isHidingWaveUI;
-	public Animator WaveAnim;
-	public Vector3 WaveCheckPlayerPos;
+	public bool isHidingWaveUI; 	   // Checks for wave UI.
+	public Animator WaveAnim;		   // Wave fade in/out animator.
+	public Vector3 WaveCheckPlayerPos; // point to check for player proximity.
 
-	public PlayerActions playerActions;
-
-	void Awake ()
-	{
-		//AbilityReadyText.text = "";
-		PlayerText.text = "";
-		LivesAnim.gameObject.SetActive (false);
-		RefreshAbilityName ();
-		InvincibleMeshAnim.Play ("InvincibleMeshOffInstant");
-		RefreshAbilityImage ();
-		CheckPowerupImageUI ();
-	}
+	public PlayerActions playerActions; // Created for InControl and assigned at runtime.
 
 	void Start () 
 	{
 		CreatePlayerActions ();
 		AssignActionControls ();
+		GetStartPlayerModifiers ();
+		CheckPowerupImageUI ();
+
 		InvokeRepeating ("CheckJoinState", 0, 0.5f);
 		InvokeRepeating ("TurretRotatorCheck", 0, 0.5f);
+		InvincibleMeshAnim.Play ("InvincibleMeshOffInstant");
+
+		RefreshAbilityName ();
+		RefreshAbilityImage ();
+
 		TurretSpinSpeed = TurretSpinSpeedNormal;
+		LivesAnim.gameObject.SetActive (false);
+	}
+
+	public void StartCoroutines ()
+	{
+	}
+
+	void GetStartPlayerModifiers ()
+	{
 		isInRapidFire = gameControllerScript.gameModifier.AlwaysRapidfire;
-
-		isHoming = gameControllerScript.gameModifier.AlwaysHoming;
-
-		isRicochet = gameControllerScript.gameModifier.AlwaysRicochet;
+		isHoming 	  = gameControllerScript.gameModifier.AlwaysHoming;
+		isRicochet 	  = gameControllerScript.gameModifier.AlwaysRicochet;
+		isInOverdrive = gameControllerScript.gameModifier.AlwaysOverdrive;
 
 		if (gameControllerScript.gameModifier.AlwaysRicochet == true) 
 		{
@@ -291,8 +309,6 @@ public class PlayerController : MonoBehaviour
 		{
 			EnableRicochetObject ();
 		}
-			
-		isInOverdrive = gameControllerScript.gameModifier.AlwaysOverdrive;
 
 		if (gameControllerScript.gameModifier.AlwaysOverdrive == true) 
 		{
@@ -301,13 +317,6 @@ public class PlayerController : MonoBehaviour
 			TripleShotIteration = shotIteration.Overdrive;
 			RippleShotIteration = shotIteration.Overdrive;
 		}
-	}
-
-	public void StartCoroutines ()
-	{
-		StartCoroutine (CheckPause ());
-		StartCoroutine (CheckBulletType ());
-		PlayerText.text = "Player " + PlayerId;
 	}
 
 	void Update ()
@@ -320,6 +329,7 @@ public class PlayerController : MonoBehaviour
 		CheckAbilityTime ();
 		DrawReferencePointLine ();
 		UpdateInputUI ();
+		CheckPause ();
 	}
 
 	void FixedUpdate ()
@@ -352,8 +362,20 @@ public class PlayerController : MonoBehaviour
 	{
 		// Player follows [follow position] with smoothing.
 		PlayerRb.position = new Vector3 (
-			Mathf.SmoothDamp (PlayerRb.position.x, PlayerFollow.position.x, ref SmoothFollowVelX, SmoothFollowTime * Time.fixedUnscaledDeltaTime),
-			Mathf.SmoothDamp (PlayerRb.position.y, PlayerFollow.position.y, ref SmoothFollowVelY, SmoothFollowTime * Time.fixedUnscaledDeltaTime),
+			Mathf.SmoothDamp (
+				PlayerRb.position.x, 
+				PlayerFollow.position.x, 
+				ref SmoothFollowVelX, 
+				SmoothFollowTime * Time.fixedUnscaledDeltaTime
+			),
+
+			Mathf.SmoothDamp (
+				PlayerRb.position.y, 
+				PlayerFollow.position.y, 
+				ref SmoothFollowVelY, 
+				SmoothFollowTime * Time.fixedUnscaledDeltaTime
+			),
+
 			0
 		);
 
@@ -361,7 +383,10 @@ public class PlayerController : MonoBehaviour
 		PlayerRb.rotation = Quaternion.Euler
 			(
 				0, 
-				Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, SmoothFollowTime * Time.unscaledDeltaTime) * YRotationMultiplier, -YRotationAmount, YRotationAmount), 
+				Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, SmoothFollowTime * Time.unscaledDeltaTime) * YRotationMultiplier, 
+					-YRotationAmount, 
+					YRotationAmount
+				), 
 				0
 			);
 
@@ -380,10 +405,11 @@ public class PlayerController : MonoBehaviour
 		{
 			if (cooldownTimeRemaining > 0) 
 			{
-				//UsePlayerFollow = false;
+				// Timer down for cooldown.
 				cooldownTimeRemaining -= Time.unscaledDeltaTime;
 			}
 
+			// Cooldown time is finished, re enable the things.
 			if (cooldownTimeRemaining <= 0 && gameControllerScript.Lives > 0) 
 			{
 				RejoinGame ();
@@ -406,15 +432,19 @@ public class PlayerController : MonoBehaviour
 			inputSensitivity * playerActions.Move.Value.y * Mathf.Sqrt (1 - playerActions.Move.Value.x * playerActions.Move.Value.x * 0.5f),
 			0
 		);
-
-		/*InputForegroundImage.rectTransform.sizeDelta = new Vector2 (
-			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.x, 1 * (playerActions.Move.Value.normalized.magnitude), 8 * Time.unscaledDeltaTime), 
-			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.y, 1 * (playerActions.Move.Value.normalized.magnitude), 8 * Time.unscaledDeltaTime)
-		);*/
-
+			
 		InputForegroundImage.rectTransform.sizeDelta = new Vector2 (
-			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.x, -(1 * (playerActions.Move.Value.normalized.magnitude)) + 2f, 8 * Time.unscaledDeltaTime), 
-			Mathf.Lerp (InputForegroundImage.rectTransform.sizeDelta.y, -(1 * (playerActions.Move.Value.normalized.magnitude)) + 2f, 8 * Time.unscaledDeltaTime)
+			Mathf.Lerp (
+				InputForegroundImage.rectTransform.sizeDelta.x, 
+				-(1 * (playerActions.Move.Value.normalized.magnitude)) + 2f, 
+				8 * Time.unscaledDeltaTime
+			), 
+
+			Mathf.Lerp (
+				InputForegroundImage.rectTransform.sizeDelta.y, 
+				-(1 * (playerActions.Move.Value.normalized.magnitude)) + 2f, 
+				8 * Time.unscaledDeltaTime
+			)
 		);
 
 		// Creates a line between the mid point of the player and the input point.
@@ -446,12 +476,15 @@ public class PlayerController : MonoBehaviour
 		);
 	}
 
+
+	// Called by other scrips to set cooldown times.
 	public void SetCooldownTime (float cooldownTime)
 	{
 		cooldownDuration = cooldownTime;
 		cooldownTimeRemaining = cooldownDuration;
 	}
 
+	// Cooldown sequence.
 	public void StartCooldown ()
 	{
 		if (gameControllerScript.Lives > 0) 
@@ -459,16 +492,17 @@ public class PlayerController : MonoBehaviour
 			gameControllerScript.TargetDepthDistance = 0.1f;
 			isInCooldownMode = true;
 			UsePlayerFollow = false;
-			PlayerFollow.transform.localPosition = new Vector3 (0, 0, 0);
-			Invoke ("PlayerTransformPosCooldown", 0.1f);
+			//PlayerFollow.transform.localPosition = new Vector3 (0, 0, 0);
+			Invoke ("PlayerTransformPosCooldown", 0.25f);
 		}
 	}
-
+		
 	void PlayerTransformPosCooldown ()
 	{
 		playerMesh.transform.localPosition = new Vector3 (0, -15, 0);
 	}
 
+	// When the player runs out of lives and unable to respawn.
 	public void GameOver ()
 	{
 		gameControllerScript.isGameOver = true;
@@ -486,10 +520,12 @@ public class PlayerController : MonoBehaviour
 		StartCoroutine (timescaleControllerScript.EndSequenceTimeScale ());
 	}
 
+	// When cooldown time is complete.
 	void EnableCollider ()
 	{
-		UsePlayerFollow = true;
+		UsePlayerFollow = true; // Allow player input to manipulate player position.
 
+		// Checks for gode mode, allows god mode to stay on if needed.
 		if (developerModeScript.isGod == false) 
 		{
 			playerCol.enabled = true;
@@ -497,6 +533,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	// Allows player to re enter while temporarily invincible.
 	void RejoinGame ()
 	{
 		gameControllerScript.UpdateLives ();
@@ -508,6 +545,7 @@ public class PlayerController : MonoBehaviour
 		InvincibleMeshAnim.Play ("InvincibleMeshFlash");
 	}
 
+	// Allows player input.
 	public void EnablePlayerInput ()
 	{
 		UsePlayerFollow = true;
@@ -515,6 +553,7 @@ public class PlayerController : MonoBehaviour
 		StartCoroutines ();
 	}
 
+	// Reads input from InControl Player Actions and sets values.
 	void MovePlayer ()
 	{
 		if (gameControllerScript.isGameOver == false)
@@ -524,13 +563,13 @@ public class PlayerController : MonoBehaviour
 				if (gameControllerScript.isPaused == false) 
 				{
 					// Reads movement input on two axis.
-					if (FlipScreenAnim.transform.eulerAngles.z < 90) 
+					if (FlipScreenAnim.transform.eulerAngles.z < 90) // When screen is right way up.
 					{
 						MovementX = playerActions.Move.Value.x;
 						MovementY = playerActions.Move.Value.y;
 					}
 
-					if (FlipScreenAnim.transform.eulerAngles.z >= 90)
+					if (FlipScreenAnim.transform.eulerAngles.z >= 90) // When screen is flipped.
 					{
 						MovementX = -playerActions.Move.Value.x;
 						MovementY = -playerActions.Move.Value.y;
@@ -538,28 +577,26 @@ public class PlayerController : MonoBehaviour
 				}
 			}
 
+			/*
+			// Test hotkey to have screen flipping.
 			if (Input.GetKeyDown (KeyCode.Return)) 
 			{
-				//FlipScreenAnim.Play ("CameraRotateUpsideDown");
 				FlipScreenAnim.SetBool ("Flipped", true);
-				//FlipScreenAnim.SetTrigger ("Flip");
 			}
 
 			if (Input.GetKeyDown (KeyCode.Quote)) 
 			{
-				//FlipScreenAnim.Play ("CameraRotateRightSideUp");
 				FlipScreenAnim.SetBool ("Flipped", false);
-				//FlipScreenAnim.SetTrigger ("Flip");
-			}
+			}*/
 
-			/*var MainEngineEmissionRate = MainEngineParticles.emission;
+			var MainEngineEmissionRate = MainEngineParticles.emission;
 			float SmoothEmissionRate = 
 				Mathf.Lerp (
 					MainEngineEmissionRate.rateOverTime.constant, 
 					MainEngineParticleEmissionAmount * playerActions.Move.Up.Value,
 					MainEngineParticleEmissionLerpSpeed * Time.deltaTime
 				);
-			MainEngineEmissionRate.rateOverTime = SmoothEmissionRate;*/
+			MainEngineEmissionRate.rateOverTime = SmoothEmissionRate;
 		}
 	}
 
@@ -567,10 +604,7 @@ public class PlayerController : MonoBehaviour
 	{
 		// Updates the ability UI involved.
 		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbilityDuration;
-		AbilityFillImage.fillAmount = 1f * AbilityTimeAmountProportion; // Fills to a sixth.
-		//AbilityFillImageR.fillAmount = 1f * AbilityTimeAmountProportion; // Fills to a sixth.
-		//AbilityFillImageL.fillAmount = 0.5f * AbilityTimeAmountProportion; // Fills to a sixth.
-		//AbilityFillImageR.fillAmount = 0.5f * AbilityTimeAmountProportion; // Fills to a sixth.
+		AbilityFillImage.fillAmount = 1f * AbilityTimeAmountProportion;
 
 		// Player presses ability button.
 		if (playerActions.Ability.WasPressed && gameControllerScript.isPaused == false) 
@@ -580,8 +614,6 @@ public class PlayerController : MonoBehaviour
 				timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) 
 			{
 				ActivateAbility ();
-				//AbilityReadyText.text = "";
-				//AbilityReadyBackground.enabled = false;
 				CurrentAbilityState = abilityState.Active;
 			}
 		}
@@ -617,41 +649,34 @@ public class PlayerController : MonoBehaviour
 				gameControllerScript.isPaused == false &&
 				tutorialManagerScript.tutorialComplete == true) 
 			{
-				//AbilityReadyText.text = "";
-				//AbilityReadyBackground.enabled = false;
 				CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
 			}
 
 			if (CurrentAbilityTimeRemaining >= CurrentAbilityDuration) 
 			{
 				CurrentAbilityTimeRemaining = CurrentAbilityDuration;
-				//AbilityReadyText.text = "READY";
-				//AbilityReadyBackground.enabled = true;
 				CurrentAbilityState = abilityState.Ready;
 			}
-
-			//AbilityChargingColor = new Color (1 - (0.765f * AbilityTimeAmountProportion), 1, 1 - 0.376f * AbilityTimeAmountProportion, 1);
-			//AbilityChargingColor = Color.Lerp (AbilityChargingColor, AbilityChargingFullColor, AbilityTimeAmountProportion);
 
 			if (AbilityTimeAmountProportion < 1f)
 			{
 				AbilityFillImage.color = AbilityChargingColor;
 			}
-
-			/*if (AbilityTimeAmountProportion > 0.99f)
-			{
-				AbilityFillImage.color = AbilityChargingFullColor;
-			}*/
 		}
 
 		lensScript.radius = Mathf.Lerp (lensScript.radius, TargetLensRadius, LensRadiusSmoothTime * Time.unscaledDeltaTime);
-		Shield.transform.localScale = new Vector3 (
+
+		/*Shield.transform.localScale = new Vector3 (
 			Mathf.Lerp (Shield.transform.localScale.x, TargetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime), 
 			Mathf.Lerp (Shield.transform.localScale.y, TargetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime), 
 			Mathf.Lerp (Shield.transform.localScale.z, TargetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime)
-		);
+		);*/
+
+		Vector3 targetShieldScale = new Vector3 (TargetShieldScale, TargetShieldScale, TargetShieldScale);
+		Shield.transform.localScale = Vector3.Lerp (Shield.transform.localScale, targetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime);
 	}
 
+	// Activates ability based on current setting.
 	public void ActivateAbility ()
 	{
 		switch (Ability) 
@@ -676,12 +701,14 @@ public class PlayerController : MonoBehaviour
 			break;
 		}
 
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1.5f;
-		timescaleControllerScript.OverridingTimeScale = 0.2f;
+		// Briefly slows time down for effect.
+		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.75f;
+		timescaleControllerScript.OverridingTimeScale = 0.3f;
 
 		camShakeScript.ShakeCam (0.4f, CurrentAbilityDuration, 6);
 	}
 
+	// Use Emp ability.
 	public IEnumerator UseEmp ()
 	{
 		Emp.transform.position = ImpactPoint;
@@ -695,6 +722,7 @@ public class PlayerController : MonoBehaviour
 		Emp.gameObject.SetActive (false);
 	}
 
+	// Turn off ability when timer runs out. But allow things to gradually disappear by invoking with delay.
 	public void DeactivateAbility ()
 	{
 		// Deactivates shield.
@@ -717,15 +745,18 @@ public class PlayerController : MonoBehaviour
 			hzParticles.Stop ();
 		}
 
+		// Deactivates Emp.
 		Invoke ("DeactivateEmp", 3);
 		foreach (ParticleSystem empParticles in EmpParticles) 
 		{
 			empParticles.Stop ();
 		}
 
+		// Reset the camera shake.
 		camShakeScript.ShakeCam (0.0f, 0, 7);
 	}
 
+	// Deactivate Shield.
 	void DeactivateShield ()
 	{
 		if (developerModeScript.isGod == false) 
@@ -736,21 +767,25 @@ public class PlayerController : MonoBehaviour
 		Shield.SetActive (false);
 	}
 
+	// Deactivate vertical beam.
 	void DeactivateVerticalBeam ()
 	{
 		VerticalBeam.SetActive (false);
 	}
 
+	// Deactivate horizontal beam.
 	void DeactivateHorizontalBeam ()
 	{
 		HorizontalBeam.SetActive (false);
 	}
 
+	// Deactivate emp.
 	void DeactivateEmp ()
 	{
 		Emp.SetActive (false);
 	}
 
+	// Sync ability name in the list value.
 	public void RefreshAbilityName ()
 	{
 		switch (Ability) 
@@ -770,6 +805,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	// Sync ability image.
 	public void RefreshAbilityImage ()
 	{
 		switch (Ability) 
@@ -789,11 +825,14 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	#if UNITY_EDITOR
 	void DrawReferencePointLine ()
 	{
 		Debug.DrawLine (playerCol.transform.position, ReferencePoint.transform.position, Color.red);
 	}
+	#endif
 
+	/*
 	IEnumerator CheckBulletType ()
 	{
 		while (canShoot == true) 
@@ -801,7 +840,6 @@ public class PlayerController : MonoBehaviour
 			switch (ShotType) 
 			{
 			case shotType.Standard:
-				//CurrentFireRate = StandardFireRate;
 				break;
 			case shotType.Double:
 				break;
@@ -813,7 +851,7 @@ public class PlayerController : MonoBehaviour
 
 			yield return null;
 		}
-	}
+	}*/
 
 	// Checks shooting state.
 	void CheckShoot ()
@@ -830,11 +868,12 @@ public class PlayerController : MonoBehaviour
 
 				Shoot ();
 
-				NextFire = Time.time + CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale);
+				NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
 			}
 		}
 	}
 
+	// Instantiates relevant bullet based on what bullet iteration it is on and what shooting powerup is active.
 	void Shoot ()
 	{
 		switch (ShotType) 
@@ -1019,44 +1058,41 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	IEnumerator CheckPause ()
+	// Gets pause state.
+	void CheckPause ()
 	{
-		while (gameControllerScript.canPause == true) 
+		if (playerActions.Pause.WasPressed) 
 		{
-			if (playerActions.Pause.WasPressed) 
+			if (Time.unscaledTime > gameControllerScript.NextPauseCooldown) 
 			{
-				if (Time.unscaledTime > gameControllerScript.NextPauseCooldown) 
+				gameControllerScript.CheckPause ();
+			}
+		}
+
+		if (gameControllerScript.isPaused == true) 
+		{
+			if (isShieldOn == true) 
+			{
+				if (lensScript.enabled == true) 
 				{
-					gameControllerScript.CheckPause ();
+					lensScript.enabled = false;
 				}
 			}
+		}
 
-			if (gameControllerScript.isPaused == true) 
+		if (gameControllerScript.isPaused == false) 
+		{
+			if (isShieldOn == true) 
 			{
-				if (isShieldOn == true) 
+				if (lensScript.enabled == false) 
 				{
-					if (lensScript.enabled == true) 
-					{
-						lensScript.enabled = false;
-					}
+					lensScript.enabled = true;
 				}
 			}
-
-			if (gameControllerScript.isPaused == false) 
-			{
-				if (isShieldOn == true) 
-				{
-					if (lensScript.enabled == false) 
-					{
-						lensScript.enabled = true;
-					}
-				}
-			}
-
-			yield return null;
 		}
 	}
 
+	// Autohiding UI.
 	void CheckUIVisibility ()
 	{
 		// SCORE TEXT
@@ -1172,6 +1208,8 @@ public class PlayerController : MonoBehaviour
 		}*/
 
 		CheckPowerupImageUI ();
+
+		// Defaults powerup texture with standard shot image.
 		if (gameControllerScript.PowerupImage_P1 [0].texture == null) 
 		{
 			gameControllerScript.PowerupImage_P1 [0].color = Color.white;
@@ -1179,6 +1217,8 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	// Tracks powerup images and available slots to populate.
+	// Also has autohiding.
 	public void CheckPowerupImageUI ()
 	{
 		if (playerCol.transform.position.y > 7 && playerCol.transform.position.x > 12) 
@@ -1235,11 +1275,15 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	// Turning off Powerups.
+
+	// Turn off Helix.
 	void TurnOffHelix ()
 	{
 		Helix.SetActive (false);
 	}
 
+	// Tracks rotation amount degrees per second based on powerup time remaining.
 	void TurretRotatorCheck ()
 	{
 		TurretRotatorScript.rotateDegreesPerSecond.value = new Vector3 (0, 0, TurretSpinSpeed);
@@ -1250,10 +1294,9 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	// Shows ricochet visuals and particle effects.
 	public void EnableRicochetObject ()
 	{
-		//RicochetGlowObject.SetActive (true);
-
 		foreach (ParticleSystem glowParticles in RicochetGlowParticles)
 		{
 			glowParticles.Play ();
@@ -1265,23 +1308,24 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void DisableRicochetObject ()
-	{
-		//RicochetGlowObject.SetActive (false);
-	}
 
+	// Resets all active powerups back to standard shot. Does not modify modifiers if enabled.
 	public void ResetPowerups ()
 	{
+		// Sets all shot types to standard iteration.
 		ShotType = shotType.Standard;
 
-		nextTurretSpawn = 0;
-		TurretSpinSpeed = TurretSpinSpeedNormal;
+		nextTurretSpawn = 0; // Resets turrent spawn index.
 
+		// Resets homing mode if not modified by game modifier object.
+		isHoming = gameControllerScript.gameModifier.AlwaysHoming;
+		isRicochet = gameControllerScript.gameModifier.AlwaysRicochet;
+		isInRapidFire = gameControllerScript.gameModifier.AlwaysRapidfire;
+		isInOverdrive = gameControllerScript.gameModifier.AlwaysOverdrive;
+
+		// Resets ricochet mode if not modified by game modifier object.
 		if (gameControllerScript.gameModifier.AlwaysRicochet == false)
 		{
-			isRicochet = false;
-			Invoke ("DisableRicochetObject", 3);
-
 			foreach (ParticleSystem glowParticles in RicochetGlowParticles)
 			{
 				glowParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
@@ -1292,28 +1336,23 @@ public class PlayerController : MonoBehaviour
 				meshrendglow.enabled = false;
 			}
 		}
+
+		// Resets rapidfire mode if not modified by game modifier object.
+		if (gameControllerScript.gameModifier.AlwaysRapidfire == false) 
+		{
+			CurrentFireRate = StandardFireRate;
+		}
 			
+		// Resets overdrive mode if not modified by game modifier object.
 		if (gameControllerScript.gameModifier.AlwaysOverdrive == false) 
 		{
-			isInOverdrive = false;
-
 			StandardShotIteration = shotIteration.Standard;
 			DoubleShotIteration = shotIteration.Standard;
 			TripleShotIteration = shotIteration.Standard;
 			RippleShotIteration = shotIteration.Standard;
 		}
-
-		if (gameControllerScript.gameModifier.AlwaysRapidfire == false) 
-		{
-			CurrentFireRate = StandardFireRate;
-			isInRapidFire = false;
-		}
-
-		if (gameControllerScript.gameModifier.AlwaysHoming == false) 
-		{
-			isHoming = false;
-		}
-
+			
+		// Turns off the helix with delay.
 		Invoke ("TurnOffHelix", 1);
 
 		foreach (ParticleSystem helixparticle in HelixParticles)
@@ -1326,12 +1365,16 @@ public class PlayerController : MonoBehaviour
 			helixcol.enabled = false;
 		}
 
+		// Turns off turrets all turrets.
 		foreach (GameObject clone in Turrets) 
 		{
 			clone.SetActive (false);
 		}
 
+		// Resets powerup time remaining.
 		gameControllerScript.PowerupTimeRemaining = 0;
+
+		// Clears powerup UI.
 		gameControllerScript.ClearPowerupUI ();
 	}
 
@@ -1344,43 +1387,49 @@ public class PlayerController : MonoBehaviour
 	// This is for InControl to be able to read input.
 	void AssignActionControls ()
 	{
+		// LEFT
 		playerActions.MoveLeft.AddDefaultBinding (Key.A);
 		playerActions.MoveLeft.AddDefaultBinding (Key.LeftArrow);
 		playerActions.MoveLeft.AddDefaultBinding (InputControlType.LeftStickLeft);
 		playerActions.MoveLeft.AddDefaultBinding (InputControlType.DPadLeft);
 
+		// RIGHT
 		playerActions.MoveRight.AddDefaultBinding (Key.D);
 		playerActions.MoveRight.AddDefaultBinding (Key.RightArrow);
 		playerActions.MoveRight.AddDefaultBinding (InputControlType.LeftStickRight);
 		playerActions.MoveRight.AddDefaultBinding (InputControlType.DPadRight);
 
+		// UP
 		playerActions.MoveUp.AddDefaultBinding (Key.W);
 		playerActions.MoveUp.AddDefaultBinding (Key.UpArrow);
 		playerActions.MoveUp.AddDefaultBinding (InputControlType.LeftStickUp);
 		playerActions.MoveUp.AddDefaultBinding (InputControlType.DPadUp);
 
+		// DOWN
 		playerActions.MoveDown.AddDefaultBinding (Key.S);
 		playerActions.MoveDown.AddDefaultBinding (Key.DownArrow);
 		playerActions.MoveDown.AddDefaultBinding (InputControlType.LeftStickDown);
 		playerActions.MoveDown.AddDefaultBinding (InputControlType.DPadDown);
 
+		// SHOOT
 		playerActions.Shoot.AddDefaultBinding (Key.Space);
 		playerActions.Shoot.AddDefaultBinding (Key.LeftControl);
 		playerActions.Shoot.AddDefaultBinding (Mouse.LeftButton);
 		playerActions.Shoot.AddDefaultBinding (InputControlType.RightTrigger);
 		playerActions.Shoot.AddDefaultBinding (InputControlType.Action1);
 
-		//playerActions.Ability.AddDefaultBinding (Key.LeftShift);
+		// ABILITY
 		playerActions.Ability.AddDefaultBinding (Key.LeftAlt);
 		playerActions.Ability.AddDefaultBinding (Mouse.RightButton);
 		playerActions.Ability.AddDefaultBinding (InputControlType.LeftTrigger);
 
+		// PAUSE / UNPAUSE
 		playerActions.Pause.AddDefaultBinding (Key.Escape);
 		playerActions.Pause.AddDefaultBinding (InputControlType.Command);
 
+		// DEBUG / CHEATS
 		playerActions.DebugMenu.AddDefaultBinding (Key.Tab);
 		playerActions.DebugMenu.AddDefaultBinding (InputControlType.LeftBumper);
-
 		playerActions.CheatConsole.AddDefaultBinding (Key.Backquote);
 	}
 
@@ -1413,6 +1462,7 @@ public class PlayerController : MonoBehaviour
 		GamePad.SetVibration (PlayerIndex.One, 0, 0);
 	}
 
+	// Check joined state.
 	void CheckJoinState ()
 	{
 		if (this.enabled == true) 
@@ -1447,6 +1497,7 @@ public class PlayerController : MonoBehaviour
 		}*/
 	}
 
+	// Resets joined on disable.
 	void OnDisable ()
 	{
 		if (isJoined == true) 

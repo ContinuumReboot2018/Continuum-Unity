@@ -45,4 +45,5 @@ public class GameModifierManager : ScriptableObject
 	[Header ("Other modifiers")]
 	public int StartingLives = 3;
 	public float blockSpawnRateMultiplier = 1;
+	public bool stacking = true;
 }

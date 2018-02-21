@@ -121192,6 +121192,7 @@ MonoBehaviour:
   combo: 1
   comboDuration: 0.5
   comboTimeRemaining: 0
+  StackingObject: {fileID: 1989892447}
   Blocks:
   - {fileID: 1750224001074990, guid: fd2bb3b2638fef34ea95dd1bf2cad64d, type: 2}
   - {fileID: 1750224001074990, guid: 1938bcd0a1e1eab47a28123cb1b57947, type: 2}
@@ -156879,6 +156880,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 734379798}
   m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!1 &1989892447 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1273531716770706, guid: 92659667f9c5bfe40b6f4e99a1d347f8,
+    type: 2}
+  m_PrefabInternal: {fileID: 279619684}
 --- !u!1 &1991948038
 GameObject:
   m_ObjectHideFlags: 0

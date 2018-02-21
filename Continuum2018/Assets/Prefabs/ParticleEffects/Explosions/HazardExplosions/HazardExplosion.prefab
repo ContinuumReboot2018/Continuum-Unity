@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114201206547933330}
   - component: {fileID: 82630998734724706}
   - component: {fileID: 114538948711491612}
+  - component: {fileID: 114994657282723054}
   m_Layer: 0
   m_Name: HazardExplosion
   m_TagString: Untagged
@@ -167,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedExplosions
+  OnStart: 1
 --- !u!114 &114538948711491612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -185,6 +187,19 @@ MonoBehaviour:
   addPitch: 0
   reachedMaxPitch: 0
   dontUseStartPitch: 0
+--- !u!114 &114994657282723054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072586396597310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daef74de5648d5647a119d2d579e6f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 3
+  useUnscaledTime: 0
 --- !u!198 &198657113447096838
 ParticleSystem:
   m_ObjectHideFlags: 1
