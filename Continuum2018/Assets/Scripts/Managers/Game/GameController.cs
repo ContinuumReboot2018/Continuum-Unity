@@ -2,209 +2,221 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.PostProcessing;
-using System.Diagnostics;
+using UnityEngine.UI; // Access to Unity's UI system.
+using TMPro; // Access to TextMeshPro components.
+using UnityEngine.PostProcessing; // Allows access to Unity's Post Processing Stack.
 
 public class GameController : MonoBehaviour 
 {
-	public PlayerController playerControllerScript_P1;
-	public TimescaleController timescaleControllerScript;
-	public AudioController audioControllerScript;
-	public DeveloperMode developerModeScript;
-	public CursorManager cursorManagerScript;
-	public PostProcessingProfile ImageEffects;
-	public ObjectPooler BlockObjectPooler;
-	public GameModifierManager gameModifier;
-	public Camera MainCam;
+	public PlayerController playerControllerScript_P1;		// Reference to the player controller.
+	public TimescaleController timescaleControllerScript;	// Reference to the timescale controller.
+	public AudioController audioControllerScript;			// Reference to the audio controller.
+	public DeveloperMode developerModeScript;				// Reference to the developer mode for debug info.
+	public CursorManager cursorManagerScript;				// Reference to the cursor state.
+	public PostProcessingProfile ImageEffects;				// Reference to the post processing profile.
+	public GameModifierManager gameModifier;				// Reference to the GameModifierManager Scriptable object.								// Main camera.
 
 	[Header ("Game Stats")]
-	public bool TrackStats = true;
-	public float GameTime;
-	public float RealTime;
-	public float TimeRatio;
-	public float Distance;
-	public int BlocksDestroyed;
-	public int BulletsShot;
-	public float BlockShotAccuracy;
-	public AudioSource BassTrack;
-	public float TrialTime = -1;
+	public bool TrackStats = true;		// Track debug info.
+	public float GameTime;				// Scaled time elapsed since the start of the first wave.
+	public float RealTime;				// Unscaled time elapsed since the start of the first wave.
+	public float TimeRatio;				// GameTime / RealTime, can be greater than 1.
+	public float Distance;				// Distance between player and reference point.
+	public int BlocksDestroyed;			// Counter for how many blocks were destroyed.
+	public int BulletsShot;				// Counter for bullets instantiated.
+	public float BlockShotAccuracy;		// Blocks destroyed / Bullets shot.
 
 	[Header ("Waves")]
-	public int Wave;
-	public float WaveTimeIncreaseRate;
-	public float FirstWaveTimeDuration;
-	public float WaveTimeDuration;
-	public float WaveTimeRemaining;
-	public bool IsInWaveTransition;
-	public TextMeshProUGUI WaveText;
-	public Animator WaveAnim;
-	public RawImage WaveBackground;
-	public ParticleSystem WaveTransitionParticles;
-	public Animator WaveTransitionAnim;
-	public TextMeshProUGUI WaveTransitionText;
-	public AudioSource NextLevelAudio;
-	public Slider WaveTimeSlider;
-	public TextMeshProUGUI WaveTimeRemainText;
-	public TextMeshProUGUI SoundtrackText;
+	public int Wave;								// Current wave number.
+	public TextMeshProUGUI WaveText;				// Wave number text.
+	public float WaveTimeIncreaseRate;				// How much longer each wave duration increases per wave.
+	public float FirstWaveTimeDuration;				// How long the first wave should last.
+	public float WaveTimeDuration;					// Max wave duration time.
+	public float WaveTimeRemaining;					// Wave time remaining until end of wave.
+	public RawImage WaveBackground;					// Background of wave text.
+
+	[Header ("Wave Transition")]
+	public bool IsInWaveTransition;					// Allows wave transition animation.
+	public ParticleSystem WaveTransitionParticles;  // Cool wave transition particle effect.
+	public Animator WaveTransitionAnim;				// Animator for wave transition.
+	public TextMeshProUGUI WaveTransitionText;		// Text for wave transition to show wave number.
+	public AudioSource WaveTransitionAudio;			// Warp sound.
 
 	// This is for wave transition UI only.
-	public TextMeshProUGUI GameTimeText;
-	public TextMeshProUGUI RealTimeText;
-	public TextMeshProUGUI TimeRatioText;
-	public TextMeshProUGUI BlocksDestroyedText;
-	public TextMeshProUGUI BulletsShotText;
-	public TextMeshProUGUI AccuracyText;
+	public TextMeshProUGUI SoundtrackText;			// New soundtrack text. (Appears every four waves).
+	public TextMeshProUGUI GameTimeText;			// Display for game time in wave transition.
+	public TextMeshProUGUI RealTimeText;			// Display for real time in wave transition.
+	public TextMeshProUGUI TimeRatioText;			// Display for time ration in wave transition.
+	public TextMeshProUGUI BlocksDestroyedText;		// Display for blocks destroyed in wave transition.
+	public TextMeshProUGUI BulletsShotText;			// Display for bullets shot in wave transition.
+	public TextMeshProUGUI AccuracyText;			// Display for accuracy in wave transition.
 
 	[Header ("Scoring")]
-	public bool CountScore;
-	public float DisplayScore;
-	public float CurrentScore;
-	public float TargetScore;
-	public float ScoreSmoothing;
-	public TextMeshProUGUI ScoreText;
-	public Animator ScoreAnim;
-	public RawImage ScoreBackground;
+	public bool CountScore;				// Allow score to be incremented.
+	public float DisplayScore;			// Currently displayed score.
+	public float CurrentScore;			// Current score updated.
+	public float TargetScore;			// Score to smoothly transition towards.
+	public float ScoreSmoothing;		// How much smoothing is applied to target score.
+	public TextMeshProUGUI ScoreText;	// Score UI text.
+	public RawImage ScoreBackground;	// Dark background for score area.
 
 	[Header ("Lives")]
-	public int Lives;
-	public int MaxLives = 11;
-	public TextMeshProUGUI LivesText;
-	public Animator LivesAnim;
-	public RawImage[] LifeImages;
-	public RawImage LivesBackground;
-	public GameObject LivesSpacing;
-	public TextMeshProUGUI MaxLivesText;
+	public int Lives;					 // Counter for lives remaining (UI displays one less as one life is the player itself).
+	public int MaxLives = 11;			 // Maximum lives the player can have at any one time.
+	public TextMeshProUGUI LivesText;	 // UI counter for lives.
+	public RawImage[] LifeImages;		 // Life images x3
+	public RawImage LivesBackground;	 // Dark background for Lives.
+	public GameObject LivesSpacing;		 // Lives spacing determined by amount of lives.
+	public TextMeshProUGUI MaxLivesText; // When lives count reaches max lives, display this text.
 
 	[Header ("Combo")]
-	public int combo = 1;
-	public float comboDuration = 0.5f;
-	public float comboTimeRemaining;
+	public int combo = 1;				// Current combo.
+	public float comboDuration = 0.5f;	// How long the combo lasts before decrementing.
+	public float comboTimeRemaining;	// Current time left of the current combo before it decremements.
 
 	[Header ("Stacking")]
-	public GameObject StackingObject;
+	public GameObject StackingObject; // Stack zones parent object.
 
 	[Header ("Block Spawner")]
-	public GameObject[] Blocks;
-	public float BlockSpawnRate;
-	private float NextBlockSpawn;
-	public float blockSpawnStartDelay = 2;
-	public float[] BlockSpawnXPositions;
-	public float BlockSpawnYPosition;
-	public float BlockSpawnZPosition;
-	public float BlockSpawnIncreaseRate;
+	public GameObject[] Blocks;			 // Block prefabs to spawn based on wave number.
+	public float BlockSpawnRate;		 // How often to spawn blocks.
+	private float NextBlockSpawn;		 // Time to elapse before next block spawn. Time.time > this.
+	public float blockSpawnStartDelay; 	 // Start delay for blocks to spawn.
+	public float[] BlockSpawnXPositions; // Fixed x positions to line up with stack zones.
+	public float BlockSpawnYPosition; 	 // Starting height of block spawn y position.
+	public float BlockSpawnZPosition;	 // Block spawn depth position.
+	public float BlockSpawnIncreaseRate; // How much faster blocks spawn every wave.
 
 	[Header ("Powerup General")]
-	public float PowerupTimeRemaining;
-	public float PowerupTimeDuration;
-	public int MaxSimultaneousPowerups = 4;
-	public Animator PowerupAnim;
-	public AudioSource PowerupTimeRunningOutAudio;
-	public AudioSource PowerupResetAudio;
-	public GameObject[] PowerupPickups;
-	public float powerupPickupTimeRemaining;
-	public Vector2 PowerupPickupSpawnRate;
-	public float powerupPickupSpawnModifier = 1;
-	private float NextPowerupPickupSpawn;
-	public float PowerupPickupSpawnRangeX;
-	public float PowerupPickupSpawnY;
+	public float PowerupTimeRemaining;				// Current powerup time left.
+	public float PowerupTimeDuration;				// Maximum powerup time.
+	public Animator PowerupAnim;					// Powerup animator for background light.
+	public AudioSource PowerupTimeRunningOutAudio;  // Sound to play when powerup time < 3 seconds.
+	public AudioSource PowerupResetAudio;			// Sound to play when powerups reset.
+	public GameObject[] PowerupPickups;				// List of powerup pickups to spawn. 
+	public float powerupPickupTimeRemaining;		// How long the next powerup pickup will spawn.
+	public Vector2 PowerupPickupSpawnRate;			// Range of time powerup pickups are spawned.
+	public float powerupPickupSpawnModifier = 1;	// Gets value from game modifier for multiplier.
+	private float NextPowerupPickupSpawn;			// Time to pass before next powerup spawns.
+	public float PowerupPickupSpawnRangeX;			// Horizontal area to spawn powerup pickups.
+	public float PowerupPickupSpawnY;				// Vertical area to spawn powerup pickups.
 
 	[Header ("Powerup List UI")]
-	public int NextPowerupSlot_P1;
-	public RawImage[] PowerupImage_P1;
-	public Texture2D StandardShotTexture;
-	public TextMeshProUGUI[] PowerupText_P1;
-	public RawImage HomingImage;
-	public RawImage HomingHex;
-	public RawImage RicochetImage;
-	public RawImage RicochetHex;
-	public RawImage RapidfireImage;
-	public RawImage RapidfireHex;
-	public RawImage OverdriveImage;
-	public RawImage OverdriveHex;
+	public int NextPowerupSlot_P1;		  // Powerup slot index.
+	public RawImage[] PowerupImage_P1;	  // Array of powrup images for each slot. 
+	public Texture2D StandardShotTexture; // Texture for default single standard shot.
+	public RawImage HomingImage;		  // Image for homing.
+	public RawImage HomingHex;			  // Hex background for homing.
+	public RawImage RicochetImage;		  // Image for ricochet.
+	public RawImage RicochetHex;		  // Hex background for ricochet.
+	public RawImage RapidfireImage;		  // Image for rapidfire.
+	public RawImage RapidfireHex;		  // Hex background for rapidfire.
+	public RawImage OverdriveImage;		  // Image for overdrive.
+	public RawImage OverdriveHex;		  // Hex background for overdrive.
 
-	public GameObject PowerupPickupUI;
+	public GameObject PowerupPickupUI;	  // For other scripts to reference to spawn pickup UI.
 
-	[Header ("BossSpawner")]
-	public GameObject[] MiniBosses;
-	public Transform MiniBossSpawnPos;
-	public float MiniBossSpawnDelay = 4;
+	[Header ("Bosses")]
+	public float BossSpawnDelay = 5; // Minimum amount of time for a boss to spawn.
 
-	public GameObject[] BigBosses;
-	public Transform BigBossSpawnPos;
-	public float BigBossSpawnDelay = 4;
-	public int bossId;
-	public float BossSpawnDelay = 5;
+	public GameObject[] MiniBosses;		 // List of minibosses to spawn at random.
+	public Transform MiniBossSpawnPos;	 // Where to spawn the minibosses.
+	public float MiniBossSpawnDelay = 4; // Start delay to spawn a boss after the wave ends.
+
+	public GameObject[] BigBosses;		// Array of big bosses to spawn.
+	public Transform BigBossSpawnPos;	// Where to spawn the spawned big boss.
+	public float BigBossSpawnDelay = 4; // How long the delay is from the end of the wave to the big boss spawning.
+	public int bossId;					// Boss id for the index in the big bosses array.
 
 	[Header ("Pausing")]
-	public bool isPaused;
-	public float PauseCooldown = 1;
-	public bool canPause = true;
-	public GameObject PauseUI;
-	[HideInInspector]
-	public float NextPauseCooldown;
-	public bool isInOtherMenu;
+	public bool isPaused;			// Checks whether game state is paused.
+	public float PauseCooldown = 1; // How much time needs to pass before the player can pause and unpause again.
+	[HideInInspector] 
+	public float NextPauseCooldown;	// Timer for Pause cooldown.
+	public bool canPause = true;	// Allow pausing or not.
+	public GameObject PauseUI;		// UI for pause menu.
+	public bool isInOtherMenu;		// Is the menu in the first pause menu or a sub menu?
 
 	[Header ("Game Over")]
-	public bool isGameOver;
-	public GameObject GameoverUI;
+	public bool isGameOver;			// Did the player run out of lives?
+	public GameObject GameoverUI;	// UI Game Over screen.
 
 	[Header ("Camera")]
-	public Camera MainCamera;
-	public float OrthSize = 10;
-	public float StartOrthSize = 10;
-	private float OrthSizeVel;
-	public float OrthSizeSmoothTime = 1;
+	public Camera MainCamera;			 // Main Camera GameObject.
+	public float OrthSize = 10;			 // Current orthographic size of the camera.
+	public float StartOrthSize = 10;	 // Starting orthographic size of the camera.
+	private float OrthSizeVel;			 // Orthographic size smoothdamp amount.
+	public float OrthSizeSmoothTime = 1; // Smmothing amount for orthographic change.
 
 	[Header ("Visuals")]
-	public bool isUpdatingImageEffects = true;
-	public bool isUpdatingParticleEffects = true;
+	public bool isUpdatingImageEffects = true;	  // Allows updating image effects values.
+	public bool isUpdatingParticleEffects = true; // Allows updating particle effect values.
+	public float TargetDepthDistance;			  // For depth of field.
 
-	public float StarFieldForegroundLifetimeMultipler = 0.1f;
-	public float StarFieldForegroundSimulationSpeed = 1;
-	public float StarFieldBackgroundLifetimeMultipler = 0.1f;
-	public float StarFieldBackgroundSimulationSpeed = 1;
+	[Header ("Star field")]
+	public ParticleSystem StarFieldForeground;				  // Starfield foreground.
+	public ParticleSystem StarFieldBackground;				  // Starfield background.
+	public float StarFieldForegroundLifetimeMultipler = 0.1f; // Lifetime multiplier.
+	public float StarFieldForegroundSimulationSpeed = 1;	  // How fast the particle simulation is.
+	public float StarFieldBackgroundLifetimeMultipler = 0.1f; // Lifetime multiplier.
+	public float StarFieldBackgroundSimulationSpeed = 1;	  // How fast the particle simulation is.
 
-	public ParticleSystem StarFieldForeground;
-	public ParticleSystem StarFieldBackground;
-
-	public float TargetDepthDistance;
-
+	// Debug info visuals in Debug UI menu.
 	[Header ("Debug")]
+
+	// Debug shooting stats.
 	public TextMeshProUGUI P1_ShootingIterationRapid;
 	public TextMeshProUGUI P1_ShootingIterationOverdrive;
 	public TextMeshProUGUI P1_ShootingIterationRicochet;
 	public TextMeshProUGUI P1_CurrentFireRate;
+	[Space (10)]
+	// Debug ability stats.
 	public TextMeshProUGUI P1_Ability;
 	public TextMeshProUGUI P1_AbilityTimeRemaining;
 	public TextMeshProUGUI P1_AbilityTimeDuration;
 	public TextMeshProUGUI P1_AbilityTimeProportion;
+	[Space (10)]
+	// Debug combo and wave stats.
 	public TextMeshProUGUI WaveText_Debug;
+	public TextMeshProUGUI WaveTimeRemainingText_Debug;
 	public TextMeshProUGUI ComboText_Debug;
-	public TextMeshProUGUI CurrentPitch_Debug;
-	public TextMeshProUGUI TargetPitch_Debug;
+	[Space (10)]
+	// Debug time stats.
 	public TextMeshProUGUI DistanceText_Debug;
 	public TextMeshProUGUI GameTimeText_Debug;
 	public TextMeshProUGUI RealTimeText_Debug;
 	public TextMeshProUGUI TimeRatioText_Debug;
 	public TextMeshProUGUI TimeScaleText_Debug;
 	public TextMeshProUGUI FixedTimeStepText_Debug;
+	[Space (10)]
+	// Debug score and block spawn stats.
 	public TextMeshProUGUI TargetScoreText_Debug;
 	public TextMeshProUGUI SpawnWaitText_Debug;
-	public TextMeshProUGUI WaveTimeRemainingText_Debug;
+	[Space (10)]
+	// Debug cheat stats.
 	public TextMeshProUGUI CheatTimeRemainText_Debug;
 	public TextMeshProUGUI CheatStringText_Debug;
 	public TextMeshProUGUI LastCheatText_Debug;
+	[Space (10)]
+	// Debug powerup time stats.
 	public TextMeshProUGUI PowerupTimeRemain_Debug;
 	public TextMeshProUGUI AddedTimeText_Debug;
+	[Space (10)]
+	// Debug misc.
 	public TextMeshProUGUI LivesText_Debug;
+	[Space (10)]
+	// Debug Audio Stats.
+	public TextMeshProUGUI CurrentPitch_Debug;
+	public TextMeshProUGUI TargetPitch_Debug;
+	[Space (10)]
+	// Debug wave transition stats.
 	public TextMeshProUGUI BlocksDestroyedText_Debug;
 	public TextMeshProUGUI BulletsShotText_Debug;
 	public TextMeshProUGUI BlockShotAccuracyText_Debug;
 	public TextMeshProUGUI RewindTimeRemainingText_Debug;
 	public TextMeshProUGUI IsRewindingText_Debug;
-
+	[Space (10)]
+	// Debug modifiers.
 	public TextMeshProUGUI Modifier_Tutorial_Debug;
 	public TextMeshProUGUI Modifier_PowerupSpawn_Debug;
 	public TextMeshProUGUI Modifier_BossSpawn_Debug;
@@ -219,80 +231,68 @@ public class GameController : MonoBehaviour
 
 	void Awake () 
 	{
-		ClearPowerupUI ();
+		// Hide and lock the mouse.
+		cursorManagerScript.HideMouse ();
+		cursorManagerScript.LockMouse ();
+
+		// Clear and reset UI for score, waves, and lives.
+		ClearMainUI (); 
+	}
+
+	void ClearMainUI ()
+	{
+		// Clear score stuff.
 		ScoreText.text = "";
 		ScoreBackground.enabled = false;
 
-		LivesAnim.gameObject.SetActive (false);
-		//Lives = 3;
+		// Clear lives stuff.
 		LivesText.text = "";
 		MaxLivesText.text = "";
 		LivesBackground.enabled = false;
 
+		// Clear wave info stuff.
 		Wave = 1;
 		WaveTimeDuration = FirstWaveTimeDuration;
 		WaveText.text = "";
-		WaveAnim.enabled = false;
+		playerControllerScript_P1.WaveAnim.enabled = false;
 		WaveBackground.enabled = false;
-		IsInWaveTransition = true;
-		bossId = 0;
-		powerupPickupTimeRemaining = UnityEngine.Random.Range (PowerupPickupSpawnRate.x, PowerupPickupSpawnRate.y);
-
-		cursorManagerScript.HideMouse ();
-		cursorManagerScript.LockMouse ();
+		IsInWaveTransition = false;
 	}
 
 	public void ClearPowerupUI ()
 	{
-		if (gameModifier.AlwaysOverdrive == false) 
-		{
-			OverdriveImage.enabled = false;
-			OverdriveHex.enabled = false;
-		}
+		// Reset powerup modifiers.
+		HomingImage.enabled = gameModifier.AlwaysHoming;
+		HomingHex.enabled = gameModifier.AlwaysHoming;
+		RicochetImage.enabled = gameModifier.AlwaysRicochet;
+		RicochetHex.enabled = gameModifier.AlwaysRicochet;
+		RapidfireImage.enabled = gameModifier.AlwaysRapidfire;
+		RapidfireHex.enabled = gameModifier.AlwaysRapidfire;
+		OverdriveImage.enabled = gameModifier.AlwaysOverdrive;
+		OverdriveHex.enabled = gameModifier.AlwaysOverdrive;
 
-		if (gameModifier.AlwaysRapidfire == false) 
-		{
-			RapidfireImage.enabled = false;
-			RapidfireHex.enabled = false;
-		}
-
-		if (gameModifier.AlwaysRicochet == false) 
-		{
-			RicochetImage.enabled = false;
-			RicochetHex.enabled = false;
-		}
-
-		if (gameModifier.AlwaysHoming == false) 
-		{
-			HomingImage.enabled = false;
-			HomingHex.enabled = false;
-		}
-
+		// Reset all powerup textures in list.
 		foreach (RawImage powerupImage in PowerupImage_P1) 
 		{
 			powerupImage.texture = null;
 			powerupImage.color = new Color (0, 0, 0, 0);
 		}
 
-		foreach (TextMeshProUGUI powerupText in PowerupText_P1)
-		{
-			powerupText.text = String.Empty;
-		}
-
+		// Reset inital powerup slot index.
 		NextPowerupSlot_P1 = 1;
 	}
 
 	void Start ()
 	{
-		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1);
-		InvokeRepeating ("UpdateLives", 0, 1);
-		SetGameModifiers ();
+		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1); // Refreshes block spawn time.
+		InvokeRepeating ("UpdateLives", 0, 1); // Refreshes UI for lives.
+		ClearPowerupUI (); // Clears powerup UI from list.
+		SetGameModifiers (); // Applies game modifiers.
 
 		UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
-		InvokeRepeating ("SetStartOrthSize", 0, 1);
-		//SetStartOrthSize ();
-		//MainCamera.orthographicSize = StartOrthSize;
+		InvokeRepeating ("SetStartOrthSize", 0, 1); // Checks orthographic size based on screen ratio.
 
+		// Invokes a game over if the trial time is greater than 0. (Set to -1 just to be safe to avoid this).
 		if (gameModifier.TrialTime > 0) 
 		{
 			playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
@@ -313,6 +313,7 @@ public class GameController : MonoBehaviour
 		IsInWaveTransition = true;
 		WaveTimeRemaining = WaveTimeDuration;
 		playerControllerScript_P1.AbilityUIHexes.Play ("HexesFadeIn");
+		bossId = 0; // Reset boss ID.
 
 		if (gameModifier.BossSpawn != GameModifierManager.bossSpawnMode.BossesOnly)
 		{
@@ -332,10 +333,10 @@ public class GameController : MonoBehaviour
 			}
 		}
 
-		ScoreAnim.enabled = true;
-		LivesAnim.gameObject.SetActive (true);
-		LivesAnim.enabled = true;
-		WaveAnim.enabled = true;
+		playerControllerScript_P1.ScoreAnim.enabled = true;
+		playerControllerScript_P1.LivesAnim.gameObject.SetActive (true);
+		playerControllerScript_P1.LivesAnim.enabled = true;
+		playerControllerScript_P1.WaveAnim.enabled = true;
 		ScoreBackground.enabled = true;
 		LivesBackground.enabled = true;
 		WaveBackground.enabled = true;
@@ -403,7 +404,7 @@ public class GameController : MonoBehaviour
 				TargetPitch_Debug.text = 
 					"Target Pitch: " + audioControllerScript.BassTargetPitch;
 				CurrentPitch_Debug.text = 
-					"Current Pitch: " + Math.Round (BassTrack.pitch, 4);
+					"Current Pitch: " + Math.Round (audioControllerScript.BassTrack.pitch, 4);
 				TimeScaleText_Debug.text = 
 					"Time.timeScale: " + Math.Round (Time.timeScale, 2);
 				FixedTimeStepText_Debug.text = 
@@ -706,12 +707,11 @@ public class GameController : MonoBehaviour
 				(RealTime/60).ToString("00") + "\' " + // To minutes.
 				(RealTime % 60).ToString("00") + "\""; // To seconds.
 
-			TimeRatioText.text = "AVERAGE TIME SCALE: " + System.Math.Round((GameTime / RealTime), 2).ToString ("0.00") + "";
+			TimeRatioText.text = "TIME RATIO: " + System.Math.Round((GameTime / RealTime), 2).ToString ("0.00") + "";
 
 			BlocksDestroyedText.text = "BLOCKS DESTROYED: " + BlocksDestroyed;
 			BulletsShotText.text = "BULLETS SHOT: " + BulletsShot;
 			AccuracyText.text = "ACCURACY: " + System.Math.Round(BlockShotAccuracy * 100, 2) + "%";
-			WaveTimeRemainText.text = "WAVE TIME: " + System.Math.Round (WaveTimeRemaining, 0);
 		}
 	}
 
@@ -828,18 +828,18 @@ public class GameController : MonoBehaviour
 	public void SetStartOrthSize ()
 	{
 		// 16:9 ratio.
-		if (MainCam.aspect > 1.6f) 
+		if (MainCamera.aspect > 1.6f) 
 		{
-			MainCam.orthographicSize = 12.0f;
+			MainCamera.orthographicSize = 12.0f;
 		}
 
 		// 16:10 ratio.
-		if (MainCam.aspect <= 1.6f) 
+		if (MainCamera.aspect <= 1.6f) 
 		{
-			MainCam.orthographicSize = 13.35f;
+			MainCamera.orthographicSize = 13.35f;
 		}
 
-		playerControllerScript_P1.lensScript.ratio = 1 / MainCam.aspect;
+		playerControllerScript_P1.lensScript.ratio = 1 / MainCamera.aspect;
 	}
 
 	void CheckOrthSize ()
@@ -884,7 +884,7 @@ public class GameController : MonoBehaviour
 		playerControllerScript_P1.camShakeScript.ShakeCam (0.4f, 3.7f, 99);
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 3);
 
-		NextLevelAudio.Play ();
+		WaveTransitionAudio.Play ();
 	}
 
 	IEnumerator StartBlockSpawn ()
