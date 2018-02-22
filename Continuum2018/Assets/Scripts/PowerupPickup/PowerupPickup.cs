@@ -216,7 +216,6 @@ public class PowerupPickup : MonoBehaviour
 			}
 
 			SetPowerupTexture (0);
-			gameControllerScript.PowerupText_P1[0].text = "";
 				break;
 
 		case powerups.TripleShot:
@@ -265,7 +264,6 @@ public class PowerupPickup : MonoBehaviour
 			}
 
 			SetPowerupTexture (0);
-			gameControllerScript.PowerupText_P1[0].text = "";
 			break;
 
 		case powerups.ExtraLife: 
@@ -334,7 +332,6 @@ public class PowerupPickup : MonoBehaviour
 			}
 
 			SetPowerupTexture (0);
-			gameControllerScript.PowerupText_P1[0].text = "";
 			break;
 
 		case powerups.Helix:
@@ -343,7 +340,6 @@ public class PowerupPickup : MonoBehaviour
 			if (playerControllerScript_P1.Helix.activeInHierarchy == false) 
 			{
 				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
-				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 				gameControllerScript.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.Helix.SetActive (true);
 
@@ -362,8 +358,7 @@ public class PowerupPickup : MonoBehaviour
 				GameObject clone = playerControllerScript_P1.Turrets [playerControllerScript_P1.nextTurretSpawn];
 				clone.SetActive (true);
 				clone.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
-
-				gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
+			
 				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = PowerupTexture;
 				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 

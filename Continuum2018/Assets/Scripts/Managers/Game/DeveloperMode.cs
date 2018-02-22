@@ -396,7 +396,6 @@ public class DeveloperMode : MonoBehaviour
 
 				gameControllerScript.PowerupImage_P1[0].texture = DoubleShotTexture;
 				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
-				gameControllerScript.PowerupText_P1[0].text = "";
 				gameControllerScript.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
 				GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
@@ -429,7 +428,6 @@ public class DeveloperMode : MonoBehaviour
 
 				gameControllerScript.PowerupImage_P1[0].texture = TripleShotTexture;
 				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
-				gameControllerScript.PowerupText_P1[0].text = "";
 				gameControllerScript.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
 				GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
@@ -462,7 +460,6 @@ public class DeveloperMode : MonoBehaviour
 
 			gameControllerScript.PowerupImage_P1[0].texture = RippleShotTexture;
 			gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
-			gameControllerScript.PowerupText_P1[0].text = "";
 			gameControllerScript.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
 			GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
@@ -482,7 +479,6 @@ public class DeveloperMode : MonoBehaviour
 					Turret.SetActive (true);
 					Turret.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
 
-					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = TurretTexture;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -676,7 +672,6 @@ public class DeveloperMode : MonoBehaviour
 						//helixcol.enabled = true;
 					}
 
-					gameControllerScript.PowerupText_P1 [gameControllerScript.NextPowerupSlot_P1].text = "";
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = HelixTexture;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -701,7 +696,6 @@ public class DeveloperMode : MonoBehaviour
 			{
 				gameControllerScript.PowerupImage_P1 [0].texture = null;
 				gameControllerScript.PowerupImage_P1 [0].color = new Color (0, 0, 0, 0);
-				gameControllerScript.PowerupText_P1 [0].text = "";
 
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Standard;
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.StandardFireRate;
