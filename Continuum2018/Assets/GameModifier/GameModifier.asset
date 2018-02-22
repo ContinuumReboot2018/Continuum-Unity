@@ -13,13 +13,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameModifierManager
   Tutorial: 0
   PowerupSpawn: 0
-  BossSpawn: 0
+  BossSpawn: 2
   TimeIncreaseMode: 0
   TrialTime: -1
   AlwaysHoming: 0
-  AlwaysRicochet: 0
+  AlwaysRicochet: 1
   AlwaysRapidfire: 1
-  AlwaysOverdrive: 0
+  AlwaysOverdrive: 1
   StartingLives: 3
+<<<<<<< Updated upstream
   blockSpawnRateMultiplier: 2
   stacking: 1
+=======
+  blockSpawnRateMultiplier: 5
+>>>>>>> Stashed changes
