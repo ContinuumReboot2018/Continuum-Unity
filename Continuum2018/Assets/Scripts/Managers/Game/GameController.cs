@@ -949,17 +949,19 @@ public class GameController : MonoBehaviour
 	// Spawn blocks in the wave.
 	IEnumerator StartBlockSpawn ()
 	{
-		yield return new WaitForSeconds (blockSpawnStartDelay);
-		WaveText.text = "WAVE " + Wave;
+		yield return new WaitForSeconds (blockSpawnStartDelay); // Give an initial start delay in new wave.
+		WaveText.text = "WAVE " + Wave; // Update wave text.
 
 		//int StartXPosId = Random.Range (0, BlockSpawnXPositions.Length);
 		//int NextXPosId = StartXPosId;
 
-		while (WaveTimeRemaining > 0) 
+		while (WaveTimeRemaining > 0) // Wave time must be greater than 0 to keep spawning blocks.
 		{
-			if (Time.time > NextBlockSpawn && playerControllerScript_P1.isInCooldownMode == false && isPaused == false)
+			if (Time.time > NextBlockSpawn && 
+				playerControllerScript_P1.isInCooldownMode == false && 
+				isPaused == false)
 			{
-				SpawnBlock (false);
+				SpawnBlock (false); // Spawns a block based on wave number.
 
 				/*
 				// Creates a stream of blocks.
@@ -1001,12 +1003,13 @@ public class GameController : MonoBehaviour
 				//Vector3 SpawnPos = new Vector3 (BlockSpawnXPositions[NextXPosId], BlockSpawnYPosition, BlockSpawnZPosition);
 				//Instantiate (Block, SpawnPos, Quaternion.identity);
 
-				NextBlockSpawn = Time.time + BlockSpawnRate;
+				NextBlockSpawn = Time.time + BlockSpawnRate; // Add time for when next block spawns.
 			}
 			yield return null;
 		}
 	}
 
+	// Spawn block based on wave number.
 	public void SpawnBlock (bool anyBlock)
 	{
 		if (anyBlock == false) 
@@ -1068,6 +1071,7 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	// Block spawn rate increases over time or by wave.
 	void UpdateBlockSpawnTime ()
 	{
 		/*if (isPaused == false && Lives > 0 && WaveTimeRemaining > 0) 
@@ -1080,9 +1084,12 @@ public class GameController : MonoBehaviour
 		BlockSpawnRate = Mathf.Clamp (BlockSpawnRate, 0.0333f, 10);
 	}
 
+	// Timer for powerp spawning.
 	void PowerupSpawner ()
 	{
-		if (isGameOver == false && isPaused == false && playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true) 
+		if (isGameOver == false && 
+			isPaused == false && 
+			playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true) 
 		{
 			// PowerupPickupTimeRemaining is scaled.
 			powerupPickupTimeRemaining -= Time.deltaTime;
@@ -1094,6 +1101,7 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	// Spawn powerup at a random position on the screen and reset the timer with new values.
 	public void SpawnPowerupPickup ()
 	{
 		GameObject PowerupPickup = PowerupPickups[UnityEngine.Random.Range (0, PowerupPickups.Length)];
@@ -1112,12 +1120,14 @@ public class GameController : MonoBehaviour
 		);
 	}
 
+	// Give delay to spawn a mini boss, then spawn it.
 	public IEnumerator SpawnMiniBoss ()
 	{
 		yield return new WaitForSeconds (MiniBossSpawnDelay);
 		SpawnMiniBossObject ();
 	}
 
+	// Spawns a random mini boss from mini boss array. 
 	public void SpawnMiniBossObject ()
 	{
 		GameObject MiniBoss = MiniBosses [UnityEngine.Random.Range (0, MiniBosses.Length)];
@@ -1125,80 +1135,96 @@ public class GameController : MonoBehaviour
 		UnityEngine.Debug.Log ("Spawned a mini boss.");
 	}
 
+	// Give delay to spawn a big boss, then spawn it.
 	public IEnumerator SpawnBigBoss ()
 	{
 		yield return new WaitForSeconds (BigBossSpawnDelay);
 		SpawnBigBossObject ();
 
+		// Increase boss spawn ID.
 		if (bossId <= BigBosses.Length) 
 		{
 			bossId += 1;
 		}
 
+		// Reset boss spawn ID if reached the end.
 		if (bossId > BigBosses.Length) 
 		{
 			bossId = 0;
 		}
 	}
 
+	// Spawns a big boss from big boss array using spawn ID. 
 	public void SpawnBigBossObject ()
 	{
-		GameObject BigBoss = BigBosses [UnityEngine.Random.Range (0, bossId)];
+		//GameObject BigBoss = BigBosses [UnityEngine.Random.Range (0, bossId)];
+		GameObject BigBoss = BigBosses [bossId];
 		Instantiate (BigBoss, BigBossSpawnPos.position, BigBossSpawnPos.rotation);
 		UnityEngine.Debug.Log ("Oh snap! We spawned a big boss!");
 	}
 
+	// Timer for when wave time runs out.
 	void CheckWaveTime ()
 	{
+		// What happens when wave timer runs out.
 		if (WaveTimeRemaining < 0) 
 		{
+			// Wave / 4 has remainders = normal wave.
 			if (Wave % 4 != 0)
 			{
+				// Spawn a miniboss as usual in normal mode.
 				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
 				{
 					StartCoroutine (SpawnMiniBoss ());
 				}
 
+				// Go to next wave, skip bosses entirely.
 				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
 				{
 					StartNewWave ();
 					IsInWaveTransition = true;
 				}
 
+				// Wave after big boss wave, clear soundtrack text display.
 				if (Wave % 4 != 1)
 				{
 					SoundtrackText.text = "";
 				}
 			}
 
+			// Wave / 4 divides equally = big boss time.
 			if (Wave % 4 == 0)
 			{
-				audioControllerScript.StopAllSoundtracks ();
+				audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
+				// TODO: Play boss soundtrack.
 
+				// Spawn a big boss in normal mode.
 				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
 				{
 					StartCoroutine (SpawnBigBoss ());
 				}
 
+				// Go to next wave, skip bosses entirely.
 				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
 				{
 					StartNewWave ();
 					IsInWaveTransition = true;
 				}
 
-				SoundtrackText.text = "";
+				SoundtrackText.text = ""; // Clear sounstrack text display.
 			}
 
-			WaveTimeRemaining = 0;
+			WaveTimeRemaining = 0; // Reset wave time remaining.
 		}
 
 		// For every wave after a major boss fight.
 		if (Wave % 4 == 1 || Wave == 1) 
 		{
-			SoundtrackText.text = audioControllerScript.TrackName + "";
+			SoundtrackText.text = audioControllerScript.TrackName + ""; // Display new soundtrack name.
 		}
 	}
 
+	// Prepare next wave.
 	public void StartNewWave ()
 	{
 		if (IsInvoking ("IncrementWaveNumber") == false) 
@@ -1209,32 +1235,37 @@ public class GameController : MonoBehaviour
 		StartCoroutine (GoToNextWave ());
 	}
 
+	// Update wave number.
 	void IncrementWaveNumber ()
 	{
 		Wave += 1;
-		UnityEngine.Debug.Log ("Wave number increased to " + Wave + ".");
+		UnityEngine.Debug.Log ("Starting wave: " + Wave + ".");
 	}
 
+	// Give delay for wave and prepare essential stuff.
 	public IEnumerator GoToNextWave ()
 	{
 		yield return new WaitForSecondsRealtime (5);
 		NextLevel ();
 
+		// When wave is after a multiple of 4.
 		if (Wave % 4 == 1) 
 		{
-			audioControllerScript.NextTrack ();
-			audioControllerScript.LoadTracks ();
-			UnityEngine.Debug.Log ("New soundtrack loaded.");
-			UnityEngine.Debug.Log ("Soundtrack: " + audioControllerScript.TrackName);
+			audioControllerScript.NextTrack (); // Set audio controller to next track.
+			audioControllerScript.LoadTracks (); // Play loaded tracks.
+			UnityEngine.Debug.Log ("New soundtrack loaded. Soundtrack: " + audioControllerScript.TrackName);
 		}
 
+		// Go straight to block spawning.
 		if (gameModifier.BossSpawn != GameModifierManager.bossSpawnMode.BossesOnly) 
 		{
 			StartCoroutine (StartBlockSpawn ());
 		}
 
+		// Go straight to boss spawning based on wave number.
 		if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.BossesOnly)
 		{
+			// Normal wave.
 			if (Wave % 4 != 0)
 			{
 				if (IsInvoking ("SpawnMiniBossObject") == false)
@@ -1244,6 +1275,7 @@ public class GameController : MonoBehaviour
 				}
 			}
 
+			// Multiple of 4 wave.
 			if (Wave % 4 == 0) 
 			{
 				if (IsInvoking ("SpawnBigBossObject") == false) 
@@ -1254,16 +1286,19 @@ public class GameController : MonoBehaviour
 			}
 		}
 
-		StopCoroutine (GoToNextWave ());
+		StopCoroutine (GoToNextWave ()); // Go to the next wave.
 	}
 
+	// Reads and sets Game Modifiers from scriptable object.
 	public void SetGameModifiers ()
 	{
+		// Allows/skips tutorial.
 		if (gameModifier.Tutorial == false) 
 		{
 			playerControllerScript_P1.tutorialManagerScript.TurnOffTutorial ();
 		}
 
+		// Sets how powerups should spawn in the game.
 		switch (gameModifier.PowerupSpawn) 
 		{
 		case GameModifierManager.powerupSpawnMode.Normal:
@@ -1279,16 +1314,10 @@ public class GameController : MonoBehaviour
 			powerupPickupSpawnModifier = Mathf.Infinity;
 			break;
 		}
-			
-		if (playerControllerScript_P1.isHoming == true)
-		{
-			HomingImage.enabled = true;
-		}
 
-		if (playerControllerScript_P1.isRicochet == true)
-		{
-			RicochetImage.enabled = true;
-		}
+		// Starting shooting modifier conditions.
+		HomingImage.enabled = playerControllerScript_P1.isHoming;
+		RicochetImage.enabled = playerControllerScript_P1.isRicochet;
 
 		if (playerControllerScript_P1.isInRapidFire == true) 
 		{
@@ -1296,11 +1325,8 @@ public class GameController : MonoBehaviour
 			RapidfireImage.enabled = true;
 		}
 
-		if (playerControllerScript_P1.isInOverdrive == true)
-		{
-			OverdriveImage.enabled = true;
-		}
-
+		OverdriveImage.enabled = playerControllerScript_P1.isInOverdrive;
+	
 		Lives = gameModifier.StartingLives;
 		playerControllerScript_P1.isHoming = gameModifier.AlwaysHoming;
 		playerControllerScript_P1.isRicochet = gameModifier.AlwaysRicochet;
