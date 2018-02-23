@@ -113,7 +113,8 @@ public class TimescaleController : MonoBehaviour
 			{
 				// Gets vertical distance from player to reference point.
 				// Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
-				Vector3 DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
+				// Get distance but only use Y component.
+				float DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
 				Distance = DistanceVector.y;
 
 				// Checks for game modifier time increasing mode over real time.
@@ -160,7 +161,8 @@ public class TimescaleController : MonoBehaviour
 		{
 			// Gets vertical distance from player to reference point. (Default).
 			// Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
-			Vector3 DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
+			// Get distance but only use Y component.
+			float DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
 			Distance = DistanceVector.y;
 			TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance, MinimumTimeScale, MaximumTimeScale);
 		}
