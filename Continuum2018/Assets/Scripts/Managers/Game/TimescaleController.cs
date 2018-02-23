@@ -115,7 +115,7 @@ public class TimescaleController : MonoBehaviour
 				// Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
 				// Get distance but only use Y component.
 				float DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
-				Distance = DistanceVector.y;
+				Distance = DistanceVector;
 
 				// Checks for game modifier time increasing mode over real time.
 				switch (gameModifier.TimeIncreaseMode)
@@ -163,7 +163,7 @@ public class TimescaleController : MonoBehaviour
 			// Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
 			// Get distance but only use Y component.
 			float DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
-			Distance = DistanceVector.y;
+			Distance = DistanceVector;
 			TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance, MinimumTimeScale, MaximumTimeScale);
 		}
 	}
