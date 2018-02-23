@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 	public float MovementY; // How much vertical input is read.
 
 	public bool UsePlayerFollow = true; // Sets whether the PLayer visual object follows a specific point defined by input.
-	public Transform PlayerFollow; // The object the input is manipulating.
+	public Transform PlayerFollow; 	// The object the input is manipulating.
 	public Rigidbody PlayerFollowRb; // The object that follows the player follow GameObject.
 	public float PlayerFollowMoveSpeed; // How fast the player follow moves.
 	public Vector2 XBounds, YBounds; // Defines bounds for the player position.
