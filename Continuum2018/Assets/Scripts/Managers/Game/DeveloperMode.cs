@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -19,78 +17,82 @@ public class DeveloperMode : MonoBehaviour
 	public bool forceStarted; // Has the tutorial been skipped via force start command?
 
 	[Header ("Cheats")]
-	public GameObject CheatConsole;
-	public TextMeshProUGUI CheatInputText;
 	public string CheatString; // Current cheat string field value.
 	public string LastCheatName; // Logs last cheat name, referenced when player loads last cheat again.
 	public float CheatStringResetTimeRemaining = 1.0f; // Current time remaining before the cheat string is reset.
 	public float CheatStringResetDuration = 1.0f; // How long for the cheat string can remain idle until it is reset.
 	public int maxCheatCharacters = 12; // Cheat character limit.
-
 	public bool useCheats; // Toggles if cheats are being used.
 	public bool allowCheats = false; // Toggles if cheats are allowed.
 	public bool showCheats; // Toggles if cheats are being shown or not.
 	public bool isGod; // Toggles if god mode is on or off.
-	//public bool cheatInProcess;
-
+	[Space (10)]
 	public int AddScoreAmount = 100000; // Score added when addscore cheat is activated.
 
 	[Header ("Cheat Commands")]
+	// General cheats.
 	public string ToggleCheatsCommand = "continuum"; // Toggles cheats ON or OFF.
 	public string ForceStartCommand = "start"; // Force starts the wave sequence and skips the tutorial.
 	public string ForceRestartCommand = "restart"; // Loads the scene again, taken to scene transition UI.
-
+	[Space (10)]
+	// FPS testing cheats.
 	public string FpsUnlockCommand = "fpsunlock"; // Unlocks framerate.
 	public string Fps30Command = "fps30"; // Target framerate set to 30.
 	public string Fps60Command = "fps60"; // Target framerate set to 60.
 	public string Fps90Command = "fps90"; // Target framerate set to 90.
 	public string Fps120Command = "fps120"; // Target framerate set to 120.
-
+	[Space (10)]
+	// Audio cheats.
 	public string NextTrackCommand = "nexttrack"; // Audio manager to load the next soundtrack.
 	public string PreviousTrackCommand = "previoustrack"; // Audio manager to load the previous soundtrack.
 	public string RandomTrackCommand = "randomtrack"; // Audio manager to load a random soundtrack.
-
+	[Space (10)]
+	// Saving / loading cheats.
 	public string SaveSettingsCommand = "savesettings"; // Saves app settings to a file.
 	public string LoadSettingsCommand = "loadsettings"; // Loads app settings to a file.
-
-	public string ToggleGodmodeCommand = "god"; // Toggle god mode ON or OFF.
-	public string AddLifeCommand = "life"; // Adds lives to player.
-
-	public string ChargeAbilityCommand = "chargeability"; // Charges ability bar and sets to ready.
-	public string RefreshAbilityCommand = "refreshability"; // Refreshes ability name and stats.
-
+	[Space (10)]
+	// Spawning cheats.
 	public string SpawnBlockCommand = "spblock"; // Spawns a random block.
 	public string SpawnPowerupPickupCommand = "sppow"; // Spawns a random powerup.
 	public string SpawnMiniBossCommand = "spminiboss"; // Spawns a random mini boss.
-
+	[Space (10)]
+	// Powerup cheats.
 	public string PowerupTimeCommand = "poweruptime"; // Replenishes powerup time.
-
+	public string ResetAllPowerupsCommand = "resetpow"; // Resets all powerups.
+	[Space (10)]
+	// Shooting powerup cheats.
 	public string StandardShotCommand = "standard"; // Player shooting to standard shot.
 	public string DoubleShotCommand = "double"; // Player shooting to double shot.
 	public string TripleShotCommand = "triple"; // Player shooting to triple shot.
 	public string RippleShotCommand = "ripple"; // Player shooting to ripple shot.
+	[Space (10)]
+	// Other powerup cheats.
 	public string TurretCommand = "Turret"; // Player gets  a turret (Maximum 4).
 	public string HelixCommand = "helix"; // Player gets a helix.
-	public string RewindCommand = "rewind"; // All GameObjects with a TimeBody script should rewind position and rotation for some time.
-
-	public string NextWaveCommand = "nextwave"; // Wave number increases.
-	public string PreviousWaveCommand = "lastwave"; // Wave number decreases.
-
+	[Space (10)]
+	// Powerup modifier cheats.
 	public string RapidfireCommand = "rapid"; // Toggles rapid fire mode ON or OFF.
 	public string OverdriveCommand = "overdrive"; // Toggle overdrive mode ON or OFF.
 	public string RicochetCommand = "ricochet"; // Toggle ricochet mode ON or OFF.
 	public string HomingCommand = "homing"; // Toggle hominh mode ON or OFF.
-
-	public string ResetAllPowerupsCommand = "resetpow"; // Resets all powerups.
-
+	[Space (10)]
+	// Ability cheats.
+	public string ChargeAbilityCommand = "chargeability"; // Charges ability bar and sets to ready.
+	public string RefreshAbilityCommand = "refreshability"; // Refreshes ability name and stats.
 	public string ShieldCommand = "shield"; // Set ability to shield and turn on the shield + ability timer.
 	public string VerticalBeamCommand = "vbeam"; // Set ability to vertical beam and turn on the shield + ability timer.
 	public string HorizontalBeamCommand = "hbeam"; // Set ability to horizontal and turn on the shield + ability timer.
 	public string EmpCommand = "emp"; // Set ability to emp blast and turn on the shield + ability timer.
-
+	public string RewindCommand = "rewind"; // All GameObjects with a TimeBody script should rewind position and rotation for some time.
+	[Space (10)]
+	// Misc cheats.
 	public string AddScoreCommand = "addscore"; // Adds current score by AddScoreAmount value.
 	public string LoseLifeCommand = "loselife"; // Loses a life.
 	public string GameOverCommand = "gameover"; // Force a game over regardless of how many lives remain.
+	public string ToggleGodmodeCommand = "god"; // Toggle god mode ON or OFF.
+	public string AddLifeCommand = "life"; // Adds lives to player.
+	public string NextWaveCommand = "nextwave"; // Wave number increases.
+	public string PreviousWaveCommand = "lastwave"; // Wave number decreases.
 
 	[Header ("UI and Animations")]
 	public GameObject CheatsMenu; // Cheat menu for viewing possible cheats.
@@ -98,7 +100,7 @@ public class DeveloperMode : MonoBehaviour
 	public Animator CheatNotificationAnim; // Animator for cheat notification UI.
 	public TextMeshProUGUI CheatNotifcationText; // Text for cheat noticiation UI.
 	public GameObject CheatSound; // Sound to play when a cheat is activated.
-
+	[Space (10)]
 	public Texture2D DoubleShotTexture; // Double shot display texture.
 	public Texture2D TripleShotTexture; // Triple shot display texture.
 	public Texture2D RippleShotTexture; // Ripple shot display texture.
@@ -115,11 +117,17 @@ public class DeveloperMode : MonoBehaviour
 	public GameObject DebugMenu; // Debug menu object for viewing stats.
 	public Animator DebugMenuAnim; // Animator for the debug menu object.
 
+	[Header ("Cheat Console")]
+	public GameObject CheatConsole; // Visual input keycodes by user.
+	public TextMeshProUGUI CheatInputText; // Current input visual text.
+
 	void Start () 
 	{
+		// Find the saving script.
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 	}
 
+	// Check for cheat input by keyboard.
 	void Update () 
 	{
 		if (useCheats == true) 
@@ -133,6 +141,7 @@ public class DeveloperMode : MonoBehaviour
 		}
 	}
 
+	// Shows/hides debug and cheat menus.
 	void UpdateDebugMenu ()
 	{
 		if (playerControllerScript_P1.playerActions.DebugMenu.WasPressed) 
@@ -153,6 +162,7 @@ public class DeveloperMode : MonoBehaviour
 		}
 	}
 
+	// Resets cheat string.
 	public void ClearCheatString ()
 	{
 		CheatString = "";
@@ -161,62 +171,74 @@ public class DeveloperMode : MonoBehaviour
 
 	void UpdateCheats ()
 	{
+		// Timer for cheats.
 		if (CheatStringResetTimeRemaining > 0) 
 		{
 			CheatStringResetTimeRemaining -= Time.unscaledDeltaTime;
 		}
 
-		if (CheatStringResetTimeRemaining <= 0) 
-		{
-			ClearCheatString ();
-			//CheatInputText.text = ">_ ";
-		}
-
 		foreach (char c in Input.inputString) 
 		{		
+			// Reset cheat timer for each keystroke.
 			CheatStringResetTimeRemaining = CheatStringResetDuration;
-			CheatString += c;
+			CheatString += c; // Add character to cheat string.
 
+			// Reset cheat string by triple duplicate of same character.
 			if (CheatString.Contains (c.ToString () + c.ToString () + c.ToString ()))
 			{
 				ClearCheatString ();
 			}
 
+			// Reset cheat string by backquote character.
 			if (CheatString.Contains ("`")) 
 			{
 				ClearCheatString ();
 			}
 		}
 
+		// Reset cheat string by character length.
 		if (CheatString.Length > maxCheatCharacters) 
 		{
 			ClearCheatString ();
 		}
 
+		// Reset cheat string by backspacing.
 		if (Input.GetKeyDown (KeyCode.Backspace)) 
 		{
 			ClearCheatString ();
 		}
 
+		// Toggle cheat activation.
 		if (CheatString == ToggleCheatsCommand
 		   && allowCheats == true)
 		{
 			useCheats = !useCheats;
 
-			if (useCheats == true) {
+			if (useCheats == true) 
+			{
 				Debug.Log ("Enabled cheats.");
 				ShowCheatActivation ("CHEATS ON");
 			}
 
-			if (useCheats == false) {
+			if (useCheats == false)
+			{
 				Debug.Log ("Disabled cheats.");
 				ShowCheatActivation ("CHEATS OFF");
 			}
+		}
+
+		// Cheat time remain is 0, ignore checking for cheats.
+		if (CheatStringResetTimeRemaining <= 0) 
+		{
+			ClearCheatString ();
+			//CheatInputText.text = ">_ ";
+			return;
 		}
 		
 		if (useCheats == true) 
 		{
 			// Insert cheats here.
+
 			if (CheatString == ForceStartCommand) 
 			{
 				if (forceStarted == false) 
@@ -601,10 +623,12 @@ public class DeveloperMode : MonoBehaviour
 					gameControllerScript.RicochetHex.enabled = true;
 					gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
-					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
-					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
-					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
-					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+					// TODO: When not in overdrive.
+					//playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+					//playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+					//playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
+					//playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+
 					playerControllerScript_P1.EnableRicochetObject ();
 
 					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
@@ -634,6 +658,7 @@ public class DeveloperMode : MonoBehaviour
 					gameControllerScript.HomingHex.enabled = true;
 					gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
+					// TODO: When not in overdrive.
 					//playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
 					//playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
 					//playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
@@ -666,11 +691,6 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.Helix.activeInHierarchy == false)
 				{
 					playerControllerScript_P1.Helix.SetActive (true);
-
-					foreach (Collider helixcol in playerControllerScript_P1.HelixCol) 
-					{
-						//helixcol.enabled = true;
-					}
 
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = HelixTexture;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
@@ -792,6 +812,7 @@ public class DeveloperMode : MonoBehaviour
 		}
 	}
 
+	// What happens when cheats get enabled.
 	void ShowCheatActivation (string cheatText)
 	{
 		LastCheatName = CheatString;
@@ -815,6 +836,7 @@ public class DeveloperMode : MonoBehaviour
 		Invoke ("DisableCheatConsole", 0.5f);
 	}
 
+	// Cheat string was matched.
 	void ShowCheatNotification (string cheatText)
 	{
 		CheatNotificationAnim.StopPlayback ();
@@ -840,6 +862,7 @@ public class DeveloperMode : MonoBehaviour
 		Invoke ("DisableCheatConsole", 0.5f);
 	}
 
+	// Turn off cheat console.
 	void DisableCheatConsole ()
 	{
 		CheatConsole.SetActive (false);

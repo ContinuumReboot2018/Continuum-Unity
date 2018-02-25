@@ -18,10 +18,11 @@ public class MiniBossFormationGenerator : MonoBehaviour
 
 	void Start () 
 	{
-		AutoCenterImage ();
-		GenerateMiniBossFormation ();
+		AutoCenterImage (); // Checks if the image should auto center.
+		GenerateMiniBossFormation (); // Does the creation of the formation.
 	}
 
+	// Read the image then generate the formation.
 	void GenerateMiniBossFormation ()
 	{
 		// Loop through all pixels on each row of pixels.
@@ -35,9 +36,10 @@ public class MiniBossFormationGenerator : MonoBehaviour
 		}
 	}
 
+	// Spawns a prefab by color to coordinate.
 	void GenerateTile (int x, int y)
 	{
-		Color pixelColor = map.GetPixel (x, y);
+		Color pixelColor = map.GetPixel (x, y); // Reads the pixel data.
 
 		if (pixelColor.a == 0) 
 		{
@@ -45,6 +47,7 @@ public class MiniBossFormationGenerator : MonoBehaviour
 			return;
 		}
 
+		// Found a matching color, spawn the relevant prefab to it at the correct position.
 		foreach (ColorToPrefab colorMapping in colorMappings) 
 		{
 			// We found a matching color in the map.
@@ -64,18 +67,28 @@ public class MiniBossFormationGenerator : MonoBehaviour
 		}
 	}
 
+	// Allow optional centering.
 	void AutoCenterImage ()
 	{
+		// Half of map height doesn't divide equally in two. There is a remainder, 
+		// therefore the image height is odd number of pixels.
 		if (map.height % 2 != 0) 
 		{
-			// If the map height is an odd number of pixels tall.
+			// Automatically center width: Half of map width minus a half.
+			// Automatically center height: Half of map height minus a third of the spacing, then round to nearest integer. (It works).
+			// Manually center: Use value from Vector2.
 			Center = new Vector2 (
 				AutomaticallyCenterX ? 0.5f * map.width - 0.5f : Center.x, 
 				AutomaticallyCenterY ? Mathf.Round (0.5f * map.height - (0.333334f * Spacing)) : Center.y
 			);
-		} else
+		} 
+
+		else
+		// The map height is even, divides equally in 2.
 		{
-			// The map height is even.
+			// Automatically center width: Half of map width minus a half.
+			// Automatically center height: Half of map height minus a third of the spacing, then round to 2 decimal places. (It works).
+			// Manually center: Use value from Vector2.
 			Center = new Vector2 (
 				AutomaticallyCenterX ? 0.5f * map.width - 0.5f : Center.x, 
 				AutomaticallyCenterY ? (float)System.Math.Round (0.5f * map.height - (0.33333f * Spacing), 2) : Center.y

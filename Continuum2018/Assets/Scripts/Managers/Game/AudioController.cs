@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.Networking;
@@ -85,48 +83,56 @@ public class AudioController : MonoBehaviour
 	public Image StereoImageR;
 	public float LoudnessSmoothing = 0.1f;*/
 
-	void Awake ()
-	{
-		TargetCutoffFreq = 22000;
-	}
-
 	void Start ()
 	{
+		TargetCutoffFreq = 22000; // Set target cutoff frequency to max value (22kHz).
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		LoadTracks ();
+		LoadTracks (); // Load the track by track number.
+		InvokeRepeating ("CheckReversePitch", 0, 0.5f); // If in rewind, check for reversing the pitch.
 	}
 
 	void Update ()
 	{
-		CheckReversePitch ();
-		GetMasterLowPassValue ();
-		GetMasterResonanceValue ();
-
+		UpdateAudio (); // Method to update audio states.
+		GetMasterLowPassValue (); // Update low pass filter cutoff frequency.
+		GetMasterResonanceValue (); // Update low pass filter resonance amount.
+		SetFilterEffectAmounts (); // Sets filter properties based on audio states.
+	}
+		
+	void UpdateAudio ()
+	{
 		if (gameControllerScript.isPaused == false && 
 			timescaleControllerScript.isInInitialCountdownSequence == false && 
 			timescaleControllerScript.isInInitialSequence == false)
 		{
-			UpdateSoundtrackVolumeAndPitches ();
+			UpdateSoundtrackVolumeAndPitches (); // Update sound pitch based on distance.
 			//UpdateStereoUI ();
 		}
 
 		if (timescaleControllerScript.isOverridingTimeScale == true) 
 		{
-			BassTargetPitch = Time.timeScale;
+			BassTargetPitch = Time.timeScale; // pitch based on Time.timeScale when time is overriding.
 		}
+	}
 
+	void SetFilterEffectAmounts ()
+	{
+		// Sets low pass filter frequency cutoff value.
 		float SmoothLowFreqVal = Mathf.Lerp (curFreq, TargetCutoffFreq, CutoffFreqSmoothing * Time.unscaledDeltaTime);
 		AudioMix.SetFloat ("LowCutoffFrequency", SmoothLowFreqVal);
 
+		// Sets low pass filter resonance value.
 		float SmoothResVal = Mathf.Lerp (curRes, TargetResonance, ResonanceSmoothing * Time.unscaledDeltaTime);
 		AudioMix.SetFloat ("Resonance", SmoothResVal);
 	}
 
+	// Reverses the pitch if rewinding.
 	void CheckReversePitch ()
 	{
 		ReversePitch = timescaleControllerScript.isRewinding;
 	}
 
+	// Gets current low pass cutoff frequency value.
 	public float GetMasterLowPassValue ()
 	{
 		bool curFreqResult = AudioMix.GetFloat ("LowCutoffFrequency", out curFreq);
@@ -138,6 +144,7 @@ public class AudioController : MonoBehaviour
 		}
 	}
 
+	// Gets current low pass resonance value.
 	public float GetMasterResonanceValue ()
 	{
 		bool curResResult = AudioMix.GetFloat ("Resonance", out curRes);
@@ -166,6 +173,7 @@ public class AudioController : MonoBehaviour
 		StereoImageR.fillAmount = Mathf.Lerp (StereoImageR.fillAmount, AverageLoudness, LoudnessSmoothing * Time.deltaTime);
 	}*/
 
+	// Updates audio sources volume and pitch here.
 	public void UpdateSoundtrackVolumeAndPitches ()
 	{
 		if (updateVolumeAndPitches == true) 
@@ -180,6 +188,7 @@ public class AudioController : MonoBehaviour
 		}
 	}
 
+	// Updates target volume values for the sountrack to interpolate towards.
 	void UpdateTargetVolumes ()
 	{
 		// Base distance.
@@ -228,6 +237,7 @@ public class AudioController : MonoBehaviour
 		}
 	}
 
+	// Updates target pitch values for the sountrack to interpolate towards.
 	void UpdateTargetPitches ()
 	{
 		// Base distance.
@@ -261,6 +271,7 @@ public class AudioController : MonoBehaviour
 		}
 	}
 
+	// Updates volume by reading targets and lerping.
 	void UpdateSoundtracksVolume ()
 	{
 		// Updates target volumes.
@@ -289,18 +300,25 @@ public class AudioController : MonoBehaviour
 		);
 	}
 
+	// Updates pitch by reading targets and lerping.
 	void UpdateSoundtracksPitch ()
 	{
 		// Updates target pitch for bass track. 
 		// We only need to update the bass track as the other layers of audio have a pitch sync script taking care of this.
-		BassTrack.pitch = Mathf.Lerp (BassTrack.pitch, BassTargetPitch, PitchSmoothTime * Time.unscaledDeltaTime);
+		BassTrack.pitch = Mathf.Lerp (
+			BassTrack.pitch, 
+			BassTargetPitch, 
+			PitchSmoothTime * Time.unscaledDeltaTime
+		);
 	}
 
+	// Updates the current track name string value.
 	void UpdateTrackNames ()
 	{
 		TrackName = TrackNames [TrackNumber];
 	}
 
+	// Replaces audio clips in the specified audio source by index.
 	public void LoadTracks ()
 	{
 		TrackName = TrackNames [TrackNumber];
@@ -315,8 +333,10 @@ public class AudioController : MonoBehaviour
 		LayerThreeTrack.Play ();
 	}
 
+	// Increase the soundtrack index and replace the audio of it. 
 	public void NextTrack ()
 	{
+		// Increase by sequential order.
 		if (TrackSequenceMode == trackSequence.Sequential) 
 		{
 			if (TrackNumber < BassTracks.Length) 
@@ -330,6 +350,7 @@ public class AudioController : MonoBehaviour
 			}
 		}
 
+		// Randomize.
 		if (TrackSequenceMode == trackSequence.Random) 
 		{
 			TrackNumber = Random.Range (0, BassTracks.Length);
@@ -338,8 +359,10 @@ public class AudioController : MonoBehaviour
 		LoadTracks ();
 	}
 
+	// Decrease the soundtrack index and replace the audio of it. 
 	public void PreviousTrack ()
 	{
+		// Increase by sequencial order.
 		if (TrackSequenceMode == trackSequence.Sequential) 
 		{
 			if (TrackNumber <= 0) 
@@ -353,6 +376,7 @@ public class AudioController : MonoBehaviour
 			}
 		}
 
+		// Randomize.
 		if (TrackSequenceMode == trackSequence.Random) 
 		{
 			TrackNumber = Random.Range (0, BassTracks.Length);
@@ -361,12 +385,14 @@ public class AudioController : MonoBehaviour
 		LoadTracks ();
 	}
 
+	// Set a random track.
 	public void RandomTrack ()
 	{
 		TrackNumber = Random.Range (0, BassTracks.Length);
 		LoadTracks ();
 	}
 
+	// Pause all currently playing soundtrack audio sources.
 	public void StopAllSoundtracks ()
 	{
 		BassTrack.Pause ();
