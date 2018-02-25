@@ -69225,11 +69225,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -121135,9 +121135,7 @@ MonoBehaviour:
   developerModeScript: {fileID: 1748041315}
   cursorManagerScript: {fileID: 2095137864}
   ImageEffects: {fileID: 11400000, guid: cb1c9f0b292c9e84fa25332b580b675a, type: 2}
-  BlockObjectPooler: {fileID: 0}
   gameModifier: {fileID: 11400000, guid: ca0aa5b328c8b234cb1ce9f8a0a4da3b, type: 2}
-  MainCam: {fileID: 1771333218}
   TrackStats: 0
   GameTime: 0
   RealTime: 0
@@ -121146,23 +121144,18 @@ MonoBehaviour:
   BlocksDestroyed: 0
   BulletsShot: 0
   BlockShotAccuracy: 0
-  BassTrack: {fileID: 901118414}
-  TrialTime: -1
   Wave: 0
+  WaveText: {fileID: 1432998775}
   WaveTimeIncreaseRate: 1
   FirstWaveTimeDuration: 5
   WaveTimeDuration: 0.5
   WaveTimeRemaining: 0
-  IsInWaveTransition: 0
-  WaveText: {fileID: 1432998775}
-  WaveAnim: {fileID: 261241419}
   WaveBackground: {fileID: 700014196}
+  IsInWaveTransition: 0
   WaveTransitionParticles: {fileID: 184718927}
   WaveTransitionAnim: {fileID: 812200415}
   WaveTransitionText: {fileID: 533606134}
-  NextLevelAudio: {fileID: 818237069}
-  WaveTimeSlider: {fileID: 903378934}
-  WaveTimeRemainText: {fileID: 688965532}
+  WaveTransitionAudio: {fileID: 818237069}
   SoundtrackText: {fileID: 231437883}
   GameTimeText: {fileID: 1802340214}
   RealTimeText: {fileID: 1042749097}
@@ -121176,12 +121169,10 @@ MonoBehaviour:
   TargetScore: 0
   ScoreSmoothing: 20
   ScoreText: {fileID: 1791653155}
-  ScoreAnim: {fileID: 852491451}
   ScoreBackground: {fileID: 1373418249}
   Lives: 0
   MaxLives: 11
   LivesText: {fileID: 675451756}
-  LivesAnim: {fileID: 307371802}
   LifeImages:
   - {fileID: 1615319321}
   - {fileID: 1267372010}
@@ -121242,7 +121233,6 @@ MonoBehaviour:
   BlockSpawnIncreaseRate: 0.01
   PowerupTimeRemaining: 0
   PowerupTimeDuration: 10
-  MaxSimultaneousPowerups: 10
   PowerupAnim: {fileID: 2009145272}
   PowerupTimeRunningOutAudio: {fileID: 1102922645}
   PowerupResetAudio: {fileID: 1598546898}
@@ -121280,18 +121270,6 @@ MonoBehaviour:
   - {fileID: 1838719301}
   - {fileID: 759831799}
   StandardShotTexture: {fileID: 2800000, guid: b71944ae1a7a1e0489bfdaeaf198616a, type: 3}
-  PowerupText_P1:
-  - {fileID: 1519678243}
-  - {fileID: 1795200853}
-  - {fileID: 168372607}
-  - {fileID: 1601160763}
-  - {fileID: 711886603}
-  - {fileID: 634768514}
-  - {fileID: 836609016}
-  - {fileID: 1106204133}
-  - {fileID: 1674568379}
-  - {fileID: 1571675808}
-  - {fileID: 1252659398}
   HomingImage: {fileID: 75382438}
   HomingHex: {fileID: 137516024}
   RicochetImage: {fileID: 923794615}
@@ -121302,6 +121280,7 @@ MonoBehaviour:
   OverdriveHex: {fileID: 932460664}
   PowerupPickupUI: {fileID: 1771047903743466, guid: 91bf4fd2a7e677c4e9ea72c391527dbf,
     type: 2}
+  BossSpawnDelay: 5
   MiniBosses:
   - {fileID: 1761358554297378, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
   - {fileID: 1967204055347616, guid: 77104057d514be4458e53586bead3364, type: 2}
@@ -121312,12 +121291,11 @@ MonoBehaviour:
   BigBossSpawnPos: {fileID: 1650385247}
   BigBossSpawnDelay: 4
   bossId: 0
-  BossSpawnDelay: 5
   isPaused: 0
   PauseCooldown: 0.25
+  NextPauseCooldown: 0
   canPause: 1
   PauseUI: {fileID: 1314035616}
-  NextPauseCooldown: 0
   isInOtherMenu: 0
   isGameOver: 0
   GameoverUI: {fileID: 1906098050}
@@ -121327,13 +121305,13 @@ MonoBehaviour:
   OrthSizeSmoothTime: 1
   isUpdatingImageEffects: 1
   isUpdatingParticleEffects: 1
+  TargetDepthDistance: 0
+  StarFieldForeground: {fileID: 420624925}
+  StarFieldBackground: {fileID: 1614595944}
   StarFieldForegroundLifetimeMultipler: 0.05
   StarFieldForegroundSimulationSpeed: 2.25
   StarFieldBackgroundLifetimeMultipler: 0.05
   StarFieldBackgroundSimulationSpeed: 1.7
-  StarFieldForeground: {fileID: 420624925}
-  StarFieldBackground: {fileID: 1614595944}
-  TargetDepthDistance: 0
   P1_ShootingIterationRapid: {fileID: 2141758948}
   P1_ShootingIterationOverdrive: {fileID: 26016402}
   P1_ShootingIterationRicochet: {fileID: 463986069}
@@ -121343,9 +121321,8 @@ MonoBehaviour:
   P1_AbilityTimeDuration: {fileID: 914059959}
   P1_AbilityTimeProportion: {fileID: 1357384261}
   WaveText_Debug: {fileID: 929760853}
+  WaveTimeRemainingText_Debug: {fileID: 629329903}
   ComboText_Debug: {fileID: 930265992}
-  CurrentPitch_Debug: {fileID: 1991948040}
-  TargetPitch_Debug: {fileID: 86415233}
   DistanceText_Debug: {fileID: 709426922}
   GameTimeText_Debug: {fileID: 805566614}
   RealTimeText_Debug: {fileID: 334806857}
@@ -121354,13 +121331,14 @@ MonoBehaviour:
   FixedTimeStepText_Debug: {fileID: 93966931}
   TargetScoreText_Debug: {fileID: 862100438}
   SpawnWaitText_Debug: {fileID: 1287255527}
-  WaveTimeRemainingText_Debug: {fileID: 629329903}
   CheatTimeRemainText_Debug: {fileID: 159177271}
   CheatStringText_Debug: {fileID: 1131672919}
   LastCheatText_Debug: {fileID: 1291007364}
   PowerupTimeRemain_Debug: {fileID: 681588184}
   AddedTimeText_Debug: {fileID: 207275568}
   LivesText_Debug: {fileID: 2121898812}
+  CurrentPitch_Debug: {fileID: 1991948040}
+  TargetPitch_Debug: {fileID: 86415233}
   BlocksDestroyedText_Debug: {fileID: 620954205}
   BulletsShotText_Debug: {fileID: 936531769}
   BlockShotAccuracyText_Debug: {fileID: 1851377858}
@@ -152757,8 +152735,6 @@ MonoBehaviour:
   targetFramerateScript: {fileID: 1334309453}
   tutorialManagerScript: {fileID: 1662711581}
   forceStarted: 0
-  CheatConsole: {fileID: 662816362}
-  CheatInputText: {fileID: 862212640}
   CheatString: 
   LastCheatName: 
   CheatStringResetTimeRemaining: 0
@@ -152782,35 +152758,35 @@ MonoBehaviour:
   RandomTrackCommand: randomtrack
   SaveSettingsCommand: savesettings
   LoadSettingsCommand: loadsettings
-  ToggleGodmodeCommand: god
-  AddLifeCommand: life
-  ChargeAbilityCommand: chargeability
-  RefreshAbilityCommand: refreshability
   SpawnBlockCommand: spblock
   SpawnPowerupPickupCommand: sppow
   SpawnMiniBossCommand: spminiboss
   PowerupTimeCommand: poweruptime
+  ResetAllPowerupsCommand: resetpow
   StandardShotCommand: standard
   DoubleShotCommand: double
   TripleShotCommand: triple
   RippleShotCommand: ripple
   TurretCommand: turret
   HelixCommand: helix
-  RewindCommand: rewind
-  NextWaveCommand: nextwave
-  PreviousWaveCommand: lastwave
   RapidfireCommand: rapid
   OverdriveCommand: overdrive
   RicochetCommand: rico
   HomingCommand: homing
-  ResetAllPowerupsCommand: resetpow
+  ChargeAbilityCommand: chargeability
+  RefreshAbilityCommand: refreshability
   ShieldCommand: shield
   VerticalBeamCommand: vbeam
   HorizontalBeamCommand: hbeam
   EmpCommand: emp
+  RewindCommand: rewind
   AddScoreCommand: addscore
   LoseLifeCommand: loselife
   GameOverCommand: gameover
+  ToggleGodmodeCommand: god
+  AddLifeCommand: life
+  NextWaveCommand: nextwave
+  PreviousWaveCommand: lastwave
   CheatsMenu: {fileID: 1896707571}
   CheatsMenuAnim: {fileID: 1896707573}
   CheatNotificationAnim: {fileID: 573544159}
@@ -152829,6 +152805,8 @@ MonoBehaviour:
   showDebugMenu: 0
   DebugMenu: {fileID: 2023690794}
   DebugMenuAnim: {fileID: 2023690796}
+  CheatConsole: {fileID: 662816362}
+  CheatInputText: {fileID: 862212640}
 --- !u!95 &1748041316
 Animator:
   serializedVersion: 3
