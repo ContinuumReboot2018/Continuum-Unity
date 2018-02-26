@@ -842,13 +842,11 @@ public class PlayerController : MonoBehaviour
 			break;
 		}
 	}
-
-	#if UNITY_EDITOR
+		
 	void DrawReferencePointLine ()
 	{
 		Debug.DrawLine (playerCol.transform.position, ReferencePoint.transform.position, Color.red);
 	}
-	#endif
 
 	// Checks shooting state.
 	void CheckShoot ()
