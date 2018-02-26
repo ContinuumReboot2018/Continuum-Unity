@@ -706,12 +706,6 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: HELIX");
 			}
 
-			if (CheatString == RewindCommand) 
-			{
-				timeScaleControllerScript.SetRewindTime (true, 3);
-				ShowCheatNotification ("CHEAT ACTIVATED: REWIND TIME");
-			}
-
 			if (CheatString == StandardShotCommand) 
 			{
 				gameControllerScript.PowerupImage_P1 [0].texture = null;
@@ -783,6 +777,19 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
 
 				ShowCheatNotification ("CHEAT ACTIVATED: EMP");
+			}
+
+			if (CheatString == RewindCommand) 
+			{
+				playerControllerScript_P1.AbilityName = "rewind";
+				playerControllerScript_P1.Ability = PlayerController.ability.Rewind;
+				playerControllerScript_P1.RefreshAbilityName ();
+				playerControllerScript_P1.RefreshAbilityImage ();
+				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
+				playerControllerScript_P1.ActivateAbility ();
+				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
+			
+				ShowCheatNotification ("CHEAT ACTIVATED: REWIND TIME");
 			}
 				
 			if (Input.GetKeyDown (KeyCode.Alpha7))

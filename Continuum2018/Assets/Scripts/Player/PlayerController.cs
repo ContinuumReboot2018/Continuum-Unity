@@ -138,6 +138,7 @@ public class PlayerController : MonoBehaviour
 		Emp, // Creates a quick exhaust blast of particles which interact with blocks and destroying them.
 		VerticalBeam, // Fires particles vertically up, destroying particles in the way.
 		HorizontalBeam, // Fires to streams of particles (left and right), destroying falling or stacked blocks that collide with it.
+		Rewind // Rewinds time for a certain amount of seconds.
 	}
 
 	// Ability UI.
@@ -700,6 +701,9 @@ public class PlayerController : MonoBehaviour
 		case ability.HorizontalBeam:
 			HorizontalBeam.SetActive (true);
 			break;
+		case ability.Rewind:
+			timescaleControllerScript.SetRewindTime (true, 8);
+			break;
 		}
 
 		// Briefly slows time down for effect.
@@ -753,8 +757,16 @@ public class PlayerController : MonoBehaviour
 			empParticles.Stop ();
 		}
 
+		StopRewinding (); // Stops rewinding.
+
 		// Reset the camera shake.
 		camShakeScript.ShakeCam (0.0f, 0, 7);
+	}
+
+	void StopRewinding ()
+	{
+		// Stop rewinding.
+		timescaleControllerScript.SetRewindTime (false, 0);
 	}
 
 	// Deactivate Shield.
@@ -789,7 +801,9 @@ public class PlayerController : MonoBehaviour
 	// Sync ability name in the list value.
 	public void RefreshAbilityName ()
 	{
-		switch (Ability) 
+		AbilityName = Ability.ToString ();
+
+		/*switch (Ability) 
 		{
 		case ability.Shield:
 			AbilityName = "Shield";
@@ -803,7 +817,7 @@ public class PlayerController : MonoBehaviour
 		case ability.HorizontalBeam:
 			AbilityName = "HorizontalBeam";
 			break;
-		}
+		}*/
 	}
 
 	// Sync ability image.
@@ -823,6 +837,9 @@ public class PlayerController : MonoBehaviour
 		case ability.HorizontalBeam:
 			AbilityImage.texture = AbilityTextures [3];
 			break;
+		case ability.Rewind:
+			AbilityImage.texture = AbilityTextures [4];
+			break;
 		}
 	}
 
@@ -832,27 +849,6 @@ public class PlayerController : MonoBehaviour
 		Debug.DrawLine (playerCol.transform.position, ReferencePoint.transform.position, Color.red);
 	}
 	#endif
-
-	/*
-	IEnumerator CheckBulletType ()
-	{
-		while (canShoot == true) 
-		{
-			switch (ShotType) 
-			{
-			case shotType.Standard:
-				break;
-			case shotType.Double:
-				break;
-			case shotType.Triple:
-				break;
-			case shotType.Ripple:
-				break;
-			}
-
-			yield return null;
-		}
-	}*/
 
 	// Checks shooting state.
 	void CheckShoot ()

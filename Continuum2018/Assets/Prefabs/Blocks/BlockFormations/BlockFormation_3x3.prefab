@@ -1140,6 +1140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114059278024635946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1152,7 +1153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114074741846847418
@@ -1167,6 +1168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1177,6 +1181,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1287,6 +1293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1297,6 +1306,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1314,6 +1325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114157224026487622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1326,7 +1338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114187253963381714
@@ -1341,6 +1353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114193253328381690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1446,6 +1459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114271516866480898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1458,6 +1472,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1468,6 +1485,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1562,6 +1581,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1572,6 +1594,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1589,7 +1613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114327094350342404
@@ -1620,6 +1644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114413623335058184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1725,6 +1750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114429325098388506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1737,6 +1763,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1747,6 +1776,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1764,6 +1795,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1774,6 +1808,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1900,6 +1936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114566155037487404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1912,7 +1949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114616809724104130
@@ -1955,7 +1992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114667370036649904
@@ -1970,6 +2007,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1980,6 +2020,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1997,7 +2039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114687094032007124
@@ -2012,7 +2054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114690924630899698
@@ -2213,7 +2255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114775757819326794
@@ -2228,6 +2270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114842730510538122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2240,6 +2283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114853945373260872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2252,6 +2296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114863757015968342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2341,6 +2386,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -2351,6 +2399,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -2368,6 +2418,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -2378,6 +2431,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -2395,7 +2450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114967851784032410

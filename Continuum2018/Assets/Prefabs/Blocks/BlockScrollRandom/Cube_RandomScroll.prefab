@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114598794608408918

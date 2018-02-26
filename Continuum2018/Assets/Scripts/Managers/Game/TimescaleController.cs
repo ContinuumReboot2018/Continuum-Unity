@@ -266,6 +266,9 @@ public class TimescaleController : MonoBehaviour
 		{
 			isRewinding = false;
 			noiseScript.enabled = false;
+			playerControllerScript_P1.InvincibleCollider.enabled = false;
+			playerControllerScript_P1.InvincibleMesh.enabled = false;
+			//playerControllerScript_P1.InvincibleMeshAnim.Play ("InvincibleMeshFlash");
 			return;
 		}
 
@@ -274,6 +277,9 @@ public class TimescaleController : MonoBehaviour
 			isRewinding = true;
 			RewindTimeRemaining -= Time.unscaledDeltaTime;
 			noiseScript.enabled = true;
+			playerControllerScript_P1.InvincibleCollider.enabled = true;
+			playerControllerScript_P1.InvincibleMesh.enabled = true;
+			playerControllerScript_P1.InvincibleMeshAnim.Play ("InvincibleMeshFlash");
 		} 
 
 		else 

@@ -30,7 +30,6 @@ public class PowerupPickup : MonoBehaviour
 		Rapidfire,
 		Overdrive,
 		Ricochet,
-		RewindTime,
 		Homing
 	}
 
@@ -48,20 +47,22 @@ public class PowerupPickup : MonoBehaviour
 	[Header ("Turret")]
 	public GameObject Turret;
 
-	void Awake ()
+	void Start ()
 	{
-		//col.enabled = false;
-		StartCoroutine (ShowPowerup ());
+		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
+		timescaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
+		PowerupTimeRunningOutAudio = GameObject.Find ("PowerupRunningOutSound").GetComponent<AudioSource> ();
 		destroyByTimeScript = GetComponent<DestroyByTime> ();
-		StartCoroutine (DestroyAnimation ());
 		anim = GetComponent<Animator> ();
+		StartCoroutine (ShowPowerup ());
+		StartCoroutine (DestroyAnimation ());
 	}
 
 	IEnumerator ShowPowerup ()
 	{
 		yield return new WaitForSeconds (AwakeDelay);
 		meshrend.enabled = true;
-		//col.enabled = true;
 		AwakeParticles.Play ();
 	}
 
@@ -70,15 +71,7 @@ public class PowerupPickup : MonoBehaviour
 		yield return new WaitForSecondsRealtime (destroyByTimeScript.delay - 1);
 		anim.Play ("PowerupPickupDestroy");
 	}
-
-	void Start ()
-	{
-		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
-		timescaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
-		PowerupTimeRunningOutAudio = GameObject.Find ("PowerupRunningOutSound").GetComponent<AudioSource> ();
-	}
-
+		
 	void OnParticleCollision (GameObject particle)
 	{
 		if (particle.tag == "Bullet") 
@@ -437,11 +430,7 @@ public class PowerupPickup : MonoBehaviour
 			gameControllerScript.RicochetHex.enabled = true;
 			gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 			break;
-
-		case powerups.RewindTime:
-			timescaleControllerScript.SetRewindTime (true, 3);
-			break;
-
+		
 		case powerups.Homing:
 			gameControllerScript.SetPowerupTime (PowerupTime);
 			playerControllerScript_P1.isHoming = true;

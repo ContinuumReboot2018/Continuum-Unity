@@ -143,6 +143,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -172,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114700663958378914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -184,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScaleControllerScript: {fileID: 0}
-  MaxRecordingTime: 5
+  MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
 --- !u!114 &114859730920538306
