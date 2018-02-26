@@ -74,7 +74,9 @@ public class ParticleCollisionPlayer : MonoBehaviour
 	void DoCamShake ()
 	{
 		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 1);
+		#if !PLATFORM_STANDALONE_OSX
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
+		#endif
 	}
 
 	void SetTargetLowPassFreq (float lowPassFreq)

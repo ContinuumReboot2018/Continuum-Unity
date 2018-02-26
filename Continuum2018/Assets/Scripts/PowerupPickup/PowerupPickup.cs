@@ -147,7 +147,9 @@ public class PowerupPickup : MonoBehaviour
 	{
 		CreatePowerupPickupUI ();
 		ActivatePowerup_P1 ();
+		#if !PLATFORM_STANDALONE_OSX
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f);
+		#endif
 		PowerupTimeRunningOutAudio.Stop ();
 		Destroy (gameObject);
 		return;

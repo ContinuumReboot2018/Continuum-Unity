@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using InControl; 					// Accessing InControl's cross platform controller input.
+
+#if !PLATFORM_STANDALONE_OSX
 using XInputDotNetPure; 			// Accessing controller vibration system and raw inputs.
+#endif
+
 using UnityEngine.UI; 				// Accessing Unity's UI system.
 using TMPro; 						// Accessing Text Mesh Pro components.
 using UnityEngine.Audio; 			// Accessing Audio mixer settings.
@@ -1428,6 +1432,7 @@ public class PlayerController : MonoBehaviour
 		playerActions.CheatConsole.AddDefaultBinding (Key.Backquote);
 	}
 
+	#if !PLATFORM_STANDALONE_OSX
 	// Creates vibration.
 	public void Vibrate (float LeftMotor, float RightMotor, float duration)
 	{
@@ -1435,6 +1440,7 @@ public class PlayerController : MonoBehaviour
 		PlayerVibrationTimeRemaining = PlayerVibrationDuration;
 		GamePad.SetVibration (PlayerIndex.One, LeftMotor, RightMotor);
 	}
+	#endif
 
 	// Vibration time remaining is timed and turns off vibration when the timer runs out.
 	void CheckPlayerVibration ()
@@ -1454,7 +1460,9 @@ public class PlayerController : MonoBehaviour
 	// Resets player vibration.
 	void ResetPlayerVibration ()
 	{
+		#if !PLATFORM_STANDALONE_OSX
 		GamePad.SetVibration (PlayerIndex.One, 0, 0);
+		#endif
 	}
 
 	// Check joined state.

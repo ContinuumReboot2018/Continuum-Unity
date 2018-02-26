@@ -159,8 +159,9 @@ public class Bullet : MonoBehaviour
 	{
 		if (other.tag == "Block") 
 		{
+			#if !PLATFORM_STANDALONE_OSX
 			playerControllerScript.Vibrate (LeftMotorRumble, RightMotorRumble, VibrationDuration);
-
+			#endif
 			if (isRicochet == true && BulletTypeName.Contains ("Helix") == false) 
 			{
 				Ricochet ();
