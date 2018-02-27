@@ -64,6 +64,7 @@ public class Block : MonoBehaviour
 		Purple = 2, 
 		Pink   = 3
 	}
+	private int normalBlockTypeListLength;
 			
 	[Header ("Block changes")]
 	public blockChangeType BlockChangeType; // How the block type changes.
@@ -125,6 +126,7 @@ public class Block : MonoBehaviour
 		rb = GetComponent<Rigidbody> ();
 		rend = GetComponent<MeshRenderer> ();
 		InvokeRepeating ("CheckBounds", 0, 0.5f);
+		normalBlockTypeListLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
 
 		// Random scroll: Change randomly, update self.
 		if (BlockChangeType == blockChangeType.RandomScroll) 
@@ -206,48 +208,56 @@ public class Block : MonoBehaviour
 		}
 	}
 
+	// Collisions via particles.
 	void OnParticleCollision (GameObject particle)
 	{
-		BoxCol.enabled = false;
-		GetTotalPointValue ();
-		CreateExplosion ();
-		DoCamShake ();
-		IncrementBlocksDestroyed ();
+		BoxCol.enabled = false; // Turn off the box collider.
+		GetTotalPointValue (); // Get total point calculation.
+		CreateExplosion (); // Create the explosion.
+		IncrementBlocksDestroyed (); // Increment blocks destroyed.
+		DoCamShake (); // Shake camera.
 		Destroy (gameObject);
 		return;
 	}
 
+	// Trigger via other objects.
 	void OnTriggerEnter(Collider other)
 	{
-		BoxCol.enabled = false;
+		BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
 
+		// Other object has missile in its name.
 		if (other.gameObject.name.Contains ("Missile")) 
 		{
 			if (isBossPart == false) 
 			{
-				GetTotalPointValue ();
-				CreateExplosion ();
-				IncrementBlocksDestroyed ();
-				DoCamShake ();
+				GetTotalPointValue (); // Get total point calculation.
+				CreateExplosion (); // Create the explosion.
+				IncrementBlocksDestroyed (); // Increment blocks destroyed.
+				DoCamShake (); // Shake camera.
 
+				// If the tag is not a bullet.
 				if (other.tag != "Bullet") 
 				{
-					Destroy (other.gameObject);
-					Destroy (gameObject);
-					return;
+					Destroy (other.gameObject); // Destroy other object.
+					Destroy (gameObject); // Destroy this object.
+					return; // Prevent any further code execution.
 				}
 			}
 		}
 
+		// Other object's tag is Bullet.
 		if (other.tag == "Bullet") 
 		{
+			// If tutorial script is referenced.
 			if (tutorialManagerScript != null)
 			{
+				// Reset block index in info section.
 				if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info)
 				{
 					tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
 				}
 
+				// Turn off the tutorial in info section.
 				if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
 				{
 					Debug.Log ("Attempted to turn off tutorial.");
@@ -255,10 +265,11 @@ public class Block : MonoBehaviour
 				}
 			}
 
-			GetTotalPointValue ();
-			CreateExplosion ();
-			IncrementBlocksDestroyed ();
+			GetTotalPointValue (); // Get total point calculation.
+			CreateExplosion (); // Create the explosion.
+			IncrementBlocksDestroyed (); // Increment blocks destroyed.
 
+			// Other object has a bullet component.
 			if (other.GetComponent<Bullet> () != null)
 			{
 				// Stops the bullet that hit it from hanging around.
@@ -268,44 +279,25 @@ public class Block : MonoBehaviour
 				}
 			}
 
-			DoCamShake ();
-			Destroy (gameObject);
-			return;
+			DoCamShake (); // Destroy this object.
+			Destroy (gameObject); // Destroy this object.
+			return; // Prevent any further code execution.
 		}
 
+		// Other object has Player tag and this bloc isn't a tutorial block.
 		if (other.tag == "Player" && isTutorialBlock == false) 
 		{
+			// Impact the player normally when lives > 1.
 			if (gameControllerScript.Lives > 1) 
 			{
 				playerControllerScript_P1.PlayerBlockImpact (this);
 			}
 
+			// On last life, set game over.
 			if (gameControllerScript.Lives == 1) 
 			{
 				playerControllerScript_P1.GameOver ();
 			}
-		}
-	}
-
-	void DestroyAllBlocks ()
-	{
-		GameObject[] Blocks = GameObject.FindGameObjectsWithTag ("Block");
-		GameObject[] PowerupPickups = GameObject.FindGameObjectsWithTag ("PowerupPickup");
-
-		foreach (GameObject block in Blocks) 
-		{
-			if (block.GetComponent<Block> () != null) 
-			{
-				if (block.GetComponent<Block> ().isBossPart == false) 
-				{
-					Destroy (block);
-				}
-			}
-		}
-
-		foreach (GameObject powerupPickup in PowerupPickups) 
-		{
-			Destroy (powerupPickup);
 		}
 	}
 
@@ -317,24 +309,26 @@ public class Block : MonoBehaviour
 			transform.parent == null && 
 			GotDetached == false) 
 		{
-			textureScrollScript.enabled = true;
-			isSpecialBlockType = true;
-			SpecialBlockType = specialBlockType.Noise;
-			speed = 0;
-			rend.material = noiseMat;
-			BasePointValue = 0;
-			TextColor = new Color (0.5f, 0.5f, 0.5f, 1);
-			Explosion = NoiseExplosion;
+			textureScrollScript.enabled = true; // Turn on texture scroll script.
+			isSpecialBlockType = true; // Set to special block type.
+			SpecialBlockType = specialBlockType.Noise; // Set to block type list.
+			speed = 0; // Freeze speed.
+			rend.material = noiseMat; // Set material to noise.
+			BasePointValue = 0; // Reset base point value.
+			TextColor = new Color (0.5f, 0.5f, 0.5f, 1); // set gray text color.
+			Explosion = NoiseExplosion; // Set noise explosion.
+
+			// Set scale for noise.
 			transform.localScale = new Vector3 
 				(
-					0.75f * transform.localScale.x,
-					0.75f * transform.localScale.y,
-					0.75f * transform.localScale.z
+					0.9f * transform.localScale.x,
+					0.9f * transform.localScale.y,
+					0.9f * transform.localScale.z
 				);
 
-			transform.rotation = Quaternion.identity;
-			GotDetached = true;
-			parentToTransformScript.enabled = true;
+			transform.rotation = Quaternion.identity; // Reset rotation.
+			GotDetached = true; // Set detached.
+			parentToTransformScript.enabled = true; // Parent to transform.
 		}
 	}
 
@@ -381,26 +375,24 @@ public class Block : MonoBehaviour
 		}
 	}
 
+	// Called when collided with bullet and calculates point value.
 	public void GetTotalPointValue ()
 	{
 		// Calculates total point value based on current combo from game controller and time scale.
-		if (isTutorialBlock == false)
-		{
-			totalPointValue = Mathf.Clamp ((BasePointValue + gameControllerScript.Wave) * gameControllerScript.combo * Time.timeScale, 1, 10000);
-		}
-
-		if (isTutorialBlock == true) 
-		{
-			totalPointValue = BasePointValue;
-		}
+		totalPointValue = Mathf.Clamp (
+			(BasePointValue + gameControllerScript.Wave) * gameControllerScript.combo * Time.timeScale, 
+			// Keep between...
+			1, gameControllerScript.MaximumBlockPoints
+		);
 	}
 
+	// Changes combo when collided with.
 	public void RefreshCombo ()
 	{
-		// Adds point value to target score in game controller and plays animation.
+		// Adds point value to target score in game controller.
 		gameControllerScript.TargetScore += totalPointValue;
-		playerControllerScript_P1.ScoreAnim.Play ("ScorePoints");
 
+		// Plays animation if not faded out score text.
 		if (playerControllerScript_P1.ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false) 
 		{
 			playerControllerScript_P1.ScoreAnim.Play ("ScorePoints");
@@ -421,16 +413,7 @@ public class Block : MonoBehaviour
 		gameControllerScript.comboTimeRemaining = gameControllerScript.comboDuration;
 	}
 
-	void SetTargetLowPassFreq (float lowPassFreq)
-	{
-		audioControllerScript.TargetCutoffFreq = lowPassFreq;
-	}
-
-	void SetTargetResonance (float resAmt)
-	{
-		audioControllerScript.TargetResonance = resAmt;
-	}
-
+	// Shakes the camera and vibrates controller.
 	void DoCamShake ()
 	{
 		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 2);
@@ -439,6 +422,7 @@ public class Block : MonoBehaviour
 		#endif
 	}
 
+	// Create explosion when hit with bullet.
 	void CreateExplosion ()
 	{
 		// Have to create an instance of the Explosion prefab.
@@ -448,7 +432,8 @@ public class Block : MonoBehaviour
 		_Explosion.GetComponent<Explosion> ().Anim ();
 	}
 
-	void CheckForBoundary ()
+	// Checks boundary for noise blocks.
+	void CheckForNoiseBoundary ()
 	{
 		if (transform.position.x > BoundaryX.y || 
 			transform.position.x < BoundaryX.x || 
@@ -460,29 +445,32 @@ public class Block : MonoBehaviour
 		}
 	}
 
+	// Scroll block type sequentially.
 	void SequentialScroll ()
 	{
-		int blockTypeLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
-
-		if (BlockType < (mainBlockType)blockTypeLength) 
+		// Increment block type index if still going through the list.
+		if (BlockType < (mainBlockType)normalBlockTypeListLength) 
 		{
 			BlockType += 1;
 		}
 
-		if (BlockType >= (mainBlockType)blockTypeLength) 
+		// Reset block type index when end of list is reached.
+		if (BlockType >= (mainBlockType)normalBlockTypeListLength) 
 		{
 			BlockType = 0;
 		}
 	}
 
+	// Change block type in list randomly.
 	void RandomScroll ()
 	{
-		int blockTypeLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
-		BlockType = (mainBlockType)Random.Range (0, blockTypeLength);
+		BlockType = (mainBlockType)Random.Range (0, normalBlockTypeListLength);
 	}
 
+	// Updates properties of block type periodically.
 	void UpdateBlockType ()
 	{
+		// For special block types.
 		if (isSpecialBlockType == true) 
 		{
 			switch (SpecialBlockType) 
@@ -493,11 +481,14 @@ public class Block : MonoBehaviour
 				BasePointValue = 0;
 				TextColor = new Color (0.5f, 0.5f, 0.5f, 1);
 				Explosion = NoiseExplosion;
-				CheckForBoundary ();
+				CheckForNoiseBoundary ();
 				break;
 			}
+
+			return; // Don't bother checking for normal block type changes if this was executed.
 		}
 
+		// Check for normal block type changes.
 		if (isSpecialBlockType == false) 
 		{
 			// Update speed stat.

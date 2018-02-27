@@ -86,6 +86,7 @@ public class GameController : MonoBehaviour
 	public float BlockSpawnYPosition; 	 // Starting height of block spawn y position.
 	public float BlockSpawnZPosition;	 // Block spawn depth position.
 	public float BlockSpawnIncreaseRate; // How much faster blocks spawn every wave.
+	public int MaximumBlockPoints = 10000; // The maximum points any block can have awarded.
 
 	[Header ("Powerup General")]
 	public float PowerupTimeRemaining;				// Current powerup time left.
