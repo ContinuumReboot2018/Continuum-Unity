@@ -729,7 +729,6 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == ShieldCommand) 
 			{
-				playerControllerScript_P1.AbilityName = "shield";
 				playerControllerScript_P1.Ability = PlayerController.ability.Shield;
 				playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.RefreshAbilityName ();
@@ -742,7 +741,6 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == VerticalBeamCommand) 
 			{
-				playerControllerScript_P1.AbilityName = "verticalbeam";
 				playerControllerScript_P1.Ability = PlayerController.ability.VerticalBeam;
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
@@ -755,7 +753,6 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == HorizontalBeamCommand) 
 			{
-				playerControllerScript_P1.AbilityName = "horizontalbeam";
 				playerControllerScript_P1.Ability = PlayerController.ability.HorizontalBeam;
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
@@ -768,7 +765,6 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == EmpCommand) 
 			{
-				playerControllerScript_P1.AbilityName = "emp";
 				playerControllerScript_P1.Ability = PlayerController.ability.Emp;
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
@@ -781,7 +777,6 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == RewindCommand) 
 			{
-				playerControllerScript_P1.AbilityName = "rewind";
 				playerControllerScript_P1.Ability = PlayerController.ability.Rewind;
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();

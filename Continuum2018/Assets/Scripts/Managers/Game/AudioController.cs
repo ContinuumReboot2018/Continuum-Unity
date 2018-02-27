@@ -126,6 +126,16 @@ public class AudioController : MonoBehaviour
 		AudioMix.SetFloat ("Resonance", SmoothResVal);
 	}
 
+	public void SetTargetLowPassFreq (float lowPassFreq)
+	{
+		TargetCutoffFreq = lowPassFreq;
+	}
+
+	public void SetTargetResonance (float resAmt)
+	{
+		TargetResonance = resAmt;
+	}
+
 	// Reverses the pitch if rewinding.
 	void CheckReversePitch ()
 	{

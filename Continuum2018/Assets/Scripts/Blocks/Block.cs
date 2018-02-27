@@ -201,7 +201,7 @@ public class Block : MonoBehaviour
 
 		if (transform.position.y > 60) 
 		{
-			//BoxCol.enabled = false;
+			
 		}
 
 		if (transform.position.y <= 60) 
@@ -305,48 +305,9 @@ public class Block : MonoBehaviour
 
 		if (other.tag == "Player" && isTutorialBlock == false) 
 		{
-			playerControllerScript_P1.SetCooldownTime (5);
-
 			if (gameControllerScript.Lives > 1) 
 			{
-				playerControllerScript_P1.GlitchEffect.Play ("CameraGlitchOn");
-				playerControllerScript_P1.ImpactPoint = gameObject.transform.position;
-				playerControllerScript_P1.PlayerExplosionParticles.transform.position = playerControllerScript_P1.ImpactPoint;
-				playerControllerScript_P1.PlayerExplosionParticles.Play ();
-				playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.UseEmp ());
-	
-				SetTargetLowPassFreq (LowPassTargetFreq);
-				SetTargetResonance (ResonanceTargetFreq);
-				gameControllerScript.combo = 1;
-				timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
-				timeScaleControllerScript.OverridingTimeScale = 0.25f;
-
-				Instantiate (playerExplosion, transform.position, Quaternion.identity);
-
-				playerControllerScript_P1.ResetPowerups ();
-				playerControllerScript_P1.playerCol.enabled = false;
-				playerControllerScript_P1.playerTrigger.enabled = false;
-				playerControllerScript_P1.playerCol.gameObject.SetActive (false);
-				playerControllerScript_P1.playerTrigger.gameObject.SetActive (false);
-				playerControllerScript_P1.PlayerGuides.transform.position = Vector3.zero;
-				//playerControllerScript_P1.PlayerGuides.SetActive (false);
-				//playerControllerScript_P1.AbilityUI.transform.position = Vector3.zero;
-				playerControllerScript_P1.AbilityUI.SetActive (false);
-				playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
-				playerControllerScript_P1.PlayerFollowRb.velocity = Vector3.zero;
-				playerControllerScript_P1.MovementX = 0;
-				playerControllerScript_P1.MovementY = 0;
-				playerControllerScript_P1.canShoot = false;
-
-				//newCamShakeAmount = 0.5f;
-				//newCamShakeDuration = 1.5f;
-
-				camShakeScript.ShakeCam (newCamShakeAmount * 10, newCamShakeDuration * 2, 9);
-				//camShakeScript.Shake ();
-
-				playerControllerScript_P1.StartCooldown ();
-
-				playerControllerScript_P1.PlayerExplosionAudio.Play ();
+				playerControllerScript_P1.PlayerBlockImpact (this);
 			}
 
 			if (gameControllerScript.Lives == 1) 
@@ -438,7 +399,7 @@ public class Block : MonoBehaviour
 
 	void DoCamShake ()
 	{
-		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 1);
+		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 2);
 		#if !PLATFORM_STANDALONE_OSX
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
 		#endif

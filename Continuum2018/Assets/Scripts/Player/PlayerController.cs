@@ -503,9 +503,10 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 		
+	// Reset the player position ready to have it re enter.
 	void PlayerTransformPosCooldown ()
 	{
-		playerMesh.transform.localPosition = new Vector3 (0, -15, 0);
+		//playerMesh.transform.localPosition = new Vector3 (0, -15, 0);
 	}
 
 	// When the player runs out of lives and unable to respawn.
@@ -524,6 +525,37 @@ public class PlayerController : MonoBehaviour
 		GameOverExplosionAudio.Play ();
 		audioControllerScript.StopAllSoundtracks ();
 		StartCoroutine (timescaleControllerScript.EndSequenceTimeScale ());
+	}
+
+	public void PlayerBlockImpact (Block ImpactBlock)
+	{
+		SetCooldownTime (5);
+		GlitchEffect.Play ("CameraGlitchOn");
+		ImpactPoint = gameObject.transform.position;
+		PlayerExplosionParticles.transform.position = ImpactPoint;
+		PlayerExplosionParticles.Play ();
+		StartCoroutine (UseEmp ());
+		ResetPowerups ();
+		playerCol.enabled = false;
+		playerTrigger.enabled = false;
+		playerCol.gameObject.SetActive (false);
+		playerTrigger.gameObject.SetActive (false);
+		PlayerGuides.transform.position = Vector3.zero;
+		AbilityUI.SetActive (false);
+		PlayerRb.velocity = Vector3.zero;
+		PlayerFollowRb.velocity = Vector3.zero;
+		MovementX = 0;
+		MovementY = 0;
+		canShoot = false;
+		StartCooldown ();
+		PlayerExplosionAudio.Play ();
+		camShakeScript.ShakeCam (ImpactBlock.newCamShakeAmount * 10, ImpactBlock.newCamShakeAmount * 2, 9);
+		audioControllerScript.SetTargetLowPassFreq (ImpactBlock.LowPassTargetFreq);
+		audioControllerScript.SetTargetResonance (ImpactBlock.ResonanceTargetFreq);
+		gameControllerScript.combo = 1;
+		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
+		timescaleControllerScript.OverridingTimeScale = 0.25f;
+		Instantiate (ImpactBlock.playerExplosion, transform.position, Quaternion.identity);
 	}
 
 	// When cooldown time is complete.

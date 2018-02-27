@@ -91,7 +91,7 @@ PlayerSettings:
   visibleInBackground: 1
   allowFullscreenSwitch: 1
   graphicsJobMode: 0
-  macFullscreenMode: 2
+  macFullscreenMode: 1
   d3d11FullscreenMode: 1
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
@@ -153,14 +153,15 @@ PlayerSettings:
       dashSupport: 0
   protectGraphicsMemory: 0
   useHDRDisplay: 0
-  m_ColorGamuts: 00000000
+  m_ColorGamuts: 0000000003000000
   targetPixelDensity: 30
   resolutionScalingMode: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.LuminousKoala.Continuum2018
-  buildNumber: {}
+    Standalone: com.LuminousKoala.Continuum
+  buildNumber:
+    Standalone: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
