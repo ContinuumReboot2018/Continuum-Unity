@@ -1,23 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ParentToTransform : MonoBehaviour 
 {
-	public string ParentTransformName = "Instantiated";
-	public bool OnStart = true;
+	public string ParentTransformName = "Instantiated"; // Finds GameObject by this string to parent to.
+	public bool OnStart = true; // Parent to GameObject on Start?
+	private Transform ParentTransform; // The parent Trasnform.
 
 	void Start () 
 	{
-		if (OnStart)
+		if (OnStart == true)
 		{
 			ParentNow ();
 		}
 	}
 
+	// Finds GameObject at this time and parents to it.
 	public void ParentNow ()
 	{
-		GameObject ParentTransform = GameObject.Find (ParentTransformName);
-		transform.SetParent (ParentTransform.transform);
+		ParentTransform = GameObject.Find (ParentTransformName).transform;
+		transform.SetParent (ParentTransform);
 	}
 }

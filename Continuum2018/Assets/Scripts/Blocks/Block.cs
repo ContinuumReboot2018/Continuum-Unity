@@ -302,34 +302,29 @@ public class Block : MonoBehaviour
 	}
 
 	// MiniBoss script calls this on all its children blocks.
-	public void ConvertToBossPart ()
+	public void ConvertToNoiseBossPart ()
 	{
 		// Checks if this is a boss part, it doesnt have a parent, and did not get attached yet.
-		if (isBossPart == true && 
-			transform.parent == null && 
-			GotDetached == false) 
-		{
-			textureScrollScript.enabled = true; // Turn on texture scroll script.
-			isSpecialBlockType = true; // Set to special block type.
-			SpecialBlockType = specialBlockType.Noise; // Set to block type list.
-			speed = 0; // Freeze speed.
-			rend.material = noiseMat; // Set material to noise.
-			BasePointValue = 0; // Reset base point value.
-			TextColor = new Color (0.5f, 0.5f, 0.5f, 1); // set gray text color.
-			Explosion = NoiseExplosion; // Set noise explosion.
+		textureScrollScript.enabled = true; // Turn on texture scroll script.
+		isSpecialBlockType = true; // Set to special block type.
+		SpecialBlockType = specialBlockType.Noise; // Set to block type list.
+		speed = 0; // Freeze speed.
+		rend.material = noiseMat; // Set material to noise.
+		BasePointValue = 0; // Reset base point value.
+		TextColor = new Color (0.5f, 0.5f, 0.5f, 1); // set gray text color.
+		Explosion = NoiseExplosion; // Set noise explosion.
 
-			// Set scale for noise.
-			transform.localScale = new Vector3 
-				(
-					0.9f * transform.localScale.x,
-					0.9f * transform.localScale.y,
-					0.9f * transform.localScale.z
-				);
+		// Set scale for noise.
+		transform.localScale = new Vector3 
+			(
+				0.9f * transform.localScale.x,
+				0.9f * transform.localScale.y,
+				0.9f * transform.localScale.z
+			);
 
-			transform.rotation = Quaternion.identity; // Reset rotation.
-			GotDetached = true; // Set detached.
-			parentToTransformScript.enabled = true; // Parent to transform.
-		}
+		transform.rotation = Quaternion.identity; // Reset rotation.
+		GotDetached = true; // Set detached.
+		parentToTransformScript.enabled = true; // Parent to transform.
 	}
 
 	// Checks block position within boundaries or not.

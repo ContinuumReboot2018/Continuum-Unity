@@ -222,13 +222,13 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
+  parentToTransformScript: {fileID: 0}
   speed: -150
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  wasCollided: 0
   isBossPart: 0
   GotDetached: 0
   BoundaryX: {x: 0, y: 0}
@@ -258,8 +258,8 @@ MonoBehaviour:
   PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
   PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
   BlockType: 3
-  ChangeRate: 0.5
   BlockChangeType: 0
+  ChangeRate: 0.5
   isSpecialBlockType: 0
   SpecialBlockType: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}

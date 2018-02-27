@@ -67,10 +67,9 @@ public class MiniBoss : MonoBehaviour
 
 		if (GameObject.Find ("PlayerCollider").transform == null) 
 		{
+			BossPartsConvertToNoise ();
 			hitPoints = 0;
 			Instantiate (LargeExplosion, transform.position, transform.rotation);
-			BossPartsParent.transform.DetachChildren ();
-			BossPartsConvertToNoise ();
 			gameControllerScript.StartNewWave ();
 			gameControllerScript.IsInWaveTransition = true;
 			Destroy (MiniBossParent.gameObject);
@@ -86,12 +85,17 @@ public class MiniBoss : MonoBehaviour
 			timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		}
 
-		BossParts = GetComponentsInChildren<Block> (true);
+		Invoke ("GetBossParts", 0.5f);
 		hitPoints = StartingHitPoints + gameControllerScript.Wave;
 
 		StartCoroutine (DrawLineToPlayer ());
 
 		FlipScreen = GameObject.Find ("Camera Rig").GetComponent<Animator>();
+	}
+
+	void GetBossParts ()
+	{
+		BossParts = BossPartsParent.GetComponentsInChildren<Block> (true);
 	}
 
 	void Update ()
@@ -124,29 +128,29 @@ public class MiniBoss : MonoBehaviour
 			if (other.name.Contains ("P1") || other.name.Contains ("Shield_Col") ||
 			    other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
 			{
-				if (hitPoints > 0) 
+				if (hitPoints <= 1) 
 				{
-					BossParts = GetComponentsInChildren<Block> ();
-					hitPoints -= 1;
-					Instantiate (SmallExplosion, transform.position, transform.rotation);
-				}
-
-				if (hitPoints <= 0) 
-				{
+					BossPartsConvertToNoise ();
 					hitPoints = 0;
 					Instantiate (LargeExplosion, transform.position, transform.rotation);
-					BossPartsParent.transform.DetachChildren ();
-					BossPartsConvertToNoise ();
 					gameControllerScript.StartNewWave ();
 					gameControllerScript.IsInWaveTransition = true;
 					timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
 					timeScaleControllerScript.OverridingTimeScale = 0.2f;
-					Destroy (MiniBossParent.gameObject);
 
 					if (FlipScreen.GetCurrentAnimatorStateInfo (0).IsName ("CameraRotateUpsideDown") == true) 
 					{
 						FlipScreen.SetBool ("Flipped", false);
 					}
+
+					Destroy (MiniBossParent.gameObject);
+					return;
+				}
+
+				if (hitPoints > 1) 
+				{
+					hitPoints -= 1;
+					Instantiate (SmallExplosion, transform.position, transform.rotation);
 				}
 			}
 		}
@@ -156,6 +160,19 @@ public class MiniBoss : MonoBehaviour
 	{
 		if (col.tag == "Bullet") 
 		{
+			if (hitPoints <= 0) 
+			{
+				BossPartsConvertToNoise ();
+				hitPoints = 0;
+				Instantiate (LargeExplosion, transform.position, transform.rotation);
+				gameControllerScript.StartNewWave ();
+				gameControllerScript.IsInWaveTransition = true;
+				timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
+				timeScaleControllerScript.OverridingTimeScale = 0.2f;
+				Destroy (MiniBossParent.gameObject);
+				return;
+			}
+
 			if (hitPoints > 0) 
 			{
 				hitPoints -= 1 * ParticleHitPointAmount;
@@ -164,19 +181,6 @@ public class MiniBoss : MonoBehaviour
 				{
 					Invoke ("InstanceExplosion", 0.25f);
 				}
-			}
-
-			if (hitPoints <= 0) 
-			{
-				hitPoints = 0;
-				Instantiate (LargeExplosion, transform.position, transform.rotation);
-				BossPartsParent.transform.DetachChildren ();
-				BossPartsConvertToNoise ();
-				gameControllerScript.StartNewWave ();
-				gameControllerScript.IsInWaveTransition = true;
-				timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
-				timeScaleControllerScript.OverridingTimeScale = 0.2f;
-				Destroy (MiniBossParent.gameObject);
 			}
 		}
 	}
@@ -188,9 +192,23 @@ public class MiniBoss : MonoBehaviour
 
 	void BossPartsConvertToNoise ()
 	{
+		/*for (int i = 0; i < BossParts.Length; i++) 
+		{
+			if (BossParts[i] != null)
+			{
+				BossParts[i].ConvertToNoiseBossPart ();
+				BossParts[i].gameObject.GetComponent<ParentToTransform> ().ParentNow ();
+			}
+		}*/
+
+
 		foreach (Block block in BossParts)
 		{
-			block.ConvertToBossPart ();
+			if (block != null)
+			{
+				block.ConvertToNoiseBossPart ();
+				block.parentToTransformScript.ParentNow ();
+			}
 		}
 	}
 

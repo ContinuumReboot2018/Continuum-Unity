@@ -121232,6 +121232,7 @@ MonoBehaviour:
   BlockSpawnYPosition: 15
   BlockSpawnZPosition: 0
   BlockSpawnIncreaseRate: 0.01
+  MaximumBlockPoints: 10000
   PowerupTimeRemaining: 0
   PowerupTimeDuration: 10
   PowerupAnim: {fileID: 2009145272}
@@ -161639,6 +161640,48 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &2045486558
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4783365366879060, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783365366879060, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783365366879060, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783365366879060, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783365366879060, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783365366879060, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783365366879060, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783365366879060, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9a135a4b858cd6845bb339033e34e5b6, type: 2}
+  m_IsPrefabParent: 0
 --- !u!114 &2048598730 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114762598128385048, guid: 18d5f7b4b80bcf64c82a68f1c08a1261,

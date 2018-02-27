@@ -375,6 +375,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 4898786309525096}
   FollowPosY: {fileID: 4898786309525096}
   FollowPosZ: {fileID: 4898786309525096}
@@ -406,6 +407,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -511,6 +513,7 @@ MonoBehaviour:
   MiniBossParent: {fileID: 1761358554297378}
   hitPoints: 5
   StartingHitPoints: 5
+  ParticleHitPointAmount: 0.01
   SmallExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   LargeExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
@@ -541,6 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBosses
+  OnStart: 1
 --- !u!114 &114939170155976878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -688,7 +692,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.50000024
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135985754492257584
 SphereCollider:
