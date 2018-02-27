@@ -935,7 +935,7 @@ public class GameController : MonoBehaviour
 		WaveTransitionAudio.Play ();
 
 		// Shake the camera and vibrate the controller.
-		playerControllerScript_P1.camShakeScript.ShakeCam (0.4f, 3.7f, 99);
+		playerControllerScript_P1.camShakeScript.ShakeCam (0.6f, 3.7f, 99);
 		#if !PLATFORM_STANDALONE_OSX
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 3);
 		#endif
