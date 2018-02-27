@@ -190,10 +190,7 @@ public class MiniBoss : MonoBehaviour
 	{
 		foreach (Block block in BossParts)
 		{
-			block.isSpecialBlockType = true;
-			block.SpecialBlockType = Block.specialBlockType.Noise;
-			block.textureScrollScript.enabled = true;
-			block.gameObject.GetComponent<ParentToTransform> ().enabled = true;
+			block.ConvertToBossPart ();
 		}
 	}
 
