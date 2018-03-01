@@ -619,15 +619,28 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.isRicochet == true) 
 				{
 					gameControllerScript.SetPowerupTime (20);
+					playerControllerScript_P1.EnableRicochetObject ();
+
+					if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) {
+						playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+					}
+
+					if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) {
+						playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+					}
+
+					if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) {
+						playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
+					}
+
+					if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) {
+						playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+					}
+
+					playerControllerScript_P1.isRicochet = true;
 					gameControllerScript.RicochetImage.enabled = true;
 					gameControllerScript.RicochetHex.enabled = true;
 					gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
-
-					// TODO: When not in overdrive.
-					//playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
-					//playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
-					//playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
-					//playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
 
 					playerControllerScript_P1.EnableRicochetObject ();
 

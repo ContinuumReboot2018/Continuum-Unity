@@ -612,6 +612,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   gameControllerScript: {fileID: 0}
   BulletSpeed: 0
+  BulletSpeedType: 1
   VelocityLimits: {x: -10000, y: 10000}
   BulletRb: {fileID: 54135192644018154}
   BulletCol: {fileID: 136682191184681828}
@@ -624,7 +625,6 @@ MonoBehaviour:
   hasDisappeared: 0
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
-  movedEnough: 0
   allowBulletColDeactivate: 0
   isRicochet: 0
   RicochetYpos: 11.75
@@ -17516,7 +17516,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  useUnscaledTime: 0
+  useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:

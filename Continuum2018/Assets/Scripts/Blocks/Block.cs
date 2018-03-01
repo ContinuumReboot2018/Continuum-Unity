@@ -24,6 +24,7 @@ public class Block : MonoBehaviour
 	public StackZone stack; // The current stack zone of the stacked block.
 	public bool isBossPart; // Is the block part of a boss.
 	public bool GotDetached; // Has the block been detached from the boss.
+	public float AddAbilityTime = 0.01f;
 
 	[Header ("Boundary")]
 	public Vector2 BoundaryX; // Horizontal bounds.
@@ -379,6 +380,8 @@ public class Block : MonoBehaviour
 			// Keep between...
 			1, gameControllerScript.MaximumBlockPoints
 		);
+
+		playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime;
 	}
 
 	// Changes combo when collided with.

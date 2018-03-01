@@ -41,6 +41,9 @@ public class MiniBoss : MonoBehaviour
 
 	void Start () 
 	{
+		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
+
 		// If no brain has been referenced, reference the brain from here.
 		if (Brain == null) 
 		{
@@ -51,6 +54,7 @@ public class MiniBoss : MonoBehaviour
 		if (GameObject.Find ("PlayerCollider").transform != null) 
 		{
 			PlayerPos = GameObject.Find ("PlayerCollider").transform;
+			FollowPlayerPos = PlayerPos;
 			Invoke ("GetBossParts", 0.5f);
 			hitPoints = StartingHitPoints + gameControllerScript.Wave;
 			StartCoroutine (DrawLineToPlayer ());
@@ -58,16 +62,14 @@ public class MiniBoss : MonoBehaviour
 
 			// Set looking at script and following script accordingly.
 			BrainLookScript.LookAtPos = FollowPlayerPos.transform;
-			simpleFollowScript.FollowPosX = FollowPlayerPos;
-			simpleFollowScript.FollowPosY = FollowPlayerPos;
-			simpleFollowScript.FollowPosZ = FollowPlayerPos;
+			simpleFollowScript.OverrideTransform = FollowPlayerPos.transform;
 		}
 			
-		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
+
 
 		// Couldn't find the player. Bail out and go to next wave.
-		if (GameObject.Find ("PlayerCollider").transform == null) 
+		if (GameObject.Find ("PlayerCollider").transform == null || 
+			FollowPlayerPos == null) 
 		{
 			BossPartsConvertToNoise ();
 			hitPoints = 0;
@@ -75,6 +77,7 @@ public class MiniBoss : MonoBehaviour
 			gameControllerScript.StartNewWave ();
 			gameControllerScript.IsInWaveTransition = true;
 			Destroy (MiniBossParent.gameObject);
+			Debug.LogWarning ("No player found, bailing out.");
 			return;
 		}
 	}
@@ -91,13 +94,15 @@ public class MiniBoss : MonoBehaviour
 		if (Line.enabled == true) 
 		{
 			Line.SetPosition (0, transform.position + new Vector3 (0, 0, 0.36f));
-			Line.SetPosition (1, FollowPlayerPos.position);
+			//Line.SetPosition (1, FollowPlayerPos.position);
+			Line.SetPosition (1, simpleFollowScript.OverrideTransform.position);
 			Shoot ();
 		}
 
 		// Draws a line in scene view.
 		#if UNITY_EDITOR || UNITY_EDITOR_64
-		Debug.DrawLine (transform.position, FollowPlayerPos.position, Color.green);
+		//Debug.DrawLine (transform.position, FollowPlayerPos.position, Color.green);
+		Debug.DrawLine (transform.position, simpleFollowScript.OverrideTransform.position, Color.green);
 		#endif
 	}
 
@@ -213,7 +218,8 @@ public class MiniBoss : MonoBehaviour
 		yield return new WaitForSeconds (LineTimerOffDuration); // Wait...
 
 		Line.SetPosition (0, transform.position + new Vector3 (0, 0, 0.36f)); // First line point at the boss with some offset.
-		Line.SetPosition (1, FollowPlayerPos.position); // Second line point at the player.
+		//Line.SetPosition (1, FollowPlayerPos.position); // Second line point at the player.
+		Line.SetPosition (1, simpleFollowScript.OverrideTransform.position); // Second line point at the player.
 		Line.enabled = true; // Show line.
 		Line.positionCount = 2; // Set position count to 2.
 

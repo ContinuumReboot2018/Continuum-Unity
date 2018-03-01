@@ -359,6 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBosses
+  OnStart: 1
 --- !u!114 &114321277346477534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -490,6 +491,7 @@ MonoBehaviour:
   MiniBossParent: {fileID: 1414357436659834}
   hitPoints: 5
   StartingHitPoints: 5
+  ParticleHitPointAmount: 0.01
   SmallExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   LargeExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
@@ -522,6 +524,7 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 4261272856341010}
   FollowPosY: {fileID: 4261272856341010}
   FollowPosZ: {fileID: 4261272856341010}
@@ -567,9 +570,10 @@ MonoBehaviour:
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 0}
+  FollowPosX: {fileID: 4461372956971004}
+  FollowPosY: {fileID: 4461372956971004}
+  FollowPosZ: {fileID: 4461372956971004}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 8.5, z: 0}
   FollowPosSmoothTime: {x: 0.5, y: 1, z: 0}

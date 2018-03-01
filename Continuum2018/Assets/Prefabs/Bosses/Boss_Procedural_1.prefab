@@ -408,9 +408,9 @@ MonoBehaviour:
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
   OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  FollowPosX: {fileID: 4783365366879060}
+  FollowPosY: {fileID: 4783365366879060}
+  FollowPosZ: {fileID: 4783365366879060}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 9, z: 0}
   FollowPosSmoothTime: {x: 0.5, y: 1, z: 0}

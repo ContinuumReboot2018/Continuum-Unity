@@ -405,9 +405,9 @@ MonoBehaviour:
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
   OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  FollowPosX: {fileID: 4366337150718514}
+  FollowPosY: {fileID: 4366337150718514}
+  FollowPosZ: {fileID: 4366337150718514}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 9, z: 0}
   FollowPosSmoothTime: {x: 0.5, y: 1, z: 0}
@@ -554,7 +554,6 @@ MonoBehaviour:
   timeScaleControllerScript: {fileID: 0}
   Brain: {fileID: 1358503370173682}
   MiniBossParent: {fileID: 1967204055347616}
-  BossPartsObj: {fileID: 1026782176347644}
   hitPoints: 5
   StartingHitPoints: 5
   ParticleHitPointAmount: 0.01

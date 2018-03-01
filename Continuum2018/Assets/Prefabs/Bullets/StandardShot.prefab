@@ -593,6 +593,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   gameControllerScript: {fileID: 0}
   BulletSpeed: 1300
+  BulletSpeedType: 1
   VelocityLimits: {x: -20000, y: 20000}
   BulletRb: {fileID: 54411608822263048}
   BulletCol: {fileID: 65224658155953138}
@@ -605,7 +606,6 @@ MonoBehaviour:
   hasDisappeared: 0
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
-  movedEnough: 0
   allowBulletColDeactivate: 1
   isRicochet: 0
   RicochetYpos: 11.75
@@ -4443,7 +4443,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 250
+    maxNumParticles: 750
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -4648,7 +4648,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 18
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -10722,7 +10722,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  useUnscaledTime: 0
+  useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
@@ -10857,8 +10857,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 2
-      minColor: {r: 0.66176474, g: 0.8320488, b: 1, a: 1}
+      minMaxState: 0
+      minColor: {r: 0.32352942, g: 0.7760651, b: 1, a: 1}
       maxColor: {r: 0.33823532, g: 0.8020615, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
@@ -10921,8 +10921,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.4
-      minScalar: 0.4
+      scalar: 0.3
+      minScalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -11165,7 +11165,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 250
+    maxNumParticles: 2000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -11370,7 +11370,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 12
+      scalar: 24
       minScalar: 0
       maxCurve:
         serializedVersion: 2

@@ -308,10 +308,6 @@ public class PlayerController : MonoBehaviour
 			DoubleShotIteration = shotIteration.Enhanced;
 			TripleShotIteration = shotIteration.Enhanced;
 			RippleShotIteration = shotIteration.Enhanced;
-		}
-
-		if (gameControllerScript.gameModifier.AlwaysRicochet == true)
-		{
 			EnableRicochetObject ();
 		}
 
@@ -645,11 +641,14 @@ public class PlayerController : MonoBehaviour
 		AbilityFillImage.fillAmount = 1f * AbilityTimeAmountProportion;
 
 		// Player presses ability button.
-		if (playerActions.Ability.WasPressed && gameControllerScript.isPaused == false) 
+		if (playerActions.Ability.WasPressed && 
+			gameControllerScript.isPaused == false) 
 		{
 			// Ability is charged.
-			if (CurrentAbilityState == abilityState.Ready && cooldownTimeRemaining <= 0 &&
-				timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false) 
+			if (CurrentAbilityState == abilityState.Ready && 
+				cooldownTimeRemaining <= 0 &&
+				timescaleControllerScript.isInInitialSequence == false && 
+				timescaleControllerScript.isInInitialCountdownSequence == false) 
 			{
 				ActivateAbility ();
 				CurrentAbilityState = abilityState.Active;
@@ -687,7 +686,7 @@ public class PlayerController : MonoBehaviour
 				gameControllerScript.isPaused == false &&
 				tutorialManagerScript.tutorialComplete == true) 
 			{
-				CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
+				// CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
 			}
 
 			if (CurrentAbilityTimeRemaining >= CurrentAbilityDuration) 
