@@ -83,7 +83,6 @@ public class PowerupPickup : MonoBehaviour
 			playerControllerScript_P1.DoubleShotNextFire = 0;
 			playerControllerScript_P1.TripleShotNextFire = 0;
 			playerControllerScript_P1.RippleShotNextFire = 0;
-			//Invoke("CheckActivatePowerup", 0.01667f);
 			CheckActivatePowerup ();
 		}
 
@@ -96,7 +95,6 @@ public class PowerupPickup : MonoBehaviour
 			playerControllerScript_P1.DoubleShotNextFire = 0;
 			playerControllerScript_P1.TripleShotNextFire = 0;
 			playerControllerScript_P1.RippleShotNextFire = 0;
-			//Invoke("CheckActivatePowerup", 0.01667f);
 			CheckActivatePowerup ();
 		}
 	}
@@ -115,7 +113,6 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.DoubleShotNextFire = 0;
 				playerControllerScript_P1.TripleShotNextFire = 0;
 				playerControllerScript_P1.RippleShotNextFire = 0;
-				//Invoke("CheckActivatePowerup", 0.01667f);
 				CheckActivatePowerup ();
 			}
 		}
@@ -131,7 +128,6 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.DoubleShotNextFire = 0;
 				playerControllerScript_P1.TripleShotNextFire = 0;
 				playerControllerScript_P1.RippleShotNextFire = 0;
-				//Invoke("CheckActivatePowerup", 0.01667f);
 				CheckActivatePowerup ();
 			}
 		}

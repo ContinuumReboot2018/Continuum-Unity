@@ -15,6 +15,7 @@ public class MiniBossFormationGenerator : MonoBehaviour
 	public bool AutomaticallyCenterX; // Sets centre point on horizontal axis.
 	public bool AutomaticallyCenterY; // Sets centre point on vertical axis.
 	public Vector2 Center; // Offset to center the image. (Can be in decimals).
+	public MiniBoss MiniBossBrain;
 
 	void Start () 
 	{
@@ -63,6 +64,7 @@ public class MiniBossFormationGenerator : MonoBehaviour
 				GameObject ColorMapObject = Instantiate (colorMapping.prefab, position, Quaternion.identity, ParentTransform);
 				ColorMapObject.transform.localPosition = new Vector3 (position.x, position.y, 0);
 				ColorMapObject.transform.localScale = new Vector3 (Scaling.x, Scaling.y, Scaling.z);
+				ColorMapObject.GetComponent<Block> ().miniBoss = MiniBossBrain;
 			}
 		}
 	}

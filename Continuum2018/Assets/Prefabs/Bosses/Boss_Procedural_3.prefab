@@ -474,6 +474,7 @@ MonoBehaviour:
   AutomaticallyCenterX: 1
   AutomaticallyCenterY: 1
   Center: {x: 0, y: 0}
+  MiniBossBrain: {fileID: 114451544039717206}
 --- !u!114 &114451544039717206
 MonoBehaviour:
   m_ObjectHideFlags: 1

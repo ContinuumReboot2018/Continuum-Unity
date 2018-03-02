@@ -121234,7 +121234,7 @@ MonoBehaviour:
   BlockSpawnIncreaseRate: 0.01
   MaximumBlockPoints: 10000
   PowerupTimeRemaining: 0
-  PowerupTimeDuration: 10
+  PowerupTimeDuration: 15
   PowerupAnim: {fileID: 2009145272}
   PowerupTimeRunningOutAudio: {fileID: 1102922645}
   PowerupResetAudio: {fileID: 1598546898}
@@ -121254,7 +121254,7 @@ MonoBehaviour:
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   powerupPickupTimeRemaining: 0
-  PowerupPickupSpawnRate: {x: 1, y: 12}
+  PowerupPickupSpawnRate: {x: 5, y: 18}
   powerupPickupSpawnModifier: 1
   PowerupPickupSpawnRangeX: 20
   PowerupPickupSpawnY: 10

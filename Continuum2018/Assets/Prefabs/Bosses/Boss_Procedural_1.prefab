@@ -588,6 +588,7 @@ MonoBehaviour:
   AutomaticallyCenterX: 1
   AutomaticallyCenterY: 1
   Center: {x: 0, y: 0}
+  MiniBossBrain: {fileID: 114783873601469336}
 --- !u!120 &120137052278231950
 LineRenderer:
   m_ObjectHideFlags: 1

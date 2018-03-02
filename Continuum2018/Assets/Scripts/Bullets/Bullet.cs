@@ -71,7 +71,6 @@ public class Bullet : MonoBehaviour
 
 	void Start ()
 	{
-		SetBulletVelocity ();
 		AwakeAudio = GetComponent<AudioSource> (); // Gets current attached audio source.
 		AwakeAudio.panStereo = 0.04f * transform.position.x; // Pans audio based on x position.
 
@@ -120,6 +119,7 @@ public class Bullet : MonoBehaviour
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> (); // Find the camera shake.
 		StartCameraShake (); // Give initial camera shake.
 		CheckBulletIteration (); // Checks the iteration of the bullet.
+		SetBulletVelocity ();
 	}
 
 	void Update ()
@@ -254,24 +254,26 @@ public class Bullet : MonoBehaviour
 	// Sets bullet to a set velocity
 	void SetBulletVelocity ()
 	{
-		// Scale by time scale.
-		if (BulletSpeedType == SpeedType.Scaled)
+		if (gameControllerScript.isPaused == false) 
 		{
-			BulletRb.velocity = transform.TransformDirection 
+			// Scale by time scale.
+			if (BulletSpeedType == SpeedType.Scaled) 
+			{
+				BulletRb.velocity = transform.TransformDirection 
 			//BulletRb.velocity = transform.InverseTransformDirection 
 			(
-				new Vector3 (
-					0, 
-					Mathf.Clamp (BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
-					0
-				)
-			);
-		}
+					new Vector3 (
+						0, 
+						Mathf.Clamp (BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
+						0
+					)
+				);
+			}
 
-		// Assumes time scale is always 1. Should compensate.
-		if (BulletSpeedType == SpeedType.Unscaled)
-		{
-			BulletRb.velocity = transform.TransformDirection 
+			// Assumes time scale is always 1. Should compensate.
+			if (BulletSpeedType == SpeedType.Unscaled)
+			{
+				BulletRb.velocity = transform.TransformDirection 
 				//BulletRb.velocity = transform.InverseTransformDirection 
 				(
 					new Vector3 (
@@ -280,6 +282,7 @@ public class Bullet : MonoBehaviour
 						0
 					)
 				);
+			}
 		}
 	}
 

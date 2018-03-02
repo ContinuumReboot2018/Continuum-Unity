@@ -10,7 +10,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 385f5222678c2b443bb0dd0751b61ac2, type: 3}
   m_Name: GameModifier
-  m_EditorClassIdentifier: Assembly-CSharp::GameModifierManager
+  m_EditorClassIdentifier: 
   Tutorial: 0
   PowerupSpawn: 0
   BossSpawn: 0
@@ -18,8 +18,8 @@ MonoBehaviour:
   TrialTime: -1
   AlwaysHoming: 0
   AlwaysRicochet: 0
-  AlwaysRapidfire: 1
+  AlwaysRapidfire: 0
   AlwaysOverdrive: 0
   StartingLives: 3
-  blockSpawnRateMultiplier: 2
+  blockSpawnRateMultiplier: 1
   stacking: 1

@@ -22,9 +22,14 @@ public class Block : MonoBehaviour
 	public bool Stackable; // Is the block able to be stacked?
 	public bool isStacked; // Is the bloc currently stacked?
 	public StackZone stack; // The current stack zone of the stacked block.
+	public float AddAbilityTime = 0.01f;
+
+	[Header ("Boss Part")]
 	public bool isBossPart; // Is the block part of a boss.
 	public bool GotDetached; // Has the block been detached from the boss.
-	public float AddAbilityTime = 0.01f;
+	public MiniBoss miniBoss; // Connection to Mini Boss.
+	public int bossPartIndex;
+	public float BossDamage = 1.0f;
 
 	[Header ("Boundary")]
 	public Vector2 BoundaryX; // Horizontal bounds.
@@ -381,7 +386,16 @@ public class Block : MonoBehaviour
 			1, gameControllerScript.MaximumBlockPoints
 		);
 
-		playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime;
+		playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime; // Increase ability time.
+
+		// While boss part is still attached to main boss.
+		if (GotDetached == false && 
+			isBossPart == true)
+		{
+			float thisDamage = (1 / miniBoss.BossParts.Length) * (0.5f * miniBoss.StartingHitPoints);
+			miniBoss.hitPoints -= thisDamage; // Help with 50% of hit points.
+
+		}
 	}
 
 	// Changes combo when collided with.

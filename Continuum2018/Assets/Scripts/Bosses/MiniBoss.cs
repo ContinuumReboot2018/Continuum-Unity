@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MiniBoss : MonoBehaviour
@@ -7,6 +8,7 @@ public class MiniBoss : MonoBehaviour
 	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
 	public GameObject Brain; // The brain/ (heart).
 	public GameObject MiniBossParent; // The base GameObject of the mini boss.
+	public MiniBossFormationGenerator miniBossFormation;
 
 	[Header ("Stats")]
 	public float hitPoints = 5; // Current hit points.
@@ -24,6 +26,7 @@ public class MiniBoss : MonoBehaviour
 	[Header ("Boss Parts")]
 	public GameObject BossPartsParent; // The parent object where all the boss parts will spawn in.
 	public Block[] BossParts; // All the boss parts spawned here as blocks.
+	public List<Block> BossPartsList;
 
 	[Header ("Shooting")]
 	public bool AllowShoot; // Mini boss can shoot at the player?
@@ -86,6 +89,13 @@ public class MiniBoss : MonoBehaviour
 	void GetBossParts ()
 	{
 		BossParts = BossPartsParent.GetComponentsInChildren<Block> (true);
+		BossPartsList = new List<Block> ();
+
+		for (int i = 0; i < BossParts.Length; i++)
+		{
+			BossPartsList.Add (BossParts[i]);
+			BossParts [i].bossPartIndex = i;
+		}
 	}
 
 	void Update ()
@@ -166,7 +176,7 @@ public class MiniBoss : MonoBehaviour
 
 				if (IsInvoking ("InstanceExplosion") == false) 
 				{
-					Invoke ("InstanceExplosion", 0.25f);
+					Invoke ("InstanceExplosion", 0.1f);
 				}
 			}
 		}
