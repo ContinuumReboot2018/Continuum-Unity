@@ -197,7 +197,6 @@ public class Block : MonoBehaviour
 	// Collisions via particles.
 	void OnParticleCollision (GameObject particle)
 	{
-		Debug.Log ("Particle Collision.");
 		//BoxCol.enabled = false; // Turn off the box collider.
 		GetTotalPointValue (); // Get total point calculation.
 		CreateExplosion (); // Create the explosion.
@@ -373,9 +372,11 @@ public class Block : MonoBehaviour
 		if (GotDetached == false && 
 			isBossPart == true)
 		{
-			float thisDamage = (1 / miniBoss.BossParts.Length) * (0.5f * miniBoss.StartingHitPoints);
-			miniBoss.hitPoints -= thisDamage; // Help with 50% of hit points.
-
+			if ((miniBoss.StartingHitPoints * 0.5f) < (miniBoss.hitPoints))
+			{
+				float blockHitPoints = 1 / (0.5f * miniBoss.BossParts.Length);
+				miniBoss.hitPoints -= blockHitPoints; // Help with 50% of hit points.
+			}
 		}
 	}
 

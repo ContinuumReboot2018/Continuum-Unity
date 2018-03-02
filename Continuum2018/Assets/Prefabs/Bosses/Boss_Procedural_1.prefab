@@ -511,9 +511,10 @@ MonoBehaviour:
   timeScaleControllerScript: {fileID: 0}
   Brain: {fileID: 1887779462268618}
   MiniBossParent: {fileID: 1761358554297378}
+  miniBossFormation: {fileID: 114939170155976878}
   hitPoints: 5
   StartingHitPoints: 5
-  ParticleHitPointAmount: 0.01
+  ParticleHitPointAmount: 0.025
   SmallExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   LargeExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
@@ -524,6 +525,7 @@ MonoBehaviour:
   BrainLookScript: {fileID: 114173807490627588}
   BossPartsParent: {fileID: 1005553650444100}
   BossParts: []
+  BossPartsList: []
   AllowShoot: 0
   FireRate: 0.6
   FireRateRange: {x: 0.1, y: 1}

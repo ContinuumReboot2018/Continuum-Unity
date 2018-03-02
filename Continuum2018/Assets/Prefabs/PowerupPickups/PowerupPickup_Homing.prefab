@@ -563,6 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 6
+  DestroyObj: {fileID: 0}
   useUnscaledTime: 0
 --- !u!114 &114125171354726790
 MonoBehaviour:
@@ -584,7 +585,7 @@ MonoBehaviour:
   col: {fileID: 135584284121735064}
   AwakeParticles: {fileID: 198398454443946130}
   AwakeDelay: 1
-  ThisPowerup: 10
+  ThisPowerup: 9
   PowerupTexture: {fileID: 2800000, guid: 3595e25f30b66aa439c00e7a651c3743, type: 3}
   isShootingPowerup: 0
   PowerupTime: 20

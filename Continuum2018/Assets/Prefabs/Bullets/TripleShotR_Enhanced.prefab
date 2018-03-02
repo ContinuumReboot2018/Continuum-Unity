@@ -276,7 +276,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   gameControllerScript: {fileID: 0}
   BulletSpeed: 2000
-  BulletSpeedType: 1
+  BulletSpeedType: 0
   VelocityLimits: {x: -20000, y: 20000}
   BulletRb: {fileID: 54017364466203416}
   BulletCol: {fileID: 65856797280268810}

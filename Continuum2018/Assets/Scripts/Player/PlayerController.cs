@@ -527,9 +527,11 @@ public class PlayerController : MonoBehaviour
 	{
 		SetCooldownTime (5);
 		GlitchEffect.Play ("CameraGlitchOn");
-		ImpactPoint = gameObject.transform.position;
+		ImpactPoint = ImpactBlock.transform.position;
 		PlayerExplosionParticles.transform.position = ImpactPoint;
+		Instantiate (ImpactBlock.playerExplosion, ImpactPoint, Quaternion.identity);
 		PlayerExplosionParticles.Play ();
+		PlayerRb.transform.position = new Vector3 (0, -15, 0);
 		StartCoroutine (UseEmp ());
 		ResetPowerups ();
 		playerCol.enabled = false;
@@ -551,7 +553,7 @@ public class PlayerController : MonoBehaviour
 		gameControllerScript.combo = 1;
 		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
 		timescaleControllerScript.OverridingTimeScale = 0.25f;
-		Instantiate (ImpactBlock.playerExplosion, transform.position, Quaternion.identity);
+
 	}
 
 	// When cooldown time is complete.
@@ -571,6 +573,7 @@ public class PlayerController : MonoBehaviour
 	void RejoinGame ()
 	{
 		gameControllerScript.UpdateLives ();
+		PlayerFollow.transform.position = Vector3.zero;
 		canShoot = true;
 		UsePlayerFollow = true;
 		playerMesh.SetActive (true);

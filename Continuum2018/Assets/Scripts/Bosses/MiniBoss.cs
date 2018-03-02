@@ -12,7 +12,7 @@ public class MiniBoss : MonoBehaviour
 
 	[Header ("Stats")]
 	public float hitPoints = 5; // Current hit points.
-	public int StartingHitPoints = 1; // Starting hit points.
+	public float StartingHitPoints = 1; // Starting hit points.
 	public float ParticleHitPointAmount = 0.01f; // How much damage particles with collision deal to it.
 
 	public GameObject SmallExplosion; // Small explosion to instantiate.
@@ -59,7 +59,7 @@ public class MiniBoss : MonoBehaviour
 			PlayerPos = GameObject.Find ("PlayerCollider").transform;
 			FollowPlayerPos = PlayerPos;
 			Invoke ("GetBossParts", 0.5f);
-			hitPoints = StartingHitPoints + gameControllerScript.Wave;
+			hitPoints = StartingHitPoints;
 			StartCoroutine (DrawLineToPlayer ());
 			FlipScreen = GameObject.Find ("Camera Rig").GetComponent<Animator>();
 
@@ -68,8 +68,6 @@ public class MiniBoss : MonoBehaviour
 			simpleFollowScript.OverrideTransform = FollowPlayerPos.transform;
 		}
 			
-
-
 		// Couldn't find the player. Bail out and go to next wave.
 		if (GameObject.Find ("PlayerCollider").transform == null || 
 			FollowPlayerPos == null) 
@@ -114,6 +112,14 @@ public class MiniBoss : MonoBehaviour
 		//Debug.DrawLine (transform.position, FollowPlayerPos.position, Color.green);
 		Debug.DrawLine (transform.position, simpleFollowScript.OverrideTransform.position, Color.green);
 		#endif
+
+		// Mini boss gets defeated.
+		if (hitPoints <= 0) 
+		{
+			KillMiniBoss ();
+			Destroy (MiniBossParent.gameObject); // Destroy the boss parent.
+			return;
+		}
 	}
 
 	// Shoots missles to the player.
@@ -149,7 +155,7 @@ public class MiniBoss : MonoBehaviour
 				// Mini boss takes damage.
 				if (hitPoints > 0) 
 				{
-					hitPoints -= 1; // Reduce a hit point.
+					hitPoints -= 1; // Reduce a full hit point.
 					Instantiate (SmallExplosion, transform.position, transform.rotation); // Spawn a small explosion.
 				}
 			}
