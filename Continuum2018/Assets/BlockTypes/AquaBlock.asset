@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5230ad3e6b0884b950fd8b7db05075, type: 3}
+  m_Name: AquaBlock
+  m_EditorClassIdentifier: 
+  Speed: -800
+  Material: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
+  BasePointValue: 1
+  Explosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a, type: 2}
+  TextColor: {r: 0, g: 0.9916434, b: 1, a: 1}

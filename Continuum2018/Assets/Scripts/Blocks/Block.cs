@@ -24,6 +24,12 @@ public class Block : MonoBehaviour
 	public StackZone stack; // The current stack zone of the stacked block.
 	public float AddAbilityTime = 0.01f;
 
+	[Header ("BlockTypes")]
+	public BlockManager AquaBlock;
+	public BlockManager BlueBlock;
+	public BlockManager PurpleBlock;
+	public BlockManager PinkBlock;
+
 	[Header ("Boss Part")]
 	public bool isBossPart; // Is the block part of a boss.
 	public bool GotDetached; // Has the block been detached from the boss.
@@ -34,32 +40,6 @@ public class Block : MonoBehaviour
 	[Header ("Boundary")]
 	public Vector2 BoundaryX; // Horizontal bounds.
 	public Vector2 BoundaryY; // Vertical bounds.
-
-	[Header ("All block stats")]
-	public float AquaSpeed; // Speed when the type is Aqua.
-	public float BlueSpeed; // Speed when the type is Blue.
-	public float PurpleSpeed; // Speed when the type is Purple.
-	public float PinkSpeed; // Speed when the type is Pink.
-
-	public Material AquaMat; // Material when the type is Aqua.
-	public Material BlueMat; // Material when the type is Blue.
-	public Material PurpleMat; // Material when the type is Purple.
-	public Material PinkMat; // Material when the type is Pink.
-
-	public float AquaBasePointValue   = 1; // Base point value when the type is Aqua.
-	public float BlueBasePointValue   = 2; // Base point value when the type is Blue.
-	public float PurpleBasePointValue = 3; // Base point value when the type is Purple.
-	public float PinkBasePointValue   = 4; // Base point value when the type is Pink.
-
-	public GameObject AquaExplosion; // Explosion value when the type is Aqua.
-	public GameObject BlueExplosion; // Explosion value when the type is Blue.
-	public GameObject PurpleExplosion; // Explosion value when the type is Purple.
-	public GameObject PinkExplosion; // Explosion value when the type is Pink.
-
-	public Color AquaTextColor; // Color of text for Aqua explosion.
-	public Color BlueTextColor; // Color of text for Blue explosion.
-	public Color PurpleTextColor; // Color of text for Purple explosion.
-	public Color PinkTextColor; // Color of text for Pink explosion.
 
 	[Header ("Normal Block Types")]
 	public mainBlockType BlockType; // The current block type for normal types.
@@ -217,7 +197,8 @@ public class Block : MonoBehaviour
 	// Collisions via particles.
 	void OnParticleCollision (GameObject particle)
 	{
-		BoxCol.enabled = false; // Turn off the box collider.
+		Debug.Log ("Particle Collision.");
+		//BoxCol.enabled = false; // Turn off the box collider.
 		GetTotalPointValue (); // Get total point calculation.
 		CreateExplosion (); // Create the explosion.
 		IncrementBlocksDestroyed (); // Increment blocks destroyed.
@@ -229,7 +210,7 @@ public class Block : MonoBehaviour
 	// Trigger via other objects.
 	void OnTriggerEnter(Collider other)
 	{
-		BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
+		//BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
 
 		// Other object has missile in its name.
 		if (other.gameObject.name.Contains ("Missile")) 
@@ -339,7 +320,7 @@ public class Block : MonoBehaviour
 		// Position higher than 60 units, don't collide.
 		if (transform.position.y > 60) 
 		{
-			BoxCol.enabled = false;
+			//BoxCol.enabled = false;
 		}
 
 		// Position lower than 60 units. Allow collisions.
@@ -386,7 +367,7 @@ public class Block : MonoBehaviour
 			1, gameControllerScript.MaximumBlockPoints
 		);
 
-		playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime; // Increase ability time.
+		playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
 
 		// While boss part is still attached to main boss.
 		if (GotDetached == false && 
@@ -510,32 +491,32 @@ public class Block : MonoBehaviour
 			switch (BlockType) 
 			{
 			case mainBlockType.Aqua:
-				speed = AquaSpeed;
-				rend.material = AquaMat;
-				BasePointValue = AquaBasePointValue;
-				TextColor = AquaTextColor;
-				Explosion = AquaExplosion;
+				speed = AquaBlock.Speed;
+				rend.material = AquaBlock.Material;
+				BasePointValue = AquaBlock.BasePointValue;
+				TextColor = AquaBlock.TextColor;
+				Explosion = AquaBlock.Explosion;
 				break;
 			case mainBlockType.Blue:
-				speed = BlueSpeed;
-				rend.material = BlueMat;
-				BasePointValue = BlueBasePointValue;
-				TextColor = BlueTextColor;
-				Explosion = BlueExplosion;
+				speed = BlueBlock.Speed;
+				rend.material = BlueBlock.Material;
+				BasePointValue = BlueBlock.BasePointValue;
+				TextColor = BlueBlock.TextColor;
+				Explosion = BlueBlock.Explosion;
 				break;
 			case mainBlockType.Purple:
-				speed = PurpleSpeed;
-				rend.material = PurpleMat;
-				BasePointValue = PurpleBasePointValue;
-				TextColor = PurpleTextColor;
-				Explosion = PurpleExplosion;
+				speed = PurpleBlock.Speed;
+				rend.material = PurpleBlock.Material;
+				BasePointValue = PurpleBlock.BasePointValue;
+				TextColor = PurpleBlock.TextColor;
+				Explosion = PurpleBlock.Explosion;
 				break;
 			case mainBlockType.Pink:
-				speed = PinkSpeed;
-				rend.material = PinkMat;
-				BasePointValue = PinkBasePointValue;
-				TextColor = PinkTextColor;
-				Explosion = PinkExplosion;
+				speed = PinkBlock.Speed;
+				rend.material = PinkBlock.Material;
+				BasePointValue = PinkBlock.BasePointValue;
+				TextColor = PinkBlock.TextColor;
+				Explosion = PinkBlock.Explosion;
 				break;
 			}
 		}

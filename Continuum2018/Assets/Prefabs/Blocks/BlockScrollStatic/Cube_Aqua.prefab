@@ -213,34 +213,18 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
+  AddAbilityTime: 0.01
+  AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
+  BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
+  PurpleBlock: {fileID: 11400000, guid: 6455345e71738cf42a36eb8f96cdd672, type: 2}
+  PinkBlock: {fileID: 11400000, guid: a5884e4bd20124542a8e44a8a320dd74, type: 2}
   isBossPart: 0
   GotDetached: 0
-  BoundaryX: {x: 0, y: 0}
-  BoundaryY: {x: 0, y: 0}
-  AquaSpeed: -650
-  BlueSpeed: -750
-  PurpleSpeed: -950
-  PinkSpeed: -1150
-  AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
-  BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
-  PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
-  PinkMat: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
-  AquaBasePointValue: 1
-  BlueBasePointValue: 2
-  PurpleBasePointValue: 3
-  PinkBasePointValue: 4
-  AquaExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
-    type: 2}
-  BlueExplosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af,
-    type: 2}
-  PurpleExplosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be,
-    type: 2}
-  PinkExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
-    type: 2}
-  AquaTextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
-  BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
-  PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
-  PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
+  miniBoss: {fileID: 0}
+  bossPartIndex: 0
+  BossDamage: 1
+  BoundaryX: {x: -100, y: 100}
+  BoundaryY: {x: -100, y: 100}
   BlockType: 0
   BlockChangeType: 0
   ChangeRate: 0.5

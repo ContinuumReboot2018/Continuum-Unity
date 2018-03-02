@@ -2487,7 +2487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 214, y: -48.94995}
+  m_AnchoredPosition: {x: 214, y: -48.950195}
   m_SizeDelta: {x: 3.4, y: 52.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &130088648
@@ -7553,7 +7553,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 29.560059, y: -48.94995}
+  m_AnchoredPosition: {x: 29.560547, y: -48.950195}
   m_SizeDelta: {x: 0, y: 52.1}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &230171786
@@ -56993,7 +56993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 113.91016, y: -48.94995}
+  m_AnchoredPosition: {x: 113.91016, y: -48.950195}
   m_SizeDelta: {x: 3.4, y: 52.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &675451756
@@ -75145,7 +75145,7 @@ MonoBehaviour:
   inputSensitivity: 2.5
   CurrentShotObject: {fileID: 0}
   canShoot: 0
-  CurrentFireRate: 0.45
+  CurrentFireRate: 0.35
   FireRateTimeMultiplier: 1.15
   NextFire: 0
   ShotType: 0
@@ -75157,7 +75157,7 @@ MonoBehaviour:
     type: 2}
   StandardShotIteration: 0
   StandardShotSpawn: {fileID: 859732702}
-  StandardFireRate: 0.45
+  StandardFireRate: 0.35
   playerMesh: {fileID: 815677225}
   ImpactPoint: {x: 0, y: 0, z: 0}
   playerCol: {fileID: 1081056890}
@@ -75177,7 +75177,7 @@ MonoBehaviour:
   CurrentAbilityDuration: 20
   CurrentAbilityTimeRemaining: 0
   AbilityTimeAmountProportion: 0
-  AbilityChargeSpeedMultiplier: 0.5
+  AbilityChargeSpeedMultiplier: 0.1
   AbilityUseSpeedMultiplier: 4
   AbilityName: 
   Ability: 4
@@ -75220,8 +75220,8 @@ MonoBehaviour:
   DoubleShotSpawnL: {fileID: 77031333}
   DoubleShotSpawnR: {fileID: 889347058}
   DoubleShotFireRates:
-  - 0.3
-  - 0.2
+  - 0.27
+  - 0.15
   DoubleShotIteration: 0
   DoubleShotNextFire: 0
   TripleShotL: {fileID: 1269433964671182, guid: 9a5594d97d1871249b041d3acf644c0e,
@@ -75246,8 +75246,8 @@ MonoBehaviour:
   TripleShotSpawnM: {fileID: 945773979}
   TripleShotSpawnR: {fileID: 2053581876}
   TripleShotFireRates:
-  - 0.3
-  - 0.2
+  - 0.27
+  - 0.15
   TripleShotIteration: 0
   TripleShotNextFire: 0
   RippleShot: {fileID: 1527851726018156, guid: 66da2fd0909c75641a7dd6ec06c9c55f, type: 2}
@@ -75257,8 +75257,8 @@ MonoBehaviour:
     type: 2}
   RippleShotSpawn: {fileID: 859732702}
   RippleShotFireRates:
-  - 0.8
-  - 0.4
+  - 0.81
+  - 0.45
   RippleShotIteration: 0
   RippleShotNextFire: 0
   isShieldOn: 0
@@ -121198,7 +121198,7 @@ MonoBehaviour:
   - {fileID: 1743466060572060, guid: a03fbb974e9046b48944076642c8c3c3, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
-  BlockSpawnRate: 1
+  BlockSpawnRate: 0.41
   blockSpawnStartDelay: 4
   BlockSpawnXPositions:
   - -20.25
@@ -153672,7 +153672,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -53.94992}
+  m_AnchoredPosition: {x: 0, y: -53.949707}
   m_SizeDelta: {x: 635.7, y: 107.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1791653155

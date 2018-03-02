@@ -298,6 +298,8 @@ public class GameController : MonoBehaviour
 		{
 			playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
 		}
+
+		powerupPickupTimeRemaining = 10;
 	}
 
 	// Timescale controller calls this initially after the countdown.
@@ -370,6 +372,7 @@ public class GameController : MonoBehaviour
 		CheckWaveTime (); 					// Stuff to do when the wave time > 0.
 		UpdateScoreIncrements (); 			// Refreshes score.
 		UpdateStarFieldParticleEffects ();  // Updates particle effects.
+	
 		PowerupSpawner ();					// Timer for powerup spawning.
 	}
 
@@ -1145,13 +1148,13 @@ public class GameController : MonoBehaviour
 		SpawnBigBossObject ();
 
 		// Increase boss spawn ID.
-		if (bossId <= BigBosses.Length) 
+		if (bossId < BigBosses.Length) 
 		{
 			bossId += 1;
 		}
 
 		// Reset boss spawn ID if reached the end.
-		if (bossId > BigBosses.Length) 
+		if (bossId >= BigBosses.Length) 
 		{
 			bossId = 0;
 		}

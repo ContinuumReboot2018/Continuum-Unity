@@ -139,6 +139,8 @@ public class Bullet : MonoBehaviour
 
 	void FixedUpdate ()
 	{
+		// When the bullet is not a homing bullet, set the bullet velocity. 
+		// Homing bullet's speed is managed by homing script.
 		if (isHoming == false)
 		{
 			SetBulletVelocity ();

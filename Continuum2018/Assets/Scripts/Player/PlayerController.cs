@@ -686,7 +686,7 @@ public class PlayerController : MonoBehaviour
 				gameControllerScript.isPaused == false &&
 				tutorialManagerScript.tutorialComplete == true) 
 			{
-				// CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
+				CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
 			}
 
 			if (CurrentAbilityTimeRemaining >= CurrentAbilityDuration) 

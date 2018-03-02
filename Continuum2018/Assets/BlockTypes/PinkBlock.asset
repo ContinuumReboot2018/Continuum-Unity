@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5230ad3e6b0884b950fd8b7db05075, type: 3}
+  m_Name: PinkBlock
+  m_EditorClassIdentifier: 
+  Speed: -1400
+  Material: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
+  BasePointValue: 3
+  Explosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48, type: 2}
+  TextColor: {r: 1, g: 0, b: 0.4846797, a: 1}

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5230ad3e6b0884b950fd8b7db05075, type: 3}
+  m_Name: BlueBlock
+  m_EditorClassIdentifier: 
+  Speed: -1000
+  Material: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
+  BasePointValue: 2
+  Explosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af, type: 2}
+  TextColor: {r: 0, g: 0.49025083, b: 1, a: 1}
