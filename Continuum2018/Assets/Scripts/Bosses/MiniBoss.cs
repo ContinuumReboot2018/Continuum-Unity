@@ -7,7 +7,7 @@ public class MiniBoss : MonoBehaviour
 	public GameController gameControllerScript; // Reference to Game Controller.
 	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
 	public CameraShake camShakeScript; // Reference to camera shake.
-	public GameObject Brain; // The brain/ (heart).
+	public GameObject Brain; // The brain, (heart).
 	public GameObject MiniBossParent; // The base GameObject of the mini boss.
 	public MiniBossFormationGenerator miniBossFormation;
 
@@ -44,6 +44,11 @@ public class MiniBoss : MonoBehaviour
 	[Header ("Effects")]
 	public Animator FlipScreen; // Ability for bosses to flip the screen if needed. (Will probably move this functionality to big bosses).
 
+	void Awake ()
+	{
+		hitPoints = StartingHitPoints;
+	}
+
 	void Start () 
 	{
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
@@ -62,7 +67,6 @@ public class MiniBoss : MonoBehaviour
 			PlayerPos = GameObject.Find ("PlayerCollider").transform;
 			FollowPlayerPos = PlayerPos;
 			Invoke ("GetBossParts", 0.5f);
-			hitPoints = StartingHitPoints;
 			StartCoroutine (DrawLineToPlayer ());
 			FlipScreen = GameObject.Find ("Camera Rig").GetComponent<Animator>();
 
@@ -93,6 +97,13 @@ public class MiniBoss : MonoBehaviour
 		{
 			col.enabled = false;
 		}
+
+		Invoke ("EnableCol", 3);
+	}
+
+	void EnableCol ()
+	{
+		col.enabled = true;
 	}
 
 	// Creates an array of boss parts with Block components that were spawned in the BossParts parent GameObject.

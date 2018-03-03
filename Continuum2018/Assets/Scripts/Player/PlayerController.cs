@@ -683,7 +683,9 @@ public class PlayerController : MonoBehaviour
 
 		// Player presses ability button.
 		if (playerActions.Ability.WasPressed && 
-			gameControllerScript.isPaused == false) 
+			gameControllerScript.isPaused == false && 
+			playerCol.enabled == true && 
+			isInCooldownMode == false) 
 		{
 			// Ability is charged.
 			if (CurrentAbilityState == abilityState.Ready && 
@@ -711,6 +713,8 @@ public class PlayerController : MonoBehaviour
 				CurrentAbilityState = abilityState.Charging;
 				DeactivateAbility ();
 			}
+
+			CurrentAbilityTimeRemaining = Mathf.Clamp (CurrentAbilityTimeRemaining, 0, CurrentAbilityDuration);
 		}
 
 		if (CurrentAbilityState == abilityState.Ready) 

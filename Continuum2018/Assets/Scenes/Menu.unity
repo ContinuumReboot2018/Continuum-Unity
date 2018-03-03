@@ -15630,8 +15630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde6faa0d78a1944e85bfe3f9ef0d03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resWidth: 3840
-  resHeight: 2160
+  ResolutionMultiplier: {x: 1, y: 1}
 --- !u!1 &300090810
 GameObject:
   m_ObjectHideFlags: 0
@@ -66068,6 +66067,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   gameControllerScript: {fileID: 0}
   BulletSpeed: 0
+  BulletSpeedType: 0
   VelocityLimits: {x: 0, y: 0}
   BulletRb: {fileID: 1078228704}
   BulletCol: {fileID: 1078228703}
@@ -66080,7 +66080,6 @@ MonoBehaviour:
   hasDisappeared: 0
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
-  movedEnough: 0
   allowBulletColDeactivate: 0
   isRicochet: 0
   RicochetYpos: 11.75
@@ -66666,7 +66665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -60.00006, y: -88.23999}
+  m_AnchoredPosition: {x: -60, y: -88.23999}
   m_SizeDelta: {x: 1979, y: 400}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1096370681
@@ -66760,7 +66759,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -60.00006, y: -199.29999}
+  m_AnchoredPosition: {x: -60, y: -199.29999}
   m_SizeDelta: {x: 1979, y: 400}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1116423866
@@ -93932,6 +93931,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   gameControllerScript: {fileID: 0}
   BulletSpeed: 0
+  BulletSpeedType: 0
   VelocityLimits: {x: 0, y: 0}
   BulletRb: {fileID: 1337808844}
   BulletCol: {fileID: 1337808847}
@@ -93944,7 +93944,6 @@ MonoBehaviour:
   hasDisappeared: 0
   DestroyDelayTime: 1
   playerPos: {fileID: 0}
-  movedEnough: 0
   allowBulletColDeactivate: 0
   isRicochet: 0
   RicochetYpos: 11.75
@@ -129312,7 +129311,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1751731147}
-  - component: {fileID: 1751731148}
   m_Layer: 0
   m_Name: CameraFollowAngles
   m_TagString: Untagged
@@ -129338,20 +129336,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1751731148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1751731146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 336a148c5d3f9264985992c92d8b009b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CameraFollowScript: {fileID: 142635022}
-  DefaultPoint: {fileID: 1280415891}
-  MainMenuPoint: {fileID: 187369433}
 --- !u!1 &1752199032
 GameObject:
   m_ObjectHideFlags: 0
@@ -137578,8 +137562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a595535476f09449aa8e1141000db40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1858346726}
   playerControllerScript: {fileID: 0}
+  anim: {fileID: 1858346726}
   DontUsePlayerInput: 1
 --- !u!95 &1858346726
 Animator:
