@@ -29,8 +29,8 @@ GameObject:
   - component: {fileID: 114434304479368520}
   - component: {fileID: 65804308006805828}
   - component: {fileID: 114011737829474088}
-  m_Layer: 11
-  m_Name: Cube_RandomOnce
+  m_Layer: 16
+  m_Name: BossPart_RandomOnce
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -71,16 +71,15 @@ public class MiniBoss : MonoBehaviour
 		}
 			
 		// Couldn't find the player. Bail out and go to next wave.
-		if (GameObject.Find ("PlayerCollider").transform == null || 
-			FollowPlayerPos == null) 
+		if (GameObject.Find ("PlayerCollider").transform == null) 
 		{
 			BossPartsConvertToNoise ();
 			hitPoints = 0;
 			Instantiate (LargeExplosion, transform.position, transform.rotation);
 			gameControllerScript.StartNewWave ();
 			gameControllerScript.IsInWaveTransition = true;
-			Destroy (MiniBossParent.gameObject);
 			Debug.LogWarning ("No player found, bailing out.");
+			Destroy (MiniBossParent.gameObject);
 			return;
 		}
 	}
@@ -143,23 +142,24 @@ public class MiniBoss : MonoBehaviour
 		// Bullet tag.
 		if (other.tag == "Bullet") 
 		{
-			if (other.name.Contains ("P1") || other.name.Contains ("Shield_Col") ||
-			    other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
+			if ((other.name.Contains ("P1") || other.name.Contains ("Shield_Col")) &&
+				other.GetComponent<Bullet> () != null)
 			{
-				// Mini boss gets defeated.
-				if (hitPoints <= 0) 
+				if (other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
 				{
-					KillMiniBoss ();
-					Destroy (MiniBossParent.gameObject); // Destroy the boss parent.
-					return;
-				}
+					// Mini boss gets defeated.
+					if (hitPoints <= 0) {
+						KillMiniBoss ();
+						Destroy (MiniBossParent.gameObject); // Destroy the boss parent.
+						return;
+					}
 
-				// Mini boss takes damage.
-				if (hitPoints > 0) 
-				{
-					hitPoints -= 1; // Reduce a full hit point.
-					DoCamShake ();
-					Instantiate (SmallExplosion, transform.position, transform.rotation); // Spawn a small explosion.
+					// Mini boss takes damage.
+					if (hitPoints > 0) {
+						hitPoints -= 1; // Reduce a full hit point.
+						DoCamShake ();
+						Instantiate (SmallExplosion, transform.position, transform.rotation); // Spawn a small explosion.
+					}
 				}
 			}
 		}

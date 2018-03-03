@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EvasiveManeuver : MonoBehaviour 
 {
+	public Vector2 InitialPosition = new Vector2 (16, 12);
 	public Vector2 smoothingRange = new Vector2 (10, 60);
 	public Vector2 startWait;
 	public Vector2 maneuverTime;
@@ -14,6 +15,12 @@ public class EvasiveManeuver : MonoBehaviour
 
 	void Start ()
 	{
+		MovePoint = new Vector3 (
+			Random.Range (-InitialPosition.x, InitialPosition.x),
+			InitialPosition.y,
+			0
+		);
+
 		StartCoroutine (Evade ());
 	}
 

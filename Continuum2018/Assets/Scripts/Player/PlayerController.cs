@@ -1169,7 +1169,7 @@ public class PlayerController : MonoBehaviour
 		// ABILITY UI
 		// When the player is close to the ability UI.
 		// Vertical position.
-		if (PlayerRb.position.y < AbilityCheckPlayerPos.y) 
+		if (PlayerRb.position.y < AbilityCheckPlayerPos.y && isInCooldownMode == false) 
 		{
 			// Horizontal position too far.
 			if (PlayerRb.position.x > -AbilityCheckPlayerPos.x && PlayerRb.position.x < AbilityCheckPlayerPos.x) 
@@ -1193,7 +1193,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Vertical position too far from score text.
-		if (PlayerRb.position.y >= AbilityCheckPlayerPos.y) 
+		if (PlayerRb.position.y >= AbilityCheckPlayerPos.y && isInCooldownMode == false) 
 		{
 			if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeIn") == false && isHidingAbilityUI == true) 
 			{
@@ -1205,7 +1205,7 @@ public class PlayerController : MonoBehaviour
 		// SCORE UI
 		// When the player is close to the score text.
 		// Vertical position.
-		if (PlayerRb.position.y > ScoreCheckPlayerPos.y) 
+		if (PlayerRb.position.y > ScoreCheckPlayerPos.y && isInCooldownMode == false) 
 		{
 			// Horizontal position too far.
 			if (PlayerRb.position.x > -ScoreCheckPlayerPos.x && PlayerRb.position.x < ScoreCheckPlayerPos.x) 
@@ -1218,7 +1218,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			// Horizontal position in range.
-			if (PlayerRb.position.x <= -ScoreCheckPlayerPos.x || PlayerRb.position.x >= ScoreCheckPlayerPos.x) 
+			if (PlayerRb.position.x <= -ScoreCheckPlayerPos.x || PlayerRb.position.x >= ScoreCheckPlayerPos.x && isInCooldownMode == false)  
 			{
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 				{
@@ -1229,7 +1229,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Vertical position too far from score text.
-		if (PlayerRb.position.y <= ScoreCheckPlayerPos.y) 
+		if (PlayerRb.position.y <= ScoreCheckPlayerPos.y && isInCooldownMode == false) 
 		{
 			if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 			{
@@ -1241,7 +1241,7 @@ public class PlayerController : MonoBehaviour
 		// LIVES UI
 		// When the player is close to the lives text.
 		// Vertical position.
-		if (PlayerRb.position.y > LivesCheckPlayerPosY.y && LivesAnim.gameObject.activeInHierarchy == true) 
+		if (PlayerRb.position.y > LivesCheckPlayerPosY.y && LivesAnim.gameObject.activeInHierarchy == true && isInCooldownMode == false) 
 		{
 			// Horizontal position too far.
 			if (PlayerRb.position.x < LivesCheckPlayerPosX.x) 
@@ -1265,7 +1265,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Vertical position too far from lives text.
-		if (PlayerRb.position.y <= LivesCheckPlayerPosY.y && LivesAnim.gameObject.activeInHierarchy == true) 
+		if (PlayerRb.position.y <= LivesCheckPlayerPosY.y && LivesAnim.gameObject.activeInHierarchy == true && isInCooldownMode == false) 
 		{
 			if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true) 
 			{

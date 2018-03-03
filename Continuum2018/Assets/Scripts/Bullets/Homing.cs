@@ -44,14 +44,22 @@ public class Homing : MonoBehaviour
 		rotateSpeed += RotateSpeedIncreaseRate * Time.deltaTime;
 
 		// Target has been assigned.
-		if (target != null)
+		if (target)
 		{
-			// Find direction homing needs to face.
-			Vector2 direction = (Vector2)target.position - (Vector2)rb.position;
-			direction.Normalize (); // Normalise vector.
-			Vector3 rotateAmount = Vector3.Cross (direction, transform.up); // Calculate rotation axis.
-			rb.angularVelocity = -rotateAmount * rotateSpeed; // Set angular velocity.
-			rb.velocity = transform.up * speed; // Set movement.
+			try
+			{
+				// Find direction homing needs to face.
+				Vector2 direction = (Vector2)target.position - (Vector2)rb.position;
+				direction.Normalize (); // Normalise vector.
+				Vector3 rotateAmount = Vector3.Cross (direction, transform.up); // Calculate rotation axis.
+				rb.angularVelocity = -rotateAmount * rotateSpeed; // Set angular velocity.
+				rb.velocity = transform.up * speed; // Set movement.
+			}
+
+			catch (MissingReferenceException) 
+			{
+				ReleaseHoming ();
+			}
 		}
 			
 		else 

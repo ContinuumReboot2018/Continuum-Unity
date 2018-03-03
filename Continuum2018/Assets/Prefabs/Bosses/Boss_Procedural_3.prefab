@@ -574,9 +574,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636f0dd592e6b604c92e5c7380dde215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialPosition: {x: 16, y: 12}
   smoothingRange: {x: 1, y: 6}
   startWait: {x: 1, y: 2}
-  maneuverTime: {x: 0.5, y: 2}
+  maneuverTime: {x: 2, y: 3}
   boundaryX: {x: -20, y: 20}
   boundaryY: {x: 8, y: 12}
 --- !u!114 &114649825430939904
