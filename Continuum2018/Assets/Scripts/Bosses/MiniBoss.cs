@@ -6,6 +6,7 @@ public class MiniBoss : MonoBehaviour
 {
 	public GameController gameControllerScript; // Reference to Game Controller.
 	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
+	public CameraShake camShakeScript; // Reference to camera shake.
 	public GameObject Brain; // The brain/ (heart).
 	public GameObject MiniBossParent; // The base GameObject of the mini boss.
 	public MiniBossFormationGenerator miniBossFormation;
@@ -46,6 +47,7 @@ public class MiniBoss : MonoBehaviour
 	{
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
+		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 
 		// If no brain has been referenced, reference the brain from here.
 		if (Brain == null) 
@@ -156,6 +158,7 @@ public class MiniBoss : MonoBehaviour
 				if (hitPoints > 0) 
 				{
 					hitPoints -= 1; // Reduce a full hit point.
+					DoCamShake ();
 					Instantiate (SmallExplosion, transform.position, transform.rotation); // Spawn a small explosion.
 				}
 			}
@@ -179,6 +182,7 @@ public class MiniBoss : MonoBehaviour
 			if (hitPoints > 0) 
 			{
 				hitPoints -= 1 * ParticleHitPointAmount;
+				DoCamShake ();
 
 				if (IsInvoking ("InstanceExplosion") == false) 
 				{
@@ -223,6 +227,8 @@ public class MiniBoss : MonoBehaviour
 				block.parentToTransformScript.ParentNow ();
 			}
 		}
+
+		DoStrongCamShake ();
 	}
 
 	// Sequence for showing a line to 
@@ -246,5 +252,15 @@ public class MiniBoss : MonoBehaviour
 		yield return new WaitForSeconds (LineTimerOnDuration); // Wait.
 
 		StartCoroutine (DrawLineToPlayer ()); // Stop this coroutine.
+	}
+
+	void DoCamShake ()
+	{
+		camShakeScript.ShakeCam (0.7f, 0.3f, 20);
+	}
+
+	void DoStrongCamShake ()
+	{
+		camShakeScript.ShakeCam (1.25f, 0.75f, 30);
 	}
 }

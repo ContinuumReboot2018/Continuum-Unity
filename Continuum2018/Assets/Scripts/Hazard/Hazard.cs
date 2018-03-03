@@ -1,31 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Hazard : MonoBehaviour 
 {
-	public PlayerController playerControllerScript_P1;
-	public GameController gameControllerScript;
-	public TimescaleController timeScaleControllerScript;
-	public AudioController audioControllerScript;
-	public hazardType HazardType;
+	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
+	public GameController gameControllerScript; // Reference to Game Controller.
+	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
+	public AudioController audioControllerScript; // Reference to Audio Controller.
+
+	[Header ("Hazard Type")]
+	public hazardType HazardType; // Current hazard type.
 	public enum hazardType
 	{
 		Missile
 	}
 
-	public GameObject Explosion;
-	public GameObject playerExplosion;
+	public GameObject Explosion; // Explosion to play when a bullet or particle collides with it.
+	public GameObject playerExplosion; // Explosion to play when the player hits the hazard.
 
 	[Header ("Camera Shake")]
-	public CameraShake camShakeScript;
-	public float newCamShakeDuration = 0.1f;
-	public float newCamShakeAmount = 0.1f;
+	public CameraShake camShakeScript; // Reference to Camera Shake script.
+	public float newCamShakeDuration = 0.1f; // How long to shake for.
+	public float newCamShakeAmount = 0.1f; // Strength of the shake.
 
-	public float LowPassTargetFreq = 1500;
-	public float ResonanceTargetFreq = 1;
+	public float LowPassTargetFreq = 1500; // Audio frequency for low pass filter.
+	public float ResonanceTargetFreq = 1; // Resonance amount for low pass filter.
 
 	void Start () 
+	{
+		FindReferences (); // Find references.
+	}
+
+	void FindReferences ()
 	{
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
@@ -34,6 +39,7 @@ public class Hazard : MonoBehaviour
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 	}
 
+	// Collisions with particles.
 	void OnParticleCollision (GameObject particle)
 	{
 		if (particle.tag == "Bullet") 
@@ -45,6 +51,7 @@ public class Hazard : MonoBehaviour
 		}
 	}
 
+	// Trigger collisions with objects.
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "Bullet") 
@@ -63,46 +70,11 @@ public class Hazard : MonoBehaviour
 
 				if (gameControllerScript.Lives > 1) 
 				{
-					playerControllerScript_P1.GlitchEffect.Play ("CameraGlitchOn");
-					playerControllerScript_P1.ImpactPoint = gameObject.transform.position;
-					playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.UseEmp ());
-					SetTargetLowPassFreq (LowPassTargetFreq);
-					SetTargetResonance (ResonanceTargetFreq);
-
-					gameControllerScript.combo = 1;
-
-					timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
-					timeScaleControllerScript.OverridingTimeScale = 0.25f;
-
-					Instantiate (playerExplosion, transform.position, Quaternion.identity);
-
-					playerControllerScript_P1.ResetPowerups ();
-					playerControllerScript_P1.playerCol.enabled = false;
-					playerControllerScript_P1.playerTrigger.enabled = false;
-					playerControllerScript_P1.playerCol.gameObject.SetActive (false);
-					playerControllerScript_P1.playerTrigger.gameObject.SetActive (false);
-					playerControllerScript_P1.PlayerGuides.transform.position = Vector3.zero;
-					playerControllerScript_P1.PlayerGuides.SetActive (false);
-					playerControllerScript_P1.AbilityUI.transform.position = Vector3.zero;
-					playerControllerScript_P1.AbilityUI.SetActive (false);
-					playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
-					playerControllerScript_P1.PlayerFollowRb.velocity = Vector3.zero;
-					playerControllerScript_P1.MovementX = 0;
-					playerControllerScript_P1.MovementY = 0;
-					playerControllerScript_P1.canShoot = false;
-
-					newCamShakeAmount = 0.5f;
-					newCamShakeDuration = 1.5f;
+					playerControllerScript_P1.PlayerHazardImpact (this);
+					playerControllerScript_P1.PlayerImpactGeneric ();
 					DoCamShake ();
-
-					playerControllerScript_P1.StartCooldown ();
-					playerControllerScript_P1.PlayerExplosionParticles.transform.position = gameObject.transform.position;
-					playerControllerScript_P1.PlayerExplosionParticles.Play ();
-					playerControllerScript_P1.PlayerExplosionAudio.Play ();
-
-					//Invoke ("DestroyAllBlocks", 0.5f);
-
-					Destroy (gameObject, 0.52f);
+					Destroy (gameObject);
+					return;
 				}
 
 				if (gameControllerScript.Lives == 1) 
@@ -113,47 +85,26 @@ public class Hazard : MonoBehaviour
 		}
 	}
 
+	// Explosion when destroyed.
 	void CreateExplosion ()
 	{
 		Instantiate (Explosion, transform.position, Quaternion.identity);
 	}
 
-	void DestroyAllBlocks ()
-	{
-		GameObject[] Blocks = GameObject.FindGameObjectsWithTag ("Block");
-		GameObject[] PowerupPickups = GameObject.FindGameObjectsWithTag ("PowerupPickup");
-
-		foreach (GameObject block in Blocks) 
-		{
-			if (block.GetComponent<Block> () != null)
-			{
-				if (block.GetComponent<Block> ().isBossPart == false)
-				{
-					Destroy (block);
-				}
-			}
-		}
-
-		foreach (GameObject powerupPickup in PowerupPickups) 
-		{
-			Destroy (powerupPickup);
-		}
-	}
-
 	void DoCamShake ()
 	{
-		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 1);
 		#if !PLATFORM_STANDALONE_OSX
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
 		#endif
 	}
 
-	void SetTargetLowPassFreq (float lowPassFreq)
+	// Audio effects.
+	public void SetTargetLowPassFreq (float lowPassFreq)
 	{
 		audioControllerScript.TargetCutoffFreq = lowPassFreq;
 	}
 
-	void SetTargetResonance (float resAmt)
+	public void SetTargetResonance (float resAmt)
 	{
 		audioControllerScript.TargetResonance = resAmt;
 	}

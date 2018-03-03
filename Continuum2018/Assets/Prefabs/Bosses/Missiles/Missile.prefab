@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114884101462445082}
   - component: {fileID: 82274253932771992}
   - component: {fileID: 114428656251496836}
+  - component: {fileID: 135305246903582852}
   m_Layer: 14
   m_Name: Missile
   m_TagString: Hazard
@@ -351,6 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBullets
+  OnStart: 1
 --- !u!114 &114350738487535074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -363,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 5
+  DestroyObj: {fileID: 0}
   useUnscaledTime: 0
 --- !u!114 &114428656251496836
 MonoBehaviour:
@@ -377,9 +380,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   findObject: Mesh_P1
-  FindMode: 0
   speed: 11
   rotateSpeed: 0
+  homingTime: 5
+  cutoffHeight: 12
+  maxRange: 5
 --- !u!114 &114609926294882166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -430,6 +435,18 @@ SphereCollider:
   m_GameObject: {fileID: 1045013552950902}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135305246903582852
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1045013552950902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

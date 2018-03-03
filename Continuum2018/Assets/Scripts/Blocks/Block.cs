@@ -202,6 +202,7 @@ public class Block : MonoBehaviour
 		CreateExplosion (); // Create the explosion.
 		IncrementBlocksDestroyed (); // Increment blocks destroyed.
 		DoCamShake (); // Shake camera.
+		DoVibrate ();
 		Destroy (gameObject);
 		return;
 	}
@@ -220,6 +221,7 @@ public class Block : MonoBehaviour
 				CreateExplosion (); // Create the explosion.
 				IncrementBlocksDestroyed (); // Increment blocks destroyed.
 				DoCamShake (); // Shake camera.
+				DoVibrate ();
 
 				// If the tag is not a bullet.
 				if (other.tag != "Bullet") 
@@ -266,6 +268,7 @@ public class Block : MonoBehaviour
 			}
 
 			DoCamShake (); // Destroy this object.
+			DoVibrate ();
 			Destroy (gameObject); // Destroy this object.
 			return; // Prevent any further code execution.
 		}
@@ -277,6 +280,11 @@ public class Block : MonoBehaviour
 			if (gameControllerScript.Lives > 1) 
 			{
 				playerControllerScript_P1.PlayerBlockImpact (this);
+				playerControllerScript_P1.PlayerImpactGeneric ();
+				DoCamShake ();
+				DoVibrate ();
+				Destroy (gameObject);
+				return;
 			}
 
 			// On last life, set game over.
@@ -359,14 +367,26 @@ public class Block : MonoBehaviour
 	// Called when collided with bullet and calculates point value.
 	public void GetTotalPointValue ()
 	{
-		// Calculates total point value based on current combo from game controller and time scale.
-		totalPointValue = Mathf.Clamp (
-			(BasePointValue + gameControllerScript.Wave) * gameControllerScript.combo * Time.timeScale, 
+		if (gameControllerScript != null)
+		{
+			// Calculates total point value based on current combo from game controller and time scale.
+			totalPointValue = Mathf.Clamp (
+				(BasePointValue + gameControllerScript.Wave) * gameControllerScript.combo * Time.timeScale, 
 			// Keep between...
-			1, gameControllerScript.MaximumBlockPoints
-		);
+				1, gameControllerScript.MaximumBlockPoints
+			);
+		}
 
-		playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
+		// If the game controller is not found yet and block gets destroyed.
+		if (gameControllerScript == null) 
+		{
+			totalPointValue = BasePointValue;
+		}
+
+		if (playerControllerScript_P1.CurrentAbilityTimeRemaining < playerControllerScript_P1.CurrentAbilityDuration)
+		{
+			playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
+		}
 
 		// While boss part is still attached to main boss.
 		if (GotDetached == false && 
@@ -408,9 +428,14 @@ public class Block : MonoBehaviour
 	}
 
 	// Shakes the camera and vibrates controller.
+
 	void DoCamShake ()
 	{
-		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 2);
+		camShakeScript.ShakeCam (0.4f, 0.2f, 10);
+	}
+
+	void DoVibrate ()
+	{
 		#if !PLATFORM_STANDALONE_OSX
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
 		#endif

@@ -523,13 +523,11 @@ public class PlayerController : MonoBehaviour
 		StartCoroutine (timescaleControllerScript.EndSequenceTimeScale ());
 	}
 
-	public void PlayerBlockImpact (Block ImpactBlock)
+	// Impacts by any hazardous object.
+	public void PlayerImpactGeneric ()
 	{
 		SetCooldownTime (5);
 		GlitchEffect.Play ("CameraGlitchOn");
-		ImpactPoint = ImpactBlock.transform.position;
-		PlayerExplosionParticles.transform.position = ImpactPoint;
-		Instantiate (ImpactBlock.playerExplosion, ImpactPoint, Quaternion.identity);
 		PlayerExplosionParticles.Play ();
 		PlayerRb.transform.position = new Vector3 (0, -15, 0);
 		StartCoroutine (UseEmp ());
@@ -547,13 +545,31 @@ public class PlayerController : MonoBehaviour
 		canShoot = false;
 		StartCooldown ();
 		PlayerExplosionAudio.Play ();
-		camShakeScript.ShakeCam (ImpactBlock.newCamShakeAmount * 10, ImpactBlock.newCamShakeAmount * 2, 9);
-		audioControllerScript.SetTargetLowPassFreq (ImpactBlock.LowPassTargetFreq);
-		audioControllerScript.SetTargetResonance (ImpactBlock.ResonanceTargetFreq);
 		gameControllerScript.combo = 1;
 		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
 		timescaleControllerScript.OverridingTimeScale = 0.25f;
+	}
 
+	// Special impacts by blocks.
+	public void PlayerBlockImpact (Block ImpactBlock)
+	{
+		ImpactPoint = ImpactBlock.transform.position;
+		PlayerExplosionParticles.transform.position = ImpactPoint;
+		Instantiate (ImpactBlock.playerExplosion, ImpactPoint, Quaternion.identity);
+		camShakeScript.ShakeCam (ImpactBlock.newCamShakeAmount * 10, ImpactBlock.newCamShakeAmount * 10, 99);
+		audioControllerScript.SetTargetLowPassFreq (ImpactBlock.LowPassTargetFreq);
+		audioControllerScript.SetTargetResonance (ImpactBlock.ResonanceTargetFreq);
+	}
+
+	// Special impacts by hazards.
+	public void PlayerHazardImpact (Hazard ImpactHazard)
+	{
+		ImpactPoint = ImpactHazard.transform.position;
+		PlayerExplosionParticles.transform.position = ImpactPoint;
+		Instantiate (ImpactHazard.playerExplosion, ImpactPoint, Quaternion.identity);
+		camShakeScript.ShakeCam (ImpactHazard.newCamShakeAmount * 10, ImpactHazard.newCamShakeAmount * 10, 98);
+		ImpactHazard.SetTargetLowPassFreq (ImpactHazard.LowPassTargetFreq);
+		ImpactHazard.SetTargetResonance (ImpactHazard.ResonanceTargetFreq);
 	}
 
 	// When cooldown time is complete.

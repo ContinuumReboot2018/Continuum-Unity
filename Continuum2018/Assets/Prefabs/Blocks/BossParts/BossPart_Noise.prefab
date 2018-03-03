@@ -29,7 +29,7 @@ GameObject:
   - component: {fileID: 114796440333029892}
   - component: {fileID: 65891498421743386}
   - component: {fileID: 114472754406335844}
-  m_Layer: 11
+  m_Layer: 16
   m_Name: BossPart_Noise
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -241,30 +241,6 @@ MonoBehaviour:
   BossDamage: 1
   BoundaryX: {x: -30, y: 30}
   BoundaryY: {x: -30, y: 60}
-  AquaSpeed: 0
-  BlueSpeed: 0
-  PurpleSpeed: 0
-  PinkSpeed: 0
-  AquaMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
-  BlueMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
-  PurpleMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
-  PinkMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
-  AquaBasePointValue: 0
-  BlueBasePointValue: 0
-  PurpleBasePointValue: 0
-  PinkBasePointValue: 0
-  AquaExplosion: {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a,
-    type: 2}
-  BlueExplosion: {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a,
-    type: 2}
-  PurpleExplosion: {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a,
-    type: 2}
-  PinkExplosion: {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a,
-    type: 2}
-  AquaTextColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
-  BlueTextColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
-  PurpleTextColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
-  PinkTextColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
   BlockType: 2
   BlockChangeType: 0
   ChangeRate: 0.5

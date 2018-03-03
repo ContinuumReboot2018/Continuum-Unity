@@ -305,13 +305,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 8
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 8
 --- !u!1 &22739520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,13 +1432,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 8
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 8
 --- !u!1 &77031332
 GameObject:
   m_ObjectHideFlags: 0
@@ -15516,13 +15516,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 0
-  smoothAmount: 10
 --- !u!95 &290202330
 Animator:
   serializedVersion: 3
@@ -15732,13 +15732,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 10
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 10
 --- !u!1 &329273273
 GameObject:
   m_ObjectHideFlags: 0
@@ -38361,13 +38361,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 8
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 8
 --- !u!1 &489354266
 GameObject:
   m_ObjectHideFlags: 0
@@ -42420,13 +42420,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.1
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
   SyncWithShaker: 0
   SyncShaker: {fileID: 0}
   SyncMultiplier: 1
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 0
-  smoothAmount: 10
 --- !u!1 &533606132
 GameObject:
   m_ObjectHideFlags: 0
@@ -46163,13 +46163,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 8
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 8
 --- !u!1 &545117063
 GameObject:
   m_ObjectHideFlags: 0
@@ -59484,13 +59484,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 8
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 8
 --- !u!1 &759831797
 GameObject:
   m_ObjectHideFlags: 0
@@ -69998,13 +69998,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 0
-  smoothAmount: 10
 --- !u!1 &907057592
 GameObject:
   m_ObjectHideFlags: 0
@@ -70664,13 +70664,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 8
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 8
 --- !u!1 &927288284
 GameObject:
   m_ObjectHideFlags: 0
@@ -105613,13 +105613,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 0
-  smoothAmount: 10
 --- !u!1 &1312266081
 GameObject:
   m_ObjectHideFlags: 0
@@ -121160,7 +121160,7 @@ MonoBehaviour:
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   - {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a, type: 2}
   powerupPickupTimeRemaining: 0
-  PowerupPickupSpawnRate: {x: 5, y: 18}
+  PowerupPickupSpawnRate: {x: 3, y: 18}
   powerupPickupSpawnModifier: 1
   PowerupPickupSpawnRangeX: 20
   PowerupPickupSpawnY: 10
@@ -153090,13 +153090,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 8
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 8
 --- !u!1 &1771333214
 GameObject:
   m_ObjectHideFlags: 0
@@ -154871,13 +154871,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 8
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 8
 --- !u!1 &1851377856
 GameObject:
   m_ObjectHideFlags: 0
@@ -155792,13 +155792,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 1
+  smoothAmount: 8
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 1
-  smoothAmount: 8
 --- !u!224 &1906098049 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224786223431324386, guid: 6fbaa60a398c9b745af7c23885072c1d,
@@ -157569,13 +157569,13 @@ MonoBehaviour:
   shakeTimeRemaining: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
   Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
   SyncWithShaker: 1
   SyncShaker: {fileID: 525356116}
   SyncMultiplier: 30
-  Offset: {x: 0, y: 0, z: 0}
-  useSmoothing: 0
-  smoothAmount: 10
 --- !u!1 &2019078236
 GameObject:
   m_ObjectHideFlags: 0

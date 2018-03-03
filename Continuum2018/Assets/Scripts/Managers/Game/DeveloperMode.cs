@@ -830,6 +830,11 @@ public class DeveloperMode : MonoBehaviour
 	// What happens when cheats get enabled.
 	void ShowCheatActivation (string cheatText)
 	{
+		// Gives new next fire amount so the player can keep on firing.
+		float nextfire = 
+			Time.time + 
+			(playerControllerScript_P1.CurrentFireRate / (playerControllerScript_P1.FireRateTimeMultiplier * Time.timeScale));
+		
 		LastCheatName = CheatString;
 		CheatInputText.text = LastCheatName;
 		CheatNotificationAnim.Play ("CheatNotification");
@@ -842,10 +847,10 @@ public class DeveloperMode : MonoBehaviour
 		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
 		timeScaleControllerScript.OverridingTimeScale = 0.2f;
 
-		playerControllerScript_P1.NextFire = 0;
-		playerControllerScript_P1.DoubleShotNextFire = 0;
-		playerControllerScript_P1.TripleShotNextFire = 0;
-		playerControllerScript_P1.RippleShotNextFire = 0;
+		playerControllerScript_P1.NextFire = nextfire;
+		playerControllerScript_P1.DoubleShotNextFire = nextfire;
+		playerControllerScript_P1.TripleShotNextFire = nextfire;
+		playerControllerScript_P1.RippleShotNextFire = nextfire;
 
 		Debug.Log (cheatText);
 		Invoke ("DisableCheatConsole", 0.5f);
@@ -854,6 +859,11 @@ public class DeveloperMode : MonoBehaviour
 	// Cheat string was matched.
 	void ShowCheatNotification (string cheatText)
 	{
+		// Gives new next fire amount so the player can keep on firing.
+		float nextfire = 
+			Time.time + 
+			(playerControllerScript_P1.CurrentFireRate / (playerControllerScript_P1.FireRateTimeMultiplier * Time.timeScale));
+		
 		CheatNotificationAnim.StopPlayback ();
 		CheatNotificationAnim.Play ("CheatNotification");
 		CheatNotifcationText.text = cheatText;
@@ -868,10 +878,10 @@ public class DeveloperMode : MonoBehaviour
 		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
 		timeScaleControllerScript.OverridingTimeScale = 0.2f;
 
-		playerControllerScript_P1.NextFire = 0;
-		playerControllerScript_P1.DoubleShotNextFire = 0;
-		playerControllerScript_P1.TripleShotNextFire = 0;
-		playerControllerScript_P1.RippleShotNextFire = 0;
+		playerControllerScript_P1.NextFire = nextfire ;
+		playerControllerScript_P1.DoubleShotNextFire = nextfire ;
+		playerControllerScript_P1.TripleShotNextFire = nextfire ;
+		playerControllerScript_P1.RippleShotNextFire = nextfire ;
 
 		Debug.Log (cheatText);
 		Invoke ("DisableCheatConsole", 0.5f);

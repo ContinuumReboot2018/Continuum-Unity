@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 135985754492257584}
   - component: {fileID: 23077323522144776}
   - component: {fileID: 135827764615726000}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: Brain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,6 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameControllerScript: {fileID: 0}
   timeScaleControllerScript: {fileID: 0}
+  camShakeScript: {fileID: 0}
   Brain: {fileID: 1887779462268618}
   MiniBossParent: {fileID: 1761358554297378}
   miniBossFormation: {fileID: 114939170155976878}
