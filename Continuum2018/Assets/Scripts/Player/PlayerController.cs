@@ -598,7 +598,7 @@ public class PlayerController : MonoBehaviour
 		InvincibleMeshAnim.Play ("InvincibleMeshFlash");
 	}
 
-	// Allows player input.
+	// Allows player input. Gets called by player parent script.
 	public void EnablePlayerInput ()
 	{
 		UsePlayerFollow = true;

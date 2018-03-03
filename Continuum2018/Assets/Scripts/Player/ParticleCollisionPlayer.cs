@@ -2,13 +2,13 @@
 
 public class ParticleCollisionPlayer : MonoBehaviour 
 {
-	public PlayerController playerControllerScript_P1;
-	public GameController gameControllerScript;
-	public TimescaleController timeScaleControllerScript;
-	public AudioController audioControllerScript; 
-	public CameraShake camShakeScript;
-
-	public GameObject playerExplosion;
+	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
+	public GameController gameControllerScript; // Reference to Game Controller.
+	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
+	public AudioController audioControllerScript;  // Reference to Audio Controller.
+	public CameraShake camShakeScript; // Reference to camera shake.
+	[Space (10)]
+	public GameObject playerExplosion; // Player explosion.
 
 	[Header ("Camera shake")]
 	public float newCamShakeAmount;
@@ -28,31 +28,7 @@ public class ParticleCollisionPlayer : MonoBehaviour
 
 			if (gameControllerScript.Lives > 1) 
 			{
-				playerControllerScript_P1.ImpactPoint = gameObject.transform.position;
-				playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.UseEmp ());
-				playerControllerScript_P1.ResetPowerups ();
-				playerControllerScript_P1.playerCol.enabled = false;
-				playerControllerScript_P1.playerTrigger.enabled = false;
-				playerControllerScript_P1.playerCol.gameObject.SetActive (false);
-				playerControllerScript_P1.playerTrigger.gameObject.SetActive (false);
-				playerControllerScript_P1.PlayerGuides.transform.position = Vector3.zero;
-				playerControllerScript_P1.PlayerGuides.SetActive (false);
-				playerControllerScript_P1.AbilityUI.transform.position = Vector3.zero;
-				playerControllerScript_P1.AbilityUI.SetActive (false);
-				playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
-				playerControllerScript_P1.PlayerFollowRb.velocity = Vector3.zero;
-				playerControllerScript_P1.MovementX = 0;
-				playerControllerScript_P1.MovementY = 0;
-				playerControllerScript_P1.canShoot = false;
-				playerControllerScript_P1.StartCooldown ();
-				playerControllerScript_P1.PlayerExplosionParticles.transform.position = gameObject.transform.position;
-				playerControllerScript_P1.PlayerExplosionParticles.Play ();
-				playerControllerScript_P1.PlayerExplosionAudio.Play ();
-
-				gameControllerScript.combo = 1;
-				timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
-				timeScaleControllerScript.OverridingTimeScale = 0.25f;
-
+				playerControllerScript_P1.PlayerImpactGeneric ();
 				Instantiate (playerExplosion, transform.position, Quaternion.identity);
 				DoCamShake ();
 				SetTargetLowPassFreq (LowPassTargetFreq);
@@ -69,7 +45,7 @@ public class ParticleCollisionPlayer : MonoBehaviour
 
 	void DoCamShake ()
 	{
-		camShakeScript.ShakeCam (newCamShakeAmount * 10, newCamShakeDuration * 2, 9);
+		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 9);
 		#if !PLATFORM_STANDALONE_OSX
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
 		#endif

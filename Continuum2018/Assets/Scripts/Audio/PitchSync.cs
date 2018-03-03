@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PitchSync : MonoBehaviour 
 {
-	public AudioSource master;
-	public AudioSource slave;
+	public AudioSource master; // The AudioSource to follow.
+	public AudioSource slave; // The following AudioSource.
 
-	void Update () 
+	// Syncronizes audio source timing with another audio source.
+	void LateUpdate () 
 	{
+		// Checks if either audio source is playing.
 		if (slave.isPlaying == true || master.isPlaying == true)
 		{
-			slave.pitch = master.pitch;
+			slave.pitch = master.pitch; // Match pitches.
 		}
 	}
 }

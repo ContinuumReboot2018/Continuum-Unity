@@ -1,19 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WaveTransition : MonoBehaviour 
 {
-	public GameController gameControllerScript;
-	public GameObject WaveTransitionUI;
-	public GameObject SoundtrackUI;
+	public GameController gameControllerScript; // Reference to Game Controller.
+	public GameObject WaveTransitionUI; // Wave Transition UI GameObject.
+	public GameObject SoundtrackUI; // UI for soundtrack title.
 
 	void Start ()
 	{
+		// Disable UI on start.
 		WaveTransitionUI.SetActive (false);
 		SoundtrackUI.SetActive (false);
 	}
 
+	// Turn off wave transition UI based on wave number.
 	public void DeactivateWaveTransition ()
 	{
 		gameControllerScript.IsInWaveTransition = false;
@@ -25,6 +25,7 @@ public class WaveTransition : MonoBehaviour
 		}
 	}
 
+	// Turn on wave transition UI based on wave number.
 	public void ActivateWaveTransitionUI ()
 	{
 		gameControllerScript.IsInWaveTransition = true;

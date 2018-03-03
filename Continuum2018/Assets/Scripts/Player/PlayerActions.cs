@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using InControl;
 
 public class PlayerActions : PlayerActionSet
 {
-	public PlayerAction MoveLeft, MoveRight, MoveUp, MoveDown;
-	public PlayerTwoAxisAction Move;
+	public PlayerAction MoveLeft, MoveRight, MoveUp, MoveDown; // Movement.
+	public PlayerTwoAxisAction Move; // Axes for movement.
 
-	public PlayerAction Shoot;
-	public PlayerAction Ability;
-	public PlayerAction Pause;
-	public PlayerAction DebugMenu;
-	public PlayerAction CheatConsole;
+	public PlayerAction Shoot; // Shoot action.
+	public PlayerAction Ability; // Ability action.
+	public PlayerAction Pause; // Pause action.
+	public PlayerAction DebugMenu; // Debug menu action.
+	public PlayerAction CheatConsole; // Cheat console action.
 
 	public PlayerActions ()
 	{

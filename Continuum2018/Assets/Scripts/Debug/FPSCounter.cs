@@ -1,18 +1,11 @@
-﻿/* **************************************************************************
- * FPS COUNTER
- * **************************************************************************
- * Written by: Annop "Nargus" Prapasapong
- * Created: 7 June 2012
- * *************************************************************************/
-
+﻿using System.Collections;
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
 public class FPSCounter : MonoBehaviour 
 {
-	public float frequency = 0.5f;
+	public float frequency = 0.5f; // How often to update calculating fps.
 	public TextMeshProUGUI FPSText;
 	public bool showPrefix;
 	public int FramesPerSec { get; protected set; }
@@ -22,7 +15,7 @@ public class FPSCounter : MonoBehaviour
 
 	private void Start()
 	{
-		StartCoroutine(FPS());
+		StartCoroutine (FPS ());
 
 		if (showFps == true)
 		{
@@ -35,44 +28,23 @@ public class FPSCounter : MonoBehaviour
 		}
 	}
 
-	void Update ()
-	{
-		/*if (Input.GetKeyDown (KeyCode.Tab)) 
-		{
-			if (toggle == true)
-			{
-				if (showFps == false)
-				{
-					FPSText.enabled = true;
-
-				}
-
-				if (showFps == true) 
-				{
-					FPSText.enabled = false;
-				}
-
-				showFps = !showFps;
-			}
-		}*/
-	}
-
-	private IEnumerator FPS() 
+	private IEnumerator FPS () 
 	{
 		for(;;)
 		{
-			// Capture frame-per-second
+			// Capture current framerate.
 			int lastFrameCount = Time.frameCount;
 
-			float lastTime = Time.realtimeSinceStartup;
+			float lastTime = Time.realtimeSinceStartup; // Get time since startup.
 
-			// Sets how fast this updates
-			yield return new WaitForSeconds(frequency);
+			// Sets how fast this updates.
+			yield return new WaitForSeconds (frequency);
 
+			// Get time span and frame count.
 			float timeSpan = Time.realtimeSinceStartup - lastTime;
 			int frameCount = Time.frameCount - lastFrameCount;
 			
-			// Display it
+			// Display it.
 			FramesPerSec = Mathf.RoundToInt(frameCount / timeSpan);
 			FramesPerSecB = frameCount / timeSpan;
 			FPSText.text = FramesPerSec.ToString() + "";

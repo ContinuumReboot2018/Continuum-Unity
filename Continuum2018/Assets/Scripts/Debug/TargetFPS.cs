@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TargetFPS : MonoBehaviour 
 {
-	public int targetFramerate = 60;
-	public int RefreshRate;
-	public bool useScreenRefreshRate;
+	// Game will try to render as fast as the target.
+	// Will try to run as fast as possible if set to a negative number.
+	public int targetFramerate = 60; 
+	[Space (10)]
+	public bool useScreenRefreshRate; // Use screen refresh rate and match framerate.
 
 	void Start ()
 	{
@@ -14,12 +14,9 @@ public class TargetFPS : MonoBehaviour
 		{
 			Application.targetFrameRate = Screen.currentResolution.refreshRate;
 		} 
-		else 
-		{
-			Application.targetFrameRate = RefreshRate; 
-		}
 	}
 
+	// Set target framerate by other scripts.
 	public void SetTargetFramerate (int framerate)
 	{
 		Application.targetFrameRate = framerate; 

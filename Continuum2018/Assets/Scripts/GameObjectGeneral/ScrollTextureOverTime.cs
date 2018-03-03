@@ -1,68 +1,108 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScrollTextureOverTime : MonoBehaviour 
 {
-	public float scrollSpeed = 0.5f;
-	public float offset;
-	public Renderer rend;
-	public bool ignoreTimescale;
-
-	public enum scrollMode 
+	public Vector2 ScrollSpeed = new Vector2 (0.5f, 0.5f); // Speed to scroll texture offset.
+	public Vector2 CurrentOffset; // Current offset.
+	private Renderer rend; // Current renderer.
+	public scrollType HorizontalScrollMode; // Horizontal scroll mode.
+	public scrollType VerticalScrollMode;  // Vertical scroll mode.
+	public enum scrollType 
 	{
-		X, Y, BothPositive, BothNegative, PosXNegY, NegXPosY
+		None = 0, 
+		Positive = 1, 
+		Negative = 2
 	}
-	public scrollMode ScrollMode;
+
+	public bool ignoreTimescale; // Should texture scrolling be scaled by time scale or not.
 
 	void Start () 
 	{
-		if (rend == null) 
-		{
-			rend = GetComponent <Renderer> ();
-		}
+		rend = GetComponent <Renderer> ();
 	}
 
 	void Update () 
 	{
 		if (ignoreTimescale == false)
 		{
-			offset = Time.time * scrollSpeed;
-		}
-
-		if (ignoreTimescale == true)
-		{
-			offset = Time.unscaledTime * scrollSpeed;
+			// Update scroll amount scaled.
+			CurrentOffset = new Vector2 (
+				Time.time * ScrollSpeed.x,
+				Time.time * ScrollSpeed.y
+			);
 		}
 			
-		if (ScrollMode == scrollMode.X)
+		if (ignoreTimescale == true)
 		{
-			rend.material.SetTextureOffset ("_MainTex", new Vector2 (offset, 0));
+			// Update scroll amount unscaled.
+			CurrentOffset = new Vector2 (
+				Time.unscaledTime * ScrollSpeed.x,
+				Time.unscaledTime * ScrollSpeed.y
+			);
 		}
 
-		if (ScrollMode == scrollMode.Y)
+		// Set new horizontal scroll amount.
+		switch (HorizontalScrollMode) 
 		{
-			rend.material.SetTextureOffset ("_MainTex", new Vector2 (0, offset));
+		case scrollType.None:
+			rend.material.SetTextureOffset (
+				"_MainTex", 
+				new Vector2 (
+					rend.material.GetTextureOffset ("_MainTex").x, 
+					rend.material.GetTextureOffset ("_MainTex").y
+				)
+			);
+			break;
+		case scrollType.Positive:
+			rend.material.SetTextureOffset (
+				"_MainTex", 
+				new Vector2 (
+					CurrentOffset.x, 
+					rend.material.GetTextureOffset ("_MainTex").y
+				)
+			);
+			break;
+		case scrollType.Negative:
+			rend.material.SetTextureOffset (
+				"_MainTex", 
+				new Vector2 (
+					-CurrentOffset.x, 
+					rend.material.GetTextureOffset ("_MainTex").y
+				)
+			);
+			break;
 		}
 
-		if (ScrollMode == scrollMode.BothPositive)
+		// Set new vertical scroll amount.
+		switch (VerticalScrollMode) 
 		{
-			rend.material.SetTextureOffset ("_MainTex", new Vector2 (offset, offset));
-		}
-
-		if (ScrollMode == scrollMode.BothNegative)
-		{
-			rend.material.SetTextureOffset ("_MainTex", new Vector2 (-offset, -offset));
-		}
-
-		if (ScrollMode == scrollMode.PosXNegY)
-		{
-			rend.material.SetTextureOffset ("_MainTex", new Vector2 (offset, -offset));
-		}
-
-		if (ScrollMode == scrollMode.NegXPosY)
-		{
-			rend.material.SetTextureOffset ("_MainTex", new Vector2 (-offset, offset));
+		case scrollType.None:
+			rend.material.SetTextureOffset (
+				"_MainTex", 
+				new Vector2 (
+					rend.material.GetTextureOffset ("_MainTex").x, 
+					rend.material.GetTextureOffset ("_MainTex").y
+				)
+			);
+			break;
+		case scrollType.Positive:
+			rend.material.SetTextureOffset (
+				"_MainTex", 
+				new Vector2 (
+					rend.material.GetTextureOffset ("_MainTex").x, 
+					CurrentOffset.y
+				)
+			);
+			break;
+		case scrollType.Negative:
+			rend.material.SetTextureOffset (
+				"_MainTex", 
+				new Vector2 (
+					rend.material.GetTextureOffset ("_MainTex").x, 
+					-CurrentOffset.y
+				)
+			);
+			break;
 		}
 	}
 }

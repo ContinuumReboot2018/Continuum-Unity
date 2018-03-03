@@ -1,36 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BlockFormation : MonoBehaviour 
 {
-	private Rigidbody rb;
-	public GameController gameControllerScript;
+	private Rigidbody rb; // Reference to the RigidBody.
+	private GameController gameControllerScript; // Reference to the GameController.
 
 	[Header ("Stats")]
-	public float speed;
-	public float AccumulatedSpeed;
-	public int Rows;
-	public int Columns;
-	public Block[] BlockElements;
-	public Vector2 MissingBlocksRange;
-	public int missingBlocks;
+	public float speed; // The average speed of the total accumulated speed.
+	public float AccumulatedSpeed; // The aggregate speed of all the blocks in the formation.
+	public int Rows; // Set amount of rows in the formation.
+	public int Columns; // Set amount of columns in the formation.
+	public Block[] BlockElements; // All Blocks in the formation.
+	public Vector2 MissingBlocksRange; // Range of missing blocks to have.
+	public int missingBlocks; // How many missing blocks were calculated.
 
 	void Start () 
 	{
-		missingBlocks = Random.Range (Mathf.RoundToInt(MissingBlocksRange.x), Mathf.RoundToInt(MissingBlocksRange.y));
-		CheckMissingBlocks ();
+		// Get range of missing blocks.
+		missingBlocks = Random.Range (
+			Mathf.RoundToInt(MissingBlocksRange.x), 
+			Mathf.RoundToInt(MissingBlocksRange.y)
+		);
+
+		CheckMissingBlocks (); // Disables blocks that are deemed missing.
 
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-		SetSpawnPosition ();
+		SetSpawnPosition (); // Restricts spawn position.
 
-		GetAccumulatedSpeed ();
-		rb = GetComponent<Rigidbody> ();
-		rb.velocity = new Vector3 (0, speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 0);
+		GetAccumulatedSpeed (); // Get aggregate speed additively.
+		rb = GetComponent<Rigidbody> (); // Get the current RigidBody component.
 
-		InvokeRepeating ("CheckForChildObjects", 0, 1);
+		// Set current velocity.
+		rb.velocity = new Vector3 (
+			0, 
+			speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 
+			0
+		);
+
+		InvokeRepeating ("CheckForChildObjects", 0, 1); // Destroys parent object if there are no child objects.
 	}
 
+	// Adds up all the speeds in the child blocks and calculates average speed.
 	void GetAccumulatedSpeed ()
 	{
 		foreach (Block block in BlockElements) 
@@ -44,6 +54,7 @@ public class BlockFormation : MonoBehaviour
 		speed = AccumulatedSpeed / BlockElements.Length;
 	}
 
+	// Sets spawn position based on how many columns there are in the formation.
 	void SetSpawnPosition ()
 	{
 		switch (Columns) 
@@ -79,6 +90,7 @@ public class BlockFormation : MonoBehaviour
 		}
 	}
 
+	// Removes missing blocks randomly.
 	void CheckMissingBlocks ()
 	{
 		switch (missingBlocks)
@@ -116,6 +128,7 @@ public class BlockFormation : MonoBehaviour
 		}
 	}
 
+	// Destroys parent object if there no child objects.
 	void CheckForChildObjects ()
 	{
 		if (transform.childCount == 0) 

@@ -1,25 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class FindCameraInCanvas : MonoBehaviour 
 {
-	public Canvas canvas;
-	public Camera cam;
+	public Canvas canvas; // Canvas to look at.
+	public Camera cam; // Camera to look at.
 
 	void Start () 
 	{
-		if (canvas == null) 
+		Canvas canvasFind = GetComponent<Canvas> ();
+
+		// Assigns canvas if none is set already.
+		if (canvas == null && canvasFind != null) 
 		{
 			canvas = GetComponent<Canvas> ();
 		}
 
+		// Assigns Main Camera if none is assigned.
 		if (cam == null)
 		{
 			cam = Camera.main;
 		}
-
-		canvas.worldCamera = cam;
+			
+		canvas.worldCamera = cam; // Set Camera to the canvas.
 	}
 }

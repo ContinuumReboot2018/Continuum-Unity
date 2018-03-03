@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+// Legacy screenshot maker, 
+// Limitations: camera window dependent.
 public class ScreenshotMaker : MonoBehaviour 
 {
 	public string ScreenshotName = "Screenshot.png";

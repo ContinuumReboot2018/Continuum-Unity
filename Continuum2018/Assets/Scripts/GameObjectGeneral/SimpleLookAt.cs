@@ -1,30 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SimpleLookAt : MonoBehaviour 
 {
-	public Transform LookAtPos;
-	public lookType LookMethod;
+	public Transform LookAtPos; // Position to look at.
+	public lookType LookMethod; // How to look at the Transform.
 	public enum lookType
 	{
 		LookTowards,
 		LookAway
 	}
 
-	public float RotDegPerSec = 10;
-
 	void LateUpdate ()
 	{
+		// Look towards.
 		if (LookMethod == lookType.LookTowards && LookAtPos != null) 
 		{
 			transform.LookAt (LookAtPos.position, Vector3.forward);
 		}
 
+		// Look away.
 		if (LookMethod == lookType.LookAway) 
 		{
-			//Quaternion rot = Quaternion.LookRotation (LookAtPos.position, Vector3.up);
-			//transform.LookAt (2*transform.position, LookAtPos.position);
+			transform.LookAt (LookAtPos.position, -Vector3.forward);
 		}
 	}
 }

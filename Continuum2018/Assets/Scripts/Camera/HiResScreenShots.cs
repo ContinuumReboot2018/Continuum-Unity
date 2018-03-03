@@ -1,22 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class HiResScreenShots : MonoBehaviour 
 {
-	public int resWidth = 3840; 
-	public int resHeight = 2160;
+	public Vector2 resolution = new Vector2 (1920, 1080); // Base resolution width.
+	public Vector2 ResolutionMultiplier = new Vector2 (1, 1); // Multiplies by factor, Quadruples total resolution. +1 = x2.
+	private bool takeHiResShot = false; // Is screenshot being taken now?
 
-	private bool takeHiResShot = false;
-	private bool takeHiDoubleResShot = false;
-
-	private Camera cam;
+	private Camera cam; // Reference to camera.
 
 	void Awake ()
 	{
-		cam = GetComponent<Camera> ();
+		cam = GetComponent<Camera> (); // Gets the Camera to take a screenshot with.
 	}
 
-	public static string ScreenShotName(int width, int height) 
+	// Creates file name.
+	public static string ScreenShotName (int width, int height) 
 	{
 		return string.Format("{0}/Screenshots/screen_{1}x{2}_{3}.png", 
 			Application.dataPath, 
@@ -29,77 +27,101 @@ public class HiResScreenShots : MonoBehaviour
 		takeHiResShot = true;
 	}
 
-	public void TakeHiDoubleResShot ()
-	{
-		takeHiDoubleResShot = true;
-	}
-
+	// Frame has finished rendering.
+	// Only want to take screenshots once the frame is fully rendered.
 	void LateUpdate() 
 	{
 		if (Input.GetKeyDown (KeyCode.F9))
 		{
+			ResolutionMultiplier = new Vector2 (2, 2);
 			TakeHiResShot ();
 		}
 
 		if (Input.GetKeyDown (KeyCode.F8)) 
 		{
-			TakeHiDoubleResShot ();
+			ResolutionMultiplier = new Vector2 (1, 1);
+			TakeHiResShot ();
 		}
 
 		if (takeHiResShot == true) 
 		{
-			if (System.IO.Directory.Exists (Application.dataPath + "/" + "Screenshots") == false)
+			// Create file name and directory if it doesn't exist.
+			if (System.IO.Directory.Exists (Application.persistentDataPath + "/" + "Screenshots") == false)
 			{
-				System.IO.Directory.CreateDirectory (Application.dataPath + "Screenshots");
+				System.IO.Directory.CreateDirectory (Application.persistentDataPath + "/" + "Screenshots");
 				Debug.Log ("Screenshot folder was missing, created new one.");
 			}
 				
-			if (System.IO.Directory.Exists (Application.dataPath + "/" + "Screenshots") == true)
+			// Scxreenshot directory exists? Take a screenshot.
+			if (System.IO.Directory.Exists (Application.persistentDataPath + "/" + "Screenshots") == true)
 			{
-				RenderTexture rt = new RenderTexture (resWidth, resHeight, 24);
+				// Get new resolution.
+				Vector2 newResolution = new Vector2 (
+					Mathf.RoundToInt ((int)resolution.x * ResolutionMultiplier.x), 
+					Mathf.RoundToInt ((int)resolution.y * ResolutionMultiplier.y)
+				);
+			
+				// Create a new render texture and store it.
+				RenderTexture rt = new RenderTexture (
+					(int)newResolution.x, 
+					(int)newResolution.y,
+					24
+				);
+
+				// Set camera target texture to render texture temporaily.
 				cam.targetTexture = rt;
-				Texture2D screenShot = new Texture2D (resWidth, resHeight, TextureFormat.RGB24, false);
-				cam.Render();
+
+				// Create a Texture 2D with new resolution and bit depth. Don't allow mipmaps.
+				Texture2D screenShot = new Texture2D (
+					(int)newResolution.x, 
+					(int)newResolution.y, 
+					TextureFormat.RGB24, 
+					false
+				);
+
+				// Manually render the camera.
+				cam.Render ();
+
+				// Assign currently active render texture to temporary texture.
 				RenderTexture.active = rt;
-				screenShot.ReadPixels (new Rect (0, 0, resWidth, resHeight), 0, 0);
+
+				// Read all the pixels in the new image with no offset and specify width and height.
+				screenShot.ReadPixels (
+					new Rect (
+						0, 
+						0, 
+						(int)newResolution.x, 
+						(int)newResolution.y), 
+					0, 
+					0
+				);
+
+				// Unnassign target texture.
 				cam.targetTexture = null;
-				RenderTexture.active = null; // JC: added to avoid errors
+
+				// Unnassign active render texture to avoid errors.
+				RenderTexture.active = null;
+
+				// Destroy the temporary render texture.
 				Destroy(rt);
+
+				// Encode the pixels to a .png format.
 				byte[] bytes = screenShot.EncodeToPNG();
-				string filename = ScreenShotName (resWidth, resHeight);
+
+				// Give screenshot name and specify the dimensions.
+				string filename = ScreenShotName (
+					(int)newResolution.x, 
+					(int)newResolution.y
+				);
+
+				// Write the file and specify bytes to store.
 				System.IO.File.WriteAllBytes (filename, bytes);
+
+				// Confirm that the screenshot took place.
 				Debug.Log (string.Format("Took screenshot to: {0}", filename));
 			}
 				
-			takeHiResShot = false;
-		}
-
-		if (takeHiDoubleResShot == true) 
-		{
-			if (System.IO.Directory.Exists (Application.dataPath + "/" + "Screenshots") == false) 
-			{
-				System.IO.Directory.CreateDirectory (Application.dataPath + "/" + "Screenshots");
-				Debug.Log ("Screenshot folder was missing, created new one.");
-			}
-
-			if (System.IO.Directory.Exists (Application.dataPath + "/" + "Screenshots") == true) 
-			{
-				RenderTexture rt = new RenderTexture (resWidth * 2, resHeight * 2, 24);
-				cam.targetTexture = rt;
-				Texture2D screenShot = new Texture2D (resWidth* 2, resHeight* 2, TextureFormat.RGB24, false);
-				cam.Render();
-				RenderTexture.active = rt;
-				screenShot.ReadPixels (new Rect (0, 0, resWidth * 2, resHeight * 2), 0, 0);
-				cam.targetTexture = null;
-				RenderTexture.active = null; // JC: added to avoid errors
-				Destroy(rt);
-				byte[] bytes = screenShot.EncodeToPNG();
-				string filename = ScreenShotName (resWidth * 2, resHeight * 2);
-				System.IO.File.WriteAllBytes (filename, bytes);			
-				Debug.Log (string.Format("Took screenshot to: {0}", filename));
-			}
-				
-			takeHiDoubleResShot = false;
+			takeHiResShot = false; // Stop taking a screenshot.
 		}
 	}
 }

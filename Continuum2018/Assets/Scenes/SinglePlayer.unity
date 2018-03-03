@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5890819
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1332,7 +1332,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -190.00024, y: -62.99997}
+  m_AnchoredPosition: {x: -227, y: -89}
   m_SizeDelta: {x: 45, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &75382437
@@ -2249,7 +2249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &123626772
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3264,9 +3264,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 161556219}
+  clipLoudness: 0
   updateStep: 0.01667
   sampleDataLength: 256
-  clipLoudness: 0
 --- !u!1 &168372605
 GameObject:
   m_ObjectHideFlags: 0
@@ -6889,7 +6889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &186626218
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7429,13 +7429,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0.0001
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!82 &225491978
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15413,8 +15413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a595535476f09449aa8e1141000db40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 269466429}
   playerControllerScript: {fileID: 950826315}
+  anim: {fileID: 269466429}
   DontUsePlayerInput: 0
 --- !u!1001 &279619684
 Prefab:
@@ -19687,7 +19687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &359259734
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19703,7 +19703,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -77.700035, y: -96.80005}
+  m_AnchoredPosition: {x: -11.799995, y: -96.80005}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &359259735
@@ -30705,7 +30705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &408926046
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37831,6 +37831,7 @@ GameObject:
   - component: {fileID: 420869058}
   - component: {fileID: 420869057}
   - component: {fileID: 420869059}
+  - component: {fileID: 420869060}
   m_Layer: 0
   m_Name: PowerupSlotTwoImage
   m_TagString: Untagged
@@ -37907,6 +37908,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &420869060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 420869055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 420869056}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1
 --- !u!1 &438478677
 GameObject:
   m_ObjectHideFlags: 0
@@ -38105,7 +38129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &463415940
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38695,6 +38719,7 @@ GameObject:
   - component: {fileID: 506381038}
   - component: {fileID: 506381037}
   - component: {fileID: 506381039}
+  - component: {fileID: 506381040}
   m_Layer: 0
   m_Name: PowerupSlotSevenImage
   m_TagString: Untagged
@@ -38719,7 +38744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 358.90002, y: -93.731316}
+  m_AnchoredPosition: {x: 425.20004, y: -93.731316}
   m_SizeDelta: {x: 72, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &506381037
@@ -38771,6 +38796,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &506381040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 506381035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 506381036}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1
 --- !u!1 &506410281
 GameObject:
   m_ObjectHideFlags: 0
@@ -46063,7 +46111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -156.90015, y: -120.29999}
+  m_AnchoredPosition: {x: -127.99986, y: -146.3}
   m_SizeDelta: {x: 45, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &543958907
@@ -54955,7 +55003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &607000391
 RectTransform:
   m_ObjectHideFlags: 0
@@ -58077,7 +58125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &719380731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -59384,7 +59432,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -223.10022, y: -120.19998}
+  m_AnchoredPosition: {x: -194.19994, y: -146.2}
   m_SizeDelta: {x: 45, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &759668293
@@ -59502,6 +59550,7 @@ GameObject:
   - component: {fileID: 759831800}
   - component: {fileID: 759831799}
   - component: {fileID: 759831801}
+  - component: {fileID: 759831802}
   m_Layer: 0
   m_Name: PowerupSlotElevenImage
   m_TagString: Untagged
@@ -59526,7 +59575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 227, y: -93.731316}
+  m_AnchoredPosition: {x: 293.3, y: -93.731316}
   m_SizeDelta: {x: 72, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &759831799
@@ -59578,6 +59627,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &759831802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 759831797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 759831798}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1
 --- !u!1 &763629545
 GameObject:
   m_ObjectHideFlags: 0
@@ -60686,7 +60758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &816177457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -60887,13 +60959,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 1
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0.0001
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 1
 --- !u!1 &819855494
 GameObject:
   m_ObjectHideFlags: 0
@@ -69855,9 +69927,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 901118414}
+  clipLoudness: 0
   updateStep: 0.01667
   sampleDataLength: 256
-  clipLoudness: 0
 --- !u!1 &903378932
 GameObject:
   m_ObjectHideFlags: 0
@@ -70564,7 +70636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -121.40015, y: -65.099945}
+  m_AnchoredPosition: {x: -158.3999, y: -91.09996}
   m_SizeDelta: {x: 45, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &923794614
@@ -83105,13 +83177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0.0001
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!1 &1034738927
 GameObject:
   m_ObjectHideFlags: 0
@@ -83970,7 +84042,7 @@ MonoBehaviour:
   audioControllerScript: {fileID: 1084482489}
   camShakeScript: {fileID: 525356116}
   playerExplosion: {fileID: 157250351}
-  newCamShakeAmount: 0.3
+  newCamShakeAmount: 0.75
   newCamShakeDuration: 0.5
   LowPassTargetFreq: 1500
   ResonanceTargetFreq: 1
@@ -91385,9 +91457,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1098930918}
+  clipLoudness: 0
   updateStep: 0.01667
   sampleDataLength: 256
-  clipLoudness: 0
 --- !u!1 &1100433993
 GameObject:
   m_ObjectHideFlags: 0
@@ -91482,13 +91554,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0.0001
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!82 &1102922645
 AudioSource:
   m_ObjectHideFlags: 0
@@ -91734,6 +91806,7 @@ GameObject:
   - component: {fileID: 1111433528}
   - component: {fileID: 1111433527}
   - component: {fileID: 1111433529}
+  - component: {fileID: 1111433530}
   m_Layer: 0
   m_Name: PowerupSlotFiveImage
   m_TagString: Untagged
@@ -91758,7 +91831,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 424.90002, y: -93.63128}
+  m_AnchoredPosition: {x: 491.20004, y: -93.63128}
   m_SizeDelta: {x: 72, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1111433527
@@ -91810,6 +91883,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1111433530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1111433525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 1111433526}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1
 --- !u!1 &1118316920
 GameObject:
   m_ObjectHideFlags: 0
@@ -104230,6 +104326,7 @@ GameObject:
   - component: {fileID: 1249893934}
   - component: {fileID: 1249893933}
   - component: {fileID: 1249893935}
+  - component: {fileID: 1249893936}
   m_Layer: 0
   m_Name: PowerupSlotThreeImage
   m_TagString: Untagged
@@ -104254,7 +104351,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 490.99994, y: -93.73346}
+  m_AnchoredPosition: {x: 557.2999, y: -93.73346}
   m_SizeDelta: {x: 72, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1249893933
@@ -104306,6 +104403,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1249893936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1249893931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 1249893932}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1
 --- !u!1 &1251413522
 GameObject:
   m_ObjectHideFlags: 0
@@ -104317,6 +104437,7 @@ GameObject:
   - component: {fileID: 1251413525}
   - component: {fileID: 1251413524}
   - component: {fileID: 1251413526}
+  - component: {fileID: 1251413527}
   m_Layer: 0
   m_Name: PowerupSlotFourImage
   m_TagString: Untagged
@@ -104393,6 +104514,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1251413527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1251413522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 1251413523}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1
 --- !u!1 &1252659396
 GameObject:
   m_ObjectHideFlags: 0
@@ -109407,7 +109551,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFramerate: -1
-  RefreshRate: 0
   useScreenRefreshRate: 0
 --- !u!1 &1343338851
 GameObject:
@@ -109881,13 +110024,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0.0001
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!82 &1372541439
 AudioSource:
   m_ObjectHideFlags: 0
@@ -131432,13 +131575,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0.0001
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!82 &1598546898
 AudioSource:
   m_ObjectHideFlags: 0
@@ -136725,7 +136868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1650380795
 RectTransform:
   m_ObjectHideFlags: 0
@@ -148096,6 +148239,7 @@ GameObject:
   - component: {fileID: 1694447914}
   - component: {fileID: 1694447913}
   - component: {fileID: 1694447915}
+  - component: {fileID: 1694447916}
   m_Layer: 0
   m_Name: PowerupSlotNineImage
   m_TagString: Untagged
@@ -148120,7 +148264,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 293, y: -93.731316}
+  m_AnchoredPosition: {x: 359.30002, y: -93.731316}
   m_SizeDelta: {x: 72, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1694447913
@@ -148172,6 +148316,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1694447916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1694447911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 1694447912}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1
 --- !u!1 &1696876485
 GameObject:
   m_ObjectHideFlags: 0
@@ -148394,9 +148561,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1696915252}
+  clipLoudness: 0
   updateStep: 0.01667
   sampleDataLength: 256
-  clipLoudness: 0
 --- !u!1 &1704500442
 GameObject:
   m_ObjectHideFlags: 0
@@ -153071,7 +153238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1138.3965, y: -26.700073}
+  m_AnchoredPosition: {x: 1101.3967, y: -52.70009}
   m_SizeDelta: {x: -1.5334473, y: -0.8625488}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1765165181
@@ -153080,7 +153247,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1765165179}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
   m_Name: 
@@ -153317,8 +153484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde6faa0d78a1944e85bfe3f9ef0d03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resWidth: 3840
-  resHeight: 2160
+  resolution: {x: 1920, y: 1080}
+  ResolutionMultiplier: {x: 1, y: 1}
 --- !u!114 &1771333225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154374,7 +154541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1823694703
 RectTransform:
   m_ObjectHideFlags: 0
@@ -154390,7 +154557,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -44.40004, y: -39.400146}
+  m_AnchoredPosition: {x: -44.40004, y: -39}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1823694704
@@ -154436,6 +154603,7 @@ GameObject:
   - component: {fileID: 1838719302}
   - component: {fileID: 1838719301}
   - component: {fileID: 1838719303}
+  - component: {fileID: 1838719304}
   m_Layer: 0
   m_Name: PowerupSlotTenImage
   m_TagString: Untagged
@@ -154512,6 +154680,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1838719304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1838719299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 1838719300}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1
 --- !u!1 &1842379451
 GameObject:
   m_ObjectHideFlags: 0
@@ -154771,7 +154962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -79.200134, y: -126.69995}
+  m_AnchoredPosition: {x: -79.200134, y: -81.71515}
   m_SizeDelta: {x: 96, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848533216
@@ -155773,7 +155964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 880.7998, y: 14.546875}
+  m_AnchoredPosition: {x: 843.80005, y: -11.453125}
   m_SizeDelta: {x: -1.2331543, y: -0.6936035}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1897928839
@@ -157090,6 +157281,7 @@ GameObject:
   - component: {fileID: 1995462709}
   - component: {fileID: 1995462708}
   - component: {fileID: 1995462710}
+  - component: {fileID: 1995462711}
   m_Layer: 0
   m_Name: PowerupSlotSixImage
   m_TagString: Untagged
@@ -157166,6 +157358,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1995462711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1995462706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 1995462707}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1
 --- !u!1 &2000871738
 GameObject:
   m_ObjectHideFlags: 0
@@ -161882,7 +162097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2066891588
 RectTransform:
   m_ObjectHideFlags: 0
@@ -169944,7 +170159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2136141184
 RectTransform:
   m_ObjectHideFlags: 0
@@ -169960,7 +170175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -143.90002, y: -96.69999}
+  m_AnchoredPosition: {x: -78, y: -96.69999}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2136141185
@@ -170345,7 +170560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2143466200
 RectTransform:
   m_ObjectHideFlags: 0
@@ -170407,6 +170622,7 @@ GameObject:
   - component: {fileID: 2143651457}
   - component: {fileID: 2143651456}
   - component: {fileID: 2143651458}
+  - component: {fileID: 2143651459}
   m_Layer: 0
   m_Name: PowerupSlotEightImage
   m_TagString: Untagged
@@ -170483,3 +170699,26 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &2143651459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2143651454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f8af8ca496112408372e7d9773aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 2143651455}
+  shakeDuration: 0
+  shakeTimeRemaining: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
+  Offset: {x: 0, y: 0, z: 0}
+  Priority: 0
+  useSmoothing: 0
+  smoothAmount: 10
+  SyncWithShaker: 1
+  SyncShaker: {fileID: 525356116}
+  SyncMultiplier: 1

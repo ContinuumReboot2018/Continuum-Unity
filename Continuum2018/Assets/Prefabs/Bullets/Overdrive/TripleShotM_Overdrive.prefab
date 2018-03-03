@@ -268,13 +268,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!114 &114320495374854324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -293,6 +293,7 @@ MonoBehaviour:
   homingTime: 5
   cutoffHeight: 12
   maxRange: 45
+  RotateSpeedIncreaseRate: 1
 --- !u!114 &114768182872227266
 MonoBehaviour:
   m_ObjectHideFlags: 1

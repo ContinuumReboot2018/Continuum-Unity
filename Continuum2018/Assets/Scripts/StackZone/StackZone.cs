@@ -1,35 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StackZone : MonoBehaviour 
 {
-	public bool isOccupied;
-	public bool canOccupy;
-	public StackZone StackZoneBelow;
-	public StackZone StackZoneAbove;
-	public GameObject CapturedBlock;
-	public AudioSource stackSound;
+	public bool isOccupied; // Is the current state of this stackzone occupied?
+	public bool canOccupy; // Can a block occupy here?
+	public StackZone StackZoneBelow; // The stack zone below.
+	public StackZone StackZoneAbove; // The stack zone above.
+	public GameObject CapturedBlock; // The currently captured block.
+	public AudioSource stackSound; //The sound to play when a block stacks.
 
 	void Awake ()
 	{
-		isOccupied = false;
+		isOccupied = false; // Set to be not occupied.
 	}
 
 	void Start ()
 	{
-		stackSound = GameObject.Find ("StackSound").GetComponent<AudioSource> ();
+		stackSound = GameObject.Find ("StackSound").GetComponent<AudioSource> (); // Find stack sound.
+		InvokeRepeating ("CheckState", 0, 0.25f);
 	}
-
-	void Update ()
-	{
-		CheckState ();
-	}
-
+		
 	void OnTriggerEnter (Collider other)
 	{
 		// Trigger was by a block.
-		if (other.GetComponent<Collider>().tag == "Block" && other.GetComponent<Block> ().Stackable == true)
+		if (other.GetComponent<Collider>().tag == "Block" && 
+			other.GetComponent<Block> ().Stackable == true)
 		{
 			// If already occupied.
 			if (isOccupied == true) 
@@ -40,7 +35,9 @@ public class StackZone : MonoBehaviour
 					// If zone below is occupied.
 					if (StackZoneBelow.isOccupied == true) 
 					{
-						//Destroy (other.gameObject);
+						// Pass through normally.
+						// Destroy (other.gameObject);
+						// return.
 					}
 				}
 			}
@@ -68,9 +65,11 @@ public class StackZone : MonoBehaviour
 		}
 	}
 
+	// Block in trigger.
 	void OnTriggerStay (Collider other)
 	{
-		if (other.GetComponent<Collider> ().tag == "Block" && other.GetComponent<Block>().Stackable == true) 
+		if (other.GetComponent<Collider> ().tag == "Block" && 
+			other.GetComponent<Block>().Stackable == true) 
 		{
 			if (StackZoneBelow != null) 
 			{
@@ -95,11 +94,11 @@ public class StackZone : MonoBehaviour
 		}
 	}
 
+	// Set to current captured block in trigger.
 	public void CaptureBlock ()
 	{
 		if (CapturedBlock.GetComponent<Block> ().isBossPart == false)
 		{
-			//CapturedBlock.transform.parent = null;
 			CapturedBlock.GetComponent<Rigidbody> ().isKinematic = false;
 			CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
 			CapturedBlock.GetComponent<Block> ().isStacked = true;
@@ -126,6 +125,7 @@ public class StackZone : MonoBehaviour
 		}
 	}
 
+	// Release the captured block.
 	public void VacateBlock ()
 	{
 		CapturedBlock.GetComponent<Block> ().stack = null;

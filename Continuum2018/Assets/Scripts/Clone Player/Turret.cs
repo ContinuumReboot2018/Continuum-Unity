@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Turret : MonoBehaviour 
 {
-	public PlayerController playerControllerScript;
-	public GameController gameControllerScript;
-	public Transform ShotSpawn;
-	public GameObject Shot;
-	public float FireRate = 0.25f;
-	private float nextFire;
-	//private Transform RaycastedPos;
+	public PlayerController playerControllerScript; // Reference to Player Controller.
+	public GameController gameControllerScript; // Reference to Game Controller.
+	public Transform ShotSpawn; // Shot spawn transform.
+	public GameObject Shot; // Shot to shoot.
+	public float FireRate = 0.1f; // Fire rate.
+	private float nextFire; // Time to next fire.
 
-	void Start () 
+	void OnEnable () 
 	{
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 
@@ -24,27 +21,35 @@ public class Turret : MonoBehaviour
 
 	void Update () 
 	{
+		// Check for powerup time remaining, disable if time ran out.
 		if (gameControllerScript.PowerupTimeRemaining <= 0) 
 		{
 			gameObject.SetActive (false);
 		}
 
-		CheckForBlock ();
+		// Match shot with player shot.
+		if (Shot != playerControllerScript.CurrentShotObject)
+		{
+			Shot = playerControllerScript.CurrentShotObject;
+		}
 
-		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.up) * 25, Color.magenta);
+		CheckForBlock (); // Finds a block in its line of sight.
+
+		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.up) * 40, Color.magenta); // Show line in editor.
 	}
 
+	// Finds a block in its line of sight.
 	void CheckForBlock ()
 	{
-		Vector3 up = transform.TransformDirection (Vector3.up);
+		Vector3 up = transform.TransformDirection (Vector3.up); // Find outwards direction.
 		RaycastHit hit;
 
-		if (Physics.Raycast (transform.position, up, out hit, 25)) 
+		// Look for Blocks pointing our from the player in the current direction.
+		if (Physics.Raycast (transform.position, up, out hit, 40)) 
 		{
 			if (hit.collider.tag == ("Block"))
 			{
-				//RaycastedPos = hit.transform;
-				Shoot ();
+				Shoot (); // Shoot at it if found.
 			}
 		}
 	}
@@ -54,8 +59,6 @@ public class Turret : MonoBehaviour
 		if (Time.unscaledTime > nextFire) 
 		{
 			Instantiate (Shot, ShotSpawn.position, ShotSpawn.rotation);
-			//GameObject shot = Instantiate (Shot, ShotSpawn.position, ShotSpawn.rotation);
-			//shot.GetComponent<Bullet> ().HomingPoint = RaycastedPos.transform;
 			nextFire = Time.unscaledTime + FireRate;
 		}
 	}
