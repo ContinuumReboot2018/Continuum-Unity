@@ -38387,7 +38387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &495375290
 Transform:
   m_ObjectHideFlags: 0
@@ -152485,7 +152485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde6faa0d78a1944e85bfe3f9ef0d03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: {x: 1920, y: 1080}
   ResolutionMultiplier: {x: 1, y: 1}
 --- !u!114 &1771333225
 MonoBehaviour:

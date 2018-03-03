@@ -23,6 +23,7 @@ public class MiniBoss : MonoBehaviour
 	public Transform PlayerPos; // The actual position of the player.
 	public SimpleFollow simpleFollowScript; // Simple follow script.
 	public SimpleLookAt BrainLookScript; // Looking at script for brain.
+	public Collider col;
 
 	[Header ("Boss Parts")]
 	public GameObject BossPartsParent; // The parent object where all the boss parts will spawn in.
@@ -82,6 +83,16 @@ public class MiniBoss : MonoBehaviour
 			Destroy (MiniBossParent.gameObject);
 			return;
 		}
+
+		if (col == null) 
+		{
+			col = GetComponent<Collider> ();
+		}
+
+		if (col != null) 
+		{
+			col.enabled = false;
+		}
 	}
 
 	// Creates an array of boss parts with Block components that were spawned in the BossParts parent GameObject.
@@ -120,6 +131,16 @@ public class MiniBoss : MonoBehaviour
 			KillMiniBoss ();
 			Destroy (MiniBossParent.gameObject); // Destroy the boss parent.
 			return;
+		}
+
+		if (transform.position.y > 12) 
+		{
+			col.enabled = false;
+		}
+
+		if (transform.position.y <= 12)
+		{
+			col.enabled = true;
 		}
 	}
 

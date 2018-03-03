@@ -602,6 +602,7 @@ MonoBehaviour:
   PlayerPos: {fileID: 0}
   simpleFollowScript: {fileID: 114536671480768740}
   BrainLookScript: {fileID: 114539512354974962}
+  col: {fileID: 135594734214811212}
   BossPartsParent: {fileID: 1026782176347644}
   BossParts: []
   BossPartsList: []
