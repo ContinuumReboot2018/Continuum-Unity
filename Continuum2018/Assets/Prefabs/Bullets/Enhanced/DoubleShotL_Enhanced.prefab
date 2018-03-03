@@ -698,7 +698,7 @@ MonoBehaviour:
   homingTime: 5
   cutoffHeight: 12
   maxRange: 45
-  RotateSpeedIncreaseRate: 1
+  RotateSpeedIncreaseRate: 1000
 --- !u!198 &198081163586497386
 ParticleSystem:
   m_ObjectHideFlags: 1

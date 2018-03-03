@@ -106,14 +106,21 @@ public class Bullet : MonoBehaviour
 		{
 			homingScript = GetComponent<Homing> (); // Get the homing script.
 			isHoming = true; // Set homing to true.
-			homingScript.enabled = true; // Enable the homing script.
 
-			// Clamp maximum speed by velocity limits.
-			homingScript.speed = Mathf.Clamp (
-				BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), 
-				VelocityLimits.x, 
-				VelocityLimits.y
-			);
+			if (playerControllerScript.isRicochet == false)
+			{
+				homingScript.enabled = true; // Enable the homing script.
+			}
+
+			if (BulletSpeed > 0)
+			{
+				// Clamp maximum speed by velocity limits.
+				homingScript.speed = Mathf.Clamp (
+					BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), 
+					VelocityLimits.x, 
+					VelocityLimits.y
+				);
+			}
 		}
 
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> (); // Find the camera shake.
@@ -202,7 +209,8 @@ public class Bullet : MonoBehaviour
 	// Checks for ricochet, if conditions are met, ricochet.
 	void CheckForRicochet ()
 	{
-		if (playerControllerScript.isRicochet == true && playerControllerScript.isHoming == false) 
+		if (playerControllerScript.isRicochet == true &&
+			playerControllerScript.isHoming == false) 
 		{
 			// Moves to top of screen.
 			if (transform.position.y > RicochetYpos) 

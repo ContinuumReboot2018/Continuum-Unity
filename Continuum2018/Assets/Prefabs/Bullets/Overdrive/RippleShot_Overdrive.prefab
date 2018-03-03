@@ -661,7 +661,7 @@ MonoBehaviour:
   homingTime: 5
   cutoffHeight: 12
   maxRange: 45
-  RotateSpeedIncreaseRate: 1
+  RotateSpeedIncreaseRate: 1000
 --- !u!136 &136682191184681828
 CapsuleCollider:
   m_ObjectHideFlags: 1

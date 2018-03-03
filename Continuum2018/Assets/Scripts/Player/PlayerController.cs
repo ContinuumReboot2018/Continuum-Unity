@@ -253,24 +253,31 @@ public class PlayerController : MonoBehaviour
 	public Animator FlipScreenAnim; // Animator which controls animations for the screen orientation.
 
 	[Header ("UI")]
+	// Ability UI.
+	public bool isHidingAbilityUI;
+	public Animator AbilityUIHexes; 	// Ability Hexes situated underneath the score.
+	public Vector3 AbilityCheckPlayerPos; // Where to check for the player position range.
+	[Space (10)]
 	// Score UI.
 	public bool isHidingScoreUI; 		// Enabled when player position is close to the top middle.
 	public Animator ScoreAnim; 			// Score fading in/out animator.
 	public Vector3 ScoreCheckPlayerPos; // Where to check for the player position range.
-	public Animator AbilityUIHexes; 	// Ability Hexes situated underneath the score.
+	[Space (10)]
+	// Shooting UI.
 	public Animator ShootingUIHexes; 	// Shooting Hexes on the top right 
-
+	[Space (10)]
 	// Lives UI.
 	public bool isHidingLivesUI; 		 // Checks top left of the screen if player is too close to the edge/corner.
 	public Animator LivesAnim; 			 // Lives fade in/out animator.
 	public Vector2 LivesCheckPlayerPosX; // Range to check horizontal player position.
 	public Vector2 LivesCheckPlayerPosY; // Range to check vertical player position.
-
+	[Space (10)]
 	// Wave UI.
 	public bool isHidingWaveUI; 	   // Checks for wave UI.
 	public Animator WaveAnim;		   // Wave fade in/out animator.
 	public Vector3 WaveCheckPlayerPos; // point to check for player proximity.
 
+	// InControl Player Actions.
 	public PlayerActions playerActions; // Created for InControl and assigned at runtime.
 
 	void Start () 
@@ -1144,7 +1151,43 @@ public class PlayerController : MonoBehaviour
 	// Autohiding UI.
 	void CheckUIVisibility ()
 	{
-		// SCORE TEXT
+		// ABILITY UI
+		// When the player is close to the ability UI.
+		// Vertical position.
+		if (PlayerRb.position.y < AbilityCheckPlayerPos.y) 
+		{
+			// Horizontal position too far.
+			if (PlayerRb.position.x > -AbilityCheckPlayerPos.x && PlayerRb.position.x < AbilityCheckPlayerPos.x) 
+			{
+				if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeOut") == false && isHidingAbilityUI == false) 
+				{
+					AbilityUIHexes.Play ("HexesFadeOut");
+					isHidingAbilityUI = true;
+				}
+			}
+
+			// Horizontal position in range.
+			if (PlayerRb.position.x <= -AbilityCheckPlayerPos.x || PlayerRb.position.x >= AbilityCheckPlayerPos.x) 
+			{
+				if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeIn") == false && isHidingAbilityUI == true) 
+				{
+					AbilityUIHexes.Play ("HexesFadeIn");
+					isHidingAbilityUI = false;
+				}
+			}
+		}
+
+		// Vertical position too far from score text.
+		if (PlayerRb.position.y >= AbilityCheckPlayerPos.y) 
+		{
+			if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeIn") == false && isHidingAbilityUI == true) 
+			{
+				AbilityUIHexes.Play ("HexesFadeIn");
+				isHidingAbilityUI = false;
+			}
+		}
+
+		// SCORE UI
 		// When the player is close to the score text.
 		// Vertical position.
 		if (PlayerRb.position.y > ScoreCheckPlayerPos.y) 
@@ -1155,7 +1198,6 @@ public class PlayerController : MonoBehaviour
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false && isHidingScoreUI == false) 
 				{
 					ScoreAnim.Play ("ScoreFadeOut");
-					AbilityUIHexes.Play ("HexesFadeOut");
 					isHidingScoreUI = true;
 				}
 			}
@@ -1166,7 +1208,6 @@ public class PlayerController : MonoBehaviour
 				if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 				{
 					ScoreAnim.Play ("ScoreFadeIn");
-					AbilityUIHexes.Play ("HexesFadeIn");
 					isHidingScoreUI = false;
 				}
 			}
@@ -1178,12 +1219,11 @@ public class PlayerController : MonoBehaviour
 			if (ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeIn") == false && isHidingScoreUI == true) 
 			{
 				ScoreAnim.Play ("ScoreFadeIn");
-				AbilityUIHexes.Play ("HexesFadeIn");
 				isHidingScoreUI = false;
 			}
 		}
 
-		// LIVES TEXT
+		// LIVES UI
 		// When the player is close to the lives text.
 		// Vertical position.
 		if (PlayerRb.position.y > LivesCheckPlayerPosY.y && LivesAnim.gameObject.activeInHierarchy == true) 

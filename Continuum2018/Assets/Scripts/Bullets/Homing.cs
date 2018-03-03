@@ -19,7 +19,11 @@ public class Homing : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody> ();
 		Invoke ("ReleaseHoming", homingTime); // Prepeare homing to release by homing time.
+		InvokeRepeating ("GetObjectToHome", 0, 2);
+	}
 
+	void GetObjectToHome ()
+	{
 		GameObject CheckTagObject = FindClosestEnemyTag (); // Find the closest object to home in on.
 
 		// Found an object to home in on.
@@ -29,7 +33,7 @@ public class Homing : MonoBehaviour
 		} 
 
 		else 
-		
+
 		{
 			ReleaseHoming (); // Release and bail out, revert to normal movement.
 		}

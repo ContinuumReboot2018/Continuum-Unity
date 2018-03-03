@@ -310,7 +310,7 @@ MonoBehaviour:
   homingTime: 5
   cutoffHeight: 12
   maxRange: 45
-  RotateSpeedIncreaseRate: 1
+  RotateSpeedIncreaseRate: 1000
 --- !u!114 &114776737887368580
 MonoBehaviour:
   m_ObjectHideFlags: 1

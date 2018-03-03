@@ -383,9 +383,12 @@ public class Block : MonoBehaviour
 			totalPointValue = BasePointValue;
 		}
 
-		if (playerControllerScript_P1.CurrentAbilityTimeRemaining < playerControllerScript_P1.CurrentAbilityDuration)
+		if (playerControllerScript_P1.Ability != null) 
 		{
-			playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
+			if (playerControllerScript_P1.CurrentAbilityTimeRemaining < playerControllerScript_P1.CurrentAbilityDuration) 
+			{
+				playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
+			}
 		}
 
 		// While boss part is still attached to main boss.
