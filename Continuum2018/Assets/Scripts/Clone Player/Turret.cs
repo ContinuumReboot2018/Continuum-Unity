@@ -27,8 +27,13 @@ public class Turret : MonoBehaviour
 			gameObject.SetActive (false);
 		}
 
+		if (playerControllerScript.CurrentShotObject == null) 
+		{
+			Shot = playerControllerScript.StandardShot;
+		}
+
 		// Match shot with player shot.
-		if (Shot != playerControllerScript.CurrentShotObject)
+		if (Shot != playerControllerScript.CurrentShotObject && playerControllerScript.CurrentShotObject != null)
 		{
 			Shot = playerControllerScript.CurrentShotObject;
 		}

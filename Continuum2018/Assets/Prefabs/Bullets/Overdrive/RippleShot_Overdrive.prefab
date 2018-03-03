@@ -656,7 +656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   findObject: Block
-  speed: 8
+  speed: 24
   rotateSpeed: 500
   homingTime: 5
   cutoffHeight: 12
@@ -4192,7 +4192,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.35294116, g: 0.7322515, b: 1, a: 0.284}
-      maxColor: {r: 0.7870179, g: 0.44852942, b: 1, a: 0.665}
+      maxColor: {r: 0.7870179, g: 0.44852942, b: 1, a: 0.447}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -6598,7 +6598,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 83968
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -21015,7 +21015,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.35294116, g: 0.7322515, b: 1, a: 0.284}
-      maxColor: {r: 0.7008113, g: 0.13235295, b: 1, a: 0.572}
+      maxColor: {r: 0.7008113, g: 0.13235295, b: 1, a: 0.309}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

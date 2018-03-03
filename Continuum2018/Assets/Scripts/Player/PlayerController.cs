@@ -276,6 +276,10 @@ public class PlayerController : MonoBehaviour
 	public bool isHidingWaveUI; 	   // Checks for wave UI.
 	public Animator WaveAnim;		   // Wave fade in/out animator.
 	public Vector3 WaveCheckPlayerPos; // point to check for player proximity.
+	[Space (10)]
+	// PowerupUI
+	public bool isHidingPowerupUI;
+	public Vector3 PowerupUICheckPos;
 
 	// InControl Player Actions.
 	public PlayerActions playerActions; // Created for InControl and assigned at runtime.
@@ -296,6 +300,17 @@ public class PlayerController : MonoBehaviour
 
 		TurretSpinSpeed = TurretSpinSpeedNormal;
 		LivesAnim.gameObject.SetActive (false);
+		CurrentShotObject = StandardShot;
+
+		gameControllerScript.PowerupImage_P1 [0].GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+
+		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1) 
+		{
+			if (powerupimage != gameControllerScript.PowerupImage_P1 [0]) 
+			{
+				powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOutInstant");
+			}
+		}
 	}
 
 	public void StartCoroutines ()
@@ -1310,6 +1325,7 @@ public class PlayerController : MonoBehaviour
 	// Also has autohiding.
 	public void CheckPowerupImageUI ()
 	{
+		/*
 		if (playerCol.transform.position.y > 7 && playerCol.transform.position.x > 12) 
 		{
 			if (ShootingUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeOut") == false)
@@ -1324,41 +1340,35 @@ public class PlayerController : MonoBehaviour
 			{
 				ShootingUIHexes.Play ("HexesFadeIn");
 			}
-		}
+		}*/
 
 		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
 		{
-			if (
-				powerupimage != gameControllerScript.PowerupImage_P1 [0] && 
-				powerupimage.color != new Color (0, 0, 0) && 
-				powerupimage.texture != null)
+			if (powerupimage == gameControllerScript.PowerupImage_P1 [0])
 			{
-				if (Vector3.Distance (powerupimage.transform.position, playerCol.transform.position) < 4) 
+				if (playerCol.transform.position.y > PowerupUICheckPos.y &&
+					playerCol.transform.position.x > PowerupUICheckPos.x
+				) 
 				{
-					if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == false) 
+					if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == false
+						&& powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemPopIn") == false
+						&& isHidingPowerupUI == false) 
 					{
-						powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOut");
+						powerupimage.GetComponent<Animator> ().Play ("PowerupListItemFadeOut");
+						isHidingPowerupUI = true;
 					}
 				}
 
-				if (Vector3.Distance (powerupimage.transform.position, playerCol.transform.position) >= 4) 
+				if (playerCol.transform.position.y <= PowerupUICheckPos.y || 
+					playerCol.transform.position.x <= PowerupUICheckPos.x)
 				{
 					if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == true
-					||  powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOutInstant") == true) 
+						&& powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemPopIn") == false
+						&& isHidingPowerupUI == true) 
 					{
-						powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeIn");
+						powerupimage.GetComponent<Animator> ().Play ("PowerupListItemFadeIn");
+						isHidingPowerupUI = false;
 					}
-				}
-			}
-
-			if (powerupimage != gameControllerScript.PowerupImage_P1 [0] && 
-				powerupimage.color == Color.black && 
-				powerupimage.texture == null) 
-			{
-				//powerupimage.color = new Color (0, 0, 0, 0);
-				if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOutInstant") == false) 
-				{
-					powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOutInstant");
 				}
 			}
 		}
@@ -1464,6 +1474,7 @@ public class PlayerController : MonoBehaviour
 		gameControllerScript.PowerupTimeRemaining = 0;
 
 		// Clears powerup UI.
+		CheckPowerupImageUI ();
 		gameControllerScript.ClearPowerupUI ();
 	}
 

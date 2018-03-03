@@ -107,6 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4727785774315934}
   - component: {fileID: 114321277346477534}
+  - component: {fileID: 54792294155737994}
+  - component: {fileID: 114598710554275844}
   m_Layer: 11
   m_Name: BossContainer
   m_TagString: Untagged
@@ -267,6 +269,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1398989182591904}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54792294155737994
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1837926230719564}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!82 &82869012146850048
 AudioSource:
   m_ObjectHideFlags: 1
@@ -546,6 +563,22 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+--- !u!114 &114598710554275844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1837926230719564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636f0dd592e6b604c92e5c7380dde215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothingRange: {x: 1, y: 6}
+  startWait: {x: 1, y: 2}
+  maneuverTime: {x: 0.5, y: 2}
+  boundaryX: {x: -20, y: 20}
+  boundaryY: {x: 8, y: 12}
 --- !u!114 &114649825430939904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -559,14 +592,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LookAtPos: {fileID: 0}
   LookMethod: 0
-  RotDegPerSec: 100
+  useUpDirection: 0
 --- !u!114 &114943584476733144
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1414357436659834}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 

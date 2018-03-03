@@ -131,7 +131,7 @@ public class MiniBoss : MonoBehaviour
 		if (Time.time > NextFire && AllowShoot == true) 
 		{
 			GameObject missile = Instantiate (Missile, transform.position, Quaternion.identity); // Spawn the missle.
-			missile.transform.LookAt (PlayerPos); // Get missile to look at the player.
+			missile.transform.LookAt (PlayerPos, Vector3.forward); // Get missile to look at the player.
 			FireRate = Random.Range (FireRateRange.x, FireRateRange.y); // Set next fire range.
 			NextFire = Time.time + FireRate; // Increment new value of next fire (scaled by Time.timeScale).
 		}

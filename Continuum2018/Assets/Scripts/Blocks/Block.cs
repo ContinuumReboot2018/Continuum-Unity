@@ -23,6 +23,7 @@ public class Block : MonoBehaviour
 	public bool isStacked; // Is the bloc currently stacked?
 	public StackZone stack; // The current stack zone of the stacked block.
 	public float AddAbilityTime = 0.01f;
+	public List<Homing> homedObjects;
 
 	[Header ("BlockTypes")]
 	public BlockManager AquaBlock;
@@ -383,7 +384,7 @@ public class Block : MonoBehaviour
 			totalPointValue = BasePointValue;
 		}
 
-		if (playerControllerScript_P1.Ability != null) 
+		if (playerControllerScript_P1 != null) 
 		{
 			if (playerControllerScript_P1.CurrentAbilityTimeRemaining < playerControllerScript_P1.CurrentAbilityDuration) 
 			{

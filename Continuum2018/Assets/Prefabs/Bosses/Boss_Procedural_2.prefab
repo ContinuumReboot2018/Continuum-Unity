@@ -72,6 +72,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4564975095902988}
   - component: {fileID: 114595713207939492}
+  - component: {fileID: 54486991931125544}
+  - component: {fileID: 114327013213074036}
   m_Layer: 11
   m_Name: BossContainer
   m_TagString: Untagged
@@ -267,6 +269,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1358503370173682}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54486991931125544
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520002804754640}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!82 &82798359822001612
 AudioSource:
   m_ObjectHideFlags: 1
@@ -391,13 +408,29 @@ MonoBehaviour:
   AutomaticallyCenterY: 1
   Center: {x: 4, y: 1.35}
   MiniBossBrain: {fileID: 114630239573090416}
+--- !u!114 &114327013213074036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520002804754640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636f0dd592e6b604c92e5c7380dde215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothingRange: {x: 1, y: 6}
+  startWait: {x: 1, y: 2}
+  maneuverTime: {x: 0.5, y: 2}
+  boundaryX: {x: -20, y: 20}
+  boundaryY: {x: 8, y: 12}
 --- !u!114 &114536671480768740
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1967204055347616}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
@@ -436,7 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LookAtPos: {fileID: 0}
   LookMethod: 0
-  RotDegPerSec: 100
+  useUpDirection: 0
 --- !u!114 &114595713207939492
 MonoBehaviour:
   m_ObjectHideFlags: 1

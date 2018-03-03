@@ -277,6 +277,7 @@ public class GameController : MonoBehaviour
 		{
 			powerupImage.texture = null;
 			powerupImage.color = new Color (0, 0, 0, 0);
+			playerControllerScript_P1.CheckPowerupImageUI ();
 		}
 
 		// Reset inital powerup slot index.

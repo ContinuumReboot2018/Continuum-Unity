@@ -1,14 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-	public PlayerController playerControllerScript_P1;
-	public TimescaleController timeScaleControllerScript;
-	public GameController gameControllerScript;
-	public bool tutorialComplete;
-	public tutorialPhase TutorialPhase;
+	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
+	public GameController gameControllerScript; // Reference to Game Controller.
+	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
+
+	[Header ("Tutorial Stats")]
+	public bool tutorialComplete; // Has the tutorial been completed?
+	public tutorialPhase TutorialPhase; // Current tutorial phase.
 	public enum tutorialPhase
 	{
 		Movement = 0,
@@ -16,21 +17,23 @@ public class TutorialManager : MonoBehaviour
 		Info = 2
 	}
 
-	public GameObject[] Blocks;
+	public GameObject[] Blocks; // Array of blocks for the playr to destroy.
 
-	public GameObject MovementObject;
-	public GameObject ControlsObject;
-	public GameObject BlocksObject;
-	public GameObject InfoObject;
+	public GameObject MovementObject; // Movement section.
+	public GameObject ControlsObject; // Controls section.
+	public GameObject BlocksObject; // Blocks section.
+	public GameObject InfoObject; // More info section.
 
 	void Start ()
 	{
+		// Set all objects to false.
 		tutorialComplete = false;
 		MovementObject.SetActive (false);
-		//ControlsObject.SetActive (true);
+		ControlsObject.SetActive (false);
 		BlocksObject.SetActive (false);
 		InfoObject.SetActive (false);
-		TutorialPhase = tutorialPhase.Movement;
+
+		TutorialPhase = tutorialPhase.Movement; // Set to first tutorial sequence.
 		StartCoroutine (DeactivateMovementDelay ());
 	}
 
@@ -125,12 +128,8 @@ public class TutorialManager : MonoBehaviour
 			Destroy (block);
 		}
 
-		//Destroy (MovementObject);
-		//Destroy (InfoObject);
-		//Destroy (ControlsObject);
-		//Destroy (BlocksObject);
-		Destroy (gameObject);
-		//this.gameObject.SetActive (false);
+		this.gameObject.SetActive (false);
+		//Destroy (gameObject);
 		return;
 	}
 }

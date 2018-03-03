@@ -10,18 +10,36 @@ public class SimpleLookAt : MonoBehaviour
 		LookAway
 	}
 
+	public bool useUpDirection;
+
 	void LateUpdate ()
 	{
 		// Look towards.
 		if (LookMethod == lookType.LookTowards && LookAtPos != null) 
 		{
-			transform.LookAt (LookAtPos.position, Vector3.forward);
+			if (useUpDirection == false) 
+			{
+				transform.LookAt (LookAtPos.position, Vector3.forward);
+			}
+
+			if (useUpDirection == true) 
+			{
+				transform.LookAt (LookAtPos.position, Vector3.up);
+			}
 		}
 
 		// Look away.
 		if (LookMethod == lookType.LookAway) 
 		{
-			transform.LookAt (LookAtPos.position, -Vector3.forward);
+			if (useUpDirection == false) 
+			{
+				transform.LookAt (LookAtPos.position, -Vector3.forward);
+			}
+
+			if (useUpDirection == true) 
+			{
+				transform.LookAt (LookAtPos.position, -Vector3.up);
+			}
 		}
 	}
 }

@@ -7434,7 +7434,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  useUnscaledTime: 1
+  useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
