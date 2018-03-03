@@ -2,7 +2,7 @@
 
 public class HiResScreenShots : MonoBehaviour 
 {
-	public Vector2 resolution = new Vector2 (1920, 1080); // Base resolution width.
+	private Vector2 resolution = new Vector2 (1920, 1080); // Base resolution width.
 	public Vector2 ResolutionMultiplier = new Vector2 (1, 1); // Multiplies by factor, Quadruples total resolution. +1 = x2.
 	private bool takeHiResShot = false; // Is screenshot being taken now?
 
@@ -11,13 +11,27 @@ public class HiResScreenShots : MonoBehaviour
 	void Awake ()
 	{
 		cam = GetComponent<Camera> (); // Gets the Camera to take a screenshot with.
+
+		float aspect = cam.aspect;
+
+		// 16:9 ratio.
+		if (aspect > 1.6f) 
+		{
+			resolution = new Vector2 (1920, 1080);
+		}
+
+		// 16:10 ratio.
+		if (aspect <= 1.6f) 
+		{
+			resolution = new Vector2 (1920, 1200);
+		}
 	}
 
 	// Creates file name.
 	public static string ScreenShotName (int width, int height) 
 	{
 		return string.Format("{0}/Screenshots/screen_{1}x{2}_{3}.png", 
-			Application.dataPath, 
+			Application.persistentDataPath, 
 			width, height, 
 			System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
 	}
@@ -31,6 +45,18 @@ public class HiResScreenShots : MonoBehaviour
 	// Only want to take screenshots once the frame is fully rendered.
 	void LateUpdate() 
 	{
+		if (Input.GetKeyDown (KeyCode.F11))
+		{
+			ResolutionMultiplier = new Vector2 (8, 8);
+			TakeHiResShot ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.F10))
+		{
+			ResolutionMultiplier = new Vector2 (4, 4);
+			TakeHiResShot ();
+		}
+
 		if (Input.GetKeyDown (KeyCode.F9))
 		{
 			ResolutionMultiplier = new Vector2 (2, 2);
@@ -40,6 +66,12 @@ public class HiResScreenShots : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.F8)) 
 		{
 			ResolutionMultiplier = new Vector2 (1, 1);
+			TakeHiResShot ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.F7)) 
+		{
+			ResolutionMultiplier = new Vector2 (0.5f, 0.5f);
 			TakeHiResShot ();
 		}
 
