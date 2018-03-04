@@ -2480,15 +2480,15 @@ RectTransform:
   m_GameObject: {fileID: 130088646}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2}
-  m_LocalScale: {x: 18, y: 18, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 307371801}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 349.43942, y: -79.99998}
-  m_SizeDelta: {x: 3.4, y: 52.1}
+  m_AnchoredPosition: {x: 368.8, y: -79.99998}
+  m_SizeDelta: {x: 84.5, y: 52.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &130088648
 Animator:
@@ -2567,8 +2567,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 2.5
-  m_fontSizeBase: 2.5
+  m_fontSize: 38
+  m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13997,7 +13997,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 3
     type: 1
     collisionMode: 0
@@ -14139,7 +14139,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 22528
+      m_Bits: 88064
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -63715,7 +63715,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 22528
+      m_Bits: 88064
     maxCollisionShapes: 512
     quality: 0
     voxelSize: 0.5

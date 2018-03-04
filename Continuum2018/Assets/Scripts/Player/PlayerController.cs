@@ -438,7 +438,7 @@ public class PlayerController : MonoBehaviour
 			{
 				RejoinGame ();
 				PlayerGuides.SetActive (true);
-				AbilityUI.SetActive (true);
+				//AbilityUI.SetActive (true);
 				playerCol.gameObject.SetActive (true);
 				playerTrigger.gameObject.SetActive (true);
 				gameControllerScript.Lives -= 1;
@@ -559,7 +559,7 @@ public class PlayerController : MonoBehaviour
 		playerCol.gameObject.SetActive (false);
 		playerTrigger.gameObject.SetActive (false);
 		PlayerGuides.transform.position = Vector3.zero;
-		AbilityUI.SetActive (false);
+		//AbilityUI.SetActive (false);
 		PlayerRb.velocity = Vector3.zero;
 		PlayerFollowRb.velocity = Vector3.zero;
 		MovementX = 0;
@@ -1173,7 +1173,7 @@ public class PlayerController : MonoBehaviour
 		// ABILITY UI
 		// When the player is close to the ability UI.
 		// Vertical position.
-		if (PlayerRb.position.y > AbilityCheckPlayerPos.y && isInCooldownMode == false) 
+		if (PlayerRb.position.y > AbilityCheckPlayerPos.y) 
 		{
 			// Horizontal position too far.
 			if (PlayerRb.position.x < AbilityCheckPlayerPos.x) 

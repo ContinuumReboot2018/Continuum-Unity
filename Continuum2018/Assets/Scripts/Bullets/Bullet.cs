@@ -183,7 +183,7 @@ public class Bullet : MonoBehaviour
 		if (BulletRb.transform.position.y > ColliderYMaxPos && 
 			hasDisappeared == false) 
 		{
-			BulletCol.enabled = false; // Turn off the collider.
+			//BulletCol.enabled = false; // Turn off the collider.
 			hasDisappeared = true; // Set to be in disappeared state.
 		}
 
@@ -201,7 +201,7 @@ public class Bullet : MonoBehaviour
 			hasDisappeared == true && 
 			BulletTypeName != "Helix") 
 		{
-			BulletCol.enabled = true; // Enable the collider again.
+			//BulletCol.enabled = true; // Enable the collider again.
 			hasDisappeared = false; // Set dissapear state to false.
 		}
 	}
@@ -354,7 +354,7 @@ public class Bullet : MonoBehaviour
 	// Allows the bullet to be active some more time after a collision.
 	public IEnumerator DestroyDelay ()
 	{
-		BulletCol.enabled = false; // Turns of the collider though to not interact with anything else.
+		//BulletCol.enabled = false; // Turns of the collider though to not interact with anything else.
 		yield return new WaitForSecondsRealtime (DestroyDelayTime);
 		Destroy (gameObject);
 	}
@@ -377,7 +377,7 @@ public class Bullet : MonoBehaviour
 			BulletOuterParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
 			BulletCoreParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
 			StopEmittingTrail ();
-			BulletCol.enabled = false;
+			//BulletCol.enabled = false;
 			StartCoroutine (DestroyDelay ());
 		}
 	}

@@ -609,7 +609,7 @@ MonoBehaviour:
   miniBossFormation: {fileID: 114142611022689236}
   hitPoints: 5
   StartingHitPoints: 5
-  ParticleHitPointAmount: 0.025
+  ParticleHitPointAmount: 0.1
   SmallExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   LargeExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,

@@ -447,7 +447,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
+  m_Size: {x: 0.9, y: 0.9, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65058149273686368
 BoxCollider:
@@ -459,7 +459,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
+  m_Size: {x: 0.9, y: 0.9, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65098887445094438
 BoxCollider:
@@ -507,7 +507,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
+  m_Size: {x: 0.9, y: 0.9, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65629721214959714
 BoxCollider:
@@ -531,7 +531,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
+  m_Size: {x: 0.9, y: 0.9, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114026339181862238
 MonoBehaviour:
@@ -645,6 +645,7 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: -150
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
@@ -652,6 +653,7 @@ MonoBehaviour:
   isStacked: 0
   stack: {fileID: 0}
   AddAbilityTime: 0.01
+  homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
   PurpleBlock: {fileID: 11400000, guid: 6455345e71738cf42a36eb8f96cdd672, type: 2}
@@ -699,11 +701,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114301388646902840
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -715,11 +717,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114302017810583108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -731,11 +733,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114317186871027794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -799,6 +801,7 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: -150
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
@@ -806,6 +809,7 @@ MonoBehaviour:
   isStacked: 0
   stack: {fileID: 0}
   AddAbilityTime: 0.01
+  homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
   PurpleBlock: {fileID: 11400000, guid: 6455345e71738cf42a36eb8f96cdd672, type: 2}
@@ -866,7 +870,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03106b28700b2a14495dea5bbdef7176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   speed: -700
   AccumulatedSpeed: 0
   Rows: 1
@@ -952,6 +955,7 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: -150
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
@@ -959,6 +963,7 @@ MonoBehaviour:
   isStacked: 0
   stack: {fileID: 0}
   AddAbilityTime: 0.01
+  homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
   PurpleBlock: {fileID: 11400000, guid: 6455345e71738cf42a36eb8f96cdd672, type: 2}
@@ -1006,11 +1011,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114808227120488866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1029,6 +1034,7 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: -150
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
@@ -1036,6 +1042,7 @@ MonoBehaviour:
   isStacked: 0
   stack: {fileID: 0}
   AddAbilityTime: 0.01
+  homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
   PurpleBlock: {fileID: 11400000, guid: 6455345e71738cf42a36eb8f96cdd672, type: 2}

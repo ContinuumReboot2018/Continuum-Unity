@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 114104760744132672}
   - component: {fileID: 82775026960481190}
   m_Layer: 11
-  m_Name: Boss_Snake
+  m_Name: Boss_Snake[OLD]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1106,6 +1106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBosses
+  OnStart: 1
 --- !u!114 &114145063164352452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1118,6 +1119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114165451429881236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1135,44 +1137,30 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114274501390799522}
+  parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: 0
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 0
   isStacked: 0
   stack: {fileID: 0}
-  wasCollided: 0
+  AddAbilityTime: 0.01
+  homedObjects: []
+  AquaBlock: {fileID: 0}
+  BlueBlock: {fileID: 0}
+  PurpleBlock: {fileID: 0}
+  PinkBlock: {fileID: 0}
   isBossPart: 1
   GotDetached: 0
+  miniBoss: {fileID: 0}
+  bossPartIndex: 0
+  BossDamage: 1
   BoundaryX: {x: -30, y: 30}
   BoundaryY: {x: -30, y: 60}
-  AquaSpeed: 0
-  BlueSpeed: 0
-  PurpleSpeed: 0
-  PinkSpeed: 0
-  AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
-  BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
-  PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
-  PinkMat: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
-  AquaBasePointValue: 1
-  BlueBasePointValue: 2
-  PurpleBasePointValue: 3
-  PinkBasePointValue: 4
-  AquaExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
-    type: 2}
-  BlueExplosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af,
-    type: 2}
-  PurpleExplosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be,
-    type: 2}
-  PinkExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
-    type: 2}
-  AquaTextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
-  BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
-  PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
-  PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
   BlockType: 0
-  ChangeRate: 0.5
   BlockChangeType: 0
+  ChangeRate: 0.5
   isSpecialBlockType: 0
   SpecialBlockType: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
@@ -1207,6 +1195,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1217,6 +1208,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1344,11 +1337,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114296478223398068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1360,11 +1353,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114298308988192792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1377,6 +1370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 4298895258035602}
   FollowPosY: {fileID: 4298895258035602}
   FollowPosZ: {fileID: 4298895258035602}
@@ -1387,6 +1383,8 @@ MonoBehaviour:
   PosBoundsY: {x: 0, y: 25}
   PosBoundsZ: {x: 0, y: 0}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1403,11 +1401,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114309605888509730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1425,44 +1423,30 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114302988475761616}
+  parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: 0
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 0
   isStacked: 0
   stack: {fileID: 0}
-  wasCollided: 0
+  AddAbilityTime: 0.01
+  homedObjects: []
+  AquaBlock: {fileID: 0}
+  BlueBlock: {fileID: 0}
+  PurpleBlock: {fileID: 0}
+  PinkBlock: {fileID: 0}
   isBossPart: 1
   GotDetached: 0
+  miniBoss: {fileID: 0}
+  bossPartIndex: 0
+  BossDamage: 1
   BoundaryX: {x: -30, y: 30}
   BoundaryY: {x: -30, y: 60}
-  AquaSpeed: 0
-  BlueSpeed: 0
-  PurpleSpeed: 0
-  PinkSpeed: 0
-  AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
-  BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
-  PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
-  PinkMat: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
-  AquaBasePointValue: 1
-  BlueBasePointValue: 2
-  PurpleBasePointValue: 3
-  PinkBasePointValue: 4
-  AquaExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
-    type: 2}
-  BlueExplosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af,
-    type: 2}
-  PurpleExplosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be,
-    type: 2}
-  PinkExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
-    type: 2}
-  AquaTextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
-  BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
-  PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
-  PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
   BlockType: 0
-  ChangeRate: 0.5
   BlockChangeType: 0
+  ChangeRate: 0.5
   isSpecialBlockType: 0
   SpecialBlockType: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
@@ -1496,11 +1480,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114404393667899616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1514,7 +1498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LookAtPos: {fileID: 0}
   LookMethod: 0
-  RotDegPerSec: 100
+  useUpDirection: 0
 --- !u!114 &114406110220141168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1532,44 +1516,30 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114384551326324418}
+  parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: 0
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 0
   isStacked: 0
   stack: {fileID: 0}
-  wasCollided: 0
+  AddAbilityTime: 0.01
+  homedObjects: []
+  AquaBlock: {fileID: 0}
+  BlueBlock: {fileID: 0}
+  PurpleBlock: {fileID: 0}
+  PinkBlock: {fileID: 0}
   isBossPart: 1
   GotDetached: 0
+  miniBoss: {fileID: 0}
+  bossPartIndex: 0
+  BossDamage: 1
   BoundaryX: {x: -30, y: 30}
   BoundaryY: {x: -30, y: 60}
-  AquaSpeed: 0
-  BlueSpeed: 0
-  PurpleSpeed: 0
-  PinkSpeed: 0
-  AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
-  BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
-  PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
-  PinkMat: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
-  AquaBasePointValue: 1
-  BlueBasePointValue: 2
-  PurpleBasePointValue: 3
-  PinkBasePointValue: 4
-  AquaExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
-    type: 2}
-  BlueExplosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af,
-    type: 2}
-  PurpleExplosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be,
-    type: 2}
-  PinkExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
-    type: 2}
-  AquaTextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
-  BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
-  PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
-  PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
   BlockType: 0
-  ChangeRate: 0.5
   BlockChangeType: 0
+  ChangeRate: 0.5
   isSpecialBlockType: 0
   SpecialBlockType: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
@@ -1609,44 +1579,30 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114809177246170900}
+  parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: 0
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 0
   isStacked: 0
   stack: {fileID: 0}
-  wasCollided: 0
+  AddAbilityTime: 0.01
+  homedObjects: []
+  AquaBlock: {fileID: 0}
+  BlueBlock: {fileID: 0}
+  PurpleBlock: {fileID: 0}
+  PinkBlock: {fileID: 0}
   isBossPart: 1
   GotDetached: 0
+  miniBoss: {fileID: 0}
+  bossPartIndex: 0
+  BossDamage: 1
   BoundaryX: {x: -30, y: 30}
   BoundaryY: {x: -30, y: 60}
-  AquaSpeed: 0
-  BlueSpeed: 0
-  PurpleSpeed: 0
-  PinkSpeed: 0
-  AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
-  BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
-  PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
-  PinkMat: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
-  AquaBasePointValue: 1
-  BlueBasePointValue: 2
-  PurpleBasePointValue: 3
-  PinkBasePointValue: 4
-  AquaExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
-    type: 2}
-  BlueExplosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af,
-    type: 2}
-  PurpleExplosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be,
-    type: 2}
-  PinkExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
-    type: 2}
-  AquaTextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
-  BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
-  PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
-  PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
   BlockType: 0
-  ChangeRate: 0.5
   BlockChangeType: 0
+  ChangeRate: 0.5
   isSpecialBlockType: 0
   SpecialBlockType: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
@@ -1694,6 +1650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114507045314760040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1706,6 +1663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114510267692004294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1718,6 +1676,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1728,6 +1689,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1744,11 +1707,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114528210174712832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1761,6 +1724,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1771,6 +1737,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1788,6 +1756,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1798,6 +1769,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1858,8 +1831,10 @@ MonoBehaviour:
   ParentTransform: {fileID: 4559826244293822}
   Spacing: 1.5
   Scaling: {x: 1.35, y: 1.35, z: 1.35}
-  AutomaticallyCenter: 1
+  AutomaticallyCenterX: 0
+  AutomaticallyCenterY: 0
   Center: {x: 0, y: 0}
+  MiniBossBrain: {fileID: 0}
 --- !u!114 &114685024609753176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1886,6 +1861,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1896,6 +1874,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1913,6 +1893,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -1923,6 +1906,8 @@ MonoBehaviour:
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -1941,10 +1926,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameControllerScript: {fileID: 0}
   timeScaleControllerScript: {fileID: 0}
+  camShakeScript: {fileID: 0}
   Brain: {fileID: 1412318353393044}
   MiniBossParent: {fileID: 1446195777594748}
+  miniBossFormation: {fileID: 0}
   hitPoints: 5
   StartingHitPoints: 5
+  ParticleHitPointAmount: 0.01
   SmallExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   LargeExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
@@ -1953,8 +1941,10 @@ MonoBehaviour:
   PlayerPos: {fileID: 0}
   simpleFollowScript: {fileID: 114814596505315788}
   BrainLookScript: {fileID: 114404393667899616}
+  col: {fileID: 0}
   BossPartsParent: {fileID: 1890006779500862}
   BossParts: []
+  BossPartsList: []
   AllowShoot: 0
   FireRate: 0.6
   FireRateRange: {x: 0.1, y: 1}
@@ -1980,44 +1970,30 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114296478223398068}
+  parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: 0
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 0
   isStacked: 0
   stack: {fileID: 0}
-  wasCollided: 0
+  AddAbilityTime: 0.01
+  homedObjects: []
+  AquaBlock: {fileID: 0}
+  BlueBlock: {fileID: 0}
+  PurpleBlock: {fileID: 0}
+  PinkBlock: {fileID: 0}
   isBossPart: 1
   GotDetached: 0
+  miniBoss: {fileID: 0}
+  bossPartIndex: 0
+  BossDamage: 1
   BoundaryX: {x: -30, y: 30}
   BoundaryY: {x: -30, y: 60}
-  AquaSpeed: 0
-  BlueSpeed: 0
-  PurpleSpeed: 0
-  PinkSpeed: 0
-  AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
-  BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
-  PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
-  PinkMat: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
-  AquaBasePointValue: 1
-  BlueBasePointValue: 2
-  PurpleBasePointValue: 3
-  PinkBasePointValue: 4
-  AquaExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
-    type: 2}
-  BlueExplosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af,
-    type: 2}
-  PurpleExplosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be,
-    type: 2}
-  PinkExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
-    type: 2}
-  AquaTextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
-  BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
-  PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
-  PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
   BlockType: 0
-  ChangeRate: 0.5
   BlockChangeType: 0
+  ChangeRate: 0.5
   isSpecialBlockType: 0
   SpecialBlockType: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
@@ -2051,11 +2027,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 100
-  offset: 0
-  rend: {fileID: 0}
+  ScrollSpeed: {x: 0.5, y: 0.5}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 0
+  VerticalScrollMode: 0
   ignoreTimescale: 1
-  ScrollMode: 2
 --- !u!114 &114814596505315788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2068,6 +2044,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
   FollowPosX: {fileID: 0}
   FollowPosY: {fileID: 0}
   FollowPosZ: {fileID: 0}
@@ -2078,6 +2057,8 @@ MonoBehaviour:
   PosBoundsY: {x: 0, y: 50}
   PosBoundsZ: {x: 0, y: 0}
   FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
   FollowRotX: {fileID: 0}
   FollowRotY: {fileID: 0}
   FollowRotZ: {fileID: 0}
@@ -2109,6 +2090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114878921426018044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2126,44 +2108,30 @@ MonoBehaviour:
   audioControllerScript: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 114510519207539482}
+  parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: 0
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
   Stackable: 0
   isStacked: 0
   stack: {fileID: 0}
-  wasCollided: 0
+  AddAbilityTime: 0.01
+  homedObjects: []
+  AquaBlock: {fileID: 0}
+  BlueBlock: {fileID: 0}
+  PurpleBlock: {fileID: 0}
+  PinkBlock: {fileID: 0}
   isBossPart: 1
   GotDetached: 0
+  miniBoss: {fileID: 0}
+  bossPartIndex: 0
+  BossDamage: 1
   BoundaryX: {x: -30, y: 30}
   BoundaryY: {x: -30, y: 60}
-  AquaSpeed: 0
-  BlueSpeed: 0
-  PurpleSpeed: 0
-  PinkSpeed: 0
-  AquaMat: {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
-  BlueMat: {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
-  PurpleMat: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
-  PinkMat: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
-  AquaBasePointValue: 1
-  BlueBasePointValue: 2
-  PurpleBasePointValue: 3
-  PinkBasePointValue: 4
-  AquaExplosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a,
-    type: 2}
-  BlueExplosion: {fileID: 1072586396597310, guid: c787c14ac4ff1914ebe287aa086392af,
-    type: 2}
-  PurpleExplosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be,
-    type: 2}
-  PinkExplosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48,
-    type: 2}
-  AquaTextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
-  BlueTextColor: {r: 0, g: 0.6573818, b: 1, a: 1}
-  PurpleTextColor: {r: 0.5125351, g: 0, b: 1, a: 1}
-  PinkTextColor: {r: 1, g: 0, b: 0.65181065, a: 1}
   BlockType: 0
-  ChangeRate: 0.5
   BlockChangeType: 0
+  ChangeRate: 0.5
   isSpecialBlockType: 0
   SpecialBlockType: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
@@ -2212,6 +2180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114983055603003256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2224,6 +2193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
+  OnStart: 1
 --- !u!114 &114983624957837772
 MonoBehaviour:
   m_ObjectHideFlags: 1

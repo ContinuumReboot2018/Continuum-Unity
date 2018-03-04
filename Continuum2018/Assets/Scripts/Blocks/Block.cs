@@ -203,6 +203,35 @@ public class Block : MonoBehaviour
 	{
 		if (particle.tag == "Bullet") 
 		{
+			BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
+
+			// If tutorial script is referenced.
+			if (tutorialManagerScript != null)
+			{
+				// Reset block index in info section.
+				if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info)
+				{
+					tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+				}
+
+				// Turn off the tutorial in info section.
+				if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
+				{
+					Debug.Log ("Attempted to turn off tutorial.");
+					tutorialManagerScript.TurnOffTutorial ();
+				}
+			}
+
+			// Other object has a bullet component.
+			if (particle.GetComponentInParent<Bullet> () != null)
+			{
+				// Stops the bullet that hit it from hanging around.
+				if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true)
+				{
+					particle.GetComponentInParent<Bullet> ().BlockHit ();
+					particle.GetComponentInParent<Bullet> ().BulletSpeed = 0;
+				}
+			}
 
 			GetTotalPointValue (); // Get total point calculation.
 			CreateExplosion (); // Create the explosion.

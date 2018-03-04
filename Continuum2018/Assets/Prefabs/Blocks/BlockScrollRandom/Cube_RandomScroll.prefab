@@ -115,7 +115,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1000}
+  m_Size: {x: 0.9, y: 0.9, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65963679258155510
 BoxCollider:
@@ -147,6 +147,7 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
   speed: 0
   OverwriteVelocity: 1
   DontIncrementBlocksDestroyed: 0
