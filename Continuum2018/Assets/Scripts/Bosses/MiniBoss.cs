@@ -54,6 +54,7 @@ public class MiniBoss : MonoBehaviour
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
+		InvokeRepeating ("GetBossParts", 0.1f, 1f);
 
 		// If no brain has been referenced, reference the brain from here.
 		if (Brain == null) 
@@ -74,7 +75,8 @@ public class MiniBoss : MonoBehaviour
 			BrainLookScript.LookAtPos = FollowPlayerPos.transform;
 			simpleFollowScript.OverrideTransform = FollowPlayerPos.transform;
 		}
-			
+
+
 		// Couldn't find the player. Bail out and go to next wave.
 		if (GameObject.Find ("PlayerCollider").transform == null) 
 		{
@@ -180,14 +182,16 @@ public class MiniBoss : MonoBehaviour
 				if (other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
 				{
 					// Mini boss gets defeated.
-					if (hitPoints <= 0) {
+					if (hitPoints <= 0) 
+					{
 						KillMiniBoss ();
 						Destroy (MiniBossParent.gameObject); // Destroy the boss parent.
 						return;
 					}
 
 					// Mini boss takes damage.
-					if (hitPoints > 0) {
+					if (hitPoints > 0) 
+					{
 						hitPoints -= 1; // Reduce a full hit point.
 						DoCamShake ();
 						Instantiate (SmallExplosion, transform.position, transform.rotation); // Spawn a small explosion.

@@ -825,7 +825,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.35294116, g: 0.7322515, b: 1, a: 0.284}
-      maxColor: {r: 0.65517277, g: 0.2647059, b: 1, a: 0.184}
+      maxColor: {r: 0.7620692, g: 0.49264705, b: 1, a: 0.097}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4192,7 +4192,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.35294116, g: 0.7322515, b: 1, a: 0.284}
-      maxColor: {r: 0.7870179, g: 0.44852942, b: 1, a: 0.447}
+      maxColor: {r: 0.7870179, g: 0.44852942, b: 1, a: 0.659}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -6598,8 +6598,8 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 83968
-    maxCollisionShapes: 256
+      m_Bits: 88064
+    maxCollisionShapes: 64
     quality: 0
     voxelSize: 0.5
     collisionMessages: 1
@@ -21015,7 +21015,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.35294116, g: 0.7322515, b: 1, a: 0.284}
-      maxColor: {r: 0.7008113, g: 0.13235295, b: 1, a: 0.309}
+      maxColor: {r: 0.84026366, g: 0.53676474, b: 1, a: 0.309}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

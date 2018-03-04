@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 135985754492257584}
   - component: {fileID: 23077323522144776}
   - component: {fileID: 135827764615726000}
+  - component: {fileID: 54243863423160238}
   m_Layer: 14
   m_Name: Brain
   m_TagString: Untagged
@@ -269,6 +270,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1887779462268618}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54243863423160238
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887779462268618}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!54 &54974226333964962
 Rigidbody:
   m_ObjectHideFlags: 1

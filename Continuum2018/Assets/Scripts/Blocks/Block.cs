@@ -14,6 +14,7 @@ public class Block : MonoBehaviour
 	private Collider BoxCol; // The collider/trigger.
 	public ScrollTextureOverTime textureScrollScript; // Reference to Texture Scroll Script.
 	public ParentToTransform parentToTransformScript; // Parent to transform script reference.
+	public bool allowParticleCollisionBoss;
 
 	[Header ("Current Stats")]
 	public float speed; // How fast the block falls from the top.
@@ -145,6 +146,8 @@ public class Block : MonoBehaviour
 			UpdateBlockType ();
 			return;
 		}
+
+		Invoke ("AllowParticleCollisionBossNow", 2);
 	}
 
 	void Start () 
@@ -198,24 +201,28 @@ public class Block : MonoBehaviour
 	// Collisions via particles.
 	void OnParticleCollision (GameObject particle)
 	{
-		//BoxCol.enabled = false; // Turn off the box collider.
-		GetTotalPointValue (); // Get total point calculation.
-		CreateExplosion (); // Create the explosion.
-		IncrementBlocksDestroyed (); // Increment blocks destroyed.
-		DoCamShake (); // Shake camera.
-		DoVibrate ();
-		Destroy (gameObject);
-		return;
+		if (particle.tag == "Bullet") 
+		{
+
+			GetTotalPointValue (); // Get total point calculation.
+			CreateExplosion (); // Create the explosion.
+			BoxCol.enabled = false; // Turn off the box collider.
+			IncrementBlocksDestroyed (); // Increment blocks destroyed.
+			DoCamShake (); // Shake camera.
+			DoVibrate ();
+			Destroy (gameObject);
+			return;
+		}
 	}
 
 	// Trigger via other objects.
-	void OnTriggerEnter(Collider other)
+	void OnTriggerEnter (Collider other)
 	{
-		//BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
-
 		// Other object has missile in its name.
 		if (other.gameObject.name.Contains ("Missile")) 
 		{
+			BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
+
 			if (isBossPart == false) 
 			{
 				GetTotalPointValue (); // Get total point calculation.
@@ -237,6 +244,8 @@ public class Block : MonoBehaviour
 		// Other object's tag is Bullet.
 		if (other.tag == "Bullet") 
 		{
+			BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
+
 			// If tutorial script is referenced.
 			if (tutorialManagerScript != null)
 			{
@@ -396,12 +405,21 @@ public class Block : MonoBehaviour
 		if (GotDetached == false && 
 			isBossPart == true)
 		{
-			if ((miniBoss.StartingHitPoints * 0.5f) < (miniBoss.hitPoints))
+			if ((miniBoss.StartingHitPoints * 0.5f) < (miniBoss.hitPoints) && 
+				allowParticleCollisionBoss == true && 
+				(miniBoss.hitPoints > 0.5f * miniBoss.StartingHitPoints))
 			{
+				Debug.Log ("Hit boss part.");
 				float blockHitPoints = 1 / (0.5f * miniBoss.BossParts.Length);
 				miniBoss.hitPoints -= blockHitPoints; // Help with 50% of hit points.
+				return;
 			}
 		}
+	}
+
+	void AllowParticleCollisionBossNow ()
+	{
+		allowParticleCollisionBoss = true;
 	}
 
 	// Changes combo when collided with.
