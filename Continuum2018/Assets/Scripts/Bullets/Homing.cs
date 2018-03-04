@@ -19,24 +19,25 @@ public class Homing : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody> ();
 		Invoke ("ReleaseHoming", homingTime); // Prepeare homing to release by homing time.
-		InvokeRepeating ("GetObjectToHome", 0, 2);
+		InvokeRepeating ("GetObjectToHome", 0, 1);
 	}
 
 	void GetObjectToHome ()
 	{
-		GameObject CheckTagObject = FindClosestEnemyTag (); // Find the closest object to home in on.
+		//GameObject CheckTagObject = 
+			FindClosestEnemyTag (); // Find the closest object to home in on.
 
 		// Found an object to home in on.
-		if (CheckTagObject != null) 
-		{
+		//if (CheckTagObject != null) 
+		//{
 			target = FindClosestEnemyTag ().transform; // Assign GameObject to target.
-		} 
+		//} 
 
-		else 
+		//else 
 
-		{
-			ReleaseHoming (); // Release and bail out, revert to normal movement.
-		}
+		//{
+		//	ReleaseHoming (); // Release and bail out, revert to normal movement.
+		//}
 	}
 
 	void FixedUpdate () 
@@ -44,27 +45,28 @@ public class Homing : MonoBehaviour
 		rotateSpeed += RotateSpeedIncreaseRate * Time.deltaTime;
 
 		// Target has been assigned.
-		if (target)
+		if (target != null)
 		{
-			try
-			{
+		//	try
+		//	{
 				// Find direction homing needs to face.
 				Vector2 direction = (Vector2)target.position - (Vector2)rb.position;
 				direction.Normalize (); // Normalise vector.
 				Vector3 rotateAmount = Vector3.Cross (direction, transform.up); // Calculate rotation axis.
 				rb.angularVelocity = -rotateAmount * rotateSpeed; // Set angular velocity.
 				rb.velocity = transform.up * speed; // Set movement.
-			}
+		//	}
 
-			catch (MissingReferenceException) 
-			{
-				ReleaseHoming ();
-			}
+		//	catch (MissingReferenceException) 
+		//	{
+			//	ReleaseHoming ();
+		//	}
 		}
 			
-		else 
+		//else 
 
 		// No target, revert to normal movement.
+		if (target == null)
 		{
 			rb.velocity = transform.up * speed;
 		}
@@ -79,7 +81,7 @@ public class Homing : MonoBehaviour
 	}
 
 	// Finds closest GameObject with requirements.
-	public GameObject FindClosestEnemyTag()
+	public GameObject FindClosestEnemyTag ()
 	{
 		GameObject[] gos; // Starts array of GameObjects. 
 		gos = GameObject.FindGameObjectsWithTag(findObject); // Finds GameObjects by tag in whole scene.

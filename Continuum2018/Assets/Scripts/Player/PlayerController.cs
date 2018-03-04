@@ -1173,10 +1173,10 @@ public class PlayerController : MonoBehaviour
 		// ABILITY UI
 		// When the player is close to the ability UI.
 		// Vertical position.
-		if (PlayerRb.position.y < AbilityCheckPlayerPos.y && isInCooldownMode == false) 
+		if (PlayerRb.position.y > AbilityCheckPlayerPos.y && isInCooldownMode == false) 
 		{
 			// Horizontal position too far.
-			if (PlayerRb.position.x > -AbilityCheckPlayerPos.x && PlayerRb.position.x < AbilityCheckPlayerPos.x) 
+			if (PlayerRb.position.x < AbilityCheckPlayerPos.x) 
 			{
 				if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeOut") == false && isHidingAbilityUI == false) 
 				{
@@ -1186,7 +1186,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			// Horizontal position in range.
-			if (PlayerRb.position.x <= -AbilityCheckPlayerPos.x || PlayerRb.position.x >= AbilityCheckPlayerPos.x) 
+			if (PlayerRb.position.x >= AbilityCheckPlayerPos.x) 
 			{
 				if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeIn") == false && isHidingAbilityUI == true) 
 				{
@@ -1197,7 +1197,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Vertical position too far from score text.
-		if (PlayerRb.position.y >= AbilityCheckPlayerPos.y && isInCooldownMode == false) 
+		if (PlayerRb.position.y <= AbilityCheckPlayerPos.y && isInCooldownMode == false) 
 		{
 			if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeIn") == false && isHidingAbilityUI == true) 
 			{
