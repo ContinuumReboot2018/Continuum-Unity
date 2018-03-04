@@ -229,7 +229,8 @@ public class Block : MonoBehaviour
 				if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true)
 				{
 					particle.GetComponentInParent<Bullet> ().BlockHit ();
-					particle.GetComponentInParent<Bullet> ().BulletSpeed = 0;
+					//particle.GetComponentInParent<Bullet> ().BulletSpeedScaled = 0;
+					//particle.GetComponentInParent<Bullet> ().BulletSpeedUnScaled = 0;
 				}
 			}
 

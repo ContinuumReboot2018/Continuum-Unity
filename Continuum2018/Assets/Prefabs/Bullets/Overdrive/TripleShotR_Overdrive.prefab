@@ -307,8 +307,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
   gameControllerScript: {fileID: 0}
-  BulletSpeed: 2800
-  BulletSpeedType: 0
+  fpsCounterScript: {fileID: 0}
+  BulletSpeedUnscaled: 25
+  BulletSpeedScaled: 1300
+  BulletSpeedType: 1
   VelocityLimits: {x: -20000, y: 20000}
   BulletRb: {fileID: 54532299519224760}
   BulletCol: {fileID: 65764780371442462}
@@ -3713,7 +3715,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  useUnscaledTime: 0
+  useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:

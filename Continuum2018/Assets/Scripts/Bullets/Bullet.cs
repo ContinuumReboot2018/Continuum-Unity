@@ -6,9 +6,11 @@ public class Bullet : MonoBehaviour
 	// References.
 	public PlayerController playerControllerScript; // Reference to the player controller.
 	public GameController gameControllerScript; // Reference to the game controller.
+	public FPSCounter fpsCounterScript;
 
 	[Header ("Stats")]
-	public float BulletSpeed; // The bullet speed to set.
+	public float BulletSpeedUnscaled; // The bullet speed to set.
+	public float BulletSpeedScaled = 1300;
 	public SpeedType BulletSpeedType; // Bullet speed based on scaled or unscaled time.
 	public enum SpeedType
 	{
@@ -71,6 +73,7 @@ public class Bullet : MonoBehaviour
 
 	void Start ()
 	{
+		fpsCounterScript = GameObject.Find ("FPSCounter").GetComponent<FPSCounter> ();
 		AwakeAudio = GetComponent<AudioSource> (); // Gets current attached audio source.
 		AwakeAudio.panStereo = 0.04f * transform.position.x; // Pans audio based on x position.
 
@@ -112,11 +115,11 @@ public class Bullet : MonoBehaviour
 				homingScript.enabled = true; // Enable the homing script.
 			}
 
-			if (BulletSpeed > 0)
+			if (BulletSpeedUnscaled > 0)
 			{
 				// Clamp maximum speed by velocity limits.
 				homingScript.speed = Mathf.Clamp (
-					BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), 
+					BulletSpeedUnscaled * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), 
 					VelocityLimits.x, 
 					VelocityLimits.y
 				);
@@ -126,7 +129,7 @@ public class Bullet : MonoBehaviour
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> (); // Find the camera shake.
 		StartCameraShake (); // Give initial camera shake.
 		CheckBulletIteration (); // Checks the iteration of the bullet.
-		SetBulletVelocity ();
+		//SetBulletVelocity ();
 	}
 
 	void Update ()
@@ -142,16 +145,23 @@ public class Bullet : MonoBehaviour
 		{
 			CheckForRicochet ();
 		}
-	}
 
-	void FixedUpdate ()
-	{
 		// When the bullet is not a homing bullet, set the bullet velocity. 
 		// Homing bullet's speed is managed by homing script.
 		if (isHoming == false)
 		{
 			SetBulletVelocity ();
 		}
+	}
+
+	void FixedUpdate ()
+	{
+		// When the bullet is not a homing bullet, set the bullet velocity. 
+		// Homing bullet's speed is managed by homing script.
+		//if (isHoming == false)
+		//{
+		//	SetBulletVelocity ();
+		//}
 
 		CheckForColliderDeactivate (); // Checks if bullet has reached vertical position.
 	}
@@ -274,7 +284,7 @@ public class Bullet : MonoBehaviour
 			(
 					new Vector3 (
 						0, 
-						Mathf.Clamp (BulletSpeed * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
+						Mathf.Clamp (BulletSpeedScaled * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
 						0
 					)
 				);
@@ -283,12 +293,14 @@ public class Bullet : MonoBehaviour
 			// Assumes time scale is always 1. Should compensate.
 			if (BulletSpeedType == SpeedType.Unscaled)
 			{
+				float unscaledVelocity = BulletSpeedUnscaled * 
+					((Time.unscaledDeltaTime / Time.timeScale) * fpsCounterScript.FramesPerSec);
+
 				BulletRb.velocity = transform.TransformDirection 
-				//BulletRb.velocity = transform.InverseTransformDirection 
 				(
 					new Vector3 (
 						0, 
-						Mathf.Clamp (BulletSpeed * Time.fixedUnscaledDeltaTime * 4, VelocityLimits.x, VelocityLimits.y), 
+							Mathf.Clamp (unscaledVelocity, VelocityLimits.x, VelocityLimits.y), 
 						0
 					)
 				);
