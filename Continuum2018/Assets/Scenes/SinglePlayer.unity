@@ -74756,6 +74756,10 @@ MonoBehaviour:
   inputSensitivity: 2.5
   CurrentShotObject: {fileID: 0}
   canShoot: 0
+  CurrentShootingCooldown: 0
+  CurrentShootingHeat: 0
+  ShootingCooldownDecreaseRate: 0.1
+  ShootingHeatCost: 0.0125
   CurrentFireRate: 0.35
   FireRateTimeMultiplier: 1.15
   NextFire: 0

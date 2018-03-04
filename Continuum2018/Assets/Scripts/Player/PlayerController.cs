@@ -71,6 +71,14 @@ public class PlayerController : MonoBehaviour
 	[Header ("Shooting")]
 	public GameObject CurrentShotObject; 	 // Base GameObject to instantiate when firing.
 	public bool canShoot = true; 			 // Allows the player to instantiate the bullet or not.
+	[Space (10)]
+	[Range (0, 1)]
+	public float CurrentShootingCooldown;
+	[Range (0, 1)]
+	public float CurrentShootingHeat;
+	public float ShootingCooldownDecreaseRate = 1;
+	public float ShootingHeatCost;
+	[Space (10)]
 	public float CurrentFireRate = 0.1f; 	 // Time between bullet spawns.
 	public float FireRateTimeMultiplier = 2; // How fast to spawn bullets based on Time.timeScale.
 	public float NextFire; 					 // Time.time must be >= for this to allow another shot to be spawned.
@@ -346,6 +354,7 @@ public class PlayerController : MonoBehaviour
 	{
 		MovePlayer ();
 		CheckShoot ();
+		CheckShootingCooldown ();
 		CheckPlayerVibration ();
 		CheckUIVisibility ();
 		CheckCooldownTime ();
@@ -928,6 +937,16 @@ public class PlayerController : MonoBehaviour
 		Debug.DrawLine (playerCol.transform.position, ReferencePoint.transform.position, Color.red);
 	}
 
+	void CheckShootingCooldown ()
+	{
+		// Maps heat to squared of shooting cooldown.
+		CurrentShootingHeat = CurrentShootingCooldown * CurrentShootingCooldown;
+
+		// Clamps to 0 and 1.
+		CurrentShootingHeat = Mathf.Clamp (CurrentShootingHeat, 0, 2);
+		CurrentShootingCooldown = Mathf.Clamp (CurrentShootingCooldown, 0, 1);
+	}
+
 	// Checks shooting state.
 	void CheckShoot ()
 	{
@@ -941,9 +960,21 @@ public class PlayerController : MonoBehaviour
 					gameControllerScript.combo -= 1;
 				}
 
-				Shoot ();
+				if (CurrentShootingHeat < 1)
+				{
+					Shoot ();
+				}
+
+				CurrentShootingCooldown += ShootingHeatCost;
+				CurrentShootingCooldown -= Time.deltaTime * (0.5f * ShootingCooldownDecreaseRate);
 
 				NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
+			}
+
+			if (playerActions.Shoot.Value < 0.75f && Time.time >= NextFire && gameControllerScript.isPaused == false) 
+			{
+				// Keeps decreasing heat over time.
+				CurrentShootingCooldown -= Time.deltaTime * ShootingCooldownDecreaseRate;
 			}
 		}
 	}
