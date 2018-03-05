@@ -879,7 +879,7 @@ MonoBehaviour:
   - {fileID: 114808227120488866}
   - {fileID: 114716811462366138}
   - {fileID: 114521960313494442}
-  MissingBlocksRange: {x: 2, y: 3}
+  MissingBlocksRange: {x: 0, y: 3}
   missingBlocks: 0
 --- !u!114 &114628361445818606
 MonoBehaviour:

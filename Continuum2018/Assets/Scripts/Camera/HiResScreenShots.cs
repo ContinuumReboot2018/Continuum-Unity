@@ -45,32 +45,66 @@ public class HiResScreenShots : MonoBehaviour
 	// Only want to take screenshots once the frame is fully rendered.
 	void LateUpdate() 
 	{
+		// 16K (15360 x 8640)
 		if (Input.GetKeyDown (KeyCode.F11))
 		{
+			resolution = new Vector2 (1920, 1080);
 			ResolutionMultiplier = new Vector2 (8, 8);
 			TakeHiResShot ();
 		}
 
+		// 8K (7680 x 4320)
 		if (Input.GetKeyDown (KeyCode.F10))
 		{
+			resolution = new Vector2 (1920, 1080);
 			ResolutionMultiplier = new Vector2 (4, 4);
 			TakeHiResShot ();
 		}
 
+		// 4K (3840 x 2160)
 		if (Input.GetKeyDown (KeyCode.F9))
 		{
+			resolution = new Vector2 (1920, 1080);
 			ResolutionMultiplier = new Vector2 (2, 2);
 			TakeHiResShot ();
 		}
 
+		// 1080p (1920 x 1080)
 		if (Input.GetKeyDown (KeyCode.F8)) 
 		{
+			resolution = new Vector2 (1920, 1080);
 			ResolutionMultiplier = new Vector2 (1, 1);
 			TakeHiResShot ();
 		}
 
+		// 540p (960 x 540)
 		if (Input.GetKeyDown (KeyCode.F7)) 
 		{
+			resolution = new Vector2 (1920, 1080);
+			ResolutionMultiplier = new Vector2 (0.5f, 0.5f);
+			TakeHiResShot ();
+		}
+
+		// 480p (854 x 480)
+		if (Input.GetKeyDown (KeyCode.F5)) 
+		{
+			resolution = new Vector2 (854, 480);
+			ResolutionMultiplier = new Vector2 (1, 1);
+			TakeHiResShot ();
+		}
+
+		// 720p (1280 x 720)
+		if (Input.GetKeyDown (KeyCode.F5)) 
+		{
+			resolution = new Vector2 (1280, 720);
+			ResolutionMultiplier = new Vector2 (1, 1);
+			TakeHiResShot ();
+		}
+
+		// 360p (640 x 360)
+		if (Input.GetKeyDown (KeyCode.F4)) 
+		{
+			resolution = new Vector2 (1280, 720);
 			ResolutionMultiplier = new Vector2 (0.5f, 0.5f);
 			TakeHiResShot ();
 		}

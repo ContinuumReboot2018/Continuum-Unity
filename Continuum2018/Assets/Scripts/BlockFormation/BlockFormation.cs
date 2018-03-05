@@ -16,6 +16,7 @@ public class BlockFormation : MonoBehaviour
 
 	void Start () 
 	{
+		GetBlockArray ();
 		// Get range of missing blocks.
 		missingBlocks = Random.Range (
 			Mathf.RoundToInt(MissingBlocksRange.x), 
@@ -38,6 +39,11 @@ public class BlockFormation : MonoBehaviour
 		);
 
 		InvokeRepeating ("CheckForChildObjects", 0, 1); // Destroys parent object if there are no child objects.
+	}
+
+	void GetBlockArray ()
+	{
+		BlockElements = GetComponentsInChildren<Block> ();
 	}
 
 	// Adds up all the speeds in the child blocks and calculates average speed.
@@ -98,22 +104,36 @@ public class BlockFormation : MonoBehaviour
 		case 0:
 			break;
 		case 1:
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			break;
 		case 2:
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			break;
 		case 3:
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			break;
 		case 4:
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
 			break;
 		}
 			
