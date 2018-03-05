@@ -400,6 +400,7 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.SetPowerupTime (20);
 
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
+				playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.DoubleShootingHeatCost;
 
 				if (playerControllerScript_P1.isInOverdrive == true) 
 				{
@@ -432,6 +433,7 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.SetPowerupTime (20);
 
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
+				playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.TripleShootingHeatCost;
 
 				if (playerControllerScript_P1.isInOverdrive == true) 
 				{
@@ -464,6 +466,7 @@ public class DeveloperMode : MonoBehaviour
 			gameControllerScript.SetPowerupTime (20);
 
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
+			playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.RippleShootingHeatCost;
 
 			if (playerControllerScript_P1.isInOverdrive == true || playerControllerScript_P1.isHoming == true) 
 			{
@@ -736,6 +739,7 @@ public class DeveloperMode : MonoBehaviour
 			{
 				gameControllerScript.PowerupTimeRemaining = 0;
 				playerControllerScript_P1.ResetPowerups ();
+				playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.StandardShootingHeatCost;
 
 				ShowCheatNotification ("CHEAT ACTIVATED: RESET POWERUPS");
 			}

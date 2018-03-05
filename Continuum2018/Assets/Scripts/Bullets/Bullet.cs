@@ -115,11 +115,15 @@ public class Bullet : MonoBehaviour
 				homingScript.enabled = true; // Enable the homing script.
 			}
 
-			if (BulletSpeedUnscaled > 0)
+			if (BulletSpeedType == SpeedType.Unscaled)
 			{
+				float unscaledVelocity = BulletSpeedUnscaled * 
+					((Time.unscaledDeltaTime / Time.timeScale) * fpsCounterScript.FramesPerSec);
+				
 				// Clamp maximum speed by velocity limits.
 				homingScript.speed = Mathf.Clamp (
-					BulletSpeedUnscaled * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), 
+					//BulletSpeedUnscaled * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), 
+					unscaledVelocity,
 					VelocityLimits.x, 
 					VelocityLimits.y
 				);

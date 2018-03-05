@@ -24,14 +24,14 @@ public class Homing : MonoBehaviour
 
 	void GetObjectToHome ()
 	{
-		//GameObject CheckTagObject = 
+		GameObject CheckTagObject = 
 			FindClosestEnemyTag (); // Find the closest object to home in on.
 
 		// Found an object to home in on.
-		//if (CheckTagObject != null) 
-		//{
+		if (CheckTagObject != null) 
+		{
 			target = FindClosestEnemyTag ().transform; // Assign GameObject to target.
-		//} 
+		} 
 
 		//else 
 

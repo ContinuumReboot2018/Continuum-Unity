@@ -167,6 +167,7 @@ public class PowerupPickup : MonoBehaviour
 
 			// Switches to double shot mode
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
+			playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.DoubleShootingHeatCost;
 
 			if (playerControllerScript_P1.isInOverdrive == true) 
 			{
@@ -211,6 +212,7 @@ public class PowerupPickup : MonoBehaviour
 			
 			// Switches to triple shot mode
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
+			playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.TripleShootingHeatCost;
 
 			if (playerControllerScript_P1.isInOverdrive == true) 
 			{
@@ -279,6 +281,7 @@ public class PowerupPickup : MonoBehaviour
 			
 			// Switches to ripple shot mode.
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
+			playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.RippleShootingHeatCost;
 
 			if (playerControllerScript_P1.isInOverdrive == true || playerControllerScript_P1.isHoming == true) 
 			{

@@ -77,7 +77,15 @@ public class PlayerController : MonoBehaviour
 	[Range (0, 1)]
 	public float CurrentShootingHeat;
 	public float ShootingCooldownDecreaseRate = 1;
-	public float ShootingHeatCost;
+	public float CurrentShootingHeatCost;
+	public bool Overheated;
+	public float OverheatCooldownDecreaseRate = 2;
+	public Image OverheatImage;
+	public float OverheatFillSmoothing = 0.25f;
+	public Color CoolColor = new Color (0, 0.5f, 1, 0);
+	public Color WarmColor = new Color (1, 0.33f, 0, 0.5f);
+	public Color HotColor  = Color.red;
+	public AudioSource OverheatSound;
 	[Space (10)]
 	public float CurrentFireRate = 0.1f; 	 // Time between bullet spawns.
 	public float FireRateTimeMultiplier = 2; // How fast to spawn bullets based on Time.timeScale.
@@ -99,6 +107,7 @@ public class PlayerController : MonoBehaviour
 	public shotIteration StandardShotIteration; // Enumerates what shot type to be using for standard shot.
 	public Transform StandardShotSpawn; 		// Where we spawn the standard shot.
 	public float StandardFireRate = 0.1f; 		// How fast the standard shot fire rate should fire.
+	public float StandardShootingHeatCost = 0.0125f;
 
 	[Header ("Impact")]
 	public GameObject playerMesh; // The GameObject which holds the player's mesh and material.
@@ -185,6 +194,7 @@ public class PlayerController : MonoBehaviour
 	public float[] DoubleShotFireRates;			// [0] = normal fire rate, [1] = rapid fire rate.
 	public shotIteration DoubleShotIteration;	// Enumerates what shot type to be using for double shot.
 	public float DoubleShotNextFire;			// Time.time must be >= for this to allow another shot to be spawned.
+	public float DoubleShootingHeatCost = 0.0125f;
 
 	// Triple shot.
 	public GameObject TripleShotL;				// Left bullet normal.
@@ -202,6 +212,7 @@ public class PlayerController : MonoBehaviour
 	public float[] TripleShotFireRates;			// [0] = normal fire rate, [1] = rapid fire rate.
 	public shotIteration TripleShotIteration;	// Enumerates what shot type to be using for triple shot.
 	public float TripleShotNextFire;			// Time.time must be >= for this to allow another shot to be spawned.
+	public float TripleShootingHeatCost = 0.0125f;
 
 	// Ripple shot.
 	public GameObject RippleShot;				// Standard ripple shot.
@@ -211,6 +222,7 @@ public class PlayerController : MonoBehaviour
 	public float[] RippleShotFireRates;			// [0] = normal fire rate, [1] = rapid fire rate.
 	public shotIteration RippleShotIteration;	// Enumerates what shot type to be using for ripple shot.
 	public float RippleShotNextFire;			// Time.time must be >= for this to allow another shot to be spawned.
+	public float RippleShootingHeatCost = 0.0125f;
 
 	// Shot iterations on bullet types.
 	public enum shotIteration
@@ -319,6 +331,8 @@ public class PlayerController : MonoBehaviour
 				powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOutInstant");
 			}
 		}
+
+		OverheatImage.fillAmount = 0;
 	}
 
 	public void StartCoroutines ()
@@ -620,6 +634,8 @@ public class PlayerController : MonoBehaviour
 	void RejoinGame ()
 	{
 		gameControllerScript.UpdateLives ();
+		CurrentShootingHeat = 0;
+		CurrentShootingCooldown = 0;
 		PlayerFollow.transform.position = Vector3.zero;
 		canShoot = true;
 		UsePlayerFollow = true;
@@ -940,11 +956,67 @@ public class PlayerController : MonoBehaviour
 	void CheckShootingCooldown ()
 	{
 		// Maps heat to squared of shooting cooldown.
-		CurrentShootingHeat = CurrentShootingCooldown * CurrentShootingCooldown;
+		//CurrentShootingHeat = CurrentShootingCooldown * CurrentShootingCooldown;
+		CurrentShootingHeat = Mathf.Pow (CurrentShootingCooldown, 2);
 
 		// Clamps to 0 and 1.
 		CurrentShootingHeat = Mathf.Clamp (CurrentShootingHeat, 0, 2);
 		CurrentShootingCooldown = Mathf.Clamp (CurrentShootingCooldown, 0, 1);
+
+		OverheatImage.fillAmount = Mathf.Lerp (
+			OverheatImage.fillAmount, 
+			CurrentShootingHeat, 
+			OverheatFillSmoothing * Time.unscaledDeltaTime
+		);
+
+		Vector3 TargetOverheatImageScale = new Vector3 
+			(
+				OverheatImage.fillAmount,
+				OverheatImage.fillAmount,
+				1
+			);
+
+		if (CurrentShootingHeat <= 0.01f) 
+		{
+			Overheated = false;
+		}
+
+		if (Overheated == false) 
+		{
+			OverheatImage.gameObject.transform.localScale = Vector3.Lerp 
+				(
+					OverheatImage.gameObject.transform.localScale,
+					TargetOverheatImageScale,
+					OverheatFillSmoothing * Time.unscaledDeltaTime
+				);
+			
+			if (OverheatImage.fillAmount < 0.75f) 
+			{
+				OverheatImage.color = CoolColor;
+			}
+
+			if (OverheatImage.fillAmount >= 0.75f && OverheatImage.fillAmount < 1f) 
+			{
+				OverheatImage.color = WarmColor;
+			}
+
+			if (OverheatImage.fillAmount > 0.99f) 
+			{
+				if (OverheatSound.isPlaying == false)
+				{
+					OverheatSound.Play ();
+				}
+
+				Overheated = true;
+			}
+		}
+
+		if (Overheated == true) 
+		{
+			CurrentShootingCooldown -= Time.unscaledDeltaTime * OverheatCooldownDecreaseRate;
+			//CurrentShootingHeat -= Time.unscaledDeltaTime * OverheatCooldownDecreaseRate;
+			OverheatImage.color = HotColor;
+		}
 	}
 
 	// Checks shooting state.
@@ -960,21 +1032,25 @@ public class PlayerController : MonoBehaviour
 					gameControllerScript.combo -= 1;
 				}
 
-				if (CurrentShootingHeat < 1)
+				if (CurrentShootingHeat < 1 && Overheated == false)
 				{
 					Shoot ();
-				}
+					CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier);
+					CurrentShootingCooldown -= Time.deltaTime * (0.5f * ShootingCooldownDecreaseRate);
 
-				CurrentShootingCooldown += ShootingHeatCost;
-				CurrentShootingCooldown -= Time.deltaTime * (0.5f * ShootingCooldownDecreaseRate);
+				}
 
 				NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
 			}
 
-			if (playerActions.Shoot.Value < 0.75f && Time.time >= NextFire && gameControllerScript.isPaused == false) 
+			if (playerActions.Shoot.Value < 0.75f && Time.time >= NextFire && 
+				gameControllerScript.isPaused == false) 
 			{
-				// Keeps decreasing heat over time.
-				CurrentShootingCooldown -= Time.deltaTime * ShootingCooldownDecreaseRate;
+				if (Overheated == false) 
+				{
+					// Keeps decreasing heat over time.
+					CurrentShootingCooldown -= Time.deltaTime * ShootingCooldownDecreaseRate;
+				}
 			}
 		}
 	}
@@ -1448,7 +1524,7 @@ public class PlayerController : MonoBehaviour
 	{
 		// Sets all shot types to standard iteration.
 		ShotType = shotType.Standard;
-
+		CurrentShootingHeatCost = StandardShootingHeatCost;
 		nextTurretSpawn = 0; // Resets turrent spawn index.
 
 		// Resets homing mode if not modified by game modifier object.
