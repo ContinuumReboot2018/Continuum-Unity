@@ -1032,15 +1032,13 @@ public class PlayerController : MonoBehaviour
 					gameControllerScript.combo -= 1;
 				}
 
-				if (CurrentShootingHeat < 1 && Overheated == false)
+				if (Overheated == false && AbilityFillImage.color != HotColor)
 				{
 					Shoot ();
-					CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier);
+					NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
+					CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier); // Increase by cost.
 					CurrentShootingCooldown -= Time.deltaTime * (0.5f * ShootingCooldownDecreaseRate);
-
 				}
-
-				NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
 			}
 
 			if (playerActions.Shoot.Value < 0.75f && Time.time >= NextFire && 
