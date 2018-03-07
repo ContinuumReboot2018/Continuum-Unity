@@ -525,7 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   findObject: Block
-  speed: 8
+  speed: 24
   rotateSpeed: 500
   homingTime: 5
   cutoffHeight: 12
@@ -565,7 +565,7 @@ MonoBehaviour:
   fpsCounterScript: {fileID: 0}
   BulletSpeedUnscaled: 25
   BulletSpeedScaled: 1300
-  BulletSpeedType: 1
+  BulletSpeedType: 0
   VelocityLimits: {x: -20000, y: 20000}
   BulletRb: {fileID: 54298432661940900}
   BulletCol: {fileID: 65517212365231028}
@@ -7364,7 +7364,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  useUnscaledTime: 1
+  useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:

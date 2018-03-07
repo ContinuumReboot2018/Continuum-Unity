@@ -33,11 +33,11 @@ public class Homing : MonoBehaviour
 			target = FindClosestEnemyTag ().transform; // Assign GameObject to target.
 		} 
 
-		//else 
+		else 
 
-		//{
-		//	ReleaseHoming (); // Release and bail out, revert to normal movement.
-		//}
+		{
+			ReleaseHoming (); // Release and bail out, revert to normal movement.
+		}
 	}
 
 	void FixedUpdate () 

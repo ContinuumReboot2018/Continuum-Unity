@@ -261,7 +261,7 @@ MonoBehaviour:
   fpsCounterScript: {fileID: 0}
   BulletSpeedUnscaled: 25
   BulletSpeedScaled: 1300
-  BulletSpeedType: 1
+  BulletSpeedType: 0
   VelocityLimits: {x: -20000, y: 20000}
   BulletRb: {fileID: 54780075782019652}
   BulletCol: {fileID: 65462425597561536}
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   findObject: Block
-  speed: 8
+  speed: 24
   rotateSpeed: 500
   homingTime: 5
   cutoffHeight: 12
@@ -428,7 +428,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  useUnscaledTime: 1
+  useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
@@ -482,7 +482,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.12
+      scalar: 0.25
       minScalar: 5
       maxCurve:
         serializedVersion: 2
