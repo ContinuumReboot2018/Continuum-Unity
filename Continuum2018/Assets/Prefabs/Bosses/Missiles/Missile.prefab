@@ -402,6 +402,7 @@ MonoBehaviour:
   cutoffHeight: 12
   maxRange: 5
   RotateSpeedIncreaseRate: 1
+  VelocityLimits: {x: 180, y: 220}
 --- !u!114 &114609926294882166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3022,7 +3023,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:

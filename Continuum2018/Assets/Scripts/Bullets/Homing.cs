@@ -12,7 +12,7 @@ public class Homing : MonoBehaviour
 	public float cutoffHeight = 12; // Maximum y position to stop homing.
 	public float maxRange = 5; // Range to look for homing objects.
 	public float RotateSpeedIncreaseRate = 1; // Rate of increase of homing rotation speed, so it doesn't keep going in circles.
-
+	public Vector2 VelocityLimits = new Vector2 (180, 220);
 	private Rigidbody rb; // Reference to current RigidBody.
 
 	void Start () 
@@ -42,19 +42,33 @@ public class Homing : MonoBehaviour
 
 	void FixedUpdate () 
 	{
-		rotateSpeed += RotateSpeedIncreaseRate * Time.deltaTime;
+		
 
 		// Target has been assigned.
 		if (target != null)
 		{
+			rotateSpeed += RotateSpeedIncreaseRate * Time.deltaTime;
 		//	try
 		//	{
-				// Find direction homing needs to face.
-				Vector2 direction = (Vector2)target.position - (Vector2)rb.position;
-				direction.Normalize (); // Normalise vector.
-				Vector3 rotateAmount = Vector3.Cross (direction, transform.up); // Calculate rotation axis.
-				rb.angularVelocity = -rotateAmount * rotateSpeed; // Set angular velocity.
-				rb.velocity = transform.up * speed; // Set movement.
+			// Find direction homing needs to face.
+			Vector2 direction = (Vector2)target.position - (Vector2)rb.position;
+			direction.Normalize (); // Normalise vector.
+			Vector3 rotateAmount = Vector3.Cross (direction, transform.up); // Calculate rotation axis.
+			rb.angularVelocity = -rotateAmount * rotateSpeed; // Set angular velocity.
+			//rb.velocity = transform.up * speed; // Set movement.
+
+			rb.velocity = transform.TransformDirection (
+				new Vector3 (
+					0, 
+					Mathf.Clamp (
+						speed * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale), 
+						VelocityLimits.x, 
+						VelocityLimits.y
+					), 
+					0
+				)
+			);
+
 		//	}
 
 		//	catch (MissingReferenceException) 
@@ -68,7 +82,19 @@ public class Homing : MonoBehaviour
 		// No target, revert to normal movement.
 		if (target == null)
 		{
-			rb.velocity = transform.up * speed;
+			rotateSpeed = 0;
+
+			rb.velocity = transform.TransformDirection (
+				new Vector3 (
+					0, 
+					Mathf.Clamp (
+						speed * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale), 
+						VelocityLimits.x, 
+						VelocityLimits.y
+					), 
+					0
+				)
+			);
 		}
 	}
 
@@ -77,7 +103,14 @@ public class Homing : MonoBehaviour
 	{
 		target = null; // Reset target.
 		rb.angularVelocity = Vector3.zero; // Reset angular velocity.
-		rb.velocity = transform.up * speed; // Resume movmement.
+		//rb.velocity = transform.up * speed; // Resume movmement.
+		rb.velocity = transform.TransformDirection (
+			new Vector3 (
+				0, 
+				Mathf.Clamp (speed * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
+				0
+			)
+		);
 	}
 
 	// Finds closest GameObject with requirements.

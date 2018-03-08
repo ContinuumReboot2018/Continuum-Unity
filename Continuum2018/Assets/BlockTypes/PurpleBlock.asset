@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5230ad3e6b0884b950fd8b7db05075, type: 3}
   m_Name: PurpleBlock
   m_EditorClassIdentifier: 
-  Speed: -1200
+  Speed: -1800
   Material: {fileID: 2100000, guid: 8aba2f2d9d18e0c49b5de5c74a8a7f30, type: 2}
   BasePointValue: 3
   Explosion: {fileID: 1072586396597310, guid: 59907a4f28f69ec438caddb5c0c341be, type: 2}

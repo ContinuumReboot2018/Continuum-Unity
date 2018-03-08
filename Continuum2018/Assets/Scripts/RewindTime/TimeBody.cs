@@ -4,7 +4,8 @@ using UnityEngine;
 public class TimeBody : MonoBehaviour 
 {
 	public TimescaleController timeScaleControllerScript; // Reference to timescale controller.
-
+	//public PlayerController playerControllerScript_P1; // Reference to the player controller.
+	//public GameController gameControllerScript; // Reference to the game controller.
 	public float MaxRecordingTime = 5.0f; // Recording time multiplier.
 	public Rigidbody rb; // Use Rigidbody component to turn on isKinematic property.
 	public bool isBlock; // Set to true if the gameObject is a block.
@@ -21,6 +22,8 @@ public class TimeBody : MonoBehaviour
 	{
 		// Find the TimescaleController gameObject.
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
+		//playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
+		//gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 
 		// Check if block.
 		if (isBlock == true) 
@@ -57,8 +60,16 @@ public class TimeBody : MonoBehaviour
 		else 
 		
 		{
-			// If the block is not stacked.
-			if (blockScript.isStacked == false) 
+			if (blockScript != null)
+			{
+				// If the block is not stacked.
+				if (blockScript.isStacked == false) 
+				{
+					Record (); // Record last point in time.
+				}
+			}
+
+			if (isBlock == false) 
 			{
 				Record (); // Record last point in time.
 			}
@@ -80,7 +91,10 @@ public class TimeBody : MonoBehaviour
 		else 
 		
 		{
-			StopRewind (); // Stop backtracking.
+			if (timeScaleControllerScript.RewindTimeRemaining <= 0)
+			{
+				StopRewind (); // Stop backtracking.
+			}
 		}
 	}
 

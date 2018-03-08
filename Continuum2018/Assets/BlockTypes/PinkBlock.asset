@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5230ad3e6b0884b950fd8b7db05075, type: 3}
   m_Name: PinkBlock
   m_EditorClassIdentifier: 
-  Speed: -1400
+  Speed: -2100
   Material: {fileID: 2100000, guid: 186a75b45689f2843b2daf174d9acbae, type: 2}
   BasePointValue: 3
   Explosion: {fileID: 1072586396597310, guid: 86e3d26fb8b9ebf45a65ab653b87ee48, type: 2}
