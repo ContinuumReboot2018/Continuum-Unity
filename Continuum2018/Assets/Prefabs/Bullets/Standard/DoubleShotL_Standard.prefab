@@ -530,7 +530,7 @@ MonoBehaviour:
   BulletSpeedUnscaled: 25
   BulletSpeedScaled: 1300
   BulletSpeedType: 0
-  VelocityLimits: {x: -20000, y: 20000}
+  VelocityLimits: {x: 60, y: 180}
   BulletRb: {fileID: 54780075782019652}
   BulletCol: {fileID: 65462425597561536}
   BulletTypeName: DoubleShot_Standard
@@ -768,7 +768,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.15
+      scalar: 0.1
       minScalar: 5
       maxCurve:
         serializedVersion: 2

@@ -74836,8 +74836,8 @@ MonoBehaviour:
   WarmColor: {r: 1, g: 0.33, b: 0, a: 0.766}
   HotColor: {r: 1, g: 0, b: 0, a: 1}
   OverheatSound: {fileID: 1347490715}
-  CurrentFireRate: 0.35
-  FireRateTimeMultiplier: 1.15
+  CurrentFireRate: 0.125
+  FireRateTimeMultiplier: 1
   NextFire: 0
   ShotType: 0
   StandardShot: {fileID: 1451733020400380, guid: 60c2c0aa7dbdfa448926c420c63004d3,
@@ -74848,8 +74848,8 @@ MonoBehaviour:
     type: 2}
   StandardShotIteration: 0
   StandardShotSpawn: {fileID: 859732702}
-  StandardFireRate: 0.35
-  StandardShootingHeatCost: 1
+  StandardFireRate: 0.125
+  StandardShootingHeatCost: 0.005
   playerMesh: {fileID: 815677225}
   ImpactPoint: {x: 0, y: 0, z: 0}
   playerCol: {fileID: 1081056890}
@@ -74912,11 +74912,11 @@ MonoBehaviour:
   DoubleShotSpawnL: {fileID: 77031333}
   DoubleShotSpawnR: {fileID: 889347058}
   DoubleShotFireRates:
-  - 0.27
-  - 0.15
+  - 0.13
+  - 0.07
   DoubleShotIteration: 0
   DoubleShotNextFire: 0
-  DoubleShootingHeatCost: 0.0185
+  DoubleShootingHeatCost: 0.005
   TripleShotL: {fileID: 1269433964671182, guid: 9a5594d97d1871249b041d3acf644c0e,
     type: 2}
   TripleShotLEnhanced: {fileID: 1274823252740296, guid: ce80b4bcbd8c76c45913b5645283703d,
@@ -74939,11 +74939,11 @@ MonoBehaviour:
   TripleShotSpawnM: {fileID: 945773979}
   TripleShotSpawnR: {fileID: 2053581876}
   TripleShotFireRates:
-  - 0.33
-  - 0.19
+  - 0.11
+  - 0.08
   TripleShotIteration: 0
   TripleShotNextFire: 0
-  TripleShootingHeatCost: 0.0225
+  TripleShootingHeatCost: 0.005
   RippleShot: {fileID: 1527851726018156, guid: 66da2fd0909c75641a7dd6ec06c9c55f, type: 2}
   RippleShotEnhanced: {fileID: 1040239009667148, guid: e74aa129088533f4ab8ea1ad0b28c072,
     type: 2}
@@ -74951,11 +74951,11 @@ MonoBehaviour:
     type: 2}
   RippleShotSpawn: {fileID: 859732702}
   RippleShotFireRates:
-  - 0.81
-  - 0.45
+  - 0.75
+  - 0.4
   RippleShotIteration: 0
   RippleShotNextFire: 0
-  RippleShootingHeatCost: 0.075
+  RippleShootingHeatCost: 0.05
   isShieldOn: 0
   Shield: {fileID: 347779641}
   lensScript: {fileID: 1771333222}

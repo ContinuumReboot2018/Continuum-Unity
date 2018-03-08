@@ -522,7 +522,7 @@ MonoBehaviour:
   BulletSpeedUnscaled: 0
   BulletSpeedScaled: 1300
   BulletSpeedType: 0
-  VelocityLimits: {x: -10000, y: 10000}
+  VelocityLimits: {x: 0, y: 220}
   BulletRb: {fileID: 54402628592958966}
   BulletCol: {fileID: 136362273311417102}
   BulletTypeName: Ripple

@@ -288,7 +288,7 @@ public class Bullet : MonoBehaviour
 			(
 					new Vector3 (
 						0, 
-						Mathf.Clamp (BulletSpeedScaled * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
+						Mathf.Clamp (BulletSpeedScaled * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
 						0
 					)
 				);

@@ -960,7 +960,7 @@ public class PlayerController : MonoBehaviour
 		CurrentShootingHeat = Mathf.Pow (CurrentShootingCooldown, 2);
 
 		// Clamps to 0 and 1.
-		CurrentShootingHeat = Mathf.Clamp (CurrentShootingHeat, 0, 2);
+		CurrentShootingHeat = Mathf.Clamp (CurrentShootingHeat, 0, 1);
 		CurrentShootingCooldown = Mathf.Clamp (CurrentShootingCooldown, 0, 1);
 
 		OverheatImage.fillAmount = Mathf.Lerp (
@@ -1035,7 +1035,8 @@ public class PlayerController : MonoBehaviour
 				if (Overheated == false && AbilityFillImage.color != HotColor)
 				{
 					Shoot ();
-					NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
+					//NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
+					NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
 					CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier); // Increase by cost.
 					CurrentShootingCooldown -= Time.deltaTime * (0.5f * ShootingCooldownDecreaseRate);
 				}
