@@ -74849,7 +74849,7 @@ MonoBehaviour:
   StandardShotIteration: 0
   StandardShotSpawn: {fileID: 859732702}
   StandardFireRate: 0.35
-  StandardShootingHeatCost: 0.0125
+  StandardShootingHeatCost: 1
   playerMesh: {fileID: 815677225}
   ImpactPoint: {x: 0, y: 0, z: 0}
   playerCol: {fileID: 1081056890}
