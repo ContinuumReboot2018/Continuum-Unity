@@ -455,28 +455,31 @@ public class Block : MonoBehaviour
 	// Changes combo when collided with.
 	public void RefreshCombo ()
 	{
-		// Adds point value to target score in game controller.
-		gameControllerScript.TargetScore += totalPointValue;
-
-		// Plays animation if not faded out score text.
-		if (playerControllerScript_P1.ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false) 
+		if (gameControllerScript != null)
 		{
-			playerControllerScript_P1.ScoreAnim.Play ("ScorePoints");
-		}
+			// Adds point value to target score in game controller.
+			gameControllerScript.TargetScore += totalPointValue;
 
-		// Adds to next combo.
-		if (gameControllerScript.combo > 1)
-		{
-			gameControllerScript.combo += 2;
-		}
+			// Plays animation if not faded out score text.
+			if (playerControllerScript_P1.ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false) 
+			{
+				playerControllerScript_P1.ScoreAnim.Play ("ScorePoints");
+			}
 
-		if (gameControllerScript.combo <= 1) 
-		{
-			gameControllerScript.combo += 1;
-		}
+			// Adds to next combo.
+			if (gameControllerScript.combo > 1)
+			{
+				gameControllerScript.combo += 2;
+			}
 
-		// Resets combo time.
-		gameControllerScript.comboTimeRemaining = gameControllerScript.comboDuration;
+			if (gameControllerScript.combo <= 1)
+			{
+				gameControllerScript.combo += 1;
+			}
+
+			// Resets combo time.
+			gameControllerScript.comboTimeRemaining = gameControllerScript.comboDuration;
+		}
 	}
 
 	// Shakes the camera and vibrates controller.

@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
 	public float PlayerVibrationDuration; // How long the controller vibrates for.
 	public float PlayerVibrationTimeRemaining; // How much time the controller still needs to be vibrating.
 
-
 	[Header ("Player stats")]
 	public int PlayerId = 1; // Player's unique ID.
 	public TextMeshProUGUI PlayerText; // Player label.
@@ -80,11 +79,12 @@ public class PlayerController : MonoBehaviour
 	public float CurrentShootingHeatCost;
 	public bool Overheated;
 	public float OverheatCooldownDecreaseRate = 2;
-	public Image OverheatImage;
+	public Image OverheatImageL;
+	//public Image OverheatImageR;
 	public float OverheatFillSmoothing = 0.25f;
-	public Color CoolColor = new Color (0, 0.5f, 1, 0);
-	public Color WarmColor = new Color (1, 0.33f, 0, 0.5f);
+	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
 	public Color HotColor  = Color.red;
+	public float HeatUIBrightness = 20;
 	public AudioSource OverheatSound;
 	[Space (10)]
 	public float CurrentFireRate = 0.1f; 	 // Time between bullet spawns.
@@ -168,7 +168,13 @@ public class PlayerController : MonoBehaviour
 	public Texture2D[] AbilityTextures; // Array of ability icons.
 	public Image AbilityFillImage; 		// Image fill outline.
 	// Colors for each ability state.
-	public Color AbilityUseColor, AbilityChargingColor, AbilityChargingFullColor;
+	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
+	public Color AbilityUseColor;
+	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
+	public Color AbilityChargingColor;
+	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
+	public Color AbilityChargingFullColor;
+	public float AbilityBrightness = 8;
 
 	[Header ("Powerups")]
 	// General.
@@ -332,7 +338,10 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		OverheatImage.fillAmount = 0;
+		OverheatImageL.fillAmount = 0;
+		//OverheatImageR.fillAmount = 0;
+
+		OverheatImageL.material.EnableKeyword ("_EMISSION");
 	}
 
 	public void StartCoroutines ()
@@ -726,8 +735,11 @@ public class PlayerController : MonoBehaviour
 		// Updates the ability timers.
 		if (CurrentAbilityState == abilityState.Active) 
 		{
-			AbilityFillImage.color = AbilityUseColor;
-
+			//AbilityFillImage.color = AbilityUseColor * 25;
+			AbilityFillImage.material.SetColor ("_EmissionColor",
+				AbilityUseColor * AbilityBrightness
+			);
+				
 			if (CurrentAbilityTimeRemaining > 0)
 			{
 				CurrentAbilityTimeRemaining -= 0.75f * AbilityUseSpeedMultiplier * Time.unscaledDeltaTime;
@@ -744,7 +756,10 @@ public class PlayerController : MonoBehaviour
 
 		if (CurrentAbilityState == abilityState.Ready) 
 		{
-			AbilityFillImage.color = AbilityChargingFullColor;
+			//AbilityFillImage.color = AbilityChargingFullColor * 25;
+			AbilityFillImage.material.SetColor ("_EmissionColor",
+				AbilityChargingFullColor * AbilityBrightness
+			);
 		}
 
 		if (CurrentAbilityState == abilityState.Charging) 
@@ -767,18 +782,14 @@ public class PlayerController : MonoBehaviour
 
 			if (AbilityTimeAmountProportion < 1f)
 			{
-				AbilityFillImage.color = AbilityChargingColor;
+				//AbilityFillImage.color = AbilityChargingColor * 25;
+				AbilityFillImage.material.SetColor ("_EmissionColor",
+					AbilityChargingColor * AbilityBrightness
+				);
 			}
 		}
 
 		lensScript.radius = Mathf.Lerp (lensScript.radius, TargetLensRadius, LensRadiusSmoothTime * Time.unscaledDeltaTime);
-
-		/*Shield.transform.localScale = new Vector3 (
-			Mathf.Lerp (Shield.transform.localScale.x, TargetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime), 
-			Mathf.Lerp (Shield.transform.localScale.y, TargetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime), 
-			Mathf.Lerp (Shield.transform.localScale.z, TargetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime)
-		);*/
-
 		Vector3 targetShieldScale = new Vector3 (TargetShieldScale, TargetShieldScale, TargetShieldScale);
 		Shield.transform.localScale = Vector3.Lerp (Shield.transform.localScale, targetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime);
 	}
@@ -907,22 +918,6 @@ public class PlayerController : MonoBehaviour
 	public void RefreshAbilityName ()
 	{
 		AbilityName = Ability.ToString ();
-
-		/*switch (Ability) 
-		{
-		case ability.Shield:
-			AbilityName = "Shield";
-			break;
-		case ability.Emp:
-			AbilityName = "Emp";
-			break;
-		case ability.VerticalBeam:
-			AbilityName = "VerticalBeam";
-			break;
-		case ability.HorizontalBeam:
-			AbilityName = "HorizontalBeam";
-			break;
-		}*/
 	}
 
 	// Sync ability image.
@@ -957,24 +952,17 @@ public class PlayerController : MonoBehaviour
 	{
 		// Maps heat to squared of shooting cooldown.
 		//CurrentShootingHeat = CurrentShootingCooldown * CurrentShootingCooldown;
-		CurrentShootingHeat = Mathf.Pow (CurrentShootingCooldown, 2);
+		CurrentShootingHeat = Mathf.Pow (CurrentShootingCooldown, 1);
 
 		// Clamps to 0 and 1.
 		CurrentShootingHeat = Mathf.Clamp (CurrentShootingHeat, 0, 1);
 		CurrentShootingCooldown = Mathf.Clamp (CurrentShootingCooldown, 0, 1);
 
-		OverheatImage.fillAmount = Mathf.Lerp (
-			OverheatImage.fillAmount, 
+		OverheatImageL.fillAmount = Mathf.Lerp (
+			OverheatImageL.fillAmount, 
 			CurrentShootingHeat, 
 			OverheatFillSmoothing * Time.unscaledDeltaTime
 		);
-
-		Vector3 TargetOverheatImageScale = new Vector3 
-			(
-				OverheatImage.fillAmount,
-				OverheatImage.fillAmount,
-				1
-			);
 
 		if (CurrentShootingHeat <= 0.01f) 
 		{
@@ -983,24 +971,13 @@ public class PlayerController : MonoBehaviour
 
 		if (Overheated == false) 
 		{
-			OverheatImage.gameObject.transform.localScale = Vector3.Lerp 
-				(
-					OverheatImage.gameObject.transform.localScale,
-					TargetOverheatImageScale,
-					OverheatFillSmoothing * Time.unscaledDeltaTime
-				);
-			
-			if (OverheatImage.fillAmount < 0.75f) 
-			{
-				OverheatImage.color = CoolColor;
-			}
+			OverheatImageL.material.SetColor ("_EmissionColor", new Color (
+				OverheatImageL.fillAmount,
+				-Mathf.Cos ((Mathf.PI * OverheatImageL.fillAmount) + (0.5f * Mathf.PI)),
+				1 - OverheatImageL.fillAmount
+			) * HeatUIBrightness);
 
-			if (OverheatImage.fillAmount >= 0.75f && OverheatImage.fillAmount < 1f) 
-			{
-				OverheatImage.color = WarmColor;
-			}
-
-			if (OverheatImage.fillAmount > 0.99f) 
+			if (OverheatImageL.fillAmount > 0.99f) 
 			{
 				if (OverheatSound.isPlaying == false)
 				{
@@ -1014,8 +991,7 @@ public class PlayerController : MonoBehaviour
 		if (Overheated == true) 
 		{
 			CurrentShootingCooldown -= Time.unscaledDeltaTime * OverheatCooldownDecreaseRate;
-			//CurrentShootingHeat -= Time.unscaledDeltaTime * OverheatCooldownDecreaseRate;
-			OverheatImage.color = HotColor;
+			OverheatImageL.color = HotColor * HeatUIBrightness;
 		}
 	}
 
@@ -1024,21 +1000,28 @@ public class PlayerController : MonoBehaviour
 	{
 		if (canShoot == true) 
 		{
-			if (playerActions.Shoot.Value > 0.75f && Time.time >= NextFire && gameControllerScript.isPaused == false) 
+			if (playerActions.Shoot.Value > 0.75f && gameControllerScript.isPaused == false) 
 			{
-				// Every time the player shoots, decremement the combo.
-				if (gameControllerScript.combo > 1)
+				if (Time.time >= NextFire)
 				{
-					gameControllerScript.combo -= 1;
+					// Every time the player shoots, decremement the combo.
+					if (gameControllerScript.combo > 1)
+					{
+						gameControllerScript.combo -= 1;
+					}
+
+					if (Overheated == false && AbilityFillImage.color != HotColor)
+					{
+						Shoot ();
+						//NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
+						NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
+					}
 				}
 
-				if (Overheated == false && AbilityFillImage.color != HotColor)
+				if (Overheated == false)
 				{
-					Shoot ();
-					//NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
-					NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
-					CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier); // Increase by cost.
-					CurrentShootingCooldown -= Time.deltaTime * (0.5f * ShootingCooldownDecreaseRate);
+					CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier) * Time.deltaTime; // Increase by cost.
+					//CurrentShootingCooldown -= Time.deltaTime * (0.5f * ShootingCooldownDecreaseRate);
 				}
 			}
 
@@ -1384,43 +1367,6 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		/*
-		// WAVE TEXT
-		// When the player is close to the wave text.
-		// Vertical position.
-		if (PlayerRb.position.y > WaveCheckPlayerPos.y) 
-		{
-			// Horizontal position too far.
-			if (PlayerRb.position.x > -WaveCheckPlayerPos.x && PlayerRb.position.x < WaveCheckPlayerPos.x) 
-			{
-				if (WaveAnim.GetCurrentAnimatorStateInfo (0).IsName ("WaveUIExit") == false && isHidingWaveUI == false) 
-				{
-					WaveAnim.Play ("WaveUIExit");
-					isHidingWaveUI = true;
-				}
-			}
-
-			// Horizontal position in range.
-			if (PlayerRb.position.x <= -WaveCheckPlayerPos.x || PlayerRb.position.x >= WaveCheckPlayerPos.x) 
-			{
-				if (WaveAnim.GetCurrentAnimatorStateInfo (0).IsName ("WaveUIEnter") == false && isHidingWaveUI == true) 
-				{
-					WaveAnim.Play ("WaveUIEnter");
-					isHidingWaveUI = false;
-				}
-			}
-		}
-
-		// Vertical position too far from lives text.
-		if (PlayerRb.position.y <= WaveCheckPlayerPos.y) 
-		{
-			if (WaveAnim.GetCurrentAnimatorStateInfo (0).IsName ("WaveUIEnter") == false && isHidingWaveUI == true) 
-			{
-				WaveAnim.Play ("WaveUIEnter");
-				isHidingWaveUI = false;
-			}
-		}*/
-
 		CheckPowerupImageUI ();
 
 		// Defaults powerup texture with standard shot image.
@@ -1435,23 +1381,6 @@ public class PlayerController : MonoBehaviour
 	// Also has autohiding.
 	public void CheckPowerupImageUI ()
 	{
-		/*
-		if (playerCol.transform.position.y > 7 && playerCol.transform.position.x > 12) 
-		{
-			if (ShootingUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeOut") == false)
-			{
-				ShootingUIHexes.Play ("HexesFadeOut");
-			}
-		}
-
-		if (playerCol.transform.position.y <= 7 || playerCol.transform.position.x <= 12) 
-		{
-			if (ShootingUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeOut") == true)
-			{
-				ShootingUIHexes.Play ("HexesFadeIn");
-			}
-		}*/
-
 		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
 		{
 			if (powerupimage == gameControllerScript.PowerupImage_P1 [0])
@@ -1705,7 +1634,8 @@ public class PlayerController : MonoBehaviour
 				}
 			}
 
-			if (playerActions.CheatConsole.WasReleased) {
+			if (playerActions.CheatConsole.WasReleased)
+			{
 				developerModeScript.ClearCheatString ();
 				developerModeScript.CheatInputText.text = ">_ ";
 			}
