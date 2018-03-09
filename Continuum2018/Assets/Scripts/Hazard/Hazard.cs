@@ -46,6 +46,15 @@ public class Hazard : MonoBehaviour
 		{
 			CreateExplosion ();
 			DoCamShake ();
+
+			if (particle.GetComponentInParent<Bullet> () != null)
+			{
+				if (particle.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Ripple") == false) 
+				{
+					Destroy (particle.gameObject);
+				}
+			}
+
 			Destroy (gameObject);
 			return;
 		}

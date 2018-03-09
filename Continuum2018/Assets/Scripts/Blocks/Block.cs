@@ -38,6 +38,7 @@ public class Block : MonoBehaviour
 	public MiniBoss miniBoss; // Connection to Mini Boss.
 	public int bossPartIndex;
 	public float BossDamage = 1.0f;
+	public int HitPoints = 5;
 
 	[Header ("Boundary")]
 	public Vector2 BoundaryX; // Horizontal bounds.
@@ -203,45 +204,93 @@ public class Block : MonoBehaviour
 	{
 		if (particle.tag == "Bullet") 
 		{
-			BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
-
-			// If tutorial script is referenced.
-			if (tutorialManagerScript != null)
+			if (isBossPart == true) 
 			{
-				// Reset block index in info section.
-				if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info)
+				if (HitPoints > 0) 
 				{
-					tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+					HitPoints--;
+
+					if (particle.GetComponentInParent<Bullet> () != null) 
+					{
+						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
+						{
+							Destroy (particle.gameObject);
+						}
+					}
+
+					//if (particle.GetComponentInParent<Bullet> () == null) 
+					//{
+					//	Destroy (particle.gameObject);
+					//}
+
+					GetTotalPointValue (); // Get total point calculation.
+					CreateExplosion (); // Create the explosion.
 				}
 
-				// Turn off the tutorial in info section.
-				if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
+				if (HitPoints <= 0) 
 				{
-					Debug.Log ("Attempted to turn off tutorial.");
-					tutorialManagerScript.TurnOffTutorial ();
+					GetTotalPointValue (); // Get total point calculation.
+					CreateExplosion (); // Create the explosion.
+					DoCamShake (); // Destroy this object.
+					DoVibrate ();
+
+					if (particle.GetComponentInParent<Bullet> () != null) 
+					{
+						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
+						{
+							Destroy (particle.gameObject);
+						}
+					}
+
+					//if (particle.GetComponentInParent<Bullet> () == null) 
+					//{
+					//	Destroy (particle.gameObject);
+					//}
+
+					Destroy (gameObject); // Destroy this object.
+					return; // Prevent any further code execution.
 				}
 			}
 
-			// Other object has a bullet component.
-			if (particle.GetComponentInParent<Bullet> () != null)
+			if (isBossPart == false)
 			{
-				// Stops the bullet that hit it from hanging around.
-				if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true)
-				{
-					particle.GetComponentInParent<Bullet> ().BlockHit ();
-					//particle.GetComponentInParent<Bullet> ().BulletSpeedScaled = 0;
-					//particle.GetComponentInParent<Bullet> ().BulletSpeedUnScaled = 0;
-				}
-			}
+				BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
 
-			GetTotalPointValue (); // Get total point calculation.
-			CreateExplosion (); // Create the explosion.
-			BoxCol.enabled = false; // Turn off the box collider.
-			IncrementBlocksDestroyed (); // Increment blocks destroyed.
-			DoCamShake (); // Shake camera.
-			DoVibrate ();
-			Destroy (gameObject);
-			return;
+				// If tutorial script is referenced.
+				if (tutorialManagerScript != null)
+				{
+					// Reset block index in info section.
+					if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info)
+					{
+						tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+					}
+
+					// Turn off the tutorial in info section.
+					if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info)
+					{
+						Debug.Log ("Attempted to turn off tutorial.");
+						tutorialManagerScript.TurnOffTutorial ();
+					}
+				}
+
+				// Other object has a bullet component.
+				if (particle.GetComponentInParent<Bullet> () != null) 
+				{
+					// Stops the bullet that hit it from hanging around.
+					if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
+					{
+						particle.GetComponentInParent<Bullet> ().BlockHit ();
+					}
+				}
+
+				GetTotalPointValue (); // Get total point calculation.
+				CreateExplosion (); // Create the explosion.
+				IncrementBlocksDestroyed (); // Increment blocks destroyed.
+				DoCamShake (); // Shake camera.
+				DoVibrate ();
+				Destroy (gameObject);
+				return;
+			}
 		}
 	}
 
@@ -264,7 +313,8 @@ public class Block : MonoBehaviour
 				// If the tag is not a bullet.
 				if (other.tag != "Bullet") 
 				{
-					Destroy (other.gameObject); // Destroy other object.
+		
+					//Destroy (other.gameObject); // Destroy other object.
 					Destroy (gameObject); // Destroy this object.
 					return; // Prevent any further code execution.
 				}
@@ -274,43 +324,77 @@ public class Block : MonoBehaviour
 		// Other object's tag is Bullet.
 		if (other.tag == "Bullet") 
 		{
-			BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
-
-			// If tutorial script is referenced.
-			if (tutorialManagerScript != null)
+			if (isBossPart == true) 
 			{
-				// Reset block index in info section.
-				if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info)
+				if (HitPoints > 0) 
 				{
-					tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+					HitPoints--;
+					if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
+					{
+						Destroy (other.gameObject);
+					}
+					GetTotalPointValue (); // Get total point calculation.
+					CreateExplosion (); // Create the explosion.
 				}
 
-				// Turn off the tutorial in info section.
-				if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
+				if (HitPoints <= 0) 
 				{
-					Debug.Log ("Attempted to turn off tutorial.");
-					tutorialManagerScript.TurnOffTutorial ();
+					GetTotalPointValue (); // Get total point calculation.
+					CreateExplosion (); // Create the explosion.
+					DoCamShake (); // Destroy this object.
+					DoVibrate ();
+					if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
+					{
+						Destroy (other.gameObject);
+					}
+					Destroy (gameObject); // Destroy this object.
+					return; // Prevent any further code execution.
 				}
 			}
 
-			GetTotalPointValue (); // Get total point calculation.
-			CreateExplosion (); // Create the explosion.
-			IncrementBlocksDestroyed (); // Increment blocks destroyed.
-
-			// Other object has a bullet component.
-			if (other.GetComponent<Bullet> () != null)
+			if (isBossPart == false) 
 			{
-				// Stops the bullet that hit it from hanging around.
-				if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true)
-				{
-					other.GetComponent<Bullet> ().BlockHit ();
-				}
-			}
+				BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
 
-			DoCamShake (); // Destroy this object.
-			DoVibrate ();
-			Destroy (gameObject); // Destroy this object.
-			return; // Prevent any further code execution.
+				// If tutorial script is referenced.
+				if (tutorialManagerScript != null) 
+				{
+					// Reset block index in info section.
+					if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info) 
+					{
+						tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+					}
+
+					// Turn off the tutorial in info section.
+					if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
+					{
+						Debug.Log ("Attempted to turn off tutorial.");
+						tutorialManagerScript.TurnOffTutorial ();
+					}
+				}
+
+				GetTotalPointValue (); // Get total point calculation.
+				CreateExplosion (); // Create the explosion.
+				IncrementBlocksDestroyed (); // Increment blocks destroyed.
+
+				// Other object has a bullet component.
+				if (other.GetComponent<Bullet> () != null)
+				{
+					// Stops the bullet that hit it from hanging around.
+					if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
+					{
+						other.GetComponent<Bullet> ().BlockHit ();
+					} else 
+					{
+						//Destroy (other.gameObject);
+					}
+				}
+
+				DoCamShake (); // Destroy this object.
+				DoVibrate ();
+				Destroy (gameObject, 0); // Destroy this object.
+				return; // Prevent any further code execution.
+			}
 		}
 
 		// Other object has Player tag and this bloc isn't a tutorial block.

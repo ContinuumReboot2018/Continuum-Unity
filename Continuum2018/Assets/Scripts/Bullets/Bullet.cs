@@ -110,10 +110,10 @@ public class Bullet : MonoBehaviour
 			homingScript = GetComponent<Homing> (); // Get the homing script.
 			isHoming = true; // Set homing to true.
 
-			if (playerControllerScript.isRicochet == false)
-			{
+			//if (playerControllerScript.isRicochet == false)
+			//{
 				homingScript.enabled = true; // Enable the homing script.
-			}
+			//}
 
 			if (BulletSpeedType == SpeedType.Unscaled)
 			{
@@ -202,7 +202,7 @@ public class Bullet : MonoBehaviour
 		}
 
 		// Stop homing if position greater than this. (Need to make this dynamic based on screen ratio).
-		if (BulletRb.transform.position.y > 10) 
+		if (BulletRb.transform.position.y > 12) 
 		{
 			if (homingScript != null)
 			{
@@ -223,8 +223,8 @@ public class Bullet : MonoBehaviour
 	// Checks for ricochet, if conditions are met, ricochet.
 	void CheckForRicochet ()
 	{
-		if (playerControllerScript.isRicochet == true &&
-			playerControllerScript.isHoming == false) 
+		if (playerControllerScript.isRicochet == true)// &&
+			//playerControllerScript.isHoming == false) 
 		{
 			// Moves to top of screen.
 			if (transform.position.y > RicochetYpos) 

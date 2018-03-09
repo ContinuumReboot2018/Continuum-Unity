@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114856166083868060}
   - component: {fileID: 82290292129079766}
   - component: {fileID: 114031326233937388}
+  - component: {fileID: 114009839658393486}
   m_Layer: 0
   m_Name: PowerupPickupExplosion
   m_TagString: Untagged
@@ -271,6 +272,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114009839658393486
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107170480724288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daef74de5648d5647a119d2d579e6f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 5
+  DestroyObj: {fileID: 1107170480724288}
+  useUnscaledTime: 0
 --- !u!114 &114031326233937388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -282,13 +297,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!114 &114069735664994160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,8 +319,8 @@ MonoBehaviour:
   blockScript: {fileID: 0}
   Lifetime: 2
   ExplosionSound: {fileID: 82630998734724706}
-  ComboAnim: {fileID: 0}
   ComboPointsText: {fileID: 0}
+  ComboAnim: {fileID: 0}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
   TextPos: {x: 0, y: 0}
@@ -321,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedExplosions
+  OnStart: 1
 --- !u!114 &114344286343468894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -336,8 +352,8 @@ MonoBehaviour:
   blockScript: {fileID: 0}
   Lifetime: 2
   ExplosionSound: {fileID: 82290292129079766}
-  ComboAnim: {fileID: 0}
   ComboPointsText: {fileID: 0}
+  ComboAnim: {fileID: 0}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
   TextPos: {x: 0, y: 0}
@@ -352,13 +368,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!114 &114856166083868060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,6 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedExplosions
+  OnStart: 1
 --- !u!198 &198657113447096838
 ParticleSystem:
   m_ObjectHideFlags: 1

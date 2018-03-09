@@ -74990,7 +74990,7 @@ MonoBehaviour:
   CurrentShootingCooldown: 0
   CurrentShootingHeat: 0
   ShootingCooldownDecreaseRate: 0.1
-  CurrentShootingHeatCost: 0.025
+  CurrentShootingHeatCost: 0.03
   Overheated: 0
   OverheatCooldownDecreaseRate: 0.035
   OverheatImageL: {fileID: 814171770}
@@ -75011,7 +75011,7 @@ MonoBehaviour:
   StandardShotIteration: 0
   StandardShotSpawn: {fileID: 859732702}
   StandardFireRate: 0.125
-  StandardShootingHeatCost: 0.025
+  StandardShootingHeatCost: 0.03
   playerMesh: {fileID: 815677225}
   ImpactPoint: {x: 0, y: 0, z: 0}
   playerCol: {fileID: 1081056890}
@@ -75079,7 +75079,7 @@ MonoBehaviour:
   - 0.09
   DoubleShotIteration: 0
   DoubleShotNextFire: 0
-  DoubleShootingHeatCost: 0.035
+  DoubleShootingHeatCost: 0.03
   TripleShotL: {fileID: 1269433964671182, guid: 9a5594d97d1871249b041d3acf644c0e,
     type: 2}
   TripleShotLEnhanced: {fileID: 1274823252740296, guid: ce80b4bcbd8c76c45913b5645283703d,
@@ -75106,7 +75106,7 @@ MonoBehaviour:
   - 0.08
   TripleShotIteration: 0
   TripleShotNextFire: 0
-  TripleShootingHeatCost: 0.045
+  TripleShootingHeatCost: 0.03
   RippleShot: {fileID: 1527851726018156, guid: 66da2fd0909c75641a7dd6ec06c9c55f, type: 2}
   RippleShotEnhanced: {fileID: 1040239009667148, guid: e74aa129088533f4ab8ea1ad0b28c072,
     type: 2}
@@ -75118,7 +75118,7 @@ MonoBehaviour:
   - 0.4
   RippleShotIteration: 0
   RippleShotNextFire: 0
-  RippleShootingHeatCost: 0.055
+  RippleShootingHeatCost: 0.03
   isShieldOn: 0
   Shield: {fileID: 347779641}
   lensScript: {fileID: 1771333222}

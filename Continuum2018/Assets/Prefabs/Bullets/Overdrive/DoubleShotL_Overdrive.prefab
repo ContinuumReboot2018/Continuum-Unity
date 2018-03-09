@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114835695993013006}
   - component: {fileID: 114067403388382722}
   - component: {fileID: 114757900925410020}
+  - component: {fileID: 65522748411402772}
   m_Layer: 9
   m_Name: DoubleShotL_Overdrive
   m_TagString: Bullet
@@ -160,11 +161,23 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1598089217073352}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.5, z: 0.4}
   m_Center: {x: 0, y: -0.05, z: 0}
+--- !u!65 &65522748411402772
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1598089217073352}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82990723350922720
 AudioSource:
   m_ObjectHideFlags: 1
@@ -377,7 +390,7 @@ MonoBehaviour:
   target: {fileID: 0}
   findObject: Block
   speed: 24
-  rotateSpeed: 500
+  rotateSpeed: 50000
   homingTime: 5
   cutoffHeight: 12
   maxRange: 45
@@ -2828,7 +2841,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 3
     type: 1
     collisionMode: 0

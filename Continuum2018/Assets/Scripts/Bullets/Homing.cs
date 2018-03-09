@@ -42,8 +42,6 @@ public class Homing : MonoBehaviour
 
 	void FixedUpdate () 
 	{
-		
-
 		// Target has been assigned.
 		if (target != null)
 		{
@@ -53,8 +51,10 @@ public class Homing : MonoBehaviour
 			// Find direction homing needs to face.
 			Vector2 direction = (Vector2)target.position - (Vector2)rb.position;
 			direction.Normalize (); // Normalise vector.
-			Vector3 rotateAmount = Vector3.Cross (direction, transform.up); // Calculate rotation axis.
-			rb.angularVelocity = -rotateAmount * rotateSpeed; // Set angular velocity.
+			Vector3 rotateAmount = Vector3.Cross (direction, transform.up) - (rb.angularVelocity * 2); // Calculate rotation axis.
+
+			rb.angularVelocity += -rotateAmount * rotateSpeed; // Set angular velocity.
+
 			//rb.velocity = transform.up * speed; // Set movement.
 
 			rb.velocity = transform.TransformDirection (
