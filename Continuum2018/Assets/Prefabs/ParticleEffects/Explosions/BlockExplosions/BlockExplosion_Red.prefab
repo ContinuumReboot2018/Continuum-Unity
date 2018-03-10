@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224222020540465512}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ComboParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 114402129440907566}
   - component: {fileID: 114405248255546306}
   - component: {fileID: 114556119907244482}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ExplosionCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,9 +59,9 @@ GameObject:
   - component: {fileID: 114306272501053736}
   - component: {fileID: 82493372611424884}
   - component: {fileID: 114994073970807432}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BlockExplosion_Red
-  m_TagString: Untagged
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 224792294776021236}
   - component: {fileID: 222257611775225944}
   - component: {fileID: 114201493995385706}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ComboBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 224808416705947420}
   - component: {fileID: 222611924332998994}
   - component: {fileID: 114581898490046632}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ComboText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 4942551433710030}
   - component: {fileID: 198993062324146030}
   - component: {fileID: 199588318088694990}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: ShockWave
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224857763738593626}
   - component: {fileID: 95146706203663556}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ComboAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,6 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedExplosions
+  OnStart: 1
 --- !u!114 &114402129440907566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -474,8 +475,8 @@ MonoBehaviour:
   blockScript: {fileID: 0}
   Lifetime: 2
   ExplosionSound: {fileID: 82493372611424884}
-  ComboAnim: {fileID: 95146706203663556}
   ComboPointsText: {fileID: 114581898490046632}
+  ComboAnim: {fileID: 95146706203663556}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
   TextPos: {x: 1, y: 1}
@@ -490,13 +491,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!198 &198828273332840154
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -557,7 +558,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -377306136
+  randomSeed: 996176884
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3945,7 +3946,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1805117066
+  randomSeed: 1986408787
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -202,7 +202,7 @@ public class Block : MonoBehaviour
 	// Collisions via particles.
 	void OnParticleCollision (GameObject particle)
 	{
-		if (particle.tag == "Bullet") 
+		if (particle.tag == "Bullet" || particle.tag == "Hazard") 
 		{
 			if (isBossPart == false)
 			{
@@ -380,11 +380,14 @@ public class Block : MonoBehaviour
 				{
 					HitPoints--;
 
-					if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
+					if (other.GetComponent<Bullet> () != null)
 					{
-						if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
+						if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
 						{
-							Destroy (other.gameObject);
+							if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false)
+							{
+								Destroy (other.gameObject);
+							}
 						}
 					}
 
@@ -399,11 +402,14 @@ public class Block : MonoBehaviour
 					DoCamShake (); // Destroy this object.
 					DoVibrate ();
 
-					if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
+					if (other.GetComponent<Bullet> () != null)
 					{
-						if (other.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
+						if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true)
 						{
-							Destroy (other.gameObject);
+							if (other.GetComponentInParent<Bullet> ().BulletTypeName != "Helix")
+							{
+								Destroy (other.gameObject);
+							}
 						}
 					}
 
@@ -500,7 +506,10 @@ public class Block : MonoBehaviour
 	{
 		if (DontIncrementBlocksDestroyed == false) 
 		{
-			gameControllerScript.BlocksDestroyed += 1;
+			if (gameControllerScript != null)
+			{
+				gameControllerScript.BlocksDestroyed += 1;
+			}
 			return;
 		}
 	}
