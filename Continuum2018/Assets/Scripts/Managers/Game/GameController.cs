@@ -275,12 +275,18 @@ public class GameController : MonoBehaviour
 		OverdriveImage.enabled = gameModifier.AlwaysOverdrive;
 		OverdriveHex.enabled = gameModifier.AlwaysOverdrive;
 
+		PowerupImage_P1 [0].texture = StandardShotTexture;
+			
 		// Reset all powerup textures in list.
 		foreach (RawImage powerupImage in PowerupImage_P1) 
 		{
+			if (powerupImage != PowerupImage_P1 [0]) 
+			{
+				powerupImage.gameObject.SetActive (false);
+			}
+
 			powerupImage.texture = null;
 			powerupImage.color = new Color (0, 0, 0, 0);
-			powerupImage.gameObject.SetActive (false);
 			playerControllerScript_P1.CheckPowerupImageUI ();
 		}
 

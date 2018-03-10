@@ -193,7 +193,7 @@ MonoBehaviour:
   miniBoss: {fileID: 0}
   bossPartIndex: 0
   BossDamage: 1
-  HitPoints: 5
+  HitPoints: 3
   BoundaryX: {x: -100, y: 100}
   BoundaryY: {x: -100, y: 100}
   BlockType: 0

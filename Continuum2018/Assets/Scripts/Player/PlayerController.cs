@@ -550,6 +550,8 @@ public class PlayerController : MonoBehaviour
 	{
 		cooldownDuration = cooldownTime;
 		cooldownTimeRemaining = cooldownDuration;
+		gameControllerScript.NextPowerupSlot_P1 = 1;
+		gameControllerScript.NextPowerupShootingSlot_P1 = 0;
 	}
 
 	// Cooldown sequence.
@@ -1450,33 +1452,37 @@ public class PlayerController : MonoBehaviour
 	{
 		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
 		{
-			//if (powerupimage == gameControllerScript.PowerupImage_P1 [0])
-			//{
+			//powerupimage == gameControllerScript.PowerupImage_P1 [0]
+			if (powerupimage.gameObject.activeInHierarchy == true)
+			{
 				if (playerCol.transform.position.y > PowerupUICheckPos.y &&
 					playerCol.transform.position.x > PowerupUICheckPos.x
 				) 
 				{
-					if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == false
+					powerupimage.GetComponent<Animator> ().SetBool ("Visible", false);
+					/*if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == false
 						&& powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemPopIn") == false
 						&& isHidingPowerupUI == false) 
 					{
 						powerupimage.GetComponent<Animator> ().Play ("PowerupListItemFadeOut");
 						isHidingPowerupUI = true;
-					}
+					}*/
 				}
 
 				if (playerCol.transform.position.y <= PowerupUICheckPos.y || 
 					playerCol.transform.position.x <= PowerupUICheckPos.x)
 				{
-					if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == true
+					powerupimage.GetComponent<Animator> ().SetBool ("Visible", true);
+
+					/*if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == true
 						&& powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemPopIn") == false
 						&& isHidingPowerupUI == true) 
 					{
-						powerupimage.GetComponent<Animator> ().Play ("PowerupListItemFadeIn");
+						//powerupimage.GetComponent<Animator> ().Play ("PowerupListItemFadeIn");
 						isHidingPowerupUI = false;
-					}
+					}*/
 				}
-			//}
+			}
 		}
 	}
 
