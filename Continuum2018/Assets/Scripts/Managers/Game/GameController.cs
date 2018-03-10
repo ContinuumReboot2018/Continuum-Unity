@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI; // Access to Unity's UI system.
 using TMPro; // Access to TextMeshPro components.
 using UnityEngine.PostProcessing; // Allows access to Unity's Post Processing Stack.
+using InControl;
 
 public class GameController : MonoBehaviour 
 {
@@ -15,6 +16,7 @@ public class GameController : MonoBehaviour
 	public CursorManager cursorManagerScript;				// Reference to the cursor state.
 	public PostProcessingProfile ImageEffects;				// Reference to the post processing profile.
 	public GameModifierManager gameModifier;				// Reference to the GameModifierManager Scriptable object.								// Main camera.
+	public static List<InputDevice> playerDevices; 
 
 	[Header ("Game Stats")]
 	public bool TrackStats = true;		// Track debug info.
@@ -816,6 +818,9 @@ public class GameController : MonoBehaviour
 			if (isPaused) 
 			{
 				PauseUI.SetActive (true);
+
+				playerControllerScript_P1.pauseManagerScript.MainPauseMenuOnEnter (0);
+				playerControllerScript_P1.pauseManagerScript.mainPauseMenu.buttonIndex = 0;
 
 				// Sets mouse cursor states.
 				cursorManagerScript.UnlockMouse ();

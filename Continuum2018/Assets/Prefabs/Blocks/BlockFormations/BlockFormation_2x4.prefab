@@ -1034,7 +1034,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.01
+  AddAbilityTime: 0.002
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -1045,6 +1045,7 @@ MonoBehaviour:
   miniBoss: {fileID: 0}
   bossPartIndex: 0
   BossDamage: 1
+  HitPoints: 5
   BoundaryX: {x: -100, y: 100}
   BoundaryY: {x: -100, y: 100}
   BlockType: 2
@@ -1217,7 +1218,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.01
+  AddAbilityTime: 0.002
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -1228,6 +1229,7 @@ MonoBehaviour:
   miniBoss: {fileID: 0}
   bossPartIndex: 0
   BossDamage: 1
+  HitPoints: 5
   BoundaryX: {x: -100, y: 100}
   BoundaryY: {x: -100, y: 100}
   BlockType: 2
@@ -1380,7 +1382,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.01
+  AddAbilityTime: 0.002
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -1391,6 +1393,7 @@ MonoBehaviour:
   miniBoss: {fileID: 0}
   bossPartIndex: 0
   BossDamage: 1
+  HitPoints: 5
   BoundaryX: {x: -100, y: 100}
   BoundaryY: {x: -100, y: 100}
   BlockType: 0
@@ -1443,7 +1446,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.01
+  AddAbilityTime: 0.002
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -1454,6 +1457,7 @@ MonoBehaviour:
   miniBoss: {fileID: 0}
   bossPartIndex: 0
   BossDamage: 1
+  HitPoints: 5
   BoundaryX: {x: -100, y: 100}
   BoundaryY: {x: -100, y: 100}
   BlockType: 1
@@ -1623,7 +1627,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.01
+  AddAbilityTime: 0.002
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -1634,6 +1638,7 @@ MonoBehaviour:
   miniBoss: {fileID: 0}
   bossPartIndex: 0
   BossDamage: 1
+  HitPoints: 5
   BoundaryX: {x: -100, y: 100}
   BoundaryY: {x: -100, y: 100}
   BlockType: 3
@@ -1718,7 +1723,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.01
+  AddAbilityTime: 0.002
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -1729,6 +1734,7 @@ MonoBehaviour:
   miniBoss: {fileID: 0}
   bossPartIndex: 0
   BossDamage: 1
+  HitPoints: 5
   BoundaryX: {x: -100, y: 100}
   BoundaryY: {x: -100, y: 100}
   BlockType: 3
@@ -1813,7 +1819,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.01
+  AddAbilityTime: 0.002
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -1824,6 +1830,7 @@ MonoBehaviour:
   miniBoss: {fileID: 0}
   bossPartIndex: 0
   BossDamage: 1
+  HitPoints: 5
   BoundaryX: {x: -100, y: 100}
   BoundaryY: {x: -100, y: 100}
   BlockType: 0
@@ -2122,7 +2129,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.01
+  AddAbilityTime: 0.002
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -2133,6 +2140,7 @@ MonoBehaviour:
   miniBoss: {fileID: 0}
   bossPartIndex: 0
   BossDamage: 1
+  HitPoints: 5
   BoundaryX: {x: -100, y: 100}
   BoundaryY: {x: -100, y: 100}
   BlockType: 1

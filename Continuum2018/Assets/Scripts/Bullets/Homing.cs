@@ -19,7 +19,7 @@ public class Homing : MonoBehaviour
 	[SerializeField]
 	private Vector2 direction;
 	[SerializeField]
-	private Vector3 rotateAmount;
+	private float rotateAmount;
 
 	void Start () 
 	{
@@ -56,16 +56,25 @@ public class Homing : MonoBehaviour
 			// Find direction homing needs to face.
 			direction = (Vector2)target.position - (Vector2)rb.position;
 			direction.Normalize (); // Normalise vector.
-			rotateAmount = Vector3.Cross (direction, transform.up); // Calculate rotation axis.
+			rotateAmount = Vector3.Cross (direction, transform.up).z; // Calculate rotation axis.
 
 			//rb.position = Vector3.MoveTowards (rb.position, target.position, 50 * Time.deltaTime);
 			//rb.transform.LookAt (target.position);
 
-			rb.angularVelocity = -rotateAmount * Mathf.Pow(rotateSpeed, 2);
+			rb.angularVelocity = new Vector3 (
+				0,
+				-rotateAmount * rotateSpeed,
+				0
+			);
 
-			//rb.velocity = transform.up * speed; // Set movement.
+			rb.velocity =
+				
+				transform.up * speed * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale)
 
-			rb.velocity = transform.TransformDirection (
+				; // Set movement.
+					
+
+			/*rb.velocity = transform.TransformDirection (
 				new Vector3 (
 					0, 
 					Mathf.Clamp (
@@ -75,7 +84,7 @@ public class Homing : MonoBehaviour
 					), 
 					0
 				)
-			);
+			);*/
 
 			Debug.DrawLine (transform.position, target.position, Color.green);
 		}

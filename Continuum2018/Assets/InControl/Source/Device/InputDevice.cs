@@ -38,7 +38,7 @@ namespace InControl
         /// Defaults to <code>false</code>.
         /// </summary>
         public bool Passive;
-
+		public bool active = true;
 
 		protected struct AnalogSnapshotEntry
 		{

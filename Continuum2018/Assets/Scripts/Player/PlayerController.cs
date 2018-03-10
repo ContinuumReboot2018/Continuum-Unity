@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 	public CameraShake 			camShakeScript;
 	public DeveloperMode 		developerModeScript;
 	public TutorialManager 		tutorialManagerScript;
+	public PauseManager 		pauseManagerScript;
+	public int deviceID = 0;
 
 	[Header ("Player Movement")]
 	[Range (-1, 1)]
@@ -309,6 +311,12 @@ public class PlayerController : MonoBehaviour
 
 	// InControl Player Actions.
 	public PlayerActions playerActions; // Created for InControl and assigned at runtime.
+
+	InputDevice mInputDevice{
+		get{
+			return GameController.playerDevices[deviceID];
+		}
+	}
 
 	void Start () 
 	{
@@ -771,7 +779,7 @@ public class PlayerController : MonoBehaviour
 				gameControllerScript.isPaused == false &&
 				tutorialManagerScript.tutorialComplete == true) 
 			{
-				CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
+				//CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
 			}
 
 			if (CurrentAbilityTimeRemaining >= CurrentAbilityDuration) 
@@ -1570,6 +1578,45 @@ public class PlayerController : MonoBehaviour
 		playerActions.DebugMenu.AddDefaultBinding (Key.Tab);
 		playerActions.DebugMenu.AddDefaultBinding (InputControlType.LeftBumper);
 		playerActions.CheatConsole.AddDefaultBinding (Key.Backquote);
+
+		//var player1 = InputManager.Devices [0];
+
+		//InputManager.OnDeviceAttached += inputDevice => Debug.Log( "Attached: " + inputDevice.Name );
+		//InputManager.OnDeviceDetached += inputDevice => Debug.Log( "Detached: " + inputDevice.Name );
+		//InputManager.OnActiveDeviceChanged += inputDevice => Debug.Log( "Switched: " + inputDevice.Name );
+	}
+
+	void DeviceAttached (InputDevice device)
+	{
+		Debug.Log ("Attached: " + device.Name);
+
+		for (int i=0; i< GameController.playerDevices.Count; i++)
+		{
+			InputDevice InD = GameController.playerDevices[i];
+
+			if (!InD.active)
+			{
+				if (InD.Name == device.Name && InD.Meta == device.Meta)
+				{
+					GameController.playerDevices[i] = device;
+					break;
+				}
+			}
+		}
+	}
+
+	void DeviceDetached (InputDevice device)
+	{
+		Debug.Log ("Detached: " + device.Name);
+
+		foreach (InputDevice InD in GameController.playerDevices)
+		{
+			if (InD == device)
+			{
+				InD.active = false;
+				break;
+			}
+		}
 	}
 
 	#if !PLATFORM_STANDALONE_OSX
