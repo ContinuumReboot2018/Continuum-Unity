@@ -356,7 +356,7 @@ MonoBehaviour:
   DestroyMaxYPos: 30
   ColliderYMaxPos: 15
   hasDisappeared: 0
-  DestroyDelayTime: 0.1
+  DestroyDelayTime: 0
   playerPos: {fileID: 0}
   allowBulletColDeactivate: 1
   isRicochet: 0
@@ -396,6 +396,8 @@ MonoBehaviour:
   maxRange: 45
   RotateSpeedIncreaseRate: 1000
   VelocityLimits: {x: 60, y: 180}
+  direction: {x: 0, y: 0}
+  rotateAmount: 0
 --- !u!114 &114834305301445172
 MonoBehaviour:
   m_ObjectHideFlags: 1

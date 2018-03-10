@@ -455,8 +455,8 @@ public class PowerupPickup : MonoBehaviour
 	void SetPowerupTexture (int index)
 	{
 		gameControllerScript.PowerupImage_P1 [index].gameObject.SetActive (true);
-		gameControllerScript.PowerupImage_P1[index].texture = PowerupTexture;
-		gameControllerScript.PowerupImage_P1[index].color = new Color (1, 1, 1, 1);
+		gameControllerScript.PowerupImage_P1 [index].texture = PowerupTexture;
+		gameControllerScript.PowerupImage_P1 [index].color = new Color (1, 1, 1, 1);
 		gameControllerScript.PowerupImage_P1 [index].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 	}
 }
