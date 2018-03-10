@@ -49,7 +49,8 @@ public class Hazard : MonoBehaviour
 
 			if (particle.GetComponentInParent<Bullet> () != null)
 			{
-				if (particle.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Ripple") == false) 
+				if (particle.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Ripple") == false &&
+					particle.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
 				{
 					Destroy (particle.gameObject);
 				}

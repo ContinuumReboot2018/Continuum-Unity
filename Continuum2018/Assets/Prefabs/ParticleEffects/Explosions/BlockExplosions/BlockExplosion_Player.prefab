@@ -21,8 +21,6 @@ GameObject:
   - component: {fileID: 4863003805628196}
   - component: {fileID: 198657113447096838}
   - component: {fileID: 199729307862520274}
-  - component: {fileID: 114069735664994160}
-  - component: {fileID: 114201206547933330}
   - component: {fileID: 82630998734724706}
   - component: {fileID: 114538948711491612}
   m_Layer: 0
@@ -46,6 +44,7 @@ GameObject:
   - component: {fileID: 114856166083868060}
   - component: {fileID: 82290292129079766}
   - component: {fileID: 114031326233937388}
+  - component: {fileID: 114450010184242618}
   m_Layer: 0
   m_Name: BlockExplosion_Player
   m_TagString: Untagged
@@ -282,45 +281,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
---- !u!114 &114069735664994160
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072586396597310}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98c79d5e58d505247b448ae2a1be54e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
-  blockScript: {fileID: 0}
-  Lifetime: 2
-  ExplosionSound: {fileID: 82630998734724706}
-  ComboAnim: {fileID: 0}
-  ComboPointsText: {fileID: 0}
-  TextColor: {r: 1, g: 1, b: 1, a: 1}
-  MaxScale: 4
-  TextPos: {x: 0, y: 0}
---- !u!114 &114201206547933330
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072586396597310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6129a3f33a82e494cb649fce0aab9eb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ParentTransformName: InstantiatedExplosions
 --- !u!114 &114344286343468894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -336,11 +303,25 @@ MonoBehaviour:
   blockScript: {fileID: 0}
   Lifetime: 2
   ExplosionSound: {fileID: 82290292129079766}
-  ComboAnim: {fileID: 0}
   ComboPointsText: {fileID: 0}
+  ComboAnim: {fileID: 0}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
   TextPos: {x: 1, y: 1}
+--- !u!114 &114450010184242618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107170480724288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daef74de5648d5647a119d2d579e6f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 10
+  DestroyObj: {fileID: 1107170480724288}
+  useUnscaledTime: 0
 --- !u!114 &114538948711491612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,13 +333,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!114 &114856166083868060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,6 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedExplosions
+  OnStart: 1
 --- !u!198 &198657113447096838
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -431,7 +413,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1594529728
+  randomSeed: 43689160
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3825,7 +3807,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2064952198
+  randomSeed: 2110967339
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7219,7 +7201,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -693169130
+  randomSeed: -604823711
   InitialModule:
     serializedVersion: 3
     enabled: 1

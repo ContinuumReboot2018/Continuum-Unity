@@ -97,7 +97,7 @@ public class MiniBoss : MonoBehaviour
 
 		if (col != null) 
 		{
-			col.enabled = false;
+			//col.enabled = false;
 		}
 
 		Invoke ("EnableCol", 3);
@@ -118,6 +118,13 @@ public class MiniBoss : MonoBehaviour
 		{
 			BossPartsList.Add (BossParts[i]);
 			BossParts [i].bossPartIndex = i;
+		}
+
+		if (transform.position.x > 30 || transform.position.x < -30) 
+		{
+			KillMiniBoss ();
+			Destroy (MiniBossParent.gameObject); // Destroy the boss parent.
+			return;
 		}
 	}
 
@@ -148,7 +155,7 @@ public class MiniBoss : MonoBehaviour
 
 		if (transform.position.y > 12) 
 		{
-			col.enabled = false;
+			//col.enabled = false;
 		}
 
 		if (transform.position.y <= 12)

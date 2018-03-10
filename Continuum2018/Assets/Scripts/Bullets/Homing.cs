@@ -3,17 +3,23 @@
 [RequireComponent(typeof (Rigidbody))]
 public class Homing : MonoBehaviour
 {
-	public Transform target; // Object to follow.
-	public string findObject = "Block"; // Object to find string.
+	public Transform target; 					// Object to follow.
+	public string findObject = "Block"; 		// Object to find string.
 	[Space(10)]
-	public float speed = 5.0f; // Speed to follow position.
-	public float rotateSpeed = 200.0f; // Speed to follow by rotation.
-	public float homingTime = 5; // How long to be homing before abandoning.
-	public float cutoffHeight = 12; // Maximum y position to stop homing.
-	public float maxRange = 5; // Range to look for homing objects.
-	public float RotateSpeedIncreaseRate = 1; // Rate of increase of homing rotation speed, so it doesn't keep going in circles.
-	public Vector2 VelocityLimits = new Vector2 (180, 220);
-	private Rigidbody rb; // Reference to current RigidBody.
+	public float speed = 5.0f; 					// Speed to follow position.
+	public float rotateSpeed = 200.0f; 			// Speed to follow by rotation.
+	public float homingTime = 5; 				// How long to be homing before abandoning.
+	public float cutoffHeight = 12;				// Maximum y position to stop homing.
+	public float maxRange = 5; 					// Range to look for homing objects.
+	public float RotateSpeedIncreaseRate = 1; 	// Rate of increase of homing rotation speed, so it doesn't keep going in circles.
+	public Vector2 VelocityLimits = 
+		new Vector2 (180, 220);
+	private Rigidbody rb; 						// Reference to current RigidBody.
+
+	[SerializeField]
+	private Vector2 direction;
+	[SerializeField]
+	private Vector3 rotateAmount;
 
 	void Start () 
 	{
@@ -46,14 +52,16 @@ public class Homing : MonoBehaviour
 		if (target != null)
 		{
 			rotateSpeed += RotateSpeedIncreaseRate * Time.deltaTime;
-		//	try
-		//	{
+		
 			// Find direction homing needs to face.
-			Vector2 direction = (Vector2)target.position - (Vector2)rb.position;
+			direction = (Vector2)target.position - (Vector2)rb.position;
 			direction.Normalize (); // Normalise vector.
-			Vector3 rotateAmount = Vector3.Cross (direction, transform.up) - (rb.angularVelocity * 2); // Calculate rotation axis.
+			rotateAmount = Vector3.Cross (direction, transform.up); // Calculate rotation axis.
 
-			rb.angularVelocity += -rotateAmount * rotateSpeed; // Set angular velocity.
+			//rb.position = Vector3.MoveTowards (rb.position, target.position, 50 * Time.deltaTime);
+			//rb.transform.LookAt (target.position);
+
+			rb.angularVelocity = -rotateAmount * Mathf.Pow(rotateSpeed, 2);
 
 			//rb.velocity = transform.up * speed; // Set movement.
 
@@ -69,15 +77,8 @@ public class Homing : MonoBehaviour
 				)
 			);
 
-		//	}
-
-		//	catch (MissingReferenceException) 
-		//	{
-			//	ReleaseHoming ();
-		//	}
+			Debug.DrawLine (transform.position, target.position, Color.green);
 		}
-			
-		//else 
 
 		// No target, revert to normal movement.
 		if (target == null)

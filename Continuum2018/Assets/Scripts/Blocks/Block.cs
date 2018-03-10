@@ -212,7 +212,8 @@ public class Block : MonoBehaviour
 
 					if (particle.GetComponentInParent<Bullet> () != null) 
 					{
-						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
+						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true &&
+							particle.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
 						{
 							Destroy (particle.gameObject);
 						}
@@ -236,7 +237,8 @@ public class Block : MonoBehaviour
 
 					if (particle.GetComponentInParent<Bullet> () != null) 
 					{
-						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
+						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true &&
+							particle.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
 						{
 							Destroy (particle.gameObject);
 						}
@@ -329,10 +331,15 @@ public class Block : MonoBehaviour
 				if (HitPoints > 0) 
 				{
 					HitPoints--;
+
 					if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
 					{
-						Destroy (other.gameObject);
+						if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
+						{
+							Destroy (other.gameObject);
+						}
 					}
+
 					GetTotalPointValue (); // Get total point calculation.
 					CreateExplosion (); // Create the explosion.
 				}
@@ -343,10 +350,15 @@ public class Block : MonoBehaviour
 					CreateExplosion (); // Create the explosion.
 					DoCamShake (); // Destroy this object.
 					DoVibrate ();
+
 					if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
 					{
-						Destroy (other.gameObject);
+						if (other.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
+						{
+							Destroy (other.gameObject);
+						}
 					}
+
 					Destroy (gameObject); // Destroy this object.
 					return; // Prevent any further code execution.
 				}
@@ -423,6 +435,7 @@ public class Block : MonoBehaviour
 	public void ConvertToNoiseBossPart ()
 	{
 		// Checks if this is a boss part, it doesnt have a parent, and did not get attached yet.
+		HitPoints = 1;
 		textureScrollScript.enabled = true; // Turn on texture scroll script.
 		isSpecialBlockType = true; // Set to special block type.
 		SpecialBlockType = specialBlockType.Noise; // Set to block type list.
