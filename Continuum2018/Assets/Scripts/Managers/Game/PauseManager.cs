@@ -47,9 +47,10 @@ public class PauseManager : MonoBehaviour
 				if (Time.unscaledTime > nextScroll) 
 				{
 					// Scrolling down, before reaching the end.
-					if (mainPauseMenu.buttonIndex >= 0)
+					if (mainPauseMenu.buttonIndex >= 1)
 					{
 						mainPauseMenu.buttonIndex -= 1; // Decrement button index.
+						mainPauseMenu.buttonIndex = Mathf.Clamp (mainPauseMenu.buttonIndex, 0, mainPauseMenu.maxButtons);
 						int HighlightUpVal = mainPauseMenu.buttonIndex;
 						int UnHighlightUpVal = Mathf.Clamp (mainPauseMenu.buttonIndex + 1, 0, mainPauseMenu.maxButtons);
 						MainPauseMenuOnEnter (HighlightUpVal);
@@ -69,9 +70,10 @@ public class PauseManager : MonoBehaviour
 				if (Time.unscaledTime > nextScroll) 
 				{
 					// Scrolling down, before reaching the end.
-					if (mainPauseMenu.buttonIndex <= mainPauseMenu.maxButtons - 1) 
+					if (mainPauseMenu.buttonIndex < mainPauseMenu.maxButtons) 
 					{
 						mainPauseMenu.buttonIndex += 1; // Increment button index.
+						mainPauseMenu.buttonIndex = Mathf.Clamp (mainPauseMenu.buttonIndex, 0, mainPauseMenu.maxButtons);
 						int HighlightDownVal = mainPauseMenu.buttonIndex;
 						int UnHighlightDownVal = Mathf.Clamp (mainPauseMenu.buttonIndex - 1, 0, mainPauseMenu.maxButtons);
 						MainPauseMenuOnEnter (HighlightDownVal);
