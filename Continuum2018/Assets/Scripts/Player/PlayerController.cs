@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
 	public float CurrentShootingHeat;
 	public float ShootingCooldownDecreaseRate = 1;
 	public float CurrentShootingHeatCost;
+	public bool useOverheat;
 	public bool Overheated;
 	public float OverheatCooldownDecreaseRate = 2;
 	public Image OverheatImageL;
@@ -177,6 +178,10 @@ public class PlayerController : MonoBehaviour
 	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
 	public Color AbilityChargingFullColor;
 	public float AbilityBrightness = 8;
+
+	public Animator AbilityCompletion;
+	public RawImage AbilityCompletionTexture;
+	public TextMeshProUGUI AbilityCompletionText;
 
 	[Header ("Powerups")]
 	// General.
@@ -346,9 +351,8 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
+		useOverheat = gameControllerScript.gameModifier.useOverheat;
 		OverheatImageL.fillAmount = 0;
-		//OverheatImageR.fillAmount = 0;
-
 		OverheatImageL.material.EnableKeyword ("_EMISSION");
 	}
 
@@ -785,6 +789,11 @@ public class PlayerController : MonoBehaviour
 			if (CurrentAbilityTimeRemaining >= CurrentAbilityDuration) 
 			{
 				CurrentAbilityTimeRemaining = CurrentAbilityDuration;
+				AbilityCompletion.Play ("AbilityComplete");
+				AbilityCompletionTexture.texture = AbilityImage.texture;
+				AbilityCompletionText.text = ParseByCase(Ability.ToString ());
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
+				timescaleControllerScript.OverridingTimeScale = 0.1f;
 				CurrentAbilityState = abilityState.Ready;
 			}
 
@@ -925,8 +934,61 @@ public class PlayerController : MonoBehaviour
 	// Sync ability name in the list value.
 	public void RefreshAbilityName ()
 	{
-		AbilityName = Ability.ToString ();
+		string SentenceCaseAbility = ParseByCase (Ability.ToString ());
+
+		AbilityName = SentenceCaseAbility;
 	}
+
+	/// <summary>
+	/// Parse the input string by placing a space between character case changes in the string
+	/// </summary>
+	/// <param name="strInput">The string to parse</param>
+	/// <returns>The altered string</returns>
+	public static string ParseByCase(string strInput)
+	{
+		// The altered string (with spaces between the case changes)
+		string strOutput = "";
+
+		// The index of the current character in the input string
+		int intCurrentCharPos = 0;
+
+		// The index of the last character in the input string
+		int intLastCharPos = strInput.Length - 1;
+
+		// for every character in the input string
+		for (intCurrentCharPos = 0; intCurrentCharPos <= intLastCharPos; intCurrentCharPos++)
+		{
+			// Get the current character from the input string
+			char chrCurrentInputChar = strInput[intCurrentCharPos];
+
+			// At first, set previous character to the current character in the input string
+			char chrPreviousInputChar = chrCurrentInputChar;
+
+			// If this is not the first character in the input string
+			if (intCurrentCharPos > 0)
+			{
+				// Get the previous character from the input string
+				chrPreviousInputChar = strInput[intCurrentCharPos - 1];
+
+			} // end if
+
+			// Put a space before each upper case character if the previous character is lower case
+			if (char.IsUpper(chrCurrentInputChar) == true && char.IsLower(chrPreviousInputChar) == true)
+			{   
+				// Add a space to the output string
+				strOutput += " ";
+
+			} // end if
+
+			// Add the character from the input string to the output string
+			strOutput += chrCurrentInputChar;
+
+		} // next
+
+		// Return the altered string
+		return strOutput;
+
+	} // end method
 
 	// Sync ability image.
 	public void RefreshAbilityImage ()
@@ -958,48 +1020,45 @@ public class PlayerController : MonoBehaviour
 
 	void CheckShootingCooldown ()
 	{
-		// Maps heat to squared of shooting cooldown.
-		//CurrentShootingHeat = CurrentShootingCooldown * CurrentShootingCooldown;
-		CurrentShootingHeat = Mathf.Pow (CurrentShootingCooldown, 1);
+		if (useOverheat == true) {
+			// Maps heat to squared of shooting cooldown.
+			//CurrentShootingHeat = CurrentShootingCooldown * CurrentShootingCooldown;
+			CurrentShootingHeat = Mathf.Pow (CurrentShootingCooldown, 1);
 
-		// Clamps to 0 and 1.
-		CurrentShootingHeat = Mathf.Clamp (CurrentShootingHeat, 0, 1);
-		CurrentShootingCooldown = Mathf.Clamp (CurrentShootingCooldown, 0, 1);
+			// Clamps to 0 and 1.
+			CurrentShootingHeat = Mathf.Clamp (CurrentShootingHeat, 0, 1);
+			CurrentShootingCooldown = Mathf.Clamp (CurrentShootingCooldown, 0, 1);
 
-		OverheatImageL.fillAmount = Mathf.Lerp (
-			OverheatImageL.fillAmount, 
-			CurrentShootingHeat, 
-			OverheatFillSmoothing * Time.unscaledDeltaTime
-		);
+			OverheatImageL.fillAmount = Mathf.Lerp (
+				OverheatImageL.fillAmount, 
+				CurrentShootingHeat, 
+				OverheatFillSmoothing * Time.unscaledDeltaTime
+			);
 
-		if (CurrentShootingHeat <= 0.01f) 
-		{
-			Overheated = false;
-		}
-
-		if (Overheated == false) 
-		{
-			OverheatImageL.material.SetColor ("_EmissionColor", new Color (
-				OverheatImageL.fillAmount,
-				-Mathf.Cos ((Mathf.PI * OverheatImageL.fillAmount) + (0.5f * Mathf.PI)),
-				1 - OverheatImageL.fillAmount
-			) * HeatUIBrightness);
-
-			if (OverheatImageL.fillAmount > 0.99f) 
-			{
-				if (OverheatSound.isPlaying == false)
-				{
-					OverheatSound.Play ();
-				}
-
-				Overheated = true;
+			if (CurrentShootingHeat <= 0.01f) {
+				Overheated = false;
 			}
-		}
 
-		if (Overheated == true) 
-		{
-			CurrentShootingCooldown -= Time.unscaledDeltaTime * OverheatCooldownDecreaseRate;
-			OverheatImageL.color = HotColor * HeatUIBrightness;
+			if (Overheated == false) {
+				OverheatImageL.material.SetColor ("_EmissionColor", new Color (
+					OverheatImageL.fillAmount,
+					-Mathf.Cos ((Mathf.PI * OverheatImageL.fillAmount) + (0.5f * Mathf.PI)),
+					1 - OverheatImageL.fillAmount
+				) * HeatUIBrightness);
+
+				if (OverheatImageL.fillAmount > 0.99f) {
+					if (OverheatSound.isPlaying == false) {
+						OverheatSound.Play ();
+					}
+
+					Overheated = true;
+				}
+			}
+
+			if (Overheated == true) {
+				CurrentShootingCooldown -= Time.unscaledDeltaTime * OverheatCooldownDecreaseRate;
+				OverheatImageL.color = HotColor * HeatUIBrightness;
+			}
 		}
 	}
 

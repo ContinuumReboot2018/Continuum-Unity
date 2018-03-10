@@ -46,4 +46,5 @@ public class GameModifierManager : ScriptableObject
 	public int StartingLives = 3;
 	public float blockSpawnRateMultiplier = 1;
 	public bool stacking = true;
+	public bool useOverheat = false;
 }

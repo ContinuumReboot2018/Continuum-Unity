@@ -579,6 +579,8 @@ public class GameController : MonoBehaviour
 				LifeImages [0].enabled = false;
 				LifeImages [1].enabled = false;
 				LifeImages [2].enabled = false;
+				LifeImages [3].enabled = false;
+				LifeImages [4].enabled = false;
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
 			}
@@ -596,6 +598,8 @@ public class GameController : MonoBehaviour
 					LifeImages [0].enabled = false;
 					LifeImages [1].enabled = false;
 					LifeImages [2].enabled = false;
+					LifeImages [3].enabled = false;
+					LifeImages [4].enabled = false;
 					LivesSpacing.SetActive (false);
 					LivesText.gameObject.SetActive (false);
 					LivesText.text = "";
@@ -606,6 +610,8 @@ public class GameController : MonoBehaviour
 				LifeImages [0].enabled = false;
 				LifeImages [1].enabled = false;
 				LifeImages [2].enabled = false;
+				LifeImages [3].enabled = false;
+				LifeImages [4].enabled = false;
 				LivesSpacing.SetActive (false);
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
@@ -615,6 +621,8 @@ public class GameController : MonoBehaviour
 				LifeImages [0].enabled = true;
 				LifeImages [1].enabled = false;
 				LifeImages [2].enabled = false;
+				LifeImages [3].enabled = false;
+				LifeImages [4].enabled = false;
 				LivesSpacing.SetActive (false);
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
@@ -624,6 +632,8 @@ public class GameController : MonoBehaviour
 				LifeImages [0].enabled = true;
 				LifeImages [1].enabled = true;
 				LifeImages [2].enabled = false;
+				LifeImages [3].enabled = false;
+				LifeImages [4].enabled = false;
 				LivesSpacing.SetActive (false);
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
@@ -633,6 +643,30 @@ public class GameController : MonoBehaviour
 				LifeImages [0].enabled = true;
 				LifeImages [1].enabled = true;
 				LifeImages [2].enabled = true;
+				LifeImages [3].enabled = false;
+				LifeImages [4].enabled = false;
+				LivesSpacing.SetActive (false);
+				LivesText.gameObject.SetActive (false);
+				LivesText.text = "";
+				MaxLivesText.text = "";
+				break;
+			case 5:
+				LifeImages [0].enabled = true;
+				LifeImages [1].enabled = true;
+				LifeImages [2].enabled = true;
+				LifeImages [3].enabled = true;
+				LifeImages [4].enabled = false;
+				LivesSpacing.SetActive (false);
+				LivesText.gameObject.SetActive (false);
+				LivesText.text = "";
+				MaxLivesText.text = "";
+				break;
+			case 6:
+				LifeImages [0].enabled = true;
+				LifeImages [1].enabled = true;
+				LifeImages [2].enabled = true;
+				LifeImages [3].enabled = true;
+				LifeImages [4].enabled = true;
 				LivesSpacing.SetActive (false);
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
@@ -647,11 +681,13 @@ public class GameController : MonoBehaviour
 			}
 
 			// Only show one life icon and show numerical text next to it.
-			if (Lives > 4) 
+			if (Lives > 6) 
 			{
 				LifeImages [0].enabled = true;
 				LifeImages [1].enabled = false;
 				LifeImages [2].enabled = false;
+				LifeImages [3].enabled = false;
+				LifeImages [4].enabled = false;
 				LivesSpacing.SetActive (true);
 				LivesText.gameObject.SetActive (true);
 				LivesText.text = "x " + (Lives - 1);

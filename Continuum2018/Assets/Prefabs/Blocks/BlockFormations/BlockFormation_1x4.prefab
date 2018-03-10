@@ -652,7 +652,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.002
+  AddAbilityTime: 0.015
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -809,7 +809,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.002
+  AddAbilityTime: 0.015
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -964,7 +964,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.002
+  AddAbilityTime: 0.015
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
@@ -1044,7 +1044,7 @@ MonoBehaviour:
   Stackable: 1
   isStacked: 0
   stack: {fileID: 0}
-  AddAbilityTime: 0.002
+  AddAbilityTime: 0.015
   homedObjects: []
   AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
