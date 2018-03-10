@@ -67,14 +67,14 @@ public class Homing : MonoBehaviour
 				0
 			);
 
-			rb.velocity =
+			//rb.velocity =
 				
-				transform.up * speed * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale)
+				//transform.up * speed * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale)
 
-				; // Set movement.
+				//; // Set movement.
 					
 
-			/*rb.velocity = transform.TransformDirection (
+			rb.velocity = transform.TransformDirection (
 				new Vector3 (
 					0, 
 					Mathf.Clamp (
@@ -84,7 +84,7 @@ public class Homing : MonoBehaviour
 					), 
 					0
 				)
-			);*/
+			);
 
 			Debug.DrawLine (transform.position, target.position, Color.green);
 		}

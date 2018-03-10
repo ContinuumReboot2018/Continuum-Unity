@@ -1450,8 +1450,8 @@ public class PlayerController : MonoBehaviour
 	{
 		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
 		{
-			if (powerupimage == gameControllerScript.PowerupImage_P1 [0])
-			{
+			//if (powerupimage == gameControllerScript.PowerupImage_P1 [0])
+			//{
 				if (playerCol.transform.position.y > PowerupUICheckPos.y &&
 					playerCol.transform.position.x > PowerupUICheckPos.x
 				) 
@@ -1476,7 +1476,7 @@ public class PlayerController : MonoBehaviour
 						isHidingPowerupUI = false;
 					}
 				}
-			}
+			//}
 		}
 	}
 
@@ -1758,5 +1758,10 @@ public class PlayerController : MonoBehaviour
 			isJoined = false;
 			PlayerText.text = " ";
 		}
+	}
+
+	void OnDestroy ()
+	{
+		playerActions.Destroy ();
 	}
 }

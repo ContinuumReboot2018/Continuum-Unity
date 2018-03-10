@@ -354,7 +354,7 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Rapidfire:
-
+			
 			// Player can shoot faster.
 			if (playerControllerScript_P1.isInRapidFire == false)
 			{
@@ -375,6 +375,8 @@ public class PowerupPickup : MonoBehaviour
 				}
 
 				gameControllerScript.RapidfireImage.enabled = true;
+				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
+				gameControllerScript.RapidfireImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
 				gameControllerScript.RapidfireHex.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
 				gameControllerScript.RapidfireImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -392,6 +394,8 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
 				gameControllerScript.OverdriveImage.enabled = true;
+				gameControllerScript.OverdriveImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 				gameControllerScript.OverdriveHex.enabled = true;
 				playerControllerScript_P1.isInOverdrive = true;
 				gameControllerScript.OverdriveImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -399,7 +403,7 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Ricochet:
-
+			
 			// Player shoots bullets which can bounce off the top and bottom of the screen.
 			playerControllerScript_P1.EnableRicochetObject ();
 
@@ -424,6 +428,8 @@ public class PowerupPickup : MonoBehaviour
 			}
 
 			playerControllerScript_P1.isRicochet = true;
+			gameControllerScript.RicochetImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+			gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 			gameControllerScript.RicochetImage.enabled = true;
 			gameControllerScript.RicochetHex.enabled = true;
 			gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -432,7 +438,10 @@ public class PowerupPickup : MonoBehaviour
 		case powerups.Homing:
 			
 			// Player shoots bullets which home in on blocks.
+
 			playerControllerScript_P1.isHoming = true;
+			gameControllerScript.HomingImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+			gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 			gameControllerScript.HomingImage.enabled = true;
 			gameControllerScript.HomingHex.enabled = true;
 			gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -445,6 +454,7 @@ public class PowerupPickup : MonoBehaviour
 
 	void SetPowerupTexture (int index)
 	{
+		gameControllerScript.PowerupImage_P1 [index].gameObject.SetActive (true);
 		gameControllerScript.PowerupImage_P1[index].texture = PowerupTexture;
 		gameControllerScript.PowerupImage_P1[index].color = new Color (1, 1, 1, 1);
 		gameControllerScript.PowerupImage_P1 [index].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");

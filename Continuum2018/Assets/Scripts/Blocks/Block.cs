@@ -524,7 +524,15 @@ public class Block : MonoBehaviour
 		{
 			if (playerControllerScript_P1.CurrentAbilityTimeRemaining < playerControllerScript_P1.CurrentAbilityDuration) 
 			{
-				playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
+				if (isBossPart == false) 
+				{
+					playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
+				}
+
+				if (isBossPart == true) 
+				{
+					playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo * 0.1f; // Increase ability time.
+				}
 			}
 		}
 

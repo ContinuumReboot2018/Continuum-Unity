@@ -106,6 +106,7 @@ public class GameController : MonoBehaviour
 
 	[Header ("Powerup List UI")]
 	public int NextPowerupSlot_P1;		  // Powerup slot index.
+	public int NextPowerupShootingSlot_P1;		  // Powerup slot index.
 	public RawImage[] PowerupImage_P1;	  // Array of powrup images for each slot. 
 	public Texture2D StandardShotTexture; // Texture for default single standard shot.
 	public RawImage HomingImage;		  // Image for homing.
@@ -279,11 +280,13 @@ public class GameController : MonoBehaviour
 		{
 			powerupImage.texture = null;
 			powerupImage.color = new Color (0, 0, 0, 0);
+			powerupImage.gameObject.SetActive (false);
 			playerControllerScript_P1.CheckPowerupImageUI ();
 		}
 
 		// Reset inital powerup slot index.
 		NextPowerupSlot_P1 = 1;
+		NextPowerupShootingSlot_P1 = 0;
 	}
 
 	void Start ()
@@ -687,7 +690,7 @@ public class GameController : MonoBehaviour
 				LifeImages [1].enabled = false;
 				LifeImages [2].enabled = false;
 				LifeImages [3].enabled = false;
-				LifeImages [4].enabled = false;
+				LifeImages [4].enabled = false; 
 				LivesSpacing.SetActive (true);
 				LivesText.gameObject.SetActive (true);
 				LivesText.text = "x " + (Lives - 1);

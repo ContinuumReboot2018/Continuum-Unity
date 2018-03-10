@@ -157,4 +157,9 @@ public class PauseManager : MonoBehaviour
 		public Button[] PauseMenuButtons;
 		public EventTrigger[] PauseMenuEvents;
 	}
+
+	void OnDestroy ()
+	{
+		menuActions.Destroy ();
+	}
 }

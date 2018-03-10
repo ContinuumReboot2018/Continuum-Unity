@@ -424,6 +424,7 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 				}
 
+				//gameControllerScript.PowerupImage_P1 [0].gameObject.SetActive (true);
 				gameControllerScript.PowerupImage_P1[0].texture = DoubleShotTexture;
 				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
 				gameControllerScript.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -511,6 +512,7 @@ public class DeveloperMode : MonoBehaviour
 					Turret.SetActive (true);
 					Turret.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
 
+					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = TurretTexture;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -554,6 +556,8 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.isInRapidFire == true)
 				{
 					gameControllerScript.SetPowerupTime (20);
+					gameControllerScript.RapidfireImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+					gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 					gameControllerScript.RapidfireImage.enabled = true;
 					gameControllerScript.RapidfireHex.enabled = true;
 					gameControllerScript.RapidfireImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -596,7 +600,9 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isInOverdrive == true) 
 				{
-					gameControllerScript.SetPowerupTime (20);					
+					gameControllerScript.SetPowerupTime (20);
+					gameControllerScript.OverdriveImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+					gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 					gameControllerScript.OverdriveImage.enabled = true;
 					gameControllerScript.OverdriveHex.enabled = true;
 					gameControllerScript.OverdriveImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -648,6 +654,8 @@ public class DeveloperMode : MonoBehaviour
 					}
 
 					playerControllerScript_P1.isRicochet = true;
+					gameControllerScript.RicochetImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+					gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 					gameControllerScript.RicochetImage.enabled = true;
 					gameControllerScript.RicochetHex.enabled = true;
 					gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -677,6 +685,8 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.isHoming == true) 
 				{
 					gameControllerScript.SetPowerupTime (20);
+					gameControllerScript.HomingImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+					gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 					gameControllerScript.HomingImage.enabled = true;
 					gameControllerScript.HomingHex.enabled = true;
 					gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -715,6 +725,7 @@ public class DeveloperMode : MonoBehaviour
 				{
 					playerControllerScript_P1.Helix.SetActive (true);
 
+					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = HelixTexture;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
