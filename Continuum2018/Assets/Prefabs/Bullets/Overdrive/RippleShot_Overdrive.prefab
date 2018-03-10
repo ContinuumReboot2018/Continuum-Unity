@@ -658,12 +658,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   findObject: Block
-  speed: 500
-  rotateSpeed: 6000
+  speed: 60
+  initialSpeed: 60
+  rotateSpeed: 600
   homingTime: 5
   cutoffHeight: 12
   maxRange: 45
-  RotateSpeedIncreaseRate: 1
+  RotateSpeedIncreaseRate: 100
   VelocityLimits: {x: 60, y: 180}
   direction: {x: 0, y: 0}
   rotateAmount: {x: 0, y: 0, z: 0}

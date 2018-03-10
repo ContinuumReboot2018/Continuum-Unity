@@ -16,6 +16,13 @@ public class LocalSceneLoader : MonoBehaviour
 	{
 		SceneLoadCommit = true;
 		sceneLoaderScript.SceneName = sceneName;
-		sceneLoaderScript.Invoke ("StartLoadSequence", 1);
+		//sceneLoaderScript.Invoke ("StartLoadSequence", 1);
+		StartCoroutine (SceneLoadSequence ());
+	}
+
+	IEnumerator SceneLoadSequence ()
+	{
+		yield return new WaitForSecondsRealtime (0.1f);
+		sceneLoaderScript.StartLoadSequence ();
 	}
 }
