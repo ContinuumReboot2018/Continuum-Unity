@@ -375,8 +375,8 @@ public class PowerupPickup : MonoBehaviour
 				}
 
 				gameControllerScript.RapidfireImage.enabled = true;
-				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 				gameControllerScript.RapidfireImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 				gameControllerScript.RapidfireHex.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
 				gameControllerScript.RapidfireImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
