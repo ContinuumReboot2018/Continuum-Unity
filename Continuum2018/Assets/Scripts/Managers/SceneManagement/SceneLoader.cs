@@ -20,6 +20,7 @@ public class SceneLoader : MonoBehaviour
 	public Slider ProgressBarL;
 	public Slider ProgressBarR;
 	public Animator SceneLoaderUI;
+	public ParticleSystem[] LoadingParticles;
 
 	private AsyncOperation async = null; // The async operation variable. 
 
@@ -41,6 +42,11 @@ public class SceneLoader : MonoBehaviour
 		ProgressBarL.value = 0;
 		ProgressBarR.value = 0;
 		LoadProgressText.text = "0%";
+
+		foreach (ParticleSystem loadParticle in LoadingParticles) 
+		{
+			loadParticle.Play ();
+		}
 	}
 
 	IEnumerator LoadProgress ()
@@ -77,6 +83,13 @@ public class SceneLoader : MonoBehaviour
 
 	IEnumerator LoadThisScene ()
 	{
+		LoadProgressText.text = "";
+
+		foreach (ParticleSystem loadParticle in LoadingParticles) 
+		{
+			loadParticle.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		}
+
 		// The short delay is to leave the progress text visible at 100% for longer.
 		yield return new WaitForSecondsRealtime (1);
 		isLoading = false;
