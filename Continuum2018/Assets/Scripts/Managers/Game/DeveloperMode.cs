@@ -838,6 +838,9 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.useOverheat == false) 
 				{
+					playerControllerScript_P1.Overheated = false;
+					playerControllerScript_P1.CurrentShootingHeat = 0;
+					playerControllerScript_P1.CurrentShootingCooldown = 0;
 					ShowCheatNotification ("CHEAT ACTIVATED: OVERHEAT OFF");
 				}
 			}

@@ -139,11 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: {x: 10, y: 10}
+  ScrollSpeed: {x: 1000, y: 1000}
   CurrentOffset: {x: 0, y: 0}
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
-  ignoreTimescale: 1
+  ignoreTimescale: 0
 --- !u!114 &114046086718945432
 MonoBehaviour:
   m_ObjectHideFlags: 1

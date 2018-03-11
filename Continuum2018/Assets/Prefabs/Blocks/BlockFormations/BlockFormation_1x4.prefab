@@ -702,11 +702,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: {x: 0.5, y: 0.5}
+  ScrollSpeed: {x: 1000, y: 1000}
   CurrentOffset: {x: 0, y: 0}
   HorizontalScrollMode: 0
   VerticalScrollMode: 0
-  ignoreTimescale: 1
+  ignoreTimescale: 0
 --- !u!114 &114301388646902840
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -718,11 +718,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: {x: 0.5, y: 0.5}
+  ScrollSpeed: {x: 1000, y: 1000}
   CurrentOffset: {x: 0, y: 0}
   HorizontalScrollMode: 0
   VerticalScrollMode: 0
-  ignoreTimescale: 1
+  ignoreTimescale: 0
 --- !u!114 &114302017810583108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -734,11 +734,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: {x: 0.5, y: 0.5}
+  ScrollSpeed: {x: 1000, y: 1000}
   CurrentOffset: {x: 0, y: 0}
   HorizontalScrollMode: 0
   VerticalScrollMode: 0
-  ignoreTimescale: 1
+  ignoreTimescale: 0
 --- !u!114 &114317186871027794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1014,11 +1014,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: {x: 0.5, y: 0.5}
+  ScrollSpeed: {x: 1000, y: 1000}
   CurrentOffset: {x: 0, y: 0}
   HorizontalScrollMode: 0
   VerticalScrollMode: 0
-  ignoreTimescale: 1
+  ignoreTimescale: 0
 --- !u!114 &114808227120488866
 MonoBehaviour:
   m_ObjectHideFlags: 1

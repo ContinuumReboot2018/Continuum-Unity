@@ -27,8 +27,8 @@ public class ScrollTextureOverTime : MonoBehaviour
 		{
 			// Update scroll amount scaled.
 			CurrentOffset = new Vector2 (
-				Time.time * ScrollSpeed.x,
-				Time.time * ScrollSpeed.y
+				Time.deltaTime * ScrollSpeed.x,
+				Time.deltaTime * ScrollSpeed.y
 			);
 		}
 			
@@ -36,8 +36,8 @@ public class ScrollTextureOverTime : MonoBehaviour
 		{
 			// Update scroll amount unscaled.
 			CurrentOffset = new Vector2 (
-				Time.unscaledTime * ScrollSpeed.x,
-				Time.unscaledTime * ScrollSpeed.y
+				Time.unscaledDeltaTime * ScrollSpeed.x,
+				Time.unscaledDeltaTime * ScrollSpeed.y
 			);
 		}
 
