@@ -12,6 +12,7 @@ public class TimescaleController : MonoBehaviour
 	public FPSCounter 			fpsCounterScript;
 	public NoiseAndGrain 		noiseScript;
 	public GameModifierManager 	gameModifier;
+	public MenuManager 			gameOverMenuManager;
 
 	[Header ("Read Only")]
 	public float TimeScaleView; 			// Time.timeScale property.
@@ -246,6 +247,8 @@ public class TimescaleController : MonoBehaviour
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 
 		gameControllerScript.GameoverUI.SetActive (true);
+		gameOverMenuManager.menuButtons.buttonIndex = 0;
+		gameOverMenuManager.MainPauseMenuOnEnter (gameOverMenuManager.menuButtons.buttonIndex);
 
 		// Show mouse and allow control for player.
 		playerControllerScript_P1.cursorManagerScript.UnlockMouse ();

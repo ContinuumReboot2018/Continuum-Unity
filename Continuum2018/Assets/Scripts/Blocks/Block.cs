@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
 	public GameController gameControllerScript; // Reference to Game Controller
 	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
 	public AudioController audioControllerScript; // Reference to Audio Controller.
+	private TimeBody timeBodyScript;
 	public MeshRenderer rend; // This Mesh Renderer.
 	private Rigidbody rb; // The current Rigidbody.
 	private Collider BoxCol; // The collider/trigger.
@@ -160,6 +161,7 @@ public class Block : MonoBehaviour
 		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		parentToTransformScript = GetComponent<ParentToTransform> ();
+		timeBodyScript = GetComponent<TimeBody> ();
 
 		// Finds texture scroll script.
 		if (textureScrollScript == null) 
@@ -196,6 +198,37 @@ public class Block : MonoBehaviour
 		{
 			//rb.velocity = new Vector3 (0, speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 0);
 			rb.velocity = new Vector3 (0, speed * Time.fixedDeltaTime * Time.timeScale, 0);
+		}
+
+		// Check if rewinding.
+		if (timeScaleControllerScript.isRewinding == true) 
+		{
+			if (timeBodyScript != null) 
+			{
+				// No rewinding data.
+				if (timeBodyScript.pointsInTime.Count == 0)
+				{
+					// Overwrite velocity.
+					OverwriteVelocity = true;
+					rb.velocity = Vector3.zero;
+				}
+			}
+
+			if (isBlockFormationConnected == true) 
+			{
+				if (blockFormationScript != null)
+				{
+					blockFormationScript.enabled = true;
+				}
+			}
+		}
+
+		// For a block which is not part of a formation and is not a boss part and is not stacked yet.
+		if (timeScaleControllerScript.isRewinding == false && 
+			isBlockFormationConnected == false && 
+			isBossPart == false && isStacked == false) 
+		{
+			OverwriteVelocity = false;
 		}
 	}
 

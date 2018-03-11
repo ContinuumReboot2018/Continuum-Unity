@@ -11,7 +11,7 @@ public class TimeBody : MonoBehaviour
 	public bool isBlock; // Set to true if the gameObject is a block.
 	private Block blockScript; // The block script.
 	[Header ("Points In Time")]
-	List<PointInTime> pointsInTime; // This is where the data is captured of position and rotation;
+	public List<PointInTime> pointsInTime; // This is where the data is captured of position and rotation;
 
 	void Awake ()
 	{

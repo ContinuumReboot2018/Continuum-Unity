@@ -4,6 +4,7 @@ public class BlockFormation : MonoBehaviour
 {
 	private Rigidbody rb; // Reference to the RigidBody.
 	private GameController gameControllerScript; // Reference to the GameController.
+	private TimescaleController timeScaleControllerScript;
 
 	[Header ("Stats")]
 	public float speed; // The average speed of the total accumulated speed.
@@ -27,6 +28,8 @@ public class BlockFormation : MonoBehaviour
 
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		SetSpawnPosition (); // Restricts spawn position.
+
+		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 
 		GetAccumulatedSpeed (); // Get aggregate speed additively.
 		rb = GetComponent<Rigidbody> (); // Get the current RigidBody component.
@@ -58,6 +61,35 @@ public class BlockFormation : MonoBehaviour
 		}
 
 		speed = AccumulatedSpeed / BlockElements.Length;
+	}
+
+	void Update ()
+	{
+		if (timeScaleControllerScript.isRewinding == false) 
+		{
+			speed = AccumulatedSpeed / BlockElements.Length;
+
+			// Set current velocity.
+			rb.velocity = new Vector3 (
+				0, 
+				speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 
+				0
+			);
+
+			return;
+		}
+
+		if (timeScaleControllerScript.isRewinding == true) 
+		{
+			speed = 0;
+
+			// Set current velocity.
+			rb.velocity = new Vector3 (
+				0, 
+				speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 
+				0
+			);
+		} 
 	}
 
 	// Sets spawn position based on how many columns there are in the formation.
