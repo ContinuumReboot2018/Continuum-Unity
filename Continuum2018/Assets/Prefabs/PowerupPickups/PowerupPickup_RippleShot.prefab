@@ -382,7 +382,8 @@ AudioSource:
   m_GameObject: {fileID: 1998470649288240}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 225559eda49a9e042ab15aab35cca149,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 5242a15455c70814ebc06b5b51e17282, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -563,6 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedPowerupPickups
+  OnStart: 1
 --- !u!114 &114791158544205918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -574,13 +576,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 1
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0.0001
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 1
 --- !u!114 &114840034608063996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -593,6 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 6
+  DestroyObj: {fileID: 0}
   useUnscaledTime: 0
 --- !u!114 &114999137320547938
 MonoBehaviour:
@@ -608,27 +611,22 @@ MonoBehaviour:
   gameControllerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
   timescaleControllerScript: {fileID: 0}
-  PowerupTexture: {fileID: 2800000, guid: 26ffc94d157da9c49bd48c523d21313b, type: 3}
-  isShootingPowerup: 1
+  camShakeScript: {fileID: 0}
   AwakeAudio: {fileID: 82573429635389466}
   meshrend: {fileID: 23457753109622932}
   col: {fileID: 135595800003484594}
   AwakeParticles: {fileID: 198333809115408268}
   AwakeDelay: 1
   ThisPowerup: 3
+  PowerupTexture: {fileID: 2800000, guid: 26ffc94d157da9c49bd48c523d21313b, type: 3}
+  isShootingPowerup: 1
   PowerupTime: 20
   CollectExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
-  PowerupDeathExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
-    type: 2}
-  PowerupUI: {fileID: 0}
   PowerupTimeRunningOutAudio: {fileID: 0}
-  PowerupPickupUI: {fileID: 1771047903743466, guid: 91bf4fd2a7e677c4e9ea72c391527dbf,
-    type: 2}
   PowerupPickupUIColor: {r: 0.30882353, g: 0.3707909, b: 1, a: 1}
-  anim: {fileID: 0}
   destroyByTimeScript: {fileID: 0}
-  Turret: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!135 &135595800003484594
 SphereCollider:
   m_ObjectHideFlags: 1

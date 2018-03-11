@@ -222,7 +222,8 @@ AudioSource:
   m_GameObject: {fileID: 1066326149312408}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 225559eda49a9e042ab15aab35cca149,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 5242a15455c70814ebc06b5b51e17282, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -579,7 +580,7 @@ MonoBehaviour:
   gameControllerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
   timescaleControllerScript: {fileID: 0}
-  destroyByTimeScript: {fileID: 0}
+  camShakeScript: {fileID: 0}
   AwakeAudio: {fileID: 82263305166002358}
   meshrend: {fileID: 23717779228160492}
   col: {fileID: 135584284121735064}
@@ -593,8 +594,8 @@ MonoBehaviour:
     type: 2}
   PowerupTimeRunningOutAudio: {fileID: 0}
   PowerupPickupUIColor: {r: 0.5726167, g: 1, b: 0.2794118, a: 1}
+  destroyByTimeScript: {fileID: 0}
   anim: {fileID: 0}
-  Turret: {fileID: 0}
 --- !u!114 &114136487200656876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -606,13 +607,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 1
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0.0001
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 1
 --- !u!114 &114687245101214462
 MonoBehaviour:
   m_ObjectHideFlags: 1

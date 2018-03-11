@@ -178,7 +178,8 @@ AudioSource:
   m_GameObject: {fileID: 1045013552950902}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 225559eda49a9e042ab15aab35cca149,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 25705bd3ed11d4148942811a4788a14b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -399,12 +400,15 @@ MonoBehaviour:
   target: {fileID: 0}
   findObject: Mesh_P1
   speed: 11
+  initialSpeed: 60
   rotateSpeed: 0
   homingTime: 5
   cutoffHeight: 12
   maxRange: 5
   RotateSpeedIncreaseRate: 1
   VelocityLimits: {x: 180, y: 220}
+  direction: {x: 0, y: 0}
+  rotateAmount: {x: 0, y: 0, z: 0}
 --- !u!114 &114609926294882166
 MonoBehaviour:
   m_ObjectHideFlags: 1

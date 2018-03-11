@@ -587,6 +587,7 @@ public class PlayerController : MonoBehaviour
 		PlayerFollowRb.velocity = Vector3.zero;
 		GameOverExplosionParticles.Play ();
 		GameOverExplosionAudio.Play ();
+		camShakeScript.ShakeCam (2, 3, 99);
 		audioControllerScript.StopAllSoundtracks ();
 		StartCoroutine (timescaleControllerScript.EndSequenceTimeScale ());
 	}

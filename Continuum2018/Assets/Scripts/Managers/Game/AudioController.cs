@@ -410,4 +410,10 @@ public class AudioController : MonoBehaviour
 		LayerTwoTrack.Pause ();
 		LayerThreeTrack.Pause ();
 	}
+
+	public void FadeOutSceneAudio ()
+	{
+		SetTargetLowPassFreq (0);
+		SetTargetResonance (3);
+	}
 }

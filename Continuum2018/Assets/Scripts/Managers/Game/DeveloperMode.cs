@@ -252,6 +252,7 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == ForceRestartCommand) 
 			{
+				audioControllerScript.FadeOutSceneAudio ();
 				localSceneLoaderScript.sceneLoaderScript.SceneName = SceneManager.GetActiveScene ().name;
 				localSceneLoaderScript.sceneLoaderScript.StartLoadSequence ();
 				ShowCheatNotification ("");

@@ -169,7 +169,8 @@ AudioSource:
   m_GameObject: {fileID: 1081727288271718}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 225559eda49a9e042ab15aab35cca149,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 25705bd3ed11d4148942811a4788a14b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.15
@@ -269,13 +270,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3bc80a9f444c409eb9519b9702889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPitchView: 0
+  dontUseStartPitch: 0
   startingPitch: 1
   multiplierPitch: 1
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
-  reachedMaxPitch: 0
-  dontUseStartPitch: 0
 --- !u!114 &114186361719339654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -335,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedExplosions
+  OnStart: 1
 --- !u!114 &114360949229928910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -350,8 +352,8 @@ MonoBehaviour:
   blockScript: {fileID: 0}
   Lifetime: 2
   ExplosionSound: {fileID: 82854371204699814}
-  ComboAnim: {fileID: 95377450612553578}
   ComboPointsText: {fileID: 114625589199521674}
+  ComboAnim: {fileID: 95377450612553578}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
   TextPos: {x: 1, y: 1}
