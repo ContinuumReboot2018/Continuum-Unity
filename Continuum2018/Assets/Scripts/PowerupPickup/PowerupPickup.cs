@@ -329,7 +329,12 @@ public class PowerupPickup : MonoBehaviour
 			// Adds a helix object that follows the player.
 			if (playerControllerScript_P1.Helix.activeInHierarchy == false) 
 			{
-				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = PowerupTexture;
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+
+				//SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
 				gameControllerScript.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.Helix.SetActive (true);
 			}
@@ -345,8 +350,10 @@ public class PowerupPickup : MonoBehaviour
 				clone.SetActive (true);
 				clone.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
 			
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
 				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = PowerupTexture;
 				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
 				gameControllerScript.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.nextTurretSpawn += 1;
