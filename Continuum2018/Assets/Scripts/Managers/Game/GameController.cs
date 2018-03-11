@@ -993,12 +993,14 @@ public class GameController : MonoBehaviour
 				playerControllerScript_P1.pauseManagerScript.mainPauseMenu.buttonIndex = 0;
 
 				// Sets mouse cursor states.
-				cursorManagerScript.UnlockMouse ();
-				cursorManagerScript.ShowMouse ();
+				//cursorManagerScript.UnlockMouse ();
+				//cursorManagerScript.ShowMouse ();
 
 				// Sets audio values for pause.
 				audioControllerScript.updateVolumeAndPitches = false;
-				audioControllerScript.BassTrack.pitch = 0;
+				//audioControllerScript.BassTrack.pitch = 0;
+				audioControllerScript.SetTargetLowPassFreq (500);
+				audioControllerScript.SetTargetResonance (2f);
 
 				// Stops counting score.
 				CountScore = false;
@@ -1047,6 +1049,8 @@ public class GameController : MonoBehaviour
 		// Set audio controller values to resumed state.
 		audioControllerScript.updateVolumeAndPitches = true;
 		audioControllerScript.BassTrack.pitch = 1;
+		audioControllerScript.SetTargetLowPassFreq (22000);
+		audioControllerScript.SetTargetResonance (1);
 
 		// Allow counting score if not in initial transition.
 		if (timescaleControllerScript.isInInitialSequence == false && 
