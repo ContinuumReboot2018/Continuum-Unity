@@ -49,6 +49,7 @@ public class SceneLoader : MonoBehaviour
 
 	IEnumerator LoadProgress ()
 	{
+		SmoothProgress = 0;
 		LoadProgressText.text = "";
 		SceneLoaderUI.gameObject.SetActive (true);
 		SceneLoaderUI.Play ("SceneLoaderUIAppear");
