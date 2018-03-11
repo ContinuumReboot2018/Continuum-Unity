@@ -376,6 +376,7 @@ public class PowerupPickup : MonoBehaviour
 
 				gameControllerScript.RapidfireImage.enabled = true;
 				gameControllerScript.RapidfireImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+
 				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
 				gameControllerScript.RapidfireHex.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
@@ -403,48 +404,53 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.Ricochet:
-			
-			// Player shoots bullets which can bounce off the top and bottom of the screen.
-			playerControllerScript_P1.EnableRicochetObject ();
 
-			if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) 
+			if (playerControllerScript_P1.isRicochet == false) 
 			{
-				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
-			}
+				// Player shoots bullets which can bounce off the top and bottom of the screen.
+				playerControllerScript_P1.EnableRicochetObject ();
 
-			if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) 
-			{
-				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
-			}
+				if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive)
+				{
+					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+				}
 
-			if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) 
-			{
-				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
-			}
+				if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) 
+				{
+					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+				}
 
-			if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) 
-			{
-				playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
-			}
+				if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive)
+				{
+					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
+				}
 
-			playerControllerScript_P1.isRicochet = true;
-			gameControllerScript.RicochetImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
-			gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-			gameControllerScript.RicochetImage.enabled = true;
-			gameControllerScript.RicochetHex.enabled = true;
-			gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) 
+				{
+					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+				}
+
+				playerControllerScript_P1.isRicochet = true;
+				gameControllerScript.RicochetImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
+				gameControllerScript.RicochetImage.enabled = true;
+				gameControllerScript.RicochetHex.enabled = true;
+				gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+			}
 			break;
 		
 		case powerups.Homing:
 			
 			// Player shoots bullets which home in on blocks.
-
-			playerControllerScript_P1.isHoming = true;
-			gameControllerScript.HomingImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
-			gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-			gameControllerScript.HomingImage.enabled = true;
-			gameControllerScript.HomingHex.enabled = true;
-			gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+			if (playerControllerScript_P1.isHoming == false) 
+			{
+				playerControllerScript_P1.isHoming = true;
+				gameControllerScript.HomingImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
+				gameControllerScript.HomingImage.enabled = true;
+				gameControllerScript.HomingHex.enabled = true;
+				gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+			}
 			break;
 		}
 

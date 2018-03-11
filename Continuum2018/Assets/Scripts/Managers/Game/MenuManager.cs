@@ -4,26 +4,28 @@ using UnityEngine.EventSystems;
 
 public class MenuManager : MonoBehaviour 
 {
-	public GameController gameControllerScript;
-	public TimescaleController timeScaleControllerScript;
-	public PlayerController playerControllerScript_P1;
-	public GameObject UI;
+	public GameObject UI; // UI to check for activation.
 
 	[Header ("Scroll attributes")]
-	public float scrollSpeed = 0.5f;
+	public float scrollSpeed = 0.5f; // How much time needs to pass before the player can press up or down.
 	private float nextScroll;
-	public float aButtonCoolDown = 0.5f;
+
+	public float aButtonCoolDown = 0.5f; // How much time needs to pass before the player can press A.
 	private float aButtonNextCooldown;
-	public float bButtonCoolDown = 0.5f;
+
+	public float bButtonCoolDown = 0.5f; // How much time needs to pass before the player can press B.
 	private float bButtonNextCooldown;
-	public float startButtonCooldown;
+
+	public float startButtonCooldown = 0.5f; // How much time needs to pass before the player can press Start.
 	private float startButtonNextCooldown;
 
+	// Input data.
 	public PointerEventData pointerEventData;
 	public PlayerActions menuActions;
 
 	void Start ()
 	{
+		// Get input data.
 		menuActions = new PlayerActions ();
 		pointerEventData = new PointerEventData (EventSystem.current);
 	}
@@ -35,6 +37,7 @@ public class MenuManager : MonoBehaviour
 
 	void CheckForInput ()
 	{
+		// Only perform tasks if this UI is active.
 		if (UI.activeInHierarchy == true) 
 		{
 			// Player presses up on the left stick or D-Pad up.
@@ -132,31 +135,51 @@ public class MenuManager : MonoBehaviour
 		} 
 	}
 
+	// Invoke an OnClick event.
 	public void MainPauseMenuOnClick ()
 	{
-		ExecuteEvents.Execute (
-			menuButtons.menuButtons [menuButtons.buttonIndex].gameObject, 
-			pointerEventData, 
-			ExecuteEvents.pointerClickHandler
-		);
+		// Check if there is an Button component present.
+		Button OnClickEvent = menuButtons.menuButtons [menuButtons.buttonIndex].GetComponent<Button> ();
+
+		if (OnClickEvent != null) 
+		{
+			ExecuteEvents.Execute (
+				menuButtons.menuButtons [menuButtons.buttonIndex].gameObject, 
+				pointerEventData, 
+				ExecuteEvents.pointerClickHandler
+			);
+		}
 	}
 
+	// Invoke an OnPointerEnter event.
 	public void MainPauseMenuOnEnter (int index)
 	{
-		ExecuteEvents.Execute (
-			menuButtons.menuEvents [index].gameObject, 
-			pointerEventData, 
-			ExecuteEvents.pointerEnterHandler
-		);
+		// Check if there is an EventTrigger component present.
+		EventTrigger OnEnterEvent = menuButtons.menuEvents [index].GetComponent<EventTrigger> ();
+
+		if (OnEnterEvent != null) 
+		{
+			ExecuteEvents.Execute (
+				menuButtons.menuEvents [index].gameObject, 
+				pointerEventData, 
+				ExecuteEvents.pointerEnterHandler
+			);
+		}
 	}
 
 	public void MainPauseMenuOnExit (int index)
 	{
-		ExecuteEvents.Execute (
-			menuButtons.menuEvents [index].gameObject, 
-			pointerEventData, 
-			ExecuteEvents.pointerExitHandler
-		);
+		// Check if there is an EventTrigger component present.
+		EventTrigger OnExitEvent = menuButtons.menuEvents [index].GetComponent<EventTrigger> ();
+
+		if (OnExitEvent != null)
+		{
+			ExecuteEvents.Execute (
+				menuButtons.menuEvents [index].gameObject, 
+				pointerEventData, 
+				ExecuteEvents.pointerExitHandler
+			);
+		}
 	}
 
 	[Header ("Menu Buttons")]
@@ -164,11 +187,11 @@ public class MenuManager : MonoBehaviour
 	[System.Serializable]
 	public class MenuButtons
 	{
-		public int buttonIndex = 0;
-		public int maxButtons = 3;
+		public int buttonIndex = 0; // Current index for the menu button focus.
+		public int maxButtons = 3; // The size of the amount of buttons or event triggers.
 
-		public Button[] menuButtons;
-		public EventTrigger[] menuEvents;
+		public Button[] menuButtons; // All the Buttons in order.
+		public EventTrigger[] menuEvents; // All the EventTriggers in order.
 	}
 
 	void OnDestroy ()

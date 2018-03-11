@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CursorManager : MonoBehaviour 
 {
-	public float VisibleTimer = 5.0f;
+	public float VisibleTimer = 5.0f; // How long the timer can last before hiding the mouse.
 	private float VisibleTimerRemain;
 
 	public void HideMouse ()
@@ -28,6 +27,7 @@ public class CursorManager : MonoBehaviour
 
 	void Update ()
 	{
+		// When the mouse has received input.
 		if (Input.GetAxis ("Mouse X") != 0 || Input.GetAxis ("Mouse Y") != 0)
 		{
 			UnlockMouse ();
@@ -35,13 +35,16 @@ public class CursorManager : MonoBehaviour
 			ResetMouseTimer ();
 		}
 
+		// When there is no mouse input.
 		if (Input.GetAxis ("Mouse X") == 0 && Input.GetAxis ("Mouse Y") == 0) 
 		{
+			// Timer hasn't run out.
 			if (VisibleTimerRemain > 0)
 			{
 				VisibleTimerRemain -= Time.unscaledDeltaTime;
 			}
 
+			// Timer has run out, hide and lock the mouse.
 			if (VisibleTimerRemain <= 0) 
 			{
 				HideMouse ();
@@ -50,6 +53,7 @@ public class CursorManager : MonoBehaviour
 		}
 	}
 
+	// Resets current state of the mouse.
 	void ResetMouseTimer ()
 	{
 		if (VisibleTimerRemain < VisibleTimer) 
