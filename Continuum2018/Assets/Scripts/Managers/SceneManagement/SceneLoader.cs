@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,12 +12,11 @@ public class SceneLoader : MonoBehaviour
 	public string SceneName; // The name of the scene that other scripts can modify. The next scene should loaded by this name.
 	public float ProgressBarSmoothTime = 1;
 	public PostProcessingBehaviour PostPorcessSceneLoader;
+	private float SmoothProgress;
 
 	[Header ("UI Elements")]
 	public Canvas LevelLoadUICanvas;
 	public TextMeshProUGUI LoadProgressText;
-	public Slider ProgressBarL;
-	public Slider ProgressBarR;
 	public Animator SceneLoaderUI;
 	public ParticleSystem[] LoadingParticles;
 
@@ -39,8 +37,8 @@ public class SceneLoader : MonoBehaviour
 		StartCoroutine (LoadProgress ());
 
 		// Resets all UI fill and text values.
-		ProgressBarL.value = 0;
-		ProgressBarR.value = 0;
+		//ProgressBarL.value = 0;
+		//ProgressBarR.value = 0;
 		LoadProgressText.text = "0%";
 
 		foreach (ParticleSystem loadParticle in LoadingParticles) 
@@ -51,6 +49,7 @@ public class SceneLoader : MonoBehaviour
 
 	IEnumerator LoadProgress ()
 	{
+		LoadProgressText.text = "";
 		SceneLoaderUI.gameObject.SetActive (true);
 		SceneLoaderUI.Play ("SceneLoaderUIAppear");
 		yield return new WaitForSecondsRealtime (delay);
@@ -61,14 +60,19 @@ public class SceneLoader : MonoBehaviour
 		while (!async.isDone) 
 		{
 			// UI checks load progress and displays for the player.
-			ProgressBarL.value = Mathf.Lerp (ProgressBarL.value, async.progress, ProgressBarSmoothTime * Time.unscaledDeltaTime);
-			ProgressBarR.value = Mathf.Lerp (ProgressBarR.value, async.progress, ProgressBarSmoothTime * Time.unscaledDeltaTime);
+			SmoothProgress = Mathf.Lerp (SmoothProgress, async.progress, ProgressBarSmoothTime * Time.unscaledDeltaTime);
 
-			//Debug.Log ("Scene load async progress: " + Mathf.Round((ProgressBarL.value * 100) / 0.9f) + "%");
+			foreach (ParticleSystem loadParticle in LoadingParticles) 
+			{
+				var ParticleStartLifetimeMain = loadParticle.main;
+				ParticleStartLifetimeMain.startLifetime = async.progress + 0.5f;
+			}
+
+			Debug.Log ("Scene load async progress: " + Mathf.Round ((async.progress * 100) / 0.9f) + "%");
 
 			// Somehow async operations load up to 90% before loading the next scene,
 			// we have to compensate by adding 10% to the progress text.
-			LoadProgressText.text = Mathf.Round((ProgressBarL.value * 100) / 0.9f) + "%";
+			LoadProgressText.text = Mathf.Round ((SmoothProgress * 100) / 0.9f) + "%";
 
 			// Checks if the scene has been completely loaded into memory. 
 			if (LoadProgressText.text == "100%") 
@@ -83,7 +87,7 @@ public class SceneLoader : MonoBehaviour
 
 	IEnumerator LoadThisScene ()
 	{
-		LoadProgressText.text = "";
+		//LoadProgressText.text = "";
 
 		foreach (ParticleSystem loadParticle in LoadingParticles) 
 		{

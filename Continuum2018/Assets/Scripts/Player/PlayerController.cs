@@ -1787,8 +1787,8 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void OnDestroy ()
+	/*void OnDestroy ()
 	{
 		playerActions.Destroy ();
-	}
+	}*/
 }

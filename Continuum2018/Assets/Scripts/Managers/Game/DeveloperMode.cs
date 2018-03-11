@@ -588,6 +588,11 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isInRapidFire == false)
 				{
+					if (gameControllerScript.NextPowerupShootingSlot_P1 > 0)
+					{
+						gameControllerScript.NextPowerupShootingSlot_P1 -= 1;
+					}
+
 					gameControllerScript.RapidfireImage.enabled = false;
 					gameControllerScript.RapidfireHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE OFF");
@@ -622,6 +627,11 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isInOverdrive == false)
 				{
+					if (gameControllerScript.NextPowerupShootingSlot_P1 > 0)
+					{
+						gameControllerScript.NextPowerupShootingSlot_P1 -= 1;
+					}
+
 					gameControllerScript.OverdriveImage.enabled = false;
 					gameControllerScript.OverdriveHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: OVERDRIVE MODE OFF");
@@ -672,6 +682,11 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isRicochet == false) 
 				{
+					if (gameControllerScript.NextPowerupShootingSlot_P1 > 0)
+					{
+						gameControllerScript.NextPowerupShootingSlot_P1 -= 1;
+					}
+
 					gameControllerScript.RicochetImage.enabled = false;
 					gameControllerScript.RicochetHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: RICOCHET MODE OFF");
@@ -706,6 +721,12 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isHoming == false) 
 				{
+
+					if (gameControllerScript.NextPowerupShootingSlot_P1 > 0)
+					{
+						gameControllerScript.NextPowerupShootingSlot_P1 -= 1;
+					}
+
 					gameControllerScript.HomingImage.enabled = false;
 					gameControllerScript.HomingHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: HOMING MODE OFF");

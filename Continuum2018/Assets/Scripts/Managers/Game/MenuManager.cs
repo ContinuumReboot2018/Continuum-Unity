@@ -194,8 +194,8 @@ public class MenuManager : MonoBehaviour
 		public EventTrigger[] menuEvents; // All the EventTriggers in order.
 	}
 
-	void OnDestroy ()
+	/*void OnDestroy ()
 	{
 		menuActions.Destroy ();
-	}
+	}*/
 }
