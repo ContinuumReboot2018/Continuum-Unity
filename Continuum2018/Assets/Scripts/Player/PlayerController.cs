@@ -1460,6 +1460,7 @@ public class PlayerController : MonoBehaviour
 				) 
 				{
 					powerupimage.GetComponent<Animator> ().SetBool ("Visible", false);
+
 					/*if (powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemFadeOut") == false
 						&& powerupimage.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("PowerupListItemPopIn") == false
 						&& isHidingPowerupUI == false) 
@@ -1483,6 +1484,25 @@ public class PlayerController : MonoBehaviour
 					}*/
 				}
 			}
+		}
+			
+		if (playerCol.transform.position.y > PowerupUICheckPos.y &&
+			playerCol.transform.position.x > PowerupUICheckPos.x
+		) 
+		{
+			gameControllerScript.HomingImage.GetComponent<Animator> ().SetBool ("Visible", false);
+			gameControllerScript.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", false);
+			gameControllerScript.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", false);
+			gameControllerScript.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", false);
+		}
+
+		if (playerCol.transform.position.y <= PowerupUICheckPos.y || 
+			playerCol.transform.position.x <= PowerupUICheckPos.x)
+		{
+			gameControllerScript.HomingImage.GetComponent<Animator> ().SetBool ("Visible", true);
+			gameControllerScript.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", true);
+			gameControllerScript.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", true);
+			gameControllerScript.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", true);
 		}
 	}
 
@@ -1651,7 +1671,7 @@ public class PlayerController : MonoBehaviour
 		//InputManager.OnActiveDeviceChanged += inputDevice => Debug.Log( "Switched: " + inputDevice.Name );
 	}
 
-	void DeviceAttached (InputDevice device)
+	void OnDeviceAttached (InputDevice device)
 	{
 		Debug.Log ("Attached: " + device.Name);
 
@@ -1670,7 +1690,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void DeviceDetached (InputDevice device)
+	void OnDeviceDetached (InputDevice device)
 	{
 		Debug.Log ("Detached: " + device.Name);
 

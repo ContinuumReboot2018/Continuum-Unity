@@ -232,6 +232,18 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI Modifier_AlwaysOverdrive_Debug;
 	public TextMeshProUGUI Modifier_TrialTime_Debug;
 	public TextMeshProUGUI Modifier_BlockSpawnRateMult_Debug;
+	public TextMeshProUGUI Modifier_Stacking_Debug;
+	public TextMeshProUGUI Modifier_UseOverheat_Debug;
+	[Space (10)]
+	// Other modifiers.
+	public TextMeshProUGUI OverheatTimeText_Debug;
+	public TextMeshProUGUI OverheatStateText_Debug;
+	public TextMeshProUGUI CameraOrthographicSizeText_Debug;
+	public TextMeshProUGUI PlayerMovementVector_Debug;
+	public TextMeshProUGUI CurrentShootingHeatCostText_Debug;
+	public TextMeshProUGUI LastImpactPointText_Debug;
+	public TextMeshProUGUI CooldownTimeRemainingText_Debug;
+	public TextMeshProUGUI CurrentAbilityStateText_Debug;
 
 	void Awake () 
 	{
@@ -450,7 +462,7 @@ public class GameController : MonoBehaviour
 				P1_AbilityTimeDuration.text = 
 					"P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
 				P1_AbilityTimeProportion.text = 
-					"P1 Ability Fill: " + Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 2);
+					"P1 Ability Fill: " + Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 6);
 				CheatTimeRemainText_Debug.text = 
 					"Cheat Time Remain: " + Math.Round (developerModeScript.CheatStringResetTimeRemaining, 1);
 				CheatStringText_Debug.text = 
@@ -473,28 +485,60 @@ public class GameController : MonoBehaviour
 					"Blocks Destroyed: " + BlocksDestroyed;
 				BulletsShotText_Debug.text = 
 					"Bullets Shot: " + BulletsShot;
-
-				BlockShotAccuracy = Mathf.Clamp (BlocksDestroyed / (BulletsShot + Mathf.Epsilon), 0, 10000);
+				BlockShotAccuracy = 
+					Mathf.Clamp (BlocksDestroyed / (BulletsShot + Mathf.Epsilon), 0, 10000);
 				BlockShotAccuracyText_Debug.text = 
 					"Block Shot Accuracy: " + (System.Math.Round((BlockShotAccuracy * 100), 2)) + "%";
-
 				RewindTimeRemainingText_Debug.text = 
 					"Rewind Time Remain: " + System.Math.Round(timescaleControllerScript.RewindTimeRemaining, 2);
 				IsRewindingText_Debug.text = 
 					"Is Rewinding: " + (timescaleControllerScript.isRewinding ? "ON" : "OFF");
+				
 
 				// Modifier debug values.
-				Modifier_Tutorial_Debug.text = "Use Tutorial: " + (gameModifier.Tutorial ? "ON" : "OFF");
-				Modifier_PowerupSpawn_Debug.text = "Powerup Spawn Mode: " + (gameModifier.PowerupSpawn.ToString ());
-				Modifier_BossSpawn_Debug.text = "Boss Spawn Mode: " + (gameModifier.BossSpawn.ToString ());
-				Modifier_TimeIncrease_Debug.text = "Time Increase Mode: " + (gameModifier.TimeIncreaseMode.ToString ());
-				Modifier_StartingLives_Debug.text = "Starting Lives: " + (gameModifier.StartingLives);
-				Modifier_AlwaysHoming_Debug.text = "Always Homing: " + (gameModifier.AlwaysHoming ? "ON" : "OFF");
-				Modifier_AlwaysRicochet_Debug.text = "Always Ricochet: " + (gameModifier.AlwaysRicochet ? "ON" : "OFF");
-				Modifier_AlwaysRapidfire_Debug.text = "Always rapidfire: " + (gameModifier.AlwaysRapidfire ? "ON" : "OFF");
-				Modifier_AlwaysOverdrive_Debug.text = "Always overdrive: " + (gameModifier.AlwaysOverdrive ? "ON" : "OFF");
-				Modifier_TrialTime_Debug.text = "Trial Time: " + (gameModifier.TrialTime);
-				Modifier_BlockSpawnRateMult_Debug.text = "Block Spawn Rate Mult: " + gameModifier.blockSpawnRateMultiplier;
+				Modifier_Tutorial_Debug.text = 
+					"Use Tutorial: " + (gameModifier.Tutorial ? "ON" : "OFF");
+				Modifier_PowerupSpawn_Debug.text = 
+					"Powerup Spawn Mode: " + (gameModifier.PowerupSpawn.ToString ());
+				Modifier_BossSpawn_Debug.text = 
+					"Boss Spawn Mode: " + (gameModifier.BossSpawn.ToString ());
+				Modifier_TimeIncrease_Debug.text = 
+					"Time Increase Mode: " + (gameModifier.TimeIncreaseMode.ToString ());
+				Modifier_StartingLives_Debug.text = 
+					"Starting Lives: " + (gameModifier.StartingLives);
+				Modifier_AlwaysHoming_Debug.text = 
+					"Always Homing: " + (gameModifier.AlwaysHoming ? "ON" : "OFF");
+				Modifier_AlwaysRicochet_Debug.text = 
+					"Always Ricochet: " + (gameModifier.AlwaysRicochet ? "ON" : "OFF");
+				Modifier_AlwaysRapidfire_Debug.text = 
+					"Always rapidfire: " + (gameModifier.AlwaysRapidfire ? "ON" : "OFF");
+				Modifier_AlwaysOverdrive_Debug.text = 
+					"Always overdrive: " + (gameModifier.AlwaysOverdrive ? "ON" : "OFF");
+				Modifier_TrialTime_Debug.text = 
+					"Trial Time: " + (gameModifier.TrialTime);
+				Modifier_BlockSpawnRateMult_Debug.text = 
+					"Block Spawn Rate Mult: " + gameModifier.blockSpawnRateMultiplier;
+				Modifier_Stacking_Debug.text = 
+					"Stacking: " + (gameModifier.stacking ? "ON" : "OFF");
+				Modifier_UseOverheat_Debug.text = 
+					"Use Overheat: " + (gameModifier.useOverheat ? "ON" : "OFF");
+
+				OverheatTimeText_Debug.text = 
+					"Overheat proportion: " + System.Math.Round (playerControllerScript_P1.CurrentShootingHeat, 2);
+				OverheatStateText_Debug.text = 
+					"Overheated: " + (playerControllerScript_P1.Overheated ? "ON" : "OFF");
+				CameraOrthographicSizeText_Debug.text = 
+					"Orthographic size: " + System.Math.Round (Camera.main.orthographicSize, 2);
+				PlayerMovementVector_Debug.text = 
+					"Player move input: " + new Vector2 (playerControllerScript_P1.MovementX, playerControllerScript_P1.MovementY);
+				CurrentShootingHeatCostText_Debug.text = 
+					"Current shooting heat cost: " + playerControllerScript_P1.CurrentShootingHeatCost;
+				LastImpactPointText_Debug.text = 
+					"Last impact point: " + playerControllerScript_P1.ImpactPoint.ToString ();
+				CooldownTimeRemainingText_Debug.text = 
+					"Cooldown time remain: " + System.Math.Round (playerControllerScript_P1.cooldownTimeRemaining, 2);
+				CurrentAbilityStateText_Debug.text = 
+					"P1 Ability State: " + playerControllerScript_P1.CurrentAbilityState.ToString ();
 			}
 		}
 	}

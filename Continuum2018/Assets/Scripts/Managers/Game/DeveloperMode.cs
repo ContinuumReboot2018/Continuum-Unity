@@ -292,7 +292,8 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT TRACK");
 			}
 
-			if (CheatString == PreviousTrackCommand) {
+			if (CheatString == PreviousTrackCommand) 
+			{
 				audioControllerScript.PreviousTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: PREVIOUS TRACK");
 			}
@@ -423,8 +424,7 @@ public class DeveloperMode : MonoBehaviour
 				{
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 				}
-
-				//gameControllerScript.PowerupImage_P1 [0].gameObject.SetActive (true);
+					
 				gameControllerScript.PowerupImage_P1[0].texture = DoubleShotTexture;
 				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
 				gameControllerScript.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
@@ -691,12 +691,6 @@ public class DeveloperMode : MonoBehaviour
 					gameControllerScript.HomingHex.enabled = true;
 					gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
-					// TODO: When not in overdrive.
-					//playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
-					//playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
-					//playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
-					//playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
-
 					GameObject powerupPickupUI = Instantiate (
 						gameControllerScript.PowerupPickupUI, 
 						playerControllerScript_P1.playerCol.transform.position, 
@@ -765,17 +759,8 @@ public class DeveloperMode : MonoBehaviour
 			if (CheatString == ShieldCommand) 
 			{
 				playerControllerScript_P1.Ability = PlayerController.ability.Shield;
-				//playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
-				//playerControllerScript_P1.ActivateAbility ();
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
-				//playerControllerScript_P1.AbilityCompletion.Play ("AbilityComplete");
-				//playerControllerScript_P1.AbilityCompletionTexture.texture = playerControllerScript_P1.AbilityImage.texture;
-				//playerControllerScript_P1.AbilityCompletionText.text = PlayerController.ParseByCase(playerControllerScript_P1.Ability.ToString ());
-				//playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
-				//playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;
 
 				ShowCheatNotification ("CHEAT ACTIVATED: SHIELD");
 			}
@@ -785,15 +770,6 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.Ability = PlayerController.ability.VerticalBeam;
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
-				//playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
-				//playerControllerScript_P1.ActivateAbility ();
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
-				//playerControllerScript_P1.AbilityCompletion.Play ("AbilityComplete");
-				//playerControllerScript_P1.AbilityCompletionTexture.texture = playerControllerScript_P1.AbilityImage.texture;
-				//playerControllerScript_P1.AbilityCompletionText.text = PlayerController.ParseByCase(playerControllerScript_P1.Ability.ToString ());
-				//playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
-				//playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;
 
 				ShowCheatNotification ("CHEAT ACTIVATED: VERTICAL BEAM");
 			}
@@ -803,15 +779,6 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.Ability = PlayerController.ability.HorizontalBeam;
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
-				//playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
-				//playerControllerScript_P1.ActivateAbility ();
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
-				//playerControllerScript_P1.AbilityCompletion.Play ("AbilityComplete");
-				//playerControllerScript_P1.AbilityCompletionTexture.texture = playerControllerScript_P1.AbilityImage.texture;
-				//playerControllerScript_P1.AbilityCompletionText.text = PlayerController.ParseByCase(playerControllerScript_P1.Ability.ToString ());
-				//playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
-				//playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;
 
 				ShowCheatNotification ("CHEAT ACTIVATED: HORIZONTAL BEAM");
 			}
@@ -821,15 +788,6 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.Ability = PlayerController.ability.Emp;
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
-				//playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
-				//playerControllerScript_P1.ActivateAbility ();
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
-				//playerControllerScript_P1.AbilityCompletion.Play ("AbilityComplete");
-				//playerControllerScript_P1.AbilityCompletionTexture.texture = playerControllerScript_P1.AbilityImage.texture;
-				//playerControllerScript_P1.AbilityCompletionText.text = PlayerController.ParseByCase(playerControllerScript_P1.Ability.ToString ());
-				//playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
-				//playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;
 
 				ShowCheatNotification ("CHEAT ACTIVATED: EMP");
 			}
@@ -839,16 +797,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.Ability = PlayerController.ability.Rewind;
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
-				//playerControllerScript_P1.CurrentAbilityTimeRemaining = playerControllerScript_P1.CurrentAbilityDuration;
-				//playerControllerScript_P1.ActivateAbility ();
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Active;
-				//playerControllerScript_P1.AbilityCompletion.Play ("AbilityComplete");
-				//playerControllerScript_P1.AbilityCompletionTexture.texture = playerControllerScript_P1.AbilityImage.texture;
-				//playerControllerScript_P1.AbilityCompletionText.text = PlayerController.ParseByCase(playerControllerScript_P1.Ability.ToString ());
-				//playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
-				//playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
-				//playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;
-			
+	
 				ShowCheatNotification ("CHEAT ACTIVATED: REWIND TIME");
 			}
 				
