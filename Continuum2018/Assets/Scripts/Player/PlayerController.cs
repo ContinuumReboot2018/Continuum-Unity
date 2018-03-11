@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 	public CameraShake 			camShakeScript;
 	public DeveloperMode 		developerModeScript;
 	public TutorialManager 		tutorialManagerScript;
-	public PauseManager 		pauseManagerScript;
+	public MenuManager 		pauseManagerScript;
 	public int deviceID = 0;
 
 	[Header ("Player Movement")]

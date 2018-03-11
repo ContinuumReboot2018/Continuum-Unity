@@ -990,7 +990,7 @@ public class GameController : MonoBehaviour
 				PauseUI.SetActive (true);
 
 				playerControllerScript_P1.pauseManagerScript.MainPauseMenuOnEnter (0);
-				playerControllerScript_P1.pauseManagerScript.mainPauseMenu.buttonIndex = 0;
+				playerControllerScript_P1.pauseManagerScript.menuButtons.buttonIndex = 0;
 
 				// Sets mouse cursor states.
 				//cursorManagerScript.UnlockMouse ();
