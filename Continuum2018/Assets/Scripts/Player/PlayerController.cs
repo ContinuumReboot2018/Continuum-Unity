@@ -1798,7 +1798,7 @@ public class PlayerController : MonoBehaviour
 		if (isJoined == true) 
 		{
 			isJoined = false;
-			PlayerText.text = " ";
+			//PlayerText.text = " ";
 		}
 	}
 

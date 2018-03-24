@@ -1,0 +1,271 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1944889610669892}
+  m_IsPrefabParent: 1
+--- !u!1 &1944889610669892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4824169224457158}
+  - component: {fileID: 33643860618023692}
+  - component: {fileID: 65963679258155510}
+  - component: {fileID: 23157135350569126}
+  - component: {fileID: 114090755116832718}
+  - component: {fileID: 54466050644167710}
+  - component: {fileID: 114598794608408918}
+  - component: {fileID: 114914024606338230}
+  - component: {fileID: 114615605788480242}
+  - component: {fileID: 65805951300527886}
+  - component: {fileID: 114578668759347020}
+  m_Layer: 11
+  m_Name: Block_RandomScroll
+  m_TagString: Block
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4824169224457158
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.75, y: 11.49, z: 0}
+  m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23157135350569126
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3b8b07dfddc4e374ebe2d1ec2a378223, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33643860618023692
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54466050644167710
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 8
+  m_CollisionDetection: 0
+--- !u!65 &65805951300527886
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9, z: 1000}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65963679258155510
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1000}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114090755116832718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5ca2f7eacc8ee499648e986b2a0095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControllerScript_P1: {fileID: 0}
+  gameControllerScript: {fileID: 0}
+  timeScaleControllerScript: {fileID: 0}
+  audioControllerScript: {fileID: 0}
+  rend: {fileID: 0}
+  textureScrollScript: {fileID: 0}
+  parentToTransformScript: {fileID: 0}
+  allowParticleCollisionBoss: 0
+  speed: 0
+  OverwriteVelocity: 1
+  DontIncrementBlocksDestroyed: 0
+  Stackable: 0
+  isStacked: 0
+  stack: {fileID: 0}
+  AddAbilityTime: 0.015
+  homedObjects: []
+  AquaBlock: {fileID: 11400000, guid: 1d7f757f768ebe344b980686ce955883, type: 2}
+  BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
+  PurpleBlock: {fileID: 11400000, guid: 6455345e71738cf42a36eb8f96cdd672, type: 2}
+  PinkBlock: {fileID: 11400000, guid: a5884e4bd20124542a8e44a8a320dd74, type: 2}
+  isBossPart: 1
+  GotDetached: 0
+  miniBoss: {fileID: 0}
+  bossPartIndex: 0
+  BossDamage: 1
+  HitPoints: 5
+  BoundaryX: {x: -100, y: 100}
+  BoundaryY: {x: -100, y: 100}
+  BlockType: 0
+  BlockChangeType: 3
+  ChangeRate: 0.1
+  isSpecialBlockType: 0
+  SpecialBlockType: 0
+  noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
+  NoiseExplosion: {fileID: 1081727288271718, guid: 2a66aaa9745d95349baee88eeb156b89,
+    type: 2}
+  Explosion: {fileID: 1081727288271718, guid: 2a66aaa9745d95349baee88eeb156b89, type: 2}
+  BasePointValue: 1
+  totalPointValue: 0
+  TextColor: {r: 1, g: 0.33426183, b: 0, a: 1}
+  MinYPos: -15
+  playerExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
+    type: 2}
+  blockFormationScript: {fileID: 0}
+  isBlockFormationConnected: 0
+  camShakeScript: {fileID: 0}
+  newCamShakeDuration: 0.2
+  newCamShakeAmount: 0.2
+  LowPassTargetFreq: 400
+  ResonanceTargetFreq: 2.5
+  isTutorialBlock: 0
+  tutorialManagerScript: {fileID: 0}
+  tutorialBlockIndex: 0
+--- !u!114 &114578668759347020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeScaleControllerScript: {fileID: 0}
+  MaxRecordingTime: 20
+  rb: {fileID: 0}
+  isBlock: 1
+--- !u!114 &114598794608408918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FollowPosition: 1
+  AutomaticallyFindPlayerPosObject: 0
+  LookForPosName: Player
+  OverrideTransform: {fileID: 0}
+  FollowPosX: {fileID: 0}
+  FollowPosY: {fileID: 0}
+  FollowPosZ: {fileID: 0}
+  FollowPosMethod: 0
+  FollowPosOffset: {x: 0, y: 0, z: 0}
+  FollowPosSmoothTime: {x: 20, y: 20, z: 0}
+  PosBoundsX: {x: -21, y: 21}
+  PosBoundsY: {x: -15, y: 15}
+  PosBoundsZ: {x: -10, y: 10}
+  FollowRotation: 0
+  AutomaticallyFindPlayerRotObject: 0
+  LookForRotName: Player
+  FollowRotX: {fileID: 0}
+  FollowRotY: {fileID: 0}
+  FollowRotZ: {fileID: 0}
+  FollowRotOffset: {x: 0, y: 0, z: 0}
+  FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+--- !u!114 &114615605788480242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScrollSpeed: {x: 1000, y: 1000}
+  CurrentOffset: {x: 0, y: 0}
+  HorizontalScrollMode: 1
+  VerticalScrollMode: 1
+  ignoreTimescale: 0
+--- !u!114 &114914024606338230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944889610669892}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6129a3f33a82e494cb649fce0aab9eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParentTransformName: InstantiatedBlocks
+  OnStart: 1
