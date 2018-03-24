@@ -128,6 +128,7 @@ public class Bullet : MonoBehaviour
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> (); // Find the camera shake.
 		StartCameraShake (); // Give initial camera shake.
 		CheckBulletIteration (); // Checks the iteration of the bullet.
+		SetBulletVelocity ();
 	}
 
 	void Update ()
