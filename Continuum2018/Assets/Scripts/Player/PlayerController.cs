@@ -167,6 +167,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Ability UI.
+	public Animator AbilityAnim;
 	public GameObject AbilityUI; 		// Ability bar UI.
 	public RawImage AbilityImage; 		// Current RawImage of the ability.
 	public Texture2D[] AbilityTextures; // Array of ability icons.
@@ -769,6 +770,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			CurrentAbilityTimeRemaining = Mathf.Clamp (CurrentAbilityTimeRemaining, 0, CurrentAbilityDuration);
+			AbilityAnim.Play ("AbilityBounce");
 		}
 
 		if (CurrentAbilityState == abilityState.Ready) 
@@ -777,6 +779,8 @@ public class PlayerController : MonoBehaviour
 			AbilityFillImage.material.SetColor ("_EmissionColor",
 				AbilityChargingFullColor * AbilityBrightness
 			);
+
+			AbilityAnim.Play ("AbilityBounce");
 		}
 
 		if (CurrentAbilityState == abilityState.Charging) 
@@ -800,6 +804,8 @@ public class PlayerController : MonoBehaviour
 				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
 				timescaleControllerScript.OverridingTimeScale = 0.1f;
 				CurrentAbilityState = abilityState.Ready;
+
+				AbilityAnim.Play ("AbilityBounce");
 			}
 
 			if (AbilityTimeAmountProportion < 1f)
