@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using InControl; 					// Accessing InControl's cross platform controller input.
+using UnityEngine.PostProcessing;   // Accessing Unity's Post Processing Stack.
 
 #if !PLATFORM_STANDALONE_OSX
 using XInputDotNetPure; 			// Accessing controller vibration system and raw inputs.
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
 	public CameraShake 			camShakeScript;
 	public DeveloperMode 		developerModeScript;
 	public TutorialManager 		tutorialManagerScript;
+	public PostProcessingProfile PostProcessProfile;
 	public MenuManager 		pauseManagerScript;
 	public int deviceID = 0;
 
@@ -83,7 +85,6 @@ public class PlayerController : MonoBehaviour
 	public bool Overheated;
 	public float OverheatCooldownDecreaseRate = 2;
 	public Image OverheatImageL;
-	//public Image OverheatImageR;
 	public float OverheatFillSmoothing = 0.25f;
 	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
 	public Color HotColor  = Color.red;
@@ -398,6 +399,7 @@ public class PlayerController : MonoBehaviour
 		UpdateInputUI ();
 		CheckPause ();
 		CheckCheatConsoleInput ();
+		UpdateImageEffects ();
 	}
 
 	void FixedUpdate ()
@@ -1609,6 +1611,19 @@ public class PlayerController : MonoBehaviour
 		// Clears powerup UI.
 		CheckPowerupImageUI ();
 		gameControllerScript.ClearPowerupUI ();
+	}
+
+	void UpdateImageEffects ()
+	{
+		float localDistance = timescaleControllerScript.Distance;
+
+		var PostProcessBloomSettings = PostProcessProfile.bloom.settings;
+		PostProcessBloomSettings.bloom.intensity = 0.002f * localDistance + 0.01f;
+		PostProcessProfile.bloom.settings = PostProcessBloomSettings;
+
+		var PostProcessColorGradingSettings = PostProcessProfile.colorGrading.settings;
+		PostProcessColorGradingSettings.basic.saturation = 0.005f * localDistance + 0.9f;
+		PostProcessProfile.colorGrading.settings = PostProcessColorGradingSettings;
 	}
 
 	// This is for InControl for initialization.

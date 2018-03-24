@@ -72,7 +72,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4054007848946618
 Transform:
   m_ObjectHideFlags: 1
@@ -535,7 +535,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -582797592
+  randomSeed: -382571216
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -584,7 +584,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 6
-      minScalar: 0
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -624,8 +624,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.44219068, b: 0.19117647, a: 1}
-      maxColor: {r: 1, g: 0.5413793, b: 0.125, a: 1}
+      minColor: {r: 1, g: 0.27484787, b: 0.19117647, a: 1}
+      maxColor: {r: 1.0294118, g: 0.68425596, b: 0.370891, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -687,7 +687,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.4
+      scalar: 0.1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1095,7 +1095,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 720
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1136,7 +1136,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 60
+      scalar: 360
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1453,7 +1453,7 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 0
+        atime0: 51657
         atime1: 65535
         atime2: 0
         atime3: 0
@@ -2143,7 +2143,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 0
+    enabled: 1
     strength:
       serializedVersion: 2
       minMaxState: 0
@@ -3896,7 +3896,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1085754980
+  randomSeed: -1666717581
   InitialModule:
     serializedVersion: 3
     enabled: 1

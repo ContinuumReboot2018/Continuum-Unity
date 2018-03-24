@@ -31,7 +31,7 @@ MonoBehaviour:
   antialiasing:
     m_Enabled: 0
     m_Settings:
-      method: 1
+      method: 0
       fxaaSettings:
         preset: 2
       taaSettings:
@@ -71,9 +71,9 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 0
     m_Settings:
-      focusDistance: 10.3
-      aperture: 22.5
-      focalLength: 248
+      focusDistance: 0.1
+      aperture: 0.1
+      focalLength: 3
       useCameraFov: 0
       kernelSize: 3
   motionBlur:
@@ -85,9 +85,9 @@ MonoBehaviour:
   eyeAdaptation:
     m_Enabled: 0
     m_Settings:
-      lowPercent: 24.874517
+      lowPercent: 1
       highPercent: 99
-      minLuminance: 88
+      minLuminance: 4
       maxLuminance: -4
       keyValue: 0.25
       dynamicKeyValue: 1
@@ -95,12 +95,12 @@ MonoBehaviour:
       speedUp: 2
       speedDown: 1
       logMin: -16
-      logMax: 1
+      logMax: 16
   bloom:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.02
+        intensity: 0.024679087
         threshold: 0
         softKnee: 0
         radius: 6.35
@@ -109,10 +109,10 @@ MonoBehaviour:
         texture: {fileID: 2800000, guid: 4e59c075675385245878c2b676845b22, type: 3}
         intensity: 0.1
   colorGrading:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       tonemapping:
-        tonemapper: 1
+        tonemapper: 0
         neutralBlackIn: 0
         neutralWhiteIn: 10
         neutralBlackOut: 0
@@ -124,13 +124,13 @@ MonoBehaviour:
         temperature: 0
         tint: 0
         hueShift: 0
-        saturation: 1.797
+        saturation: 0.9366977
         contrast: 1
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
         blue: {x: 0, y: 0, z: 1}
-        currentEditingChannel: 2
+        currentEditingChannel: 1
       colorWheels:
         mode: 1
         log:
@@ -138,9 +138,9 @@ MonoBehaviour:
           power: {r: 1, g: 1, b: 1, a: 0}
           offset: {r: 1, g: 1, b: 1, a: 0}
         linear:
-          lift: {r: 0, g: 0, b: 0, a: 0}
-          gamma: {r: 0, g: 0, b: 0, a: 0}
-          gain: {r: 0, g: 0, b: 0, a: 0}
+          lift: {r: 1, g: 1, b: 1, a: 0}
+          gamma: {r: 1, g: 1, b: 1, a: 0}
+          gain: {r: 1, g: 1, b: 1, a: 0}
       curves:
         master:
           curve:
@@ -305,7 +305,7 @@ MonoBehaviour:
       opacity: 1
       rounded: 0
   dithering:
-    m_Enabled: 1
+    m_Enabled: 0
   monitors:
     currentMonitorID: 0
     refreshOnPlay: 0
