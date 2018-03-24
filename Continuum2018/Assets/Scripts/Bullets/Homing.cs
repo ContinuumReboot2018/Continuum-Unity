@@ -83,6 +83,11 @@ public class Homing : MonoBehaviour
 		);
 	}
 
+	void OnDisable ()
+	{
+		ReleaseHoming ();
+	}
+
 	// Finds closest GameObject with requirements.
 	public GameObject FindClosestEnemyTag ()
 	{

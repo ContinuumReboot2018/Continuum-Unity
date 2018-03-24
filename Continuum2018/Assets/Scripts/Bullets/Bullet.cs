@@ -109,11 +109,7 @@ public class Bullet : MonoBehaviour
 		{
 			homingScript = GetComponent<Homing> (); // Get the homing script.
 			isHoming = true; // Set homing to true.
-
-			//if (playerControllerScript.isRicochet == false)
-			//{
-				homingScript.enabled = true; // Enable the homing script.
-			//}
+			homingScript.enabled = true; // Enable the homing script.
 
 			if (BulletSpeedType == SpeedType.Unscaled)
 			{
@@ -122,7 +118,6 @@ public class Bullet : MonoBehaviour
 				
 				// Clamp maximum speed by velocity limits.
 				homingScript.speed = Mathf.Clamp (
-					//BulletSpeedUnscaled * Time.fixedUnscaledDeltaTime * (4 * Time.timeScale), 
 					unscaledVelocity,
 					VelocityLimits.x, 
 					VelocityLimits.y
@@ -133,7 +128,6 @@ public class Bullet : MonoBehaviour
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> (); // Find the camera shake.
 		StartCameraShake (); // Give initial camera shake.
 		CheckBulletIteration (); // Checks the iteration of the bullet.
-		//SetBulletVelocity ();
 	}
 
 	void Update ()
@@ -150,23 +144,17 @@ public class Bullet : MonoBehaviour
 			CheckForRicochet ();
 		}
 
+		/*
 		// When the bullet is not a homing bullet, set the bullet velocity. 
 		// Homing bullet's speed is managed by homing script.
 		if (isHoming == false)
 		{
 			SetBulletVelocity ();
-		}
+		}*/
 	}
 
 	void FixedUpdate ()
 	{
-		// When the bullet is not a homing bullet, set the bullet velocity. 
-		// Homing bullet's speed is managed by homing script.
-		//if (isHoming == false)
-		//{
-		//	SetBulletVelocity ();
-		//}
-
 		CheckForColliderDeactivate (); // Checks if bullet has reached vertical position.
 	}
 
@@ -184,7 +172,7 @@ public class Bullet : MonoBehaviour
 			if (isRicochet == true && 
 				BulletTypeName.Contains ("Helix") == false) 
 			{
-				Ricochet (); // Does the ricochet.
+				Ricochet (true); // Does the ricochet.
 				camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2); // Provides camera shake.
 			}
 		}
@@ -201,21 +189,22 @@ public class Bullet : MonoBehaviour
 			hasDisappeared = true; // Set to be in disappeared state.
 		}
 
+		/*
 		// Stop homing if position greater than this. (Need to make this dynamic based on screen ratio).
+		// Homing now deactivates when it ricochets instead.
 		if (BulletRb.transform.position.y > 12) 
 		{
 			if (homingScript != null)
 			{
 				homingScript.enabled = false;
 			}
-		}
+		}*/
 
 		// Bullet re enters intended space.
 		if (BulletRb.transform.position.y <= ColliderYMaxPos && 
 			hasDisappeared == true && 
 			BulletTypeName != "Helix") 
 		{
-			//BulletCol.enabled = true; // Enable the collider again.
 			hasDisappeared = false; // Set dissapear state to false.
 		}
 	}
@@ -223,16 +212,16 @@ public class Bullet : MonoBehaviour
 	// Checks for ricochet, if conditions are met, ricochet.
 	void CheckForRicochet ()
 	{
-		if (playerControllerScript.isRicochet == true)// &&
-			//playerControllerScript.isHoming == false) 
+		if (playerControllerScript.isRicochet == true)
 		{
 			// Moves to top of screen.
 			if (transform.position.y > RicochetYpos) 
 			{
 				float newZrot = Random.Range (100, 260); // New rotation value.
 				transform.rotation = Quaternion.Euler (0, 0, newZrot); // Set new rotation on Z.
-				RicochetSound.Play (); // Play ricochet sound.
 				camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2); // Make some camera shake.
+				Ricochet (false);
+				SetBulletVelocity ();
 			}
 
 			// Moves to bottom of screen.
@@ -240,26 +229,14 @@ public class Bullet : MonoBehaviour
 			{
 				float newZrot = Random.Range (-80, 80); // New rotation value.
 				transform.rotation = Quaternion.Euler (0, 0, newZrot); // Set new rotation on Z.
-				RicochetSound.Play (); // Play ricochet sound.
 				camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);  // Make some camera shake.
+				Ricochet (false);
+				SetBulletVelocity ();
 			}
 
-			// Moves to right of screen.
-			if (transform.position.x > RicochetXpos) 
+			// Moves to a side of the screen.
+			if (transform.position.x > RicochetXpos || transform.position.x < -RicochetXpos) 
 			{
-				//float newZrot = Random.Range (10, 170);
-				//transform.rotation = Quaternion.Euler (0, 0, newZrot);
-				//RicochetSound.Play ();
-				Destroy (gameObject);
-				return;
-			}
-
-			// Moves to left of screen.
-			if (transform.position.x < -RicochetXpos) 
-			{
-				//float newZrot = Random.Range (-170, -10);
-				//transform.rotation = Quaternion.Euler (0, 0, newZrot);
-				//RicochetSound.Play ();
 				Destroy (gameObject);
 				return;
 			}
@@ -267,11 +244,27 @@ public class Bullet : MonoBehaviour
 	}
 
 	// Does the ricochet when it bounces off something other than walls.
-	void Ricochet ()
+	void Ricochet (bool newAngle)
 	{
-		float newZrot = Random.Range (-180, 180); // Give entirely different angle.
-		transform.rotation = Quaternion.Euler (0, 0, newZrot); // Set new angle to this.
-		RicochetSound.Play (); // Play ricochet sound.
+		bool playedRicochetSound = false;
+
+		if (homingScript != null) 
+		{
+			homingScript.enabled = false;
+		}
+
+		if (newAngle == true)
+		{
+			float newZrot = Random.Range (-180, 180); // Give entirely different angle.
+			transform.rotation = Quaternion.Euler (0, 0, newZrot); // Set new angle to this.
+		}
+
+		if (playedRicochetSound == false)
+		{
+			RicochetSound.Play (); // Play ricochet sound.
+			playedRicochetSound = true;
+		}
+
 		camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);  // Make some camera shake.
 	}
 
