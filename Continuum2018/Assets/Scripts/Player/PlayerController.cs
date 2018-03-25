@@ -3,71 +3,72 @@ using System.Collections.Generic;
 using UnityEngine;
 using InControl; 					// Accessing InControl's cross platform controller input.
 using UnityEngine.PostProcessing;   // Accessing Unity's Post Processing Stack.
-
-#if !PLATFORM_STANDALONE_OSX
-using XInputDotNetPure; 			// Accessing controller vibration system and raw inputs.
-#endif
-
 using UnityEngine.UI; 				// Accessing Unity's UI system.
 using TMPro; 						// Accessing Text Mesh Pro components.
 using UnityEngine.Audio; 			// Accessing Audio mixer settings.
 using UnityStandardAssets.Utility;  // Accessing some standard assets and scripts.
 
+#if !PLATFORM_STANDALONE_OSX
+using XInputDotNetPure; 			// Accessing controller vibration system and raw inputs.
+#endif
 // One instance per player.
 public class PlayerController : MonoBehaviour 
 {
 	// Reference scripts.
-	public GameController 		gameControllerScript;
-	public TimescaleController  timescaleControllerScript;
-	public AudioController 		audioControllerScript;
-	public CursorManager 		cursorManagerScript;
-	public CameraShake 			camShakeScript;
-	public DeveloperMode 		developerModeScript;
-	public TutorialManager 		tutorialManagerScript;
+	public GameController 		 gameControllerScript;
+	public TimescaleController   timescaleControllerScript;
+	public AudioController 		 audioControllerScript;
+	public CursorManager 		 cursorManagerScript;
+	public CameraShake 			 camShakeScript;
+	public DeveloperMode 		 developerModeScript;
+	public TutorialManager 		 tutorialManagerScript;
 	public PostProcessingProfile PostProcessProfile;
-	public MenuManager 			pauseManagerScript;
+	public MenuManager 			 pauseManagerScript;
+
 	[Tooltip("Device ID for InControl.")]
 	public int deviceID = 0;
 
 	[Header ("Player Movement")]
 	[Range (-1, 1)]
 	[Tooltip("Current horizontal input.")]
-	public float MovementX; // How much horizontal input is read.
+	public float MovementX;
 	[Range (-1, 1)]
 	[Tooltip("Current vertical input.")]
-	public float MovementY; // How much vertical input is read.
-	[Tooltip("Follow input from player?")]
-	public bool UsePlayerFollow = true; // Sets whether the PLayer visual object follows a specific point defined by input.
-	[Tooltip("Player object follows the transform of this.")]
-	public Transform PlayerFollow; 	// The object the input is manipulating.
-	[Tooltip("The Rigidbody for the player FOLLOW object to use.")]
-	public Rigidbody PlayerFollowRb; // The object that follows the player follow GameObject.
+	public float MovementY;
+	[Tooltip("Sets whether the Player visual object follows a specific point defined by input.")]
+	public bool UsePlayerFollow = true;
+	[Tooltip("The object the input is manipulating.")]
+	public Transform PlayerFollow;
+	[Tooltip("The object that follows the player follow GameObject.")]
+	public Rigidbody PlayerFollowRb;
 	[Tooltip("Tweak this to change how fast the player moves.")]
-	public float PlayerFollowMoveSpeed; // How fast the player follow moves.
+	public float PlayerFollowMoveSpeed;
 	[Tooltip("Defines bounds for player position.")]
-	public Vector2 XBounds, YBounds; // Defines bounds for the player position.
-	[Tooltip("The Rigidbody for the player self to use.")]
-	public Rigidbody PlayerRb; // The player Rgidbody which is the same GameObject as the mesh collider for it.
-	private float SmoothFollowVelX, SmoothFollowVelY; // Moving with smooth damp provate velocity variables.
+	public Vector2 XBounds, YBounds;
+	[Tooltip("The player Rigidbody which is the same GameObject as the mesh collider for it.")]
+	public Rigidbody PlayerRb;
+	// Moving with smooth damp provate velocity variables.
+	private float SmoothFollowVelX, SmoothFollowVelY; 
 	[Tooltip("How much smoothing is applied to the player follow movement.")]
-	public float SmoothFollowTime = 1; // How much smoothing is applied to the player follow movement.
+	public float SmoothFollowTime = 1;
 	[Tooltip("How many degrees the player objects rotates based on horizontal velocity.")]
-	public float YRotationAmount = 45; // How many degrees the player objects rotates based on horizontal velocity.
+	public float YRotationAmount = 45;
 	[Tooltip("Multiplier for the rotation.")]
-	public float YRotationMultiplier = 10; // Multiplier for the rotation.
-	private float RotVelY; // Smooth ref variable for player rotation.
+	public float YRotationMultiplier = 10;
+	// Smooth ref variable for player rotation.
+	private float RotVelY; 
 	[Tooltip("How long the controller vibrates for.")]
-	public float PlayerVibrationDuration; // How long the controller vibrates for.
+	public float PlayerVibrationDuration;
 	[Tooltip("How much time the controller still needs to be vibrating.")]
-	public float PlayerVibrationTimeRemaining; // How much time the controller still needs to be vibrating.
+	public float PlayerVibrationTimeRemaining;
 
 	[Header ("Player stats")]
 	[Tooltip("Player's unique ID.")]
-	public int PlayerId = 1; // Player's unique ID.
+	public int PlayerId = 1;
 	[Tooltip("Name for the player.")]
-	public TextMeshProUGUI PlayerText; // Player label.
+	public TextMeshProUGUI PlayerText;
 	[Tooltip("For multiplayer: Shows if joined game.")]
-	public bool isJoined; // Is true if the player is active in the scene.
+	public bool isJoined;
 
 	// Player's main engine particle effect settings.
 	[Tooltip("The middle particle effect.")]
@@ -78,9 +79,9 @@ public class PlayerController : MonoBehaviour
 	public float MainEngineParticleEmissionLerpSpeed = 4;
 
 	[Tooltip("To be used to calculate distance and therefore time scale.")]
-	public Transform ReferencePoint; // To be used to calculate distance and therefore time scale.
+	public Transform ReferencePoint;
 	[Tooltip("Visuals for the player guides.")]
-	public GameObject PlayerGuides; // Visuals for the player guides.
+	public GameObject PlayerGuides;
 
 	[Header ("Player input UI")]
 	// To be shown only in tutorial.
@@ -96,15 +97,23 @@ public class PlayerController : MonoBehaviour
 
 	[Header ("Shooting Overview")]
 	[Tooltip("Base GameObject to instantiate when firing.")]
-	public GameObject CurrentShotObject; 	 // Base GameObject to instantiate when firing.
+	public GameObject CurrentShotObject;
 	[Tooltip("Allows the player to instantiate the bullet or not.")]
-	public bool canShoot = true; 			 // Allows the player to instantiate the bullet or not.
+	public bool canShoot = true;
 	[Tooltip("The starting fire rate and current fire rate updated by other values.")]
-	public float CurrentFireRate = 0.1f; 	 // Time between bullet spawns.
+	public float CurrentFireRate = 0.1f;
 	[Tooltip("How much the fire rate changes when the time scale changes.")]
-	public float FireRateTimeMultiplier = 2; // How fast to spawn bullets based on Time.timeScale.
+	public float FireRateTimeMultiplier = 2;
 	[Tooltip("Time.time must be greater than or equal to this to allow another shot to be spawned.")]
 	public float NextFire; 		
+
+	public enum shotIteration
+	{
+		Standard = 0, // Default.
+		Enhanced = 1, // Ricochet or Homing.
+		Rapid = 2,
+		Overdrive = 3
+	}
 
 	[Header ("Overheating")]
 	[Range (0, 1)]
@@ -127,9 +136,12 @@ public class PlayerController : MonoBehaviour
 	public Image OverheatImageL;
 	[Tooltip("Smoothing amount for overheat fill.")]
 	public float OverheatFillSmoothing = 0.25f;
+	[Tooltip("Color for overheating.")]
 	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
 	public Color HotColor  = Color.red;
+	[Tooltip("Brightness multiplier for overheating.")]
 	public float HeatUIBrightness = 20;
+	[Tooltip("Sound to play when it reaches overheating.")]
 	public AudioSource OverheatSound;
 			 
 	// Shot types.
@@ -144,43 +156,43 @@ public class PlayerController : MonoBehaviour
 	}
 
 	[Tooltip("Player shoots this when there are no shooting powerups active.")]
-	public GameObject StandardShot; 			// Default bullet to be used when there are no powerups.
+	public GameObject StandardShot;
 	[Tooltip("Player shoots this when ricochet and/or homing is active but has not collected another shooting powerup.")]
-	public GameObject StandardShotEnhanced; 	// Bullet to be used when ricochet and/or homing are enabled.
+	public GameObject StandardShotEnhanced;
 	[Tooltip("Player shoots this when overdrive is active but has not collected another shooting powerup.")]
-	public GameObject StandardShotOverdrive; 	// Bullet to be used when overdrive is enabled. Overrides enhanced shots and properties.
-	[Tooltip("Shows what iteration the standard shot is currently on.")]
-	public shotIteration StandardShotIteration; // Enumerates what shot type to be using for standard shot.
+	public GameObject StandardShotOverdrive;
+	[Tooltip("Shows what iteration the standard shot is currently on. Enumerates what shot type to be using for standard shot.")]
+	public shotIteration StandardShotIteration;
 	[Tooltip("Where do we spawn a standard bullet?")]
-	public Transform StandardShotSpawn; 		// Where we spawn the standard shot.
+	public Transform StandardShotSpawn;
 	[Tooltip("How fast the standard fire rate is by default.")]
-	public float StandardFireRate = 0.1f; 		// How fast the standard shot fire rate should fire.
-	[Tooltip("The heat cost of shooting this.")]
+	public float StandardFireRate = 0.1f;
+	[Tooltip("The heat cost of shooting a standard shot.")]
 	public float StandardShootingHeatCost = 0.0125f;
 
 	[Header ("Impact")]
 	[Tooltip("The GameObject which holds the player's mesh and material.")]
-	public GameObject playerMesh; // The GameObject which holds the player's mesh and material.
+	public GameObject playerMesh;
 	[Tooltip("Where the last impact point was.")]
-	public Vector3 ImpactPoint;   // Where the last impact point was.
+	public Vector3 ImpactPoint;
 
 	// Player has two colliders, one is in trigger mode.
 	[Tooltip("Player collider: Trigger is false.")]
 	public Collider playerCol;
 	[Tooltip("Player collider: Trigger is true.")]
 	public Collider playerTrigger;
-	[Tooltip("Is the player in cooldown mode after an impact?")]
-	public bool isInCooldownMode; 		// Allows cooldown to happen.
+	[Tooltip("Is the player in cooldown mode after an impact? Allows cooldown to happen.")]
+	public bool isInCooldownMode;
 	[Tooltip("How long the cooldown duration happens (scaled by time scale).")]
-	public float cooldownDuration; 		// How long the cooldown duration happens (scaled by time).
+	public float cooldownDuration; 
 	[Tooltip("Timer for cooldown.")]
-	public float cooldownTimeRemaining; // Timer for cooldown.
+	public float cooldownTimeRemaining;
 
 	// Stuff to do when hit.
 	public ParticleSystem PlayerExplosionParticles;
 	public AudioSource PlayerExplosionAudio;
 	[Tooltip("Allows cool image effects tp play that simulates VHS glitch effects and animates them.")]
-	public Animator GlitchEffect; // Allows cool image effects tp play that simulates VHS glitch effects and animates them. 
+	public Animator GlitchEffect;
 	[Tooltip("Collider for invincibility.")]
 	public MeshCollider InvincibleCollider;
 	[Tooltip("MeshRenderer for invincibility.")]
@@ -188,11 +200,13 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Animator for invincibility.")]
 	public Animator InvincibleMeshAnim;
 
-	// Stuff to look at when the player runs out of lives on the impact.
+	[Tooltip("Stuff to look at when the player runs out of lives on the impact.")]
 	public ParticleSystem GameOverExplosionParticles;
+	[Tooltip("Game over sound for the explosion.")]
 	public AudioSource GameOverExplosionAudio;
 
 	[Header ("Ability")]
+	[Tooltip("Current state of the ability charge.")]
 	public abilityState CurrentAbilityState;
 	public enum abilityState
 	{
@@ -202,16 +216,21 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Ability stats.
-	public float CurrentAbilityDuration; 	  // Maximum ability time.
-	public float CurrentAbilityTimeRemaining; // Timer for the ability.
-
+	[Tooltip("Maximum ability time.")]
+	public float CurrentAbilityDuration;
+	[Tooltip("Timer for the ability.")]
+	public float CurrentAbilityTimeRemaining;
 	[Range (0.0f, 1.0f)]
-	public float AbilityTimeAmountProportion; 		  // time remining / duration.
-	public float AbilityChargeSpeedMultiplier = 0.5f; // How fast the ability bar charges.
-	public float AbilityUseSpeedMultiplier = 4;		  // How fast the ability bar diminishes.
-
-	public string AbilityName; // Unique name of the ability.
-	public ability Ability;    // Ability list.
+	[Tooltip("Time remining / duration.")]
+	public float AbilityTimeAmountProportion;
+	[Tooltip("How fast the ability bar charges.")]
+	public float AbilityChargeSpeedMultiplier = 0.5f;
+	[Tooltip("How fast the ability bar diminishes.")]
+	public float AbilityUseSpeedMultiplier = 4;
+	[Tooltip("Unique name of the ability.")]
+	public string AbilityName;
+	[Tooltip("Ability list.")]
+	public ability Ability;
 	public enum ability
 	{
 		Shield, // Creates a shield, invincibility for a short time, cool warp screen effect.
@@ -222,160 +241,247 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Ability UI.
+	[Tooltip("Ability UI.")]
+	public GameObject AbilityUI;
+	[Tooltip("Animator for Ability UI.")]
 	public Animator AbilityAnim;
-	public GameObject AbilityUI; 		// Ability bar UI.
-	public RawImage AbilityImage; 		// Current RawImage of the ability.
-	public Texture2D[] AbilityTextures; // Array of ability icons.
-	public Image AbilityFillImage; 		// Image fill outline.
+	[Tooltip("Current RawImage of the ability.")]
+	public RawImage AbilityImage;
+	[Tooltip("Array of ability icons.")]
+	public Texture2D[] AbilityTextures;
+	[Tooltip("Image fill outline.")]
+	public Image AbilityFillImage;
 	// Colors for each ability state.
+	[Tooltip("Color of ability being used.")]
 	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
 	public Color AbilityUseColor;
+	[Tooltip("Color of ability charging.")]
 	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
 	public Color AbilityChargingColor;
+	[Tooltip("Color of ability being ready.")]
 	[ColorUsageAttribute (true, true, 0, 99, 0, 0)]
 	public Color AbilityChargingFullColor;
+	[Tooltip("Color of ability brightness multiplier.")]
 	public float AbilityBrightness = 8;
-
+	[Tooltip("Animator for when the ability is ready.")]
 	public Animator AbilityCompletion;
+	[Tooltip("Texture to use when the ability is ready.")]
 	public RawImage AbilityCompletionTexture;
+	[Tooltip("Text for the ability is ready UI.")]
 	public TextMeshProUGUI AbilityCompletionText;
 
 	[Header ("Powerups")]
-	// General.
-	public int powerupsInUse;	// Tracks how many simultaneous powerups are active.
-	public bool isHoming; 		// Homing mode is on or off.
-	public bool isRicochet; 	// Ricochet mode is on or off.
-	public bool isInRapidFire;  // Rapidfire mode is on or off.
-	public bool isInOverdrive;  // Overdrive mode is on or off.
-
-	public GameObject RicochetGlowObject; 		   // Static glow bars on the top and bottom of the screen when ricochet mode is on.
-	public RawImage[] RicochetGlowMeshes; 		   // Components to access the rendering of the glow bars.
-	public ParticleSystem[] RicochetGlowParticles; // Particles that emit off the glow objects.
+	[Tooltip("Tracks how many powerups are active at the time.")]
+	public int powerupsInUse;
+	[Tooltip("Homing mode is on or off.")]
+	public bool isHoming;
+	[Tooltip("Ricochet mode is on or off.")]
+	public bool isRicochet;
+	[Tooltip("Rapidfire mode is on or off.")]
+	public bool isInRapidFire;
+	[Tooltip("Overdrive mode is on or off.")]
+	public bool isInOverdrive; 
+	[Tooltip("Static glow bars on the top and bottom of the screen when ricochet mode is on.")]
+	public GameObject RicochetGlowObject;
+	[Tooltip("Components to access the rendering of the glow bars.")]
+	public RawImage[] RicochetGlowMeshes;
+	[Tooltip("Particles that emit off the glow objects.")]
+	public ParticleSystem[] RicochetGlowParticles;
 
 	// Double shot.
-	public GameObject DoubleShotL; 				// Left bullet normal.
-	public GameObject DoubleShotLEnhanced; 		// Left bullet enhanced.
-	public GameObject DoubleShotLOverdrive; 	// Left bullet overdrive.
-	public GameObject DoubleShotR;				// Right bullet normal.
-	public GameObject DoubleShotREnhanced;  	// Right bullet enhanced.
-	public GameObject DoubleShotROverdrive; 	// Right bullet overdrive.
-	public Transform DoubleShotSpawnL;			// Spawn point for left bullet.
-	public Transform DoubleShotSpawnR;			// Spawn point for right bullet.
-	public float[] DoubleShotFireRates;			// [0] = normal fire rate, [1] = rapid fire rate.
-	public shotIteration DoubleShotIteration;	// Enumerates what shot type to be using for double shot.
-	public float DoubleShotNextFire;			// Time.time must be >= for this to allow another shot to be spawned.
+	[Tooltip("Left bullet normal.")]
+	public GameObject DoubleShotL;
+	[Tooltip("Left bullet enhanced.")]
+	public GameObject DoubleShotLEnhanced;
+	[Tooltip("Left bullet overdrive.")]
+	public GameObject DoubleShotLOverdrive; 
+	[Tooltip("Right bullet normal.")]
+	public GameObject DoubleShotR;
+	[Tooltip("Right bullet enhanced.")]
+	public GameObject DoubleShotREnhanced; 
+	[Tooltip("Right bullet overdrive.")]
+	public GameObject DoubleShotROverdrive; 
+	[Tooltip("Spawn point for left bullet.")]
+	public Transform DoubleShotSpawnL;
+	[Tooltip("Spawn point for right bullet.")]
+	public Transform DoubleShotSpawnR;
+	[Tooltip("[0] = normal fire rate, [1] = rapid fire rate.")]
+	public float[] DoubleShotFireRates;	
+	[Tooltip("Enumerates what shot type to be using for double shot.")]
+	public shotIteration DoubleShotIteration;
+	[Tooltip("Time.time must be >= for this to allow another shot to be spawned.")]
+	public float DoubleShotNextFire;
+	[Tooltip("Cost for double shot.")]
 	public float DoubleShootingHeatCost = 0.0125f;
 
 	// Triple shot.
-	public GameObject TripleShotL;				// Left bullet normal.
-	public GameObject TripleShotLEnhanced;		// Left bullet enhanced.
-	public GameObject TripleShotLOverdrive;		// Left bullet overdrive.
-	public GameObject TripleShotM;				// Middle bullet normal.
-	public GameObject TripleShotMEnhanced;		// Middle bullet enhanced.
-	public GameObject TripleShotMOverdrive;		// Middle bullet overdrive.
-	public GameObject TripleShotR;				// Right bullet normal.
-	public GameObject TripleShotREnhanced;		// Right bullet enhanced.
-	public GameObject TripleShotROverdrive;		// Right bullet overdrive.
-	public Transform TripleShotSpawnL;			// Spawn point for left bullet.
-	public Transform TripleShotSpawnM;			// Spawn point for middle bullet.
-	public Transform TripleShotSpawnR;			// Spawn point for right bullet.
-	public float[] TripleShotFireRates;			// [0] = normal fire rate, [1] = rapid fire rate.
-	public shotIteration TripleShotIteration;	// Enumerates what shot type to be using for triple shot.
-	public float TripleShotNextFire;			// Time.time must be >= for this to allow another shot to be spawned.
+	[Tooltip("Left bullet normal.")]
+	public GameObject TripleShotL;
+	[Tooltip("Left bullet enhanced.")]
+	public GameObject TripleShotLEnhanced;
+	[Tooltip("Left bullet overdrive.")]
+	public GameObject TripleShotLOverdrive;	
+	[Tooltip("Middle bullet normal.")]
+	public GameObject TripleShotM;		
+	[Tooltip("Middle bullet enhanced.")]
+	public GameObject TripleShotMEnhanced;		
+	[Tooltip("Middle bullet overdrive..")]
+	public GameObject TripleShotMOverdrive;		
+	[Tooltip("Right bullet normal.")]
+	public GameObject TripleShotR;	
+	[Tooltip("Right bullet enhanced.")]
+	public GameObject TripleShotREnhanced;		
+	[Tooltip("Right bullet overdrive.")]
+	public GameObject TripleShotROverdrive;		
+	[Tooltip("Spawn point for left bullet.")]
+	public Transform TripleShotSpawnL;			
+	[Tooltip("Spawn point for middle bullet.")]
+	public Transform TripleShotSpawnM;			
+	[Tooltip("Spawn point for right bullet.")]
+	public Transform TripleShotSpawnR;		
+	[Tooltip("[0] = normal fire rate, [1] = rapid fire rate.")]
+	public float[] TripleShotFireRates;	
+	[Tooltip("Enumerates what shot type to be using for triple shot.")]
+	public shotIteration TripleShotIteration;
+	[Tooltip("Time.time must be >= for this to allow another shot to be spawned.")]
+	public float TripleShotNextFire;
+	[Tooltip("Heat cost for a triple shot.")]
 	public float TripleShootingHeatCost = 0.0125f;
 
 	// Ripple shot.
-	public GameObject RippleShot;				// Standard ripple shot.
-	public GameObject RippleShotEnhanced;		// Enhanced ripple shot.
-	public GameObject RippleShotOverdrive;		// Overdrive ripple shot.
-	public Transform RippleShotSpawn;			// Where the ripple shot will spawn.
-	public float[] RippleShotFireRates;			// [0] = normal fire rate, [1] = rapid fire rate.
-	public shotIteration RippleShotIteration;	// Enumerates what shot type to be using for ripple shot.
-	public float RippleShotNextFire;			// Time.time must be >= for this to allow another shot to be spawned.
+	[Tooltip("Standard ripple shot.")]
+	public GameObject RippleShot;
+	[Tooltip("Enhanced ripple shot.")]
+	public GameObject RippleShotEnhanced;
+	[Tooltip("Overdrive ripple shot.")]
+	public GameObject RippleShotOverdrive;
+	[Tooltip("Where the ripple shot will spawn.")]
+	public Transform RippleShotSpawn;
+	[Tooltip("[0] = normal fire rate, [1] = rapid fire rate.")]
+	public float[] RippleShotFireRates;	
+	[Tooltip("Enumerates what shot type to be using for ripple shot.")]
+	public shotIteration RippleShotIteration;
+	[Tooltip("Time.time must be >= for this to allow another shot to be spawned.")]
+	public float RippleShotNextFire;
+	[Tooltip("Cost of firing a ripple shot.")]
 	public float RippleShootingHeatCost = 0.0125f;
 
-	// Shot iterations on bullet types.
-	public enum shotIteration
-	{
-		Standard = 0, // Default.
-		Enhanced = 1, // Ricochet or Homing.
-		Rapid = 2,
-		Overdrive = 3
-	}
 
 	[Header ("Shield")]
-	public bool isShieldOn;					// Allows shield visuals and timer to activate.
-	public GameObject Shield;				// Shield main object.
-	public Lens lensScript;					// Camera effect to simulate gravitational lensing.
-	public float TargetShieldScale;			// How large the lensing is.
-	public float ShieldScaleSmoothTime = 1; // How slow the transition is for the shield lights to grow/shrink.
-	public float LensOnRadius = 0.7f;		// Target lens size when shield is active.
-	public float TargetLensRadius;			// Current target lens size.
-	public float LensRadiusSmoothTime = 1;	// How slow the transition is for the lensing to grow/shrink.
+	[Tooltip("Allows shield visuals and timer to activate.")]
+	public bool isShieldOn;
+	[Tooltip("Shield main object.")]
+	public GameObject Shield;
+	[Tooltip("Camera effect to simulate gravitational lensing.")]
+	public Lens lensScript;
+	[Tooltip("How large the lensing is.")]
+	public float TargetShieldScale;	
+	[Tooltip("How slow the transition is for the shield lights to grow/shrink.")]
+	public float ShieldScaleSmoothTime = 1;
+	[Tooltip("Target lens size when shield is active.")]
+	public float LensOnRadius = 0.7f;
+	[Tooltip("Current target lens size.")]
+	public float TargetLensRadius;
+	[Tooltip("How slow the transition is for the lensing to grow/shrink.")]
+	public float LensRadiusSmoothTime = 1;
 
 	[Header ("VerticalBeam")]
-	public GameObject VerticalBeam; 			   // The GameObject to set active or not depending whether the ability is being active.
-	public ParticleSystem[] VerticalBeamParticles; // Array of particles to emit when enabled.
+	[Tooltip("The GameObject to set active or not depending whether the ability is being active.")]
+	public GameObject VerticalBeam;
+	[Tooltip("Array of particles to emit when enabled.")]
+	public ParticleSystem[] VerticalBeamParticles;
 
 	[Header ("HorizontalBeam")]
-	public GameObject HorizontalBeam; 				 // The GameObject to set active or not depending whether the ability is being active.
-	public ParticleSystem[] HorizontalBeamParticles; // Array of particles to emit when enabled.
+	[Tooltip("The GameObject to set active or not depending whether the ability is being active.")]
+	public GameObject HorizontalBeam; 
+	[Tooltip("Array of particles to emit when enabled.")]
+	public ParticleSystem[] HorizontalBeamParticles;
 
 	[Header ("Emp")]
+	[Tooltip("The GameObject to set active or not depending whether the ability is being active.")]
 	public GameObject Emp; 				  // The GameObject to set active or not depending whether the ability is being active.
+	[Tooltip("Array of particles to emit when enabled.")]
 	public ParticleSystem[] EmpParticles; // Array of particles to emit when enabled.
 
 	[Header ("Turret Player")]
 	[Range (0, 4)]
-	public int nextTurretSpawn; 					// Which turrent GameObject index to spawn next.
-	public GameObject[] Turrets; 					// Turrets in scene.
-	public AutoMoveAndRotate TurretRotatorScript; 	// Parented auto rotation script.
-	public float TurretSpinSpeed; 					// How fast the turrents spin around the player.
-	public float TurretSpinSpeedNormal = -220; 		// Setting while powerup time remaining is >= 3.
-	public float TurretSpinSpeedFaster = -660;		// Setting while powerup time remaining is < 3.
+	[Tooltip("Which turrent GameObject index to spawn next.")]
+	public int nextTurretSpawn;
+	[Tooltip("Turrets in scene.")]
+	public GameObject[] Turrets;
+	[Tooltip("Parented auto rotation script.")]
+	public AutoMoveAndRotate TurretRotatorScript;
+	[Tooltip("How fast the turrents spin around the player.")]
+	public float TurretSpinSpeed;
+	[Tooltip("Setting while powerup time remaining is >= 3.")]
+	public float TurretSpinSpeedNormal = -220;
+	[Tooltip("Setting while powerup time remaining is < 3.")]
+	public float TurretSpinSpeedFaster = -660;
 
 	[Header ("Helix")]
-	public GameObject Helix; 				// The GameObject to set active or not depending whether the powerup is activated.
-	public ParticleSystem[] HelixParticles; // Array of particles to emit when enabled.
-	public Collider[] HelixCol; 			// The helix has two colliders, stored here.
+	[Tooltip("The GameObject to set active or not depending whether the powerup is activated.")]
+	public GameObject Helix;
+	[Tooltip("Array of particles to emit when enabled.")]
+	public ParticleSystem[] HelixParticles;
+	[Tooltip("The helix has two colliders, stored here.")]
+	public Collider[] HelixCol;
 
 	[Header ("Visuals")]
-	public Animator FlipScreenAnim; // Animator which controls animations for the screen orientation.
+	[Tooltip("Animator which controls animations for the screen orientation.")]
+	public Animator FlipScreenAnim;
 
 	[Header ("UI")]
 	// Ability UI.
+	[Tooltip("Is the ability UI hidden now?")]
 	public bool isHidingAbilityUI;
-	public Animator AbilityUIHexes; 	// Ability Hexes situated underneath the score.
-	public Vector3 AbilityCheckPlayerPos; // Where to check for the player position range.
+	[Tooltip("Ability Hexes situated underneath the score.")]
+	public Animator AbilityUIHexes;
+	[Tooltip("Where to check for the player position range.")]
+	public Vector3 AbilityCheckPlayerPos;
 	[Space (10)]
 	// Score UI.
-	public bool isHidingScoreUI; 		// Enabled when player position is close to the top middle.
-	public Animator ScoreAnim; 			// Score fading in/out animator.
-	public Vector3 ScoreCheckPlayerPos; // Where to check for the player position range.
+	[Tooltip("Enabled when player position is close to the top middle.")]
+	public bool isHidingScoreUI;
+	[Tooltip("Score fading in/out animator.")]
+	public Animator ScoreAnim;
+	[Tooltip("Where to check for the player position range.")]
+	public Vector3 ScoreCheckPlayerPos;
 	[Space (10)]
 	// Shooting UI.
-	public Animator ShootingUIHexes; 	// Shooting Hexes on the top right 
+	[Tooltip("Shooting Hexes on the top right.")]
+	public Animator ShootingUIHexes; 
 	[Space (10)]
 	// Lives UI.
-	public bool isHidingLivesUI; 		 // Checks top left of the screen if player is too close to the edge/corner.
-	public Animator LivesAnim; 			 // Lives fade in/out animator.
-	public Vector2 LivesCheckPlayerPosX; // Range to check horizontal player position.
-	public Vector2 LivesCheckPlayerPosY; // Range to check vertical player position.
+	[Tooltip("Checks top left of the screen if player is too close to the edge/corner.")]
+	public bool isHidingLivesUI;
+	[Tooltip("Lives fade in/out animator.")]
+	public Animator LivesAnim;
+	[Tooltip("Range to check horizontal player position.")]
+	public Vector2 LivesCheckPlayerPosX;
+	[Tooltip("Range to check vertical player position.")]
+	public Vector2 LivesCheckPlayerPosY;
 	[Space (10)]
 	// Wave UI.
-	public bool isHidingWaveUI; 	   // Checks for wave UI.
-	public Animator WaveAnim;		   // Wave fade in/out animator.
-	public Vector3 WaveCheckPlayerPos; // point to check for player proximity.
+	[Tooltip("Checks for wave UI.")]
+	public bool isHidingWaveUI;
+	[Tooltip("Wave fade in/out animator.")]
+	public Animator WaveAnim;
+	[Tooltip("Point to check for player proximity.")]
+	public Vector3 WaveCheckPlayerPos;
 	[Space (10)]
 	// PowerupUI
+	[Tooltip("Is the UI for powerups hidden?.")]
 	public bool isHidingPowerupUI;
+	[Tooltip("Position to check for powerup UI autohiding.")]
 	public Vector3 PowerupUICheckPos;
 
 	// InControl Player Actions.
 	public PlayerActions playerActions; // Created for InControl and assigned at runtime.
 
-	InputDevice mInputDevice{
-		get{
+	InputDevice mInputDevice
+	{
+		get
+		{
 			return GameController.playerDevices[deviceID];
 		}
 	}
