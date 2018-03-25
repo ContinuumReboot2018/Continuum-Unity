@@ -499,19 +499,24 @@ public class Block : MonoBehaviour
 		transform.rotation = Quaternion.identity; // Reset rotation.
 		GotDetached = true; // Set detached.
 		parentToTransformScript.enabled = true; // Parent to transform.
+
+		if (GetComponentInChildren<ParticleSystem> () != null) 
+		{
+			GetComponentInChildren<ParticleSystem> ().Stop ();
+		}
 	}
 
 	// Checks block position within boundaries or not.
 	void CheckBounds ()
 	{
 		// Position higher than 60 units, don't collide.
-		if (transform.position.y > 60) 
+		if (transform.position.y > 14) 
 		{
-			//BoxCol.enabled = false;
+			BoxCol.enabled = false;
 		}
 
 		// Position lower than 60 units. Allow collisions.
-		if (transform.position.y <= 60) 
+		if (transform.position.y < 14) 
 		{
 			BoxCol.enabled = true;
 		}
@@ -526,10 +531,18 @@ public class Block : MonoBehaviour
 		// Boss part check for out of bounds and destroy if so.
 		if (isBossPart == true) 
 		{
-			if (transform.position.y > 11.5f && GotDetached == true) 
+			if (GotDetached == true) 
 			{
-				Destroy (gameObject);
-				return;
+				if (miniBoss != null) 
+				{
+					miniBoss = null;
+				}
+
+				if (transform.position.y > BoundaryY.y) 
+				{
+					Destroy (gameObject);
+					return;
+				}
 			}
 		}
 	}

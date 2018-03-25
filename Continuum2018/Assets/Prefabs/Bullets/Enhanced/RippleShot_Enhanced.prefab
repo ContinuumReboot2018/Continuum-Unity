@@ -520,8 +520,8 @@ MonoBehaviour:
   playerControllerScript: {fileID: 0}
   gameControllerScript: {fileID: 0}
   fpsCounterScript: {fileID: 0}
-  BulletSpeedUnscaled: 0
-  BulletSpeedScaled: 1300
+  BulletSpeedUnscaled: 25
+  BulletSpeedScaled: 1800
   BulletSpeedType: 0
   VelocityLimits: {x: 0, y: 220}
   BulletRb: {fileID: 54402628592958966}

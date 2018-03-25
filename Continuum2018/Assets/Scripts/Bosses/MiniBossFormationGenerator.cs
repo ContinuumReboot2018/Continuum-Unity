@@ -1,6 +1,7 @@
 ﻿// Generates a block formation based on the color data from a texture.
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class MiniBossFormationGenerator : MonoBehaviour 
 {
 	public Texture2D map; // Drop the texture in this slot in the inspector to read from.
@@ -17,7 +18,7 @@ public class MiniBossFormationGenerator : MonoBehaviour
 	public Vector2 Center; // Offset to center the image. (Can be in decimals).
 	public MiniBoss MiniBossBrain;
 
-	void Start () 
+	void Awake () 
 	{
 		AutoCenterImage (); // Checks if the image should auto center.
 		GenerateMiniBossFormation (); // Does the creation of the formation.

@@ -260,7 +260,7 @@ public class Bullet : MonoBehaviour
 			transform.rotation = Quaternion.Euler (0, 0, newZrot); // Set new angle to this.
 		}
 
-		if (playedRicochetSound == false)
+		if (playedRicochetSound == false && gameControllerScript.isPaused == false)
 		{
 			RicochetSound.Play (); // Play ricochet sound.
 			playedRicochetSound = true;

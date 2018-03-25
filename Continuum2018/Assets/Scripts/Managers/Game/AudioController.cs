@@ -9,6 +9,8 @@ public class AudioController : MonoBehaviour
 	public GameController gameControllerScript;
 	public TimescaleController timescaleControllerScript;
 	public SaveAndLoadScript saveAndLoadScript;
+	public SimpleBeatDetection beatDetector;
+	public SubbandBeatDetection beatDetectorSubBand;
 
 	public bool updateVolumeAndPitches = true; // If true, the music will update to volume and pitch.
 	public float Distance; // Gets distance from timescaleControllerScript.
@@ -70,25 +72,18 @@ public class AudioController : MonoBehaviour
 	public Vector4 TimePitch; // Pitch values based on distance values.
 	public bool ReversePitch;
 
-	/*[Header ("StereoUI")]
-	public AudioSourceLoudnessTester bassLoudness; 
-	public AudioSourceLoudnessTester layerOneLoudness;
-	public AudioSourceLoudnessTester layerTwoLoudness; 
-	public AudioSourceLoudnessTester layerThreeLoudness;  
-	public float CurrentBassLoudness;  // Gets current loudness level for bass track.
-	public float CurrentLayerOneLoudness; // Gets current loudness level for layer one track.
-	public float CurrentLayerTwoLoudness;  // Gets current loudness level for layer two track.
-	public float CurrentLayerThreeLoudness; // Gets current loudness level for layer three track.
-	public Image StereoImageL;
-	public Image StereoImageR;
-	public float LoudnessSmoothing = 0.1f;*/
-
 	void Start ()
 	{
 		TargetCutoffFreq = 22000; // Set target cutoff frequency to max value (22kHz).
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		LoadTracks (); // Load the track by track number.
 		InvokeRepeating ("CheckReversePitch", 0, 0.5f); // If in rewind, check for reversing the pitch.
+		beatDetector.OnBeat += OnBeat;
+	}
+
+	void OnBeat ()
+	{
+		Debug.Log ("Beat");
 	}
 
 	void Update ()

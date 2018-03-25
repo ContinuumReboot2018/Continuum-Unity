@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MiniBoss : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class MiniBoss : MonoBehaviour
 	public GameObject Brain; // The brain, (heart).
 	public GameObject MiniBossParent; // The base GameObject of the mini boss.
 	public MiniBossFormationGenerator miniBossFormation;
+	public EvasiveManeuver evasiveManeuverScript;
+	public GameObject MiniBossUI;
+	public string MiniBossName;
 
 	[Header ("Stats")]
 	public float hitPoints = 5; // Current hit points.
@@ -54,7 +58,12 @@ public class MiniBoss : MonoBehaviour
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
+		//evasiveManeuverScript = GetComponent<EvasiveManeuver> ();
+		evasiveManeuverScript.enabled = false;
 		InvokeRepeating ("GetBossParts", 0.1f, 1f);
+		Invoke ("TurnOnEvasiveManeuverScript", 4);
+		GameObject MiniBossUIObject = Instantiate (MiniBossUI, Vector3.zero, Quaternion.identity);
+		MiniBossUIObject.GetComponentInChildren<TextMeshProUGUI> ().text = MiniBossName;
 
 		// If no brain has been referenced, reference the brain from here.
 		if (Brain == null) 
@@ -82,7 +91,7 @@ public class MiniBoss : MonoBehaviour
 		{
 			BossPartsConvertToNoise ();
 			hitPoints = 0;
-			Instantiate (LargeExplosion, transform.position, transform.rotation);
+			Instantiate (LargeExplosion, transform.position, Quaternion.identity);
 			gameControllerScript.StartNewWave ();
 			gameControllerScript.IsInWaveTransition = true;
 			Debug.LogWarning ("No player found, bailing out.");
@@ -101,6 +110,11 @@ public class MiniBoss : MonoBehaviour
 		}
 
 		Invoke ("EnableCol", 3);
+	}
+
+	void TurnOnEvasiveManeuverScript ()
+	{
+		evasiveManeuverScript.enabled = true;
 	}
 
 	void EnableCol ()
@@ -240,7 +254,7 @@ public class MiniBoss : MonoBehaviour
 	{
 		BossPartsConvertToNoise (); // Convert all blocks in array to noise and detach.
 		hitPoints = 0; // Reset all hit points.
-		Instantiate (LargeExplosion, transform.position, transform.rotation); // Spawn a large explosion.
+		Instantiate (LargeExplosion, transform.position, Quaternion.identity); // Spawn a large explosion.
 		gameControllerScript.StartNewWave (); // Go to next wave.
 		gameControllerScript.IsInWaveTransition = true; // Set to be in wave transition.
 		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f; // Temporarily override time scale. 

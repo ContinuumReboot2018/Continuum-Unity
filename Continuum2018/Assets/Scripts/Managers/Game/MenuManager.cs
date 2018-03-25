@@ -126,7 +126,22 @@ public class MenuManager : MonoBehaviour
 				{
 					// Set button to first option and execute the command.
 					menuButtons.buttonIndex = 0;
-					MainPauseMenuOnClick ();
+					//MainPauseMenuOnClick ();
+
+					// Override button event for navigating back.
+					if (menuButtons.BackButton != null) 
+					{
+						Button OnClickEvent = menuButtons.BackButton.GetComponent<Button> ();
+
+						if (OnClickEvent != null) 
+						{
+							ExecuteEvents.Execute (
+								menuButtons.BackButton.gameObject, 
+								pointerEventData, 
+								ExecuteEvents.pointerClickHandler
+							);
+						}
+					}
 
 					// Reset B button cooldown.
 					bButtonNextCooldown = Time.unscaledTime + bButtonCoolDown;
@@ -192,6 +207,8 @@ public class MenuManager : MonoBehaviour
 
 		public Button[] menuButtons; // All the Buttons in order.
 		public EventTrigger[] menuEvents; // All the EventTriggers in order.
+
+		public Button BackButton;
 	}
 
 	/*void OnDestroy ()
