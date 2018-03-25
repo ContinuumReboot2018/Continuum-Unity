@@ -62,8 +62,9 @@ public class MiniBoss : MonoBehaviour
 		evasiveManeuverScript.enabled = false;
 		InvokeRepeating ("GetBossParts", 0.1f, 1f);
 		Invoke ("TurnOnEvasiveManeuverScript", 4);
-		GameObject MiniBossUIObject = Instantiate (MiniBossUI, Vector3.zero, Quaternion.identity);
+		GameObject MiniBossUIObject = GameObject.Find("MiniBossUI");
 		MiniBossUIObject.GetComponentInChildren<TextMeshProUGUI> ().text = MiniBossName;
+		MiniBossUIObject.GetComponentInChildren<Animator> ().Play ("MiniBossUI");
 
 		// If no brain has been referenced, reference the brain from here.
 		if (Brain == null) 
