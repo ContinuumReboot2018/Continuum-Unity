@@ -9,8 +9,6 @@ public class AudioController : MonoBehaviour
 	public GameController gameControllerScript;
 	public TimescaleController timescaleControllerScript;
 	public SaveAndLoadScript saveAndLoadScript;
-	public SimpleBeatDetection beatDetector;
-	public SubbandBeatDetection beatDetectorSubBand;
 
 	public bool updateVolumeAndPitches = true; // If true, the music will update to volume and pitch.
 	public float Distance; // Gets distance from timescaleControllerScript.
@@ -78,12 +76,6 @@ public class AudioController : MonoBehaviour
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		LoadTracks (); // Load the track by track number.
 		InvokeRepeating ("CheckReversePitch", 0, 0.5f); // If in rewind, check for reversing the pitch.
-		beatDetector.OnBeat += OnBeat;
-	}
-
-	void OnBeat ()
-	{
-		Debug.Log ("Beat");
 	}
 
 	void Update ()
