@@ -46,6 +46,7 @@ public class AudioController : MonoBehaviour
 	public AudioSource LayerOneTrack; // Plays layer one tracks.
 	public AudioSource LayerTwoTrack; // Plays layer two tracks.
 	public AudioSource LayerThreeTrack; // Plays layer three tracks.
+	public AudioSource BeatDetectionTrack;
 
 	[Header ("Soundtrack Library")]
 	// A library of all each type of track.
@@ -53,6 +54,7 @@ public class AudioController : MonoBehaviour
 	public AudioClip[] LayerOneTracks; // Bass synths, Pads.
 	public AudioClip[] LayerTwoTracks; // Mains and lead synths.
 	public AudioClip[] LayerThreeTracks; // Riffs, arps, all sorts of cool audio flourishes.
+	public AudioClip[] BeatDetectionTraks;
 
 	[Header ("Volume")]
 	public float BaseTargetVolume; // Bass current volume lerps to this value.
@@ -93,7 +95,6 @@ public class AudioController : MonoBehaviour
 			timescaleControllerScript.isInInitialSequence == false)
 		{
 			UpdateSoundtrackVolumeAndPitches (); // Update sound pitch based on distance.
-			//UpdateStereoUI ();
 		}
 
 		if (timescaleControllerScript.isOverridingTimeScale == true) 
@@ -134,9 +135,14 @@ public class AudioController : MonoBehaviour
 	{
 		bool curFreqResult = AudioMix.GetFloat ("LowCutoffFrequency", out curFreq);
 
-		if (curFreqResult) {
+		if (curFreqResult) 
+		{
 			return curFreq;
-		} else {
+		}
+
+		else
+		
+		{
 			return 0f;
 		}
 	}
@@ -146,29 +152,17 @@ public class AudioController : MonoBehaviour
 	{
 		bool curResResult = AudioMix.GetFloat ("Resonance", out curRes);
 
-		if (curResResult) {
+		if (curResResult) 
+		{
 			return curRes;
-		} else {
+		} 
+
+		else 
+		
+		{
 			return 0f;
 		}
 	}
-
-	/*void UpdateStereoUI ()
-	{
-		CurrentBassLoudness = bassLoudness.clipLoudness;
-		CurrentLayerOneLoudness = layerOneLoudness.clipLoudness;
-		CurrentLayerTwoLoudness = layerTwoLoudness.clipLoudness;
-		CurrentLayerThreeLoudness = layerThreeLoudness.clipLoudness;
-
-		// For all clips
-		//float AverageLoudness = 0.25f * (CurrentBassLoudness + CurrentLayerOneLoudness + CurrentLayerTwoLoudness + CurrentLayerThreeLoudness);
-
-		// For bass clip
-		float AverageLoudness = 0.5f * (CurrentBassLoudness + CurrentLayerOneLoudness);
-
-		StereoImageL.fillAmount = Mathf.Lerp (StereoImageL.fillAmount, AverageLoudness, LoudnessSmoothing * Time.deltaTime);
-		StereoImageR.fillAmount = Mathf.Lerp (StereoImageR.fillAmount, AverageLoudness, LoudnessSmoothing * Time.deltaTime);
-	}*/
 
 	// Updates audio sources volume and pitch here.
 	public void UpdateSoundtrackVolumeAndPitches ()
@@ -323,11 +317,13 @@ public class AudioController : MonoBehaviour
 		LayerOneTrack.clip = LayerOneTracks [TrackNumber];
 		LayerTwoTrack.clip = LayerTwoTracks [TrackNumber];
 		LayerThreeTrack.clip = LayerThreeTracks [TrackNumber];
+		BeatDetectionTrack.clip = BeatDetectionTraks [TrackNumber];
 
 		BassTrack.Play ();
 		LayerOneTrack.Play ();
 		LayerTwoTrack.Play ();
 		LayerThreeTrack.Play ();
+		BeatDetectionTrack.Play ();
 	}
 
 	// Increase the soundtrack index and replace the audio of it. 
