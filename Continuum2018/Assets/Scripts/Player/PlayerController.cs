@@ -561,7 +561,7 @@ public class PlayerController : MonoBehaviour
 		UpdateInputUI ();
 		CheckPause ();
 		CheckCheatConsoleInput ();
-		//UpdateImageEffects ();
+		UpdateImageEffects ();
 	}
 
 	void FixedUpdate ()

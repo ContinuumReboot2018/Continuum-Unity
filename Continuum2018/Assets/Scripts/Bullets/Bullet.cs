@@ -252,6 +252,7 @@ public class Bullet : MonoBehaviour
 		if (homingScript != null) 
 		{
 			homingScript.enabled = false;
+			Invoke ("EnableHoming", 0.05f);
 		}
 
 		if (newAngle == true)
@@ -267,6 +268,14 @@ public class Bullet : MonoBehaviour
 		}
 
 		camShakeScript.ShakeCam (shakeAmount, shakeTimeRemaining, 2);  // Make some camera shake.
+	}
+
+	void EnableHoming ()
+	{
+		if (homingScript != null && playerControllerScript.isHoming == true) 
+		{
+			homingScript.enabled = true;
+		}
 	}
 
 	// Sets bullet to a set velocity
