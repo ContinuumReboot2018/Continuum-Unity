@@ -56,6 +56,12 @@ public class AudioController : MonoBehaviour
 	public AudioClip[] LayerThreeTracks; // Riffs, arps, all sorts of cool audio flourishes.
 	public AudioClip[] BeatDetectionTraks;
 
+	[Header ("Beat Detection")]
+	public int Beats;
+	public int BeatInBar;
+	public float BeatsPerMinute;
+	public float TimeSinceTrackLoad;
+
 	[Header ("Volume")]
 	public float BaseTargetVolume; // Bass current volume lerps to this value.
 	public float LayerOneTargetVolume; // Layer one current volume lerps to this value.
@@ -86,6 +92,7 @@ public class AudioController : MonoBehaviour
 		GetMasterLowPassValue (); // Update low pass filter cutoff frequency.
 		GetMasterResonanceValue (); // Update low pass filter resonance amount.
 		SetFilterEffectAmounts (); // Sets filter properties based on audio states.
+		UpdateTimeSinceTrackLoad ();
 	}
 		
 	void UpdateAudio ()
@@ -324,6 +331,10 @@ public class AudioController : MonoBehaviour
 		LayerTwoTrack.Play ();
 		LayerThreeTrack.Play ();
 		BeatDetectionTrack.Play ();
+
+		Beats = 1;
+		BeatInBar = 1;
+		TimeSinceTrackLoad = 0;
 	}
 
 	// Increase the soundtrack index and replace the audio of it. 
@@ -398,5 +409,10 @@ public class AudioController : MonoBehaviour
 	{
 		SetTargetLowPassFreq (0);
 		SetTargetResonance (3);
+	}
+
+	void UpdateTimeSinceTrackLoad ()
+	{
+		TimeSinceTrackLoad += Time.deltaTime;
 	}
 }

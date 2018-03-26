@@ -2,6 +2,8 @@
 
 public class BeatDetection : MonoBehaviour 
 {
+	public AudioController audioControllerScript;
+
 	void Start ()
 	{
 		//Select the instance of AudioProcessor and pass a reference
@@ -16,7 +18,10 @@ public class BeatDetection : MonoBehaviour
 	//to adjust the sensitivity
 	void onOnbeatDetected ()
 	{
-		Debug.Log ("Beat!!!");
+		// Debug.Log ("Beat!!!");
+		audioControllerScript.Beats += 1;
+		audioControllerScript.BeatInBar = (audioControllerScript.Beats % 4) + 1;
+		GetBeatsPerMinute ();
 	}
 
 	//This event will be called every frame while music is playing
@@ -31,5 +36,14 @@ public class BeatDetection : MonoBehaviour
 			Vector3 end = new Vector3 (i, spectrum [i], 0);
 			Debug.DrawLine (start, end);
 		}
+	}
+
+	public void GetBeatsPerMinute ()
+	{
+		audioControllerScript.BeatsPerMinute = (
+			audioControllerScript.Beats / 
+			((audioControllerScript.TimeSinceTrackLoad / 60)) * 
+			audioControllerScript.BassTrack.pitch
+		);
 	}
 }

@@ -19,7 +19,8 @@ public class GameController : MonoBehaviour
 	public static List<InputDevice> playerDevices; 
 
 	[Header ("Game Stats")]
-	public bool TrackStats = true;		// Track debug info.
+	[Tooltip ("Track debug info.")]
+	public bool TrackStats = true;
 	public float GameTime;				// Scaled time elapsed since the start of the first wave.
 	public float RealTime;				// Unscaled time elapsed since the start of the first wave.
 	public float TimeRatio;				// GameTime / RealTime, can be greater than 1.
