@@ -11,7 +11,16 @@ public class AudioSync : MonoBehaviour
 		// Checks if either audio source is playing.
 		if (slave.isPlaying == true || master.isPlaying == true) 
 		{
-			slave.timeSamples = master.timeSamples; // Match time samples.
+			if (master.timeSamples > slave.timeSamples) 
+			{
+				slave.timeSamples = slave.timeSamples % master.timeSamples;
+			}
+
+			else
+				
+			{
+				slave.timeSamples = master.timeSamples; // Match time samples.
+			}
 		}
 	}
 }

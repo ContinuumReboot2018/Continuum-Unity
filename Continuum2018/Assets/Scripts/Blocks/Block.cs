@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
 	public GameController gameControllerScript; // Reference to Game Controller
 	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
 	public AudioController audioControllerScript; // Reference to Audio Controller.
+	public AudioProcessor processor;
 	private TimeBody timeBodyScript;
 	public MeshRenderer rend; // This Mesh Renderer.
 	private Rigidbody rb; // The current Rigidbody.
@@ -114,7 +115,7 @@ public class Block : MonoBehaviour
 		// Initialize self.
 		BoxCol = GetComponent<Collider> ();
 		rb = GetComponent<Rigidbody> ();
-		rend = GetComponent<MeshRenderer> ();
+		rend = GetComponentInChildren<MeshRenderer> ();
 		InvokeRepeating ("CheckBounds", 0, 0.5f);
 		normalBlockTypeListLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
 
@@ -162,6 +163,8 @@ public class Block : MonoBehaviour
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		parentToTransformScript = GetComponent<ParentToTransform> ();
 		timeBodyScript = GetComponent<TimeBody> ();
+		processor = GameObject.Find ("BeatDetectionTrack").GetComponent<AudioProcessor> ();
+		processor.onBeat.AddListener (onOnbeatDetected);
 
 		// Finds texture scroll script.
 		if (textureScrollScript == null) 
@@ -188,6 +191,11 @@ public class Block : MonoBehaviour
 			OverwriteVelocity = true;
 			rb.velocity = Vector3.zero;
 		}
+	}
+
+	void onOnbeatDetected ()
+	{
+		GetComponentInChildren<Animator> ().Play ("BlockBeat");
 	}
 
 	void FixedUpdate () 
@@ -650,7 +658,10 @@ public class Block : MonoBehaviour
 
 	void DoCamShake ()
 	{
-		camShakeScript.ShakeCam (0.4f, 0.2f, 10);
+		if (camShakeScript != null) 
+		{
+			camShakeScript.ShakeCam (0.4f, 0.2f, 10);
+		}
 	}
 
 	void DoVibrate ()

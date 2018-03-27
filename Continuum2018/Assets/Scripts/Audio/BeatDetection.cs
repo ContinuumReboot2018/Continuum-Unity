@@ -3,12 +3,15 @@
 public class BeatDetection : MonoBehaviour 
 {
 	public AudioController audioControllerScript;
+	public AudioProcessor processor;
 
 	void Start ()
 	{
+		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
 		//Select the instance of AudioProcessor and pass a reference
 		//to this object
-		AudioProcessor processor = FindObjectOfType<AudioProcessor> ();
+		//AudioProcessor processor = FindObjectOfType<AudioProcessor> ();
+		processor = GetComponent<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 		processor.onSpectrum.AddListener (onSpectrum);
 	}
@@ -18,7 +21,7 @@ public class BeatDetection : MonoBehaviour
 	//to adjust the sensitivity
 	void onOnbeatDetected ()
 	{
-		// Debug.Log ("Beat!!!");
+		//Debug.Log ("Beat!!!");
 		audioControllerScript.Beats += 1;
 		audioControllerScript.BeatInBar = (audioControllerScript.Beats % 4) + 1;
 		GetBeatsPerMinute ();

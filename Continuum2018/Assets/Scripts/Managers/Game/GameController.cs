@@ -213,6 +213,10 @@ public class GameController : MonoBehaviour
 	// Debug Audio Stats.
 	public TextMeshProUGUI CurrentPitch_Debug;
 	public TextMeshProUGUI TargetPitch_Debug;
+	public TextMeshProUGUI Beats_Debug;
+	public TextMeshProUGUI BeatInBar_Debug;
+	public TextMeshProUGUI BeatsPerMinute_Debug;
+	public TextMeshProUGUI TimeSinceTrackLoad_Debug;
 	[Space (10)]
 	// Debug wave transition stats.
 	public TextMeshProUGUI BlocksDestroyedText_Debug;
@@ -540,6 +544,15 @@ public class GameController : MonoBehaviour
 					"Cooldown time remain: " + System.Math.Round (playerControllerScript_P1.cooldownTimeRemaining, 2);
 				CurrentAbilityStateText_Debug.text = 
 					"P1 Ability State: " + playerControllerScript_P1.CurrentAbilityState.ToString ();
+
+				Beats_Debug.text = 
+					"Beats: " + audioControllerScript.Beats;
+				BeatInBar_Debug.text = 
+					"Beat in bar: " + audioControllerScript.BeatInBar;
+				BeatsPerMinute_Debug.text = 
+					"Beats per minute: " + System.Math.Round (audioControllerScript.BeatsPerMinute, 3);
+				TimeSinceTrackLoad_Debug.text = 
+					"Time since last track load: " + System.Math.Round (audioControllerScript.TimeSinceTrackLoad, 2);
 			}
 		}
 	}

@@ -220,6 +220,7 @@ MonoBehaviour:
   gameControllerScript: {fileID: 0}
   timeScaleControllerScript: {fileID: 0}
   audioControllerScript: {fileID: 0}
+  processor: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
