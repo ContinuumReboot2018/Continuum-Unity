@@ -48,6 +48,14 @@ public class Homing : MonoBehaviour
 		}
 	}
 
+	void Update ()
+	{
+		if (target != null) 
+		{
+			Debug.DrawLine (transform.position, target.position, new Color (0.47f, 1.0f, 0.05f));
+		}
+	}
+
 	void FixedUpdate () 
 	{
 		if (target == null)

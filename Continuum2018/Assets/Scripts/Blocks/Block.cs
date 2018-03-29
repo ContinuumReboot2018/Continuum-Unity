@@ -115,7 +115,7 @@ public class Block : MonoBehaviour
 		// Initialize self.
 		BoxCol = GetComponent<Collider> ();
 		rb = GetComponent<Rigidbody> ();
-		rend = GetComponentInChildren<MeshRenderer> ();
+		rend = GetComponentInChildren<MeshRenderer> (true);
 		InvokeRepeating ("CheckBounds", 0, 0.5f);
 		normalBlockTypeListLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
 
@@ -151,6 +151,7 @@ public class Block : MonoBehaviour
 		}
 
 		Invoke ("AllowParticleCollisionBossNow", 2);
+		UpdateBlockType ();
 	}
 
 	void Start () 
@@ -169,7 +170,7 @@ public class Block : MonoBehaviour
 		// Finds texture scroll script.
 		if (textureScrollScript == null) 
 		{
-			textureScrollScript = GetComponent<ScrollTextureOverTime> ();
+			textureScrollScript = GetComponentInChildren<ScrollTextureOverTime> (true);
 		}
 			
 		// If not connected to a block formation, set property to not connected to block formation.
@@ -188,8 +189,8 @@ public class Block : MonoBehaviour
 		// If block formation, overwrite velocity and follow parent object position.
 		if (isBlockFormationConnected == true) 
 		{
-			OverwriteVelocity = true;
-			rb.velocity = Vector3.zero;
+			//OverwriteVelocity = true;
+			//rb.velocity = Vector3.zero;
 		}
 	}
 
@@ -495,6 +496,7 @@ public class Block : MonoBehaviour
 		BasePointValue = 0; // Reset base point value.
 		TextColor = new Color (0.5f, 0.5f, 0.5f, 1); // set gray text color.
 		Explosion = NoiseExplosion; // Set noise explosion.
+		GetComponentInChildren<Animator> (true).enabled = false;
 
 		// Set scale for noise.
 		transform.localScale = new Vector3 
@@ -512,6 +514,8 @@ public class Block : MonoBehaviour
 		{
 			GetComponentInChildren<ParticleSystem> ().Stop ();
 		}
+
+		CheckForNoiseBoundary ();
 	}
 
 	// Checks block position within boundaries or not.
@@ -682,7 +686,7 @@ public class Block : MonoBehaviour
 	}
 
 	// Checks boundary for noise blocks.
-	void CheckForNoiseBoundary ()
+	public void CheckForNoiseBoundary ()
 	{
 		if (transform.position.x > BoundaryX.y || 
 			transform.position.x < BoundaryX.x || 
@@ -730,7 +734,7 @@ public class Block : MonoBehaviour
 				BasePointValue = 0;
 				TextColor = new Color (0.5f, 0.5f, 0.5f, 1);
 				Explosion = NoiseExplosion;
-				CheckForNoiseBoundary ();
+				//CheckForNoiseBoundary ();
 				break;
 			}
 

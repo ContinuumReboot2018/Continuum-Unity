@@ -5,7 +5,7 @@ using UnityEngine;
 public class MiniBossFormationGenerator : MonoBehaviour 
 {
 	public Texture2D map; // Drop the texture in this slot in the inspector to read from.
-	[Header ("Color texture  maps")]
+	[Header ("Color texture maps")]
 	public ColorToPrefab[] colorMappings; // Set prefabs to spawn by color.
 	[Space (10)]
 	[Header ("Transforms")]

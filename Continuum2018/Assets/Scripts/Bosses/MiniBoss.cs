@@ -282,6 +282,7 @@ public class MiniBoss : MonoBehaviour
 			if (block != null)
 			{
 				block.ConvertToNoiseBossPart ();
+				//block.CheckForNoiseBoundary ();
 				block.parentToTransformScript.ParentNow ();
 			}
 		}

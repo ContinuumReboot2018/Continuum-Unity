@@ -40,12 +40,10 @@ GameObject:
   - component: {fileID: 4411176787764428}
   - component: {fileID: 33904729018979648}
   - component: {fileID: 65897293830135444}
-  - component: {fileID: 23430576895460850}
   - component: {fileID: 114859730920538306}
   - component: {fileID: 54244710924662194}
   - component: {fileID: 114045489295494334}
   - component: {fileID: 114212151734931360}
-  - component: {fileID: 114139756896259176}
   - component: {fileID: 65305451555682004}
   - component: {fileID: 114058810516228418}
   m_Layer: 11
@@ -82,40 +80,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23430576895460850
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1959802523568856}
-  m_Enabled: 0
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 95901e3c8f2e3c34bb66d718ace7c968, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23810940573294676
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -267,22 +231,6 @@ MonoBehaviour:
   MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1
---- !u!114 &114139756896259176
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1959802523568856}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScrollSpeed: {x: 1000, y: 1000}
-  CurrentOffset: {x: 0, y: 0}
-  HorizontalScrollMode: 1
-  VerticalScrollMode: 1
-  ignoreTimescale: 0
 --- !u!114 &114212151734931360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,9 +276,9 @@ MonoBehaviour:
   timeScaleControllerScript: {fileID: 0}
   audioControllerScript: {fileID: 0}
   processor: {fileID: 0}
-  rend: {fileID: 23810940573294676}
-  textureScrollScript: {fileID: 114332323309470850}
-  parentToTransformScript: {fileID: 114212151734931360}
+  rend: {fileID: 0}
+  textureScrollScript: {fileID: 0}
+  parentToTransformScript: {fileID: 0}
   allowParticleCollisionBoss: 0
   speed: -150
   OverwriteVelocity: 0
@@ -350,8 +298,8 @@ MonoBehaviour:
   bossPartIndex: 0
   BossDamage: 1
   HitPoints: 5
-  BoundaryX: {x: -100, y: 100}
-  BoundaryY: {x: -100, y: 100}
+  BoundaryX: {x: -20.6, y: 20.6}
+  BoundaryY: {x: -11.5, y: 11.5}
   BlockType: 1
   BlockChangeType: 0
   ChangeRate: 0.5

@@ -72,10 +72,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4461372956971004}
+  - component: {fileID: 114409573734905362}
   - component: {fileID: 114006191304983562}
   - component: {fileID: 114943584476733144}
   - component: {fileID: 82869012146850048}
-  - component: {fileID: 114409573734905362}
   m_Layer: 11
   m_Name: MiniBoss_Procedural_3
   m_TagString: Untagged
@@ -471,7 +471,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1414357436659834}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cdd84ae622dbb6408309033ab950c6c, type: 3}
   m_Name: 
@@ -479,29 +479,29 @@ MonoBehaviour:
   map: {fileID: 2800000, guid: 5415d9f64e652534e8b040f2ff96cdf9, type: 3}
   colorMappings:
   - color: {r: 0.23529412, g: 0.8666667, b: 1, a: 1}
-    prefab: {fileID: 1210811684015744, guid: e4d2eccbc8c557b4d9dd60bad8da330f, type: 2}
+    prefab: {fileID: 1520585642279696, guid: e4d2eccbc8c557b4d9dd60bad8da330f, type: 2}
   - color: {r: 0.27058825, g: 0.5058824, b: 1, a: 1}
-    prefab: {fileID: 1048196628481016, guid: 3249df8ac23513348902dde89cac8f8b, type: 2}
+    prefab: {fileID: 1897094887782872, guid: 3249df8ac23513348902dde89cac8f8b, type: 2}
   - color: {r: 0.6627451, g: 0.30980393, b: 1, a: 1}
-    prefab: {fileID: 1434649582786726, guid: 7f6ee487f4ad9c74285b43075dd46dfd, type: 2}
+    prefab: {fileID: 1691320530388000, guid: 7f6ee487f4ad9c74285b43075dd46dfd, type: 2}
   - color: {r: 1, g: 0.3019608, b: 0.75686276, a: 1}
-    prefab: {fileID: 1738857170775854, guid: 5e7a32188eeec814885fea28c7e77c46, type: 2}
+    prefab: {fileID: 1866467037051628, guid: 5e7a32188eeec814885fea28c7e77c46, type: 2}
   - color: {r: 1, g: 0, b: 0, a: 1}
-    prefab: {fileID: 1188870548824364, guid: 940f53b9b89690d44a38cdbc6b3a1ac4, type: 2}
+    prefab: {fileID: 1130169261214850, guid: 940f53b9b89690d44a38cdbc6b3a1ac4, type: 2}
   - color: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
-    prefab: {fileID: 1115738187582702, guid: 1ede0c4836c1743488aebd49a99d5937, type: 2}
+    prefab: {fileID: 1251102726777294, guid: 1ede0c4836c1743488aebd49a99d5937, type: 2}
   - color: {r: 0, g: 1, b: 0, a: 1}
-    prefab: {fileID: 1241975698738698, guid: 64ff233344ad67e4686b819102c91648, type: 2}
+    prefab: {fileID: 1404075520353270, guid: 64ff233344ad67e4686b819102c91648, type: 2}
   - color: {r: 0, g: 1, b: 0, a: 0.5019608}
-    prefab: {fileID: 1944889610669892, guid: e0d84cc2e041b9446a1a38ad75a3b098, type: 2}
+    prefab: {fileID: 1422902992721556, guid: e0d84cc2e041b9446a1a38ad75a3b098, type: 2}
   - color: {r: 0.23529412, g: 0.8666667, b: 1, a: 0.5019608}
-    prefab: {fileID: 1605311560876468, guid: de8be2822be9d2b4586dadb3dd2b4e0d, type: 2}
+    prefab: {fileID: 1544718265847134, guid: de8be2822be9d2b4586dadb3dd2b4e0d, type: 2}
   - color: {r: 0.27058825, g: 0.5058824, b: 1, a: 0.5019608}
-    prefab: {fileID: 1862951971273316, guid: 7ec1cb75f1f168b41aa109a4ee3984c2, type: 2}
+    prefab: {fileID: 1135053547603940, guid: 7ec1cb75f1f168b41aa109a4ee3984c2, type: 2}
   - color: {r: 0.6627451, g: 0.30980393, b: 1, a: 0.5019608}
-    prefab: {fileID: 1254720616848240, guid: 51b72e5b50640784397e83d8936facbb, type: 2}
+    prefab: {fileID: 1969426158575550, guid: 51b72e5b50640784397e83d8936facbb, type: 2}
   - color: {r: 1, g: 0.3019608, b: 0.75686276, a: 0.5019608}
-    prefab: {fileID: 1674629013997252, guid: 5c519a0f21a9d1f4887996de080c43d1, type: 2}
+    prefab: {fileID: 1987925496388862, guid: 5c519a0f21a9d1f4887996de080c43d1, type: 2}
   ParentTransform: {fileID: 4423422975300952}
   Spacing: 1.5
   Scaling: {x: 1.35, y: 1.35, z: 1.35}
@@ -527,7 +527,7 @@ MonoBehaviour:
   MiniBossParent: {fileID: 1414357436659834}
   miniBossFormation: {fileID: 114409573734905362}
   evasiveManeuverScript: {fileID: 114598710554275844}
-  MiniBossUI: {fileID: 1583178945878726, guid: 40391be43a7be4243934a6ba4bf91159, type: 2}
+  MiniBossUI: {fileID: 0}
   MiniBossName: DESTROYER
   hitPoints: 5
   StartingHitPoints: 5

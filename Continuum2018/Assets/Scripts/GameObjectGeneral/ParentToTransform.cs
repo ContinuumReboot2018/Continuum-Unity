@@ -19,5 +19,6 @@ public class ParentToTransform : MonoBehaviour
 	{
 		ParentTransform = GameObject.Find (ParentTransformName).transform;
 		transform.SetParent (ParentTransform);
+		transform.SetAsLastSibling ();
 	}
 }
