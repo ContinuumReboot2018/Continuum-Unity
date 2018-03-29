@@ -119,6 +119,7 @@ public class Block : MonoBehaviour
 		InvokeRepeating ("CheckBounds", 0, 0.5f);
 		normalBlockTypeListLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
 
+		/*
 		// Random scroll: Change randomly, update self.
 		if (BlockChangeType == blockChangeType.RandomScroll) 
 		{
@@ -133,7 +134,7 @@ public class Block : MonoBehaviour
 			InvokeRepeating ("SequentialScroll", 0, ChangeRate);
 			InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
 			return;
-		}
+		}*/
 
 		// Static: Don't change type, update once.
 		if (BlockChangeType == blockChangeType.Static) 
@@ -199,6 +200,21 @@ public class Block : MonoBehaviour
 		if (audioControllerScript.BeatInBar == (int)BlockType + 1) 
 		{
 			GetComponentInChildren<Animator> ().Play ("BlockBeat");
+		}
+
+		if (BlockChangeType == blockChangeType.RandomScroll) 
+		{
+			RandomScroll ();
+			UpdateBlockType ();
+			return;
+		}
+
+		// Sequential: Change orderly, update self.
+		if (BlockChangeType == blockChangeType.Sequential) 
+		{
+			SequentialScroll ();
+			UpdateBlockType ();
+			return;
 		}
 	}
 
