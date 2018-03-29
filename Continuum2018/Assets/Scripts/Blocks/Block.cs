@@ -196,7 +196,10 @@ public class Block : MonoBehaviour
 
 	void onOnbeatDetected ()
 	{
-		GetComponentInChildren<Animator> ().Play ("BlockBeat");
+		if (audioControllerScript.BeatInBar == (int)BlockType + 1) 
+		{
+			GetComponentInChildren<Animator> ().Play ("BlockBeat");
+		}
 	}
 
 	void FixedUpdate () 
