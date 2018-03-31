@@ -3,7 +3,7 @@
 [ExecuteInEditMode]
 public class BlockFormation : MonoBehaviour 
 {
-	private Rigidbody rb; // Reference to the RigidBody.
+	//private Rigidbody rb; // Reference to the RigidBody.
 	private GameController gameControllerScript; // Reference to the GameController.
 	private TimescaleController timeScaleControllerScript;
 
@@ -51,7 +51,7 @@ public class BlockFormation : MonoBehaviour
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 
 		GetAccumulatedSpeed (); // Get aggregate speed additively.
-		rb = GetComponent<Rigidbody> (); // Get the current RigidBody component.
+		//rb = GetComponent<Rigidbody> (); // Get the current RigidBody component.
 		/*
 		// Set current velocity.
 		rb.velocity = new Vector3 (
