@@ -115,6 +115,8 @@ public class PlayerController : MonoBehaviour
 		Overdrive = 3
 	}
 
+	public Animator PlayerRecoil;
+
 	[Header ("Overheating")]
 	[Range (0, 1)]
 	[Tooltip("Linear representation of current heat level.")]
@@ -1466,6 +1468,8 @@ public class PlayerController : MonoBehaviour
 			}
 			break;
 		}
+
+		PlayerRecoil.Play ("PlayerRecoil");
 	}
 
 	// Gets pause state.

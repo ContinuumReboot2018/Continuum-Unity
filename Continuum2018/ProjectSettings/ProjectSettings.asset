@@ -63,7 +63,7 @@ PlayerSettings:
   use32BitDisplayBuffer: 0
   preserveFramebufferAlpha: 0
   disableDepthAndStencilBuffers: 0
-  androidBlitType: 0
+  androidBlitType: 2
   defaultIsFullScreen: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
@@ -267,6 +267,9 @@ PlayerSettings:
     m_Automatic: 1
   - m_BuildTarget: WindowsStandaloneSupport
     m_APIs: 02000000110000001200000015000000080000000b000000
+    m_Automatic: 1
+  - m_BuildTarget: AndroidPlayer
+    m_APIs: 0b0000000800000015000000
     m_Automatic: 1
   m_BuildTargetVRSettings:
   - m_BuildTarget: Metro

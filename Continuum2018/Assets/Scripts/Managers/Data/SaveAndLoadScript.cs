@@ -183,6 +183,8 @@ public class SaveAndLoadScript : MonoBehaviour
 
 		if (QualitySettingsIndex == 1) 
 		{
+			// These settings are disabled for testing on android.
+
 			VisualSettingsComponent.enabled = true;
 			sunShaftsEnabled = true;
 			//noiseGrainEnabled = true;

@@ -428,7 +428,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206208298503716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.570621, y: -3.7600002, z: 0}
+  m_LocalPosition: {x: 2.5608897, y: -3.7600002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -497,7 +497,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1072815788808384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0048658587, y: 3.1270003, z: 0}
+  m_LocalPosition: {x: 0, y: 3.1270003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -510,7 +510,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407336111842324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.8986206, y: -2.8000002, z: 0}
+  m_LocalPosition: {x: 7.8888893, y: -2.8000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -607,7 +607,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266182147391190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.898621, y: 0, z: 0}
+  m_LocalPosition: {x: 8.888889, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -846,7 +846,7 @@ MonoBehaviour:
   button:
     idleSprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
     busySprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
-    idleColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+    idleColor: {r: 1, g: 1, b: 1, a: 0}
     busyColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     shape: 0
     sizeUnitType: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
   button:
     idleSprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
     busySprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
-    idleColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+    idleColor: {r: 1, g: 1, b: 1, a: 0}
     busyColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     shape: 0
     sizeUnitType: 0
@@ -934,7 +934,7 @@ MonoBehaviour:
   ring:
     idleSprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
     busySprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
-    idleColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+    idleColor: {r: 1, g: 1, b: 1, a: 0}
     busyColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     shape: 0
     sizeUnitType: 0
@@ -944,7 +944,7 @@ MonoBehaviour:
   knob:
     idleSprite: {fileID: 21300000, guid: e0d1baa41a4447341852366690a0be89, type: 3}
     busySprite: {fileID: 21300000, guid: e0d1baa41a4447341852366690a0be89, type: 3}
-    idleColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+    idleColor: {r: 1, g: 1, b: 1, a: 0}
     busyColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     shape: 0
     sizeUnitType: 0
@@ -974,7 +974,7 @@ MonoBehaviour:
   button:
     idleSprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
     busySprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
-    idleColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+    idleColor: {r: 1, g: 1, b: 1, a: 0}
     busyColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     shape: 0
     sizeUnitType: 0
@@ -1108,7 +1108,7 @@ MonoBehaviour:
   button:
     idleSprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
     busySprite: {fileID: 21300000, guid: 039f4c4d333d6ad469494bcf44aba388, type: 3}
-    idleColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+    idleColor: {r: 1, g: 1, b: 1, a: 0}
     busyColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     shape: 0
     sizeUnitType: 0
