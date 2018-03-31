@@ -4,13 +4,14 @@ public class Barrier : MonoBehaviour
 {
 	public GameObject BarrierExplosion;
 
+	/*
 	void OnCollisionEnter (Collision col)
 	{
 		if (col.collider.tag == "Bullet") 
 		{
 			ExplodeBullet (col.transform, col.gameObject);
 		}
-	}
+	}*/
 
 	void OnParticleCollision (GameObject other)
 	{
