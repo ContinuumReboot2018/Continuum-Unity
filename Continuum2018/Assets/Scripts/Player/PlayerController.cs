@@ -8,7 +8,7 @@ using TMPro; 						// Accessing Text Mesh Pro components.
 using UnityEngine.Audio; 			// Accessing Audio mixer settings.
 using UnityStandardAssets.Utility;  // Accessing some standard assets and scripts.
 
-#if !PLATFORM_STANDALONE_OSX
+#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID
 using XInputDotNetPure; 			// Accessing controller vibration system and raw inputs.
 #endif
 // One instance per player.
@@ -1878,7 +1878,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	#if !PLATFORM_STANDALONE_OSX
+	#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID
 	// Creates vibration.
 	public void Vibrate (float LeftMotor, float RightMotor, float duration)
 	{
@@ -1906,7 +1906,7 @@ public class PlayerController : MonoBehaviour
 	// Resets player vibration.
 	void ResetPlayerVibration ()
 	{
-		#if !PLATFORM_STANDALONE_OSX
+		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID
 		GamePad.SetVibration (PlayerIndex.One, 0, 0);
 		#endif
 	}

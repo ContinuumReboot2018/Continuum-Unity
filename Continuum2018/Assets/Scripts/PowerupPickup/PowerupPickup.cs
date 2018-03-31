@@ -138,7 +138,7 @@ public class PowerupPickup : MonoBehaviour
 	{
 		CreatePowerupPickupUI (); // Creates UI at collection point.
 		ActivatePowerup_P1 (); // Searches through list and activates relevant powerup.
-		#if !PLATFORM_STANDALONE_OSX
+		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 0.3f); // Allows controller vibration.
 		#endif
 		PowerupTimeRunningOutAudio.Stop (); // If powerup running out audio is playing, stop it.

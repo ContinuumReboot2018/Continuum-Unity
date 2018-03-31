@@ -1133,7 +1133,7 @@ public class GameController : MonoBehaviour
 
 		// Shake the camera and vibrate the controller.
 		playerControllerScript_P1.camShakeScript.ShakeCam (0.6f, 3.7f, 99);
-		#if !PLATFORM_STANDALONE_OSX
+		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID
 		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 3);
 		#endif
 	}

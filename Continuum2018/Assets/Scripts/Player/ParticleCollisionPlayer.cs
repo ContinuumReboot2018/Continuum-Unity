@@ -46,7 +46,7 @@ public class ParticleCollisionPlayer : MonoBehaviour
 	void DoCamShake ()
 	{
 		camShakeScript.ShakeCam (newCamShakeAmount, newCamShakeDuration, 9);
-		#if !PLATFORM_STANDALONE_OSX
+		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
 		#endif
 	}
