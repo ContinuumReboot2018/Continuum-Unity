@@ -4,8 +4,7 @@ public class Barrier : MonoBehaviour
 {
 	public GameObject BarrierExplosion;
 
-	/*
-	void OnCollisionEnter (Collision col)
+	/*void OnCollisionEnter (Collision col)
 	{
 		if (col.collider.tag == "Bullet") 
 		{
