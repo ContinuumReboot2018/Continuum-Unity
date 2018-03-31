@@ -12,6 +12,8 @@ public class PlayerActions : PlayerActionSet
 	public PlayerAction DebugMenu; // Debug menu action.
 	public PlayerAction CheatConsole; // Cheat console action.
 
+	public PlayerAction Back; // For UI returning one step back.
+
 	public PlayerActions ()
 	{
 		MoveLeft = CreatePlayerAction ("Move Left");
@@ -25,5 +27,7 @@ public class PlayerActions : PlayerActionSet
 		Pause = CreatePlayerAction ("Pause");
 		DebugMenu = CreatePlayerAction ("Debug Menu");
 		CheatConsole = CreatePlayerAction ("CheatConsole");
+
+		Back = CreatePlayerAction ("Back");
 	}
 }
