@@ -24,6 +24,17 @@ public class MiniBossFormationGenerator : MonoBehaviour
 		GenerateMiniBossFormation (); // Does the creation of the formation.
 	}
 
+	void Start ()
+	{
+		ParentTransform.gameObject.SetActive (false);
+		//Invoke ("TurnOnParentBossFormation", 3);
+	}
+
+	/*void TurnOnParentBossFormation ()
+	{
+		//ParentTransform.gameObject.SetActive (true);
+	}*/
+
 	// Read the image then generate the formation.
 	void GenerateMiniBossFormation ()
 	{

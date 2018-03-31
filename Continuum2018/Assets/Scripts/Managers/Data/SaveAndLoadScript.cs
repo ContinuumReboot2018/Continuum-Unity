@@ -175,30 +175,33 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Gets variables from this script = variables in other scripts.
 	void GetSettingsData ()
 	{
-		QualitySettingsIndex = (int)settingsManagerScript.QualityPresetSlider.value;
-		QualitySettings.SetQualityLevel (QualitySettingsIndex);
-
-		if (QualitySettingsIndex == 0) 
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
 		{
-			VisualSettingsComponent.enabled = false;
-			sunShaftsEnabled = false;
-			//noiseGrainEnabled = false;
-			useHdr = false;
+			QualitySettingsIndex = (int)settingsManagerScript.QualityPresetSlider.value;
+			QualitySettings.SetQualityLevel (QualitySettingsIndex);
+
+			if (QualitySettingsIndex == 0) 
+			{
+				VisualSettingsComponent.enabled = false;
+				sunShaftsEnabled = false;
+				//noiseGrainEnabled = false;
+				useHdr = false;
+			}
+
+			if (QualitySettingsIndex == 1) 
+			{
+				// These settings are disabled for testing on android.
+
+				VisualSettingsComponent.enabled = true;
+				sunShaftsEnabled = true;
+				//noiseGrainEnabled = true;
+				useHdr = true;
+			}
+
+			MasterVolume = Mathf.Clamp (AudioListener.volume, 0, 1);
+			SoundtrackVolume = settingsManagerScript.SoundtrackVolumeSlider.value;
+			EffectsVolume = settingsManagerScript.EffectsVolumeSlider.value;
 		}
-
-		if (QualitySettingsIndex == 1) 
-		{
-			// These settings are disabled for testing on android.
-
-			VisualSettingsComponent.enabled = true;
-			sunShaftsEnabled = true;
-			//noiseGrainEnabled = true;
-			useHdr = true;
-		}
-
-		MasterVolume 	  = Mathf.Clamp (AudioListener.volume, 	   0, 1);
-		SoundtrackVolume  = settingsManagerScript.SoundtrackVolumeSlider.value;
-		EffectsVolume 	  = settingsManagerScript.EffectsVolumeSlider.value;
 	}
 
 	// Save Settings Main.

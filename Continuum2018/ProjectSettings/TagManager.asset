@@ -9,6 +9,7 @@ TagManager:
   - Boundary
   - PowerupPickup
   - Hazard
+  - Barrier
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - TutorialItem
   - BossPart
   - TouchUI
-  - 
+  - Barrier
   - 
   - 
   - 

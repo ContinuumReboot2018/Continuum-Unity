@@ -14,6 +14,7 @@ public class MiniBoss : MonoBehaviour
 	public EvasiveManeuver evasiveManeuverScript;
 	public GameObject MiniBossUI;
 	public string MiniBossName;
+	public GameObject Barrier;
 
 	[Header ("Stats")]
 	public float hitPoints = 5; // Current hit points.
@@ -51,6 +52,7 @@ public class MiniBoss : MonoBehaviour
 	void Awake ()
 	{
 		hitPoints = StartingHitPoints;
+		Invoke ("TurnOffBarrier", 6);
 	}
 
 	void Start () 
@@ -110,7 +112,12 @@ public class MiniBoss : MonoBehaviour
 			//col.enabled = false;
 		}
 
-		Invoke ("EnableCol", 3);
+		Invoke ("EnableCol", 6);
+	}
+
+	void TurnOffBarrier ()
+	{
+		Barrier.SetActive (false);
 	}
 
 	void TurnOnEvasiveManeuverScript ()
