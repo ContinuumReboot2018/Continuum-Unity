@@ -5,7 +5,7 @@ public class BlockFormation : MonoBehaviour
 {
 	//private Rigidbody rb; // Reference to the RigidBody.
 	private GameController gameControllerScript; // Reference to the GameController.
-	private TimescaleController timeScaleControllerScript;
+	//private TimescaleController timeScaleControllerScript;
 
 	[Header ("Stats")]
 	public float speed; // The average speed of the total accumulated speed.
@@ -48,7 +48,7 @@ public class BlockFormation : MonoBehaviour
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		SetSpawnPosition (); // Restricts spawn position.
 
-		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
+		//timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 
 		GetAccumulatedSpeed (); // Get aggregate speed additively.
 		//rb = GetComponent<Rigidbody> (); // Get the current RigidBody component.
