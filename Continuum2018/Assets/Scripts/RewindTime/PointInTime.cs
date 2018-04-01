@@ -3,8 +3,10 @@
 // Returns in list of Points In Time.
 public class PointInTime
 {
-	public Vector3 position; // Get position.
-	public Quaternion rotation; // Get rotation.
+	[Tooltip ("Get position.")]
+	public Vector3 position;
+	[Tooltip ("Get rotation.")]
+	public Quaternion rotation;
 
 	// Returns position and rotation neatly.
 	public PointInTime (Vector3 _position, Quaternion _rotation)

@@ -2,9 +2,12 @@
 
 public class PlayerParent : MonoBehaviour
 {
-	public PlayerController playerControllerScript; // Reference to Player Controller.
-	public Animator anim; // Animator for player parent to move up the screen.
-	public bool DontUsePlayerInput; // Checks whether player input should be used.
+	[Tooltip ("Reference to Player Controller.")]
+	public PlayerController playerControllerScript;
+	[Tooltip ("Animator for player parent to move up the screen.")]
+	public Animator anim;
+	[Tooltip ("Checks whether player input should be used.")]
+	public bool DontUsePlayerInput;
 
 	// Enables player input by animation events.
 	public void EnablePlayerInput ()

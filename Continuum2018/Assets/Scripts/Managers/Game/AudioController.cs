@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-using UnityEngine.Networking;
+//using UnityEngine.Networking;
 
 public class AudioController : MonoBehaviour 
 {
@@ -10,31 +10,48 @@ public class AudioController : MonoBehaviour
 	public TimescaleController timescaleControllerScript;
 	public SaveAndLoadScript saveAndLoadScript;
 
-	public bool updateVolumeAndPitches = true; // If true, the music will update to volume and pitch.
-	public float Distance; // Gets distance from timescaleControllerScript.
+	[Tooltip ("If true, the music will update to volume and pitch.")]
+	public bool updateVolumeAndPitches = true;
+	[Tooltip ("Gets distance from timescaleControllerScript.")]
+	public float Distance;
 
 	//public UnityWebRequestMultimedia
 
-	public AudioMixer AudioMix; // Audio mixer on soundtracks.
-	public float curFreq; // Current low pass frequency from mixer.
-	public float TargetCutoffFreq; // Target low pass frequency for mixer.
-	public float CutoffFreqSmoothing; // Low pass frequency smooth time.
-	public float curRes; // Current low pass resonance from mixer.
-	public float TargetResonance; // Target low pass resonance for mixer.
-	public float ResonanceSmoothing; // Low pass resonance smooth time.
+	[Tooltip ("Audio mixer on soundtracks.")]
+	public AudioMixer AudioMix;
+	[Tooltip ("Current low pass frequency from mixer.")]
+	public float curFreq;
+	[Tooltip ("Target low pass frequency for mixer.")]
+	public float TargetCutoffFreq;
+	[Tooltip ("Low pass frequency smooth time.")]
+	public float CutoffFreqSmoothing;
+	[Tooltip ("Current low pass resonance from mixer.")]
+	public float curRes;
+	[Tooltip ("Target low pass resonance for mixer.")]
+	public float TargetResonance;
+	[Tooltip ("Low pass resonance smooth time.")]
+	public float ResonanceSmoothing;
 
 	// Distances to edit
 	[Header ("Distance values")]
-	public float BaseDistance; // The distance at which any lower will give the lowest assigned audio pitch.
-	public float LowDistance; // Higher = 1.0f, Lower = 0.75f.
-	public float MediumDistance; // Higher = 1.25f, Lower = 1.0f.
-	public float HighDistance; // The distance at which any higher will give the highest assigned audio pitch.
+	[Tooltip ("The distance at which any lower will give the lowest assigned audio pitch.")]
+	public float BaseDistance;
+	[Tooltip ("Higher = 1.0f, Lower = 0.75f.")]
+	public float LowDistance;
+	[Tooltip ("Higher = 1.25f, Lower = 1.0f.")]
+	public float MediumDistance;
+	[Tooltip ("The distance at which any higher will give the highest assigned audio pitch.")]
+	public float HighDistance;
 
 	[Header ("Track Sequence")]
-	public int TrackNumber; // Current track number referenced in array.
-	public string TrackName; // The track name based on track number.
-	public string[] TrackNames; // List of all track names.
-	public trackSequence TrackSequenceMode; // Can change the way tracks are sequenced.
+	[Tooltip ("Current track number referenced in array.")]
+	public int TrackNumber;
+	[Tooltip ("The track name based on track number.")]
+	public string TrackName;
+	[Tooltip ("List of all track names.")]
+	public string[] TrackNames;
+	[Tooltip ("Can change the way tracks are sequenced.")]
+	public trackSequence TrackSequenceMode;
 	public enum trackSequence
 	{
 		Sequential,
@@ -42,40 +59,62 @@ public class AudioController : MonoBehaviour
 	}
 
 	// The soundtrack audio sources.
-	public AudioSource BassTrack; // Plays bass tracks.
-	public AudioSource LayerOneTrack; // Plays layer one tracks.
-	public AudioSource LayerTwoTrack; // Plays layer two tracks.
-	public AudioSource LayerThreeTrack; // Plays layer three tracks.
+	[Tooltip ("Plays bass tracks.")]
+	public AudioSource BassTrack;
+	[Tooltip ("Plays layer one tracks.")]
+	public AudioSource LayerOneTrack;
+	[Tooltip ("Plays layer two tracks.")]
+	public AudioSource LayerTwoTrack;
+	[Tooltip ("Plays layer three tracks.")]
+	public AudioSource LayerThreeTrack;
+	[Tooltip ("Plays beat detection tracks.")]
 	public AudioSource BeatDetectionTrack;
 
 	[Header ("Soundtrack Library")]
 	// A library of all each type of track.
-	public AudioClip[] BassTracks; // Bassdrums, main beat, bed.
-	public AudioClip[] LayerOneTracks; // Bass synths, Pads.
-	public AudioClip[] LayerTwoTracks; // Mains and lead synths.
-	public AudioClip[] LayerThreeTracks; // Riffs, arps, all sorts of cool audio flourishes.
+	[Tooltip ("Bassdrums, main beat, bed.")]
+	public AudioClip[] BassTracks;
+	[Tooltip ("Bass synths, Pads.")]
+	public AudioClip[] LayerOneTracks;
+	[Tooltip ("Mains and lead synths.")]
+	public AudioClip[] LayerTwoTracks; 
+	[Tooltip ("Riffs, arps, all sorts of cool audio flourishes.")]
+	public AudioClip[] LayerThreeTracks;
+	[Tooltip ("Beat detection tracks. Must show what tempo this is to synchronize with audio.")]
 	public AudioClip[] BeatDetectionTraks;
 
 	[Header ("Beat Detection")]
+	[Tooltip ("Increments by 1 every time a beat is detected.")]
 	public int Beats;
+	[Tooltip ("Divides beats by 4 and returns the remainder.")]
 	public int BeatInBar;
+	[Tooltip ("Calculates BPM.")]
 	public float BeatsPerMinute;
+	[Tooltip ("Scaled time since the audio track changed.")]
 	public float TimeSinceTrackLoad;
 
 	[Header ("Volume")]
-	public float BaseTargetVolume; // Bass current volume lerps to this value.
-	public float LayerOneTargetVolume; // Layer one current volume lerps to this value.
-	public float LayerTwoTargetVolume; // Layer two current volume lerps to this value.
-	public float LayerThreeTargetVolume; // Layer three current volume lerps to this value.
+	[Tooltip ("Bass current volume lerps to this value.")]
+	public float BaseTargetVolume;
+	[Tooltip ("Layer one current volume lerps to this value.")]
+	public float LayerOneTargetVolume;
+	[Tooltip ("Layer two current volume lerps to this value.")]
+	public float LayerTwoTargetVolume;
+	[Tooltip ("Layer two current volume lerps to this value.")]
+	public float LayerThreeTargetVolume;
+	[Tooltip ("Layer three current volume lerps to this value.")]
 	public float VolumeSmoothTime;
-
-	public Vector4 BassVolume, LayerOneVolume, LayerTwoVolume, LayerThreeVolume; // Volume values based on distance value.
+	[Tooltip ("Volume values based on distance value.")]
+	public Vector4 BassVolume, LayerOneVolume, LayerTwoVolume, LayerThreeVolume;
 
 	[Header ("Pitch")]
-	public float BassTargetPitch; // Current bass track pitch lerps to this value, other tracks synchronize automatically.
-	public float PitchSmoothTime; // Pitch smoothing time.
-
-	public Vector4 TimePitch; // Pitch values based on distance values.
+	[Tooltip ("Current bass track pitch lerps to this value, other tracks synchronize automatically.")]
+	public float BassTargetPitch;
+	[Tooltip ("Pitch smoothing time.")]
+	public float PitchSmoothTime;
+	[Tooltip ("Pitch values based on distance values.")]
+	public Vector4 TimePitch;
+	[Tooltip ("Is pitch being reversed?")]
 	public bool ReversePitch;
 
 	void Start ()

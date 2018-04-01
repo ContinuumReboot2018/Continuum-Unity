@@ -8,7 +8,8 @@ public class ParticleCollisionPlayer : MonoBehaviour
 	public AudioController audioControllerScript;  // Reference to Audio Controller.
 	public CameraShake camShakeScript; // Reference to camera shake.
 	[Space (10)]
-	public GameObject playerExplosion; // Player explosion.
+	[Tooltip ("Player explosion.")]
+	public GameObject playerExplosion;
 
 	[Header ("Camera shake")]
 	public float newCamShakeAmount;

@@ -10,14 +10,20 @@ public class PowerupPickup : MonoBehaviour
 	public CameraShake camShakeScript; // Reference to camera shake.
 
 	[Header ("On Awake")]
-	public AudioSource AwakeAudio; // The audio effect to play when spawned.
-	public MeshRenderer meshrend; // The mesh renderer which has the powerup pickup texture.
-	public SphereCollider col; // The collider.
-	public ParticleSystem AwakeParticles; // The particle effect to play when spawned.
-	public float AwakeDelay = 1; // The delay to show the powerup after spawning.
+	[Tooltip ("The audio effect to play when spawned.")]
+	public AudioSource AwakeAudio;
+	[Tooltip ("The mesh renderer which has the powerup pickup texture.")]
+	public MeshRenderer meshrend;
+	[Tooltip ("The collider.")]
+	public SphereCollider col;
+	[Tooltip ("The particle effect to play when spawned.")]
+	public ParticleSystem AwakeParticles;
+	[Tooltip ("The delay to show the powerup after spawning.")]
+	public float AwakeDelay = 1;
 
 	[Header ("Powerup Stats")]
-	public powerups ThisPowerup; // The current powerup type.
+	[Tooltip ("The current powerup type.")]
+	public powerups ThisPowerup;
 	public enum powerups
 	{
 		DoubleShot, // Player shoots two bullets each shot.
@@ -33,16 +39,24 @@ public class PowerupPickup : MonoBehaviour
 	}
 
 	[Header ("On Pickup")]
-	public Texture2D PowerupTexture; // The powerup texture which will feed to the powerup list and explosion UI.
-	public bool isShootingPowerup = true; // Checks whether this is a shooting powerup.
-	public float PowerupTime = 20; // How much time the powerup adds to the powerup time remaining.
-	public GameObject CollectExplosion; // The explosion when the player or bullet collides with it.
-	public AudioSource PowerupTimeRunningOutAudio; // The sound that plays when the powerup time is running out.
-	public Color PowerupPickupUIColor = Color.white; // The color of the powerup explosion UI texture.
+	[Tooltip ("The powerup texture which will feed to the powerup list and explosion UI.")]
+	public Texture2D PowerupTexture;
+	[Tooltip ("Checks whether this is a shooting powerup.")]
+	public bool isShootingPowerup = true;
+	[Tooltip ("How much time the powerup adds to the powerup time remaining.")]
+	public float PowerupTime = 20;
+	[Tooltip ("The explosion when the player or bullet collides with it.")]
+	public GameObject CollectExplosion;
+	[Tooltip ("The sound that plays when the powerup time is running out.")]
+	public AudioSource PowerupTimeRunningOutAudio;
+	[Tooltip ("The color of the powerup explosion UI texture.")]
+	public Color PowerupPickupUIColor = Color.white;
 
 	[Header ("On End Life")]
-	public DestroyByTime destroyByTimeScript; // Destroy by time script.
-	public Animator anim; // The animator that the powerup pickup uses.
+	[Tooltip ("Destroy by time script.")]
+	public DestroyByTime destroyByTimeScript;
+	[Tooltip ("The animator that the powerup pickup uses.")]
+	public Animator anim;
 
 	void Start ()
 	{

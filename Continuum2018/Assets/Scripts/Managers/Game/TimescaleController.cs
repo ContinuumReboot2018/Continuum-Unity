@@ -15,42 +15,67 @@ public class TimescaleController : MonoBehaviour
 	public MenuManager 			gameOverMenuManager;
 
 	[Header ("Read Only")]
-	public float TimeScaleView; 			// Time.timeScale property.
-	public float FixedTimeStepView; 		// Time.fixedDeltaTime property.
-	public float MinimumTimeScale = 0.2f;	// Time.timeScale should not go below this value.
-	public float MaximumTimeScale = 2.5f; 	// Time.timeScale should not go above this value.
+	[Tooltip ("Time.timeScale property.")]
+	public float TimeScaleView; 
+	[Tooltip ("Time.fixedDeltaTime property.")]
+	public float FixedTimeStepView; 
+	[Tooltip ("Time.timeScale should not go below this value.")]
+	public float MinimumTimeScale = 0.2f;
+	[Tooltip ("Time.timeScale should not go above this value.")]
+	public float MaximumTimeScale = 2.5f; 
 
 	[Header ("Time Manipulation")]
+	[Tooltip ("Should the time scale update by calculating distance?")]
 	public bool UpdateTargetTimeScale;
-	public float TargetTimeScale = 1; 					// Time.timeScale will always try to transition to this value if UpdateTargetTimeScale is on.
-	public float TargetTimeScaleSmoothing = 10; 		// How much smoothing is needed for Time.timeScale to be TargetTimeScale.
-	public float TargetTimeScaleMult = 1; 				// Multiplier of how much the TargetTimeScale changes based on distance.
-	public float TargetTimeScaleAdd; 					// How much Time.timeScale is added on top as a constant.
-	public float TargetTimeScaleIncreaseRate = 0.01f; 	// The rate of increasing targetTimeScaleAdd constant.
-	public Transform ReferencePoint; 					// Where the position is to calculate the distance from the player to this point.
-	public float Distance; 								// Value as the Vector3.Distance from player and reference point.
-
+	[Tooltip ("Time.timeScale will always try to transition to this value if UpdateTargetTimeScale is on.")]
+	public float TargetTimeScale = 1;
+	[Tooltip ("How much smoothing is needed for Time.timeScale to be TargetTimeScale.")]
+	public float TargetTimeScaleSmoothing = 10;
+	[Tooltip ("Multiplier of how much the TargetTimeScale changes based on distance.")]
+	public float TargetTimeScaleMult = 1;
+	[Tooltip ("How much Time.timeScale is added on top as a constant.")]
+	public float TargetTimeScaleAdd;
+	[Tooltip ("The rate of increasing targetTimeScaleAdd constant.")]
+	public float TargetTimeScaleIncreaseRate = 0.01f;
+	[Tooltip ("Where the position is to calculate the distance from the player to this point.")]
+	public Transform ReferencePoint;
+	[Tooltip ("Value as the Vector3.Distance from player and reference point.")]
+	public float Distance;
+	[Tooltip ("Location of the Player 1.")]
 	public Transform PlayerOne;
+	[Tooltip ("Multiplayer mode?")]
 	public bool useTwoPlayers;
+	[Tooltip ("Location of Player 2.")]
 	public Transform PlayerTwo;
-
-	public bool isInInitialSequence = true; 				// Set to true as the tutorial finishes but set to false when the first wave starts.
-	public bool isInInitialCountdownSequence; 				// Time between end of tutorial and start of first wave transition.
-	public float InitialCountdownSequenceDuration = 3;		// How long the countdown is set to start the first wave.
-	public float InitialCountdownSequenceTimeRemaining = 3; // How much time is remaining from the countdown.
+	[Tooltip ("Set to true as the tutorial finishes but set to false when the first wave starts.")]
+	public bool isInInitialSequence = true;
+	[Tooltip ("Time between end of tutorial and start of first wave transition.")]
+	public bool isInInitialCountdownSequence;
+	[Tooltip ("How long the countdown is set to start the first wave.")]
+	public float InitialCountdownSequenceDuration = 3;
+	[Tooltip ("How much time is remaining from the countdown.")]
+	public float InitialCountdownSequenceTimeRemaining = 3;
 
 	[Header ("Override")]
-	public bool isOverridingTimeScale; 			  // When OverrideTimeScaleRemaining is > 0, this will be true.
-	public float OverridingTimeScale;			  // The value at which Time.timeScale will be when isOverridingTimeScale is true;
-	public float OverrideTimeScaleTimeRemaining;  // The amount of unscaled time left of overriding Time.timeScale.
-	public float OverrideTimeScaleSmoothing = 10; // How quickly the current time scale moves towards the OverridingTimeScale.
+	[Tooltip ("When OverrideTimeScaleRemaining is > 0, this will be true.")]
+	public bool isOverridingTimeScale;
+	[Tooltip ("The value at which Time.timeScale will be when isOverridingTimeScale is true")]
+	public float OverridingTimeScale;
+	[Tooltip ("The amount of unscaled time left of overriding Time.timeScale.")]
+	public float OverrideTimeScaleTimeRemaining;
+	[Tooltip ("How quickly the current time scale moves towards the OverridingTimeScale.")]
+	public float OverrideTimeScaleSmoothing = 10;
+	[Tooltip ("Set to true when GameOver sequence happens.")]
+	public bool isEndSequence;
+	[Tooltip ("How long the initial part of the GaameOver sequence is delayed.")]
+	public float EndSequenceInitialDelay;
 
-	public bool isEndSequence; // Set to true when GameOver sequence happens.
-	public float EndSequenceInitialDelay; // How long the initial part of the GaameOver sequence is delayed.
-
-	// Doesn't override Time.timeScale directly, but gives the illusion of rewinding time;
+	[Header ("Rewinding")]
+	[Tooltip ("Doesn't override Time.timeScale directly, but gives the illusion of rewinding time;")]
 	public bool isRewinding;
+	[Tooltip ("How long the rewinding lasts for in real time.")]
 	public float RewindTimeRemaining;
+	[Tooltip ("Max rewinding time in real time.")]
 	public float RewindDuration;
 
 	void Awake () 

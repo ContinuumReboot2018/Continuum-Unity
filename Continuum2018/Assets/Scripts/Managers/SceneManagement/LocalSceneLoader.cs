@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class LocalSceneLoader : MonoBehaviour 
 {
+	[Tooltip ("Scene loader from Init.")]
 	public SceneLoader sceneLoaderScript;
+	[Tooltip ("Scene is going to laod another scene.")]
 	public bool SceneLoadCommit;
 
 	void Start ()
@@ -15,7 +17,6 @@ public class LocalSceneLoader : MonoBehaviour
 	{
 		SceneLoadCommit = true;
 		sceneLoaderScript.SceneName = sceneName;
-		//sceneLoaderScript.Invoke ("StartLoadSequence", 1);
 		StartCoroutine (SceneLoadSequence ());
 	}
 

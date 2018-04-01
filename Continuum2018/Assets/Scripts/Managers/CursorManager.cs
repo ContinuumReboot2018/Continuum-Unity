@@ -2,7 +2,8 @@
 
 public class CursorManager : MonoBehaviour 
 {
-	public float VisibleTimer = 5.0f; // How long the timer can last before hiding the mouse.
+	[Tooltip ("How long the timer can last before hiding the mouse.")]
+	public float VisibleTimer = 5.0f;
 	private float VisibleTimerRemain;
 
 	public void HideMouse ()

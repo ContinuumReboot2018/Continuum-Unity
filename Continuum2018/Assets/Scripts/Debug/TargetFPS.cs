@@ -2,11 +2,10 @@
 
 public class TargetFPS : MonoBehaviour 
 {
-	// Game will try to render as fast as the target.
-	// Will try to run as fast as possible if set to a negative number.
+	[Tooltip ("Game will try to render as fast as the target. Will try to run as fast as possible if set to a negative number.")]
 	public int targetFramerate = 60; 
-	[Space (10)]
-	public bool useScreenRefreshRate; // Use screen refresh rate and match framerate.
+	[Tooltip ("Use screen refresh rate and match framerate.")]
+	public bool useScreenRefreshRate;
 
 	void Start ()
 	{

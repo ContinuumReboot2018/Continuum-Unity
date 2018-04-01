@@ -4,19 +4,24 @@ using UnityEngine.EventSystems;
 
 public class MenuManager : MonoBehaviour 
 {
-	public GameObject UI; // UI to check for activation.
+	[Tooltip ("UI to check for activation.")]
+	public GameObject UI;
 
 	[Header ("Scroll attributes")]
-	public float scrollSpeed = 0.5f; // How much time needs to pass before the player can press up or down.
+	[Tooltip ("How much time needs to pass before the player can press up or down.")]
+	public float scrollSpeed = 0.5f;
 	private float nextScroll;
 
-	public float aButtonCoolDown = 0.5f; // How much time needs to pass before the player can press A.
+	[Tooltip ("How much time needs to pass before the player can press A.")]
+	public float aButtonCoolDown = 0.5f;
 	private float aButtonNextCooldown;
 
-	public float bButtonCoolDown = 0.5f; // How much time needs to pass before the player can press B.
+	[Tooltip ("How much time needs to pass before the player can press B.")]
+	public float bButtonCoolDown = 0.5f;
 	private float bButtonNextCooldown;
 
-	public float startButtonCooldown = 0.5f; // How much time needs to pass before the player can press Start.
+	[Tooltip ("How much time needs to pass before the player can press Start.")]
+	public float startButtonCooldown = 0.5f;
 	private float startButtonNextCooldown;
 
 	// Input data.
@@ -202,17 +207,17 @@ public class MenuManager : MonoBehaviour
 	[System.Serializable]
 	public class MenuButtons
 	{
-		public int buttonIndex = 0; // Current index for the menu button focus.
-		public int maxButtons = 3; // The size of the amount of buttons or event triggers.
+		[Tooltip ("Current index for the menu button focus.")]
+		public int buttonIndex = 0;
+		[Tooltip ("The size of the amount of buttons or event triggers.")]
+		public int maxButtons = 3;
 
-		public Button[] menuButtons; // All the Buttons in order.
-		public EventTrigger[] menuEvents; // All the EventTriggers in order.
+		[Tooltip ("All the Buttons in order.")]
+		public Button[] menuButtons;
+		[Tooltip ("All the EventTriggers in order.")]
+		public EventTrigger[] menuEvents;
 
+		[Tooltip ("The button that gets pressed when B is pressed.")]
 		public Button BackButton;
 	}
-
-	/*void OnDestroy ()
-	{
-		menuActions.Destroy ();
-	}*/
 }

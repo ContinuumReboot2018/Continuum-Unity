@@ -2,12 +2,18 @@
 
 public class StackZone : MonoBehaviour 
 {
-	public bool isOccupied; // Is the current state of this stackzone occupied?
-	public bool canOccupy; // Can a block occupy here?
-	public StackZone StackZoneBelow; // The stack zone below.
-	public StackZone StackZoneAbove; // The stack zone above.
-	public GameObject CapturedBlock; // The currently captured block.
-	public AudioSource stackSound; //The sound to play when a block stacks.
+	[Tooltip ("Is the current state of this stackzone occupied?")]
+	public bool isOccupied;
+	[Tooltip ("Can a block occupy here?")]
+	public bool canOccupy;
+	[Tooltip ("The stack zone below.")]
+	public StackZone StackZoneBelow;
+	[Tooltip ("The stack zone above.")]
+	public StackZone StackZoneAbove;
+	[Tooltip ("The currently captured block.")]
+	public GameObject CapturedBlock;
+	[Tooltip ("The sound to play when a block stacks.")]
+	public AudioSource stackSound;
 
 	void Awake ()
 	{
@@ -97,17 +103,25 @@ public class StackZone : MonoBehaviour
 	// Set to current captured block in trigger.
 	public void CaptureBlock ()
 	{
-		if (CapturedBlock.GetComponent<Block> ().isBossPart == false)
+		Block CapturedBlockScript = CapturedBlock.GetComponent<Block> ();
+		SimpleFollow CapturedBlockSimpleFollow = CapturedBlock.GetComponent<SimpleFollow> ();
+		Rigidbody CapturedBlockRigidbody = CapturedBlock.GetComponent<Rigidbody> ();
+		ParentToTransform CapturedBlockParentToTransform = CapturedBlock.GetComponent<ParentToTransform> ();
+
+		BlockFormation CapturedBlockParentBlockFormation = CapturedBlock.GetComponentInParent<BlockFormation> ();
+		Rigidbody CapturedBlockParentRigidbody = CapturedBlock.GetComponentInParent<Rigidbody> ();
+
+		if (CapturedBlockScript.isBossPart == false)
 		{
-			CapturedBlock.GetComponent<Rigidbody> ().isKinematic = false;
-			CapturedBlock.GetComponent<Block> ().OverwriteVelocity = true;
-			CapturedBlock.GetComponent<Block> ().isStacked = true;
-			CapturedBlock.GetComponent<Block> ().stack = this;
-			CapturedBlock.GetComponent<Rigidbody> ().velocity = Vector3.zero;
-			CapturedBlock.GetComponent<SimpleFollow> ().enabled = true;
-			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosX = transform;
-			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosY = transform;
-			CapturedBlock.GetComponent<SimpleFollow> ().FollowPosZ = transform;
+			CapturedBlockRigidbody.isKinematic = false;
+			CapturedBlockScript.OverwriteVelocity = true;
+			CapturedBlockScript.isStacked = true;
+			CapturedBlockScript.stack = this;
+			CapturedBlockRigidbody.velocity = Vector3.zero;
+			CapturedBlockSimpleFollow.enabled = true;
+			CapturedBlockSimpleFollow.FollowPosX = transform;
+			CapturedBlockSimpleFollow.FollowPosY = transform;
+			CapturedBlockSimpleFollow.FollowPosZ = transform;
 			isOccupied = true;
 
 			if (stackSound.isPlaying == false)
@@ -115,12 +129,12 @@ public class StackZone : MonoBehaviour
 				stackSound.Play ();
 			}
 
-			if (CapturedBlock.GetComponentInParent<BlockFormation> () != null &&
-				CapturedBlock.GetComponentInParent<Rigidbody>() != null) 
+			if (CapturedBlockParentBlockFormation != null &&
+				CapturedBlockParentRigidbody != null) 
 			{
-				CapturedBlock.GetComponentInParent<Rigidbody> ().velocity = Vector3.zero;
-				CapturedBlock.GetComponentInParent<BlockFormation> ().enabled = false;
-				CapturedBlock.GetComponent<ParentToTransform> ().ParentNow ();
+				CapturedBlockParentRigidbody.velocity = Vector3.zero;
+				CapturedBlockParentBlockFormation.enabled = false;
+				CapturedBlockParentToTransform.ParentNow ();
 			}
 		}
 	}
@@ -128,11 +142,15 @@ public class StackZone : MonoBehaviour
 	// Release the captured block.
 	public void VacateBlock ()
 	{
-		CapturedBlock.GetComponent<Block> ().stack = null;
-		CapturedBlock.GetComponent<Block> ().isStacked = false;
-		CapturedBlock.GetComponent<Rigidbody> ().isKinematic = false;
-		CapturedBlock.GetComponent<Block> ().OverwriteVelocity = false;
-		CapturedBlock.GetComponent<SimpleFollow> ().enabled = false;
+		Block CapturedBlock_BlockScript = CapturedBlock.GetComponent<Block> ();
+		Rigidbody CapturedBlock_Rigidbody = CapturedBlock.GetComponent<Rigidbody> ();
+		SimpleFollow CapturedBlock_SimpleFollow = CapturedBlock.GetComponent<SimpleFollow> ();
+
+		CapturedBlock_BlockScript.stack = null;
+		CapturedBlock_BlockScript.isStacked = false;
+		CapturedBlock_Rigidbody.isKinematic = false;
+		CapturedBlock_BlockScript.OverwriteVelocity = false;
+		CapturedBlock_SimpleFollow.enabled = false;
 		CapturedBlock = null;
 		isOccupied = false;
 		canOccupy = true;
@@ -190,22 +208,26 @@ public class StackZone : MonoBehaviour
 				}
 
 				// For all zones above the bottom or below the top.
-				if (StackZoneBelow != null && StackZoneAbove != null) 
+				if (StackZoneBelow != null && 
+					StackZoneAbove != null) 
 				{
 					// Zone above is not occupied but also has a captured block for some reason.
-					if (StackZoneAbove.isOccupied == false && StackZoneAbove.CapturedBlock != null) 
+					if (StackZoneAbove.isOccupied == false && 
+						StackZoneAbove.CapturedBlock != null) 
 					{
 						StackZoneAbove.VacateBlock ();
 					}
 
 					// Zone above is occupied or has a captured block for some reason.
-					if (StackZoneAbove.isOccupied == true || StackZoneAbove.CapturedBlock != null) 
+					if (StackZoneAbove.isOccupied == true || 
+						StackZoneAbove.CapturedBlock != null) 
 					{
 						//StackZoneAbove.VacateBlock ();
 					}
 
 					// Zone above is occuped and somehow there is no captured block.
-					if (StackZoneAbove.isOccupied == true && StackZoneAbove.CapturedBlock == null) 
+					if (StackZoneAbove.isOccupied == true && 
+						StackZoneAbove.CapturedBlock == null) 
 					{
 						StackZoneAbove.isOccupied = false;
 						canOccupy = true;

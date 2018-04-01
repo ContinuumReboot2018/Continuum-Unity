@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class QuitScript : MonoBehaviour 
@@ -18,7 +17,7 @@ public class QuitScript : MonoBehaviour
 		QuitGame ();
 	}
 
-	void QuitGame ()
+	public void QuitGame ()
 	{
 		Application.Quit ();
 	}

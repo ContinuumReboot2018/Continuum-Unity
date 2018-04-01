@@ -21,150 +21,253 @@ public class GameController : MonoBehaviour
 	[Header ("Game Stats")]
 	[Tooltip ("Track debug info.")]
 	public bool TrackStats = true;
-	public float GameTime;				// Scaled time elapsed since the start of the first wave.
-	public float RealTime;				// Unscaled time elapsed since the start of the first wave.
-	public float TimeRatio;				// GameTime / RealTime, can be greater than 1.
-	public float Distance;				// Distance between player and reference point.
-	public int BlocksDestroyed;			// Counter for how many blocks were destroyed.
-	public int BulletsShot;				// Counter for bullets instantiated.
-	public float BlockShotAccuracy;		// Blocks destroyed / Bullets shot.
+	[Tooltip ("Scaled time elapsed since the start of the first wave.")]
+	public float GameTime;
+	[Tooltip ("Unscaled time elapsed since the start of the first wave.")]
+	public float RealTime;
+	[Tooltip ("GameTime / RealTime, can be greater than 1.")]
+	public float TimeRatio;
+	[Tooltip ("Distance between player and reference point.")]
+	public float Distance;
+	[Tooltip ("Counter for how many blocks were destroyed.")]
+	public int BlocksDestroyed;
+	[Tooltip ("Counter for bullets instantiated.")]
+	public int BulletsShot;
+	[Tooltip ("Blocks destroyed / Bullets shot.")]
+	public float BlockShotAccuracy;
 
 	[Header ("Waves")]
-	public int Wave;								// Current wave number.
-	public TextMeshProUGUI WaveText;				// Wave number text.
-	public float WaveTimeIncreaseRate;				// How much longer each wave duration increases per wave.
-	public float FirstWaveTimeDuration;				// How long the first wave should last.
-	public float WaveTimeDuration;					// Max wave duration time.
-	public float WaveTimeRemaining;					// Wave time remaining until end of wave.
-	public RawImage WaveBackground;					// Background of wave text.
+	[Tooltip ("Current wave number.")]
+	public int Wave;
+	[Tooltip ("Wave number text.")]
+	public TextMeshProUGUI WaveText;
+	[Tooltip ("How much longer each wave duration increases per wave.")]
+	public float WaveTimeIncreaseRate;
+	[Tooltip ("How long the first wave should last.")]
+	public float FirstWaveTimeDuration;
+	[Tooltip (" Max wave duration time.")]
+	public float WaveTimeDuration;
+	[Tooltip ("Wave time remaining until end of wave.")]
+	public float WaveTimeRemaining;
+	[Tooltip ("Background of wave text.")]
+	public RawImage WaveBackground;
 
 	[Header ("Wave Transition")]
-	public bool IsInWaveTransition;					// Allows wave transition animation.
-	public ParticleSystem WaveTransitionParticles;  // Cool wave transition particle effect.
-	public Animator WaveTransitionAnim;				// Animator for wave transition.
-	public TextMeshProUGUI WaveTransitionText;		// Text for wave transition to show wave number.
-	public AudioSource WaveTransitionAudio;			// Warp sound.
+	[Tooltip ("Allows wave transition animation.")]
+	public bool IsInWaveTransition;
+	[Tooltip ("Cool wave transition particle effect.")]
+	public ParticleSystem WaveTransitionParticles;
+	[Tooltip ("Animator for wave transition.")]
+	public Animator WaveTransitionAnim;
+	[Tooltip ("Text for wave transition to show wave number.")]
+	public TextMeshProUGUI WaveTransitionText;
+	[Tooltip ("Warp sound.")]
+	public AudioSource WaveTransitionAudio;
 
 	// This is for wave transition UI only.
-	public TextMeshProUGUI SoundtrackText;			// New soundtrack text. (Appears every four waves).
-	public TextMeshProUGUI GameTimeText;			// Display for game time in wave transition.
-	public TextMeshProUGUI RealTimeText;			// Display for real time in wave transition.
-	public TextMeshProUGUI TimeRatioText;			// Display for time ration in wave transition.
-	public TextMeshProUGUI BlocksDestroyedText;		// Display for blocks destroyed in wave transition.
-	public TextMeshProUGUI BulletsShotText;			// Display for bullets shot in wave transition.
-	public TextMeshProUGUI AccuracyText;			// Display for accuracy in wave transition.
+	[Tooltip ("New soundtrack text. (Appears every four waves).")]
+	public TextMeshProUGUI SoundtrackText;
+	[Tooltip ("Display for game time in wave transition.")]
+	public TextMeshProUGUI GameTimeText;
+	[Tooltip ("Display for real time in wave transition.")]
+	public TextMeshProUGUI RealTimeText;
+	[Tooltip ("Display for time ratio in wave transition.")]
+	public TextMeshProUGUI TimeRatioText;
+	[Tooltip ("Display for blocks destroyed in wave transition.")]
+	public TextMeshProUGUI BlocksDestroyedText;
+	[Tooltip ("Display for bullets shot in wave transition.")]
+	public TextMeshProUGUI BulletsShotText;
+	[Tooltip ("Display for accuracy in wave transition.")]
+	public TextMeshProUGUI AccuracyText;
 
 	[Header ("Scoring")]
-	public bool CountScore;				// Allow score to be incremented.
-	public float DisplayScore;			// Currently displayed score.
-	public float CurrentScore;			// Current score updated.
-	public float TargetScore;			// Score to smoothly transition towards.
-	public float ScoreSmoothing;		// How much smoothing is applied to target score.
-	public TextMeshProUGUI ScoreText;	// Score UI text.
-	public RawImage ScoreBackground;	// Dark background for score area.
+	[Tooltip ("Allow score to be incremented.")]
+	public bool CountScore;
+	[Tooltip ("Currently displayed score.")]
+	public float DisplayScore;
+	[Tooltip ("Current score updated.")]
+	public float CurrentScore;
+	[Tooltip ("Score to smoothly transition towards.")]
+	public float TargetScore;
+	[Tooltip ("How much smoothing is applied to target score.")]
+	public float ScoreSmoothing;
+	[Tooltip ("Score UI text.")]
+	public TextMeshProUGUI ScoreText;
+	[Tooltip ("Dark background for score area.")]
+	public RawImage ScoreBackground;
 
 	[Header ("Lives")]
-	public int Lives;					 // Counter for lives remaining (UI displays one less as one life is the player itself).
-	public int MaxLives = 11;			 // Maximum lives the player can have at any one time.
-	public TextMeshProUGUI LivesText;	 // UI counter for lives.
-	public RawImage[] LifeImages;		 // Life images x3
-	public RawImage LivesBackground;	 // Dark background for Lives.
-	public GameObject LivesSpacing;		 // Lives spacing determined by amount of lives.
-	public TextMeshProUGUI MaxLivesText; // When lives count reaches max lives, display this text.
+	[Tooltip ("Counter for lives remaining (UI displays one less as one life is the player itself).")]
+	public int Lives;
+	[Tooltip ("Maximum lives the player can have at any one time.")]
+	public int MaxLives = 11;
+	[Tooltip ("UI counter for lives.")]
+	public TextMeshProUGUI LivesText;
+	[Tooltip ("Life images x3.")]
+	public RawImage[] LifeImages;
+	[Tooltip ("Dark background for Lives.")]
+	public RawImage LivesBackground;
+	[Tooltip ("Lives spacing determined by amount of lives.")]
+	public GameObject LivesSpacing;
+	[Tooltip ("When lives count reaches max lives, display this text.")]
+	public TextMeshProUGUI MaxLivesText;
 
 	[Header ("Combo")]
-	public int combo = 1;				// Current combo.
-	public float comboDuration = 0.5f;	// How long the combo lasts before decrementing.
-	public float comboTimeRemaining;	// Current time left of the current combo before it decremements.
+	[Tooltip ("Current combo.")]
+	public int combo = 1;
+	[Tooltip ("How long the combo lasts before decrementing.")]
+	public float comboDuration = 0.5f;
+	[Tooltip ("Current time left of the current combo before it decremements.")]
+	public float comboTimeRemaining;
 
 	[Header ("Stacking")]
-	public GameObject StackingObject; // Stack zones parent object.
+	[Tooltip ("Stack zones parent object.")]
+	public GameObject StackingObject;
 
 	[Header ("Block Spawner")]
-	public GameObject[] Blocks;			 // Block prefabs to spawn based on wave number.
-	public float BlockSpawnRate;		 // How often to spawn blocks.
-	private float NextBlockSpawn;		 // Time to elapse before next block spawn. Time.time > this.
-	public float blockSpawnStartDelay; 	 // Start delay for blocks to spawn.
-	public float[] BlockSpawnXPositions; // Fixed x positions to line up with stack zones.
-	public float BlockSpawnYPosition; 	 // Starting height of block spawn y position.
-	public float BlockSpawnZPosition;	 // Block spawn depth position.
-	public float BlockSpawnIncreaseRate; // How much faster blocks spawn every wave.
-	public int MaximumBlockPoints = 10000; // The maximum points any block can have awarded.
+	[Tooltip ("Block prefabs to spawn based on wave number.")]
+	public GameObject[] Blocks;
+	[Tooltip ("How often to spawn blocks.")]
+	public float BlockSpawnRate;
+	[Tooltip ("Time to elapse before next block spawn. Time.time > this.")]
+	private float NextBlockSpawn;
+	[Tooltip ("Start delay for blocks to spawn.")]
+	public float blockSpawnStartDelay;
+	[Tooltip ("Fixed x positions to line up with stack zones.")]
+	public float[] BlockSpawnXPositions;
+	[Tooltip ("Starting height of block spawn y position.")]
+	public float BlockSpawnYPosition;
+	[Tooltip ("Block spawn depth position.")]
+	public float BlockSpawnZPosition;
+	[Tooltip ("How much faster blocks spawn every wave.")]
+	public float BlockSpawnIncreaseRate;
+	[Tooltip ("The maximum points any block can have awarded.")]
+	public int MaximumBlockPoints = 10000;
 
 	[Header ("Powerup General")]
-	public float PowerupTimeRemaining;				// Current powerup time left.
-	public float PowerupTimeDuration;				// Maximum powerup time.
-	public Animator PowerupAnim;					// Powerup animator for background light.
-	public AudioSource PowerupTimeRunningOutAudio;  // Sound to play when powerup time < 3 seconds.
-	public AudioSource PowerupResetAudio;			// Sound to play when powerups reset.
-	public GameObject[] PowerupPickups;				// List of powerup pickups to spawn. 
-	public float powerupPickupTimeRemaining;		// How long the next powerup pickup will spawn.
-	public Vector2 PowerupPickupSpawnRate;			// Range of time powerup pickups are spawned.
-	public float powerupPickupSpawnModifier = 1;	// Gets value from game modifier for multiplier.
-	private float NextPowerupPickupSpawn;			// Time to pass before next powerup spawns.
-	public float PowerupPickupSpawnRangeX;			// Horizontal area to spawn powerup pickups.
-	public float PowerupPickupSpawnY;				// Vertical area to spawn powerup pickups.
+	[Tooltip ("Current powerup time left.")]
+	public float PowerupTimeRemaining;
+	[Tooltip ("Maximum powerup time.")]
+	public float PowerupTimeDuration;
+	[Tooltip ("Powerup animator for background light.")]
+	public Animator PowerupAnim;
+	[Tooltip ("Sound to play when powerup time < 3 seconds.")]
+	public AudioSource PowerupTimeRunningOutAudio; 
+	[Tooltip ("Sound to play when powerups reset.")]
+	public AudioSource PowerupResetAudio;
+	[Tooltip ("List of powerup pickups to spawn.")]
+	public GameObject[] PowerupPickups;	
+	[Tooltip ("How long the next powerup pickup will spawn.")]
+	public float powerupPickupTimeRemaining;
+	[Tooltip ("Range of time powerup pickups are spawned.")]
+	public Vector2 PowerupPickupSpawnRate;
+	[Tooltip ("Gets value from game modifier for multiplier.")]
+	public float powerupPickupSpawnModifier = 1;
+	[Tooltip ("Time to pass before next powerup spawns.")]
+	private float NextPowerupPickupSpawn;
+	[Tooltip ("Horizontal area to spawn powerup pickups.")]
+	public float PowerupPickupSpawnRangeX;
+	[Tooltip ("Vertical area to spawn powerup pickups.")]
+	public float PowerupPickupSpawnY;
 
 	[Header ("Powerup List UI")]
-	public int NextPowerupSlot_P1;		  // Powerup slot index.
-	public int NextPowerupShootingSlot_P1;		  // Powerup slot index.
-	public RawImage[] PowerupImage_P1;	  // Array of powrup images for each slot. 
-	public Texture2D StandardShotTexture; // Texture for default single standard shot.
-	public RawImage HomingImage;		  // Image for homing.
-	public RawImage HomingHex;			  // Hex background for homing.
-	public RawImage RicochetImage;		  // Image for ricochet.
-	public RawImage RicochetHex;		  // Hex background for ricochet.
-	public RawImage RapidfireImage;		  // Image for rapidfire.
-	public RawImage RapidfireHex;		  // Hex background for rapidfire.
-	public RawImage OverdriveImage;		  // Image for overdrive.
-	public RawImage OverdriveHex;		  // Hex background for overdrive.
-
-	public GameObject PowerupPickupUI;	  // For other scripts to reference to spawn pickup UI.
+	[Tooltip ("Powerup slot index.")]
+	public int NextPowerupSlot_P1;
+	[Tooltip ("Powerup slot index.")]
+	public int NextPowerupShootingSlot_P1;	
+	[Tooltip ("Array of powrup images for each slot. ")]
+	public RawImage[] PowerupImage_P1;
+	[Tooltip ("Texture for default single standard shot.")]
+	public Texture2D StandardShotTexture; 
+	[Tooltip ("Image for homing.")]
+	public RawImage HomingImage;
+	[Tooltip ("Hex background for homing.")]
+	public RawImage HomingHex;
+	[Tooltip ("Image for ricochet.")]
+	public RawImage RicochetImage;	
+	[Tooltip ("Hex background for ricochet.")]
+	public RawImage RicochetHex;
+	[Tooltip ("Image for rapidfire.")]
+	public RawImage RapidfireImage;	
+	[Tooltip ("Hex background for rapidfire.")]
+	public RawImage RapidfireHex;
+	[Tooltip ("Image for overdrive.")]
+	public RawImage OverdriveImage;
+	[Tooltip ("Hex background for overdrive.")]
+	public RawImage OverdriveHex;
+	[Tooltip ("For other scripts to reference to spawn pickup UI.")]
+	public GameObject PowerupPickupUI;
 
 	[Header ("Bosses")]
-	public float BossSpawnDelay = 5; // Minimum amount of time for a boss to spawn.
-
-	public GameObject[] MiniBosses;		 // List of minibosses to spawn at random.
-	public Transform MiniBossSpawnPos;	 // Where to spawn the minibosses.
-	public float MiniBossSpawnDelay = 4; // Start delay to spawn a boss after the wave ends.
-
-	public GameObject[] BigBosses;		// Array of big bosses to spawn.
-	public Transform BigBossSpawnPos;	// Where to spawn the spawned big boss.
-	public float BigBossSpawnDelay = 4; // How long the delay is from the end of the wave to the big boss spawning.
-	public int bossId;					// Boss id for the index in the big bosses array.
+	[Tooltip ("Minimum amount of time for a boss to spawn.")]
+	public float BossSpawnDelay = 5;
+	[Tooltip ("List of minibosses to spawn at random.")]
+	public GameObject[] MiniBosses;
+	[Tooltip ("Where to spawn the minibosses.")]
+	public Transform MiniBossSpawnPos;
+	[Tooltip ("Start delay to spawn a boss after the wave ends.")]
+	public float MiniBossSpawnDelay = 4;
+	[Tooltip ("Array of big bosses to spawn.")]
+	public GameObject[] BigBosses;
+	[Tooltip ("Where to spawn the spawned big boss.")]
+	public Transform BigBossSpawnPos;
+	[Tooltip ("How long the delay is from the end of the wave to the big boss spawning.")]
+	public float BigBossSpawnDelay = 4; 
+	[Tooltip ("Boss ID for the index in the big bosses array.")]
+	public int bossId;
 
 	[Header ("Pausing")]
-	public bool isPaused;			// Checks whether game state is paused.
-	public float PauseCooldown = 1; // How much time needs to pass before the player can pause and unpause again.
+	[Tooltip ("Checks whether game state is paused.")]
+	public bool isPaused;
+	[Tooltip ("How much time needs to pass before the player can pause and unpause again.")]
+	public float PauseCooldown = 1;
 	[HideInInspector] 
-	public float NextPauseCooldown;	// Timer for Pause cooldown.
-	public bool canPause = true;	// Allow pausing or not.
-	public GameObject PauseUI;		// UI for pause menu.
-	public bool isInOtherMenu;		// Is the menu in the first pause menu or a sub menu?
+	public float NextPauseCooldown;
+	[Tooltip ("Allow pausing or not.")]
+	public bool canPause = true;
+	[Tooltip ("UI for pause menu.")]
+	public GameObject PauseUI;
+	[Tooltip ("Is the menu in the first pause menu or a sub menu?")]
+	public bool isInOtherMenu;
 
 	[Header ("Game Over")]
-	public bool isGameOver;			// Did the player run out of lives?
-	public GameObject GameoverUI;	// UI Game Over screen.
+	[Tooltip ("Did the player run out of lives?")]
+	public bool isGameOver;
+	[Tooltip ("UI Game Over screen.")]
+	public GameObject GameoverUI;
 
 	[Header ("Camera")]
-	public Camera MainCamera;			 // Main Camera GameObject.
-	public float OrthSize = 10;			 // Current orthographic size of the camera.
-	public float StartOrthSize = 10;	 // Starting orthographic size of the camera.
-	private float OrthSizeVel;			 // Orthographic size smoothdamp amount.
-	public float OrthSizeSmoothTime = 1; // Smmothing amount for orthographic change.
+	[Tooltip ("Main Camera GameObject.")]
+	public Camera MainCamera;
+	[Tooltip ("Current orthographic size of the camera.")]
+	public float OrthSize = 10;
+	[Tooltip ("Starting orthographic size of the camera.")]
+	public float StartOrthSize = 10;
+	private float OrthSizeVel;
+	[Tooltip ("Smoothing amount for orthographic change.")]
+	public float OrthSizeSmoothTime = 1;
 
 	[Header ("Visuals")]
-	public bool isUpdatingImageEffects = true;	  // Allows updating image effects values.
-	public bool isUpdatingParticleEffects = true; // Allows updating particle effect values.
-	public float TargetDepthDistance;			  // For depth of field.
+	[Tooltip ("Allows updating image effects values.")]
+	public bool isUpdatingImageEffects = true;
+	[Tooltip ("Allows updating particle effect values.")]
+	public bool isUpdatingParticleEffects = true;
+	[Tooltip ("For depth of field.")]
+	public float TargetDepthDistance;
 
 	[Header ("Star field")]
-	public ParticleSystem StarFieldForeground;				  // Starfield foreground.
-	public ParticleSystem StarFieldBackground;				  // Starfield background.
-	public float StarFieldForegroundLifetimeMultipler = 0.1f; // Lifetime multiplier.
-	public float StarFieldForegroundSimulationSpeed = 1;	  // How fast the particle simulation is.
-	public float StarFieldBackgroundLifetimeMultipler = 0.1f; // Lifetime multiplier.
-	public float StarFieldBackgroundSimulationSpeed = 1;	  // How fast the particle simulation is.
+	[Tooltip ("Starfield foreground.")]
+	public ParticleSystem StarFieldForeground;
+	[Tooltip ("Starfield background.")]
+	public ParticleSystem StarFieldBackground;
+	[Tooltip ("Lifetime multiplier.")]
+	public float StarFieldForegroundLifetimeMultipler = 0.1f;
+	[Tooltip ("How fast the particle simulation is.")]
+	public float StarFieldForegroundSimulationSpeed = 1;
+	[Tooltip ("Lifetime multiplier.")]
+	public float StarFieldBackgroundLifetimeMultipler = 0.1f;
+	[Tooltip ("How fast the particle simulation is.")]
+	public float StarFieldBackgroundSimulationSpeed = 1;
 
 	// Debug info visuals in Debug UI menu.
 	[Header ("Debug")]
@@ -253,6 +356,7 @@ public class GameController : MonoBehaviour
 	void Awake () 
 	{
 		// Hide and lock the mouse.
+		cursorManagerScript.VisibleTimer = 0;
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
 

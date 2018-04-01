@@ -2,6 +2,7 @@
 
 public class DontDestroyOnLoadInit : MonoBehaviour 
 {
+	[Tooltip ("Managers Prefab.")]
 	public GameObject ManagersPrefab;
 
 	void Awake ()

@@ -1,17 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SimpleFollow : MonoBehaviour 
 {
+	[Tooltip ("Follow position?")]
 	public bool FollowPosition;
+	[Tooltip ("Automatically find Player?")]
 	public bool AutomaticallyFindPlayerPosObject;
+	[Tooltip ("GameObject to look for.")]
 	public string LookForPosName = "Player";
+	[Tooltip ("Override all positions.")]
 	public Transform OverrideTransform;
+	[Tooltip ("Follow on X Axis.")]
 	public Transform FollowPosX;
+	[Tooltip ("Follow on Y Axis.")]
 	public Transform FollowPosY;
+	[Tooltip ("Follow on Z Axis.")]
 	public Transform FollowPosZ;
-
+	[Tooltip ("How to follow.")]
 	public followPosMethod FollowPosMethod;
 	public enum followPosMethod
 	{
@@ -21,18 +26,33 @@ public class SimpleFollow : MonoBehaviour
 	}
 
 	private float FollowPosVelX, FollowPosVelY, FollowPosVelZ;
+	[Tooltip ("Offset of each axis.")]
 	public Vector3 FollowPosOffset;
+	[Tooltip ("Smoothing amounts on each axis.")]
 	public Vector3 FollowPosSmoothTime;
 
-	public Vector2 PosBoundsX, PosBoundsY, PosBoundsZ;
+	[Tooltip ("X boundaries.")]
+	public Vector2 PosBoundsX;
+	[Tooltip ("Y boundaries.")]
+	public Vector2 PosBoundsY;
+	[Tooltip ("Z boundaries.")]
+	public Vector2 PosBoundsZ;
 
+	[Tooltip ("Follow rotation?")]
 	public bool FollowRotation;
+	[Tooltip ("Automatically find Player?")]
 	public bool AutomaticallyFindPlayerRotObject;
+	[Tooltip ("GameObject to look for.")]
 	public string LookForRotName = "Player";
+	[Tooltip ("Follow rotation on X Axis.")]
 	public Transform FollowRotX;
+	[Tooltip ("Follow rotation on Y Axis.")]
 	public Transform FollowRotY;
+	[Tooltip ("Follow rotation on Z Axis.")]
 	public Transform FollowRotZ;
+	[Tooltip ("Rotation offsets.")]
 	public Vector3 FollowRotOffset;
+	[Tooltip ("Roation smoothin on axes.")]
 	public Vector3 FollowRotSmoothTime;
 
 	public void Start ()
