@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class DestroyByTime : MonoBehaviour
 {
-	public float delay = 1; // Total lifetime before the gameObject is 
-	public GameObject DestroyObj; // Object to destroy, sets to gameObject if null.
-	public bool useUnscaledTime; // Whether object should be destroyed with or without influence of Time.timeScale.
+	[Tooltip ("Total lifetime before the gameObject is.")]
+	public float delay = 1;
+	[Tooltip ("Object to destroy, sets to gameObject if null.")]
+	public GameObject DestroyObj;
+	[Tooltip ("Whether object should be destroyed with or without influence of Time.timeScale.")]
+	public bool useUnscaledTime;
 
 	void Start ()
 	{

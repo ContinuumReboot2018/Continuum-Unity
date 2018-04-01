@@ -2,9 +2,12 @@
 
 public class ParentToTransform : MonoBehaviour 
 {
-	public string ParentTransformName = "Instantiated"; // Finds GameObject by this string to parent to.
-	public bool OnStart = true; // Parent to GameObject on Start?
-	private Transform ParentTransform; // The parent Trasnform.
+	[Tooltip ("Finds GameObject by this string to parent to.")]
+	public string ParentTransformName = "Instantiated";
+	[Tooltip ("Parent to GameObject on Start?")]
+	public bool OnStart = true;
+	[Tooltip ("The parent Trasnform.")]
+	private Transform ParentTransform;
 
 	void Start () 
 	{

@@ -4,9 +4,11 @@
 public class GameModifierManager : ScriptableObject
 {
 	[Header ("Tutorial")]
+	[Tooltip ("Tutorial mode.")]
 	public bool Tutorial = false;
 
 	[Header ("Powerups")]
+	[Tooltip ("How powerups spawn.")]
 	public powerupSpawnMode PowerupSpawn;
 	public enum powerupSpawnMode
 	{
@@ -17,6 +19,7 @@ public class GameModifierManager : ScriptableObject
 	}
 
 	[Header ("Bosses")]
+	[Tooltip ("How bosses spawn.")]
 	public bossSpawnMode BossSpawn;
 	public enum bossSpawnMode
 	{
@@ -26,6 +29,7 @@ public class GameModifierManager : ScriptableObject
 	}
 
 	[Header ("Time")]
+	[Tooltip ("How the speed of time increases.")]
 	public timeIncreaseMode TimeIncreaseMode;
 	public enum timeIncreaseMode 
 	{
@@ -34,17 +38,27 @@ public class GameModifierManager : ScriptableObject
 		Fast = 2,
 		Off = 3
 	}
+
+	[Tooltip ("How long for until the game invokes a game over.")]
 	public float TrialTime = -1;
 
 	[Header ("Shooting modifiers")]
+	[Tooltip ("Homing powerup stays on if enabled.")]
 	public bool AlwaysHoming = false;
+	[Tooltip ("Ricochet powerup stays on if enabled.")]
 	public bool AlwaysRicochet = false;
+	[Tooltip ("Rapidfire powerup stays on if enabled.")]
 	public bool AlwaysRapidfire = false;
+	[Tooltip ("Overdrive powerup stays on if enabled.")]
 	public bool AlwaysOverdrive = false;
 
 	[Header ("Other modifiers")]
+	[Tooltip ("Lives to start with when game loads.")]
 	public int StartingLives = 3;
+	[Tooltip ("How fast blocks spawn every wave increasing by.")]
 	public float blockSpawnRateMultiplier = 1;
+	[Tooltip ("Allow blocks to stack?")]
 	public bool stacking = true;
+	[Tooltip ("Use overheating?")]
 	public bool useOverheat = false;
 }

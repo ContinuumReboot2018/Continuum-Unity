@@ -4,18 +4,27 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class MiniBossFormationGenerator : MonoBehaviour 
 {
-	public Texture2D map; // Drop the texture in this slot in the inspector to read from.
+	[Tooltip ("Drop the texture in this slot in the inspector to read from.")]
+	public Texture2D map;
 	[Header ("Color texture maps")]
-	public ColorToPrefab[] colorMappings; // Set prefabs to spawn by color.
+	[Tooltip ("Set prefabs to spawn by color.")]
+	public ColorToPrefab[] colorMappings;
 	[Space (10)]
 	[Header ("Transforms")]
-	public Transform ParentTransform; // Set where the spawned prefab should parent to.
-	public float Spacing = 1.5f; // Spacing multiplier.
-	public Vector3 Scaling = new Vector3 (1.35f, 1.35f, 1.35f); // Scaling amount. (Default is 1.35).
+	[Tooltip ("Set where the spawned prefab should parent to.")]
+	public Transform ParentTransform;
+	[Tooltip ("Spacing multiplier.")]
+	public float Spacing = 1.5f;
+	[Tooltip ("Scaling amount. (Default is 1.35).")]
+	public Vector3 Scaling = new Vector3 (1.35f, 1.35f, 1.35f);
 	[Header ("Centering")]
-	public bool AutomaticallyCenterX; // Sets centre point on horizontal axis.
-	public bool AutomaticallyCenterY; // Sets centre point on vertical axis.
-	public Vector2 Center; // Offset to center the image. (Can be in decimals).
+	[Tooltip ("Sets centre point on horizontal axis.")]
+	public bool AutomaticallyCenterX;
+	[Tooltip ("Sets centre point on vertical axis.")]
+	public bool AutomaticallyCenterY;
+	[Tooltip ("Offset to center the image. (Can be in decimals).")]
+	public Vector2 Center;
+	[Tooltip ("Brain Object in prefab.")]
 	public MiniBoss MiniBossBrain;
 
 	void Awake () 
@@ -29,11 +38,6 @@ public class MiniBossFormationGenerator : MonoBehaviour
 		ParentTransform.gameObject.SetActive (false);
 		//Invoke ("TurnOnParentBossFormation", 3);
 	}
-
-	/*void TurnOnParentBossFormation ()
-	{
-		//ParentTransform.gameObject.SetActive (true);
-	}*/
 
 	// Read the image then generate the formation.
 	void GenerateMiniBossFormation ()

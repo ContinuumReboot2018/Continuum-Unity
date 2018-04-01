@@ -3,9 +3,9 @@
 public class HiResScreenShots : MonoBehaviour 
 {
 	private Vector2 resolution = new Vector2 (1920, 1080); // Base resolution width.
-	public Vector2 ResolutionMultiplier = new Vector2 (1, 1); // Multiplies by factor.
+	[Tooltip ("Multiplies by factor.")]
+	public Vector2 ResolutionMultiplier = new Vector2 (1, 1);
 	private bool takeHiResShot = false; // Is screenshot being taken now?
-
 	private Camera cam; // Reference to camera.
 
 	void Awake ()

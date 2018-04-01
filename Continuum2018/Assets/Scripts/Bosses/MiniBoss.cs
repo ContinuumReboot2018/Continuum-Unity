@@ -8,46 +8,70 @@ public class MiniBoss : MonoBehaviour
 	public GameController gameControllerScript; // Reference to Game Controller.
 	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
 	public CameraShake camShakeScript; // Reference to camera shake.
-	public GameObject Brain; // The brain, (heart).
-	public GameObject MiniBossParent; // The base GameObject of the mini boss.
-	public MiniBossFormationGenerator miniBossFormation;
 	public EvasiveManeuver evasiveManeuverScript;
+	public MiniBossFormationGenerator miniBossFormation;
+
+	[Tooltip ("The brain, (heart).")]
+	public GameObject Brain;
+	[Tooltip ("The base GameObject of the mini boss.")]
+	public GameObject MiniBossParent;
+	[Tooltip ("The UI to spawn when the boss spawns.")]
 	public GameObject MiniBossUI;
+	[Tooltip ("The name of this instance of the boss.")]
 	public string MiniBossName;
+	[Tooltip ("The barrier that comes with this mini boss.")]
 	public GameObject Barrier;
 
 	[Header ("Stats")]
-	public float hitPoints = 5; // Current hit points.
-	public float StartingHitPoints = 1; // Starting hit points.
-	public float ParticleHitPointAmount = 0.01f; // How much damage particles with collision deal to it.
-
-	public GameObject SmallExplosion; // Small explosion to instantiate.
-	public GameObject LargeExplosion; // Large explosion to instantiate upon defeat.
-
-	public Transform FollowPlayerPos; // Player follow point with offset.
-	public Transform PlayerPos; // The actual position of the player.
-	public SimpleFollow simpleFollowScript; // Simple follow script.
-	public SimpleLookAt BrainLookScript; // Looking at script for brain.
+	[Tooltip ("Current hit points.")]
+	public float hitPoints = 5;
+	[Tooltip ("Starting hit points.")]
+	public float StartingHitPoints = 1;
+	[Tooltip ("How much damage particles with collision deal to it.")]
+	public float ParticleHitPointAmount = 0.01f; 
+	[Tooltip ("Small explosion to instantiate.")]
+	public GameObject SmallExplosion;
+	[Tooltip ("Large explosion to instantiate upon defeat.")]
+	public GameObject LargeExplosion; 
+	[Tooltip ("Player follow point with offset.")]
+	public Transform FollowPlayerPos;
+	[Tooltip ("The actual position of the player.")]
+	public Transform PlayerPos;
+	[Tooltip ("Simple follow script.")]
+	public SimpleFollow simpleFollowScript;
+	[Tooltip ("Looking at script for brain.")]
+	public SimpleLookAt BrainLookScript;
+	[Tooltip ("The collider for the mini boss.")]
 	public Collider col;
 
 	[Header ("Boss Parts")]
-	public GameObject BossPartsParent; // The parent object where all the boss parts will spawn in.
-	public Block[] BossParts; // All the boss parts spawned here as blocks.
+	[Tooltip ("The parent object where all the boss parts will spawn in.")]
+	public GameObject BossPartsParent;
+	[Tooltip ("All the boss parts spawned here as blocks.")]
+	public Block[] BossParts;
+	[Tooltip ("Same as the array in list form.")]
 	public List<Block> BossPartsList;
 
 	[Header ("Shooting")]
-	public bool AllowShoot; // Mini boss can shoot at the player?
-	public float FireRate; // How fast to shoot.
+	[Tooltip ("Mini boss can shoot at the player?")]
+	public bool AllowShoot;
+	[Tooltip ("How fast to shoot.")]
+	public float FireRate;
 	private float NextFire; // When allowed to shoot next.
-	public Vector2 FireRateRange; // Range of fire rate.
-	public GameObject Missile; // Object to shoot.
-
-	public LineRenderer Line; // Line to aim at player position.
-	public float LineTimerOffDuration = 4; // How long the non aiming lasts for.
-	public float LineTimerOnDuration = 3; // How long the aiming lasts for.
+	[Tooltip ("Range of fire rate.")]
+	public Vector2 FireRateRange;
+	[Tooltip ("Object to shoot.")]
+	public GameObject Missile;
+	[Tooltip ("Line to aim at player position.")]
+	public LineRenderer Line;
+	[Tooltip ("How long the non aiming lasts for.")]
+	public float LineTimerOffDuration = 4;
+	[Tooltip ("How long the aiming lasts for.")]
+	public float LineTimerOnDuration = 3;
 
 	[Header ("Effects")]
-	public Animator FlipScreen; // Ability for bosses to flip the screen if needed. (Will probably move this functionality to big bosses).
+	[Tooltip ("Ability for bosses to flip the screen if needed. (Will probably move this functionality to big bosses).")]
+	public Animator FlipScreen;
 
 	void Awake ()
 	{
@@ -60,7 +84,6 @@ public class MiniBoss : MonoBehaviour
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
-		//evasiveManeuverScript = GetComponent<EvasiveManeuver> ();
 		evasiveManeuverScript.enabled = false;
 		InvokeRepeating ("GetBossParts", 0.1f, 1f);
 		Invoke ("TurnOnEvasiveManeuverScript", 4);

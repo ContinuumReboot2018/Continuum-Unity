@@ -3,19 +3,28 @@
 [RequireComponent(typeof (Rigidbody))]
 public class Homing : MonoBehaviour
 {
-	public Transform target; 					// Object to follow.
-	public string findObject = "Block"; 		// Object to find string.
+	[Tooltip ("Object to follow.")]
+	public Transform target;
+	[Tooltip ("Object to find string.")]
+	public string findObject = "Block";
 	[Space(10)]
-	public float speed = 5.0f; 					// Speed to follow position.
+	[Tooltip ("Speed to follow position.")]
+	public float speed = 5.0f;
+	[Tooltip ("Initial speed when spawned.")]
 	public float initialSpeed = 60;
-	public float rotateSpeed = 200.0f; 			// Speed to follow by rotation.
-	public float homingTime = 5; 				// How long to be homing before abandoning.
-	public float cutoffHeight = 12;				// Maximum y position to stop homing.
-	public float maxRange = 5; 					// Range to look for homing objects.
-	public float RotateSpeedIncreaseRate = 1; 	// Rate of increase of homing rotation speed, so it doesn't keep going in circles.
-	public Vector2 VelocityLimits = 
-		new Vector2 (180, 220);
-	private Rigidbody rb; 						// Reference to current RigidBody.
+	[Tooltip ("Speed to follow by rotation.")]
+	public float rotateSpeed = 200.0f;
+	[Tooltip ("How long to be homing before abandoning.")]
+	public float homingTime = 5;
+	[Tooltip ("Maximum y position to stop homing.")]
+	public float cutoffHeight = 12;
+	[Tooltip ("Range to look for homing objects.")]
+	public float maxRange = 5;
+	[Tooltip ("Rate of increase of homing rotation speed, so it doesn't keep going in circles.")]
+	public float RotateSpeedIncreaseRate = 1;
+	[Tooltip ("")]
+	public Vector2 VelocityLimits = new Vector2 (180, 220);
+	private Rigidbody rb; // Reference to current RigidBody.
 
 	[SerializeField]
 	private Vector2 direction;

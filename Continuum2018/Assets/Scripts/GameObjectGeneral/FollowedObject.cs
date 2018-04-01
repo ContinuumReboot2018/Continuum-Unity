@@ -1,15 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
-public class FollowedObject : MonoBehaviour {
-
-	// Use this for initialization
-	void Start()
-	{
-
-	}
-
+public class FollowedObject : MonoBehaviour 
+{
 	public class Frame
 	{
 		public Vector3 position;
@@ -33,7 +26,7 @@ public class FollowedObject : MonoBehaviour {
 		formerPosition = transform.position;
 	}
 
-	public void MoveFollower(Transform target, float maxSpeed = 1f, float maxAngleSpeed = 180f)
+	public void MoveFollower (Transform target, float maxSpeed = 1f, float maxAngleSpeed = 180f)
 	{
 		if (formerPositions.Count > frameDelay )
 		{
@@ -45,8 +38,4 @@ public class FollowedObject : MonoBehaviour {
 			//target.rotation = Quaternion.RotateTowards(target.rotation, frame.rotation, maxAngleSpeed * Time.deltaTime);
 		}
 	}
-
-
-
 }
-

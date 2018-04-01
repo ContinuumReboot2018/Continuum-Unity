@@ -3,8 +3,11 @@ using UnityEngine.UI;
 
 public class FindCameraInCanvas : MonoBehaviour 
 {
-	public Canvas canvas; // Canvas to look at.
-	public Camera cam; // Camera to look at.
+	[Tooltip ("Canvas to look at.")]
+	public Canvas canvas;
+	[Tooltip ("Camera to look at.")]
+	public Camera cam;
+	[Tooltip ("Use the camera space mode.")]
 	public bool CameraSpace;
 
 	void Start () 

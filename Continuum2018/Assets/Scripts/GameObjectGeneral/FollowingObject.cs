@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FollowingObject : MonoBehaviour
 {
@@ -8,11 +6,11 @@ public class FollowingObject : MonoBehaviour
 	public float maxSpeed = 2;
 	public float maxAngleSpeed = 180f;
 
-	void LateUpdate()
+	void LateUpdate ()
 	{
 		if (target != null)
 		{
-			target.MoveFollower(transform, maxSpeed, maxAngleSpeed);
+			target.MoveFollower (transform, maxSpeed, maxAngleSpeed);
 		}
 	}
 }

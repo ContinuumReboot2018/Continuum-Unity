@@ -9,61 +9,94 @@ public class Bullet : MonoBehaviour
 	public FPSCounter fpsCounterScript;
 
 	[Header ("Stats")]
-	public float BulletSpeedUnscaled; // The bullet speed to set.
+	[Tooltip ("The bullet speed to set (Unscaled).")]
+	public float BulletSpeedUnscaled;
+	[Tooltip ("The bullet speed to set (Scaled).")]
 	public float BulletSpeedScaled = 1300;
-	public SpeedType BulletSpeedType; // Bullet speed based on scaled or unscaled time.
+	[Tooltip ("Bullet speed based on scaled or unscaled time.")]
+	public SpeedType BulletSpeedType;
 	public enum SpeedType
 	{
 		Scaled,
 		Unscaled
 	}
-	public Vector2 VelocityLimits; // Minimum and maximum speed of the bullets.
-	public Rigidbody BulletRb; // The bullet's Rigidbody.
-	public Collider BulletCol; // The bullet's Collider.
-	public string BulletTypeName; // The name of the bullet.
-	public bool UseLifetime; // Should the bullet have a lifetime?
-	public float Lifetime; // How long the bullet lasts before destroying.
-	public float MaxLifetime = 30; // Maximum time before the bullet destroys.
-	public float DestroyMaxYPos = 30; // Point at which bullet is destroyed passing this height.
-	public float ColliderYMaxPos = 12; // Point at which bullet's collider is disabled passing this height.
-	public bool hasDisappeared = false; // Checks if bullet has passed limit.
 
-	public float DestroyDelayTime = 1; // How long after collision the bullet can still be live before being destroyed.
-	public Transform playerPos; // The Transform component of the Player.
+	[Tooltip ("Minimum and maximum speed of the bullets.")]
+	public Vector2 VelocityLimits;
+	[Tooltip ("The bullet's Rigidbody.")]
+	public Rigidbody BulletRb;
+	[Tooltip ("The bullet's Collider.")]
+	public Collider BulletCol;
+	[Tooltip ("The name of the bullet.")]
+	public string BulletTypeName;
+	[Tooltip ("Should the bullet have a lifetime?")]
+	public bool UseLifetime;
+	[Tooltip ("How long the bullet lasts before destroying.")]
+	public float Lifetime;
+	[Tooltip ("Maximum time before the bullet destroys.")]
+	public float MaxLifetime = 30;
+	[Tooltip ("Point at which bullet is destroyed passing this height.")]
+	public float DestroyMaxYPos = 30;
+	[Tooltip ("Point at which bullet's collider is disabled passing this height.")]
+	public float ColliderYMaxPos = 12;
+	[Tooltip ("Checks if bullet has passed limit.")]
+	public bool hasDisappeared = false;
+	[Tooltip ("How long after collision the bullet can still be live before being destroyed.")]
+	public float DestroyDelayTime = 1;
+	[Tooltip ("The Transform component of the Player.")]
+	public Transform playerPos;
 
 	[Header ("Overdrive")]
-	public bool allowBulletColDeactivate = true; // Allows the bullet collider to deactivate on collision.
+	[Tooltip ("Allows the bullet collider to deactivate on collision.")]
+	public bool allowBulletColDeactivate = true; 
 
 	[Header ("Ricochet")]
-	public bool isRicochet; // Allows ricochet from walls.
-	public float RicochetYpos = 11.75f; // Point to ricochet Y. (Need to have this dynamic based on screen ratio.)
-	public float RicochetXpos = 21.2f;  // Point to ricochet X.
-	public AudioSource RicochetSound; // Sound to play when ricocheting.
+	[Tooltip ("Allows ricochet from walls.")]
+	public bool isRicochet;
+	[Tooltip ("Point to ricochet Y. (Need to have this dynamic based on screen ratio).")]
+	public float RicochetYpos = 11.75f;
+	[Tooltip ("Point to ricochet X.")]
+	public float RicochetXpos = 21.2f;
+	[Tooltip ("Sound to play when ricocheting.")]
+	public AudioSource RicochetSound;
 
 	[Header ("Homing")]
-	public bool isHoming; // Allows bullets to home in on objects.
-	public Homing homingScript; // Referenced homing script.
+	[Tooltip ("Allows bullets to home in on objects.")]
+	public bool isHoming;
+	[Tooltip ("Referenced homing script.")]
+	public Homing homingScript;
 
 	[Header ("Visuals")]
-	public ParticleSystem BulletOuterParticles; // Outer particles of bullet.
-	public ParticleSystem BulletCoreParticles; // Inner laser like particles.
-	public ParticleSystem[] TrailParticles; // Other particles coming from trail.
+	[Tooltip ("Outer particles of bullet.")]
+	public ParticleSystem BulletOuterParticles;
+	[Tooltip ("Inner laser like particles.")]
+	public ParticleSystem BulletCoreParticles;
+	[Tooltip ("Other particles coming from trail.")]
+	public ParticleSystem[] TrailParticles;
 
 	[Header ("Audio")]
-	public AudioSource AwakeAudio; // Sound to play when spawned.
+	[Tooltip ("Sound to play when spawned.")]
+	public AudioSource AwakeAudio;
 
 	[Header ("Camera Shake")]
-	public CameraShake camShakeScript; // Reference to camera shake.
-	public float shakeDuration; // How long to shake camera for.
-	public float shakeTimeRemaining; // Current time for camera shake.
-	public float shakeAmount; // How much the camera shakes.
+	[Tooltip ("Reference to camera shake.")]
+	public CameraShake camShakeScript;
+	[Tooltip ("How long to shake camera for.")]
+	public float shakeDuration;
+	[Tooltip ("Current time for camera shake.")]
+	public float shakeTimeRemaining;
+	[Tooltip ("How much the camera shakes.")]
+	public float shakeAmount;
 
 	[Header ("Player Vibration")]
 	[Range (0, 1)]
-	public float LeftMotorRumble = 0.2f; // Vibrates left motor on controller
+	[Tooltip ("Vibrates left motor on controller.")]
+	public float LeftMotorRumble = 0.2f;
 	[Range (0, 1)]
-	public float RightMotorRumble = 0.2f; // Vibrates right motor on controller.
-	public float VibrationDuration = 0.25f; // How long to vibrate for.
+	[Tooltip ("Vibrates right motor on controller.")]
+	public float RightMotorRumble = 0.2f;
+	[Tooltip ("How long to vibrate for.")]
+	public float VibrationDuration = 0.25f; 
 
 	void Awake ()
 	{

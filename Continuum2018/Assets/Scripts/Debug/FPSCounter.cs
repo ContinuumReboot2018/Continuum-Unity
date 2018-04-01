@@ -5,7 +5,8 @@ using TMPro;
 
 public class FPSCounter : MonoBehaviour 
 {
-	public float frequency = 0.5f; // How often to update calculating fps.
+	[Tooltip ("How often to update calculating fps.")]
+	public float frequency = 0.5f;
 	public TextMeshProUGUI FPSText;
 	public bool showPrefix;
 	public int FramesPerSec { get; protected set; }

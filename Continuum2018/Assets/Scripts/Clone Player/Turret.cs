@@ -4,9 +4,12 @@ public class Turret : MonoBehaviour
 {
 	public PlayerController playerControllerScript; // Reference to Player Controller.
 	public GameController gameControllerScript; // Reference to Game Controller.
-	public Transform ShotSpawn; // Shot spawn transform.
-	public GameObject Shot; // Shot to shoot.
-	public float FireRate = 0.1f; // Fire rate.
+	[Tooltip ("Shot spawn transform.")]
+	public Transform ShotSpawn;
+	[Tooltip ("Shot to shoot.")]
+	public GameObject Shot;
+	[Tooltip ("Fire rate.")]
+	public float FireRate = 0.1f;
 	private float nextFire; // Time to next fire.
 
 	void OnEnable () 

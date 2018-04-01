@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class ObjectPoolItem
 {
-
 	public GameObject objectToPool;
 	public int amountToPool;
 	public bool shouldExpand = true;
@@ -30,25 +29,20 @@ public class ObjectPooler : MonoBehaviour
 
 	void Awake()
 	{
-
 		SharedInstance = this;
 
 		pooledObjectsList = new List<List<GameObject>>();
 		pooledObjects = new List<GameObject>();
 		positions = new List<int>();
 
-
 		for (int i = 0; i < itemsToPool.Count; i++)
 		{
 			ObjectPoolItemToPooledObject(i);
 		}
-
 	}
-
-
+		
 	public GameObject GetPooledObject(int index)
 	{
-
 		int curSize = pooledObjectsList[index].Count;
 		for (int i = positions[index] + 1; i < positions[index] + pooledObjectsList[index].Count; i++)
 		{
@@ -70,6 +64,7 @@ public class ObjectPooler : MonoBehaviour
 			return obj;
 
 		}
+
 		return null;
 	}
 
@@ -77,7 +72,6 @@ public class ObjectPooler : MonoBehaviour
 	{
 		return pooledObjectsList[index];
 	}
-
 
 	public int AddObject(GameObject GO, int amt = 3, bool exp = true)
 	{
@@ -87,8 +81,7 @@ public class ObjectPooler : MonoBehaviour
 		ObjectPoolItemToPooledObject(currLen);
 		return currLen;
 	}
-
-
+		
 	void ObjectPoolItemToPooledObject(int index)
 	{
 		ObjectPoolItem item = itemsToPool[index];
@@ -101,8 +94,8 @@ public class ObjectPooler : MonoBehaviour
 			obj.transform.parent = this.transform;
 			pooledObjects.Add(obj);
 		}
+
 		pooledObjectsList.Add(pooledObjects);
 		positions.Add(0);
-
 	}
 }

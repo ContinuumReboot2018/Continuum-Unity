@@ -9,15 +9,20 @@ public class Explosion : MonoBehaviour
 	public AudioSource ExplosionSound; // Sound to pay when exploding.
 
 	[Header ("Read Combo")]
-	private float totalPointVal; // Number to shot on text in explosion UI.
+	[Tooltip ("Number to shot on text in explosion UI.")]
+	private float totalPointVal;
 
 	[Header ("UI")]
-	public TextMeshProUGUI ComboPointsText; // Text to display total points.
-	public Animator ComboAnim; // Animator for the combo.
-	public Color TextColor; // Color for the points text.
-	public float MaxScale = 2; // Maximum scale for the text.
-
-	public Vector2 TextPos; // Position offset for the text, so it's not always centered.
+	[Tooltip ("Text to display total points.")]
+	public TextMeshProUGUI ComboPointsText;
+	[Tooltip ("Animator for the combo.")]
+	public Animator ComboAnim;
+	[Tooltip ("Color for the points text.")]
+	public Color TextColor;
+	[Tooltip ("Maximum scale for the text.")]
+	public float MaxScale = 2;
+	[Tooltip ("Position offset for the text, so it's not always centered.")]
+	public Vector2 TextPos;
 
 	void Start () 
 	{

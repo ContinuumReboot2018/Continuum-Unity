@@ -15,16 +15,23 @@ public class Block : MonoBehaviour
 	private Collider BoxCol; // The collider/trigger.
 	public ScrollTextureOverTime textureScrollScript; // Reference to Texture Scroll Script.
 	public ParentToTransform parentToTransformScript; // Parent to transform script reference.
-	public bool allowParticleCollisionBoss;
 
 	[Header ("Current Stats")]
-	public float speed; // How fast the block falls from the top.
-	public bool OverwriteVelocity; // If on, velocity can be overridden.
-	public bool DontIncrementBlocksDestroyed; // If destroyed this is checked to see if Blocks Destroyed is incremented.
-	public bool Stackable; // Is the block able to be stacked?
-	public bool isStacked; // Is the bloc currently stacked?
-	public StackZone stack; // The current stack zone of the stacked block.
+	[Tooltip ("How fast the block falls from the top.")]
+	public float speed;
+	[Tooltip ("If on, velocity can be overridden.")]
+	public bool OverwriteVelocity;
+	[Tooltip ("If destroyed this is checked to see if Blocks Destroyed is incremented.")]
+	public bool DontIncrementBlocksDestroyed;
+	[Tooltip ("Is the block able to be stacked?")]
+	public bool Stackable;
+	[Tooltip ("Is the block currently stacked?")]
+	public bool isStacked;
+	[Tooltip ("The current stack zone of the stacked block.")]
+	public StackZone stack;
+	[Tooltip ("How much ability time is added when destroyed.")]
 	public float AddAbilityTime = 0.01f;
+	[Tooltip ("List of homing objects that have this object locked on to it.")]
 	public List<Homing> homedObjects;
 
 	[Header ("BlockTypes")]
@@ -34,19 +41,30 @@ public class Block : MonoBehaviour
 	public BlockManager PinkBlock;
 
 	[Header ("Boss Part")]
-	public bool isBossPart; // Is the block part of a boss.
-	public bool GotDetached; // Has the block been detached from the boss.
-	public MiniBoss miniBoss; // Connection to Mini Boss.
+	[Tooltip ("Is the block part of a boss.")]
+	public bool isBossPart;
+	[Tooltip ("Has the block been detached from the boss.")]
+	public bool GotDetached;
+	[Tooltip ("Connection to Mini Boss.")]
+	public MiniBoss miniBoss;
+	[Tooltip ("Index in boss barts array.")]
 	public int bossPartIndex;
+	[Tooltip ("How much damage this boss part does to the mini boss when a collision happens with a bullet or particle.")]
 	public float BossDamage = 1.0f;
+	[Tooltip ("How many hit points this boss part can witrhstand before destroying.")]
 	public int HitPoints = 5;
+	[Tooltip ("Allow particle collisions?")]
+	public bool allowParticleCollisionBoss;
 
 	[Header ("Boundary")]
-	public Vector2 BoundaryX; // Horizontal bounds.
-	public Vector2 BoundaryY; // Vertical bounds.
+	[Tooltip ("Horizontal bounds.")]
+	public Vector2 BoundaryX;
+	[Tooltip ("Vertical bounds.")]
+	public Vector2 BoundaryY;
 
 	[Header ("Normal Block Types")]
-	public mainBlockType BlockType; // The current block type for normal types.
+	[Tooltip ("The current block type for normal types.")]
+	public mainBlockType BlockType;
 	public enum mainBlockType
 	{
 		Aqua   = 0,
@@ -57,7 +75,8 @@ public class Block : MonoBehaviour
 	private int normalBlockTypeListLength;
 			
 	[Header ("Block changes")]
-	public blockChangeType BlockChangeType; // How the block type changes.
+	[Tooltip ("How the block type changes.")]
+	public blockChangeType BlockChangeType;
 	public enum blockChangeType
 	{
 		Static = 0, // Always stays the same type throughout lifetime.
@@ -66,10 +85,13 @@ public class Block : MonoBehaviour
 		RandomScroll = 3 // Randomly select types every change rate time.
 	}
 
-	public float ChangeRate; // How frequent the type changes over time.
+	[Tooltip ("How frequent the type changes over time.")]
+	public float ChangeRate;
 
 	[Header ("Special Block Types")]
-	public bool isSpecialBlockType = false; // Be a special block.
+	[Tooltip ("Be a special block.")]
+	public bool isSpecialBlockType = false;
+	[Tooltip ("Type of special block.")]
 	public specialBlockType SpecialBlockType;
 	public enum specialBlockType
 	{
@@ -78,36 +100,52 @@ public class Block : MonoBehaviour
 		Tutorial = 2 // Like a normal block except doesnt contribute to the game.
 	}
 
-	public Material noiseMat; // Material for noise type.
-	public GameObject NoiseExplosion; // Explosion for noise type.
+	[Tooltip ("Material for noise type.")]
+	public Material noiseMat;
+	[Tooltip ("Explosion for noise type.")]
+	public GameObject NoiseExplosion;
 
 	[Header ("Explosion Combo")]
-	public GameObject Explosion; // The currently selected explosion.
-	public float BasePointValue; // The current base point value.
-	public float totalPointValue; // The total point value as a calculation.
-
-	public Color TextColor; // The current text color for the current explosion text/
-	public float MinYPos = -15.0f; // The minimum y pos before being destroyed automatically.
-
-	public GameObject playerExplosion; // The explosion to create on the player if collided with.
+	[Tooltip ("The currently selected explosion.")]
+	public GameObject Explosion;
+	[Tooltip ("The current base point value.")]
+	public float BasePointValue;
+	[Tooltip ("The total point value as a calculation.")]
+	public float totalPointValue;
+	[Tooltip ("The current text color for the current explosion text.")]
+	public Color TextColor; // 
+	[Tooltip ("The minimum y pos before being destroyed automatically.")]
+	public float MinYPos = -15.0f;
+	[Tooltip ("The explosion to create on the player if collided with.")]
+	public GameObject playerExplosion;
 
 	[Header ("Block Formation")]
-	public BlockFormation blockFormationScript; // If the block is part of a formation, reference this.
-	public bool isBlockFormationConnected; // Checks if the block is connected to the referenced block formation.
+	[Tooltip ("If the block is part of a formation, reference this.")]
+	public BlockFormation blockFormationScript;
+	[Tooltip ("Checks if the block is connected to the referenced block formation.")]
+	public bool isBlockFormationConnected;
 
 	[Header ("Camera Shake")]
-	public CameraShake camShakeScript; // Camera shaker.
-	public float newCamShakeDuration = 0.1f; // How long to shake the camera for.
-	public float newCamShakeAmount = 0.1f; // How much the camera shakes.
+	[Tooltip ("Camera shaker.")]
+	public CameraShake camShakeScript;
+	[Tooltip ("How long to shake the camera for.")]
+	public float newCamShakeDuration = 0.1f;
+	[Tooltip ("How much the camera shakes.")]
+	public float newCamShakeAmount = 0.1f;
 
 	[Header ("Audio")]
-	public float LowPassTargetFreq = 1500; // Frequency for the low pass filter.
-	public float ResonanceTargetFreq = 1; // Resonance for the low pass filter.
+	[Tooltip ("Frequency for the low pass filter.")]
+	public float LowPassTargetFreq = 1500;
+	[Tooltip ("Resonance for the low pass filter.")]
+	public float ResonanceTargetFreq = 1;
 
 	[Header ("Tutorial")]
-	public bool isTutorialBlock; // Checks if it is a tutorial block to bypass settings.
-	public TutorialManager tutorialManagerScript; // Reference to tutorial manager.
-	public int tutorialBlockIndex; // Checks the block index if part of the tutorial.
+	[Tooltip ("Checks if it is a tutorial block to bypass settings.")]
+	public bool isTutorialBlock;
+	[Tooltip ("Reference to tutorial manager.")]
+	public TutorialManager tutorialManagerScript;
+	[Tooltip ("Checks the block index if part of the tutorial.")]
+	public int tutorialBlockIndex;
 
 	void Awake ()
 	{

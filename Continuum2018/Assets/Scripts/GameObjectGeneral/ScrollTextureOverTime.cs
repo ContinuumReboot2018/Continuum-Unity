@@ -2,11 +2,16 @@
 
 public class ScrollTextureOverTime : MonoBehaviour 
 {
-	public Vector2 ScrollSpeed = new Vector2 (0.5f, 0.5f); // Speed to scroll texture offset.
+	[Tooltip ("Speed to scroll texture offset.")]
+	public Vector2 ScrollSpeed = new Vector2 (0.5f, 0.5f);
+	[Tooltip ("Current offset.")]
 	public Vector2 CurrentOffset; // Current offset.
+
 	private Renderer rend; // Current renderer.
-	public scrollType HorizontalScrollMode; // Horizontal scroll mode.
-	public scrollType VerticalScrollMode;  // Vertical scroll mode.
+	[Tooltip ("Horizontal scroll mode.")]
+	public scrollType HorizontalScrollMode;
+	[Tooltip ("Vertical scroll mode.")]
+	public scrollType VerticalScrollMode;
 	public enum scrollType 
 	{
 		None = 0, 
@@ -14,7 +19,8 @@ public class ScrollTextureOverTime : MonoBehaviour
 		Negative = 2
 	}
 
-	public bool ignoreTimescale; // Should texture scrolling be scaled by time scale or not.
+	[Tooltip ("Should texture scrolling be scaled by time scale or not.")]
+	public bool ignoreTimescale;
 
 	void Start () 
 	{

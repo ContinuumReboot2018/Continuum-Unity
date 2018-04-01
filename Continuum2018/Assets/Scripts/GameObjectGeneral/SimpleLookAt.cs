@@ -2,14 +2,17 @@
 
 public class SimpleLookAt : MonoBehaviour 
 {
-	public Transform LookAtPos; // Position to look at.
-	public lookType LookMethod; // How to look at the Transform.
+	[Tooltip ("Position to look at.")]
+	public Transform LookAtPos;
+	[Tooltip ("How to look at the Transform.")]
+	public lookType LookMethod;
 	public enum lookType
 	{
 		LookTowards,
 		LookAway
 	}
 
+	[Tooltip ("Find up direction instead of forward direction.")]
 	public bool useUpDirection;
 
 	void LateUpdate ()

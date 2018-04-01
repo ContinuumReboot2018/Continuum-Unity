@@ -1,48 +1,36 @@
-﻿/*
- * Copyright (c) 2015 Allan Pichardo
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 [RequireComponent (typeof(AudioSource))]
 public class AudioProcessor : MonoBehaviour
 {
+	//public float Bpm;
+	//public float AverageBpm;
+
+	[SerializeField]
 	private float nextBeat;
+	[Tooltip ("Audio source to use for beat detection.")]
 	public AudioSource audioSource;
 
 	private long lastT, nowT, diff, entries, sum;
 
+	[Tooltip ("Size of the buffer in audio clip to determine beats.")]
 	public int bufferSize = 1024;
-	// fft size
+	[Tooltip ("Rate of samples to detect beat detection.")]
 	private int samplingRate = 44100;
-	// fft sampling frequency
 
-	/* log-frequency averaging controls */
+	[Header ("Log-frequency averaging controls.")]
+	[Tooltip ("Number of bands.")]
 	private int nBand = 12;
-	// number of bands
-
+	[Tooltip ("Sensitivity.")]
 	public float gThresh = 0.1f;
-	// sensitivity
 
 	int blipDelayLen = 16;
 	int[] blipDelay;
 
+	[SerializeField]
+	[Tooltip ("Counter to suppress double-beats.")]
 	private int sinceLast = 0;
-	// counter to suppress double-beats
 
 	private float framePeriod;
 
@@ -74,7 +62,6 @@ public class AudioProcessor : MonoBehaviour
 	public OnBeatEventHandler onBeat;
 	public OnSpectrumEventHandler onSpectrum;
 
-	//////////////////////////////////
 	private long getCurrentTimeMillis ()
 	{
 		long milliseconds = System.DateTime.Now.Ticks / System.TimeSpan.TicksPerMillisecond;
@@ -242,11 +229,15 @@ public class AudioProcessor : MonoBehaviour
 			if (++now == colmax)
 				now = 0;
 
+			//Bpm = (float)System.Math.Round (60 / (tempopd * framePeriod));
+			//AverageBpm = (float)System.Math.Round (auco.avgBpm ());
+
 			//Debug.Log(System.Math.Round(60 / (tempopd * framePeriod)) + " bpm");
 			//Debug.Log(System.Math.Round(auco.avgBpm()) + " bpm");
 		}
 	}
 
+	/*
 	public void changeCameraColor ()
 	{
 		//Debug.Log("camera");
@@ -261,7 +252,7 @@ public class AudioProcessor : MonoBehaviour
 		Camera.main.backgroundColor = color;
 
 		//camera.backgroundColor = color;
-	}
+	}*/
 
 	public float getBandWidth ()
 	{

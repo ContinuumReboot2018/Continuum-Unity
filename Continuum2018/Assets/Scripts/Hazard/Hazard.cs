@@ -8,22 +8,31 @@ public class Hazard : MonoBehaviour
 	public AudioController audioControllerScript; // Reference to Audio Controller.
 
 	[Header ("Hazard Type")]
-	public hazardType HazardType; // Current hazard type.
+	[Tooltip ("Current hazard type.")]
+	public hazardType HazardType;
 	public enum hazardType
 	{
 		Missile
 	}
 
-	public GameObject Explosion; // Explosion to play when a bullet or particle collides with it.
-	public GameObject playerExplosion; // Explosion to play when the player hits the hazard.
+	[Tooltip ("Explosion to play when a bullet or particle collides with it.")]
+	public GameObject Explosion;
+	[Tooltip ("Explosion to play when the player hits the hazard.")]
+	public GameObject playerExplosion;
 
 	[Header ("Camera Shake")]
-	public CameraShake camShakeScript; // Reference to Camera Shake script.
-	public float newCamShakeDuration = 0.1f; // How long to shake for.
-	public float newCamShakeAmount = 0.1f; // Strength of the shake.
+	[Tooltip ("Reference to Camera Shake script.")]
+	public CameraShake camShakeScript;
+	[Tooltip ("How long to shake for.")]
+	public float newCamShakeDuration = 0.1f;
+	[Tooltip ("Strength of the shake.")]
+	public float newCamShakeAmount = 0.1f;
 
-	public float LowPassTargetFreq = 1500; // Audio frequency for low pass filter.
-	public float ResonanceTargetFreq = 1; // Resonance amount for low pass filter.
+	[Header ("Audio")]
+	[Tooltip ("Audio frequency for low pass filter.")]
+	public float LowPassTargetFreq = 1500;
+	[Tooltip ("Resonance amount for low pass filter.")]
+	public float ResonanceTargetFreq = 1;
 
 	void Start () 
 	{
