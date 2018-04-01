@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -119,23 +118,6 @@ public class Block : MonoBehaviour
 		InvokeRepeating ("CheckBounds", 0, 0.5f);
 		normalBlockTypeListLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
 
-		/*
-		// Random scroll: Change randomly, update self.
-		if (BlockChangeType == blockChangeType.RandomScroll) 
-		{
-			InvokeRepeating ("RandomScroll", 0, ChangeRate);
-			InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
-			return;
-		}
-
-		// Sequential: Change orderly, update self.
-		if (BlockChangeType == blockChangeType.Sequential) 
-		{
-			InvokeRepeating ("SequentialScroll", 0, ChangeRate);
-			InvokeRepeating ("UpdateBlockType", 0, ChangeRate);
-			return;
-		}*/
-
 		// Static: Don't change type, update once.
 		if (BlockChangeType == blockChangeType.Static) 
 		{
@@ -186,22 +168,17 @@ public class Block : MonoBehaviour
 		{
 			isBlockFormationConnected = true;
 		}
-
-		// If block formation, overwrite velocity and follow parent object position.
-		if (isBlockFormationConnected == true) 
-		{
-			//OverwriteVelocity = true;
-			//rb.velocity = Vector3.zero;
-		}
 	}
 
 	void onOnbeatDetected ()
 	{
+		// Animates in beat based on block type.
 		if (audioControllerScript.BeatInBar == (int)BlockType + 1) 
 		{
 			GetComponentInChildren<Animator> ().Play ("BlockBeat");
 		}
 
+		// Changes block type if random.
 		if (BlockChangeType == blockChangeType.RandomScroll) 
 		{
 			RandomScroll ();
@@ -263,7 +240,8 @@ public class Block : MonoBehaviour
 	// Collisions via particles.
 	void OnParticleCollision (GameObject particle)
 	{
-		if (particle.tag == "Bullet" || particle.tag == "Hazard") 
+		if (particle.tag == "Bullet" || 
+			particle.tag == "Hazard") 
 		{
 			if (isBossPart == false)
 			{
@@ -308,28 +286,11 @@ public class Block : MonoBehaviour
 
 			if (isBossPart == true) 
 			{
-				if (HitPoints > 0) 
+				if (GotDetached == true) 
 				{
-					HitPoints--;
-
-					if (particle.GetComponentInParent<Bullet> () != null) 
-					{
-						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true &&
-							particle.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
-						{
-							Destroy (particle.gameObject);
-						}
-					}
-
-					//if (particle.GetComponentInParent<Bullet> () == null) 
-					//{
-					//	Destroy (particle.gameObject);
-					//}
-
-					GetTotalPointValue (); // Get total point calculation.
-					CreateExplosion (); // Create the explosion.
+					HitPoints = 0;
 				}
-
+					
 				if (HitPoints <= 0) 
 				{
 					GetTotalPointValue (); // Get total point calculation.
@@ -346,17 +307,28 @@ public class Block : MonoBehaviour
 						}
 					}
 
-					//if (particle.GetComponentInParent<Bullet> () == null) 
-					//{
-					//	Destroy (particle.gameObject);
-					//}
-
 					Destroy (gameObject); // Destroy this object.
 					return; // Prevent any further code execution.
 				}
+
+				if (HitPoints > 0) 
+				{
+					HitPoints--;
+
+					if (particle.GetComponentInParent<Bullet> () != null) 
+					{
+						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true &&
+							particle.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
+						{
+							Destroy (particle.gameObject);
+						}
+					}
+
+					GetTotalPointValue (); // Get total point calculation.
+					CreateExplosion (); // Create the explosion.
+					return;
+				}
 			}
-
-
 		}
 	}
 
@@ -423,9 +395,6 @@ public class Block : MonoBehaviour
 					{
 						//other.GetComponent<Bullet> ().BlockHit ();
 						other.GetComponentInParent<Bullet> ().DestroyObject ();
-					} else 
-					{
-						//Destroy (other.gameObject);
 					}
 				}
 
@@ -678,7 +647,6 @@ public class Block : MonoBehaviour
 	}
 
 	// Shakes the camera and vibrates controller.
-
 	void DoCamShake ()
 	{
 		if (camShakeScript != null) 
