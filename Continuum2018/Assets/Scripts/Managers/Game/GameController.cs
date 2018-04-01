@@ -515,16 +515,26 @@ public class GameController : MonoBehaviour
 		if (isUpdatingParticleEffects == true) 
 		{
 			var StarFieldForegroundTrailModule = StarFieldForeground.trails;
-			StarFieldForegroundTrailModule.lifetime = new ParticleSystem.MinMaxCurve (0, StarFieldForegroundLifetimeMultipler * Time.timeScale);
+			StarFieldForegroundTrailModule.lifetime = new ParticleSystem.MinMaxCurve (
+				0, StarFieldForegroundLifetimeMultipler * Time.timeScale
+			);
 
 			var StarFieldForegroundMainModule = StarFieldForeground.main;
 			StarFieldForegroundMainModule.simulationSpeed = StarFieldForegroundSimulationSpeed * Time.timeScale;
 
+			var StarFieldForegroundEmissionModule = StarFieldForeground.emission;
+			StarFieldForegroundEmissionModule.rateOverTime = Time.timeScale * 80;
+
 			var StarFieldBackgroundTrailModule = StarFieldBackground.trails;
-			StarFieldBackgroundTrailModule.lifetime = new ParticleSystem.MinMaxCurve (0, StarFieldBackgroundLifetimeMultipler * Time.timeScale);
+			StarFieldBackgroundTrailModule.lifetime = new ParticleSystem.MinMaxCurve (
+				0, StarFieldBackgroundLifetimeMultipler * Time.timeScale
+			);
 
 			var StarFieldBackgroundMainModule = StarFieldBackground.main;
 			StarFieldBackgroundMainModule.simulationSpeed = StarFieldBackgroundSimulationSpeed * Time.timeScale;
+
+			var StarFieldBackgroundEmissionModule = StarFieldBackground.emission;
+			StarFieldBackgroundEmissionModule.rateOverTime = Time.timeScale * 400;
 		}
 	}
 
