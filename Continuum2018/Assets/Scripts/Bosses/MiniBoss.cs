@@ -21,6 +21,7 @@ public class MiniBoss : MonoBehaviour
 	public string MiniBossName;
 	[Tooltip ("The barrier that comes with this mini boss.")]
 	public GameObject Barrier;
+	public float ColliderTime = 3;
 
 	[Header ("Stats")]
 	[Tooltip ("Current hit points.")]
@@ -76,7 +77,7 @@ public class MiniBoss : MonoBehaviour
 	void Awake ()
 	{
 		hitPoints = StartingHitPoints;
-		Invoke ("TurnOffBarrier", 6);
+		Invoke ("TurnOffBarrier", ColliderTime);
 	}
 
 	void Start () 
@@ -135,7 +136,7 @@ public class MiniBoss : MonoBehaviour
 			//col.enabled = false;
 		}
 
-		Invoke ("EnableCol", 6);
+		Invoke ("EnableCol", 5);
 	}
 
 	void TurnOffBarrier ()

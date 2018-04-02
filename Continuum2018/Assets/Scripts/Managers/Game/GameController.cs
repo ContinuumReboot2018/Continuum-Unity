@@ -521,20 +521,32 @@ public class GameController : MonoBehaviour
 
 			var StarFieldForegroundMainModule = StarFieldForeground.main;
 			StarFieldForegroundMainModule.simulationSpeed = StarFieldForegroundSimulationSpeed * Time.timeScale;
+			StarFieldForegroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.01f, 0.02f * Time.timeScale);
+
+			var StarFieldForegroundRenderer = StarFieldForeground.GetComponent<ParticleSystemRenderer> ();
+			//StarFieldForegroundRenderer.renderMode = ParticleSystemRenderMode.Stretch;
+			StarFieldForegroundRenderer.velocityScale = 0.1f * Time.timeScale;
+
 
 			var StarFieldForegroundEmissionModule = StarFieldForeground.emission;
-			StarFieldForegroundEmissionModule.rateOverTime = Time.timeScale * 80;
+			StarFieldForegroundEmissionModule.rateOverTime = Time.timeScale * 10;
 
-			var StarFieldBackgroundTrailModule = StarFieldBackground.trails;
+			/*var StarFieldBackgroundTrailModule = StarFieldBackground.trails;
 			StarFieldBackgroundTrailModule.lifetime = new ParticleSystem.MinMaxCurve (
 				0, StarFieldBackgroundLifetimeMultipler * Time.timeScale
-			);
+			);*/
 
 			var StarFieldBackgroundMainModule = StarFieldBackground.main;
 			StarFieldBackgroundMainModule.simulationSpeed = StarFieldBackgroundSimulationSpeed * Time.timeScale;
+			StarFieldBackgroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.01f, 0.02f * Time.timeScale);
 
 			var StarFieldBackgroundEmissionModule = StarFieldBackground.emission;
-			StarFieldBackgroundEmissionModule.rateOverTime = Time.timeScale * 400;
+			StarFieldBackgroundEmissionModule.rateOverTime = Time.timeScale * 40;
+
+			var StarFieldBackgroundRenderer = StarFieldBackground.GetComponent<ParticleSystemRenderer> ();
+			//StarFieldBackgroundRenderer.renderMode = ParticleSystemRenderMode.Stretch;
+			StarFieldBackgroundRenderer.velocityScale = 0.1f * Time.timeScale;
+
 		}
 	}
 
@@ -1101,8 +1113,8 @@ public class GameController : MonoBehaviour
 					//ImageEffects.motionBlur.settings = ImageEffectsMotionBlurModuleSettings;
 				}
 			}
-		}
-		*/
+		}*/
+
 	}
 
 	// Tracks pause state.
