@@ -114,6 +114,7 @@ public class GameController : MonoBehaviour
 
 	[Header ("Combo")]
 	[Tooltip ("Current combo.")]
+	public int pointsThisCombo;
 	public int combo = 1;
 	[Tooltip ("How long the combo lasts before decrementing.")]
 	public float comboDuration = 0.5f;
@@ -507,6 +508,18 @@ public class GameController : MonoBehaviour
 		UpdateStarFieldParticleEffects ();  // Updates particle effects.
 	
 		PowerupSpawner ();					// Timer for powerup spawning.
+		CheckResetCombo ();
+	}
+
+	void CheckResetCombo ()
+	{
+		if (combo == 1) 
+		{
+			if (pointsThisCombo != 0) 
+			{
+				pointsThisCombo = 0;
+			}
+		}
 	}
 
 	// Updates the background particles.

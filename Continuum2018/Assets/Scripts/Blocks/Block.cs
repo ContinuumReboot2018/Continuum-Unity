@@ -609,6 +609,8 @@ public class Block : MonoBehaviour
 			// Keep between...
 				1, gameControllerScript.MaximumBlockPoints
 			);
+
+			gameControllerScript.pointsThisCombo += totalPointValue;
 		}
 
 		// If the game controller is not found yet and block gets destroyed.
