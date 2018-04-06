@@ -115,6 +115,8 @@ public class GameController : MonoBehaviour
 	[Header ("Combo")]
 	[Tooltip ("Current combo.")]
 	public int pointsThisCombo;
+	public TextMeshProUGUI PointsThisComboText;
+	public Animator PointsThisComboAnim;
 	public int combo = 1;
 	[Tooltip ("How long the combo lasts before decrementing.")]
 	public float comboDuration = 0.5f;
@@ -289,6 +291,7 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI WaveText_Debug;
 	public TextMeshProUGUI WaveTimeRemainingText_Debug;
 	public TextMeshProUGUI ComboText_Debug;
+	public TextMeshProUGUI PointsThisComboText_Debug;
 	[Space (10)]
 	// Debug time stats.
 	public TextMeshProUGUI DistanceText_Debug;
@@ -518,6 +521,7 @@ public class GameController : MonoBehaviour
 			if (pointsThisCombo != 0) 
 			{
 				pointsThisCombo = 0;
+				PointsThisComboAnim.SetTrigger ("PointsComboFade");
 			}
 		}
 	}
@@ -577,6 +581,8 @@ public class GameController : MonoBehaviour
 					"Target Score: " + Mathf.Round (TargetScore);
 				ComboText_Debug.text = 
 					"Combo: " + combo; 
+				PointsThisComboText_Debug.text = 
+					"Points this combo: " + pointsThisCombo;
 				DistanceText_Debug.text = 
 					"Distance: " + Math.Round (Distance, 2);
 				GameTimeText_Debug.text = 

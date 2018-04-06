@@ -610,7 +610,9 @@ public class Block : MonoBehaviour
 				1, gameControllerScript.MaximumBlockPoints
 			);
 
-			gameControllerScript.pointsThisCombo += totalPointValue;
+			gameControllerScript.pointsThisCombo += (int)totalPointValue;
+			gameControllerScript.PointsThisComboAnim.SetTrigger ("PointsThisCombo");
+			gameControllerScript.PointsThisComboText.text = "+ " + gameControllerScript.pointsThisCombo;
 		}
 
 		// If the game controller is not found yet and block gets destroyed.

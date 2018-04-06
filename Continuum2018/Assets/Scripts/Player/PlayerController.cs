@@ -1780,11 +1780,11 @@ public class PlayerController : MonoBehaviour
 		float localDistance = timescaleControllerScript.Distance;
 
 		var PostProcessBloomSettings = PostProcessProfile.bloom.settings;
-		PostProcessBloomSettings.bloom.intensity = 0.002f * localDistance + 0.01f;
+		PostProcessBloomSettings.bloom.intensity = 0.001f * localDistance + 0.005f;
 		PostProcessProfile.bloom.settings = PostProcessBloomSettings;
 
 		var PostProcessColorGradingSettings = PostProcessProfile.colorGrading.settings;
-		PostProcessColorGradingSettings.basic.saturation = 0.005f * localDistance + 0.9f;
+		PostProcessColorGradingSettings.basic.saturation = 0.003f * localDistance + 0.85f;
 		PostProcessProfile.colorGrading.settings = PostProcessColorGradingSettings;
 	}
 
