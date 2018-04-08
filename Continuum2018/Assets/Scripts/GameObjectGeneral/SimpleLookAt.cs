@@ -15,33 +15,49 @@ public class SimpleLookAt : MonoBehaviour
 	[Tooltip ("Find up direction instead of forward direction.")]
 	public bool useUpDirection;
 
+	public bool useSmoothing;
+	public float SmoothingAmount;
+	public Vector3 Offset;
+
 	void LateUpdate ()
 	{
-		// Look towards.
-		if (LookMethod == lookType.LookTowards && LookAtPos != null) 
+		if (useSmoothing == true) 
 		{
-			if (useUpDirection == false) 
-			{
-				transform.LookAt (LookAtPos.position, Vector3.forward);
-			}
+			Quaternion lookPos = Quaternion.LookRotation (LookAtPos.position - transform.position - Offset);
 
-			if (useUpDirection == true) 
-			{
-				transform.LookAt (LookAtPos.position, Vector3.up);
-			}
+			transform.rotation = Quaternion.Slerp (transform.rotation, lookPos, SmoothingAmount * Time.deltaTime);
+
+			return;
 		}
 
-		// Look away.
-		if (LookMethod == lookType.LookAway) 
+		if (useSmoothing == false) 
 		{
-			if (useUpDirection == false) 
+			// Look towards.
+			if (LookMethod == lookType.LookTowards && LookAtPos != null) 
 			{
-				transform.LookAt (LookAtPos.position, -Vector3.forward);
+				if (useUpDirection == false) 
+				{
+					transform.LookAt (LookAtPos.position, Vector3.forward);
+				}
+
+				if (useUpDirection == true) 
+				{
+					transform.LookAt (LookAtPos.position, Vector3.up);
+				}
 			}
 
-			if (useUpDirection == true) 
+			// Look away.
+			if (LookMethod == lookType.LookAway) 
 			{
-				transform.LookAt (LookAtPos.position, -Vector3.up);
+				if (useUpDirection == false) 
+				{
+					transform.LookAt (LookAtPos.position, -Vector3.forward);
+				}
+
+				if (useUpDirection == true) 
+				{
+					transform.LookAt (LookAtPos.position, -Vector3.up);
+				}
 			}
 		}
 	}
