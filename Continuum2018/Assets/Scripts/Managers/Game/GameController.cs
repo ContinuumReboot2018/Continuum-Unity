@@ -360,7 +360,7 @@ public class GameController : MonoBehaviour
 	void Awake () 
 	{
 		// Hide and lock the mouse.
-		cursorManagerScript.VisibleTimer = 0;
+		cursorManagerScript.VisibleTimerRemain = 0;
 		cursorManagerScript.HideMouse ();
 		cursorManagerScript.LockMouse ();
 

@@ -4,27 +4,7 @@ public class CursorManager : MonoBehaviour
 {
 	[Tooltip ("How long the timer can last before hiding the mouse.")]
 	public float VisibleTimer = 5.0f;
-	private float VisibleTimerRemain;
-
-	public void HideMouse ()
-	{
-		Cursor.visible = false;
-	}
-
-	public void LockMouse ()
-	{
-		Cursor.lockState = CursorLockMode.Locked;
-	}
-
-	public void ShowMouse ()
-	{
-		Cursor.visible = true;
-	}
-
-	public void UnlockMouse ()
-	{
-		Cursor.lockState = CursorLockMode.None;
-	}
+	public float VisibleTimerRemain;
 
 	void Update ()
 	{
@@ -52,6 +32,26 @@ public class CursorManager : MonoBehaviour
 				LockMouse ();
 			}
 		}
+	}
+
+	public void HideMouse ()
+	{
+		Cursor.visible = false;
+	}
+
+	public void LockMouse ()
+	{
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+
+	public void ShowMouse ()
+	{
+		Cursor.visible = true;
+	}
+
+	public void UnlockMouse ()
+	{
+		Cursor.lockState = CursorLockMode.None;
 	}
 
 	// Resets current state of the mouse.

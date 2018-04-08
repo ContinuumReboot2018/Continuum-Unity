@@ -83,6 +83,8 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Visuals for the player guides.")]
 	public GameObject PlayerGuides;
 
+	public AudioSource SpaceshipAmbience;
+
 	[Header ("Player input UI")]
 	// To be shown only in tutorial.
 	public RectTransform MiddlePoint; 
@@ -462,6 +464,11 @@ public class PlayerController : MonoBehaviour
 	public Vector2 LivesCheckPlayerPosX;
 	[Tooltip("Range to check vertical player position.")]
 	public Vector2 LivesCheckPlayerPosY;
+
+	public Animator LivesLeftUI;
+	public TextMeshProUGUI LivesLeftText;
+	//public string LivesLeftString = "3 LIVES LEFT";
+
 	[Space (10)]
 	// Wave UI.
 	[Tooltip("Checks for wave UI.")]
@@ -564,6 +571,7 @@ public class PlayerController : MonoBehaviour
 		CheckPause ();
 		CheckCheatConsoleInput ();
 		UpdateImageEffects ();
+		UpdateAudio ();
 	}
 
 	void FixedUpdate ()
@@ -836,6 +844,57 @@ public class PlayerController : MonoBehaviour
 		audioControllerScript.TargetCutoffFreq = 22000;
 		audioControllerScript.TargetResonance = 1;
 		InvincibleMeshAnim.Play ("InvincibleMeshFlash");
+
+		// Animate lives left text.
+		Invoke ("UpdateLivesLeftA", 0.6f);
+		Invoke ("UpdateLivesLeftB", 1.2f);
+		Invoke ("UpdateLivesLeftC", 1.8f);
+	}
+
+	void UpdateLivesLeftA ()
+	{
+		if (gameControllerScript.Lives > 1)
+		{
+			LivesLeftText.text = (gameControllerScript.Lives).ToString ();
+		}
+
+		if (gameControllerScript.Lives <= 1) 
+		{
+			LivesLeftText.text = "LAST";
+		}
+
+		LivesLeftUI.Play ("LivesLeft");
+	}
+
+	void UpdateLivesLeftB ()
+	{
+		if (gameControllerScript.Lives <= 1) 
+		{
+			LivesLeftText.text = "LIFE";
+		}
+
+		if (gameControllerScript.Lives > 1) 
+		{
+			LivesLeftText.text = "LIVES";
+		}
+
+		LivesLeftUI.Play ("LivesLeft");
+	}
+
+	void UpdateLivesLeftC ()
+	{
+		if (gameControllerScript.Lives > 1)
+		{
+			LivesLeftText.text = "LEFT";
+			LivesLeftUI.Play ("LivesLeft");
+		}
+	}
+
+	void UpdateAudio ()
+	{
+		SpaceshipAmbience.panStereo = 0.04f * transform.position.x; // Pans audio based on x position.
+		SpaceshipAmbience.pitch = Mathf.Lerp (SpaceshipAmbience.pitch, Time.timeScale * playerActions.Move.Value.magnitude + 0.2f, Time.deltaTime * 10);
+		SpaceshipAmbience.volume = Mathf.Lerp (SpaceshipAmbience.volume, 0.1f * playerActions.Move.Value.magnitude + 0.1f, Time.deltaTime * 10);
 	}
 
 	// Allows player input. Gets called by player parent script.
