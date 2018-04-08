@@ -538,7 +538,7 @@ public class GameController : MonoBehaviour
 
 			var StarFieldForegroundMainModule = StarFieldForeground.main;
 			StarFieldForegroundMainModule.simulationSpeed = StarFieldForegroundSimulationSpeed * Time.timeScale;
-			StarFieldForegroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.01f, 0.02f * Time.timeScale);
+			StarFieldForegroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.00f, 0.01f * Time.timeScale);
 
 			var StarFieldForegroundRenderer = StarFieldForeground.GetComponent<ParticleSystemRenderer> ();
 			//StarFieldForegroundRenderer.renderMode = ParticleSystemRenderMode.Stretch;
@@ -546,7 +546,7 @@ public class GameController : MonoBehaviour
 
 
 			var StarFieldForegroundEmissionModule = StarFieldForeground.emission;
-			StarFieldForegroundEmissionModule.rateOverTime = Time.timeScale * 10;
+			StarFieldForegroundEmissionModule.rateOverTime = Time.timeScale * 50;
 
 			/*var StarFieldBackgroundTrailModule = StarFieldBackground.trails;
 			StarFieldBackgroundTrailModule.lifetime = new ParticleSystem.MinMaxCurve (
@@ -555,10 +555,10 @@ public class GameController : MonoBehaviour
 
 			var StarFieldBackgroundMainModule = StarFieldBackground.main;
 			StarFieldBackgroundMainModule.simulationSpeed = StarFieldBackgroundSimulationSpeed * Time.timeScale;
-			StarFieldBackgroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.01f, 0.02f * Time.timeScale);
+			StarFieldBackgroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.00f, 0.01f * Time.timeScale);
 
 			var StarFieldBackgroundEmissionModule = StarFieldBackground.emission;
-			StarFieldBackgroundEmissionModule.rateOverTime = Time.timeScale * 40;
+			StarFieldBackgroundEmissionModule.rateOverTime = Time.timeScale * 80;
 
 			var StarFieldBackgroundRenderer = StarFieldBackground.GetComponent<ParticleSystemRenderer> ();
 			//StarFieldBackgroundRenderer.renderMode = ParticleSystemRenderMode.Stretch;
