@@ -185,7 +185,9 @@ public class Block : MonoBehaviour
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		parentToTransformScript = GetComponent<ParentToTransform> ();
 		timeBodyScript = GetComponent<TimeBody> ();
-		processor = GameObject.Find ("BeatDetectionTrack").GetComponent<AudioProcessor> ();
+
+		//processor = GameObject.Find ("BeatDetectionTrack").GetComponent<AudioProcessor> ();
+		processor = audioControllerScript.BeatDetectionTracks [(int)BlockType].GetComponent<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 
 		// Finds texture scroll script.

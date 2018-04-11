@@ -538,7 +538,7 @@ public class GameController : MonoBehaviour
 
 			var StarFieldForegroundMainModule = StarFieldForeground.main;
 			StarFieldForegroundMainModule.simulationSpeed = StarFieldForegroundSimulationSpeed * Time.timeScale;
-			StarFieldForegroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.00f, 0.01f * Time.timeScale);
+			StarFieldForegroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.01f, 0.02f * Time.timeScale);
 
 			var StarFieldForegroundRenderer = StarFieldForeground.GetComponent<ParticleSystemRenderer> ();
 			//StarFieldForegroundRenderer.renderMode = ParticleSystemRenderMode.Stretch;
@@ -555,7 +555,7 @@ public class GameController : MonoBehaviour
 
 			var StarFieldBackgroundMainModule = StarFieldBackground.main;
 			StarFieldBackgroundMainModule.simulationSpeed = StarFieldBackgroundSimulationSpeed * Time.timeScale;
-			StarFieldBackgroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.00f, 0.01f * Time.timeScale);
+			StarFieldBackgroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.01f, 0.02f * Time.timeScale);
 
 			var StarFieldBackgroundEmissionModule = StarFieldBackground.emission;
 			StarFieldBackgroundEmissionModule.rateOverTime = Time.timeScale * 80;
@@ -1477,6 +1477,7 @@ public class GameController : MonoBehaviour
 	{
 		GameObject MiniBoss = MiniBosses [UnityEngine.Random.Range (0, MiniBosses.Length)];
 		Instantiate (MiniBoss, MiniBossSpawnPos.position, MiniBossSpawnPos.rotation);
+		playerControllerScript_P1.spotlightsScript.BossSpotlightSettings ();
 		UnityEngine.Debug.Log ("Spawned a mini boss.");
 	}
 
@@ -1505,6 +1506,7 @@ public class GameController : MonoBehaviour
 		//GameObject BigBoss = BigBosses [UnityEngine.Random.Range (0, bossId)];
 		GameObject BigBoss = BigBosses [bossId];
 		Instantiate (BigBoss, BigBossSpawnPos.position, BigBossSpawnPos.rotation);
+		playerControllerScript_P1.spotlightsScript.BigBossSpotlightSettings ();
 		UnityEngine.Debug.Log ("Oh snap! We spawned a big boss!");
 	}
 
@@ -1631,6 +1633,7 @@ public class GameController : MonoBehaviour
 			}
 		}
 
+		playerControllerScript_P1.spotlightsScript.NormalSpotlightSettings ();
 		StopCoroutine (GoToNextWave ()); // Go to the next wave.
 	}
 

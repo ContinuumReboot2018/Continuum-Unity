@@ -80,6 +80,11 @@ public class MiniBoss : MonoBehaviour
 		Invoke ("TurnOffBarrier", ColliderTime);
 	}
 
+	void SpotlightOverrideTransform ()
+	{
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.NewTarget = this.transform;
+	}
+
 	void Start () 
 	{
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
@@ -91,6 +96,11 @@ public class MiniBoss : MonoBehaviour
 		GameObject MiniBossUIObject = GameObject.Find("MiniBossUI");
 		MiniBossUIObject.GetComponentInChildren<TextMeshProUGUI> ().text = MiniBossName;
 		MiniBossUIObject.GetComponentInChildren<Animator> ().Play ("MiniBossUI");
+
+		//gameControllerScript.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject (this.transform);
+		InvokeRepeating ("SpotlightOverrideTransform", 0, 1);
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("OverrideSpotlightLookObject", 0, 1);
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("BossSpotlightSettings", 0, 1);
 
 		// If no brain has been referenced, reference the brain from here.
 		if (Brain == null) 
@@ -291,6 +301,10 @@ public class MiniBoss : MonoBehaviour
 		gameControllerScript.IsInWaveTransition = true; // Set to be in wave transition.
 		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f; // Temporarily override time scale. 
 		timeScaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.SuccessSpotlightSettings ();
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.NewTarget = PlayerPos;
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject ();
+		//gameControllerScript.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject (PlayerPos);
 
 		// Reset camera rotation animator parameter.
 		if (FlipScreen.GetCurrentAnimatorStateInfo (0).IsName ("CameraRotateUpsideDown") == true) 

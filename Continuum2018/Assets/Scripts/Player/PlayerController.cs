@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 	public TutorialManager 		 tutorialManagerScript;
 	public PostProcessingProfile PostProcessProfile;
 	public MenuManager 			 pauseManagerScript;
+	public Spotlights 			 spotlightsScript;
 
 	[Tooltip("Device ID for InControl.")]
 	public int deviceID = 0;
@@ -662,6 +663,7 @@ public class PlayerController : MonoBehaviour
 				gameControllerScript.Lives -= 1;
 				Invoke ("EnableCollider", 5);
 				isInCooldownMode = false;
+				//spotlightsScript.NormalSpotlightSettings ();
 			}
 		}
 	}
@@ -794,6 +796,9 @@ public class PlayerController : MonoBehaviour
 		gameControllerScript.combo = 1;
 		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
 		timescaleControllerScript.OverridingTimeScale = 0.25f;
+		//spotlightsScript.NewTarget = ImpactPoint;
+		spotlightsScript.OverrideSpotlightLookObject ();
+		spotlightsScript.ImpactSpotlightSettings ();
 	}
 
 	// Special impacts by blocks.
@@ -822,6 +827,9 @@ public class PlayerController : MonoBehaviour
 	void EnableCollider ()
 	{
 		UsePlayerFollow = true; // Allow player input to manipulate player position.
+		spotlightsScript.NewTarget = this.transform;
+		spotlightsScript.OverrideSpotlightLookObject ();
+		spotlightsScript.NormalSpotlightSettings ();
 
 		// Checks for gode mode, allows god mode to stay on if needed.
 		if (developerModeScript.isGod == false) 
@@ -849,6 +857,10 @@ public class PlayerController : MonoBehaviour
 		Invoke ("UpdateLivesLeftA", 0.6f);
 		Invoke ("UpdateLivesLeftB", 1.2f);
 		Invoke ("UpdateLivesLeftC", 1.8f);
+
+		spotlightsScript.NewTarget = this.transform;
+		spotlightsScript.OverrideSpotlightLookObject ();
+		spotlightsScript.SuccessSpotlightSettings ();
 	}
 
 	void UpdateLivesLeftA ()

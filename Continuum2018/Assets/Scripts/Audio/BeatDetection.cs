@@ -8,31 +8,29 @@ public class BeatDetection : MonoBehaviour
 	void Start ()
 	{
 		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
-		//Select the instance of AudioProcessor and pass a reference
-		//to this object
+
+		//Select the instance of AudioProcessor and pass a reference to this object.
 		//AudioProcessor processor = FindObjectOfType<AudioProcessor> ();
+
 		processor = GetComponent<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 		processor.onSpectrum.AddListener (onSpectrum);
 	}
 
-	//this event will be called every time a beat is detected.
-	//Change the threshold parameter in the inspector
-	//to adjust the sensitivity
+	// This event will be called every time a beat is detected.
+	// Change the threshold parameter in the inspector to adjust the sensitivity.
 	void onOnbeatDetected ()
 	{
-		//Debug.Log ("Beat!!!");
+		//Debug.Log ("Beat!");
 		audioControllerScript.Beats += 1;
 		audioControllerScript.BeatInBar = (audioControllerScript.Beats % 4) + 1;
 		GetBeatsPerMinute ();
 	}
 
-	//This event will be called every frame while music is playing
+	//This event will be called every frame while music is playing.
 	void onSpectrum (float[] spectrum)
 	{
-		//The spectrum is logarithmically averaged
-		//to 12 bands
-
+		//The spectrum is logarithmically averaged to 12 bands.
 		for (int i = 0; i < spectrum.Length; ++i)
 		{
 			Vector3 start = new Vector3 (i, 0, 0);

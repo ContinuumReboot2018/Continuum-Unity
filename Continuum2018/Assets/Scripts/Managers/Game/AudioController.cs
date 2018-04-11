@@ -68,7 +68,7 @@ public class AudioController : MonoBehaviour
 	[Tooltip ("Plays layer three tracks.")]
 	public AudioSource LayerThreeTrack;
 	[Tooltip ("Plays beat detection tracks.")]
-	public AudioSource BeatDetectionTrack;
+	public AudioSource[] BeatDetectionTracks;
 
 	[Header ("Soundtrack Library")]
 	// A library of all each type of track.
@@ -81,7 +81,10 @@ public class AudioController : MonoBehaviour
 	[Tooltip ("Riffs, arps, all sorts of cool audio flourishes.")]
 	public AudioClip[] LayerThreeTracks;
 	[Tooltip ("Beat detection tracks. Must show what tempo this is to synchronize with audio.")]
-	public AudioClip[] BeatDetectionTraks;
+	public AudioClip[] BeatDetectionLayerOneTracks;
+	public AudioClip[] BeatDetectionLayerTwoTracks;
+	public AudioClip[] BeatDetectionLayerThreeTracks;
+	public AudioClip[] BeatDetectionLayerFourTracks;
 
 	[Header ("Beat Detection")]
 	[Tooltip ("Increments by 1 every time a beat is detected.")]
@@ -358,19 +361,42 @@ public class AudioController : MonoBehaviour
 	// Replaces audio clips in the specified audio source by index.
 	public void LoadTracks ()
 	{
-		TrackName = TrackNames [TrackNumber];
-		BassTrack.clip = BassTracks [TrackNumber];
-		LayerOneTrack.clip = LayerOneTracks [TrackNumber];
-		LayerTwoTrack.clip = LayerTwoTracks [TrackNumber];
+		// Assigns clips to audio sources.
+		TrackName 			 = TrackNames 		[TrackNumber];
+		BassTrack.clip 		 = BassTracks 		[TrackNumber];
+		LayerOneTrack.clip	 = LayerOneTracks 	[TrackNumber];
+		LayerTwoTrack.clip 	 = LayerTwoTracks 	[TrackNumber];
 		LayerThreeTrack.clip = LayerThreeTracks [TrackNumber];
-		BeatDetectionTrack.clip = BeatDetectionTraks [TrackNumber];
 
+		// Loop through beat detection tracks, assign beat detection clip.
+		for (int i = 0; i < BeatDetectionTracks.Length; i++)
+		{
+			switch (i) 
+			{
+			case 0:
+				BeatDetectionTracks [i].clip = BeatDetectionLayerOneTracks [i];
+				break;
+			case 1:
+				BeatDetectionTracks [i].clip = BeatDetectionLayerTwoTracks [i];
+				break;
+			case 2:
+				BeatDetectionTracks [i].clip = BeatDetectionLayerThreeTracks [i];
+				break;
+			case 3:
+				BeatDetectionTracks [i].clip = BeatDetectionLayerFourTracks [i];
+				break;
+			}
+				
+			BeatDetectionTracks [i].Play ();
+		}
+
+		// Plays all audio sources.
 		BassTrack.Play ();
 		LayerOneTrack.Play ();
 		LayerTwoTrack.Play ();
 		LayerThreeTrack.Play ();
-		BeatDetectionTrack.Play ();
 
+		// Reset beat amounts.
 		Beats = 1;
 		BeatInBar = 1;
 		TimeSinceTrackLoad = 0;
