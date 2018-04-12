@@ -11,6 +11,8 @@ public class MiniBoss : MonoBehaviour
 	public EvasiveManeuver evasiveManeuverScript;
 	public MiniBossFormationGenerator miniBossFormation;
 
+	public bool isBigBoss;
+
 	[Tooltip ("The brain, (heart).")]
 	public GameObject Brain;
 	[Tooltip ("The base GameObject of the mini boss.")]
@@ -100,7 +102,16 @@ public class MiniBoss : MonoBehaviour
 		//gameControllerScript.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject (this.transform);
 		InvokeRepeating ("SpotlightOverrideTransform", 0, 1);
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("OverrideSpotlightLookObject", 0, 1);
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("BossSpotlightSettings", 0, 1);
+
+		if (isBigBoss == false) 
+		{
+			gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("BossSpotlightSettings", 0, 1);
+		}
+
+		if (isBigBoss == true) 
+		{
+			gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("BigBossSpotlightSettings", 0, 1);
+		}
 
 		// If no brain has been referenced, reference the brain from here.
 		if (Brain == null) 
@@ -305,6 +316,7 @@ public class MiniBoss : MonoBehaviour
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("SpotlightOverrideTransform");
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("OverrideSpotlightLookObject");
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("BossSpotlightSettings");
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("BigBossSpotlightSettings");
 
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.SuccessSpotlightSettings ();
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.NewTarget = PlayerPos;

@@ -613,13 +613,15 @@ MonoBehaviour:
   gameControllerScript: {fileID: 0}
   timeScaleControllerScript: {fileID: 0}
   camShakeScript: {fileID: 0}
+  evasiveManeuverScript: {fileID: 114598710554275844}
+  miniBossFormation: {fileID: 114409573734905362}
+  isBigBoss: 1
   Brain: {fileID: 1398989182591904}
   MiniBossParent: {fileID: 1414357436659834}
-  miniBossFormation: {fileID: 114409573734905362}
-  evasiveManeuverScript: {fileID: 114598710554275844}
   MiniBossUI: {fileID: 0}
   MiniBossName: DESTROYER
   Barrier: {fileID: 1763083367335488}
+  ColliderTime: 3
   hitPoints: 5
   StartingHitPoints: 5
   ParticleHitPointAmount: 0.1
@@ -706,6 +708,9 @@ MonoBehaviour:
   LookAtPos: {fileID: 0}
   LookMethod: 0
   useUpDirection: 0
+  useSmoothing: 0
+  SmoothingAmount: 0
+  Offset: {x: 0, y: 0, z: 0}
 --- !u!114 &114856834962930650
 MonoBehaviour:
   m_ObjectHideFlags: 1

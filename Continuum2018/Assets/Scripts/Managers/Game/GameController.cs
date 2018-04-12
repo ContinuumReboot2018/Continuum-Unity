@@ -1592,11 +1592,12 @@ public class GameController : MonoBehaviour
 	// Give delay for wave and prepare essential stuff.
 	public IEnumerator GoToNextWave ()
 	{
+		yield return new WaitForSecondsRealtime (1);
 		playerControllerScript_P1.spotlightsScript.NormalSpotlightSettings ();
 		playerControllerScript_P1.spotlightsScript.NewTarget = playerControllerScript_P1.playerMesh.transform;
 		playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject ();
 
-		yield return new WaitForSecondsRealtime (5);
+		yield return new WaitForSecondsRealtime (4);
 		NextLevel ();
 
 		// When wave is after a multiple of 4.
