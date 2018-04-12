@@ -301,6 +301,11 @@ public class MiniBoss : MonoBehaviour
 		gameControllerScript.IsInWaveTransition = true; // Set to be in wave transition.
 		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f; // Temporarily override time scale. 
 		timeScaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
+
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("SpotlightOverrideTransform");
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("OverrideSpotlightLookObject");
+		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("BossSpotlightSettings");
+
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.SuccessSpotlightSettings ();
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.NewTarget = PlayerPos;
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject ();

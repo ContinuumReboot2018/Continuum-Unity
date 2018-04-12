@@ -1592,6 +1592,10 @@ public class GameController : MonoBehaviour
 	// Give delay for wave and prepare essential stuff.
 	public IEnumerator GoToNextWave ()
 	{
+		playerControllerScript_P1.spotlightsScript.NormalSpotlightSettings ();
+		playerControllerScript_P1.spotlightsScript.NewTarget = playerControllerScript_P1.playerMesh.transform;
+		playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject ();
+
 		yield return new WaitForSecondsRealtime (5);
 		NextLevel ();
 
@@ -1632,8 +1636,7 @@ public class GameController : MonoBehaviour
 				}
 			}
 		}
-
-		playerControllerScript_P1.spotlightsScript.NormalSpotlightSettings ();
+			
 		StopCoroutine (GoToNextWave ()); // Go to the next wave.
 	}
 

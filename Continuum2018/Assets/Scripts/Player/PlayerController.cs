@@ -180,6 +180,7 @@ public class PlayerController : MonoBehaviour
 	public GameObject playerMesh;
 	[Tooltip("Where the last impact point was.")]
 	public Vector3 ImpactPoint;
+	public Transform ImpactTransform;
 
 	// Player has two colliders, one is in trigger mode.
 	[Tooltip("Player collider: Trigger is false.")]
@@ -796,7 +797,8 @@ public class PlayerController : MonoBehaviour
 		gameControllerScript.combo = 1;
 		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
 		timescaleControllerScript.OverridingTimeScale = 0.25f;
-		//spotlightsScript.NewTarget = ImpactPoint;
+		ImpactTransform.position = ImpactPoint;
+		spotlightsScript.NewTarget = ImpactTransform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.ImpactSpotlightSettings ();
 	}
@@ -827,7 +829,7 @@ public class PlayerController : MonoBehaviour
 	void EnableCollider ()
 	{
 		UsePlayerFollow = true; // Allow player input to manipulate player position.
-		spotlightsScript.NewTarget = this.transform;
+		//spotlightsScript.NewTarget = this.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.NormalSpotlightSettings ();
 
@@ -858,7 +860,7 @@ public class PlayerController : MonoBehaviour
 		Invoke ("UpdateLivesLeftB", 1.2f);
 		Invoke ("UpdateLivesLeftC", 1.8f);
 
-		spotlightsScript.NewTarget = this.transform;
+		spotlightsScript.NewTarget = playerMesh.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.SuccessSpotlightSettings ();
 	}
