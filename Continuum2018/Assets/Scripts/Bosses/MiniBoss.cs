@@ -250,25 +250,33 @@ public class MiniBoss : MonoBehaviour
 		// Bullet tag.
 		if (other.tag == "Bullet") 
 		{
-			if ((other.name.Contains ("P1") || other.name.Contains ("Shield_Col")) &&
-				other.GetComponent<Bullet> () != null)
+			if (transform.position.y > 13) 
 			{
-				if (other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
-				{
-					// Mini boss gets defeated.
-					if (hitPoints <= 0) 
-					{
-						KillMiniBoss ();
-						Destroy (MiniBossParent.gameObject); // Destroy the boss parent.
-						return;
-					}
+				return;
+			}
 
-					// Mini boss takes damage.
-					if (hitPoints > 0) 
+			if (transform.position.y <= 13)
+			{
+				if ((other.name.Contains ("P1") || other.name.Contains ("Shield_Col")) &&
+				   other.GetComponent<Bullet> () != null) 
+				{
+					if (other.GetComponent<Bullet> ().playerControllerScript.PlayerId == 1) 
 					{
-						hitPoints -= 1; // Reduce a full hit point.
-						DoCamShake ();
-						Instantiate (SmallExplosion, transform.position, transform.rotation); // Spawn a small explosion.
+						// Mini boss gets defeated.
+						if (hitPoints <= 0) 
+						{
+							KillMiniBoss ();
+							Destroy (MiniBossParent.gameObject); // Destroy the boss parent.
+							return;
+						}
+
+						// Mini boss takes damage.
+						if (hitPoints > 0) 
+						{
+							hitPoints -= 1; // Reduce a full hit point.
+							DoCamShake ();
+							Instantiate (SmallExplosion, transform.position, transform.rotation); // Spawn a small explosion.
+						}
 					}
 				}
 			}
@@ -280,23 +288,31 @@ public class MiniBoss : MonoBehaviour
 	{
 		if (col.tag == "Bullet") 
 		{
-			// Mini boss gets defeated.
-			if (hitPoints <= 0) 
+			if (transform.position.y > 13) 
 			{
-				KillMiniBoss ();
-				Destroy (MiniBossParent.gameObject);
 				return;
 			}
 
-			// Mini boss takes damage.
-			if (hitPoints > 0) 
+			if (transform.position.y <= 13)
 			{
-				hitPoints -= 1 * ParticleHitPointAmount;
-				DoCamShake ();
-
-				if (IsInvoking ("InstanceExplosion") == false) 
+				// Mini boss gets defeated.
+				if (hitPoints <= 0) 
 				{
-					Invoke ("InstanceExplosion", 0.1f);
+					KillMiniBoss ();
+					Destroy (MiniBossParent.gameObject);
+					return;
+				}
+
+				// Mini boss takes damage.
+				if (hitPoints > 0)
+				{
+					hitPoints -= 1 * ParticleHitPointAmount;
+					DoCamShake ();
+
+					if (IsInvoking ("InstanceExplosion") == false) 
+					{
+						Invoke ("InstanceExplosion", 0.1f);
+					}
 				}
 			}
 		}

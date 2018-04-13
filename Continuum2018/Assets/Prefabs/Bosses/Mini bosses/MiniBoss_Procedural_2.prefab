@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1358503370173682
 GameObject:
   m_ObjectHideFlags: 1
@@ -578,6 +578,9 @@ MonoBehaviour:
   LookAtPos: {fileID: 0}
   LookMethod: 0
   useUpDirection: 0
+  useSmoothing: 0
+  SmoothingAmount: 0
+  Offset: {x: 0, y: 0, z: 0}
 --- !u!114 &114595713207939492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -695,13 +698,15 @@ MonoBehaviour:
   gameControllerScript: {fileID: 0}
   timeScaleControllerScript: {fileID: 0}
   camShakeScript: {fileID: 0}
+  evasiveManeuverScript: {fileID: 114327013213074036}
+  miniBossFormation: {fileID: 114142611022689236}
+  isBigBoss: 0
   Brain: {fileID: 1358503370173682}
   MiniBossParent: {fileID: 1967204055347616}
-  miniBossFormation: {fileID: 114142611022689236}
-  evasiveManeuverScript: {fileID: 114327013213074036}
   MiniBossUI: {fileID: 0}
   MiniBossName: FURY
   Barrier: {fileID: 1071019203763794}
+  ColliderTime: 3
   hitPoints: 5
   StartingHitPoints: 5
   ParticleHitPointAmount: 0.1

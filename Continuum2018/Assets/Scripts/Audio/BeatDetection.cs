@@ -4,6 +4,7 @@ public class BeatDetection : MonoBehaviour
 {
 	public AudioController audioControllerScript;
 	public AudioProcessor processor;
+	public bool isLayerOne;
 
 	void Start ()
 	{
@@ -21,10 +22,13 @@ public class BeatDetection : MonoBehaviour
 	// Change the threshold parameter in the inspector to adjust the sensitivity.
 	void onOnbeatDetected ()
 	{
-		//Debug.Log ("Beat!");
-		audioControllerScript.Beats += 1;
-		audioControllerScript.BeatInBar = (audioControllerScript.Beats % 4) + 1;
-		GetBeatsPerMinute ();
+		if (isLayerOne == true)
+		{
+			//Debug.Log ("Beat!");
+			audioControllerScript.Beats += 1;
+			audioControllerScript.BeatInBar = (audioControllerScript.Beats % 4) + 1;
+			GetBeatsPerMinute ();
+		}
 	}
 
 	//This event will be called every frame while music is playing.

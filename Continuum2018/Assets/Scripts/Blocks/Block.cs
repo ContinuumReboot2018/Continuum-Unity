@@ -280,93 +280,101 @@ public class Block : MonoBehaviour
 	// Collisions via particles.
 	void OnParticleCollision (GameObject particle)
 	{
-		if (particle.tag == "Bullet" || 
-			particle.tag == "Hazard") 
+		if (particle.tag == "Bullet" ||
+		    particle.tag == "Hazard") 
 		{
-			if (isBossPart == false)
+			if (transform.position.y > 13) 
 			{
-				BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
-
-				// If tutorial script is referenced.
-				if (tutorialManagerScript != null)
-				{
-					// Reset block index in info section.
-					if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info)
-					{
-						tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
-					}
-
-					// Turn off the tutorial in info section.
-					if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info)
-					{
-						Debug.Log ("Attempted to turn off tutorial.");
-						tutorialManagerScript.TurnOffTutorial ();
-					}
-				}
-
-				// Other object has a bullet component.
-				if (particle.GetComponentInParent<Bullet> () != null) 
-				{
-					// Stops the bullet that hit it from hanging around.
-					if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
-					{
-						//particle.GetComponentInParent<Bullet> ().BlockHit ();
-						particle.GetComponentInParent<Bullet> ().DestroyObject ();
-					}
-				}
-
-				GetTotalPointValue (); // Get total point calculation.
-				CreateExplosion (); // Create the explosion.
-				IncrementBlocksDestroyed (); // Increment blocks destroyed.
-				DoCamShake (); // Shake camera.
-				DoVibrate ();
-				Destroy (gameObject);
 				return;
 			}
 
-			if (isBossPart == true) 
+			if (transform.position.y <= 13)
 			{
-				if (GotDetached == true) 
+				if (isBossPart == false) 
 				{
-					HitPoints = 0;
-				}
-					
-				if (HitPoints <= 0) 
-				{
+					BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
+
+					// If tutorial script is referenced.
+					if (tutorialManagerScript != null) 
+					{
+						// Reset block index in info section.
+						if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info) 
+						{
+							tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+						}
+
+						// Turn off the tutorial in info section.
+						if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
+						{
+							Debug.Log ("Attempted to turn off tutorial.");
+							tutorialManagerScript.TurnOffTutorial ();
+						}
+					}
+
+					// Other object has a bullet component.
+					if (particle.GetComponentInParent<Bullet> () != null) 
+					{
+						// Stops the bullet that hit it from hanging around.
+						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
+						{
+							//particle.GetComponentInParent<Bullet> ().BlockHit ();
+							particle.GetComponentInParent<Bullet> ().DestroyObject ();
+						}
+					}
+
 					GetTotalPointValue (); // Get total point calculation.
 					CreateExplosion (); // Create the explosion.
-					DoCamShake (); // Destroy this object.
+					IncrementBlocksDestroyed (); // Increment blocks destroyed.
+					DoCamShake (); // Shake camera.
 					DoVibrate ();
-
-					if (particle.GetComponentInParent<Bullet> () != null) 
-					{
-						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true &&
-							particle.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
-						{
-							Destroy (particle.gameObject);
-						}
-					}
-
-					Destroy (gameObject); // Destroy this object.
-					return; // Prevent any further code execution.
+					Destroy (gameObject);
+					return;
 				}
 
-				if (HitPoints > 0) 
+				if (isBossPart == true) 
 				{
-					HitPoints--;
-
-					if (particle.GetComponentInParent<Bullet> () != null) 
+					if (GotDetached == true)
 					{
-						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true &&
-							particle.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
+						HitPoints = 0;
+					}
+						
+					if (HitPoints <= 0) 
+					{
+						GetTotalPointValue (); // Get total point calculation.
+						CreateExplosion (); // Create the explosion.
+						DoCamShake (); // Destroy this object.
+						DoVibrate ();
+
+						if (particle.GetComponentInParent<Bullet> () != null) 
 						{
-							Destroy (particle.gameObject);
+							if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true &&
+							    particle.GetComponentInParent<Bullet> ().BulletTypeName != "Helix")
+							{
+								Destroy (particle.gameObject);
+							}
 						}
+
+						Destroy (gameObject); // Destroy this object.
+						return; // Prevent any further code execution.
 					}
 
-					GetTotalPointValue (); // Get total point calculation.
-					CreateExplosion (); // Create the explosion.
-					return;
+					if (HitPoints > 0)
+					{
+						HitPoints--;
+
+						if (particle.GetComponentInParent<Bullet> () != null) 
+						{
+							if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true &&
+							    particle.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
+							{
+								Destroy (particle.gameObject);
+							}
+						}
+
+						GetTotalPointValue (); // Get total point calculation.
+						CreateExplosion (); // Create the explosion.
+						return;
+					}
 				}
 			}
 		}
@@ -402,89 +410,97 @@ public class Block : MonoBehaviour
 		// Other object's tag is Bullet.
 		if (other.tag == "Bullet") 
 		{
-			if (isBossPart == false) 
+			if (transform.position.y > 13) 
 			{
-				BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
+				return;
+			}
 
-				// If tutorial script is referenced.
-				if (tutorialManagerScript != null) 
+			if (transform.position.y <= 13) 
+			{
+				if (isBossPart == false)
 				{
-					// Reset block index in info section.
-					if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info) 
+					BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
+
+					// If tutorial script is referenced.
+					if (tutorialManagerScript != null)
 					{
-						tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+						// Reset block index in info section.
+						if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info)
+						{
+							tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+						}
+
+						// Turn off the tutorial in info section.
+						if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
+						{
+							Debug.Log ("Attempted to turn off tutorial.");
+							tutorialManagerScript.TurnOffTutorial ();
+						}
 					}
 
-					// Turn off the tutorial in info section.
-					if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
-					{
-						Debug.Log ("Attempted to turn off tutorial.");
-						tutorialManagerScript.TurnOffTutorial ();
-					}
-				}
+					GetTotalPointValue (); // Get total point calculation.
+					CreateExplosion (); // Create the explosion.
+					IncrementBlocksDestroyed (); // Increment blocks destroyed.
 
-				GetTotalPointValue (); // Get total point calculation.
-				CreateExplosion (); // Create the explosion.
-				IncrementBlocksDestroyed (); // Increment blocks destroyed.
-
-				// Other object has a bullet component.
-				if (other.GetComponent<Bullet> () != null)
-				{
-					// Stops the bullet that hit it from hanging around.
-					if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
-					{
+					// Other object has a bullet component.
+					if (other.GetComponent<Bullet> () != null) 
+						
+						// Stops the bullet that hit it from hanging around.
+						if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) {
 						//other.GetComponent<Bullet> ().BlockHit ();
 						other.GetComponentInParent<Bullet> ().DestroyObject ();
 					}
-				}
 
-				DoCamShake (); // Destroy this object.
-				DoVibrate ();
-				Destroy (gameObject); // Destroy this object.
-				return; // Prevent any further code execution.
-			}
-
-			if (isBossPart == true) 
-			{
-				if (HitPoints > 0) 
-				{
-					HitPoints--;
-
-					if (other.GetComponent<Bullet> () != null)
-					{
-						if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
-						{
-							if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false)
-							{
-								Destroy (other.gameObject);
-							}
-						}
-					}
-
-					GetTotalPointValue (); // Get total point calculation.
-					CreateExplosion (); // Create the explosion.
-				}
-
-				if (HitPoints <= 0) 
-				{
-					GetTotalPointValue (); // Get total point calculation.
-					CreateExplosion (); // Create the explosion.
 					DoCamShake (); // Destroy this object.
 					DoVibrate ();
-
-					if (other.GetComponent<Bullet> () != null)
-					{
-						if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true)
-						{
-							if (other.GetComponentInParent<Bullet> ().BulletTypeName != "Helix")
-							{
-								Destroy (other.gameObject);
-							}
-						}
-					}
-
 					Destroy (gameObject); // Destroy this object.
 					return; // Prevent any further code execution.
+
+				}
+					
+
+				if (isBossPart == true)
+				{
+					if (HitPoints > 0) 
+					{
+						HitPoints--;
+
+						if (other.GetComponent<Bullet> () != null)
+						{
+							if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true)
+							{
+								if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
+								{
+									Destroy (other.gameObject);
+								}
+							}
+						}
+
+						GetTotalPointValue (); // Get total point calculation.
+						CreateExplosion (); // Create the explosion.
+					}
+
+					if (HitPoints <= 0) 
+					{
+						GetTotalPointValue (); // Get total point calculation.
+						CreateExplosion (); // Create the explosion.
+						DoCamShake (); // Destroy this object.
+						DoVibrate ();
+
+						if (other.GetComponent<Bullet> () != null) 
+						{
+							if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
+							{
+								if (other.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
+								{
+									Destroy (other.gameObject);
+								}
+							}
+						}
+
+						Destroy (gameObject); // Destroy this object.
+						return; // Prevent any further code execution.
+					}
 				}
 			}
 		}

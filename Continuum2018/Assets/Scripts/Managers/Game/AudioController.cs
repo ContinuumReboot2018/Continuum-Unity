@@ -398,7 +398,6 @@ public class AudioController : MonoBehaviour
 
 		// Reset beat amounts.
 		Beats = 1;
-		BeatInBar = 1;
 		TimeSinceTrackLoad = 0;
 	}
 

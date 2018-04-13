@@ -151,7 +151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4273405538986862
 Transform:
   m_ObjectHideFlags: 1
@@ -502,6 +502,9 @@ MonoBehaviour:
   LookAtPos: {fileID: 0}
   LookMethod: 0
   useUpDirection: 0
+  useSmoothing: 0
+  SmoothingAmount: 0
+  Offset: {x: 0, y: 0, z: 0}
 --- !u!114 &114197479949140354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -664,13 +667,15 @@ MonoBehaviour:
   gameControllerScript: {fileID: 0}
   timeScaleControllerScript: {fileID: 0}
   camShakeScript: {fileID: 0}
+  evasiveManeuverScript: {fileID: 114016211038756464}
+  miniBossFormation: {fileID: 114939170155976878}
+  isBigBoss: 0
   Brain: {fileID: 1887779462268618}
   MiniBossParent: {fileID: 1761358554297378}
-  miniBossFormation: {fileID: 114939170155976878}
-  evasiveManeuverScript: {fileID: 114016211038756464}
   MiniBossUI: {fileID: 0}
   MiniBossName: SPIDER
   Barrier: {fileID: 1948524911748400}
+  ColliderTime: 3
   hitPoints: 5
   StartingHitPoints: 5
   ParticleHitPointAmount: 0.1
