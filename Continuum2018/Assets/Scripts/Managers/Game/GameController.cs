@@ -60,6 +60,8 @@ public class GameController : MonoBehaviour
 	public ParticleSystem WaveTransitionParticles;
 	[Tooltip ("Animator for wave transition.")]
 	public Animator WaveTransitionAnim;
+	[Tooltip ("Animator for wave transition UI stats.")]
+	public Animator WaveTransitionUIStats;
 	[Tooltip ("Text for wave transition to show wave number.")]
 	public TextMeshProUGUI WaveTransitionText;
 	[Tooltip ("Warp sound.")]
@@ -1576,6 +1578,7 @@ public class GameController : MonoBehaviour
 		if (Wave % 4 == 1 || Wave == 1) 
 		{
 			SoundtrackText.text = audioControllerScript.TrackName + ""; // Display new soundtrack name.
+			//WaveTransitionUIStats.Play ("WaveTransitionUIStats");
 		}
 	}
 
@@ -1614,6 +1617,14 @@ public class GameController : MonoBehaviour
 			audioControllerScript.NextTrack (); // Set audio controller to next track.
 			audioControllerScript.LoadTracks (); // Play loaded tracks.
 			UnityEngine.Debug.Log ("New soundtrack loaded. Soundtrack: " + audioControllerScript.TrackName);
+			//SoundtrackText.text = audioControllerScript.TrackName + ""; // Display new soundtrack name.
+			//WaveTransitionUIStats.Play ("WaveTransitionUIStats");
+		}
+
+		if (Wave == 1) 
+		{
+			//SoundtrackText.text = audioControllerScript.TrackName + ""; // Display new soundtrack name.
+			//WaveTransitionUIStats.Play ("WaveTransitionUIStats");
 		}
 
 		// Go straight to block spawning.

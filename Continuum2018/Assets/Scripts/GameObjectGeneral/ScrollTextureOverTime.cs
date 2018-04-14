@@ -21,6 +21,8 @@ public class ScrollTextureOverTime : MonoBehaviour
 
 	[Tooltip ("Should texture scrolling be scaled by time scale or not.")]
 	public bool ignoreTimescale;
+	public float OffsetTimeX;
+	public float OffsetTimeY;
 
 	void Start () 
 	{
@@ -31,20 +33,20 @@ public class ScrollTextureOverTime : MonoBehaviour
 	{
 		if (ignoreTimescale == false)
 		{
+			OffsetTimeX += Time.deltaTime * ScrollSpeed.x;
+			OffsetTimeY += Time.deltaTime * ScrollSpeed.y;
+
 			// Update scroll amount scaled.
-			CurrentOffset = new Vector2 (
-				Time.deltaTime * ScrollSpeed.x,
-				Time.deltaTime * ScrollSpeed.y
-			);
+			CurrentOffset = new Vector2 (OffsetTimeX, OffsetTimeY);
 		}
 			
 		if (ignoreTimescale == true)
 		{
+			OffsetTimeX += Time.unscaledDeltaTime * ScrollSpeed.x;
+			OffsetTimeY += Time.unscaledDeltaTime * ScrollSpeed.y;
+
 			// Update scroll amount unscaled.
-			CurrentOffset = new Vector2 (
-				Time.unscaledDeltaTime * ScrollSpeed.x,
-				Time.unscaledDeltaTime * ScrollSpeed.y
-			);
+			CurrentOffset = new Vector2 (OffsetTimeX,OffsetTimeY);
 		}
 
 		// Set new horizontal scroll amount.

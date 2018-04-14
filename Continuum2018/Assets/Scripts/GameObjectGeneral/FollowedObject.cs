@@ -35,7 +35,7 @@ public class FollowedObject : MonoBehaviour
 			if((target.position - frame.position).magnitude < minimumDistance)
 				return;
 			target.position = Vector3.MoveTowards(target.position, frame.position, maxSpeed * Time.deltaTime);
-			//target.rotation = Quaternion.RotateTowards(target.rotation, frame.rotation, maxAngleSpeed * Time.deltaTime);
+			target.rotation = Quaternion.RotateTowards(target.rotation, frame.rotation, maxAngleSpeed * Time.deltaTime);
 		}
 	}
 }

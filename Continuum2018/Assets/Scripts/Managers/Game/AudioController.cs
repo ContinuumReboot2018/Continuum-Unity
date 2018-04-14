@@ -505,6 +505,11 @@ public class AudioController : MonoBehaviour
 		LayerOneTrack.Pause ();
 		LayerTwoTrack.Pause ();
 		LayerThreeTrack.Pause ();
+
+		foreach (AudioSource beatdetection in BeatDetectionTracks) 
+		{
+			beatdetection.Pause ();
+		}
 	}
 
 	public void FadeOutSceneAudio ()
