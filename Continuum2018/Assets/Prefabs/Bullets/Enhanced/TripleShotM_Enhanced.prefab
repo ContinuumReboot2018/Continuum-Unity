@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4145555387885880}
   - component: {fileID: 198297745560809572}
   - component: {fileID: 199228262273608414}
+  - component: {fileID: 114100535937965042}
   m_Layer: 9
   m_Name: BulletParticlesCore
   m_TagString: Bullet
@@ -60,6 +61,7 @@ GameObject:
   - component: {fileID: 4103738296837996}
   - component: {fileID: 198616369339202866}
   - component: {fileID: 199176061770458102}
+  - component: {fileID: 114597837367626962}
   m_Layer: 9
   m_Name: BulletParticles
   m_TagString: Untagged
@@ -536,6 +538,20 @@ MonoBehaviour:
   VelocityLimits: {x: 60, y: 180}
   direction: {x: 0, y: 0}
   rotateAmount: {x: 0, y: 0, z: 0}
+--- !u!114 &114100535937965042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1245544711527462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 30
+  BaseRateTime: 0
 --- !u!114 &114166730715540200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -616,6 +632,20 @@ MonoBehaviour:
     value: {x: 0, y: 800, z: 0}
     space: 1
   ignoreTimescale: 0
+--- !u!114 &114597837367626962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1279597000706100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 550
 --- !u!114 &114993245428010694
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -28,6 +28,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	public bool useHdr;
 	public bool sunShaftsEnabled;
 	//public bool noiseGrainEnabled;
+	//[Range (0, 2)]
+	public float ParticleEmissionMultiplier = 1;
 
 	public float MasterVolume;
 	public float SoundtrackVolume;

@@ -370,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
   cam: {fileID: 0}
+  CameraSpace: 0
 --- !u!114 &114600853742484666
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 4354013305247650}
   - component: {fileID: 198068316105130586}
   - component: {fileID: 199739491836153378}
+  - component: {fileID: 114795641193647468}
   m_Layer: 9
   m_Name: RippleParticlesCore
   m_TagString: Bullet
@@ -81,6 +82,7 @@ GameObject:
   - component: {fileID: 4035423687691718}
   - component: {fileID: 198848391638732802}
   - component: {fileID: 199190280925089946}
+  - component: {fileID: 114023378571483406}
   m_Layer: 9
   m_Name: RippleParticlesOuter
   m_TagString: Bullet
@@ -98,6 +100,7 @@ GameObject:
   - component: {fileID: 4683261275573598}
   - component: {fileID: 198601280656113190}
   - component: {fileID: 199993336491635610}
+  - component: {fileID: 114119813075873296}
   m_Layer: 9
   m_Name: RippleParticles
   m_TagString: Bullet
@@ -115,6 +118,7 @@ GameObject:
   - component: {fileID: 4558681255480706}
   - component: {fileID: 198527587552624116}
   - component: {fileID: 199861596017383896}
+  - component: {fileID: 114703309680719688}
   m_Layer: 9
   m_Name: RippleParticles (1)
   m_TagString: Bullet
@@ -439,6 +443,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114023378571483406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1608052770856148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 10
 --- !u!114 &114084924394694244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -457,6 +475,20 @@ MonoBehaviour:
     value: {x: 0, y: -2000, z: 0}
     space: 1
   ignoreTimescale: 0
+--- !u!114 &114119813075873296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1645375396067842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 480
 --- !u!114 &114200078049973334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -506,6 +538,34 @@ MonoBehaviour:
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
+--- !u!114 &114703309680719688
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1928547613799930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 50
+--- !u!114 &114795641193647468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1133268176258460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 280
 --- !u!114 &114797002293352248
 MonoBehaviour:
   m_ObjectHideFlags: 1
