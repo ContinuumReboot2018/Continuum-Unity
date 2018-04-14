@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+
+using UnityEngine;
 using UnityEngine.PostProcessing;
 using UnityStandardAssets.ImageEffects;
 using UnityEngine.SceneManagement;
@@ -17,20 +17,21 @@ public class SaveAndLoadScript : MonoBehaviour
 	[Header ("Player Data")]
 	public string Username = "default";
 	public int ExperiencePoints;
-	public int Level;
-	public int NextLevelRequirement;
+	//public int Level;
+	//public int NextLevelRequirement;
 
 	[Header ("Settings Data")]
 	public PostProcessingProfile VisualSettings;
 	public PostProcessingBehaviour VisualSettingsComponent;
 	public Camera cam;
+	[Space (10)]
 	public int QualitySettingsIndex;
 	public bool useHdr;
 	public bool sunShaftsEnabled;
-	//public bool noiseGrainEnabled;
-	//[Range (0, 2)]
+	[Space (10)]
+	[Range (0, 2)]
 	public float ParticleEmissionMultiplier = 1;
-
+	[Space (10)]
 	public float MasterVolume;
 	public float SoundtrackVolume;
 	public float EffectsVolume;
@@ -38,30 +39,11 @@ public class SaveAndLoadScript : MonoBehaviour
 	public playerData PlayerData;
 	public settingsData SettingsData;
 
-	void Awake () 
-	{
-	}
-
 	void Start ()
 	{
 		if (SceneManager.GetActiveScene ().name != "Init")
 		{
 			settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
-
-			if (SceneManager.GetActiveScene ().name != "Menu")
-			{
-				if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () != null) 
-				{
-					playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
-				}
-
-				if (GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> () == null) 
-				{
-					Debug.LogWarning ("No player controller found.");
-				}
-
-				gameControllerScript = GameObject.Find ("GameController").GetComponent<GameController> ();
-			}
 				
 			cam = settingsManagerScript.cam;
 			VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
@@ -123,8 +105,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		data.Username = Username;
 		data.ExperiencePoints = ExperiencePoints;
-		data.Level = Level;
-		data.NextLevelRequirement = NextLevelRequirement;
+		//data.Level = Level;
+		//data.NextLevelRequirement = NextLevelRequirement;
 	}
 
 	// Load PlayerData main.
@@ -164,8 +146,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		Username = data.Username;
 		ExperiencePoints = data.ExperiencePoints;
-		Level = data.Level;
-		NextLevelRequirement = data.NextLevelRequirement;
+		//Level = data.Level;
+		//NextLevelRequirement = data.NextLevelRequirement;
 	}
 
 	// Puts new data into relevant scripts.
@@ -186,17 +168,13 @@ public class SaveAndLoadScript : MonoBehaviour
 			{
 				VisualSettingsComponent.enabled = false;
 				sunShaftsEnabled = false;
-				//noiseGrainEnabled = false;
 				useHdr = false;
 			}
 
 			if (QualitySettingsIndex == 1) 
 			{
-				// These settings are disabled for testing on android.
-
 				VisualSettingsComponent.enabled = true;
 				sunShaftsEnabled = true;
-				//noiseGrainEnabled = true;
 				useHdr = true;
 			}
 
@@ -240,14 +218,12 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			data.useHdr = false;
 			data.sunShaftsEnabled = false;
-			//data.noiseGrainEnabled = false;
 		}
 
 		if (data.QualitySettingsIndex == 1) 
 		{
 			data.useHdr = true;
 			data.sunShaftsEnabled = true;
-			//data.noiseGrainEnabled = true;
 		}
 
 		data.MasterVolume 	  = Mathf.Clamp (MasterVolume, 	   0, 1);
@@ -296,7 +272,6 @@ public class SaveAndLoadScript : MonoBehaviour
 			VisualSettingsComponent.enabled = false;
 			useHdr = false;
 			sunShaftsEnabled = false;
-			//noiseGrainEnabled = false;
 		}
 
 		if (QualitySettingsIndex == 1) 
@@ -304,7 +279,6 @@ public class SaveAndLoadScript : MonoBehaviour
 			VisualSettingsComponent.enabled = true;
 			useHdr = true;
 			sunShaftsEnabled = true;
-			//noiseGrainEnabled = true;
 		}
 			
 		MasterVolume = data.MasterVolume;
@@ -327,7 +301,6 @@ public class SaveAndLoadScript : MonoBehaviour
 			VisualSettingsComponent.enabled = false;
 			useHdr = false;
 			sunShaftsEnabled = false;
-			//noiseGrainEnabled = false;
 		}
 
 		if (QualitySettingsIndex == 1) 
@@ -335,12 +308,10 @@ public class SaveAndLoadScript : MonoBehaviour
 			VisualSettingsComponent.enabled = true;
 			useHdr = true;
 			sunShaftsEnabled = true;
-			//noiseGrainEnabled = true;
 		}
 			
 		cam.allowHDR = useHdr;
 		cam.GetComponent<SunShafts> ().enabled = sunShaftsEnabled;
-		//cam.GetComponent<NoiseAndGrain> ().enabled = noiseGrainEnabled;
 	}
 
 	// Variables stored in data files.
@@ -349,8 +320,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		public string Username;
 		public int ExperiencePoints;
-		public int Level;
-		public int NextLevelRequirement;
+		//public int Level;
+		//public int NextLevelRequirement;
 	}
 
 	[Serializable]
@@ -359,7 +330,6 @@ public class SaveAndLoadScript : MonoBehaviour
 		public int QualitySettingsIndex;
 		public bool useHdr;
 		public bool sunShaftsEnabled;
-		///public bool noiseGrainEnabled;
 
 		public float MasterVolume;
 		public float SoundtrackVolume;

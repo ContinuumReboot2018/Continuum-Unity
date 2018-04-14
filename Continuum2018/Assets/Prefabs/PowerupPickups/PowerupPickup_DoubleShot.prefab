@@ -29,7 +29,7 @@ GameObject:
   m_Layer: 12
   m_Name: PowerupPickup_DoubleShot
   m_TagString: PowerupPickup
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: daa69b90050eb6f409a73a5aada0ad09, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

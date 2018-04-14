@@ -109,6 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
   cam: {fileID: 0}
+  CameraSpace: 0
 --- !u!114 &114321150574285886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 3
+  DestroyObj: {fileID: 0}
   useUnscaledTime: 0
 --- !u!114 &114603806170954246
 MonoBehaviour:
@@ -134,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedOther
+  OnStart: 1
 --- !u!114 &114692475354173610
 MonoBehaviour:
   m_ObjectHideFlags: 1

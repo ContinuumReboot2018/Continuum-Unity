@@ -82,7 +82,7 @@ GameObject:
   m_Layer: 12
   m_Name: PowerupPickup_Overdrive
   m_TagString: PowerupPickup
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 9d295928df51151439c8febd475a7c66, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

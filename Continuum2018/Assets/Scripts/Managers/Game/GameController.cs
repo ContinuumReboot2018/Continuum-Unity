@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
 	public PlayerController playerControllerScript_P1;		// Reference to the player controller.
 	public TimescaleController timescaleControllerScript;	// Reference to the timescale controller.
 	public AudioController audioControllerScript;			// Reference to the audio controller.
+	public SaveAndLoadScript saveAndLoadScript;
 	public DeveloperMode developerModeScript;				// Reference to the developer mode for debug info.
 	public CursorManager cursorManagerScript;				// Reference to the cursor state.
 	public PostProcessingProfile ImageEffects;				// Reference to the post processing profile.
@@ -422,6 +423,13 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
+		// Get the save and load script.
+		if (saveAndLoadScript == null)
+		{
+			saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+			saveAndLoadScript.gameControllerScript = this;
+		}
+
 		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1); // Refreshes block spawn time.
 		InvokeRepeating ("UpdateLives", 0, 1); // Refreshes UI for lives.
 		ClearPowerupUI (); // Clears powerup UI from list.

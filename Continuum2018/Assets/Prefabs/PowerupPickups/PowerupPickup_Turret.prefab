@@ -82,7 +82,7 @@ GameObject:
   m_Layer: 12
   m_Name: PowerupPickup_Turret
   m_TagString: PowerupPickup
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 1e3aec7a3d2deac4cb27d5f26876e95c, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

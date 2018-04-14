@@ -49,7 +49,7 @@ GameObject:
   m_Layer: 9
   m_Name: DoubleShotL_Overdrive
   m_TagString: Bullet
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: d2330acab737d8c47aa9888fca6f46ea, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

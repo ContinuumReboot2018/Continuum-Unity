@@ -47,7 +47,7 @@ GameObject:
   m_Layer: 12
   m_Name: PowerupPickup_ExtraLife
   m_TagString: PowerupPickup
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 00842bc1134427f4b854cc78e5d75aed, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

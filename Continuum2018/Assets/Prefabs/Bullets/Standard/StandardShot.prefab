@@ -69,7 +69,7 @@ GameObject:
   m_Layer: 9
   m_Name: StandardShot
   m_TagString: Bullet
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: b71944ae1a7a1e0489bfdaeaf198616a, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

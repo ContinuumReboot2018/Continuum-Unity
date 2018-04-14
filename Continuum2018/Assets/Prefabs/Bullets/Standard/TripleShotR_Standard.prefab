@@ -63,7 +63,7 @@ GameObject:
   m_Layer: 9
   m_Name: TripleShotR_Standard
   m_TagString: Bullet
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 9d152a8688d493e428a780b1948b7591, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

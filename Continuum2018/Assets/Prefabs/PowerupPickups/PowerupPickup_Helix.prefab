@@ -46,7 +46,7 @@ GameObject:
   m_Layer: 12
   m_Name: PowerupPickup_Helix
   m_TagString: PowerupPickup
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: e5519fe13d6f74743bcd6e0a480179d4, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

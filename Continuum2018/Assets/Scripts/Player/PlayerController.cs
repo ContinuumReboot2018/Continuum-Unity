@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 	public GameController 		 gameControllerScript;
 	public TimescaleController   timescaleControllerScript;
 	public AudioController 		 audioControllerScript;
+	public SaveAndLoadScript 	 saveAndLoadScript;
 	public CursorManager 		 cursorManagerScript;
 	public CameraShake 			 camShakeScript;
 	public DeveloperMode 		 developerModeScript;
@@ -499,6 +500,13 @@ public class PlayerController : MonoBehaviour
 
 	void Start () 
 	{
+		// Get the save and load script.
+		if (saveAndLoadScript == null)
+		{
+			saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+			saveAndLoadScript.playerControllerScript_P1 = this;
+		}
+
 		CreatePlayerActions ();
 		AssignActionControls ();
 		GetStartPlayerModifiers ();

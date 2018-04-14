@@ -92,7 +92,7 @@ GameObject:
   m_Layer: 9
   m_Name: Helix
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 0f0a3e4b7ba9d2c44b55ce088305b893, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
@@ -3275,7 +3275,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 116736
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -4235,8 +4235,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.7058823, g: 0.9391481, b: 1, a: 0.209}
-      maxColor: {r: 0, g: 0.5034485, b: 1, a: 0.428}
+      minColor: {r: 0.7058823, g: 0.9391481, b: 1, a: 0.122}
+      maxColor: {r: 0, g: 0.5034485, b: 1, a: 0.303}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4805,9 +4805,9 @@ ParticleSystem:
           tangentMode: 0
         - serializedVersion: 2
           time: 1
-          value: 0
-          inSlope: -2
-          outSlope: -2
+          value: 0.80722886
+          inSlope: -0.2312104
+          outSlope: -0.2312104
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -10003,7 +10003,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 116736
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -10963,8 +10963,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.7058823, g: 0.9391481, b: 1, a: 0.209}
-      maxColor: {r: 0, g: 0.5034485, b: 1, a: 0.428}
+      minColor: {r: 0.7058823, g: 0.9391481, b: 1, a: 0.122}
+      maxColor: {r: 0, g: 0.5034485, b: 1, a: 0.303}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -11533,9 +11533,9 @@ ParticleSystem:
           tangentMode: 0
         - serializedVersion: 2
           time: 1
-          value: 0
-          inSlope: -2
-          outSlope: -2
+          value: 0.80722886
+          inSlope: -0.2312104
+          outSlope: -0.2312104
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
