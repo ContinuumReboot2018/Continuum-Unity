@@ -28,9 +28,11 @@ public class SaveAndLoadScript : MonoBehaviour
 	public int QualitySettingsIndex;
 	public bool useHdr;
 	public bool sunShaftsEnabled;
+
 	[Space (10)]
 	[Range (0, 2)]
 	public float ParticleEmissionMultiplier = 1;
+
 	[Space (10)]
 	public float MasterVolume;
 	public float SoundtrackVolume;
@@ -161,7 +163,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
 		{
-			QualitySettingsIndex = (int)settingsManagerScript.QualityPresetSlider.value;
 			QualitySettings.SetQualityLevel (QualitySettingsIndex);
 
 			if (QualitySettingsIndex == 0) 
@@ -169,6 +170,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				VisualSettingsComponent.enabled = false;
 				sunShaftsEnabled = false;
 				useHdr = false;
+				ParticleEmissionMultiplier = 0.25f;
 			}
 
 			if (QualitySettingsIndex == 1) 
@@ -176,11 +178,12 @@ public class SaveAndLoadScript : MonoBehaviour
 				VisualSettingsComponent.enabled = true;
 				sunShaftsEnabled = true;
 				useHdr = true;
+				ParticleEmissionMultiplier = 1.0f;
 			}
 
 			MasterVolume = Mathf.Clamp (AudioListener.volume, 0, 1);
-			SoundtrackVolume = settingsManagerScript.SoundtrackVolumeSlider.value;
-			EffectsVolume = settingsManagerScript.EffectsVolumeSlider.value;
+			//SoundtrackVolume = settingsManagerScript.SoundtrackVolumeSlider.value;
+			//EffectsVolume = settingsManagerScript.EffectsVolumeSlider.value;
 		}
 	}
 
@@ -225,6 +228,8 @@ public class SaveAndLoadScript : MonoBehaviour
 			data.useHdr = true;
 			data.sunShaftsEnabled = true;
 		}
+
+		data.ParticleEmissionMultiplier = ParticleEmissionMultiplier;
 
 		data.MasterVolume 	  = Mathf.Clamp (MasterVolume, 	   0, 1);
 		data.SoundtrackVolume = Mathf.Clamp (SoundtrackVolume, 0, 1);
@@ -280,7 +285,9 @@ public class SaveAndLoadScript : MonoBehaviour
 			useHdr = true;
 			sunShaftsEnabled = true;
 		}
-			
+
+		ParticleEmissionMultiplier = data.ParticleEmissionMultiplier;
+
 		MasterVolume = data.MasterVolume;
 		SoundtrackVolume = data.SoundtrackVolume;
 		EffectsVolume = data.EffectsVolume;
@@ -330,6 +337,9 @@ public class SaveAndLoadScript : MonoBehaviour
 		public int QualitySettingsIndex;
 		public bool useHdr;
 		public bool sunShaftsEnabled;
+
+		[Range (0, 2)]
+		public float ParticleEmissionMultiplier = 1;
 
 		public float MasterVolume;
 		public float SoundtrackVolume;

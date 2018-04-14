@@ -760,7 +760,8 @@ AudioSource:
   m_GameObject: {fileID: 1447009103253822}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 225559eda49a9e042ab15aab35cca149,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 00e6d0d61b5de464b963af7dd8acdecf, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -4283,19 +4284,8 @@ MonoBehaviour:
   AccuracyText: {fileID: 114797035771921802}
   FinalScoreText: {fileID: 114235828850980074}
   HighScoreLabel: {fileID: 114744598052197074}
-  LevelSlider: {fileID: 114104631789282562}
-  CurrentLevelLabel: {fileID: 114442817055368186}
-  NexLevelLabel: {fileID: 114530720846285780}
-  CurrentXPNeededText: {fileID: 114456531580590614}
-  NextLevelXPNeededText: {fileID: 114528492003266946}
-  NextLevelXPRemainText: {fileID: 114428533073971410}
-  LevelUpText: {fileID: 114513027000683190}
   FinalScore: 0
-  xpIncreaseSpeed: 1
   CurrentXP: 0
-  CurrentLevelXP: 0
-  NextLevelXP: 00000000e8030000a0860100400d030020a1070040420f00404b4c00002d310100e1f50500943577
-  IncreaseRates: 14000000c8000000f4010000e8030000d00700008813000010270000204e000050c30000a0860100
   XPIncreaseSound: {fileID: 0}
 --- !u!222 &222029792181743406
 CanvasRenderer:

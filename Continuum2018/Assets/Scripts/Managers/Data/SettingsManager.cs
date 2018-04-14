@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 using UnityEngine.PostProcessing;
+using UnityStandardAssets.ImageEffects;
+using UnityEngine.Audio;
+using TMPro;
 
 public class SettingsManager : MonoBehaviour 
 {
@@ -13,17 +12,25 @@ public class SettingsManager : MonoBehaviour
 
 	[Header ("Visual Settings")]
 	public Camera cam;
-	public string HighEndPresetText = "High";
-	public string LowEndPresetText = "Low";
-	public Slider QualityPresetSlider;
-	public TextMeshProUGUI QualityPresetText;
+
+	public Button HighEndQualityButton;
+	public Button LowEndQualityButton;
 
 	[Header ("Audio Settings")]
-	public Slider MasterVolumeSlider;
+	public Button MasterVolumeButtonUp;
+	public Button MasterVolumeButtonDown;
 	public TextMeshProUGUI MasterVolumeValueText;
-	public Slider SoundtrackVolumeSlider;
+
+	public AudioMixer SoundtrackVolMix;
+	private float curSoundtrackVol;
+	public Button SoundtrackVolumeButtonUp;
+	public Button SoundtrackVolumeButtonDown;
 	public TextMeshProUGUI SoundtrackVolumeValueText;
-	public Slider EffectsVolumeSlider;
+
+	public AudioMixer EffectsVolMix;
+	private float curEffectsVol;
+	public Button EffectsVolumeButtonUp;
+	public Button EffectsVolumeButtonDown;
 	public TextMeshProUGUI EffectsVolumeValueText;
 
 	void Start () 
@@ -32,86 +39,177 @@ public class SettingsManager : MonoBehaviour
 		saveAndLoadScript.settingsManagerScript = this; // Assign itself to save and load script.
 		saveAndLoadScript.VisualSettingsComponent = postProcessingBehaviourComponent;
 		saveAndLoadScript.cam = cam;
+
+		UpdateVolumeTextValues ();
 	}
-		
-	public void SetQualityIndex ()
+
+	void Update ()
 	{
-		saveAndLoadScript.QualitySettingsIndex = (int)QualityPresetSlider.value;
+		GetSoundtrackVolumeValue ();
+	}
+
+	// VISUALS
+
+	public void OnQualitySettingsButtonClick (int QualityIndex)
+	{
+		saveAndLoadScript.QualitySettingsIndex = QualityIndex;
 		Debug.Log ("Quality Settings index set to: " + saveAndLoadScript.QualitySettingsIndex);
 	}
 
-	public void UpdateQualitySettingsIndexText ()
+	public void UpdateVisuals ()
 	{
-		if (QualityPresetSlider.value == 0) 
+		// Low visual quality settings.
+		if (saveAndLoadScript.QualitySettingsIndex == 0) 
 		{
-			QualityPresetText.text = LowEndPresetText;
+			QualitySettings.SetQualityLevel (0);
+
+			saveAndLoadScript.ParticleEmissionMultiplier = 0.25f;
+
+			cam.allowHDR = false;
+			saveAndLoadScript.useHdr = false;
+
+			saveAndLoadScript.sunShaftsEnabled = false;
+			cam.GetComponent<SunShafts> ().enabled = false;
 		}
 
-		if (QualityPresetSlider.value == 1) 
+		// High visual quality settings.
+		if (saveAndLoadScript.QualitySettingsIndex == 1) 
 		{
-			QualityPresetText.text = HighEndPresetText;
+			QualitySettings.SetQualityLevel (1);
+
+			saveAndLoadScript.ParticleEmissionMultiplier = 1f;
+
+			cam.allowHDR = true;
+			saveAndLoadScript.useHdr = true;
+
+			saveAndLoadScript.sunShaftsEnabled = true;
+			cam.GetComponent<SunShafts> ().enabled = true;
 		}
 	}
 
-	public void UpdateMasterVolumeText ()
+
+	// AUDIO
+
+	public void MasterVolumeUpOnClick ()
 	{
-		MasterVolumeValueText.text = "" + System.Math.Round (MasterVolumeSlider.value, 2);
+		if (AudioListener.volume < 1) 
+		{
+			saveAndLoadScript.MasterVolume += 0.1f;
+			AudioListener.volume = saveAndLoadScript.MasterVolume;
+			UpdateVolumeTextValues ();
+		}
 	}
 
-	public void UpdateSoundtrackVolumeText ()
+	public void MasterVolumeDownOnClick ()
 	{
-		SoundtrackVolumeValueText.text = "" + System.Math.Round (SoundtrackVolumeSlider.value, 2);
+		if (AudioListener.volume > 0) 
+		{
+			saveAndLoadScript.MasterVolume -= 0.1f;
+			AudioListener.volume = saveAndLoadScript.MasterVolume;
+			UpdateVolumeTextValues ();
+		}
 	}
 
-	public void EffectsMasterVolumeText ()
+
+	public void SoundtrackVolumeUpOnClick ()
 	{
-		EffectsVolumeValueText.text = "" + System.Math.Round (EffectsVolumeSlider.value, 2);
+		saveAndLoadScript.SoundtrackVolume += 0.1f;
+		saveAndLoadScript.SoundtrackVolume = Mathf.Clamp (saveAndLoadScript.SoundtrackVolume, 0, 1);
+		curSoundtrackVol = saveAndLoadScript.SoundtrackVolume;
+		SoundtrackVolMix.SetFloat ("SoundtrackVolume", curSoundtrackVol);
+		UpdateVolumeTextValues ();
 	}
 
-	// These sliders are to be called on "OnEndEdit" in the button script.
-	public void UpdateMasterVolumeSlider ()
+	public void SoundtrackVolumeDownOnClick ()
 	{
-		saveAndLoadScript.MasterVolume = MasterVolumeSlider.value;
-		AudioListener.volume = MasterVolumeSlider.value;
-		Debug.Log ("Master Volume value = " + saveAndLoadScript.MasterVolume);
+		saveAndLoadScript.SoundtrackVolume -= 0.1f;
+		saveAndLoadScript.SoundtrackVolume = Mathf.Clamp (saveAndLoadScript.SoundtrackVolume, 0, 1);
+		curSoundtrackVol = saveAndLoadScript.SoundtrackVolume;
+		SoundtrackVolMix.SetFloat ("SoundtrackVolume", curSoundtrackVol);
+		UpdateVolumeTextValues ();
 	}
 
-	public void UpdateSoundtrackVolumeSlider ()
+	public void EffectsVolumeUpOnClick ()
 	{
-		saveAndLoadScript.SoundtrackVolume = SoundtrackVolumeSlider.value;
-		Debug.Log ("Soundtrack Volume value = " + saveAndLoadScript.SoundtrackVolume);
+		saveAndLoadScript.EffectsVolume += 8f;
+		saveAndLoadScript.EffectsVolume = Mathf.Clamp (saveAndLoadScript.EffectsVolume, -80, 0);
+		curEffectsVol = saveAndLoadScript.EffectsVolume;
+		EffectsVolMix.SetFloat ("EffectsVolume", curEffectsVol);
+		UpdateVolumeTextValues ();
 	}
 
-	public void UpdateEffectsVolumeSlider ()
+	public void EffectsVolumeDownOnClick ()
 	{
-		saveAndLoadScript.EffectsVolume = EffectsVolumeSlider.value;
-		Debug.Log ("Effects Volume value = " + saveAndLoadScript.EffectsVolume);
+		saveAndLoadScript.EffectsVolume -= 8f;
+		saveAndLoadScript.EffectsVolume = Mathf.Clamp (saveAndLoadScript.EffectsVolume, -80, 0);
+		curEffectsVol = saveAndLoadScript.EffectsVolume;
+		EffectsVolMix.SetFloat ("EffectsVolume", curEffectsVol);
+		UpdateVolumeTextValues ();
 	}
+
+	// Gets current soundtrack volume from mixer.
+	public float GetSoundtrackVolumeValue ()
+	{
+		bool curVolResult = SoundtrackVolMix.GetFloat ("SoundtrackVolume", out curSoundtrackVol);
+
+		if (curVolResult) 
+		{
+			return curSoundtrackVol;
+		} 
+
+		else 
+
+		{
+			return 0f;
+		}
+	}
+
+	// Gets current effects volume from mixer.
+	public float GetEffectsVolumeValue ()
+	{
+		bool curVolResult = SoundtrackVolMix.GetFloat ("EffectsVolume", out curEffectsVol);
+
+		if (curVolResult) 
+		{
+			return curEffectsVol;
+		} 
+
+		else 
+
+		{
+			return 0f;
+		}
+	}
+
+	void UpdateVolumeTextValues ()
+	{
+		MasterVolumeValueText.text = System.Math.Round (
+			saveAndLoadScript.MasterVolume, 1).ToString ();
+		
+		SoundtrackVolumeValueText.text = System.Math.Round (
+			(saveAndLoadScript.SoundtrackVolume), 1).ToString ();
+		
+		EffectsVolumeValueText.text = (1 +
+			System.Math.Round ((0.0125f * saveAndLoadScript.EffectsVolume), 1)
+		).ToString ();
+	}
+		
+	// Saving and applying settings.
 
 	public void ApplySettings ()
 	{
 		saveAndLoadScript.SaveSettingsData ();
-		saveAndLoadScript.LoadSettingsData ();
+		//saveAndLoadScript.LoadSettingsData ();
 	}
 
 	public void RevertSettings ()
 	{
 		saveAndLoadScript.LoadSettingsData ();
-
 		RefreshSettings ();
-
-		UpdateQualitySettingsIndexText ();
-		UpdateMasterVolumeText ();
-		UpdateSoundtrackVolumeText ();
-		EffectsMasterVolumeText ();
 	}
-
 
 	public void RefreshSettings ()
 	{
-		QualityPresetSlider.value = saveAndLoadScript.QualitySettingsIndex;
-		MasterVolumeSlider.value = saveAndLoadScript.MasterVolume;
-		SoundtrackVolumeSlider.value = saveAndLoadScript.SoundtrackVolume;
-		EffectsVolumeSlider.value = saveAndLoadScript.EffectsVolume;
+		UpdateVolumeTextValues ();
 	}
 }

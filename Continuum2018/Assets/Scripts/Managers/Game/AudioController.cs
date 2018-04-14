@@ -18,15 +18,18 @@ public class AudioController : MonoBehaviour
 	//public UnityWebRequestMultimedia
 
 	[Tooltip ("Audio mixer on soundtracks.")]
-	public AudioMixer AudioMix;
+	public AudioMixer SoundtrackAudioMix;
+	public AudioMixer EffectsAudioMix;
 	[Tooltip ("Current low pass frequency from mixer.")]
 	public float curFreq;
+	public float curEffectsFreq;
 	[Tooltip ("Target low pass frequency for mixer.")]
 	public float TargetCutoffFreq;
 	[Tooltip ("Low pass frequency smooth time.")]
 	public float CutoffFreqSmoothing;
 	[Tooltip ("Current low pass resonance from mixer.")]
 	public float curRes;
+	public float curEffectsRes;
 	[Tooltip ("Target low pass resonance for mixer.")]
 	public float TargetResonance;
 	[Tooltip ("Low pass resonance smooth time.")]
@@ -156,11 +159,13 @@ public class AudioController : MonoBehaviour
 	{
 		// Sets low pass filter frequency cutoff value.
 		float SmoothLowFreqVal = Mathf.Lerp (curFreq, TargetCutoffFreq, CutoffFreqSmoothing * Time.unscaledDeltaTime);
-		AudioMix.SetFloat ("LowCutoffFrequency", SmoothLowFreqVal);
+		SoundtrackAudioMix.SetFloat ("LowCutoffFrequency", SmoothLowFreqVal);
+		EffectsAudioMix.SetFloat ("LowCutoffFrequency", SmoothLowFreqVal);
 
 		// Sets low pass filter resonance value.
 		float SmoothResVal = Mathf.Lerp (curRes, TargetResonance, ResonanceSmoothing * Time.unscaledDeltaTime);
-		AudioMix.SetFloat ("Resonance", SmoothResVal);
+		SoundtrackAudioMix.SetFloat ("Resonance", SmoothResVal);
+		EffectsAudioMix.SetFloat ("Resonance", SmoothResVal);
 	}
 
 	public void SetTargetLowPassFreq (float lowPassFreq)
@@ -182,7 +187,7 @@ public class AudioController : MonoBehaviour
 	// Gets current low pass cutoff frequency value.
 	public float GetMasterLowPassValue ()
 	{
-		bool curFreqResult = AudioMix.GetFloat ("LowCutoffFrequency", out curFreq);
+		bool curFreqResult = SoundtrackAudioMix.GetFloat ("LowCutoffFrequency", out curFreq);
 
 		if (curFreqResult) 
 		{
@@ -199,7 +204,7 @@ public class AudioController : MonoBehaviour
 	// Gets current low pass resonance value.
 	public float GetMasterResonanceValue ()
 	{
-		bool curResResult = AudioMix.GetFloat ("Resonance", out curRes);
+		bool curResResult = SoundtrackAudioMix.GetFloat ("Resonance", out curRes);
 
 		if (curResResult) 
 		{
@@ -208,6 +213,39 @@ public class AudioController : MonoBehaviour
 
 		else 
 		
+		{
+			return 0f;
+		}
+	}
+
+	public float GetEffectsLowPassValue ()
+	{
+		bool curFreqEffectsResult = EffectsAudioMix.GetFloat ("LowCutoffFrequency", out curEffectsFreq);
+
+		if (curFreqEffectsResult) 
+		{
+			return curEffectsFreq;
+		}
+
+		else
+
+		{
+			return 0f;
+		}
+	}
+
+	// Gets current low pass resonance value.
+	public float GetEffectsResonanceValue ()
+	{
+		bool curEffectsResResult = EffectsAudioMix.GetFloat ("Resonance", out curEffectsRes);
+
+		if (curEffectsResResult) 
+		{
+			return curEffectsRes;
+		} 
+
+		else 
+
 		{
 			return 0f;
 		}

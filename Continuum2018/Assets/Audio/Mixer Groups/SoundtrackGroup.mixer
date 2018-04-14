@@ -13,12 +13,14 @@ AudioMixerController:
   m_StartSnapshot: {fileID: 24500006}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ExposedParameters:
-  - guid: caea537dc9208b34ea6cb3781eed4b20
-    name: Resonance
+  - guid: 848b57cf5bc1fa944b1674a5cf4d4cd8
+    name: SoundtrackVolume
   - guid: 367d79908ab47514884614041b4f3bb4
     name: LowCutoffFrequency
+  - guid: caea537dc9208b34ea6cb3781eed4b20
+    name: Resonance
   m_AudioMixerGroupViews:
   - guids:
     - ea37f2e1bb31900419e66405df447128
