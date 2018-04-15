@@ -100,6 +100,8 @@ public class Block : MonoBehaviour
 		Tutorial = 2 // Like a normal block except doesnt contribute to the game.
 	}
 
+	public bool isBonusBlock;
+
 	[Tooltip ("Material for noise type.")]
 	public Material noiseMat;
 	[Tooltip ("Explosion for noise type.")]
@@ -283,6 +285,11 @@ public class Block : MonoBehaviour
 		if (particle.tag == "Bullet" ||
 		    particle.tag == "Hazard") 
 		{
+			if (isBonusBlock == true) 
+			{
+				gameControllerScript.BonusBlocksDestroyed += 1;
+			}
+
 			if (transform.position.y > 13) 
 			{
 				return;
@@ -410,6 +417,11 @@ public class Block : MonoBehaviour
 		// Other object's tag is Bullet.
 		if (other.tag == "Bullet") 
 		{
+			if (isBonusBlock == true) 
+			{
+				gameControllerScript.BonusBlocksDestroyed += 1;
+			}
+
 			if (transform.position.y > 13) 
 			{
 				return;

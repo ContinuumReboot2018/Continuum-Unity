@@ -221,7 +221,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1743466060572060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75ea8dc5cc0ebbc4ab8b78a790a2084e, type: 3}
   m_Name: 
@@ -231,6 +231,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114262801068446820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,7 +252,6 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
-  allowParticleCollisionBoss: 0
   speed: -950
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
@@ -269,6 +270,7 @@ MonoBehaviour:
   bossPartIndex: 0
   BossDamage: 1
   HitPoints: 5
+  allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
   BlockType: 2
@@ -276,6 +278,7 @@ MonoBehaviour:
   ChangeRate: 0.5
   isSpecialBlockType: 1
   SpecialBlockType: 1
+  isBonusBlock: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1194445117813792, guid: 6f1c5f4cc295c414a807fe4ff3c6f60a,
     type: 2}

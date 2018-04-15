@@ -5,7 +5,7 @@ public class Snake : MonoBehaviour
 	public Animator SnakeAnim;
 	public string[] SnakeAnimations;
 
-	public void Start ()
+	public void Awake ()
 	{
 		int SnakeAnimIndex = Random.Range (0, SnakeAnimations.Length);
 		SnakeAnim.Play (SnakeAnimations [SnakeAnimIndex]);

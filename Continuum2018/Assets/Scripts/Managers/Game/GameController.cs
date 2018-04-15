@@ -222,6 +222,23 @@ public class GameController : MonoBehaviour
 	[Tooltip ("Boss ID for the index in the big bosses array.")]
 	public int bossId;
 
+	[Header ("Bonus Round")]
+	public GameObject[] BonusFormations;
+	public int[] BonusBlocksAmounts;
+	public float BonusStartSpawnDelay = 3;
+	public Vector2 BonusSpawnDelay = new Vector2 (1, 4);
+	private int BonusesToSpawn;
+	public int MaximumBonusesToSpawn = 12;
+	public float BonusSpawnEndDelay = 3;
+	public Animator BonusRoundUI;
+	public Animator BonusEndUI;
+
+	public int BonusBlocksDestroyed;
+	public int TotalBonusBlocks;
+	public float BonusAccuracy;
+	public TextMeshProUGUI BonusBlocksDestroyedText;
+	public TextMeshProUGUI BonusBlocksAccuracyText;
+
 	[Header ("Pausing")]
 	[Tooltip ("Checks whether game state is paused.")]
 	public bool isPaused;
@@ -1283,7 +1300,9 @@ public class GameController : MonoBehaviour
 		WaveTimeDuration += WaveTimeIncreaseRate;
 		WaveTimeRemaining = WaveTimeDuration;
 		PlayWaveTransitionVisuals (); // Trigger wave transition.
+
 		WaveTransitionText.text = "WAVE " + Wave;
+
 		WaveTransitionAudio.Play ();
 
 		// Shake the camera and vibrate the controller.
@@ -1520,14 +1539,60 @@ public class GameController : MonoBehaviour
 		UnityEngine.Debug.Log ("Oh snap! We spawned a big boss!");
 	}
 
+	IEnumerator BonusRound ()
+	{
+		BonusesToSpawn = Mathf.Clamp (Mathf.RoundToInt ((Wave / 3) + 3), 1, MaximumBonusesToSpawn);
+		TotalBonusBlocks = 0;
+		BonusAccuracy = 0;
+		BonusBlocksDestroyed = 0;
+		int BonusesSpawned = 0;
+
+		yield return new WaitForSeconds (1);
+
+		BonusRoundUI.Play ("BonusRound");
+
+		yield return new WaitForSeconds (BonusStartSpawnDelay);
+
+		while (BonusesSpawned < BonusesToSpawn)
+		{
+			BonusesSpawned += 1;
+
+			int BonusBlockIndex = UnityEngine.Random.Range (0, BonusFormations.Length);
+			TotalBonusBlocks += BonusBlocksAmounts [BonusBlockIndex];
+
+			Instantiate (BonusFormations [BonusBlockIndex], Vector3.zero, Quaternion.identity);
+			yield return new WaitForSeconds (UnityEngine.Random.Range (BonusSpawnDelay.x, BonusSpawnDelay.y));	
+		}
+			
+		BonusBlocksDestroyedText.text = "Bonus Blocks Destroyed: " + BonusBlocksDestroyed;
+		BonusAccuracy = Mathf.Clamp ((float)BonusBlocksDestroyed / (float)TotalBonusBlocks, 0, 1);
+		BonusBlocksAccuracyText.text = "Accuracy: " + System.Math.Round (BonusAccuracy * 100, 2) + "%";
+
+		yield return new WaitForSeconds (1);
+
+		BonusEndUI.Play ("BonusEndUI");
+
+		yield return new WaitForSeconds (BonusSpawnEndDelay);
+
+		StartNewWave ();
+		IsInWaveTransition = true;
+		StopCoroutine (BonusRound ());
+	}
+
 	// Timer for when wave time runs out.
 	void CheckWaveTime ()
 	{
 		// What happens when wave timer runs out.
 		if (WaveTimeRemaining < 0) 
 		{
+			// Bonus Round.
+			if (Wave % 3 == 0) 
+			{
+				StartCoroutine (BonusRound ());
+			}
+
 			// Wave / 4 has remainders = normal wave.
-			if (Wave % 4 != 0)
+			if (Wave % 4 != 0 && Wave % 3 != 0)
 			{
 				// Spawn a miniboss as usual in normal mode.
 				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
@@ -1550,7 +1615,7 @@ public class GameController : MonoBehaviour
 			}
 
 			// Wave / 4 divides equally = big boss time.
-			if (Wave % 4 == 0)
+			if (Wave % 4 == 0 && Wave % 3 != 0)
 			{
 				audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
 				// TODO: Play boss soundtrack.

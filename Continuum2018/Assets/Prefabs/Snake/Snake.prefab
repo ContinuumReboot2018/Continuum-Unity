@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 65213766693270656}
   - component: {fileID: 114195921366913988}
   m_Layer: 11
-  m_Name: Block_Pink (9)
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 65238279082224380}
   - component: {fileID: 114821655900128262}
   m_Layer: 11
-  m_Name: Block_Pink (3)
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 65671967478277512}
   - component: {fileID: 114578368514168052}
   m_Layer: 11
-  m_Name: Block_Pink (4)
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 65919033672090586}
   - component: {fileID: 114217818485799586}
   m_Layer: 11
-  m_Name: Block_Pink (1)
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 65759057478373194}
   - component: {fileID: 114327218322794324}
   m_Layer: 11
-  m_Name: Block_Pink (7)
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 65288898677185358}
   - component: {fileID: 114617769500262304}
   m_Layer: 11
-  m_Name: Block_Pink (8)
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 65751935677306432}
   - component: {fileID: 114114029564598640}
   m_Layer: 11
-  m_Name: Block_Pink
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 65368473965844384}
   - component: {fileID: 114752629286549466}
   m_Layer: 11
-  m_Name: Block_Pink (5)
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,7 +577,7 @@ GameObject:
   - component: {fileID: 65090119896469050}
   - component: {fileID: 114143806124720030}
   m_Layer: 11
-  m_Name: Block_Pink (2)
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 65481379820169338}
   - component: {fileID: 114901264144027786}
   m_Layer: 11
-  m_Name: Block_Pink (6)
+  m_Name: Block_Snake
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -749,7 +749,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1851977869242718}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalPosition: {x: -26.6, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4568156664129610}
@@ -816,7 +816,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953951228162562}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9, y: 0, z: 0}
+  m_LocalPosition: {x: -32.6, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4485077697476046}
@@ -843,7 +843,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1530088900737806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12, y: 0, z: 0}
+  m_LocalPosition: {x: -35.6, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4452170668310004}
@@ -857,7 +857,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1377450720064412}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0, z: 0}
+  m_LocalPosition: {x: -25.1, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4658665829777360}
@@ -950,7 +950,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643594736297060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -23.6, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4088662659008244}
@@ -1017,7 +1017,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1835596554862386}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.5, y: 0, z: 0}
+  m_LocalPosition: {x: -31.1, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4722047382683998}
@@ -1031,7 +1031,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1034835461049702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5, y: 0, z: 0}
+  m_LocalPosition: {x: -28.1, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4619592294317536}
@@ -1045,7 +1045,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1090722360792310}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: 0}
+  m_LocalPosition: {x: -29.6, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4177564872668758}
@@ -1158,7 +1158,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1459889460167212}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.5, y: 0, z: 0}
+  m_LocalPosition: {x: -34.1, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4352220069326682}
@@ -1281,7 +1281,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002897669361174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.5, y: 0, z: 0}
+  m_LocalPosition: {x: -37.1, y: 0, z: 0}
   m_LocalScale: {x: 1.35, y: 1.35, z: 0.01}
   m_Children:
   - {fileID: 4496431545353988}
@@ -2430,11 +2430,12 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockType: 0
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
@@ -2495,11 +2496,12 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockType: 1
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
@@ -2551,6 +2553,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114131584462052434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2563,12 +2567,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
-  AutomaticallyFindPlayerPosObject: 1
+  AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_1
-  OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 4476868325712100}
+  FollowPosX: {fileID: 4476868325712100}
+  FollowPosY: {fileID: 4476868325712100}
+  FollowPosZ: {fileID: 4476868325712100}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
@@ -2576,11 +2580,11 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 1
-  AutomaticallyFindPlayerRotObject: 1
+  AutomaticallyFindPlayerRotObject: 0
   LookForRotName: Tail_1
-  FollowRotX: {fileID: 0}
-  FollowRotY: {fileID: 0}
-  FollowRotZ: {fileID: 0}
+  FollowRotX: {fileID: 4476868325712100}
+  FollowRotY: {fileID: 4476868325712100}
+  FollowRotZ: {fileID: 4476868325712100}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
 --- !u!114 &114143806124720030
@@ -2627,6 +2631,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114195921366913988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2669,12 +2675,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
-  AutomaticallyFindPlayerPosObject: 1
+  AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_5
-  OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 4634439708720836}
+  FollowPosX: {fileID: 4634439708720836}
+  FollowPosY: {fileID: 4634439708720836}
+  FollowPosZ: {fileID: 4634439708720836}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
@@ -2682,11 +2688,11 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 1
-  AutomaticallyFindPlayerRotObject: 1
+  AutomaticallyFindPlayerRotObject: 0
   LookForRotName: Tail_5
-  FollowRotX: {fileID: 0}
-  FollowRotY: {fileID: 0}
-  FollowRotZ: {fileID: 0}
+  FollowRotX: {fileID: 4634439708720836}
+  FollowRotY: {fileID: 4634439708720836}
+  FollowRotZ: {fileID: 4634439708720836}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
 --- !u!114 &114226488525268462
@@ -2729,11 +2735,12 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockType: 2
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
@@ -2766,12 +2773,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
-  AutomaticallyFindPlayerPosObject: 1
+  AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_8
-  OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 4929092114172148}
+  FollowPosX: {fileID: 4929092114172148}
+  FollowPosY: {fileID: 4929092114172148}
+  FollowPosZ: {fileID: 4929092114172148}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
@@ -2779,11 +2786,11 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 1
-  AutomaticallyFindPlayerRotObject: 1
+  AutomaticallyFindPlayerRotObject: 0
   LookForRotName: Tail_8
-  FollowRotX: {fileID: 0}
-  FollowRotY: {fileID: 0}
-  FollowRotZ: {fileID: 0}
+  FollowRotX: {fileID: 4929092114172148}
+  FollowRotY: {fileID: 4929092114172148}
+  FollowRotZ: {fileID: 4929092114172148}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
 --- !u!114 &114271370997667090
@@ -2798,12 +2805,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
-  AutomaticallyFindPlayerPosObject: 1
+  AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_6
-  OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 4398704283617064}
+  FollowPosX: {fileID: 4398704283617064}
+  FollowPosY: {fileID: 4398704283617064}
+  FollowPosZ: {fileID: 4398704283617064}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
@@ -2811,11 +2818,11 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 1
-  AutomaticallyFindPlayerRotObject: 1
+  AutomaticallyFindPlayerRotObject: 0
   LookForRotName: Tail_6
-  FollowRotX: {fileID: 0}
-  FollowRotY: {fileID: 0}
-  FollowRotZ: {fileID: 0}
+  FollowRotX: {fileID: 4398704283617064}
+  FollowRotY: {fileID: 4398704283617064}
+  FollowRotZ: {fileID: 4398704283617064}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
 --- !u!114 &114318267906831000
@@ -2834,6 +2841,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114327218322794324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2889,11 +2898,12 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockType: 0
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
@@ -2926,12 +2936,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
-  AutomaticallyFindPlayerPosObject: 1
+  AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_4
-  OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 4086966064252220}
+  FollowPosX: {fileID: 4086966064252220}
+  FollowPosY: {fileID: 4086966064252220}
+  FollowPosZ: {fileID: 4086966064252220}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
@@ -2939,11 +2949,11 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 1
-  AutomaticallyFindPlayerRotObject: 1
+  AutomaticallyFindPlayerRotObject: 0
   LookForRotName: Tail_4
-  FollowRotX: {fileID: 0}
-  FollowRotY: {fileID: 0}
-  FollowRotZ: {fileID: 0}
+  FollowRotX: {fileID: 4086966064252220}
+  FollowRotY: {fileID: 4086966064252220}
+  FollowRotZ: {fileID: 4086966064252220}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
 --- !u!114 &114358323429134924
@@ -2958,12 +2968,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
-  AutomaticallyFindPlayerPosObject: 1
+  AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_3
-  OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 4703125293835336}
+  FollowPosX: {fileID: 4703125293835336}
+  FollowPosY: {fileID: 4703125293835336}
+  FollowPosZ: {fileID: 4816568221543842}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
@@ -2971,11 +2981,11 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 1
-  AutomaticallyFindPlayerRotObject: 1
+  AutomaticallyFindPlayerRotObject: 0
   LookForRotName: Tail_3
-  FollowRotX: {fileID: 0}
-  FollowRotY: {fileID: 0}
-  FollowRotZ: {fileID: 0}
+  FollowRotX: {fileID: 4703125293835336}
+  FollowRotY: {fileID: 4703125293835336}
+  FollowRotZ: {fileID: 4703125293835336}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
 --- !u!114 &114389815342438892
@@ -3007,6 +3017,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114397776725478076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3048,10 +3060,11 @@ MonoBehaviour:
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
   BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
@@ -3097,12 +3110,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
-  AutomaticallyFindPlayerPosObject: 1
+  AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_2
-  OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 4816568221543842}
+  FollowPosX: {fileID: 4816568221543842}
+  FollowPosY: {fileID: 4816568221543842}
+  FollowPosZ: {fileID: 4816568221543842}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
@@ -3110,11 +3123,11 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 1
-  AutomaticallyFindPlayerRotObject: 1
+  AutomaticallyFindPlayerRotObject: 0
   LookForRotName: Tail_2
-  FollowRotX: {fileID: 0}
-  FollowRotY: {fileID: 0}
-  FollowRotZ: {fileID: 0}
+  FollowRotX: {fileID: 4816568221543842}
+  FollowRotY: {fileID: 4816568221543842}
+  FollowRotZ: {fileID: 4816568221543842}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
 --- !u!114 &114450994104544484
@@ -3133,6 +3146,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114456583501765408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3181,6 +3196,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114497398020673374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3221,11 +3238,12 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockType: 1
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
@@ -3275,6 +3293,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114562554587796732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3287,12 +3307,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
-  AutomaticallyFindPlayerPosObject: 1
+  AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_7
-  OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 4745499673913124}
+  FollowPosX: {fileID: 4745499673913124}
+  FollowPosY: {fileID: 4745499673913124}
+  FollowPosZ: {fileID: 4745499673913124}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
@@ -3300,11 +3320,11 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 1
-  AutomaticallyFindPlayerRotObject: 1
+  AutomaticallyFindPlayerRotObject: 0
   LookForRotName: Tail_7
-  FollowRotX: {fileID: 0}
-  FollowRotY: {fileID: 0}
-  FollowRotZ: {fileID: 0}
+  FollowRotX: {fileID: 4745499673913124}
+  FollowRotY: {fileID: 4745499673913124}
+  FollowRotZ: {fileID: 4745499673913124}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
 --- !u!114 &114577149760807040
@@ -3388,11 +3408,12 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockType: 2
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
@@ -3502,6 +3523,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114687673655230928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3550,6 +3573,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114696735443369076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3562,12 +3587,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPosition: 1
-  AutomaticallyFindPlayerPosObject: 1
+  AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Follower
-  OverrideTransform: {fileID: 0}
-  FollowPosX: {fileID: 0}
-  FollowPosY: {fileID: 0}
-  FollowPosZ: {fileID: 0}
+  OverrideTransform: {fileID: 4113116304134068}
+  FollowPosX: {fileID: 4113116304134068}
+  FollowPosY: {fileID: 4113116304134068}
+  FollowPosZ: {fileID: 4113116304134068}
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
@@ -3575,11 +3600,11 @@ MonoBehaviour:
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
   FollowRotation: 1
-  AutomaticallyFindPlayerRotObject: 1
+  AutomaticallyFindPlayerRotObject: 0
   LookForRotName: Follower
-  FollowRotX: {fileID: 0}
-  FollowRotY: {fileID: 0}
-  FollowRotZ: {fileID: 0}
+  FollowRotX: {fileID: 4113116304134068}
+  FollowRotY: {fileID: 4113116304134068}
+  FollowRotZ: {fileID: 4113116304134068}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
 --- !u!114 &114705196876846286
@@ -3611,6 +3636,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114752629286549466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3667,10 +3694,11 @@ MonoBehaviour:
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
   BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
@@ -3886,7 +3914,7 @@ MonoBehaviour:
   OverwriteVelocity: 1
   DontIncrementBlocksDestroyed: 0
   Stackable: 0
-  isStacked: 1
+  isStacked: 0
   stack: {fileID: 0}
   AddAbilityTime: 0.015
   homedObjects: []
@@ -3903,11 +3931,12 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockType: 0
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
@@ -4028,7 +4057,7 @@ MonoBehaviour:
   OverwriteVelocity: 1
   DontIncrementBlocksDestroyed: 0
   Stackable: 0
-  isStacked: 1
+  isStacked: 0
   stack: {fileID: 0}
   AddAbilityTime: 0.015
   homedObjects: []
@@ -4045,11 +4074,12 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 3
-  BlockChangeType: 0
-  ChangeRate: 0.5
+  BlockType: 1
+  BlockChangeType: 1
+  ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 1
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
     type: 2}
