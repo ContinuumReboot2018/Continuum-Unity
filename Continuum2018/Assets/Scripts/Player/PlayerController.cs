@@ -436,6 +436,7 @@ public class PlayerController : MonoBehaviour
 	[Header ("Visuals")]
 	[Tooltip("Animator which controls animations for the screen orientation.")]
 	public Animator FlipScreenAnim;
+	public Light PlayerLight;
 
 	[Header ("UI")]
 	// Ability UI.
@@ -470,7 +471,7 @@ public class PlayerController : MonoBehaviour
 
 	public Animator LivesLeftUI;
 	public TextMeshProUGUI LivesLeftText;
-	//public string LivesLeftString = "3 LIVES LEFT";
+
 
 	[Space (10)]
 	// Wave UI.
@@ -659,6 +660,7 @@ public class PlayerController : MonoBehaviour
 			{
 				// Timer down for cooldown.
 				cooldownTimeRemaining -= Time.unscaledDeltaTime;
+				PlayerLight.intensity = 0;
 			}
 
 			// Cooldown time is finished, re enable the things.
@@ -666,13 +668,11 @@ public class PlayerController : MonoBehaviour
 			{
 				RejoinGame ();
 				PlayerGuides.SetActive (true);
-				//AbilityUI.SetActive (true);
 				playerCol.gameObject.SetActive (true);
 				playerTrigger.gameObject.SetActive (true);
 				gameControllerScript.Lives -= 1;
 				Invoke ("EnableCollider", 5);
 				isInCooldownMode = false;
-				//spotlightsScript.NormalSpotlightSettings ();
 			}
 		}
 	}
@@ -840,6 +840,7 @@ public class PlayerController : MonoBehaviour
 		//spotlightsScript.NewTarget = this.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.NormalSpotlightSettings ();
+		PlayerLight.intensity = 12;
 
 		// Checks for gode mode, allows god mode to stay on if needed.
 		if (developerModeScript.isGod == false) 
