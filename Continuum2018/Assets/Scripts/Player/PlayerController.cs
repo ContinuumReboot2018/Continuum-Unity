@@ -837,7 +837,6 @@ public class PlayerController : MonoBehaviour
 	void EnableCollider ()
 	{
 		UsePlayerFollow = true; // Allow player input to manipulate player position.
-		//spotlightsScript.NewTarget = this.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.NormalSpotlightSettings ();
 		PlayerLight.intensity = 12;
