@@ -428,7 +428,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206208298503716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5561204, y: -3.7600002, z: 0}
+  m_LocalPosition: {x: 8.878212, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -497,7 +497,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1072815788808384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.1270003, z: 0}
+  m_LocalPosition: {x: -0.005338457, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -510,7 +510,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407336111842324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.88412, y: -2.8000002, z: 0}
+  m_LocalPosition: {x: 8.878212, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -594,7 +594,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1123799217580616}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.88412, y: -3, z: 0}
+  m_LocalPosition: {x: -8.888889, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -607,7 +607,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266182147391190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.88412, y: 0, z: 0}
+  m_LocalPosition: {x: 8.878212, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -852,7 +852,7 @@ MonoBehaviour:
     sizeUnitType: 0
     size: {x: 15, y: 15}
     lockAspectRatio: 1
-    worldSize: {x: 1.4999999, y: 1.4999999}
+    worldSize: {x: 0, y: 0}
 --- !u!114 &114378895569927670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -881,7 +881,7 @@ MonoBehaviour:
     sizeUnitType: 0
     size: {x: 5, y: 5}
     lockAspectRatio: 1
-    worldSize: {x: 0.49999997, y: 0.49999997}
+    worldSize: {x: 0, y: 0}
 --- !u!114 &114414527607810846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -940,7 +940,7 @@ MonoBehaviour:
     sizeUnitType: 0
     size: {x: 20, y: 20}
     lockAspectRatio: 1
-    worldSize: {x: 1.9999999, y: 1.9999999}
+    worldSize: {x: 0, y: 0}
   knob:
     idleSprite: {fileID: 21300000, guid: e0d1baa41a4447341852366690a0be89, type: 3}
     busySprite: {fileID: 21300000, guid: e0d1baa41a4447341852366690a0be89, type: 3}
@@ -950,7 +950,7 @@ MonoBehaviour:
     sizeUnitType: 0
     size: {x: 10, y: 10}
     lockAspectRatio: 1
-    worldSize: {x: 0.99999994, y: 0.99999994}
+    worldSize: {x: 0, y: 0}
   knobRange: 7.5
 --- !u!114 &114535914267014328
 MonoBehaviour:
@@ -980,7 +980,7 @@ MonoBehaviour:
     sizeUnitType: 0
     size: {x: 5, y: 5}
     lockAspectRatio: 1
-    worldSize: {x: 0.49999997, y: 0.49999997}
+    worldSize: {x: 0, y: 0}
 --- !u!114 &114598295702909340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -995,28 +995,121 @@ MonoBehaviour:
   settingsManagerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
   gameControllerScript: {fileID: 0}
+  AllowLoading: 1
+  AllowSaving: 1
+  DefaultLeaderboard:
+  - name: AAA
+    score: 1048576
+    wave: 30
+  - name: BBB
+    score: 524288
+    wave: 26
+  - name: CCC
+    score: 262144
+    wave: 22
+  - name: DDD
+    score: 131072
+    wave: 18
+  - name: EEE
+    score: 65536
+    wave: 14
+  - name: FFF
+    score: 32768
+    wave: 10
+  - name: GGG
+    score: 16384
+    wave: 6
+  - name: HHH
+    score: 8192
+    wave: 3
+  - name: III
+    score: 4096
+    wave: 2
+  - name: JJJ
+    score: 2048
+    wave: 1
   Username: Player
   ExperiencePoints: 0
-  Level: 0
-  NextLevelRequirement: 0
+  Leaderboard:
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
   VisualSettings: {fileID: 11400000, guid: cb1c9f0b292c9e84fa25332b580b675a, type: 2}
   VisualSettingsComponent: {fileID: 0}
   cam: {fileID: 0}
   QualitySettingsIndex: 1
   useHdr: 0
   sunShaftsEnabled: 0
+  ParticleEmissionMultiplier: 1
   MasterVolume: 1
   SoundtrackVolume: 1
   EffectsVolume: 1
   PlayerData:
     Username: 
     ExperiencePoints: 0
-    Level: 0
-    NextLevelRequirement: 0
+    Leaderboard:
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
   SettingsData:
     QualitySettingsIndex: 0
     useHdr: 0
     sunShaftsEnabled: 0
+    ParticleEmissionMultiplier: 1
     MasterVolume: 1
     SoundtrackVolume: 1
     EffectsVolume: 1
@@ -1114,7 +1207,7 @@ MonoBehaviour:
     sizeUnitType: 0
     size: {x: 15, y: 15}
     lockAspectRatio: 1
-    worldSize: {x: 1.4999999, y: 1.4999999}
+    worldSize: {x: 0, y: 0}
 --- !u!114 &114767664278466576
 MonoBehaviour:
   m_ObjectHideFlags: 1

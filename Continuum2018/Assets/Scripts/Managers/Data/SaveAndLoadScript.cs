@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.PostProcessing;
@@ -13,12 +14,18 @@ public class SaveAndLoadScript : MonoBehaviour
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
 
+	public bool AllowLoading = true;
+	public bool AllowSaving = true;
+
+	public List<LeaderboardEntry> DefaultLeaderboard;
+
 	// Live variables.
 	[Header ("Player Data")]
 	public string Username = "default";
 	public int ExperiencePoints;
 	//public int Level;
 	//public int NextLevelRequirement;
+	public List<LeaderboardEntry> Leaderboard;
 
 	[Header ("Settings Data")]
 	public PostProcessingProfile VisualSettings;
@@ -45,15 +52,20 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		if (SceneManager.GetActiveScene ().name != "Init")
 		{
-			settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
+			if (AllowLoading == true) 
+			{
+				CheckPlayerDataFile ();
+
+				settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
 				
-			cam = settingsManagerScript.cam;
-			VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
+				cam = settingsManagerScript.cam;
+				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 
-			LoadPlayerData ();
-			LoadSettingsData ();
+				LoadPlayerData ();
+				LoadSettingsData ();
 
-			CheckUsername ();
+				CheckUsername ();
+			}
 		}
 	}
 
@@ -74,32 +86,42 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Gets variables from this script = variables in other scripts.
 	void GetPlayerData ()
 	{
-		ExperiencePoints += (int)Math.Round(gameControllerScript.TargetScore);
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
+		{
+			ExperiencePoints += (int)Math.Round (gameControllerScript.TargetScore);
+		}
+
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false) 
+		{
+			ExperiencePoints = 0;
+		}
 	}
 
 	// Save PlayerData Main.
 	public void SavePlayerData ()
 	{
-		// Refer to GetPlayerData.
-		GetPlayerData ();
+		if (AllowSaving == true) 
+		{
+			// Refer to GetPlayerData.
+			GetPlayerData ();
 
-		// Creates new save file.
-		BinaryFormatter bf = new BinaryFormatter ();
-		FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
+			// Creates new save file.
+			BinaryFormatter bf = new BinaryFormatter ();
+			FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 
-		// Does the saving
-		playerData data = new playerData ();
-		SetPlayerData (data);
+			// Does the saving
+			playerData data = new playerData ();
+			SetPlayerData (data);
 
-		// Serializes and closes the file.
-		bf.Serialize (file, data);
-		file.Close ();
+			// Serializes and closes the file.
+			bf.Serialize (file, data);
+			file.Close ();
 
-		Debug.Log 
-		(
-			"Successfully saved to " +
-			Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat"
-		); 
+			Debug.Log (
+				"Successfully saved to " +
+				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat"
+			); 
+		}
 	}
 
 	// Sets data.[variable] = [variable] from this script.
@@ -109,32 +131,45 @@ public class SaveAndLoadScript : MonoBehaviour
 		data.ExperiencePoints = ExperiencePoints;
 		//data.Level = Level;
 		//data.NextLevelRequirement = NextLevelRequirement;
+		data.Leaderboard = Leaderboard;
 	}
 
 	// Load PlayerData main.
 	public void LoadPlayerData ()
 	{
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
+		if (AllowLoading == true)
 		{
-			// Opens the save data.
-			BinaryFormatter bf = new BinaryFormatter ();
-			FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat", FileMode.Open);
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
+			{
+				// Opens the save data.
+				BinaryFormatter bf = new BinaryFormatter ();
+				FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat", FileMode.Open);
 
-			// Processes the save data into memory.
-			playerData data = (playerData)bf.Deserialize (file);
-			file.Close ();
+				// Processes the save data into memory.
+				playerData data = (playerData)bf.Deserialize (file);
+				file.Close ();
 
-			LoadPlayerDataContents (data);
-			StorePlayerDataInGame ();
+				LoadPlayerDataContents (data);
+				StorePlayerDataInGame ();
 
-			Debug.Log ("Successfully loaded from " +
+				Debug.Log ("Successfully loaded from " +
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
-		}
+			}
 
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false) 
+			CheckPlayerDataFile ();
+		}
+	}
+
+	void CheckPlayerDataFile ()
+	{
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false)
 		{
 			Debug.LogWarning ("Unable to load from " +
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
+
+			Leaderboard = new List<LeaderboardEntry> (10);
+
+			Leaderboard = DefaultLeaderboard;
 
 			SavePlayerData ();
 
@@ -150,6 +185,10 @@ public class SaveAndLoadScript : MonoBehaviour
 		ExperiencePoints = data.ExperiencePoints;
 		//Level = data.Level;
 		//NextLevelRequirement = data.NextLevelRequirement;
+		data.Leaderboard.Capacity = 10;
+		Leaderboard.Capacity = 10;
+		Leaderboard = new List<LeaderboardEntry> (10);
+		Leaderboard = data.Leaderboard;
 	}
 
 	// Puts new data into relevant scripts.
@@ -190,26 +229,28 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Save Settings Main.
 	public void SaveSettingsData ()
 	{
-		// Refer to GetSettingsData.
-		GetSettingsData ();
+		if (AllowSaving == true) 
+		{
+			// Refer to GetSettingsData.
+			GetSettingsData ();
 
-		// Creates new save file.
-		BinaryFormatter bf = new BinaryFormatter ();
-		FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+			// Creates new save file.
+			BinaryFormatter bf = new BinaryFormatter ();
+			FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 
-		// Does the saving
-		settingsData data = new settingsData ();
-		SetSettingsData (data);
+			// Does the saving
+			settingsData data = new settingsData ();
+			SetSettingsData (data);
 
-		// Serializes and closes the file.
-		bf.Serialize (file, data);
-		file.Close ();
+			// Serializes and closes the file.
+			bf.Serialize (file, data);
+			file.Close ();
 
-		Debug.Log 
-		(
-			"Successfully saved to " +
-			Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat"
-		); 
+			Debug.Log (
+				"Successfully saved to " +
+				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat"
+			); 
+		}
 	}
 
 	// Sets data.[variable] = [variable] from this script.
@@ -238,32 +279,35 @@ public class SaveAndLoadScript : MonoBehaviour
 
 	public void LoadSettingsData ()
 	{
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
+		if (AllowLoading == true)
 		{
-			// Opens the save data.
-			BinaryFormatter bf = new BinaryFormatter ();
-			FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat", FileMode.Open);
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
+			{
+				// Opens the save data.
+				BinaryFormatter bf = new BinaryFormatter ();
+				FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat", FileMode.Open);
 
-			// Processes the save data into memory.
-			settingsData data = (settingsData)bf.Deserialize (file);
-			file.Close ();
+				// Processes the save data into memory.
+				settingsData data = (settingsData)bf.Deserialize (file);
+				file.Close ();
 
-			LoadSettingsDataContents (data);
-			StoreSettingsDataInGame ();
+				LoadSettingsDataContents (data);
+				StoreSettingsDataInGame ();
 
-			Debug.Log ("Successfully loaded from " +
+				Debug.Log ("Successfully loaded from " +
 				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
-		}
+			}
 
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == false) 
-		{
-			Debug.LogWarning ("Unable to load from " +
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == false) 
+			{
+				Debug.LogWarning ("Unable to load from " +
 				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 
-			SaveSettingsData ();
+				SaveSettingsData ();
 
-			Debug.Log ("Saved settings data to " + 
+				Debug.Log ("Saved settings data to " +
 				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+			}
 		}
 	}
 
@@ -329,6 +373,8 @@ public class SaveAndLoadScript : MonoBehaviour
 		public int ExperiencePoints;
 		//public int Level;
 		//public int NextLevelRequirement;
+
+		public List<LeaderboardEntry> Leaderboard;
 	}
 
 	[Serializable]

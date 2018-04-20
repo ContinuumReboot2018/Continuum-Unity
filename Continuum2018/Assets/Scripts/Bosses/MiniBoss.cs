@@ -198,20 +198,20 @@ public class MiniBoss : MonoBehaviour
 	void Update ()
 	{
 		// Creates a line from the LineRenderer from itself to the player position and shoots.
-		if (Line.enabled == true) 
+		if (Line.enabled == true && simpleFollowScript.OverrideTransform != null) 
 		{
 			Line.SetPosition (0, transform.position + new Vector3 (0, 0, 0.36f));
 			//Line.SetPosition (1, FollowPlayerPos.position);
 			Line.SetPosition (1, simpleFollowScript.OverrideTransform.position);
 			Shoot ();
+
+			// Draws a line in scene view.
+			#if UNITY_EDITOR || UNITY_EDITOR_64
+			//Debug.DrawLine (transform.position, FollowPlayerPos.position, Color.green);
+			Debug.DrawLine (transform.position, simpleFollowScript.OverrideTransform.position, Color.green);
+			#endif
 		}
-
-		// Draws a line in scene view.
-		#if UNITY_EDITOR || UNITY_EDITOR_64
-		//Debug.DrawLine (transform.position, FollowPlayerPos.position, Color.green);
-		Debug.DrawLine (transform.position, simpleFollowScript.OverrideTransform.position, Color.green);
-		#endif
-
+			
 		// Mini boss gets defeated.
 		if (hitPoints <= 0) 
 		{
