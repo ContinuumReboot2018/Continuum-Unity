@@ -120,7 +120,7 @@ public class GameOverController : MonoBehaviour
 		place = position;
 
 		LeaderboardEntry newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-		newLeaderboardEntry.name = myName;
+		newLeaderboardEntry.name = name;
 		newLeaderboardEntry.score = Mathf.RoundToInt (FinalScore);
 		newLeaderboardEntry.wave = gameControllerScript.Wave;
 
