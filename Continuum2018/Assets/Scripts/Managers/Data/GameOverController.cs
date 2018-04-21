@@ -1,14 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameOverController : MonoBehaviour 
 {
+	public string myName;
+
 	public SaveAndLoadScript saveAndLoadScript;
 	public GameController gameControllerScript;
 	public DeveloperMode developerModeScript;
+	public LeaderboardDisplay leaderboardDisplay;
+	public GameObject LeaderboardEntryUI;
+	public Animator GameOverAnim;
+
+	public float CurrentScore = 0;
+	public float ScoreSmoothing = 20;
+	public int place;
 
 	[Header ("Stats UI")]
 	public TextMeshProUGUI TotalGameTimeText;
@@ -21,57 +28,40 @@ public class GameOverController : MonoBehaviour
 	[Header ("Level Up UI")]
 	public TextMeshProUGUI FinalScoreText;
 	public TextMeshProUGUI HighScoreLabel;
-	//public Slider LevelSlider;
-	//public TextMeshProUGUI CurrentLevelLabel;
-	//public TextMeshProUGUI NexLevelLabel;
-	//public TextMeshProUGUI CurrentXPNeededText;
-	//public TextMeshProUGUI NextLevelXPNeededText;
-	//public TextMeshProUGUI NextLevelXPRemainText;
-	//public TextMeshProUGUI LevelUpText;
 
 	[Header ("Level Calculation")]
 	public float FinalScore;
-	//public float xpIncreaseSpeed = 1;
 	public int CurrentXP;
-	//public int CurrentLevelXP;
-	//public int[] NextLevelXP;
-	//public int[] IncreaseRates;
 
 	public AudioSource XPIncreaseSound;
 
 	void Awake ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		GetGameOverStats ();
+		CheckLeaderboard ();
+		//GetGameOverStats ();
 	}
 
 	void Start ()
 	{
-		//Invoke ("GetGameOverStats", 1);
-
-		//StartCoroutine (GetGameOverStats ());
-
-		//LevelUpText.enabled = false;
-		//RefreshLevelLabels ();
-		//GetNewLevelAmounts ();
 		GetXpToAdd ();
 	}
 
 	void Update () 
 	{
-		//SetLevelSliderValue ();
-
 		if (CurrentXP < 0) 
 		{
 			CurrentXP = 0;
 		}
+
+		if (FinalScoreText.gameObject.activeInHierarchy == true) 
+		{
+			UpdateFinalScoreText ();
+		}
 	}
 
 	void GetGameOverStats ()
-	//IEnumerator GetGameOverStats ()
 	{
-		//yield return new WaitForSecondsRealtime (1);
-
 		TotalGameTimeText.text = 
 			"Total Game Time: " + string.Format (
 				"{0}:{1:00}", 
@@ -99,209 +89,63 @@ public class GameOverController : MonoBehaviour
 			"Accuracy: " + (System.Math.Round((gameControllerScript.BlockShotAccuracy * 100), 2)) + "%";
 
 		CheckLeaderboard ();
-		//saveAndLoadScript.SavePlayerData ();
 	}
 
 	void CheckLeaderboard ()
 	{
+		// Get final score figure.
 		FinalScore = gameControllerScript.DisplayScore;
 		int _FinalScore = Mathf.RoundToInt (FinalScore);
 		Debug.Log ("Final score is: " + _FinalScore);
+
 		bool allowupdateentry = true;
 
-		if (_FinalScore > saveAndLoadScript.Leaderboard [0].score && allowupdateentry == true) 
+		// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
+		for (int i = 0; i < saveAndLoadScript.Leaderboard.Count; i++) 
 		{
-			// This is a new high score!
-			LeaderboardEntry firstplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			firstplace.name = saveAndLoadScript.Username;
-			firstplace.score = Mathf.RoundToInt (FinalScore);
-			firstplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (0, firstplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("1st place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
+			if (_FinalScore > saveAndLoadScript.Leaderboard [i].score && allowupdateentry == true) 
+			{
+				LeaderboardEntryUI.SetActive (true);
+				allowupdateentry = false;
+				return;
+			}
 		}
-
-		if (_FinalScore > saveAndLoadScript.Leaderboard [1].score && allowupdateentry == true) 
-		{
-			LeaderboardEntry secondplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			secondplace.name = saveAndLoadScript.Username;
-			secondplace.score = Mathf.RoundToInt (FinalScore);
-			secondplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (1, secondplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("2nd place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
-		}
-
-		if (_FinalScore > saveAndLoadScript.Leaderboard [2].score && allowupdateentry == true) 
-		{
-			LeaderboardEntry thirdplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			thirdplace.name = saveAndLoadScript.Username;
-			thirdplace.score = Mathf.RoundToInt (FinalScore);
-			thirdplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (2, thirdplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("3rd place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
-		}
-
-		if (_FinalScore > saveAndLoadScript.Leaderboard [3].score && allowupdateentry == true) 
-		{
-			LeaderboardEntry fourthplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			fourthplace.name = saveAndLoadScript.Username;
-			fourthplace.score = Mathf.RoundToInt (FinalScore);
-			fourthplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (3, fourthplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("4th place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
-		}
-
-		if (_FinalScore > saveAndLoadScript.Leaderboard [4].score && allowupdateentry == true) 
-		{
-			LeaderboardEntry fifthplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			fifthplace.name = saveAndLoadScript.Username;
-			fifthplace.score = Mathf.RoundToInt (FinalScore);
-			fifthplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (4, fifthplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("5th place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
-		}
-
-		if (_FinalScore > saveAndLoadScript.Leaderboard [5].score && allowupdateentry == true) 
-		{
-			LeaderboardEntry sixthplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			sixthplace.name = saveAndLoadScript.Username;
-			sixthplace.score = Mathf.RoundToInt (FinalScore);
-			sixthplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (5, sixthplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("6th place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
-		}
-
-		if (_FinalScore > saveAndLoadScript.Leaderboard [6].score && allowupdateentry == true) 
-		{
-			LeaderboardEntry seventhplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			seventhplace.name = saveAndLoadScript.Username;
-			seventhplace.score = Mathf.RoundToInt (FinalScore);
-			seventhplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (6, seventhplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("7th place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
-		}
-
-		if (_FinalScore > saveAndLoadScript.Leaderboard [7].score && allowupdateentry == true) 
-		{
-			LeaderboardEntry eighthplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			eighthplace.name = saveAndLoadScript.Username;
-			eighthplace.score = Mathf.RoundToInt (FinalScore);
-			eighthplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (7, eighthplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("8th place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
-		}
-
-		if (_FinalScore > saveAndLoadScript.Leaderboard [8].score && allowupdateentry == true) 
-		{
-			LeaderboardEntry ninthplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			ninthplace.name = saveAndLoadScript.Username;
-			ninthplace.score = Mathf.RoundToInt (FinalScore);
-			ninthplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (8, ninthplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("9th place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
-		}
-
-		if (_FinalScore > saveAndLoadScript.Leaderboard [9].score && allowupdateentry == true) 
-		{
-			LeaderboardEntry tenthplace = new LeaderboardEntry (saveAndLoadScript.Username, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
-			tenthplace.name = saveAndLoadScript.Username;
-			tenthplace.score = Mathf.RoundToInt (FinalScore);
-			tenthplace.wave = gameControllerScript.Wave;
-
-			saveAndLoadScript.Leaderboard.Insert (9, tenthplace);
-			saveAndLoadScript.Leaderboard.RemoveAt (10);
-			Debug.Log ("10th place! Final score: " + FinalScore +  ", Wave: " + gameControllerScript.Wave);
-			allowupdateentry = false;
-			return;
-		}
-
+			
+		GameOverAnim.enabled = true;
 		Debug.Log ("Not a new high score.");
 	}
 
-	void LevelUp ()
+	public void NewLeaderboardEntry (int position, string name)
 	{
-		//saveAndLoadScript.Level += 1;
-		//GetNewLevelAmounts ();
-		//RefreshLevelLabels ();
-		//LevelUpText.enabled = true;
+		place = position;
+
+		LeaderboardEntry newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
+		newLeaderboardEntry.name = myName;
+		newLeaderboardEntry.score = Mathf.RoundToInt (FinalScore);
+		newLeaderboardEntry.wave = gameControllerScript.Wave;
+
+		saveAndLoadScript.Leaderboard.Insert (position, newLeaderboardEntry);
+		saveAndLoadScript.Leaderboard.RemoveAt (10);
+
+		Debug.Log (
+			"Position: " + (position + 1).ToString () + 
+			", Final Score: " + FinalScore +  
+			", Wave: " + gameControllerScript.Wave
+		);
+
+		saveAndLoadScript.SavePlayerData ();
 	}
-
-	/*
-	void RefreshLevelLabels ()
-	{
-		CurrentLevelLabel.text = "Lv." + saveAndLoadScript.Level;
-		NexLevelLabel.text = "Lv." + (saveAndLoadScript.Level + 1);
-
-		CurrentXPNeededText.text = "" + LevelSlider.minValue;
-		NextLevelXPNeededText.text = "" + LevelSlider.maxValue;
-	}
-
-	void GetNewLevelAmounts ()
-	{
-		LevelSlider.minValue = NextLevelXP [saveAndLoadScript.Level];
-		LevelSlider.maxValue = NextLevelXP [saveAndLoadScript.Level + 1];
-	}*/
-
+		
 	void GetXpToAdd ()
 	{
-		FinalScore = gameControllerScript.DisplayScore;
-		FinalScoreText.text = "" + FinalScore;
 		CurrentXP = Mathf.RoundToInt (FinalScore);
 		saveAndLoadScript.ExperiencePoints += CurrentXP;
 		saveAndLoadScript.SavePlayerData ();
 	}
 
-	/*
-	void SetLevelSliderValue ()
+	void UpdateFinalScoreText ()
 	{
-		NextLevelXPRemainText.text = "" + CurrentXP;
-		if (LevelSlider.value < LevelSlider.maxValue) 
-		{
-			if (CurrentXP > 0) 
-			{
-				LevelSlider.value += IncreaseRates [saveAndLoadScript.Level];
-				CurrentXP -= IncreaseRates [saveAndLoadScript.Level];
-			}
-		}
-
-		if (LevelSlider.value >= LevelSlider.maxValue) 
-		{
-			LevelUp ();
-		}
-	}*/
+		CurrentScore = Mathf.Lerp (CurrentScore, FinalScore, ScoreSmoothing * Time.unscaledDeltaTime);
+		FinalScoreText.text = CurrentScore + "";
+	}
 }

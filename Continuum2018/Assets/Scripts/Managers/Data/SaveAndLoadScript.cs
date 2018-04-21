@@ -23,8 +23,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	[Header ("Player Data")]
 	public string Username = "default";
 	public int ExperiencePoints;
-	//public int Level;
-	//public int NextLevelRequirement;
 	public List<LeaderboardEntry> Leaderboard;
 
 	[Header ("Settings Data")]
@@ -129,8 +127,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		data.Username = Username;
 		data.ExperiencePoints = ExperiencePoints;
-		//data.Level = Level;
-		//data.NextLevelRequirement = NextLevelRequirement;
 		data.Leaderboard = Leaderboard;
 	}
 
@@ -183,8 +179,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		Username = data.Username;
 		ExperiencePoints = data.ExperiencePoints;
-		//Level = data.Level;
-		//NextLevelRequirement = data.NextLevelRequirement;
 		data.Leaderboard.Capacity = 10;
 		Leaderboard.Capacity = 10;
 		Leaderboard = new List<LeaderboardEntry> (10);
@@ -221,8 +215,6 @@ public class SaveAndLoadScript : MonoBehaviour
 			}
 
 			MasterVolume = Mathf.Clamp (AudioListener.volume, 0, 1);
-			//SoundtrackVolume = settingsManagerScript.SoundtrackVolumeSlider.value;
-			//EffectsVolume = settingsManagerScript.EffectsVolumeSlider.value;
 		}
 	}
 
@@ -371,9 +363,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		public string Username;
 		public int ExperiencePoints;
-		//public int Level;
-		//public int NextLevelRequirement;
-
 		public List<LeaderboardEntry> Leaderboard;
 	}
 
