@@ -209,8 +209,8 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 		yield return new WaitForSecondsRealtime (2);
 
-		gameOverControllerScript.saveAndLoadScript.Leaderboard [gameOverControllerScript.place].name = NewName;
 		gameOverControllerScript.NewLeaderboardEntry (gameOverControllerScript.place, NewName);
+		gameOverControllerScript.saveAndLoadScript.Leaderboard [gameOverControllerScript.place].name = NewName;
 
 		LeaderboardDisplay.SetActive (true);
 
