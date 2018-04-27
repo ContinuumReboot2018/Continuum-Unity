@@ -5,12 +5,15 @@ using UnityEngine.EventSystems;
 using System.Collections;
 
 using TMPro;
+using InControl;
 
 public class LeaderboardEntryManager : MonoBehaviour 
 {
 	public LeaderboardDisplay leaderboardDisplayScript;
 	public GameOverController gameOverControllerScript;
 	public GameObject LeaderboardDisplay;
+	public AudioSource SelectSound;
+	public AudioSource ScrollSound;
 
 	[Header ("Leaderboard Entry")]
 	public float ScrollCooldown = 0.5f;
@@ -44,7 +47,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 	{
 		SavingText.SetActive (false);
 		initialsId = 0;
-		menuActions = new PlayerActions ();
+		CreateMenuActions ();
 		eventData = new PointerEventData (EventSystem.current);
 		maxCharacters = allCharacters.Length;
 		currentCharacter = allCharacters [characterId].ToString ();
@@ -97,32 +100,22 @@ public class LeaderboardEntryManager : MonoBehaviour
 	{
 		if (menuActions.Shoot.WasPressed) 
 		{
-			ExecuteEvents.Execute (
-				NextButton.gameObject, 
-				eventData, 
-				ExecuteEvents.pointerClickHandler
-			);
+			NextButtonOnClick ();
+			SelectSound.Play ();
 		}
 
 		if (menuActions.Back.WasPressed) 
 		{
-			ExecuteEvents.Execute (
-				PreviousButton.gameObject, 
-				eventData, 
-				ExecuteEvents.pointerClickHandler
-			);
+			PreviousButtonOnClick ();
+			SelectSound.Play ();
 		}
 
 		if (menuActions.MoveUp.Value > 0) 
 		{
 			if (Time.unscaledTime > nextScroll) 
 			{
-				ExecuteEvents.Execute (
-					UpButton.gameObject, 
-					eventData, 
-					ExecuteEvents.pointerClickHandler
-				);
-
+				UpButtonClick ();
+				ScrollSound.Play ();
 				nextScroll = Time.unscaledTime + ScrollCooldown;
 			}
 		}
@@ -131,12 +124,8 @@ public class LeaderboardEntryManager : MonoBehaviour
 		{
 			if (Time.unscaledTime > nextScroll) 
 			{
-				ExecuteEvents.Execute (
-					DownButton.gameObject, 
-					eventData, 
-					ExecuteEvents.pointerClickHandler
-				);
-
+				DownButtonClick ();
+				ScrollSound.Play ();
 				nextScroll = Time.unscaledTime + ScrollCooldown;
 			}
 		}
@@ -209,6 +198,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 		yield return new WaitForSecondsRealtime (2);
 
+		gameOverControllerScript.gameObject.SetActive (true);
 		gameOverControllerScript.NewLeaderboardEntry (gameOverControllerScript.place, NewName);
 		gameOverControllerScript.saveAndLoadScript.Leaderboard [gameOverControllerScript.place].name = NewName;
 
@@ -216,5 +206,22 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 		SavingText.SetActive (false);
 		gameOverControllerScript.LeaderboardEntryUI.SetActive (false);
+	}
+
+	void CreateMenuActions ()
+	{
+		menuActions = new PlayerActions ();
+
+		menuActions.Shoot.AddDefaultBinding (Key.Return);
+		menuActions.Shoot.AddDefaultBinding (InputControlType.Action1);
+
+		menuActions.MoveUp.AddDefaultBinding (Key.UpArrow);
+		menuActions.MoveUp.AddDefaultBinding (InputControlType.LeftStickUp);
+
+		menuActions.MoveDown.AddDefaultBinding (Key.DownArrow);
+		menuActions.MoveDown.AddDefaultBinding (InputControlType.LeftStickDown);
+
+		menuActions.Back.AddDefaultBinding (Key.Escape);
+		menuActions.Back.AddDefaultBinding (InputControlType.Action2);
 	}
 }

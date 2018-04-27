@@ -5,12 +5,14 @@ using TMPro;
 public class GameOverController : MonoBehaviour 
 {
 	public string myName;
+	private bool allowupdateentry;
 
 	public SaveAndLoadScript saveAndLoadScript;
 	public GameController gameControllerScript;
 	public DeveloperMode developerModeScript;
 	public LeaderboardDisplay leaderboardDisplay;
 	public GameObject LeaderboardEntryUI;
+	public GameObject GameOverUI;
 	public Animator GameOverAnim;
 
 	public float CurrentScore = 0;
@@ -37,9 +39,14 @@ public class GameOverController : MonoBehaviour
 
 	void Awake ()
 	{
+		allowupdateentry = true;
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+	}
+
+	void OnEnable ()
+	{
 		CheckLeaderboard ();
-		//GetGameOverStats ();
+		saveAndLoadScript.Leaderboard.Sort (SortByScore);
 	}
 
 	void Start ()
@@ -98,21 +105,24 @@ public class GameOverController : MonoBehaviour
 		int _FinalScore = Mathf.RoundToInt (FinalScore);
 		Debug.Log ("Final score is: " + _FinalScore);
 
-		bool allowupdateentry = true;
-
 		// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
 		for (int i = 0; i < saveAndLoadScript.Leaderboard.Count; i++) 
 		{
 			if (_FinalScore > saveAndLoadScript.Leaderboard [i].score && allowupdateentry == true) 
 			{
 				LeaderboardEntryUI.SetActive (true);
+				GameOverUI.SetActive (false);
 				allowupdateentry = false;
 				return;
 			}
 		}
 			
-		GameOverAnim.enabled = true;
-		Debug.Log ("Not a new high score.");
+		if (allowupdateentry == true) 
+		{
+			GameOverAnim.enabled = true;
+			Debug.Log ("Not a new high score.");
+			allowupdateentry = false;
+		}
 	}
 
 	public void NewLeaderboardEntry (int position, string name)
@@ -126,6 +136,7 @@ public class GameOverController : MonoBehaviour
 
 		saveAndLoadScript.Leaderboard.Insert (position, newLeaderboardEntry);
 		saveAndLoadScript.Leaderboard.RemoveAt (10);
+		saveAndLoadScript.Leaderboard.Sort (SortByScore);
 
 		Debug.Log (
 			"Position: " + (position + 1).ToString () + 
@@ -134,6 +145,11 @@ public class GameOverController : MonoBehaviour
 		);
 
 		saveAndLoadScript.SavePlayerData ();
+	}
+
+	static int SortByScore (LeaderboardEntry s1, LeaderboardEntry s2)
+	{
+		return s1.score.CompareTo (s2.score);
 	}
 		
 	void GetXpToAdd ()
