@@ -47,6 +47,7 @@ public class GameOverController : MonoBehaviour
 	{
 		CheckLeaderboard ();
 		saveAndLoadScript.Leaderboard.Sort (SortByScore);
+		saveAndLoadScript.Leaderboard.Reverse ();
 	}
 
 	void Start ()
@@ -137,6 +138,7 @@ public class GameOverController : MonoBehaviour
 		saveAndLoadScript.Leaderboard.Insert (position, newLeaderboardEntry);
 		saveAndLoadScript.Leaderboard.RemoveAt (10);
 		saveAndLoadScript.Leaderboard.Sort (SortByScore);
+		saveAndLoadScript.Leaderboard.Reverse ();
 
 		Debug.Log (
 			"Position: " + (position + 1).ToString () + 
