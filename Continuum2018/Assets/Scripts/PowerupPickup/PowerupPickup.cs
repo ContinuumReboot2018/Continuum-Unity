@@ -138,7 +138,7 @@ public class PowerupPickup : MonoBehaviour
 			(playerControllerScript_P1.CurrentFireRate / (playerControllerScript_P1.FireRateTimeMultiplier * Time.timeScale));
 		
 		playerControllerScript_P1.CheckPowerupImageUI (); // Add to powerup list UI.
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f; // Set Timescale ovveride time.
+		timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f; // Set Timescale ovveride time.
 		timescaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
 		playerControllerScript_P1.NextFire = nextfire; // Allow player to shoot.
 		playerControllerScript_P1.DoubleShotNextFire = nextfire; // Allow player to shoot.

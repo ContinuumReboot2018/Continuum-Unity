@@ -69,6 +69,7 @@ public class DeveloperMode : MonoBehaviour
 	// Other powerup cheats.
 	public string TurretCommand = "Turret"; // Player gets  a turret (Maximum 4).
 	public string HelixCommand = "helix"; // Player gets a helix.
+	public string SlowTimeCommand = "slowtime"; // Slows time down temporarily.
 	[Space (10)]
 	// Powerup modifier cheats.
 	public string RapidfireCommand = "rapid"; // Toggles rapid fire mode ON or OFF.
@@ -107,6 +108,7 @@ public class DeveloperMode : MonoBehaviour
 	public Texture2D RippleShotTexture; // Ripple shot display texture.
 	public Texture2D TurretTexture; // Turret display texture.
 	public Texture2D HelixTexture; // Helix display texture.
+	public Texture2D SlowTimeTexture; // Slow time texture.
 	public Texture2D RicochetTexture; // Ricochet texture.
 	public Texture2D RapidfireTexture; // Rapidfire texture.
 	public Texture2D OverdriveTexture; // Overdrive texture.
@@ -756,6 +758,22 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: HELIX");
 			}
 
+			if (CheatString == SlowTimeCommand) 
+			{
+				gameControllerScript.SetPowerupTime (20);
+
+				timeScaleControllerScript.OverridingTimeScale = 0.3f;
+				timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 20;
+				timeScaleControllerScript.isOverridingTimeScale = true;
+
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = SlowTimeTexture;
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
+				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+
+				ShowCheatNotification ("CHEAT ACTIVATED: SLOW TIME");
+			}
+
 			if (CheatString == StandardShotCommand) 
 			{
 				gameControllerScript.PowerupImage_P1 [0].texture = null;
@@ -916,8 +934,15 @@ public class DeveloperMode : MonoBehaviour
 		LastCheatName = CheatString;
 		ClearCheatString ();
 
-		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
-		timeScaleControllerScript.OverridingTimeScale = 0.2f;
+		if (timeScaleControllerScript.OverrideTimeScaleTimeRemaining < 0.5f) 
+		{
+			timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f;
+		}
+
+		if (timeScaleControllerScript.OverridingTimeScale < 0.2f)
+		{
+			timeScaleControllerScript.OverridingTimeScale = 0.2f;
+		}
 
 		playerControllerScript_P1.NextFire = nextfire ;
 		playerControllerScript_P1.DoubleShotNextFire = nextfire ;
