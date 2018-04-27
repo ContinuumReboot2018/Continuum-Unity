@@ -11,6 +11,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 {
 	public LeaderboardDisplay leaderboardDisplayScript;
 	public GameOverController gameOverControllerScript;
+	public GameObject GameOverUI;
 	public GameObject LeaderboardDisplay;
 	public AudioSource SelectSound;
 	public AudioSource ScrollSound;
@@ -47,48 +48,16 @@ public class LeaderboardEntryManager : MonoBehaviour
 	{
 		SavingText.SetActive (false);
 		initialsId = 0;
-		CreateMenuActions ();
-		eventData = new PointerEventData (EventSystem.current);
+
 		maxCharacters = allCharacters.Length;
 		currentCharacter = allCharacters [characterId].ToString ();
 		NewNameText.text = NewName + allCharacters [characterId].ToString ();
-	
-		switch (gameOverControllerScript.place)
-		{
-		case 0:
-			PlacementText.text = "1st";
-			break;
-		case 1:
-			PlacementText.text = "2nd";
-			break;
-		case 2:
-			PlacementText.text = "3rd";
-			break;
-		case 3:
-			PlacementText.text = "4th";
-			break;
-		case 4:
-			PlacementText.text = "5th";
-			break;
-		case 5:
-			PlacementText.text = "6th";
-			break;
-		case 6:
-			PlacementText.text = "7th";
-			break;
-		case 7:
-			PlacementText.text = "8th";
-			break;
-		case 8:
-			PlacementText.text = "9th";
-			break;
-		case 9:
-			PlacementText.text = "10th";
-			break;
-		}
-
+		CheckPlacement ();
 		HighScoreText.text = "" + gameOverControllerScript.FinalScore;
 		WaveText.text = "WAVE: " + gameOverControllerScript.gameControllerScript.Wave;
+
+		CreateMenuActions ();
+		eventData = new PointerEventData (EventSystem.current);
 	}
 
 	void Update ()
@@ -198,7 +167,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 		yield return new WaitForSecondsRealtime (2);
 
-		gameOverControllerScript.gameObject.SetActive (true);
+		GameOverUI.SetActive (true);
 		gameOverControllerScript.NewLeaderboardEntry (gameOverControllerScript.place, NewName);
 		gameOverControllerScript.saveAndLoadScript.Leaderboard [gameOverControllerScript.place].name = NewName;
 
@@ -206,6 +175,43 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 		SavingText.SetActive (false);
 		gameOverControllerScript.LeaderboardEntryUI.SetActive (false);
+	}
+
+	void CheckPlacement ()
+	{
+		switch (gameOverControllerScript.place)
+		{
+		case 0:
+			PlacementText.text = "1st";
+			break;
+		case 1:
+			PlacementText.text = "2nd";
+			break;
+		case 2:
+			PlacementText.text = "3rd";
+			break;
+		case 3:
+			PlacementText.text = "4th";
+			break;
+		case 4:
+			PlacementText.text = "5th";
+			break;
+		case 5:
+			PlacementText.text = "6th";
+			break;
+		case 6:
+			PlacementText.text = "7th";
+			break;
+		case 7:
+			PlacementText.text = "8th";
+			break;
+		case 8:
+			PlacementText.text = "9th";
+			break;
+		case 9:
+			PlacementText.text = "10th";
+			break;
+		}
 	}
 
 	void CreateMenuActions ()

@@ -13,6 +13,7 @@ public class TimescaleController : MonoBehaviour
 	public NoiseAndGrain 		noiseScript;
 	public GameModifierManager 	gameModifier;
 	public MenuManager 			gameOverMenuManager;
+	public GameOverController 	gameOverControllerScript;
 
 	[Header ("Read Only")]
 	[Tooltip ("Time.timeScale property.")]
@@ -271,9 +272,9 @@ public class TimescaleController : MonoBehaviour
 		TargetTimeScale = 1f;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 		TargetTimeScale = 0;
+		gameOverControllerScript.enabled = true;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 
-		gameControllerScript.GameoverUI.SetActive (true);
 		gameOverMenuManager.menuButtons.buttonIndex = 0;
 		gameOverMenuManager.MainPauseMenuOnEnter (gameOverMenuManager.menuButtons.buttonIndex);
 

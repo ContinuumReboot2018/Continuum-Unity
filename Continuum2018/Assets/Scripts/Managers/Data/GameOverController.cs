@@ -39,15 +39,14 @@ public class GameOverController : MonoBehaviour
 
 	void Awake ()
 	{
-		allowupdateentry = true;
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+		
 	}
 
 	void OnEnable ()
 	{
+		allowupdateentry = true;
+		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		CheckLeaderboard ();
-		saveAndLoadScript.Leaderboard.Sort (SortByScore);
-		saveAndLoadScript.Leaderboard.Reverse ();
 	}
 
 	void Start ()
@@ -111,9 +110,10 @@ public class GameOverController : MonoBehaviour
 		{
 			if (_FinalScore > saveAndLoadScript.Leaderboard [i].score && allowupdateentry == true) 
 			{
+				place = i;
 				LeaderboardEntryUI.SetActive (true);
-				GameOverUI.SetActive (false);
 				allowupdateentry = false;
+				GameOverUI.SetActive (false);
 				return;
 			}
 		}
@@ -131,14 +131,13 @@ public class GameOverController : MonoBehaviour
 		place = position;
 
 		LeaderboardEntry newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
+
 		//newLeaderboardEntry.name = name;
 		//newLeaderboardEntry.score = Mathf.RoundToInt (FinalScore);
 		//newLeaderboardEntry.wave = gameControllerScript.Wave;
 
 		saveAndLoadScript.Leaderboard.Insert (position, newLeaderboardEntry);
 		saveAndLoadScript.Leaderboard.RemoveAt (10);
-		saveAndLoadScript.Leaderboard.Sort (SortByScore);
-		saveAndLoadScript.Leaderboard.Reverse ();
 
 		Debug.Log (
 			"Position: " + (position + 1).ToString () + 
@@ -147,11 +146,6 @@ public class GameOverController : MonoBehaviour
 		);
 
 		saveAndLoadScript.SavePlayerData ();
-	}
-
-	static int SortByScore (LeaderboardEntry s1, LeaderboardEntry s2)
-	{
-		return s1.score.CompareTo (s2.score);
 	}
 		
 	void GetXpToAdd ()
