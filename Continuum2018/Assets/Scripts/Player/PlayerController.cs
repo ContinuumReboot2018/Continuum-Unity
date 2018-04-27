@@ -1854,6 +1854,9 @@ public class PlayerController : MonoBehaviour
 		// Clears powerup UI.
 		CheckPowerupImageUI ();
 		gameControllerScript.ClearPowerupUI ();
+
+		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
+		timescaleControllerScript.isOverridingTimeScale = false;
 	}
 
 	void UpdateImageEffects ()

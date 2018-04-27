@@ -35,7 +35,8 @@ public class PowerupPickup : MonoBehaviour
 		Rapidfire, // Increases the fire rate for the player.
 		Overdrive, // Player shoots bullets which go through anything.
 		Ricochet, // Bullets bounce off the top and bottom of the screen.
-		Homing // Bullets find the closest block and move towards it.
+		Homing, // Bullets find the closest block and move towards it.
+		FreezeTime // Freezes time temporarily.
 	}
 
 	[Header ("On Pickup")]
@@ -176,6 +177,19 @@ public class PowerupPickup : MonoBehaviour
 
 		switch (ThisPowerup) 
 		{
+
+		case powerups.FreezeTime:
+			timescaleControllerScript.OverridingTimeScale = 0.3f;
+			timescaleControllerScript.OverrideTimeScaleTimeRemaining += PowerupTime;
+			timescaleControllerScript.isOverridingTimeScale = true;
+
+			gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
+			gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = PowerupTexture;
+			gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
+			gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+
+			gameControllerScript.NextPowerupSlot_P1 += 1;
+			break;
 
 		case powerups.DoubleShot: 
 

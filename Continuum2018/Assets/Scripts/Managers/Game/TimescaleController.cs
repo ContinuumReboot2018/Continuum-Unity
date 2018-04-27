@@ -226,9 +226,10 @@ public class TimescaleController : MonoBehaviour
 				isOverridingTimeScale = true;
 			}
 
-			playerControllerScript_P1.MovementX = 0;
-			playerControllerScript_P1.MovementY = 0;
-			playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
+			playerControllerScript_P1.MovementX *= 0.1f;
+			playerControllerScript_P1.MovementY *= 0.1f;
+			//playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
+			playerControllerScript_P1.PlayerRb.velocity *= 0.1f;
 		}
 	}
 
