@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+
 using UnityEngine;
-using UnityEngine.UI; // Access to Unity's UI system.
-using TMPro; // Access to TextMeshPro components.
-using UnityEngine.PostProcessing; // Allows access to Unity's Post Processing Stack.
+using UnityEngine.UI;
+using UnityEngine.PostProcessing;
+
+using TMPro;
 using InControl;
 
 public class GameController : MonoBehaviour 
@@ -12,7 +14,7 @@ public class GameController : MonoBehaviour
 	public PlayerController playerControllerScript_P1;		// Reference to the player controller.
 	public TimescaleController timescaleControllerScript;	// Reference to the timescale controller.
 	public AudioController audioControllerScript;			// Reference to the audio controller.
-	public SaveAndLoadScript saveAndLoadScript;
+	public SaveAndLoadScript saveAndLoadScript;			    // Reference to the save and load script.
 	public DeveloperMode developerModeScript;				// Reference to the developer mode for debug info.
 	public CursorManager cursorManagerScript;				// Reference to the cursor state.
 	public PostProcessingProfile ImageEffects;				// Reference to the post processing profile.
@@ -223,8 +225,11 @@ public class GameController : MonoBehaviour
 	public int bossId;
 
 	[Header ("Bonus Round")]
+	[Tooltip ("Prefabs of different types of bonus block formations.")]
 	public GameObject[] BonusFormations;
+	[Tooltip ("How many formations to spawn.")]
 	public int[] BonusBlocksAmounts;
+	[Tooltip ("Time delay between spawns.")]
 	public float BonusStartSpawnDelay = 3;
 	public Vector2 BonusSpawnDelay = new Vector2 (1, 4);
 	private int BonusesToSpawn;
@@ -411,14 +416,14 @@ public class GameController : MonoBehaviour
 	public void ClearPowerupUI ()
 	{
 		// Reset powerup modifiers.
-		HomingImage.enabled = gameModifier.AlwaysHoming;
-		HomingHex.enabled = gameModifier.AlwaysHoming;
-		RicochetImage.enabled = gameModifier.AlwaysRicochet;
-		RicochetHex.enabled = gameModifier.AlwaysRicochet;
-		RapidfireImage.enabled = gameModifier.AlwaysRapidfire;
-		RapidfireHex.enabled = gameModifier.AlwaysRapidfire;
-		OverdriveImage.enabled = gameModifier.AlwaysOverdrive;
-		OverdriveHex.enabled = gameModifier.AlwaysOverdrive;
+		HomingImage.enabled 	= gameModifier.AlwaysHoming;
+		HomingHex.enabled 		= gameModifier.AlwaysHoming;
+		RicochetImage.enabled	= gameModifier.AlwaysRicochet;
+		RicochetHex.enabled 	= gameModifier.AlwaysRicochet;
+		RapidfireImage.enabled 	= gameModifier.AlwaysRapidfire;
+		RapidfireHex.enabled 	= gameModifier.AlwaysRapidfire;
+		OverdriveImage.enabled 	= gameModifier.AlwaysOverdrive;
+		OverdriveHex.enabled	= gameModifier.AlwaysOverdrive;
 
 		PowerupImage_P1 [0].texture = StandardShotTexture;
 			
@@ -538,7 +543,7 @@ public class GameController : MonoBehaviour
 		UpdateStarFieldParticleEffects ();  // Updates particle effects.
 	
 		PowerupSpawner ();					// Timer for powerup spawning.
-		CheckResetCombo ();
+		CheckResetCombo ();					// Timer for combo resetting.
 	}
 
 	void CheckResetCombo ()
@@ -568,17 +573,10 @@ public class GameController : MonoBehaviour
 			StarFieldForegroundMainModule.startSize = new ParticleSystem.MinMaxCurve (0.01f, 0.02f * Time.timeScale);
 
 			var StarFieldForegroundRenderer = StarFieldForeground.GetComponent<ParticleSystemRenderer> ();
-			//StarFieldForegroundRenderer.renderMode = ParticleSystemRenderMode.Stretch;
 			StarFieldForegroundRenderer.velocityScale = 0.1f * Time.timeScale;
-
 
 			var StarFieldForegroundEmissionModule = StarFieldForeground.emission;
 			StarFieldForegroundEmissionModule.rateOverTime = Time.timeScale * 50;
-
-			/*var StarFieldBackgroundTrailModule = StarFieldBackground.trails;
-			StarFieldBackgroundTrailModule.lifetime = new ParticleSystem.MinMaxCurve (
-				0, StarFieldBackgroundLifetimeMultipler * Time.timeScale
-			);*/
 
 			var StarFieldBackgroundMainModule = StarFieldBackground.main;
 			StarFieldBackgroundMainModule.simulationSpeed = StarFieldBackgroundSimulationSpeed * Time.timeScale;
@@ -588,9 +586,7 @@ public class GameController : MonoBehaviour
 			StarFieldBackgroundEmissionModule.rateOverTime = Time.timeScale * 80;
 
 			var StarFieldBackgroundRenderer = StarFieldBackground.GetComponent<ParticleSystemRenderer> ();
-			//StarFieldBackgroundRenderer.renderMode = ParticleSystemRenderMode.Stretch;
 			StarFieldBackgroundRenderer.velocityScale = 0.1f * Time.timeScale;
-
 		}
 	}
 
@@ -671,7 +667,6 @@ public class GameController : MonoBehaviour
 				IsRewindingText_Debug.text = 
 					"Is Rewinding: " + (timescaleControllerScript.isRewinding ? "ON" : "OFF");
 				
-
 				// Modifier debug values.
 				Modifier_Tutorial_Debug.text = 
 					"Use Tutorial: " + (gameModifier.Tutorial ? "ON" : "OFF");
@@ -735,7 +730,6 @@ public class GameController : MonoBehaviour
 		if (CountScore == true) 
 		{
 			// Adds score over time.
-			//TargetScore += ScoreRate * Time.deltaTime * ScoreMult * Time.timeScale;
 
 			// Smooths the current score to the displayed score.
 			CurrentScore = Mathf.Lerp (CurrentScore, TargetScore, ScoreSmoothing * Time.unscaledDeltaTime);
@@ -811,7 +805,8 @@ public class GameController : MonoBehaviour
 	public void UpdateLives ()
 	{
 		// When in first wave transition.
-		if (timescaleControllerScript.isInInitialSequence == true || timescaleControllerScript.isInInitialCountdownSequence == true) 
+		if (timescaleControllerScript.isInInitialSequence == true || 
+			timescaleControllerScript.isInInitialCountdownSequence == true) 
 		{
 			if (LivesText.gameObject.activeSelf == true) 
 			{
@@ -1086,7 +1081,7 @@ public class GameController : MonoBehaviour
 			// Sets time ration based on scaled/unscaled time.
 			// Ratio > 1, player is performing above average.
 			// Ratio == 1, player is average.
-			// Ratio < 1. player is below average
+			// Ratio < 1. player is below average.
 			TimeRatio = GameTime / RealTime; 
 
 			// Updates game time text.
@@ -1111,7 +1106,7 @@ public class GameController : MonoBehaviour
 			BulletsShotText.text = "BULLETS SHOT: " + BulletsShot;
 
 			// Updates accuracy text.
-			// Accuracy can be > 100%.
+			// Accuracy can be > 100% by bullets destroying multiple blocks.
 			AccuracyText.text = "ACCURACY: " + System.Math.Round(BlockShotAccuracy * 100, 2) + "%";
 		}
 	}
@@ -1119,7 +1114,7 @@ public class GameController : MonoBehaviour
 	// Resets all score values.
 	public void ResetScore ()
 	{
-		TargetScore = 0;
+		TargetScore  = 0;
 		CurrentScore = 0;
 		DisplayScore = 0;
 		ScoreText.text = "" + DisplayScore;
@@ -1643,7 +1638,6 @@ public class GameController : MonoBehaviour
 		if (Wave % 4 == 1 || Wave == 1) 
 		{
 			SoundtrackText.text = audioControllerScript.TrackName + ""; // Display new soundtrack name.
-			//WaveTransitionUIStats.Play ("WaveTransitionUIStats");
 		}
 	}
 
@@ -1682,8 +1676,6 @@ public class GameController : MonoBehaviour
 			audioControllerScript.NextTrack (); // Set audio controller to next track.
 			audioControllerScript.LoadTracks (); // Play loaded tracks.
 			UnityEngine.Debug.Log ("New soundtrack loaded. Soundtrack: " + audioControllerScript.TrackName);
-			//SoundtrackText.text = audioControllerScript.TrackName + ""; // Display new soundtrack name.
-			//WaveTransitionUIStats.Play ("WaveTransitionUIStats");
 		}
 
 		if (Wave == 1) 

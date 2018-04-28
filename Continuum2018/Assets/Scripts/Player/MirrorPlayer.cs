@@ -6,9 +6,6 @@ public class MirrorPlayer : MonoBehaviour
 	public Transform PlayerPos;
 	public Transform MirrorPlayerPos;
 
-	//public GameObject Shot;
-	//public Transform ShotSpawn;
-
 	public Animator PlayerRecoil;
 
 	public Transform StandardShotSpawn;
@@ -42,12 +39,6 @@ public class MirrorPlayer : MonoBehaviour
 
 	public void Shoot ()
 	{
-		/*
-		GameObject newShot = Instantiate (Shot, ShotSpawn.position, ShotSpawn.rotation);
-		newShot.GetComponent<Bullet> ().playerControllerScript = playerControllerScript;
-		newShot.GetComponent<Bullet> ().playerPos = MirrorPlayerPos.transform;
-		newShot.name = "Standard Shot_P" + playerControllerScript.PlayerId + " (Standard)";*/
-
 		switch (playerControllerScript.ShotType) 
 		{
 		case PlayerController.shotType.Standard:

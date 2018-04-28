@@ -11,6 +11,7 @@ using UnityStandardAssets.Utility;  // Accessing some standard assets and script
 #if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID
 using XInputDotNetPure; 			// Accessing controller vibration system and raw inputs.
 #endif
+
 // One instance per player.
 public class PlayerController : MonoBehaviour 
 {
@@ -183,7 +184,7 @@ public class PlayerController : MonoBehaviour
 	public Vector3 ImpactPoint;
 	public Transform ImpactTransform;
 
-	// Player has two colliders, one is in trigger mode.
+	// Player has two colliders, one is set as trigger.
 	[Tooltip("Player collider: Trigger is false.")]
 	public Collider playerCol;
 	[Tooltip("Player collider: Trigger is true.")]
@@ -240,12 +241,12 @@ public class PlayerController : MonoBehaviour
 	public ability Ability;
 	public enum ability
 	{
-		Shield, // Creates a shield, invincibility for a short time, cool warp screen effect.
-		Emp, // Creates a quick exhaust blast of particles which interact with blocks and destroying them.
-		VerticalBeam, // Fires particles vertically up, destroying particles in the way.
-		HorizontalBeam, // Fires to streams of particles (left and right), destroying falling or stacked blocks that collide with it.
-		Rewind, // Rewinds time for a certain amount of seconds.
-		Mirror // Adds a mirror clone to the player.
+		Shield, 		 // Creates a shield, invincibility for a short time, cool warp screen effect.
+		Emp,			 // Creates a quick exhaust blast of particles which interact with blocks and destroying them.
+		VerticalBeam, 	 // Fires particles vertically up, destroying particles in the way.
+		HorizontalBeam,  // Fires to streams of particles (left and right), destroying falling or stacked blocks that collide with it.
+		Rewind,   		 // Rewinds time for a certain amount of seconds.
+		Mirror 			 // Adds a mirror clone to the player.
 	}
 
 	// Ability UI.
@@ -374,7 +375,6 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Cost of firing a ripple shot.")]
 	public float RippleShootingHeatCost = 0.0125f;
 
-
 	[Header ("Shield")]
 	[Tooltip("Allows shield visuals and timer to activate.")]
 	public bool isShieldOn;
@@ -407,12 +407,14 @@ public class PlayerController : MonoBehaviour
 
 	[Header ("Emp")]
 	[Tooltip("The GameObject to set active or not depending whether the ability is being active.")]
-	public GameObject Emp; 				  // The GameObject to set active or not depending whether the ability is being active.
+	public GameObject Emp; 
 	[Tooltip("Array of particles to emit when enabled.")]
-	public ParticleSystem[] EmpParticles; // Array of particles to emit when enabled.
+	public ParticleSystem[] EmpParticles;
 
 	[Header ("Mirror Player")]
-	public GameObject MirrorPlayer; // Reference to mirror player object.
+	[Tooltip ("Reference to mirror player object.")]
+	public GameObject MirrorPlayer;
+	[Tooltip ("Reference to mirror player script.")]
 	public MirrorPlayer mirrorPlayerScript;
 
 	[Header ("Turret Player")]
@@ -476,7 +478,6 @@ public class PlayerController : MonoBehaviour
 
 	public Animator LivesLeftUI;
 	public TextMeshProUGUI LivesLeftText;
-
 
 	[Space (10)]
 	// Wave UI.
@@ -618,7 +619,7 @@ public class PlayerController : MonoBehaviour
 
 	void MovePlayerSmoothing ()
 	{
-		// Player follows [follow position] with smoothing.
+		// Player follows "follow position" with smoothing.
 		PlayerRb.position = new Vector3 (
 			Mathf.SmoothDamp (
 				PlayerRb.position.x, 
@@ -641,7 +642,9 @@ public class PlayerController : MonoBehaviour
 		PlayerRb.rotation = Quaternion.Euler
 			(
 				0, 
-				Mathf.Clamp (Mathf.SmoothDamp (PlayerRb.rotation.y, -MovementX, ref RotVelY, SmoothFollowTime * Time.unscaledDeltaTime) * YRotationMultiplier, 
+				Mathf.Clamp (
+					Mathf.SmoothDamp (
+						PlayerRb.rotation.y, -MovementX, ref RotVelY, SmoothFollowTime * Time.unscaledDeltaTime) * YRotationMultiplier,
 					-YRotationAmount, 
 					YRotationAmount
 				), 
@@ -736,8 +739,7 @@ public class PlayerController : MonoBehaviour
 			)
 		);
 	}
-
-
+		
 	// Called by other scrips to set cooldown times.
 	public void SetCooldownTime (float cooldownTime)
 	{
@@ -755,7 +757,6 @@ public class PlayerController : MonoBehaviour
 			gameControllerScript.TargetDepthDistance = 0.1f;
 			isInCooldownMode = true;
 			UsePlayerFollow = false;
-			//PlayerFollow.transform.localPosition = new Vector3 (0, 0, 0);
 			Invoke ("PlayerTransformPosCooldown", 0.25f);
 		}
 	}
@@ -912,7 +913,7 @@ public class PlayerController : MonoBehaviour
 
 	void UpdateAudio ()
 	{
-		SpaceshipAmbience.panStereo = 0.04f * transform.position.x; // Pans audio based on x position.
+		SpaceshipAmbience.panStereo = 0.04f * transform.position.x; // Pans audio based on x-position.
 
 		SpaceshipAmbience.pitch = Mathf.Lerp (
 			SpaceshipAmbience.pitch, 
@@ -1009,7 +1010,6 @@ public class PlayerController : MonoBehaviour
 		// Updates the ability timers.
 		if (CurrentAbilityState == abilityState.Active) 
 		{
-			//AbilityFillImage.color = AbilityUseColor * 25;
 			AbilityFillImage.material.SetColor ("_EmissionColor",
 				AbilityUseColor * AbilityBrightness
 			);
@@ -1074,9 +1074,23 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		lensScript.radius = Mathf.Lerp (lensScript.radius, TargetLensRadius, LensRadiusSmoothTime * Time.unscaledDeltaTime);
-		Vector3 targetShieldScale = new Vector3 (TargetShieldScale, TargetShieldScale, TargetShieldScale);
-		Shield.transform.localScale = Vector3.Lerp (Shield.transform.localScale, targetShieldScale, ShieldScaleSmoothTime * Time.unscaledDeltaTime);
+		lensScript.radius = Mathf.Lerp (
+			lensScript.radius, 
+			TargetLensRadius, 
+			LensRadiusSmoothTime * Time.unscaledDeltaTime
+		);
+
+		Vector3 targetShieldScale = new Vector3 (
+			TargetShieldScale, 
+			TargetShieldScale, 
+			TargetShieldScale
+		);
+
+		Shield.transform.localScale = Vector3.Lerp (
+			Shield.transform.localScale, 
+			targetShieldScale, 
+			ShieldScaleSmoothTime * Time.unscaledDeltaTime
+		);
 	}
 
 	// Activates ability based on current setting.
@@ -1124,10 +1138,14 @@ public class PlayerController : MonoBehaviour
 		Emp.gameObject.SetActive (true);
 		EmpParticles [0].Play (true);
 		EmpParticles [1].Play (true);
+
 		yield return new WaitForSeconds (3);
+
 		EmpParticles [0].Stop (true, ParticleSystemStopBehavior.StopEmitting);
 		EmpParticles [1].Stop (true, ParticleSystemStopBehavior.StopEmitting);
+
 		yield return new WaitForSeconds (3);
+
 		Emp.gameObject.SetActive (false);
 	}
 
@@ -1209,7 +1227,6 @@ public class PlayerController : MonoBehaviour
 	public void RefreshAbilityName ()
 	{
 		string SentenceCaseAbility = ParseByCase (Ability.ToString ());
-
 		AbilityName = SentenceCaseAbility;
 	}
 
@@ -1218,7 +1235,7 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	/// <param name="strInput">The string to parse</param>
 	/// <returns>The altered string</returns>
-	public static string ParseByCase(string strInput)
+	public static string ParseByCase (string strInput)
 	{
 		// The altered string (with spaces between the case changes)
 		string strOutput = "";
@@ -1243,26 +1260,22 @@ public class PlayerController : MonoBehaviour
 			{
 				// Get the previous character from the input string
 				chrPreviousInputChar = strInput[intCurrentCharPos - 1];
-
-			} // end if
+			}
 
 			// Put a space before each upper case character if the previous character is lower case
 			if (char.IsUpper(chrCurrentInputChar) == true && char.IsLower(chrPreviousInputChar) == true)
 			{   
 				// Add a space to the output string
 				strOutput += " ";
-
-			} // end if
+			}
 
 			// Add the character from the input string to the output string
 			strOutput += chrCurrentInputChar;
-
-		} // next
+		}
 
 		// Return the altered string
 		return strOutput;
-
-	} // end method
+	}
 
 	// Sync ability image.
 	public void RefreshAbilityImage ()
@@ -1300,7 +1313,6 @@ public class PlayerController : MonoBehaviour
 		if (useOverheat == true)
 		{
 			// Maps heat to squared of shooting cooldown.
-			//CurrentShootingHeat = CurrentShootingCooldown * CurrentShootingCooldown;
 			CurrentShootingHeat = Mathf.Pow (CurrentShootingCooldown, 1);
 
 			// Clamps to 0 and 1.
@@ -1366,11 +1378,9 @@ public class PlayerController : MonoBehaviour
 
 						if (MirrorPlayer.activeInHierarchy == true) 
 						{
-							//mirrorPlayerScript.Shot = CurrentShotObject;
 							mirrorPlayerScript.Shoot ();
 						}
-
-						//NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
+							
 						NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
 					}
 				}
@@ -1378,7 +1388,6 @@ public class PlayerController : MonoBehaviour
 				if (Overheated == false)
 				{
 					CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier) * Time.deltaTime; // Increase by cost.
-					//CurrentShootingCooldown -= Time.deltaTime * (0.5f * ShootingCooldownDecreaseRate);
 				}
 			}
 
@@ -1742,7 +1751,6 @@ public class PlayerController : MonoBehaviour
 	{
 		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
 		{
-			//powerupimage == gameControllerScript.PowerupImage_P1 [0]
 			if (powerupimage.gameObject.activeInHierarchy == true)
 			{
 				if (playerCol.transform.position.y > PowerupUICheckPos.y &&
@@ -1780,8 +1788,6 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	// Turning off Powerups.
-
 	// Turn off Helix.
 	void TurnOffHelix ()
 	{
@@ -1812,7 +1818,6 @@ public class PlayerController : MonoBehaviour
 			meshrendglow.enabled = true;
 		}
 	}
-
 
 	// Resets all active powerups back to standard shot. Does not modify modifiers if enabled.
 	public void ResetPowerups ()
@@ -1953,12 +1958,6 @@ public class PlayerController : MonoBehaviour
 		playerActions.DebugMenu.AddDefaultBinding (Key.Tab);
 		playerActions.DebugMenu.AddDefaultBinding (InputControlType.LeftBumper);
 		playerActions.CheatConsole.AddDefaultBinding (Key.Backquote);
-
-		//var player1 = InputManager.Devices [0];
-
-		//InputManager.OnDeviceAttached += inputDevice => Debug.Log( "Attached: " + inputDevice.Name );
-		//InputManager.OnDeviceDetached += inputDevice => Debug.Log( "Detached: " + inputDevice.Name );
-		//InputManager.OnActiveDeviceChanged += inputDevice => Debug.Log( "Switched: " + inputDevice.Name );
 	}
 
 	void OnDeviceAttached (InputDevice device)
@@ -2075,9 +2074,4 @@ public class PlayerController : MonoBehaviour
 			//PlayerText.text = " ";
 		}
 	}
-
-	/*void OnDestroy ()
-	{
-		playerActions.Destroy ();
-	}*/
 }

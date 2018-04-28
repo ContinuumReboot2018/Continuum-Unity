@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
+using TMPro;
 
 public class DeveloperMode : MonoBehaviour 
 {
@@ -170,7 +171,6 @@ public class DeveloperMode : MonoBehaviour
 	public void ClearCheatString ()
 	{
 		CheatString = "";
-		// CheatInputText.text = LastCheatName;
 	}
 
 	void UpdateCheats ()
@@ -235,7 +235,6 @@ public class DeveloperMode : MonoBehaviour
 		if (CheatStringResetTimeRemaining <= 0) 
 		{
 			ClearCheatString ();
-			//CheatInputText.text = ">_ ";
 			return;
 		}
 		
@@ -516,10 +515,7 @@ public class DeveloperMode : MonoBehaviour
 					Turret.SetActive (true);
 					Turret.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
 
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = TurretTexture;
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+					UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, TurretTexture, Color.white);
 
 					gameControllerScript.NextPowerupSlot_P1 += 1;
 					playerControllerScript_P1.nextTurretSpawn += 1;
@@ -651,19 +647,23 @@ public class DeveloperMode : MonoBehaviour
 					gameControllerScript.SetPowerupTime (20);
 					playerControllerScript_P1.EnableRicochetObject ();
 
-					if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) {
+					if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) 
+					{
 						playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
 					}
 
-					if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) {
+					if (playerControllerScript_P1.TripleShotIteration != PlayerController.shotIteration.Overdrive) 
+					{
 						playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
 					}
 
-					if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) {
+					if (playerControllerScript_P1.RippleShotIteration != PlayerController.shotIteration.Overdrive) 
+					{
 						playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
 					}
 
-					if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive) {
+					if (playerControllerScript_P1.StandardShotIteration != PlayerController.shotIteration.Overdrive)
+					{
 						playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
 					}
 
@@ -743,12 +743,7 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.Helix.activeInHierarchy == false)
 				{
 					playerControllerScript_P1.Helix.SetActive (true);
-
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = HelixTexture;
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
-					gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
-
+					UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, HelixTexture, Color.white);
 					gameControllerScript.NextPowerupSlot_P1 += 1;
 				}
 
@@ -767,10 +762,7 @@ public class DeveloperMode : MonoBehaviour
 				timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 20;
 				timeScaleControllerScript.isOverridingTimeScale = true;
 
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = SlowTimeTexture;
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, SlowTimeTexture, Color.white);
 
 				ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - SLOW TIME");
 			}
@@ -894,6 +886,14 @@ public class DeveloperMode : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	void UpdatePowerupImages (int index, Texture2D powerupTex, Color powerupCol)
+	{
+		gameControllerScript.PowerupImage_P1 [index].gameObject.SetActive (true);
+		gameControllerScript.PowerupImage_P1 [index].texture = powerupTex;
+		gameControllerScript.PowerupImage_P1 [index].color = powerupCol;
+		gameControllerScript.PowerupImage_P1 [index].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 	}
 
 	// What happens when cheats get enabled.
