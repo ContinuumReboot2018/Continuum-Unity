@@ -138,13 +138,20 @@ public class PowerupPickup : MonoBehaviour
 			(playerControllerScript_P1.CurrentFireRate / (playerControllerScript_P1.FireRateTimeMultiplier * Time.timeScale));
 		
 		playerControllerScript_P1.CheckPowerupImageUI (); // Add to powerup list UI.
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f; // Set Timescale ovveride time.
-		timescaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
+	
 		playerControllerScript_P1.NextFire = nextfire; // Allow player to shoot.
 		playerControllerScript_P1.DoubleShotNextFire = nextfire; // Allow player to shoot.
 		playerControllerScript_P1.TripleShotNextFire = nextfire; // Allow player to shoot.
 		playerControllerScript_P1.RippleShotNextFire = nextfire; // Allow player to shoot.
 		CheckActivatePowerup ();
+
+		timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f; // Set Timescale ovveride time.
+
+		if (timescaleControllerScript.OverridingTimeScale >= 0.3f)
+		{
+			timescaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
+		}
+
 		camShakeScript.ShakeCam (0.5f, 1, 1);
 	}
 
@@ -183,10 +190,7 @@ public class PowerupPickup : MonoBehaviour
 			timescaleControllerScript.OverrideTimeScaleTimeRemaining += PowerupTime;
 			timescaleControllerScript.isOverridingTimeScale = true;
 
-			gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
-			gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = PowerupTexture;
-			gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
-			gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+			SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
 
 			gameControllerScript.NextPowerupSlot_P1 += 1;
 			break;
@@ -357,12 +361,7 @@ public class PowerupPickup : MonoBehaviour
 			// Adds a helix object that follows the player.
 			if (playerControllerScript_P1.Helix.activeInHierarchy == false) 
 			{
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = PowerupTexture;
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
-
-				//SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
 				gameControllerScript.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.Helix.SetActive (true);
 			}
@@ -377,11 +376,8 @@ public class PowerupPickup : MonoBehaviour
 				GameObject clone = playerControllerScript_P1.Turrets [playerControllerScript_P1.nextTurretSpawn];
 				clone.SetActive (true);
 				clone.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
-			
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.SetActive (true);
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].texture = PowerupTexture;
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
-				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+
+				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
 
 				gameControllerScript.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.nextTurretSpawn += 1;

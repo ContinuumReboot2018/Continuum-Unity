@@ -1189,7 +1189,7 @@ public class GameController : MonoBehaviour
 				// Overrides time scale.
 				timescaleControllerScript.isOverridingTimeScale = true;
 				timescaleControllerScript.OverridingTimeScale = 0;
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.1f;
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.1f;
 			}
 
 			// Restart updating required scripts.

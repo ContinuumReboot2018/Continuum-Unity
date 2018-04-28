@@ -369,7 +369,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.AbilityCompletion.Play ("AbilityComplete");
 				playerControllerScript_P1.AbilityCompletionTexture.texture = playerControllerScript_P1.AbilityImage.texture;
 				playerControllerScript_P1.AbilityCompletionText.text = PlayerController.ParseByCase(playerControllerScript_P1.Ability.ToString ());
-				playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
+				playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
 				playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;
 				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY CHARGED");
@@ -913,7 +913,7 @@ public class DeveloperMode : MonoBehaviour
 
 		ClearCheatString ();
 
-		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 0.5f;
+		timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f;
 		timeScaleControllerScript.OverridingTimeScale = 0.2f;
 
 		playerControllerScript_P1.NextFire = nextfire;

@@ -802,7 +802,7 @@ public class PlayerController : MonoBehaviour
 		StartCooldown ();
 		PlayerExplosionAudio.Play ();
 		gameControllerScript.combo = 1;
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 2;
+		timescaleControllerScript.OverrideTimeScaleTimeRemaining += 2;
 		timescaleControllerScript.OverridingTimeScale = 0.25f;
 		ImpactTransform.position = ImpactPoint;
 		spotlightsScript.NewTarget = ImpactTransform;
@@ -1059,7 +1059,7 @@ public class PlayerController : MonoBehaviour
 				AbilityCompletion.Play ("AbilityComplete");
 				AbilityCompletionTexture.texture = AbilityImage.texture;
 				AbilityCompletionText.text = ParseByCase(Ability.ToString ());
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining = 1f;
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
 				timescaleControllerScript.OverridingTimeScale = 0.1f;
 				CurrentAbilityState = abilityState.Ready;
 
@@ -1125,7 +1125,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Briefly slows time down for effect.
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0.75f;
+		timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.75f;
 		timescaleControllerScript.OverridingTimeScale = 0.3f;
 
 		camShakeScript.ShakeCam (0.4f, CurrentAbilityDuration, 6);

@@ -326,7 +326,7 @@ public class MiniBoss : MonoBehaviour
 		Instantiate (LargeExplosion, transform.position, Quaternion.identity); // Spawn a large explosion.
 		gameControllerScript.StartNewWave (); // Go to next wave.
 		gameControllerScript.IsInWaveTransition = true; // Set to be in wave transition.
-		timeScaleControllerScript.OverrideTimeScaleTimeRemaining = 1f; // Temporarily override time scale. 
+		timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 1f; // Temporarily override time scale. 
 		timeScaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
 
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("SpotlightOverrideTransform");

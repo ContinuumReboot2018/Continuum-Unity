@@ -207,6 +207,8 @@ public class TimescaleController : MonoBehaviour
 				isOverridingTimeScale = false;
 			}
 
+			playerControllerScript_P1.SmoothFollowTime = 15;
+
 			return;
 		}
 
@@ -226,10 +228,18 @@ public class TimescaleController : MonoBehaviour
 				isOverridingTimeScale = true;
 			}
 
-			playerControllerScript_P1.MovementX *= 0.1f;
-			playerControllerScript_P1.MovementY *= 0.1f;
+			playerControllerScript_P1.MovementX *= 0.25f;
+			playerControllerScript_P1.MovementY *= 0.25f;
+
+			//playerControllerScript_P1.MovementX *= 2f;
+			//playerControllerScript_P1.MovementY *= 2f;
+
 			//playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
-			playerControllerScript_P1.PlayerRb.velocity *= 0.1f;
+			//playerControllerScript_P1.PlayerRb.velocity *= 0.1f;
+
+			//playerControllerScript_P1.PlayerRb.velocity *= 0.01f;
+
+			playerControllerScript_P1.SmoothFollowTime = 2;
 		}
 	}
 
