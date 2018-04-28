@@ -244,7 +244,8 @@ public class PlayerController : MonoBehaviour
 		Emp, // Creates a quick exhaust blast of particles which interact with blocks and destroying them.
 		VerticalBeam, // Fires particles vertically up, destroying particles in the way.
 		HorizontalBeam, // Fires to streams of particles (left and right), destroying falling or stacked blocks that collide with it.
-		Rewind // Rewinds time for a certain amount of seconds.
+		Rewind, // Rewinds time for a certain amount of seconds.
+		Mirror // Adds a mirror clone to the player.
 	}
 
 	// Ability UI.
@@ -409,6 +410,10 @@ public class PlayerController : MonoBehaviour
 	public GameObject Emp; 				  // The GameObject to set active or not depending whether the ability is being active.
 	[Tooltip("Array of particles to emit when enabled.")]
 	public ParticleSystem[] EmpParticles; // Array of particles to emit when enabled.
+
+	[Header ("Mirror Player")]
+	public GameObject MirrorPlayer; // Reference to mirror player object.
+	public MirrorPlayer mirrorPlayerScript;
 
 	[Header ("Turret Player")]
 	[Range (0, 4)]
@@ -754,12 +759,6 @@ public class PlayerController : MonoBehaviour
 			Invoke ("PlayerTransformPosCooldown", 0.25f);
 		}
 	}
-		
-	// Reset the player position ready to have it re enter.
-	void PlayerTransformPosCooldown ()
-	{
-		//playerMesh.transform.localPosition = new Vector3 (0, -15, 0);
-	}
 
 	// When the player runs out of lives and unable to respawn.
 	public void GameOver ()
@@ -794,7 +793,6 @@ public class PlayerController : MonoBehaviour
 		playerCol.gameObject.SetActive (false);
 		playerTrigger.gameObject.SetActive (false);
 		PlayerGuides.transform.position = Vector3.zero;
-		//AbilityUI.SetActive (false);
 		PlayerRb.velocity = Vector3.zero;
 		PlayerFollowRb.velocity = Vector3.zero;
 		MovementX = 0;
@@ -915,8 +913,18 @@ public class PlayerController : MonoBehaviour
 	void UpdateAudio ()
 	{
 		SpaceshipAmbience.panStereo = 0.04f * transform.position.x; // Pans audio based on x position.
-		SpaceshipAmbience.pitch = Mathf.Lerp (SpaceshipAmbience.pitch, Time.timeScale * playerActions.Move.Value.magnitude + 0.2f, Time.deltaTime * 10);
-		SpaceshipAmbience.volume = Mathf.Lerp (SpaceshipAmbience.volume, 0.1f * playerActions.Move.Value.magnitude + 0.1f, Time.deltaTime * 10);
+
+		SpaceshipAmbience.pitch = Mathf.Lerp (
+			SpaceshipAmbience.pitch, 
+			Time.timeScale * playerActions.Move.Value.magnitude + 0.2f, 
+			Time.deltaTime * 10
+		);
+
+		SpaceshipAmbience.volume = Mathf.Lerp (
+			SpaceshipAmbience.volume, 
+			0.1f * playerActions.Move.Value.magnitude + 0.1f, 
+			Time.deltaTime * 10
+		);
 	}
 
 	// Allows player input. Gets called by player parent script.
@@ -970,6 +978,7 @@ public class PlayerController : MonoBehaviour
 					MainEngineParticleEmissionAmount * playerActions.Move.Up.Value,
 					MainEngineParticleEmissionLerpSpeed * Time.deltaTime
 				);
+			
 			MainEngineEmissionRate.rateOverTime = SmoothEmissionRate;
 		}
 	}
@@ -994,7 +1003,6 @@ public class PlayerController : MonoBehaviour
 			{
 				ActivateAbility ();
 				CurrentAbilityState = abilityState.Active;
-				//AbilityAnim.Play ("HexesFadeIn");
 			}
 		}
 
@@ -1018,7 +1026,6 @@ public class PlayerController : MonoBehaviour
 			}
 
 			CurrentAbilityTimeRemaining = Mathf.Clamp (CurrentAbilityTimeRemaining, 0, CurrentAbilityDuration);
-			//AbilityAnim.Play ("AbilityBounce");
 			AbilityAnim.Play ("HexesFadeIn");
 		}
 
@@ -1061,7 +1068,6 @@ public class PlayerController : MonoBehaviour
 
 			if (AbilityTimeAmountProportion < 1f)
 			{
-				//AbilityFillImage.color = AbilityChargingColor * 25;
 				AbilityFillImage.material.SetColor ("_EmissionColor",
 					AbilityChargingColor * AbilityBrightness
 				);
@@ -1098,6 +1104,9 @@ public class PlayerController : MonoBehaviour
 			break;
 		case ability.Rewind:
 			timescaleControllerScript.SetRewindTime (true, 8);
+			break;
+		case ability.Mirror:
+			MirrorPlayer.SetActive (true);
 			break;
 		}
 
@@ -1156,6 +1165,8 @@ public class PlayerController : MonoBehaviour
 
 		// Reset the camera shake.
 		camShakeScript.ShakeCam (0.0f, 0, 7);
+
+		MirrorPlayer.SetActive (false);
 	}
 
 	void StopRewinding ()
@@ -1172,6 +1183,7 @@ public class PlayerController : MonoBehaviour
 			playerCol.enabled = true;
 			playerTrigger.enabled = true;
 		}
+
 		Shield.SetActive (false);
 	}
 
@@ -1272,6 +1284,9 @@ public class PlayerController : MonoBehaviour
 		case ability.Rewind:
 			AbilityImage.texture = AbilityTextures [4];
 			break;
+		case ability.Mirror:
+			AbilityImage.texture = AbilityTextures [5];
+			break;
 		}
 	}
 		
@@ -1282,7 +1297,8 @@ public class PlayerController : MonoBehaviour
 
 	void CheckShootingCooldown ()
 	{
-		if (useOverheat == true) {
+		if (useOverheat == true)
+		{
 			// Maps heat to squared of shooting cooldown.
 			//CurrentShootingHeat = CurrentShootingCooldown * CurrentShootingCooldown;
 			CurrentShootingHeat = Mathf.Pow (CurrentShootingCooldown, 1);
@@ -1297,19 +1313,23 @@ public class PlayerController : MonoBehaviour
 				OverheatFillSmoothing * Time.unscaledDeltaTime
 			);
 
-			if (CurrentShootingHeat <= 0.01f) {
+			if (CurrentShootingHeat <= 0.01f) 
+			{
 				Overheated = false;
 			}
 
-			if (Overheated == false) {
+			if (Overheated == false) 
+			{
 				OverheatImageL.material.SetColor ("_EmissionColor", new Color (
 					OverheatImageL.fillAmount,
 					-Mathf.Cos ((Mathf.PI * OverheatImageL.fillAmount) + (0.5f * Mathf.PI)),
 					1 - OverheatImageL.fillAmount
 				) * HeatUIBrightness);
 
-				if (OverheatImageL.fillAmount > 0.99f) {
-					if (OverheatSound.isPlaying == false) {
+				if (OverheatImageL.fillAmount > 0.99f) 
+				{
+					if (OverheatSound.isPlaying == false) 
+					{
 						OverheatSound.Play ();
 					}
 
@@ -1317,7 +1337,8 @@ public class PlayerController : MonoBehaviour
 				}
 			}
 
-			if (Overheated == true) {
+			if (Overheated == true) 
+			{
 				CurrentShootingCooldown -= Time.unscaledDeltaTime * OverheatCooldownDecreaseRate;
 				OverheatImageL.color = HotColor * HeatUIBrightness;
 			}
@@ -1342,6 +1363,13 @@ public class PlayerController : MonoBehaviour
 					if (Overheated == false && AbilityFillImage.color != HotColor)
 					{
 						Shoot ();
+
+						if (MirrorPlayer.activeInHierarchy == true) 
+						{
+							//mirrorPlayerScript.Shot = CurrentShotObject;
+							mirrorPlayerScript.Shoot ();
+						}
+
 						//NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier * Time.timeScale));
 						NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
 					}

@@ -85,6 +85,7 @@ public class DeveloperMode : MonoBehaviour
 	public string HorizontalBeamCommand = "hbeam"; // Set ability to horizontal and turn on the shield + ability timer.
 	public string EmpCommand = "emp"; // Set ability to emp blast and turn on the shield + ability timer.
 	public string RewindCommand = "rewind"; // All GameObjects with a TimeBody script should rewind position and rotation for some time.
+	public string MirrorPlayerCommand = "mirror"; // Enables a clone which mirrors the player.
 	[Space (10)]
 	// Misc cheats.
 	public string AddScoreCommand = "addscore"; // Adds current score by AddScoreAmount value.
@@ -527,7 +528,7 @@ public class DeveloperMode : MonoBehaviour
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = TurretTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.31f, 0.372f, 1, 1);
 
-					ShowCheatNotification ("CHEAT ACTIVATED: Turret");
+					ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - TURRET");
 				}
 			}
 
@@ -755,7 +756,7 @@ public class DeveloperMode : MonoBehaviour
 				powerupPickupUI.GetComponentInChildren<RawImage> ().texture = HelixTexture;
 				powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 0.278f, 0.561f, 1);
 
-				ShowCheatNotification ("CHEAT ACTIVATED: HELIX");
+				ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - HELIX");
 			}
 
 			if (CheatString == SlowTimeCommand) 
@@ -771,7 +772,7 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].color = Color.white;
 				gameControllerScript.PowerupImage_P1 [gameControllerScript.NextPowerupSlot_P1].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
-				ShowCheatNotification ("CHEAT ACTIVATED: SLOW TIME");
+				ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - SLOW TIME");
 			}
 
 			if (CheatString == StandardShotCommand) 
@@ -802,7 +803,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
 
-				ShowCheatNotification ("CHEAT ACTIVATED: SHIELD");
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY - SHIELD");
 			}
 
 			if (CheatString == VerticalBeamCommand) 
@@ -811,7 +812,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
 
-				ShowCheatNotification ("CHEAT ACTIVATED: VERTICAL BEAM");
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY - VERTICAL BEAM");
 			}
 
 			if (CheatString == HorizontalBeamCommand) 
@@ -820,7 +821,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
 
-				ShowCheatNotification ("CHEAT ACTIVATED: HORIZONTAL BEAM");
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY - HORIZONTAL BEAM");
 			}
 
 			if (CheatString == EmpCommand) 
@@ -829,7 +830,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
 
-				ShowCheatNotification ("CHEAT ACTIVATED: EMP");
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY - EMP");
 			}
 
 			if (CheatString == RewindCommand) 
@@ -838,7 +839,16 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.RefreshAbilityName ();
 				playerControllerScript_P1.RefreshAbilityImage ();
 	
-				ShowCheatNotification ("CHEAT ACTIVATED: REWIND TIME");
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY - REWIND TIME");
+			}
+
+			if (CheatString == MirrorPlayerCommand) 
+			{
+				playerControllerScript_P1.Ability = PlayerController.ability.Mirror;
+				playerControllerScript_P1.RefreshAbilityName ();
+				playerControllerScript_P1.RefreshAbilityImage ();
+
+				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY - MIRROR PLAYER");
 			}
 				
 			if (Input.GetKeyDown (KeyCode.Alpha7))
