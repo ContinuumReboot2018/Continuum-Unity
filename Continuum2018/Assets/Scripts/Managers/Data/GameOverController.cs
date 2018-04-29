@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 using TMPro;
 
@@ -44,7 +45,14 @@ public class GameOverController : MonoBehaviour
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		CheckLeaderboard ();
 
-		InvokeRepeating ("UpdateFinalScoreText", 0, 1);
+		//InvokeRepeating ("UpdateFinalScoreText", 0, 1); // Don't do this when Time.timeScale == 0;
+
+		StartCoroutine (UpdateFinalScoreText ());
+	}
+
+	void OnDisable ()
+	{
+		StopCoroutine (UpdateFinalScoreText ());
 	}
 
 	void Start ()
@@ -144,11 +152,18 @@ public class GameOverController : MonoBehaviour
 		saveAndLoadScript.SavePlayerData ();
 	}
 
-	void UpdateFinalScoreText ()
+	IEnumerator UpdateFinalScoreText ()
 	{
-		if (FinalScoreText.gameObject.activeInHierarchy == true)
+		while (true) 
 		{
-			FinalScoreText.text = CurrentScore + "";
+			yield return new WaitForSecondsRealtime (1);
+
+			if (FinalScoreText.gameObject.activeInHierarchy == true) 
+			{
+				FinalScoreText.text = CurrentScore + "";
+			}
+
+			yield return null;
 		}
 	}
 }
