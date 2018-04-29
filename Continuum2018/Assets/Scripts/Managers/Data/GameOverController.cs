@@ -60,7 +60,7 @@ public class GameOverController : MonoBehaviour
 		}
 	}
 
-	void GetGameOverStats ()
+	public void GetGameOverStats ()
 	{
 		TotalGameTimeText.text = 
 			"Total Game Time: " + string.Format (

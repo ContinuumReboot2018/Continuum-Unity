@@ -43,6 +43,16 @@ public class SettingsManager : MonoBehaviour
 		UpdateVolumeTextValues ();
 	}
 
+	public void SaveSettings ()
+	{
+		saveAndLoadScript.SaveSettingsData ();
+	}
+
+	public void LoadSettings ()
+	{
+		saveAndLoadScript.LoadSettingsData ();
+	}
+
 	void Update ()
 	{
 		GetSoundtrackVolumeValue ();

@@ -34,6 +34,9 @@ public class SaveAndLoadScript : MonoBehaviour
 	public bool useHdr;
 	public bool sunShaftsEnabled;
 
+	public TargetFPS targetFramerateScript;
+	public int targetframerate;
+
 	[Space (10)]
 	[Range (0, 2)]
 	public float ParticleEmissionMultiplier = 1;
@@ -215,6 +218,8 @@ public class SaveAndLoadScript : MonoBehaviour
 			}
 
 			MasterVolume = Mathf.Clamp (AudioListener.volume, 0, 1);
+
+			targetframerate = Application.targetFrameRate;
 		}
 	}
 
@@ -267,6 +272,8 @@ public class SaveAndLoadScript : MonoBehaviour
 		data.MasterVolume 	  = Mathf.Clamp (MasterVolume, 	   0, 1);
 		data.SoundtrackVolume = Mathf.Clamp (SoundtrackVolume, 0, 1);
 		data.EffectsVolume 	  = Mathf.Clamp (EffectsVolume,    0, 1);
+
+		data.targetframerate = targetframerate;
 	}
 
 	public void LoadSettingsData ()
@@ -327,6 +334,8 @@ public class SaveAndLoadScript : MonoBehaviour
 		MasterVolume = data.MasterVolume;
 		SoundtrackVolume = data.SoundtrackVolume;
 		EffectsVolume = data.EffectsVolume;
+
+		targetframerate = data.targetframerate;
 	}
 
 	// Puts new data into relevant scripts.
@@ -335,6 +344,16 @@ public class SaveAndLoadScript : MonoBehaviour
 		QualitySettings.SetQualityLevel (QualitySettingsIndex);
 		CheckAndApplyQualitySettings ();
 		AudioListener.volume = Mathf.Clamp (MasterVolume, 0, 1);
+
+		if (targetframerate < 30 && targetframerate >= 0) 
+		{
+			targetframerate = -1;
+		}
+
+		if (targetframerate >= 30 || targetframerate <= -1) 
+		{
+			targetFramerateScript.SetTargetFramerate (targetframerate);
+		}
 	}
 
 	void CheckAndApplyQualitySettings ()
@@ -375,6 +394,8 @@ public class SaveAndLoadScript : MonoBehaviour
 
 		[Range (0, 2)]
 		public float ParticleEmissionMultiplier = 1;
+
+		public int targetframerate;
 
 		public float MasterVolume;
 		public float SoundtrackVolume;
