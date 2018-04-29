@@ -203,7 +203,6 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
-  allowParticleCollisionBoss: 0
   speed: 0
   OverwriteVelocity: 1
   DontIncrementBlocksDestroyed: 0
@@ -222,6 +221,7 @@ MonoBehaviour:
   bossPartIndex: 0
   BossDamage: 1
   HitPoints: 3
+  allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
   BlockType: 0
@@ -229,6 +229,7 @@ MonoBehaviour:
   ChangeRate: 0.1
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1081727288271718, guid: 2a66aaa9745d95349baee88eeb156b89,
     type: 2}
@@ -312,6 +313,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114914024606338230
 MonoBehaviour:
   m_ObjectHideFlags: 1

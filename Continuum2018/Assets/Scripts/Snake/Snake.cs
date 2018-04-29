@@ -3,6 +3,7 @@
 public class Snake : MonoBehaviour 
 {
 	public Animator SnakeAnim;
+	public int BlockAmount = 10;
 	public string[] SnakeAnimations;
 
 	void Awake ()

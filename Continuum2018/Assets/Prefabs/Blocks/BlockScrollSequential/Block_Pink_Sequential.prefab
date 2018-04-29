@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114419484852278740}
   - component: {fileID: 65788848871725448}
   - component: {fileID: 114302672126076754}
+  - component: {fileID: 114140769717599224}
   m_Layer: 11
   m_Name: Block_Pink_Sequential
   m_TagString: Block
@@ -184,6 +185,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114140769717599224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987925496388862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066b592c55a0db943930ebe584841440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MasterAttractor: {fileID: 0}
+  blockScript: {fileID: 0}
+  simpleFollowScript: {fileID: 0}
+  OverrideMovement: 0
 --- !u!114 &114257169978602068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,7 +219,6 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
-  allowParticleCollisionBoss: 0
   speed: 0
   OverwriteVelocity: 1
   DontIncrementBlocksDestroyed: 0
@@ -222,6 +237,7 @@ MonoBehaviour:
   bossPartIndex: 0
   BossDamage: 1
   HitPoints: 5
+  allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
   BlockType: 3
@@ -229,6 +245,7 @@ MonoBehaviour:
   ChangeRate: 0.125
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1081727288271718, guid: 2a66aaa9745d95349baee88eeb156b89,
     type: 2}
@@ -325,3 +342,5 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0

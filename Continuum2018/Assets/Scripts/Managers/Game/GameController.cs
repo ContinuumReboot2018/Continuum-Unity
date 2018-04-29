@@ -382,7 +382,7 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI CooldownTimeRemainingText_Debug;
 	public TextMeshProUGUI CurrentAbilityStateText_Debug;
 
-	void Awake () 
+	void Start ()
 	{
 		// Hide and lock the mouse.
 		cursorManagerScript.VisibleTimerRemain = 0;
@@ -391,6 +391,29 @@ public class GameController : MonoBehaviour
 
 		// Clear and reset UI for score, waves, and lives.
 		ClearMainUI (); 
+
+		// Get the save and load script.
+		if (saveAndLoadScript == null)
+		{
+			saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+			saveAndLoadScript.gameControllerScript = this;
+		}
+
+		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1); // Refreshes block spawn time.
+		InvokeRepeating ("UpdateLives", 0, 1); // Refreshes UI for lives.
+		ClearPowerupUI (); // Clears powerup UI from list.
+		SetGameModifiers (); // Applies game modifiers.
+
+		UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
+		InvokeRepeating ("SetStartOrthSize", 0, 1); // Checks orthographic size based on screen ratio.
+
+		// Invokes a game over if the trial time is greater than 0. (Set to -1 just to be safe to avoid this).
+		if (gameModifier.TrialTime > 0) 
+		{
+			playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
+		}
+
+		powerupPickupTimeRemaining = 10;
 	}
 
 	void ClearMainUI ()
@@ -443,32 +466,6 @@ public class GameController : MonoBehaviour
 		// Reset inital powerup slot index.
 		NextPowerupSlot_P1 = 1;
 		NextPowerupShootingSlot_P1 = 0;
-	}
-
-	void Start ()
-	{
-		// Get the save and load script.
-		if (saveAndLoadScript == null)
-		{
-			saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-			saveAndLoadScript.gameControllerScript = this;
-		}
-
-		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1); // Refreshes block spawn time.
-		InvokeRepeating ("UpdateLives", 0, 1); // Refreshes UI for lives.
-		ClearPowerupUI (); // Clears powerup UI from list.
-		SetGameModifiers (); // Applies game modifiers.
-
-		UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
-		InvokeRepeating ("SetStartOrthSize", 0, 1); // Checks orthographic size based on screen ratio.
-
-		// Invokes a game over if the trial time is greater than 0. (Set to -1 just to be safe to avoid this).
-		if (gameModifier.TrialTime > 0) 
-		{
-			playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
-		}
-
-		powerupPickupTimeRemaining = 10;
 	}
 
 	// Timescale controller calls this initially after the countdown.
@@ -810,16 +807,11 @@ public class GameController : MonoBehaviour
 		{
 			if (LivesText.gameObject.activeSelf == true) 
 			{
-				LifeImages [0].enabled = false;
-				LifeImages [1].enabled = false;
-				LifeImages [2].enabled = false;
-				LifeImages [3].enabled = false;
-				LifeImages [4].enabled = false;
-				LifeImages [5].enabled = false;
-				LifeImages [6].enabled = false;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
+				for (int i = 0; i < LifeImages.Length; i++) 
+				{
+					LifeImages [i].enabled = false;
+				}
+					
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
 			}
@@ -829,171 +821,33 @@ public class GameController : MonoBehaviour
 		if (timescaleControllerScript.isInInitialSequence == false && 
 			timescaleControllerScript.isInInitialCountdownSequence == false) 
 		{
-			// Check how many life images are supposed to be there
-			switch (Lives) 
+			// Loop through amount of lives.
+			for (int i = 0; i < Lives; i++) 
 			{
-			case 0:
-				if (LivesText.gameObject.activeSelf == true) 
+				// Enable all life images up to amount of lives.
+				for (int j = 0; j < i; j++) 
 				{
-					LifeImages [0].enabled = false;
-					LifeImages [1].enabled = false;
-					LifeImages [2].enabled = false;
-					LifeImages [3].enabled = false;
-					LifeImages [4].enabled = false;
-					LifeImages [5].enabled = false;
-					LifeImages [6].enabled = false;
-					LifeImages [7].enabled = false;
-					LifeImages [8].enabled = false;
-					LifeImages [9].enabled = false;
+					LifeImages [j].enabled = true;
 				}
-				break;
-			case 1:
-				LifeImages [0].enabled = false;
-				LifeImages [1].enabled = false;
-				LifeImages [2].enabled = false;
-				LifeImages [3].enabled = false;
-				LifeImages [4].enabled = false;
-				LifeImages [5].enabled = false;
-				LifeImages [6].enabled = false;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
-				break;
-			case 2:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = false;
-				LifeImages [2].enabled = false;
-				LifeImages [3].enabled = false;
-				LifeImages [4].enabled = false;
-				LifeImages [5].enabled = false;
-				LifeImages [6].enabled = false;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
-				break;
-			case 3:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = true;
-				LifeImages [2].enabled = false;
-				LifeImages [3].enabled = false;
-				LifeImages [4].enabled = false;
-				LifeImages [5].enabled = false;
-				LifeImages [6].enabled = false;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
-				break;
-			case 4:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = true;
-				LifeImages [2].enabled = true;
-				LifeImages [3].enabled = false;
-				LifeImages [4].enabled = false;
-				LifeImages [5].enabled = false;
-				LifeImages [6].enabled = false;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
-				break;
-			case 5:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = true;
-				LifeImages [2].enabled = true;
-				LifeImages [3].enabled = true;
-				LifeImages [4].enabled = false;
-				LifeImages [5].enabled = false;
-				LifeImages [6].enabled = false;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
-				break;
-			case 6:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = true;
-				LifeImages [2].enabled = true;
-				LifeImages [3].enabled = true;
-				LifeImages [4].enabled = true;
-				LifeImages [5].enabled = false;
-				LifeImages [6].enabled = false;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
-				break;
-			case 7:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = true;
-				LifeImages [2].enabled = true;
-				LifeImages [3].enabled = true;
-				LifeImages [4].enabled = true;
-				LifeImages [5].enabled = true;
-				LifeImages [6].enabled = false;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
-				break;
-			case 8:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = true;
-				LifeImages [2].enabled = true;
-				LifeImages [3].enabled = true;
-				LifeImages [4].enabled = true;
-				LifeImages [5].enabled = true;
-				LifeImages [6].enabled = true;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
-				break;
-			case 9:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = true;
-				LifeImages [2].enabled = true;
-				LifeImages [3].enabled = true;
-				LifeImages [4].enabled = true;
-				LifeImages [5].enabled = true;
-				LifeImages [6].enabled = true;
-				LifeImages [7].enabled = true;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
-				break;
-			case 10:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = true;
-				LifeImages [2].enabled = true;
-				LifeImages [3].enabled = true;
-				LifeImages [4].enabled = true;
-				LifeImages [5].enabled = true;
-				LifeImages [6].enabled = true;
-				LifeImages [7].enabled = true;
-				LifeImages [8].enabled = true;
-				LifeImages [9].enabled = false;
-				break;
-			case 11:
-				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = true;
-				LifeImages [2].enabled = true;
-				LifeImages [3].enabled = true;
-				LifeImages [4].enabled = true;
-				LifeImages [5].enabled = true;
-				LifeImages [6].enabled = true;
-				LifeImages [7].enabled = true;
-				LifeImages [8].enabled = true;
-				LifeImages [9].enabled = true;
-				break;
+
+				// Disable all life images beyond that
+				for (int j = (Lives - 1); j < LifeImages.Length; j++) 
+				{
+					LifeImages [j].enabled = false;
+				}
 			}
 
 			// Only show one life icon and show numerical text next to it.
 			if (Lives >= MaxLives) 
 			{
 				LifeImages [0].enabled = true;
-				LifeImages [1].enabled = false;
-				LifeImages [2].enabled = false;
-				LifeImages [3].enabled = false;
-				LifeImages [4].enabled = false; 
-				LifeImages [5].enabled = false;
-				LifeImages [6].enabled = false;
-				LifeImages [7].enabled = false;
-				LifeImages [8].enabled = false;
-				LifeImages [9].enabled = false;
+
+				// Disable all life images beyond that
+				for (int i = 1; i < LifeImages.Length; i++) 
+				{
+					LifeImages [i].enabled = false;
+				}
+					
 				LivesSpacing.SetActive (true);
 				LivesText.gameObject.SetActive (true);
 				LivesText.text = "x " + (Lives - 1);
@@ -1385,30 +1239,10 @@ public class GameController : MonoBehaviour
 		{
 			if (isGameOver == false) 
 			{
-				if (Wave == 1) 
+				if (Wave < 5) 
 				{
-					GameObject Block = Blocks [UnityEngine.Random.Range (0, 1)];
-					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-					Instantiate (Block, SpawnPosRand, Quaternion.identity);
-				}
-
-				if (Wave == 2) 
-				{
-					GameObject Block = Blocks [UnityEngine.Random.Range (0, 2)];
-					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-					Instantiate (Block, SpawnPosRand, Quaternion.identity);
-				}
-
-				if (Wave == 3) 
-				{
-					GameObject Block = Blocks [UnityEngine.Random.Range (0, 3)];
-					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-					Instantiate (Block, SpawnPosRand, Quaternion.identity);
-				}
-
-				if (Wave == 4) 
-				{
-					GameObject Block = Blocks [UnityEngine.Random.Range (0, 4)];
+					int BlockIndexRange = UnityEngine.Random.Range (0, Wave);
+					GameObject Block = Blocks [BlockIndexRange];
 					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
 					Instantiate (Block, SpawnPosRand, Quaternion.identity);
 				}
@@ -1553,7 +1387,8 @@ public class GameController : MonoBehaviour
 			BonusesSpawned += 1;
 
 			int BonusBlockIndex = UnityEngine.Random.Range (0, BonusFormations.Length);
-			TotalBonusBlocks += BonusBlocksAmounts [BonusBlockIndex];
+			//TotalBonusBlocks += BonusBlocksAmounts [BonusBlockIndex];
+			TotalBonusBlocks += BonusFormations[BonusBlockIndex].GetComponent<Snake>().BlockAmount;
 
 			Instantiate (BonusFormations [BonusBlockIndex], Vector3.zero, Quaternion.identity);
 			yield return new WaitForSeconds (UnityEngine.Random.Range (BonusSpawnDelay.x, BonusSpawnDelay.y));	

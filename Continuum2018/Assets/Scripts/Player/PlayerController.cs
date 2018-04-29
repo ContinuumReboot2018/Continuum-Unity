@@ -519,6 +519,7 @@ public class PlayerController : MonoBehaviour
 		GetStartPlayerModifiers ();
 		CheckPowerupImageUI ();
 
+		Invoke ("PlaySpaceshipAmbience", 5);
 		InvokeRepeating ("CheckJoinState", 0, 0.5f);
 		InvokeRepeating ("TurretRotatorCheck", 0, 0.5f);
 		InvincibleMeshAnim.Play ("InvincibleMeshOffInstant");
@@ -909,6 +910,11 @@ public class PlayerController : MonoBehaviour
 			LivesLeftText.text = "LEFT";
 			LivesLeftUI.Play ("LivesLeft");
 		}
+	}
+
+	void PlaySpaceshipAmbience ()
+	{
+		SpaceshipAmbience.Play ();
 	}
 
 	void UpdateAudio ()

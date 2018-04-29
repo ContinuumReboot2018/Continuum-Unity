@@ -102,6 +102,8 @@ public class Block : MonoBehaviour
 
 	public bool isBonusBlock;
 
+	public static List<Block> allBlocks;
+
 	[Tooltip ("Material for noise type.")]
 	public Material noiseMat;
 	[Tooltip ("Explosion for noise type.")]
@@ -148,6 +150,26 @@ public class Block : MonoBehaviour
 	public TutorialManager tutorialManagerScript;
 	[Tooltip ("Checks the block index if part of the tutorial.")]
 	public int tutorialBlockIndex;
+
+	void OnEnable ()
+	{
+		if (allBlocks == null) 
+		{
+			allBlocks = new List<Block> ();
+		}
+
+		allBlocks.Add (this);
+	}
+
+	void OnDisable ()
+	{
+		allBlocks.Remove (this);
+	}
+
+	void OnDestroy ()
+	{
+		allBlocks.Remove (this);
+	}
 
 	void Awake ()
 	{

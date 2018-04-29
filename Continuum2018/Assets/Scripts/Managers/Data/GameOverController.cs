@@ -1,25 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+
 using TMPro;
 
 public class GameOverController : MonoBehaviour 
 {
-	public string myName;
 	private bool allowupdateentry;
 
 	public SaveAndLoadScript saveAndLoadScript;
 	public GameController gameControllerScript;
 	public DeveloperMode developerModeScript;
 	public LeaderboardDisplay leaderboardDisplay;
-	public GameObject LeaderboardEntryUI;
-	public GameObject GameOverUI;
-	public Animator GameOverAnim;
 
+	[Header ("Stats")]
+	public string myName;
 	public float CurrentScore = 0;
 	public float ScoreSmoothing = 20;
 	public int place;
 
 	[Header ("Stats UI")]
+	public GameObject LeaderboardEntryUI;
+	public GameObject GameOverUI;
+	public Animator GameOverAnim;
 	public TextMeshProUGUI TotalGameTimeText;
 	public TextMeshProUGUI TotalRealTimeText;
 	public TextMeshProUGUI TimeRatioText;
@@ -34,19 +36,15 @@ public class GameOverController : MonoBehaviour
 	[Header ("Level Calculation")]
 	public float FinalScore;
 	public int CurrentXP;
-
 	public AudioSource XPIncreaseSound;
-
-	void Awake ()
-	{
-		
-	}
 
 	void OnEnable ()
 	{
 		allowupdateentry = true;
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		CheckLeaderboard ();
+
+		InvokeRepeating ("UpdateFinalScoreText", 0, 1);
 	}
 
 	void Start ()
@@ -56,14 +54,9 @@ public class GameOverController : MonoBehaviour
 
 	void Update () 
 	{
-		if (CurrentXP < 0) 
-		{
-			CurrentXP = 0;
-		}
-
 		if (FinalScoreText.gameObject.activeInHierarchy == true) 
 		{
-			UpdateFinalScoreText ();
+			CurrentScore = Mathf.Lerp (CurrentScore, FinalScore, ScoreSmoothing * Time.unscaledDeltaTime);
 		}
 	}
 
@@ -101,14 +94,14 @@ public class GameOverController : MonoBehaviour
 	void CheckLeaderboard ()
 	{
 		// Get final score figure.
-		FinalScore = gameControllerScript.DisplayScore;
-		int _FinalScore = Mathf.RoundToInt (FinalScore);
-		Debug.Log ("Final score is: " + _FinalScore);
+		FinalScore = Mathf.RoundToInt (gameControllerScript.DisplayScore);
+
+		Debug.Log ("Final score is: " + FinalScore);
 
 		// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
 		for (int i = 0; i < saveAndLoadScript.Leaderboard.Count; i++) 
 		{
-			if (_FinalScore > saveAndLoadScript.Leaderboard [i].score && allowupdateentry == true) 
+			if (FinalScore > saveAndLoadScript.Leaderboard [i].score && allowupdateentry == true) 
 			{
 				place = i;
 				LeaderboardEntryUI.SetActive (true);
@@ -132,15 +125,11 @@ public class GameOverController : MonoBehaviour
 
 		LeaderboardEntry newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
 
-		//newLeaderboardEntry.name = name;
-		//newLeaderboardEntry.score = Mathf.RoundToInt (FinalScore);
-		//newLeaderboardEntry.wave = gameControllerScript.Wave;
-
 		saveAndLoadScript.Leaderboard.Insert (position, newLeaderboardEntry);
 		saveAndLoadScript.Leaderboard.RemoveAt (10);
 
 		Debug.Log (
-			"Position: " + (position + 1).ToString () + 
+			"Place: " + (position + 1).ToString () + 
 			", Final Score: " + FinalScore +  
 			", Wave: " + gameControllerScript.Wave
 		);
@@ -157,7 +146,9 @@ public class GameOverController : MonoBehaviour
 
 	void UpdateFinalScoreText ()
 	{
-		CurrentScore = Mathf.Lerp (CurrentScore, FinalScore, ScoreSmoothing * Time.unscaledDeltaTime);
-		FinalScoreText.text = CurrentScore + "";
+		if (FinalScoreText.gameObject.activeInHierarchy == true)
+		{
+			FinalScoreText.text = CurrentScore + "";
+		}
 	}
 }

@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114572693832434028}
   - component: {fileID: 65080966686548562}
   - component: {fileID: 114366549697108100}
+  - component: {fileID: 114720211309973022}
   m_Layer: 11
   m_Name: Block_Red
   m_TagString: Block
@@ -327,6 +328,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
   OnStart: 1
+--- !u!114 &114720211309973022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449837053117530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066b592c55a0db943930ebe584841440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MasterAttractor: {fileID: 0}
+  blockScript: {fileID: 0}
+  simpleFollowScript: {fileID: 0}
+  OverrideMovement: 0
 --- !u!114 &114954004581436852
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114002198615758254}
   - component: {fileID: 65804308006805828}
   - component: {fileID: 114011737829474088}
+  - component: {fileID: 114301648514862226}
   m_Layer: 11
   m_Name: Block_FormationPart_RandomOnce
   m_TagString: Block
@@ -231,7 +232,6 @@ MonoBehaviour:
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
   parentToTransformScript: {fileID: 0}
-  allowParticleCollisionBoss: 0
   speed: -700
   OverwriteVelocity: 0
   DontIncrementBlocksDestroyed: 0
@@ -250,6 +250,7 @@ MonoBehaviour:
   bossPartIndex: 0
   BossDamage: 1
   HitPoints: 0
+  allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
   BlockType: 0
@@ -257,6 +258,7 @@ MonoBehaviour:
   ChangeRate: 0.5
   isSpecialBlockType: 0
   SpecialBlockType: 0
+  isBonusBlock: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1081727288271718, guid: 2a66aaa9745d95349baee88eeb156b89,
     type: 2}
@@ -277,6 +279,21 @@ MonoBehaviour:
   isTutorialBlock: 0
   tutorialManagerScript: {fileID: 0}
   tutorialBlockIndex: 0
+--- !u!114 &114301648514862226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1505338555631630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066b592c55a0db943930ebe584841440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MasterAttractor: {fileID: 0}
+  blockScript: {fileID: 0}
+  simpleFollowScript: {fileID: 0}
+  OverrideMovement: 0
 --- !u!114 &114434304479368520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -293,6 +310,8 @@ MonoBehaviour:
   HorizontalScrollMode: 1
   VerticalScrollMode: 1
   ignoreTimescale: 0
+  OffsetTimeX: 0
+  OffsetTimeY: 0
 --- !u!114 &114952600660590420
 MonoBehaviour:
   m_ObjectHideFlags: 1

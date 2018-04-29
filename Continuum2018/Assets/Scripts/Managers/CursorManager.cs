@@ -6,7 +6,7 @@ public class CursorManager : MonoBehaviour
 	public float VisibleTimer = 5.0f;
 	public float VisibleTimerRemain;
 
-	void Update ()
+	void LateUpdate ()
 	{
 		// When the mouse has received input.
 		if (Input.GetAxis ("Mouse X") != 0 || Input.GetAxis ("Mouse Y") != 0)
