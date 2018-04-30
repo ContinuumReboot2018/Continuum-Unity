@@ -44,15 +44,9 @@ public class GameOverController : MonoBehaviour
 		allowupdateentry = true;
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		CheckLeaderboard ();
-
+		//UpdateFinalScoreText ();
 		//InvokeRepeating ("UpdateFinalScoreText", 0, 1); // Don't do this when Time.timeScale == 0;
-
-		StartCoroutine (UpdateFinalScoreText ());
-	}
-
-	void OnDisable ()
-	{
-		StopCoroutine (UpdateFinalScoreText ());
+		//StartCoroutine (UpdateFinalScoreText ());
 	}
 
 	void Start ()
@@ -96,7 +90,8 @@ public class GameOverController : MonoBehaviour
 		AccuracyText.text = 
 			"Accuracy: " + (System.Math.Round((gameControllerScript.BlockShotAccuracy * 100), 2)) + "%";
 
-		CheckLeaderboard ();
+		UpdateFinalScoreText ();
+		//CheckLeaderboard ();
 	}
 
 	void CheckLeaderboard ()
@@ -115,15 +110,19 @@ public class GameOverController : MonoBehaviour
 				LeaderboardEntryUI.SetActive (true);
 				allowupdateentry = false;
 				GameOverUI.SetActive (false);
+				UpdateFinalScoreText ();
 				return;
 			}
 		}
 			
 		if (allowupdateentry == true) 
 		{
+			GameOverUI.SetActive (true);
 			GameOverAnim.enabled = true;
+			GetGameOverStats ();
 			Debug.Log ("Not a new high score.");
 			allowupdateentry = false;
+			UpdateFinalScoreText ();
 		}
 	}
 
@@ -152,18 +151,11 @@ public class GameOverController : MonoBehaviour
 		saveAndLoadScript.SavePlayerData ();
 	}
 
-	IEnumerator UpdateFinalScoreText ()
+	void UpdateFinalScoreText ()
 	{
-		while (true) 
+		if (FinalScoreText.gameObject.activeInHierarchy == true) 
 		{
-			yield return new WaitForSecondsRealtime (1);
-
-			if (FinalScoreText.gameObject.activeInHierarchy == true) 
-			{
-				FinalScoreText.text = CurrentScore + "";
-			}
-
-			yield return null;
+			FinalScoreText.text = CurrentScore + "";
 		}
 	}
 }
