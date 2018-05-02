@@ -1964,8 +1964,11 @@ public class PlayerController : MonoBehaviour
 		playerActions.DebugMenu.AddDefaultBinding (Key.Tab);
 		playerActions.DebugMenu.AddDefaultBinding (InputControlType.LeftBumper);
 		playerActions.CheatConsole.AddDefaultBinding (Key.Backquote);
-	}
 
+		playerActions.Back.AddDefaultBinding (Key.Backspace);
+		playerActions.Back.AddDefaultBinding (InputControlType.Action2);
+	}
+		
 	void OnDeviceAttached (InputDevice device)
 	{
 		Debug.Log ("Attached: " + device.Name);
@@ -2077,7 +2080,6 @@ public class PlayerController : MonoBehaviour
 		if (isJoined == true) 
 		{
 			isJoined = false;
-			//PlayerText.text = " ";
 		}
 	}
 }

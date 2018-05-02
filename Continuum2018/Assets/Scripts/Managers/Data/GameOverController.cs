@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 using System.Collections;
 
 using TMPro;
@@ -39,19 +41,22 @@ public class GameOverController : MonoBehaviour
 	public int CurrentXP;
 	public AudioSource XPIncreaseSound;
 
+	public GameObject LeaderboardUI;
+	public Button LeaderboardCloseButton;
+	public Button ContinueButton;
+	public PointerEventData eventData;
+
 	void OnEnable ()
 	{
 		allowupdateentry = true;
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		CheckLeaderboard ();
-		//UpdateFinalScoreText ();
-		//InvokeRepeating ("UpdateFinalScoreText", 0, 1); // Don't do this when Time.timeScale == 0;
-		//StartCoroutine (UpdateFinalScoreText ());
 	}
 
 	void Start ()
 	{
 		GetXpToAdd ();
+		eventData = new PointerEventData (EventSystem.current);
 	}
 
 	void Update () 
@@ -59,6 +64,33 @@ public class GameOverController : MonoBehaviour
 		if (FinalScoreText.gameObject.activeInHierarchy == true) 
 		{
 			CurrentScore = Mathf.Lerp (CurrentScore, FinalScore, ScoreSmoothing * Time.unscaledDeltaTime);
+		}
+
+		if (gameControllerScript.playerControllerScript_P1.playerActions.Shoot.IsPressed) 
+		{
+			if (GameOverUI.activeInHierarchy == true && 
+				leaderboardDisplay.gameObject.activeInHierarchy == false) 
+			{
+				// Execute the OnClick event for the continue button.
+				ExecuteEvents.Execute (
+					ContinueButton.gameObject, 
+					eventData, 
+					ExecuteEvents.pointerClickHandler
+				);
+			}
+
+			if (leaderboardDisplay.gameObject.activeInHierarchy == true) 
+			{
+				//GameOverAnim.enabled = true;
+				//GetGameOverStats ();
+				//LeaderboardUI.SetActive (false);
+
+				ExecuteEvents.Execute (
+					LeaderboardCloseButton.gameObject, 
+					eventData, 
+					ExecuteEvents.pointerClickHandler
+				);
+			}
 		}
 	}
 
@@ -91,7 +123,6 @@ public class GameOverController : MonoBehaviour
 			"Accuracy: " + (System.Math.Round((gameControllerScript.BlockShotAccuracy * 100), 2)) + "%";
 
 		UpdateFinalScoreText ();
-		//CheckLeaderboard ();
 	}
 
 	void CheckLeaderboard ()
@@ -151,8 +182,10 @@ public class GameOverController : MonoBehaviour
 		saveAndLoadScript.SavePlayerData ();
 	}
 
-	void UpdateFinalScoreText ()
+	public void UpdateFinalScoreText ()
 	{
+		CurrentScore = gameControllerScript.DisplayScore;
+
 		if (FinalScoreText.gameObject.activeInHierarchy == true) 
 		{
 			FinalScoreText.text = CurrentScore + "";

@@ -12,7 +12,6 @@ public class LeaderboardDisplay : MonoBehaviour
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		//InvokeRepeating ("UpdateLeaderboard", 0, 0.5f);
 		UpdateLeaderboard ();
 	}
 
