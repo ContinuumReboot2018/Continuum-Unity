@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 114881300732877210}
   - component: {fileID: 114474998815860606}
   - component: {fileID: 65105798772608498}
+  - component: {fileID: 114041507847837308}
   m_Layer: 16
   m_Name: Block_BossPart_Blue
   m_TagString: Block
@@ -183,6 +184,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114041507847837308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897094887782872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameControllerScript: {fileID: 0}
+  ObjectType: 0
 --- !u!114 &114474998815860606
 MonoBehaviour:
   m_ObjectHideFlags: 1

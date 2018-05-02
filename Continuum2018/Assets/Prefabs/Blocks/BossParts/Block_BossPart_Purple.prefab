@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 114290358730151648}
   - component: {fileID: 114968925120877510}
   - component: {fileID: 65011728061495878}
+  - component: {fileID: 114775586640805272}
   m_Layer: 16
   m_Name: Block_BossPart_Purple
   m_TagString: Block
@@ -299,6 +300,19 @@ MonoBehaviour:
   ignoreTimescale: 0
   OffsetTimeX: 0
   OffsetTimeY: 0
+--- !u!114 &114775586640805272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1691320530388000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameControllerScript: {fileID: 0}
+  ObjectType: 0
 --- !u!114 &114968925120877510
 MonoBehaviour:
   m_ObjectHideFlags: 1

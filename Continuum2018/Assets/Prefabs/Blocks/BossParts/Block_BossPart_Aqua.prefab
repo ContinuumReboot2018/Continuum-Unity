@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 114255750282502292}
   - component: {fileID: 114046086718945432}
   - component: {fileID: 65949198562960264}
+  - component: {fileID: 114732760848033092}
   m_Layer: 16
   m_Name: Block_BossPart_Aqua
   m_TagString: Block
@@ -246,6 +247,19 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+--- !u!114 &114732760848033092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520585642279696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameControllerScript: {fileID: 0}
+  ObjectType: 0
 --- !u!114 &114893258044313096
 MonoBehaviour:
   m_ObjectHideFlags: 1

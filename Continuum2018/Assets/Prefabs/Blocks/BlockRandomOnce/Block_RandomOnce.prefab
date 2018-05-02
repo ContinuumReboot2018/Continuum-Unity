@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 65804308006805828}
   - component: {fileID: 114011737829474088}
   - component: {fileID: 114659537669393076}
+  - component: {fileID: 114182244992461490}
   m_Layer: 11
   m_Name: Block_RandomOnce
   m_TagString: Block
@@ -279,6 +280,19 @@ MonoBehaviour:
   isTutorialBlock: 0
   tutorialManagerScript: {fileID: 0}
   tutorialBlockIndex: 0
+--- !u!114 &114182244992461490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1505338555631630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameControllerScript: {fileID: 0}
+  ObjectType: 0
 --- !u!114 &114434304479368520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,6 +326,7 @@ MonoBehaviour:
   blockScript: {fileID: 0}
   simpleFollowScript: {fileID: 0}
   OverrideMovement: 0
+  OverrideSmoothing: {x: 1, y: 1, z: 0}
 --- !u!114 &114952600660590420
 MonoBehaviour:
   m_ObjectHideFlags: 1

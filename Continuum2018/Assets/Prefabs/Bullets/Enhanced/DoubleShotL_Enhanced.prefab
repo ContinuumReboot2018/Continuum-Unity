@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 114835695993013006}
   - component: {fileID: 114338179897397778}
   - component: {fileID: 114956595564684374}
+  - component: {fileID: 114698849508558032}
   m_Layer: 9
   m_Name: DoubleShotL_Enhanced
   m_TagString: Bullet
@@ -668,6 +669,19 @@ MonoBehaviour:
   particleEffect: {fileID: 0}
   BaseRateDistance: 0
   BaseRateTime: 550
+--- !u!114 &114698849508558032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1598089217073352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameControllerScript: {fileID: 0}
+  ObjectType: 1
 --- !u!114 &114741355978452084
 MonoBehaviour:
   m_ObjectHideFlags: 1

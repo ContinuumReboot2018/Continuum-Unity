@@ -297,6 +297,10 @@ public class GameController : MonoBehaviour
 	[Tooltip ("How fast the particle simulation is.")]
 	public float StarFieldBackgroundSimulationSpeed = 1;
 
+	[Header ("Object counts")]
+	public int numberOfBlocks;
+	public int numberOfBullets;
+
 	// Debug info visuals in Debug UI menu.
 	[Header ("Debug")]
 
@@ -381,6 +385,10 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI LastImpactPointText_Debug;
 	public TextMeshProUGUI CooldownTimeRemainingText_Debug;
 	public TextMeshProUGUI CurrentAbilityStateText_Debug;
+	[Space (10)]
+	public TextMeshProUGUI TopLeaderboardScore_Debug;
+	public TextMeshProUGUI BlockObjectCount_Debug;
+	public TextMeshProUGUI BulletObjectCount_Debug;
 
 	void Start ()
 	{
@@ -524,12 +532,14 @@ public class GameController : MonoBehaviour
 				Invoke("SpawnBigBossObject", BossSpawnDelay);
 			}
 		}
+
+		InvokeRepeating ("UpdateGameStats", 0, 0.5f);
 	}
 
 	void Update ()
 	{
 		// Update game and time stats.
-		UpdateGameStats ();
+		//UpdateGameStats ();
 		UpdateTimeStats ();
 
 		CheckCombo (); 						// Check current combo amount and timer.
@@ -717,6 +727,13 @@ public class GameController : MonoBehaviour
 					"Beats per minute: " + System.Math.Round (audioControllerScript.BeatsPerMinute, 3);
 				TimeSinceTrackLoad_Debug.text = 
 					"Time since last track load: " + System.Math.Round (audioControllerScript.TimeSinceTrackLoad, 2);
+
+				TopLeaderboardScore_Debug.text = 
+					"Top score: " + saveAndLoadScript.Leaderboard [0].score;
+				BlockObjectCount_Debug.text = 
+					"Block objects: " + numberOfBlocks;
+				BulletObjectCount_Debug.text = 
+					"Bullet objects: " + numberOfBullets;
 			}
 		}
 	}

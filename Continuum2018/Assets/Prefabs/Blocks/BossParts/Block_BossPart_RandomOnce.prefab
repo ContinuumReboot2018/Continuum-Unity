@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114002198615758254}
   - component: {fileID: 65804308006805828}
   - component: {fileID: 114011737829474088}
+  - component: {fileID: 114754521175845990}
   m_Layer: 16
   m_Name: Block_BossPart_RandomOnce
   m_TagString: Block
@@ -296,6 +297,19 @@ MonoBehaviour:
   ignoreTimescale: 0
   OffsetTimeX: 0
   OffsetTimeY: 0
+--- !u!114 &114754521175845990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404075520353270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameControllerScript: {fileID: 0}
+  ObjectType: 0
 --- !u!114 &114952600660590420
 MonoBehaviour:
   m_ObjectHideFlags: 1

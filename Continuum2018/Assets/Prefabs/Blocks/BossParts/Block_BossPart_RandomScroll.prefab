@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114914024606338230}
   - component: {fileID: 65805951300527886}
   - component: {fileID: 114578668759347020}
+  - component: {fileID: 114623786682948924}
   m_Layer: 16
   m_Name: Block_BossPart_RandomScroll
   m_TagString: Block
@@ -315,6 +316,19 @@ MonoBehaviour:
   ignoreTimescale: 0
   OffsetTimeX: 0
   OffsetTimeY: 0
+--- !u!114 &114623786682948924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1422902992721556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameControllerScript: {fileID: 0}
+  ObjectType: 0
 --- !u!114 &114914024606338230
 MonoBehaviour:
   m_ObjectHideFlags: 1

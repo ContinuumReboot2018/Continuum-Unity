@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 65666041205939006}
   - component: {fileID: 114416791347852254}
   - component: {fileID: 114637974115853342}
+  - component: {fileID: 114956108774653070}
   m_Layer: 11
   m_Name: Block_Aqua
   m_TagString: Block
@@ -260,6 +261,7 @@ MonoBehaviour:
   blockScript: {fileID: 0}
   simpleFollowScript: {fileID: 0}
   OverrideMovement: 0
+  OverrideSmoothing: {x: 1, y: 1, z: 0}
 --- !u!114 &114859730920538306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -344,3 +346,16 @@ MonoBehaviour:
   ignoreTimescale: 0
   OffsetTimeX: 0
   OffsetTimeY: 0
+--- !u!114 &114956108774653070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1957182139316214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameControllerScript: {fileID: 0}
+  ObjectType: 0
