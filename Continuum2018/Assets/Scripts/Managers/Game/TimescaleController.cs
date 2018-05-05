@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityStandardAssets.ImageEffects;
+
+using System.Collections;
+
+using TMPro;
 
 public class TimescaleController : MonoBehaviour 
 {
@@ -79,6 +81,9 @@ public class TimescaleController : MonoBehaviour
 	[Tooltip ("Max rewinding time in real time.")]
 	public float RewindDuration;
 
+	[Header ("UI")]
+	public Animator WaveTransitionUI;
+
 	void Awake () 
 	{
 		Time.timeScale = MinimumTimeScale; // Set Time.timeScale to slowest possible value.
@@ -146,21 +151,21 @@ public class TimescaleController : MonoBehaviour
 				// Checks for game modifier time increasing mode over real time.
 				switch (gameModifier.TimeIncreaseMode)
 				{
-				// Increase minimum time scale normally.
-				case GameModifierManager.timeIncreaseMode.Normal:
-					TargetTimeScaleAdd += (TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime);
-					break;
-				// Increase minimum time scale faster.
-				case GameModifierManager.timeIncreaseMode.Fast:
-					TargetTimeScaleAdd += (TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime * 2);
-					break;
-				// Increase minimum time scale slower.
-				case GameModifierManager.timeIncreaseMode.Slow:
-					TargetTimeScaleAdd += (TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime * 0.5f);
-					break;
-				// Dont increase minimum time scale normally.
-				case GameModifierManager.timeIncreaseMode.Off:
-					break;
+					// Increase minimum time scale normally.
+					case GameModifierManager.timeIncreaseMode.Normal:
+						TargetTimeScaleAdd += (TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime);
+						break;
+					// Increase minimum time scale faster.
+					case GameModifierManager.timeIncreaseMode.Fast:
+						TargetTimeScaleAdd += (TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime * 2);
+						break;
+					// Increase minimum time scale slower.
+					case GameModifierManager.timeIncreaseMode.Slow:
+						TargetTimeScaleAdd += (TargetTimeScaleIncreaseRate * Time.unscaledDeltaTime * 0.5f);
+						break;
+					// Dont increase minimum time scale normally.
+					case GameModifierManager.timeIncreaseMode.Off:
+						break;
 				}
 
 				// Set TargetTimeScale with multiplier, distance, minimum timescale, clamp to min and max values.
@@ -170,7 +175,6 @@ public class TimescaleController : MonoBehaviour
 				// Physics updates must be this fast to maintain accuracy.
 				Time.fixedDeltaTime = Time.timeScale * 0.005f;
 				Time.maximumParticleDeltaTime = Time.timeScale * 0.005f;
-				//Time.fixedDeltaTime = Time.timeScale * 0.01f;
 			}
 
 			// When overriding time scale.
@@ -200,13 +204,18 @@ public class TimescaleController : MonoBehaviour
 	// What to do when override time scale is active.
 	void CheckOverrideTimeScale ()
 	{
+		if (playerControllerScript_P1.timeIsSlowed == true) 
+		{
+			OverrideTimeScaleTimeRemaining = gameControllerScript.PowerupTimeRemaining;
+		}
+
 		if (OverrideTimeScaleTimeRemaining <= 0) 
 		{
 			if (isOverridingTimeScale == true) 
 			{
 				isOverridingTimeScale = false;
 			}
-
+				
 			playerControllerScript_P1.SmoothFollowTime = 15;
 
 			return;
@@ -215,31 +224,49 @@ public class TimescaleController : MonoBehaviour
 		if (OverrideTimeScaleTimeRemaining > 0) 
 		{
 			// Normal overriding curcumstances.
-			if (gameControllerScript.isPaused == false && 
-				isInInitialSequence == false && 
-				isInInitialCountdownSequence == false) 
+			if (gameControllerScript.isPaused == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
 			{
 				OverrideTimeScaleTimeRemaining -= Time.unscaledDeltaTime; // Decrease override time remaining unscaled.
 			}
 
 			// Keep overriding time scale false if theres no time for it.
-			if (isOverridingTimeScale == false) 
+			if (isOverridingTimeScale == false)
 			{
 				isOverridingTimeScale = true;
 			}
+				
+			// If game is not in a wave transition.
+			if (WaveTransitionUI.GetCurrentAnimatorStateInfo (0).IsName ("WaveTransition") == false) 
+			{
+				// Decrease sensitivity of player movement.
+				playerControllerScript_P1.MovementX *= 0.25f;
+				playerControllerScript_P1.MovementY *= 0.25f;
 
-			playerControllerScript_P1.MovementX *= 0.25f;
-			playerControllerScript_P1.MovementY *= 0.25f;
+				if (OverridingTimeScale > 0.2f) 
+				{
+					playerControllerScript_P1.SmoothFollowTime = 4;
+				}
 
-			//playerControllerScript_P1.MovementX *= 2f;
-			//playerControllerScript_P1.MovementY *= 2f;
+				if (OverridingTimeScale <= 0.2f) 
+				{
+					playerControllerScript_P1.SmoothFollowTime = 8;
+				}
 
-			//playerControllerScript_P1.PlayerRb.velocity = Vector3.zero;
-			//playerControllerScript_P1.PlayerRb.velocity *= 0.1f;
+				return;
+			}
 
-			//playerControllerScript_P1.PlayerRb.velocity *= 0.01f;
+			// Check state of wave transition UI.
+			if (WaveTransitionUI.GetCurrentAnimatorStateInfo (0).IsName ("WaveTransition") == true) 
+			{
+				if (isOverridingTimeScale == true) 
+				{
+					isOverridingTimeScale = false;
+				}
 
-			playerControllerScript_P1.SmoothFollowTime = 2;
+				playerControllerScript_P1.SmoothFollowTime = 15;
+
+				return;
+			}
 		}
 	}
 
@@ -311,7 +338,6 @@ public class TimescaleController : MonoBehaviour
 			noiseScript.enabled = false;
 			playerControllerScript_P1.InvincibleCollider.enabled = false;
 			playerControllerScript_P1.InvincibleMesh.enabled = false;
-			//playerControllerScript_P1.InvincibleMeshAnim.Play ("InvincibleMeshFlash");
 			return;
 		}
 

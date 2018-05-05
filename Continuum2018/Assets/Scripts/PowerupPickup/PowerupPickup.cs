@@ -145,10 +145,9 @@ public class PowerupPickup : MonoBehaviour
 		playerControllerScript_P1.RippleShotNextFire = nextfire; // Allow player to shoot.
 		CheckActivatePowerup ();
 
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f; // Set Timescale ovveride time.
-
-		if (timescaleControllerScript.OverridingTimeScale >= 0.3f)
+		if (playerControllerScript_P1.timeIsSlowed == false)
 		{
+			timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f; // Set Timescale ovveride time.
 			timescaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
 		}
 
@@ -189,6 +188,7 @@ public class PowerupPickup : MonoBehaviour
 			timescaleControllerScript.OverridingTimeScale = 0.3f;
 			timescaleControllerScript.OverrideTimeScaleTimeRemaining += PowerupTime;
 			timescaleControllerScript.isOverridingTimeScale = true;
+			playerControllerScript_P1.timeIsSlowed = true;
 
 			SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
 

@@ -432,6 +432,9 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Setting while powerup time remaining is < 3.")]
 	public float TurretSpinSpeedFaster = -660;
 
+	[Header ("Slow time")]
+	public bool timeIsSlowed;
+
 	[Header ("Helix")]
 	[Tooltip("The GameObject to set active or not depending whether the powerup is activated.")]
 	public GameObject Helix;
@@ -493,6 +496,7 @@ public class PlayerController : MonoBehaviour
 	public bool isHidingPowerupUI;
 	[Tooltip("Position to check for powerup UI autohiding.")]
 	public Vector3 PowerupUICheckPos;
+	public GameObject PowerupUI;
 
 	// InControl Player Actions.
 	public PlayerActions playerActions; // Created for InControl and assigned at runtime.
@@ -526,6 +530,8 @@ public class PlayerController : MonoBehaviour
 
 		RefreshAbilityName ();
 		RefreshAbilityImage ();
+		AbilityUI.SetActive (false);
+		PowerupUI.SetActive (false);
 
 		TurretSpinSpeed = TurretSpinSpeedNormal;
 		LivesAnim.gameObject.SetActive (false);
@@ -1832,6 +1838,7 @@ public class PlayerController : MonoBehaviour
 		ShotType = shotType.Standard;
 		CurrentShootingHeatCost = StandardShootingHeatCost;
 		nextTurretSpawn = 0; // Resets turrent spawn index.
+		timeIsSlowed = false;
 
 		// Resets homing mode if not modified by game modifier object.
 		isHoming = gameControllerScript.gameModifier.AlwaysHoming;

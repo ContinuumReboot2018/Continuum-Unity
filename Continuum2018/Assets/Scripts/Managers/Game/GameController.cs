@@ -1170,6 +1170,8 @@ public class GameController : MonoBehaviour
 		WaveTransitionText.text = "WAVE " + Wave;
 
 		WaveTransitionAudio.Play ();
+		playerControllerScript_P1.AbilityUI.SetActive (true);
+		playerControllerScript_P1.PowerupUI.SetActive (true);
 
 		// Shake the camera and vibrate the controller.
 		playerControllerScript_P1.camShakeScript.ShakeCam (0.6f, 3.7f, 99);

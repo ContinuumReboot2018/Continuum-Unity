@@ -758,6 +758,8 @@ public class DeveloperMode : MonoBehaviour
 			{
 				gameControllerScript.SetPowerupTime (20);
 
+				playerControllerScript_P1.timeIsSlowed = true;
+
 				timeScaleControllerScript.OverridingTimeScale = 0.3f;
 				timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 20;
 				timeScaleControllerScript.isOverridingTimeScale = true;
