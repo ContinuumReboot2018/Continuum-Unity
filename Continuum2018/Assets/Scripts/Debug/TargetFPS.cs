@@ -10,7 +10,7 @@ public class TargetFPS : MonoBehaviour
 	[Tooltip ("Use screen refresh rate and match framerate.")]
 	public bool useScreenRefreshRate;
 
-	void Awake ()
+	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		saveAndLoadScript.targetFramerateScript = this;

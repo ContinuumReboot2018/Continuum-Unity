@@ -537,13 +537,16 @@ public class PlayerController : MonoBehaviour
 		LivesAnim.gameObject.SetActive (false);
 		CurrentShotObject = StandardShot;
 
-		gameControllerScript.PowerupImage_P1 [0].GetComponent<Animator> ().Play ("PowerupListItemPopIn");
-
-		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1) 
+		if (PowerupUI.activeInHierarchy == true) 
 		{
-			if (powerupimage != gameControllerScript.PowerupImage_P1 [0]) 
+			gameControllerScript.PowerupImage_P1 [0].GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+
+			foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1) 
 			{
-				powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOutInstant");
+				if (powerupimage != gameControllerScript.PowerupImage_P1 [0])
+				{
+					powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOutInstant");
+				}
 			}
 		}
 
@@ -1665,13 +1668,16 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		// Vertical position too far from score text.
-		if (PlayerRb.position.y <= AbilityCheckPlayerPos.y && isInCooldownMode == false) 
+		if (AbilityUI.activeInHierarchy == true)
 		{
-			if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeIn") == false && isHidingAbilityUI == true) 
+			// Vertical position too far from score text.
+			if (PlayerRb.position.y <= AbilityCheckPlayerPos.y && isInCooldownMode == false) 
 			{
-				AbilityUIHexes.Play ("HexesFadeIn");
-				isHidingAbilityUI = false;
+				if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeIn") == false && isHidingAbilityUI == true)
+				{
+					AbilityUIHexes.Play ("HexesFadeIn");
+					isHidingAbilityUI = false;
+				}
 			}
 		}
 
@@ -1761,42 +1767,43 @@ public class PlayerController : MonoBehaviour
 	// Also has autohiding.
 	public void CheckPowerupImageUI ()
 	{
-		foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1)
+		if (PowerupUI.activeInHierarchy == true) 
 		{
-			if (powerupimage.gameObject.activeInHierarchy == true)
+			foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1) 
 			{
-				if (playerCol.transform.position.y > PowerupUICheckPos.y &&
-					playerCol.transform.position.x > PowerupUICheckPos.x
-				) 
+				if (powerupimage.gameObject.activeInHierarchy == true) 
 				{
-					powerupimage.GetComponent<Animator> ().SetBool ("Visible", false);
-				}
+					if (playerCol.transform.position.y > PowerupUICheckPos.y &&
+					   playerCol.transform.position.x > PowerupUICheckPos.x) 
+					{
+						powerupimage.GetComponent<Animator> ().SetBool ("Visible", false);
+					}
 
-				if (playerCol.transform.position.y <= PowerupUICheckPos.y || 
-					playerCol.transform.position.x <= PowerupUICheckPos.x)
-				{
-					powerupimage.GetComponent<Animator> ().SetBool ("Visible", true);
+					if (playerCol.transform.position.y <= PowerupUICheckPos.y ||
+					   playerCol.transform.position.x <= PowerupUICheckPos.x) 
+					{
+						powerupimage.GetComponent<Animator> ().SetBool ("Visible", true);
+					}
 				}
 			}
-		}
 			
-		if (playerCol.transform.position.y > PowerupUICheckPos.y &&
-			playerCol.transform.position.x > PowerupUICheckPos.x
-		) 
-		{
-			gameControllerScript.HomingImage.GetComponent<Animator> ().SetBool ("Visible", false);
-			gameControllerScript.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", false);
-			gameControllerScript.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", false);
-			gameControllerScript.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", false);
-		}
+			if (playerCol.transform.position.y > PowerupUICheckPos.y &&
+			   playerCol.transform.position.x > PowerupUICheckPos.x)
+			{
+				gameControllerScript.HomingImage.GetComponent<Animator> ().SetBool ("Visible", false);
+				gameControllerScript.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", false);
+				gameControllerScript.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", false);
+				gameControllerScript.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", false);
+			}
 
-		if (playerCol.transform.position.y <= PowerupUICheckPos.y || 
-			playerCol.transform.position.x <= PowerupUICheckPos.x)
-		{
-			gameControllerScript.HomingImage.GetComponent<Animator> ().SetBool ("Visible", true);
-			gameControllerScript.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", true);
-			gameControllerScript.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", true);
-			gameControllerScript.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", true);
+			if (playerCol.transform.position.y <= PowerupUICheckPos.y ||
+			   playerCol.transform.position.x <= PowerupUICheckPos.x) 
+			{
+				gameControllerScript.HomingImage.GetComponent<Animator> ().SetBool ("Visible", true);
+				gameControllerScript.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", true);
+				gameControllerScript.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", true);
+				gameControllerScript.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", true);
+			}
 		}
 	}
 

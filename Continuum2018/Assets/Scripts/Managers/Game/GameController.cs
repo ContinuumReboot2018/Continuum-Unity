@@ -1406,7 +1406,6 @@ public class GameController : MonoBehaviour
 			BonusesSpawned += 1;
 
 			int BonusBlockIndex = UnityEngine.Random.Range (0, BonusFormations.Length);
-			//TotalBonusBlocks += BonusBlocksAmounts [BonusBlockIndex];
 			TotalBonusBlocks += BonusFormations[BonusBlockIndex].GetComponent<Snake>().BlockAmount;
 
 			Instantiate (BonusFormations [BonusBlockIndex], Vector3.zero, Quaternion.identity);
@@ -1423,8 +1422,51 @@ public class GameController : MonoBehaviour
 
 		yield return new WaitForSeconds (BonusSpawnEndDelay);
 
-		StartNewWave ();
-		IsInWaveTransition = true;
+		// Wave / 4 has remainders = normal wave.
+		if (Wave % 4 != 0 && Wave % 3 != 0)
+		{
+			// Spawn a miniboss as usual in normal mode.
+			if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
+			{
+				StartCoroutine (SpawnMiniBoss ());
+			}
+
+			// Go to next wave, skip bosses entirely.
+			if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
+			{
+				StartNewWave ();
+				IsInWaveTransition = true;
+			}
+
+			// Wave after big boss wave, clear soundtrack text display.
+			if (Wave % 4 != 1)
+			{
+				SoundtrackText.text = "";
+			}
+		}
+
+		// Wave / 4 divides equally = big boss time.
+		if (Wave % 4 == 0)
+		{
+			audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
+			// TODO: Play boss soundtrack.
+
+			// Spawn a big boss in normal mode.
+			if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
+			{
+				StartCoroutine (SpawnBigBoss ());
+			}
+
+			// Go to next wave, skip bosses entirely.
+			if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
+			{
+				StartNewWave ();
+				IsInWaveTransition = true;
+			}
+
+			SoundtrackText.text = ""; // Clear sounstrack text display.
+		}
+
 		StopCoroutine (BonusRound ());
 	}
 
