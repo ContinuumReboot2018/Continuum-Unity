@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using System.Collections.Generic;
 
 using UnityEngine;
-using UnityEngine.PostProcessing;
-using UnityStandardAssets.ImageEffects;
 using UnityEngine.SceneManagement;
+using UnityEngine.PostProcessing;
+
+using UnityStandardAssets.ImageEffects;
 
 public class SaveAndLoadScript : MonoBehaviour 
 {
@@ -63,9 +64,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 
 				LoadPlayerData ();
-
 				LoadSettingsData ();
-				//Invoke ("LoadSettingsData", 0.1f);
 
 				CheckUsername ();
 			}
