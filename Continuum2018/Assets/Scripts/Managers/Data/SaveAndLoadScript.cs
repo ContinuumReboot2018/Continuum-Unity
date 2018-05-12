@@ -63,7 +63,9 @@ public class SaveAndLoadScript : MonoBehaviour
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 
 				LoadPlayerData ();
+
 				LoadSettingsData ();
+				//Invoke ("LoadSettingsData", 0.1f);
 
 				CheckUsername ();
 			}
