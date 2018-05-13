@@ -209,7 +209,7 @@ public class MenuManager : MonoBehaviour
 	{
 		[Tooltip ("Current index for the menu button focus.")]
 		public int buttonIndex = 0;
-		[Tooltip ("The size of the amount of buttons or event triggers.")]
+		[Tooltip ("1 less the size of the amount of buttons or event triggers.")]
 		public int maxButtons = 3;
 
 		[Tooltip ("All the Buttons in order.")]
@@ -217,7 +217,7 @@ public class MenuManager : MonoBehaviour
 		[Tooltip ("All the EventTriggers in order.")]
 		public EventTrigger[] menuEvents;
 
-		[Tooltip ("The button that gets pressed when B is pressed.")]
+		[Tooltip ("The button OnClick () event that gets pressed when B is pressed.")]
 		public Button BackButton;
 	}
 }
