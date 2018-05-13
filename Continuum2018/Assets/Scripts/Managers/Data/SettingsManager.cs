@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.PostProcessing;
 using UnityStandardAssets.ImageEffects;
 using UnityEngine.Audio;
+
 using TMPro;
 
 public class SettingsManager : MonoBehaviour 
@@ -33,7 +34,7 @@ public class SettingsManager : MonoBehaviour
 	public Button EffectsVolumeButtonDown;
 	public TextMeshProUGUI EffectsVolumeValueText;
 
-	void Start () 
+	void Awake () 
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		saveAndLoadScript.settingsManagerScript = this; // Assign itself to save and load script.
@@ -119,20 +120,21 @@ public class SettingsManager : MonoBehaviour
 			UpdateVolumeTextValues ();
 		}
 	}
-
-
+		
 	public void SoundtrackVolumeUpOnClick ()
 	{
 		saveAndLoadScript.SoundtrackVolume += 0.1f;
-		saveAndLoadScript.SoundtrackVolume = Mathf.Clamp (saveAndLoadScript.SoundtrackVolume, 0, 1);
-		curSoundtrackVol = saveAndLoadScript.SoundtrackVolume;
-		SoundtrackVolMix.SetFloat ("SoundtrackVolume", curSoundtrackVol);
-		UpdateVolumeTextValues ();
+		UpdateSoundtrackVol ();
 	}
 
 	public void SoundtrackVolumeDownOnClick ()
 	{
 		saveAndLoadScript.SoundtrackVolume -= 0.1f;
+		UpdateSoundtrackVol ();
+	}
+
+	void UpdateSoundtrackVol ()
+	{
 		saveAndLoadScript.SoundtrackVolume = Mathf.Clamp (saveAndLoadScript.SoundtrackVolume, 0, 1);
 		curSoundtrackVol = saveAndLoadScript.SoundtrackVolume;
 		SoundtrackVolMix.SetFloat ("SoundtrackVolume", curSoundtrackVol);
@@ -142,15 +144,17 @@ public class SettingsManager : MonoBehaviour
 	public void EffectsVolumeUpOnClick ()
 	{
 		saveAndLoadScript.EffectsVolume += 8f;
-		saveAndLoadScript.EffectsVolume = Mathf.Clamp (saveAndLoadScript.EffectsVolume, -80, 0);
-		curEffectsVol = saveAndLoadScript.EffectsVolume;
-		EffectsVolMix.SetFloat ("EffectsVolume", curEffectsVol);
-		UpdateVolumeTextValues ();
+		UpdateEffectsVol ();
 	}
 
 	public void EffectsVolumeDownOnClick ()
 	{
 		saveAndLoadScript.EffectsVolume -= 8f;
+		UpdateEffectsVol ();
+	}
+
+	void UpdateEffectsVol ()
+	{
 		saveAndLoadScript.EffectsVolume = Mathf.Clamp (saveAndLoadScript.EffectsVolume, -80, 0);
 		curEffectsVol = saveAndLoadScript.EffectsVolume;
 		EffectsVolMix.SetFloat ("EffectsVolume", curEffectsVol);
@@ -204,6 +208,7 @@ public class SettingsManager : MonoBehaviour
 		).ToString ();
 	}
 		
+
 	// Saving and applying settings.
 
 	public void ApplySettings ()
