@@ -314,7 +314,7 @@ public class TimescaleController : MonoBehaviour
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 
 		gameOverMenuManager.menuButtons.buttonIndex = 0;
-		gameOverMenuManager.MainPauseMenuOnEnter (gameOverMenuManager.menuButtons.buttonIndex);
+		gameOverMenuManager.MenuOnEnter (gameOverMenuManager.menuButtons.buttonIndex);
 
 		// Show mouse and allow control for player.
 		playerControllerScript_P1.cursorManagerScript.UnlockMouse ();

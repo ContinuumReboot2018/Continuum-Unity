@@ -28,7 +28,7 @@ public class MenuManager : MonoBehaviour
 	public PointerEventData pointerEventData;
 	public PlayerActions menuActions;
 
-	void Start ()
+	void Awake ()
 	{
 		// Get input data.
 		menuActions = new PlayerActions ();
@@ -69,8 +69,8 @@ public class MenuManager : MonoBehaviour
 							menuButtons.maxButtons
 						);
 
-						MainPauseMenuOnEnter (HighlightUpVal);
-						MainPauseMenuOnExit (UnHighlightUpVal);
+						MenuOnEnter (HighlightUpVal);
+						MenuOnExit (UnHighlightUpVal);
 					}
 
 					// Reset scroll speed.
@@ -102,8 +102,8 @@ public class MenuManager : MonoBehaviour
 							menuButtons.maxButtons
 						);
 
-						MainPauseMenuOnEnter (HighlightDownVal);
-						MainPauseMenuOnExit (UnHighlightDownVal);
+						MenuOnEnter (HighlightDownVal);
+						MenuOnExit (UnHighlightDownVal);
 					}
 
 					// Reset scroll speed.
@@ -117,7 +117,7 @@ public class MenuManager : MonoBehaviour
 			{
 				if (Time.unscaledTime > aButtonNextCooldown) 
 				{
-					MainPauseMenuOnClick ();
+					MenuOnClick ();
 
 					// Reset A button cooldown.
 					aButtonNextCooldown = Time.unscaledTime + aButtonCoolDown;
@@ -125,13 +125,12 @@ public class MenuManager : MonoBehaviour
 			}
 
 			// Player presses the B button.
-			if (menuActions.ActiveDevice.Action2.IsPressed)
+			if (menuActions.ActiveDevice.Action2.IsPressed || Input.GetKeyDown (KeyCode.Escape))
 			{
 				if (Time.unscaledTime > bButtonNextCooldown) 
 				{
 					// Set button to first option and execute the command.
 					menuButtons.buttonIndex = 0;
-					//MainPauseMenuOnClick ();
 
 					// Override button event for navigating back.
 					if (menuButtons.BackButton != null) 
@@ -156,7 +155,7 @@ public class MenuManager : MonoBehaviour
 	}
 
 	// Invoke an OnClick event.
-	public void MainPauseMenuOnClick ()
+	public void MenuOnClick ()
 	{
 		// Check if there is an Button component present.
 		Button OnClickEvent = menuButtons.menuButtons [menuButtons.buttonIndex].GetComponent<Button> ();
@@ -172,7 +171,7 @@ public class MenuManager : MonoBehaviour
 	}
 
 	// Invoke an OnPointerEnter event.
-	public void MainPauseMenuOnEnter (int index)
+	public void MenuOnEnter (int index)
 	{
 		// Check if there is an EventTrigger component present.
 		EventTrigger OnEnterEvent = menuButtons.menuEvents [index].GetComponent<EventTrigger> ();
@@ -187,7 +186,7 @@ public class MenuManager : MonoBehaviour
 		}
 	}
 
-	public void MainPauseMenuOnExit (int index)
+	public void MenuOnExit (int index)
 	{
 		// Check if there is an EventTrigger component present.
 		EventTrigger OnExitEvent = menuButtons.menuEvents [index].GetComponent<EventTrigger> ();
@@ -200,6 +199,17 @@ public class MenuManager : MonoBehaviour
 				ExecuteEvents.pointerExitHandler
 			);
 		}
+	}
+
+	public void SetButtonIndex (int buttonIndex)
+	{
+		menuButtons.buttonIndex = buttonIndex;
+		MenuOnEnter (buttonIndex);
+	}
+
+	public void RefreshButtonIndex ()
+	{
+		MenuOnEnter (menuButtons.buttonIndex);
 	}
 
 	[Header ("Menu Buttons")]
