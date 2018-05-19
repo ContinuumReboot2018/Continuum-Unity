@@ -6,30 +6,43 @@ public class CursorManager : MonoBehaviour
 	public float VisibleTimer = 5.0f;
 	public float VisibleTimerRemain;
 
+	void Start ()
+	{
+		VisibleTimerRemain = 0;
+		HideMouse ();
+		LockMouse ();
+	}
+
 	void LateUpdate ()
 	{
-		// When the mouse has received input.
-		if (Input.GetAxis ("Mouse X") != 0 || Input.GetAxis ("Mouse Y") != 0)
+		if (Cursor.visible == false) 
 		{
-			UnlockMouse ();
-			ShowMouse ();
-			ResetMouseTimer ();
+			// When the mouse has received input.
+			if (Input.GetAxis ("Mouse X") != 0 || Input.GetAxis ("Mouse Y") != 0) 
+			{
+				UnlockMouse ();
+				ShowMouse ();
+				ResetMouseTimer ();
+			}
 		}
 
-		// When there is no mouse input.
-		if (Input.GetAxis ("Mouse X") == 0 && Input.GetAxis ("Mouse Y") == 0) 
+		if (Cursor.visible == true)
 		{
-			// Timer hasn't run out.
-			if (VisibleTimerRemain > 0)
+			// When there is no mouse input.
+			if (Input.GetAxis ("Mouse X") == 0 && Input.GetAxis ("Mouse Y") == 0) 
 			{
-				VisibleTimerRemain -= Time.unscaledDeltaTime;
-			}
+				// Timer hasn't run out.
+				if (VisibleTimerRemain > 0)
+				{
+					VisibleTimerRemain -= Time.unscaledDeltaTime;
+				}
 
-			// Timer has run out, hide and lock the mouse.
-			if (VisibleTimerRemain <= 0) 
-			{
-				HideMouse ();
-				LockMouse ();
+				// Timer has run out, hide and lock the mouse.
+				if (VisibleTimerRemain <= 0)
+				{
+					HideMouse ();
+					LockMouse ();
+				}
 			}
 		}
 	}
