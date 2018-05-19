@@ -392,11 +392,6 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
-		// Hide and lock the mouse.
-		cursorManagerScript.VisibleTimerRemain = 0;
-		cursorManagerScript.HideMouse ();
-		cursorManagerScript.LockMouse ();
-
 		// Clear and reset UI for score, waves, and lives.
 		ClearMainUI (); 
 
@@ -404,6 +399,7 @@ public class GameController : MonoBehaviour
 		if (saveAndLoadScript == null)
 		{
 			saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+			cursorManagerScript = GameObject.Find ("CursorManager").GetComponent<CursorManager> ();
 			saveAndLoadScript.gameControllerScript = this;
 		}
 

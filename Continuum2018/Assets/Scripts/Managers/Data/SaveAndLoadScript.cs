@@ -59,6 +59,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				CheckPlayerDataFile ();
 
 				settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
+				targetFramerateScript = GameObject.Find ("TargetFPS").GetComponent<TargetFPS> ();
 
 				cam = settingsManagerScript.cam;
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
