@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 199468540798613006}
   - component: {fileID: 82450970583582314}
   - component: {fileID: 114184027366849148}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerExplosion
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 4628707292083246}
   - component: {fileID: 198481232542434684}
   - component: {fileID: 199307335044701638}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Burst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,9 +58,9 @@ GameObject:
   - component: {fileID: 198590307147799496}
   - component: {fileID: 199323899935341042}
   - component: {fileID: 82002445018045860}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerDeathExplosion
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6082,7 +6082,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 1
   TriggerModule:
@@ -9392,7 +9392,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 1
   TriggerModule:

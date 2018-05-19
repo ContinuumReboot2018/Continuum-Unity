@@ -1358,6 +1358,10 @@ public class GameController : MonoBehaviour
 	public IEnumerator SpawnBigBoss ()
 	{
 		yield return new WaitForSeconds (BigBossSpawnDelay);
+
+		audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
+		// TODO: Play boss soundtrack.
+
 		SpawnBigBossObject ();
 
 		// Increase boss spawn ID.
@@ -1444,7 +1448,7 @@ public class GameController : MonoBehaviour
 		// Wave / 4 divides equally = big boss time.
 		if (Wave % 4 == 0)
 		{
-			audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
+			//audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
 			// TODO: Play boss soundtrack.
 
 			// Spawn a big boss in normal mode.
@@ -1504,7 +1508,7 @@ public class GameController : MonoBehaviour
 			// Wave / 4 divides equally = big boss time.
 			if (Wave % 4 == 0 && Wave % 3 != 0)
 			{
-				audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
+				//audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
 				// TODO: Play boss soundtrack.
 
 				// Spawn a big boss in normal mode.

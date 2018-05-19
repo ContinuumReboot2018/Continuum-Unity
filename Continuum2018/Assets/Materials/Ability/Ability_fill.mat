@@ -7,14 +7,13 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Ability_fill
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 17a6512112006284c93455526de8e4cd, type: 3}
   m_ShaderKeywords: _ALPHABLEND_ON _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -75,3 +74,4 @@ Material:
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 5, g: 0.29411763, b: 1.8035643, a: 5}
+    - _TintColor: {r: 0, g: 0.71034503, b: 1, a: 1}

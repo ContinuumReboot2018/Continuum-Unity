@@ -7,15 +7,14 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Player_Invincible
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 17a6512112006284c93455526de8e4cd, type: 3}
   m_ShaderKeywords: _ALPHABLEND_ON _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
     _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -41,9 +40,9 @@ Material:
         m_Scale: {x: 1, y: 2}
         m_Offset: {x: 0, y: 1.22}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 0471fd6de46b78c4faa2e6536a614d23, type: 3}
         m_Scale: {x: 1, y: 2}
-        m_Offset: {x: 0, y: 1.22}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -74,5 +73,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 0.378}
+    - _Color: {r: 0.45588237, g: 1, b: 0.79736304, a: 1}
     - _EmissionColor: {r: 3.135588, g: 7.615, b: 5.4064875, a: 1}
+    - _TintColor: {r: 0, g: 1, b: 0.7103448, a: 0.803}
