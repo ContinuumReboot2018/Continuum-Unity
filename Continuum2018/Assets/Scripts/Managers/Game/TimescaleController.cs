@@ -317,8 +317,8 @@ public class TimescaleController : MonoBehaviour
 		gameOverMenuManager.MenuOnEnter (gameOverMenuManager.menuButtons.buttonIndex);
 
 		// Show mouse and allow control for player.
-		playerControllerScript_P1.cursorManagerScript.UnlockMouse ();
-		playerControllerScript_P1.cursorManagerScript.ShowMouse ();
+		gameControllerScript.cursorManagerScript.UnlockMouse ();
+		gameControllerScript.cursorManagerScript.ShowMouse ();
 	}
 
 	// Rewinding functionality to be called by ability.
