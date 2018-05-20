@@ -32,11 +32,11 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 2
-    aniso: -1
+    aniso: 4
     mipBias: -1
-    wrapU: -1
-    wrapV: -1
-    wrapW: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 1
   lightmap: 0
   compressionQuality: 50
@@ -57,7 +57,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 2
@@ -67,7 +67,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 2
@@ -87,7 +87,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 2
@@ -97,7 +97,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: WebGL
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 2

@@ -26,6 +26,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	public int ExperiencePoints;
 	public List<LeaderboardEntry> Leaderboard;
 	public int SelectedAbility;
+	public int SelectedSkin;
 
 	[Header ("Settings Data")]
 	public PostProcessingProfile VisualSettings;
@@ -138,6 +139,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		data.ExperiencePoints = ExperiencePoints;
 		data.Leaderboard = Leaderboard;
 		data.SelectedAbility = SelectedAbility;
+		data.SelectedSkin = SelectedSkin;
 	}
 
 	// Load PlayerData main.
@@ -194,6 +196,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		Leaderboard = new List<LeaderboardEntry> (10);
 		Leaderboard = data.Leaderboard;
 		SelectedAbility = data.SelectedAbility;
+		SelectedSkin = data.SelectedSkin;
 	}
 
 	// Puts new data into relevant scripts.
@@ -392,6 +395,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		public int ExperiencePoints;
 		public List<LeaderboardEntry> Leaderboard;
 		public int SelectedAbility;
+		public int SelectedSkin;
 	}
 
 	[Serializable]

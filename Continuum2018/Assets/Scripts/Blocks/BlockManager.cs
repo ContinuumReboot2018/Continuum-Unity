@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Block Type", menuName = "Block Type")]
+[CreateAssetMenu(fileName = "New Block Type", menuName = "Blocks/Block Type", order = 3)]
 public class BlockManager : ScriptableObject 
 {
 	[Tooltip ("Default speed for this block type.")]

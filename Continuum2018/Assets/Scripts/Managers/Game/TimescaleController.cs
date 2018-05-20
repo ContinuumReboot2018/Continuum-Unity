@@ -239,17 +239,17 @@ public class TimescaleController : MonoBehaviour
 			if (WaveTransitionUI.GetCurrentAnimatorStateInfo (0).IsName ("WaveTransition") == false) 
 			{
 				// Decrease sensitivity of player movement.
-				playerControllerScript_P1.MovementX *= 0.25f;
-				playerControllerScript_P1.MovementY *= 0.25f;
+				playerControllerScript_P1.MovementX *= Time.timeScale;
+				playerControllerScript_P1.MovementY *= Time.timeScale;
 
 				if (OverridingTimeScale > 0.2f) 
 				{
-					playerControllerScript_P1.SmoothFollowTime = 4;
+					playerControllerScript_P1.SmoothFollowTime = 1 / Time.timeScale;
 				}
 
 				if (OverridingTimeScale <= 0.2f) 
 				{
-					playerControllerScript_P1.SmoothFollowTime = 8;
+					playerControllerScript_P1.SmoothFollowTime = 2 / Time.timeScale;
 				}
 
 				return;

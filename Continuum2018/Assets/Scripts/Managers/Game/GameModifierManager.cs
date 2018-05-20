@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Game Modifier", menuName = "Game Modifier")]
+[CreateAssetMenu(fileName = "New Game Modifier", menuName = "Modifiers/Game Modifier", order = 1)]
 public class GameModifierManager : ScriptableObject
 {
 	[Header ("Tutorial")]
