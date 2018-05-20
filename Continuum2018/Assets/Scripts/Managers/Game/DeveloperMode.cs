@@ -130,6 +130,7 @@ public class DeveloperMode : MonoBehaviour
 	{
 		// Find the saving script.
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+		targetFramerateScript = saveAndLoadScript.targetFramerateScript;
 	}
 
 	// Check for cheat input by keyboard.
@@ -278,7 +279,8 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 30");
 			}
 
-			if (CheatString == Fps90Command) {
+			if (CheatString == Fps90Command) 
+			{
 				targetFramerateScript.SetTargetFramerate (90);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 90");
 			}

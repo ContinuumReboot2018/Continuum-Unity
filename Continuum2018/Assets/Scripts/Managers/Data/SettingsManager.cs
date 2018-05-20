@@ -34,7 +34,7 @@ public class SettingsManager : MonoBehaviour
 	public Button EffectsVolumeButtonDown;
 	public TextMeshProUGUI EffectsVolumeValueText;
 
-	void Awake () 
+	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		saveAndLoadScript.settingsManagerScript = this; // Assign itself to save and load script.
