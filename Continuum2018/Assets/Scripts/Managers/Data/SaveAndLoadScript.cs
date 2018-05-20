@@ -25,6 +25,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	public string Username = "default";
 	public int ExperiencePoints;
 	public List<LeaderboardEntry> Leaderboard;
+	public int SelectedAbility;
 
 	[Header ("Settings Data")]
 	public PostProcessingProfile VisualSettings;
@@ -89,9 +90,12 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Gets variables from this script = variables in other scripts.
 	void GetPlayerData ()
 	{
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
+		if (gameControllerScript != null) 
 		{
-			ExperiencePoints += (int)Math.Round (gameControllerScript.TargetScore);
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
+			{
+				ExperiencePoints += (int)Math.Round (gameControllerScript.TargetScore);
+			}
 		}
 
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false) 
@@ -133,6 +137,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		data.Username = Username;
 		data.ExperiencePoints = ExperiencePoints;
 		data.Leaderboard = Leaderboard;
+		data.SelectedAbility = SelectedAbility;
 	}
 
 	// Load PlayerData main.
@@ -188,6 +193,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		Leaderboard.Capacity = 10;
 		Leaderboard = new List<LeaderboardEntry> (10);
 		Leaderboard = data.Leaderboard;
+		SelectedAbility = data.SelectedAbility;
 	}
 
 	// Puts new data into relevant scripts.
@@ -385,6 +391,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		public string Username;
 		public int ExperiencePoints;
 		public List<LeaderboardEntry> Leaderboard;
+		public int SelectedAbility;
 	}
 
 	[Serializable]

@@ -3,6 +3,8 @@ using UnityEngine.Audio;
 
 public class MenuInitializer : MonoBehaviour 
 {
+	public SaveAndLoadScript saveAndLoadScript;
+
 	public AudioMixer SoundtrackAudioMix;
 	public AudioMixer EffectsAudioMix;
 
@@ -13,6 +15,10 @@ public class MenuInitializer : MonoBehaviour
 
 	void Start () 
 	{
+		// Find the saving script.
+		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+		AudioListener.volume = saveAndLoadScript.MasterVolume;
+
 		SoundtrackAudioMix.SetFloat ("LowCutoffFrequency", curFreq);
 		EffectsAudioMix.SetFloat ("LowCutoffFrequency", curEffectsFreq);
 		SoundtrackAudioMix.SetFloat ("Resonance", curRes);

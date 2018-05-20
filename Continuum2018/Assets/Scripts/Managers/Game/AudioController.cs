@@ -129,6 +129,7 @@ public class AudioController : MonoBehaviour
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		LoadTracks (); // Load the track by track number.
 		InvokeRepeating ("CheckReversePitch", 0, 0.5f); // If in rewind, check for reversing the pitch.
+		AudioListener.volume = saveAndLoadScript.MasterVolume;
 	}
 
 	void Update ()

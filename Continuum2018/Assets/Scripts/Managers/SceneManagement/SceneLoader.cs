@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEngine.PostProcessing;
+
+using System.Collections;
+using TMPro;
 
 public class SceneLoader : MonoBehaviour 
 {
@@ -37,8 +38,6 @@ public class SceneLoader : MonoBehaviour
 		StartCoroutine (LoadProgress ());
 
 		// Resets all UI fill and text values.
-		//ProgressBarL.value = 0;
-		//ProgressBarR.value = 0;
 		LoadProgressText.text = "0%";
 
 		foreach (ParticleSystem loadParticle in LoadingParticles) 
@@ -53,13 +52,18 @@ public class SceneLoader : MonoBehaviour
 		LoadProgressText.text = "";
 		SceneLoaderUI.gameObject.SetActive (true);
 		SceneLoaderUI.Play ("SceneLoaderUIAppear");
+
 		yield return new WaitForSecondsRealtime (delay);
+
 		PostPorcessSceneLoader.enabled = true;
 		async = SceneManager.LoadSceneAsync (SceneName, LoadSceneMode.Single);
 		async.allowSceneActivation = false; // Prevents the loading scene from activating.
 
 		while (!async.isDone) 
 		{
+			float asyncprogress = Mathf.Round (async.progress * 100 / 0.9f);
+			AudioListener.volume -= 0.2f * Time.unscaledDeltaTime;
+
 			// UI checks load progress and displays for the player.
 			SmoothProgress = Mathf.Lerp (SmoothProgress, async.progress, ProgressBarSmoothTime * Time.unscaledDeltaTime);
 
@@ -68,15 +72,18 @@ public class SceneLoader : MonoBehaviour
 				var ParticleStartLifetimeMain = loadParticle.main;
 				ParticleStartLifetimeMain.startLifetime = async.progress + 0.5f;
 			}
-
-			Debug.Log ("Scene load async progress: " + Mathf.Round ((async.progress * 100) / 0.9f) + "%");
+				
+			if (asyncprogress < 100) 
+			{
+				Debug.Log ("Scene load async progress: " + Mathf.Round ((async.progress * 100) / 0.9f) + "%");
+			}
 
 			// Somehow async operations load up to 90% before loading the next scene,
 			// we have to compensate by adding 10% to the progress text.
 			LoadProgressText.text = Mathf.Round ((SmoothProgress * 100) / 0.9f) + "%";
 
 			// Checks if the scene has been completely loaded into memory. 
-			if (LoadProgressText.text == "100%") 
+			if (LoadProgressText.text == "100%")
 			{
 				StartCoroutine (LoadThisScene ());
 				SceneLoaderUI.Play ("SceneLoaderUIDisappear");
@@ -88,8 +95,6 @@ public class SceneLoader : MonoBehaviour
 
 	IEnumerator LoadThisScene ()
 	{
-		//LoadProgressText.text = "";
-
 		foreach (ParticleSystem loadParticle in LoadingParticles) 
 		{
 			loadParticle.Stop (true, ParticleSystemStopBehavior.StopEmitting);

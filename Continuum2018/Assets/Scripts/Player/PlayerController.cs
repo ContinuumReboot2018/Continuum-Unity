@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
 	public TimescaleController   timescaleControllerScript;
 	public AudioController 		 audioControllerScript;
 	public SaveAndLoadScript 	 saveAndLoadScript;
-	public CursorManager 		 cursorManagerScript;
 	public CameraShake 			 camShakeScript;
 	public DeveloperMode 		 developerModeScript;
 	public TutorialManager 		 tutorialManagerScript;
@@ -1241,6 +1240,7 @@ public class PlayerController : MonoBehaviour
 	// Sync ability name in the list value.
 	public void RefreshAbilityName ()
 	{
+		Ability = (ability)saveAndLoadScript.SelectedAbility;
 		string SentenceCaseAbility = ParseByCase (Ability.ToString ());
 		AbilityName = SentenceCaseAbility;
 	}
