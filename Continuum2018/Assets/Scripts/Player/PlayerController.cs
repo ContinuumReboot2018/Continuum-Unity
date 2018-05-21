@@ -529,6 +529,7 @@ public class PlayerController : MonoBehaviour
 
 		RefreshAbilityName ();
 		RefreshAbilityImage ();
+		Ability = (ability)saveAndLoadScript.SelectedAbility;
 		AbilityUI.SetActive (false);
 		PowerupUI.SetActive (false);
 
@@ -1240,7 +1241,6 @@ public class PlayerController : MonoBehaviour
 	// Sync ability name in the list value.
 	public void RefreshAbilityName ()
 	{
-		Ability = (ability)saveAndLoadScript.SelectedAbility;
 		string SentenceCaseAbility = ParseByCase (Ability.ToString ());
 		AbilityName = SentenceCaseAbility;
 	}
