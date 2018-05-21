@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 199729307862520274}
   - component: {fileID: 82630998734724706}
   - component: {fileID: 114538948711491612}
+  - component: {fileID: 114732682962077710}
   m_Layer: 0
   m_Name: BlockExplosion_Player_Shock
   m_TagString: Untagged
@@ -45,6 +46,7 @@ GameObject:
   - component: {fileID: 82290292129079766}
   - component: {fileID: 114031326233937388}
   - component: {fileID: 114450010184242618}
+  - component: {fileID: 114740912286942734}
   m_Layer: 0
   m_Name: BlockExplosion_Player
   m_TagString: Untagged
@@ -62,6 +64,7 @@ GameObject:
   - component: {fileID: 4936122094325866}
   - component: {fileID: 198768830781562908}
   - component: {fileID: 199338091124973910}
+  - component: {fileID: 114074704755260514}
   m_Layer: 0
   m_Name: ShockWave
   m_TagString: Untagged
@@ -289,6 +292,20 @@ MonoBehaviour:
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
+--- !u!114 &114074704755260514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173123881643572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
 --- !u!114 &114344286343468894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,13 +358,41 @@ MonoBehaviour:
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
+--- !u!114 &114732682962077710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072586396597310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
+--- !u!114 &114740912286942734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107170480724288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
 --- !u!114 &114856166083868060
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1107170480724288}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6129a3f33a82e494cb649fce0aab9eb5, type: 3}
   m_Name: 
@@ -366,7 +411,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -3760,7 +3805,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -7154,7 +7199,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

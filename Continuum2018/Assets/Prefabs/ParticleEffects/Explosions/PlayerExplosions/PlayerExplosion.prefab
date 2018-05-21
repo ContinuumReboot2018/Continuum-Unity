@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 199468540798613006}
   - component: {fileID: 82450970583582314}
   - component: {fileID: 114184027366849148}
+  - component: {fileID: 114275129115677990}
   m_Layer: 9
   m_Name: PlayerExplosion
   m_TagString: Bullet
@@ -58,6 +59,7 @@ GameObject:
   - component: {fileID: 198590307147799496}
   - component: {fileID: 199323899935341042}
   - component: {fileID: 82002445018045860}
+  - component: {fileID: 114017214044314036}
   m_Layer: 9
   m_Name: PlayerDeathExplosion
   m_TagString: Bullet
@@ -267,6 +269,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114017214044314036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882231940460146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
 --- !u!114 &114184027366849148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -281,6 +297,20 @@ MonoBehaviour:
   delay: 10
   DestroyObj: {fileID: 1026703781888602}
   useUnscaledTime: 0
+--- !u!114 &114275129115677990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1026703781888602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 250
 --- !u!198 &198481232542434684
 ParticleSystem:
   m_ObjectHideFlags: 1

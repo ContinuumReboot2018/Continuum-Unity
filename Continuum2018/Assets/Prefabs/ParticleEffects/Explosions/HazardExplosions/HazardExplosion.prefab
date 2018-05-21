@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 82630998734724706}
   - component: {fileID: 114538948711491612}
   - component: {fileID: 114994657282723054}
+  - component: {fileID: 114708861739655434}
   m_Layer: 0
   m_Name: HazardExplosion
   m_TagString: Untagged
@@ -42,6 +43,7 @@ GameObject:
   - component: {fileID: 4936122094325866}
   - component: {fileID: 198768830781562908}
   - component: {fileID: 199338091124973910}
+  - component: {fileID: 114754282914873086}
   m_Layer: 0
   m_Name: ShockWave
   m_TagString: Untagged
@@ -188,6 +190,34 @@ MonoBehaviour:
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
+--- !u!114 &114708861739655434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072586396597310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
+--- !u!114 &114754282914873086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173123881643572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 10
 --- !u!114 &114994657282723054
 MonoBehaviour:
   m_ObjectHideFlags: 1

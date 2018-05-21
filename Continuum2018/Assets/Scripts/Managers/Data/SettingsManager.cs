@@ -10,6 +10,8 @@ public class SettingsManager : MonoBehaviour
 {
 	public SaveAndLoadScript saveAndLoadScript;
 	public PostProcessingBehaviour postProcessingBehaviourComponent;
+	public FastMobileBloom fastMobileBloomScript;
+	public VolumetricLightRenderer volLightRend;
 
 	[Header ("Visual Settings")]
 	public Camera cam;
@@ -41,6 +43,7 @@ public class SettingsManager : MonoBehaviour
 		saveAndLoadScript.VisualSettingsComponent = postProcessingBehaviourComponent;
 		saveAndLoadScript.cam = cam;
 
+		UpdateVisuals ();
 		UpdateVolumeTextValues ();
 	}
 
@@ -57,6 +60,7 @@ public class SettingsManager : MonoBehaviour
 	void Update ()
 	{
 		GetSoundtrackVolumeValue ();
+		GetEffectsVolumeValue ();
 	}
 
 	// VISUALS
@@ -81,6 +85,10 @@ public class SettingsManager : MonoBehaviour
 
 			saveAndLoadScript.sunShaftsEnabled = false;
 			cam.GetComponent<SunShafts> ().enabled = false;
+
+			postProcessingBehaviourComponent.enabled = false;
+			fastMobileBloomScript.enabled = true;
+			volLightRend.enabled = false;
 		}
 
 		// High visual quality settings.
@@ -95,6 +103,10 @@ public class SettingsManager : MonoBehaviour
 
 			saveAndLoadScript.sunShaftsEnabled = true;
 			cam.GetComponent<SunShafts> ().enabled = true;
+
+			postProcessingBehaviourComponent.enabled = true;
+			fastMobileBloomScript.enabled = false;
+			volLightRend.enabled = true;
 		}
 	}
 
@@ -123,19 +135,19 @@ public class SettingsManager : MonoBehaviour
 		
 	public void SoundtrackVolumeUpOnClick ()
 	{
-		saveAndLoadScript.SoundtrackVolume += 0.1f;
+		saveAndLoadScript.SoundtrackVolume += 8f;
 		UpdateSoundtrackVol ();
 	}
 
 	public void SoundtrackVolumeDownOnClick ()
 	{
-		saveAndLoadScript.SoundtrackVolume -= 0.1f;
+		saveAndLoadScript.SoundtrackVolume -= 8f;
 		UpdateSoundtrackVol ();
 	}
 
 	void UpdateSoundtrackVol ()
 	{
-		saveAndLoadScript.SoundtrackVolume = Mathf.Clamp (saveAndLoadScript.SoundtrackVolume, 0, 1);
+		saveAndLoadScript.SoundtrackVolume = Mathf.Clamp (saveAndLoadScript.SoundtrackVolume, -80, 0);
 		curSoundtrackVol = saveAndLoadScript.SoundtrackVolume;
 		SoundtrackVolMix.SetFloat ("SoundtrackVolume", curSoundtrackVol);
 		UpdateVolumeTextValues ();
@@ -181,7 +193,7 @@ public class SettingsManager : MonoBehaviour
 	// Gets current effects volume from mixer.
 	public float GetEffectsVolumeValue ()
 	{
-		bool curVolResult = SoundtrackVolMix.GetFloat ("EffectsVolume", out curEffectsVol);
+		bool curVolResult = EffectsVolMix.GetFloat ("EffectsVolume", out curEffectsVol);
 
 		if (curVolResult) 
 		{
@@ -200,8 +212,9 @@ public class SettingsManager : MonoBehaviour
 		MasterVolumeValueText.text = System.Math.Round (
 			saveAndLoadScript.MasterVolume, 1).ToString ();
 		
-		SoundtrackVolumeValueText.text = System.Math.Round (
-			(saveAndLoadScript.SoundtrackVolume), 1).ToString ();
+		SoundtrackVolumeValueText.text = (1 +
+			System.Math.Round ((0.0125f * saveAndLoadScript.SoundtrackVolume), 1)
+		).ToString ();
 		
 		EffectsVolumeValueText.text = (1 +
 			System.Math.Round ((0.0125f * saveAndLoadScript.EffectsVolume), 1)
@@ -214,7 +227,7 @@ public class SettingsManager : MonoBehaviour
 	public void ApplySettings ()
 	{
 		saveAndLoadScript.SaveSettingsData ();
-		//saveAndLoadScript.LoadSettingsData ();
+		saveAndLoadScript.LoadSettingsData ();
 	}
 
 	public void RevertSettings ()

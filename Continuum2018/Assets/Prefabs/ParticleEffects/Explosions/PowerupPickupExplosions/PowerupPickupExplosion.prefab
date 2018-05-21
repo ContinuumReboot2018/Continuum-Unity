@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114201206547933330}
   - component: {fileID: 82630998734724706}
   - component: {fileID: 114538948711491612}
+  - component: {fileID: 114351785667017142}
   m_Layer: 0
   m_Name: PowerupPickupExplosion_Shock
   m_TagString: Untagged
@@ -47,6 +48,7 @@ GameObject:
   - component: {fileID: 82290292129079766}
   - component: {fileID: 114031326233937388}
   - component: {fileID: 114009839658393486}
+  - component: {fileID: 114684019318801360}
   m_Layer: 0
   m_Name: PowerupPickupExplosion
   m_TagString: Untagged
@@ -64,6 +66,7 @@ GameObject:
   - component: {fileID: 4936122094325866}
   - component: {fileID: 198768830781562908}
   - component: {fileID: 199338091124973910}
+  - component: {fileID: 114761825423317984}
   m_Layer: 0
   m_Name: ShockWave
   m_TagString: Untagged
@@ -358,6 +361,20 @@ MonoBehaviour:
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
   TextPos: {x: 0, y: 0}
+--- !u!114 &114351785667017142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072586396597310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
 --- !u!114 &114538948711491612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -376,6 +393,34 @@ MonoBehaviour:
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
+--- !u!114 &114684019318801360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107170480724288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
+--- !u!114 &114761825423317984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173123881643572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
 --- !u!114 &114856166083868060
 MonoBehaviour:
   m_ObjectHideFlags: 1

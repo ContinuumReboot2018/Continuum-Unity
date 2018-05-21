@@ -18,7 +18,8 @@ public class GameController : MonoBehaviour
 	public DeveloperMode developerModeScript;				// Reference to the developer mode for debug info.
 	public CursorManager cursorManagerScript;				// Reference to the cursor state.
 	public PostProcessingProfile ImageEffects;				// Reference to the post processing profile.
-	public GameModifierManager gameModifier;				// Reference to the GameModifierManager Scriptable object.								// Main camera.
+	public GameModifierManager gameModifier;				// Reference to the GameModifierManager Scriptable object.
+	public MenuManager pauseMenuManager;
 	public static List<InputDevice> playerDevices; 
 
 	[Header ("Game Stats")]
@@ -1040,13 +1041,8 @@ public class GameController : MonoBehaviour
 				playerControllerScript_P1.pauseManagerScript.MenuOnEnter (0);
 				playerControllerScript_P1.pauseManagerScript.menuButtons.buttonIndex = 0;
 
-				// Sets mouse cursor states.
-				//cursorManagerScript.UnlockMouse ();
-				//cursorManagerScript.ShowMouse ();
-
 				// Sets audio values for pause.
 				audioControllerScript.updateVolumeAndPitches = false;
-				//audioControllerScript.BassTrack.pitch = 0;
 				audioControllerScript.SetTargetLowPassFreq (500);
 				audioControllerScript.SetTargetResonance (2f);
 
@@ -1055,8 +1051,11 @@ public class GameController : MonoBehaviour
 
 				// Overrides time scale.
 				timescaleControllerScript.isOverridingTimeScale = true;
-				timescaleControllerScript.OverridingTimeScale = 0;
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.1f;
+				timescaleControllerScript.OverridingTimeScale = 0; // Completely stop time.
+				timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.1f; // Must increase a little bit so the overriding occurs.
+
+				// Set auto hover on resume button.
+				pauseMenuManager.MenuOnEnter (0);
 			}
 
 			// Restart updating required scripts.
@@ -1108,8 +1107,13 @@ public class GameController : MonoBehaviour
 		}
 
 		// Stops overriding time scale.
-		timescaleControllerScript.isOverridingTimeScale = false;
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
+		//timescaleControllerScript.isOverridingTimeScale = false;
+		//timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
+
+		if (playerControllerScript_P1.timeIsSlowed == true) 
+		{
+			timescaleControllerScript.OverridingTimeScale = 0.3f;
+		}
 	}
 
 	// Tracks if not in main pause menu.

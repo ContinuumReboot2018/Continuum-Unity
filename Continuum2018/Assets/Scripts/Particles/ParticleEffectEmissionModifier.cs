@@ -7,9 +7,8 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 	public float BaseRateDistance = 24;
 	public float BaseRateTime = 24;
 
-	void Start ()
+	void Awake ()
 	{
-		//saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		FindComponents ();
 	}
 
@@ -36,7 +35,9 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 		// Found save and load script.
 		if (saveAndLoadScript != null) 
 		{
-			InvokeRepeating ("RefreshParticleRates", 0.1f, 2);
+			InvokeRepeating ("RefreshParticleRates", 0.0f, 2);
+			InvokeRepeating ("RefreshBursts", 0.0f, 2);
+			InvokeRepeating ("RefreshMaxParticles", 0.0f, 2);
 		}
 	}
 
@@ -63,5 +64,33 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 		// Max particles modifier.
 		//var ParticleMax = particleEffect.main;
 		//ParticleMax.maxParticles = Mathf.RoundToInt (ParticleMax.maxParticles * saveAndLoadScript.ParticleEmissionMultiplier);
+	}
+
+	void RefreshBursts ()
+	{
+		int ParticleBurstCount = particleEffect.emission.burstCount; // Get burst count in particle effect.
+
+		var burstEmission = particleEffect.emission; // Reference emission module.
+
+		// Loop through bursts and set new values.
+		for (int i = 0; i < ParticleBurstCount; i++)
+		{
+			burstEmission.SetBurst (
+				i, 
+				new ParticleSystem.Burst (
+					burstEmission.GetBurst (i).time,
+					burstEmission.GetBurst (i).count.constant * saveAndLoadScript.ParticleEmissionMultiplier
+				)
+			);
+		}
+	}
+
+	void RefreshMaxParticles ()
+	{
+		int MaxParticles = particleEffect.main.maxParticles;
+
+		var ParticleMainModule = particleEffect.main;
+
+		ParticleMainModule.maxParticles *= Mathf.RoundToInt (saveAndLoadScript.ParticleEmissionMultiplier * 3);
 	}
 }

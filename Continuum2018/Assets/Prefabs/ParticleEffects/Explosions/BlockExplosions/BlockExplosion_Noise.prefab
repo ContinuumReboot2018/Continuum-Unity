@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114316778167321668}
   - component: {fileID: 82854371204699814}
   - component: {fileID: 114172317614392464}
+  - component: {fileID: 114997764973308148}
   m_Layer: 0
   m_Name: BlockExplosion_Noise
   m_TagString: Untagged
@@ -59,6 +60,7 @@ GameObject:
   - component: {fileID: 4612872937541056}
   - component: {fileID: 198384869095528778}
   - component: {fileID: 199604400872152568}
+  - component: {fileID: 114226810974018684}
   m_Layer: 0
   m_Name: ShockWave
   m_TagString: Untagged
@@ -303,6 +305,20 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &114226810974018684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1406285461312472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
 --- !u!114 &114266716847804814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -500,6 +516,20 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114997764973308148
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1081727288271718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 0
+  BaseRateTime: 0
 --- !u!198 &198365432009175230
 ParticleSystem:
   m_ObjectHideFlags: 1

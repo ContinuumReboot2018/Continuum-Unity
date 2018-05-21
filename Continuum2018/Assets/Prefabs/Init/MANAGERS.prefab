@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 4668918646734058}
   - component: {fileID: 114875327752900768}
   - component: {fileID: 114098335591259770}
+  - component: {fileID: 114487879129895504}
   m_Layer: 0
   m_Name: InControl
   m_TagString: Untagged
@@ -460,7 +461,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206208298503716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.891799, y: -5, z: 0}
+  m_LocalPosition: {x: 8.880005, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -542,7 +543,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1072815788808384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0014548833, y: 5, z: 0}
+  m_LocalPosition: {x: -0.004442003, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -555,7 +556,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407336111842324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.891799, y: -5, z: 0}
+  m_LocalPosition: {x: 8.880005, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -654,7 +655,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266182147391190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.891799, y: 0, z: 0}
+  m_LocalPosition: {x: 8.880005, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -1012,6 +1013,18 @@ MonoBehaviour:
     lockAspectRatio: 1
     worldSize: {x: 0, y: 0}
   knobRange: 7.5
+--- !u!114 &114487879129895504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451691336518242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a77d21b3d2e92e4f9346acd18b46060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inControlTouchManager: {fileID: 114098335591259770}
 --- !u!114 &114535914267014328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1121,6 +1134,8 @@ MonoBehaviour:
   - name: 
     score: 0
     wave: 0
+  SelectedAbility: 0
+  SelectedSkin: 0
   VisualSettings: {fileID: 11400000, guid: cb1c9f0b292c9e84fa25332b580b675a, type: 2}
   VisualSettingsComponent: {fileID: 0}
   cam: {fileID: 0}
@@ -1167,6 +1182,8 @@ MonoBehaviour:
     - name: 
       score: 0
       wave: 0
+    SelectedAbility: 0
+    SelectedSkin: 0
   SettingsData:
     QualitySettingsIndex: 0
     useHdr: 0
