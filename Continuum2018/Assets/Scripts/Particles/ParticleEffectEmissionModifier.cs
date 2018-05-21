@@ -37,7 +37,8 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 		{
 			InvokeRepeating ("RefreshParticleRates", 0.0f, 2);
 			InvokeRepeating ("RefreshBursts", 0.0f, 2);
-			InvokeRepeating ("RefreshMaxParticles", 0.0f, 2);
+
+			RefreshMaxParticles ();
 		}
 	}
 

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4109541636260350}
   - component: {fileID: 198579627018539890}
   - component: {fileID: 199273492172956042}
+  - component: {fileID: 114632370220662854}
   m_Layer: 8
   m_Name: LoadingScreenParticles_Blue
   m_TagString: Untagged
@@ -122,6 +123,7 @@ GameObject:
   - component: {fileID: 4584513825559762}
   - component: {fileID: 198956093141820684}
   - component: {fileID: 199698428199348822}
+  - component: {fileID: 114804884141603878}
   m_Layer: 8
   m_Name: LoadingScreenParticles_White
   m_TagString: Untagged
@@ -220,6 +222,7 @@ GameObject:
   - component: {fileID: 4693597320124524}
   - component: {fileID: 198191206520258506}
   - component: {fileID: 199425898998140390}
+  - component: {fileID: 114588880064505014}
   m_Layer: 8
   m_Name: LoadingScreenParticles_Purple
   m_TagString: Untagged
@@ -352,6 +355,7 @@ GameObject:
   - component: {fileID: 4114457687658916}
   - component: {fileID: 198378185793449780}
   - component: {fileID: 199534926007663058}
+  - component: {fileID: 114832074784813896}
   m_Layer: 8
   m_Name: LoadingScreenParticles_Pink
   m_TagString: Untagged
@@ -1054,6 +1058,20 @@ MonoBehaviour:
     size: {x: 5, y: 5}
     lockAspectRatio: 1
     worldSize: {x: 0, y: 0}
+--- !u!114 &114588880064505014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273553528654844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 100
+  BaseRateTime: 100
 --- !u!114 &114598295702909340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1258,6 +1276,20 @@ MonoBehaviour:
   - {fileID: 198378185793449780}
   - {fileID: 198191206520258506}
   - {fileID: 198956093141820684}
+--- !u!114 &114632370220662854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030735628028722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 100
+  BaseRateTime: 100
 --- !u!114 &114643157351884986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1554,6 +1586,34 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114804884141603878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1187859162146586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 50
+  BaseRateTime: 100
+--- !u!114 &114832074784813896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1674802451990210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  BaseRateDistance: 100
+  BaseRateTime: 100
 --- !u!114 &114861755299008702
 MonoBehaviour:
   m_ObjectHideFlags: 1

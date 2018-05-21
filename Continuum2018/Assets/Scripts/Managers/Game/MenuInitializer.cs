@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.PostProcessing;
 
 public class MenuInitializer : MonoBehaviour 
 {
 	public SaveAndLoadScript saveAndLoadScript;
+	public PostProcessingProfile postProcess;
+	public float bloomIntensity;
 
 	public AudioMixer SoundtrackAudioMix;
 	public AudioMixer EffectsAudioMix;
@@ -23,6 +26,10 @@ public class MenuInitializer : MonoBehaviour
 		EffectsAudioMix.SetFloat ("LowCutoffFrequency", curEffectsFreq);
 		SoundtrackAudioMix.SetFloat ("Resonance", curRes);
 		EffectsAudioMix.SetFloat ("Resonance", curEffectsRes);
+
+		var bloomsettings = postProcess.bloom.settings;
+		bloomsettings.bloom.intensity = bloomIntensity;
+		postProcess.bloom.settings = bloomsettings;
 	}
 
 	// Gets current low pass cutoff frequency value.
