@@ -240,12 +240,12 @@ public class PlayerController : MonoBehaviour
 	public ability Ability;
 	public enum ability
 	{
-		Shield, 		 // Creates a shield, invincibility for a short time, cool warp screen effect.
-		Emp,			 // Creates a quick exhaust blast of particles which interact with blocks and destroying them.
-		VerticalBeam, 	 // Fires particles vertically up, destroying particles in the way.
-		HorizontalBeam,  // Fires to streams of particles (left and right), destroying falling or stacked blocks that collide with it.
-		Rewind,   		 // Rewinds time for a certain amount of seconds.
-		Mirror 			 // Adds a mirror clone to the player.
+		Shield = 0, 		 // Creates a shield, invincibility for a short time, cool warp screen effect.
+		Emp = 1,			 // Creates a quick exhaust blast of particles which interact with blocks and destroying them.
+		VerticalBeam = 2, 	 // Fires particles vertically up, destroying particles in the way.
+		HorizontalBeam = 3,  // Fires to streams of particles (left and right), destroying falling or stacked blocks that collide with it.
+		Rewind = 4,   		 // Rewinds time for a certain amount of seconds.
+		Mirror = 5 			 // Adds a mirror clone to the player.
 	}
 
 	// Ability UI.
