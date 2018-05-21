@@ -319,6 +319,8 @@ public class TimescaleController : MonoBehaviour
 		// Show mouse and allow control for player.
 		gameControllerScript.cursorManagerScript.UnlockMouse ();
 		gameControllerScript.cursorManagerScript.ShowMouse ();
+
+		playerControllerScript_P1.Vibrate (0, 0, 0);
 	}
 
 	// Rewinding functionality to be called by ability.
