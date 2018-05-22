@@ -1106,10 +1106,6 @@ public class GameController : MonoBehaviour
 			CountScore = true;
 		}
 
-		// Stops overriding time scale.
-		//timescaleControllerScript.isOverridingTimeScale = false;
-		//timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
-
 		if (playerControllerScript_P1.timeIsSlowed == true) 
 		{
 			timescaleControllerScript.OverridingTimeScale = 0.3f;

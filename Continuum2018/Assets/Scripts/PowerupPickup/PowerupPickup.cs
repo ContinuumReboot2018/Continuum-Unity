@@ -26,17 +26,17 @@ public class PowerupPickup : MonoBehaviour
 	public powerups ThisPowerup;
 	public enum powerups
 	{
-		DoubleShot, // Player shoots two bullets each shot.
-		TripleShot, // Player shoots one bullet up and two at 45 degree angles.
-		ExtraLife, // Gives the player a life.
-		RippleShot, // Player shoots a ring which expands over time.
-		Turret, // A turret will be enabled and rotate around the player if collected.
-		Helix, // A double helix will be enabled which rotates and moves around the player/ 
-		Rapidfire, // Increases the fire rate for the player.
-		Overdrive, // Player shoots bullets which go through anything.
-		Ricochet, // Bullets bounce off the top and bottom of the screen.
-		Homing, // Bullets find the closest block and move towards it.
-		FreezeTime // Freezes time temporarily.
+		DoubleShot = 0, // Player shoots two bullets each shot.
+		TripleShot = 1, // Player shoots one bullet up and two at 45 degree angles.
+		ExtraLife = 2, 	// Gives the player a life.
+		RippleShot = 3, // Player shoots a ring which expands over time.
+		Turret = 4, 	// A turret will be enabled and rotate around the player if collected.
+		Helix = 5, 		// A double helix will be enabled which rotates and moves around the player/ 
+		Rapidfire = 6, 	// Increases the fire rate for the player.
+		Overdrive = 7, 	// Player shoots bullets which go through anything.
+		Ricochet = 8,	// Bullets bounce off the top and bottom of the screen.
+		Homing = 9, 	// Bullets find the closest block and move towards it.
+		FreezeTime = 10 // Freezes time temporarily.
 	}
 
 	[Header ("On Pickup")]
@@ -188,11 +188,13 @@ public class PowerupPickup : MonoBehaviour
 			timescaleControllerScript.OverridingTimeScale = 0.3f;
 			timescaleControllerScript.OverrideTimeScaleTimeRemaining += PowerupTime;
 			timescaleControllerScript.isOverridingTimeScale = true;
-			playerControllerScript_P1.timeIsSlowed = true;
 
-			SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
-
-			gameControllerScript.NextPowerupSlot_P1 += 1;
+			if (playerControllerScript_P1.timeIsSlowed == false) 
+			{
+				playerControllerScript_P1.timeIsSlowed = true;
+				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+				gameControllerScript.NextPowerupSlot_P1 += 1;
+			}
 			break;
 
 		case powerups.DoubleShot: 

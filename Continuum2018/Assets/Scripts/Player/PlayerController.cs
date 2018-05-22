@@ -527,9 +527,10 @@ public class PlayerController : MonoBehaviour
 		InvokeRepeating ("TurretRotatorCheck", 0, 0.5f);
 		InvincibleMeshAnim.Play ("InvincibleMeshOffInstant");
 
-		RefreshAbilityName ();
-		RefreshAbilityImage ();
 		Ability = (ability)saveAndLoadScript.SelectedAbility;
+		RefreshAbilityImage ();
+		RefreshAbilityName ();
+
 		AbilityUI.SetActive (false);
 		PowerupUI.SetActive (false);
 
@@ -1605,7 +1606,8 @@ public class PlayerController : MonoBehaviour
 			break;
 		}
 
-		PlayerRecoil.Play ("PlayerRecoil");
+		//PlayerRecoil.Play ("PlayerRecoil");
+		PlayerRecoil.SetTrigger ("Recoil");
 	}
 
 	// Gets pause state.

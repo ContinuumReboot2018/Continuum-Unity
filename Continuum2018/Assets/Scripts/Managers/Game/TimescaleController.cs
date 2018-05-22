@@ -241,17 +241,7 @@ public class TimescaleController : MonoBehaviour
 				// Decrease sensitivity of player movement.
 				playerControllerScript_P1.MovementX *= Time.timeScale;
 				playerControllerScript_P1.MovementY *= Time.timeScale;
-
-				if (OverridingTimeScale > 0.2f) 
-				{
-					playerControllerScript_P1.SmoothFollowTime = 1 / Time.timeScale;
-				}
-
-				if (OverridingTimeScale <= 0.2f) 
-				{
-					playerControllerScript_P1.SmoothFollowTime = 2 / Time.timeScale;
-				}
-
+				playerControllerScript_P1.SmoothFollowTime = 2 / Time.timeScale;
 				return;
 			}
 

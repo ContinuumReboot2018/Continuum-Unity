@@ -92,14 +92,15 @@ public class MiniBoss : MonoBehaviour
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
+
 		evasiveManeuverScript.enabled = false;
 		InvokeRepeating ("GetBossParts", 0.1f, 1f);
 		Invoke ("TurnOnEvasiveManeuverScript", 4);
+
 		GameObject MiniBossUIObject = GameObject.Find("MiniBossUI");
 		MiniBossUIObject.GetComponentInChildren<TextMeshProUGUI> ().text = MiniBossName;
 		MiniBossUIObject.GetComponentInChildren<Animator> ().Play ("MiniBossUI");
 
-		//gameControllerScript.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject (this.transform);
 		InvokeRepeating ("SpotlightOverrideTransform", 0, 1);
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("OverrideSpotlightLookObject", 0, 1);
 
@@ -201,13 +202,12 @@ public class MiniBoss : MonoBehaviour
 		if (Line.enabled == true && simpleFollowScript.OverrideTransform != null) 
 		{
 			Line.SetPosition (0, transform.position + new Vector3 (0, 0, 0.36f));
-			//Line.SetPosition (1, FollowPlayerPos.position);
 			Line.SetPosition (1, simpleFollowScript.OverrideTransform.position);
+
 			Shoot ();
 
 			// Draws a line in scene view.
 			#if UNITY_EDITOR || UNITY_EDITOR_64
-			//Debug.DrawLine (transform.position, FollowPlayerPos.position, Color.green);
 			Debug.DrawLine (transform.position, simpleFollowScript.OverrideTransform.position, Color.green);
 			#endif
 		}
@@ -326,8 +326,12 @@ public class MiniBoss : MonoBehaviour
 		Instantiate (LargeExplosion, transform.position, Quaternion.identity); // Spawn a large explosion.
 		gameControllerScript.StartNewWave (); // Go to next wave.
 		gameControllerScript.IsInWaveTransition = true; // Set to be in wave transition.
-		timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 1f; // Temporarily override time scale. 
-		timeScaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
+
+		if (gameControllerScript.playerControllerScript_P1.timeIsSlowed == false)
+		{
+			timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 1f; // Temporarily override time scale. 
+			timeScaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
+		}
 
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("SpotlightOverrideTransform");
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("OverrideSpotlightLookObject");
@@ -337,7 +341,6 @@ public class MiniBoss : MonoBehaviour
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.SuccessSpotlightSettings ();
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.NewTarget = PlayerPos;
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject ();
-		//gameControllerScript.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject (PlayerPos);
 
 		// Reset camera rotation animator parameter.
 		if (FlipScreen.GetCurrentAnimatorStateInfo (0).IsName ("CameraRotateUpsideDown") == true) 
