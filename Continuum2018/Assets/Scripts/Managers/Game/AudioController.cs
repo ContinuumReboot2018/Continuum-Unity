@@ -354,27 +354,29 @@ public class AudioController : MonoBehaviour
 	void UpdateSoundtracksVolume ()
 	{
 		// Updates target volumes.
+		// We need to compensate for how the mmixer volume is displayed in dB (-80 to 0).
+
 		BassTrack.volume = Mathf.Lerp (
 			BassTrack.volume, 
-			BaseTargetVolume + (saveAndLoadScript.SoundtrackVolume - 1), 
+			BaseTargetVolume + (1 + (float)System.Math.Round (0.0125f * saveAndLoadScript.SoundtrackVolume, 1)), 
 			VolumeSmoothTime * Time.unscaledDeltaTime
 		);
 
 		LayerOneTrack.volume = Mathf.Lerp (
 			LayerOneTrack.volume, 
-			LayerOneTargetVolume + (saveAndLoadScript.SoundtrackVolume - 1), 
+			LayerOneTargetVolume + (1 + (float)System.Math.Round (0.0125f * saveAndLoadScript.SoundtrackVolume, 1)), 
 			VolumeSmoothTime * Time.unscaledDeltaTime
 		);
 
 		LayerTwoTrack.volume = Mathf.Lerp (
 			LayerTwoTrack.volume, 
-			LayerTwoTargetVolume + (saveAndLoadScript.SoundtrackVolume - 1), 
+			LayerTwoTargetVolume + (1 + (float)System.Math.Round (0.0125f * saveAndLoadScript.SoundtrackVolume, 1)), 
 			VolumeSmoothTime * Time.unscaledDeltaTime
 		);
 
 		LayerThreeTrack.volume = Mathf.Lerp (
 			LayerThreeTrack.volume, 
-			LayerThreeTargetVolume + (saveAndLoadScript.SoundtrackVolume - 1), 
+			LayerThreeTargetVolume + (1 + (float)System.Math.Round (0.0125f * saveAndLoadScript.SoundtrackVolume, 1)), 
 			VolumeSmoothTime * Time.unscaledDeltaTime
 		);
 	}
