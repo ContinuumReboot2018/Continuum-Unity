@@ -53,7 +53,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 		currentCharacter = allCharacters [characterId].ToString ();
 		NewNameText.text = NewName + allCharacters [characterId].ToString ();
 		CheckPlacement ();
-		HighScoreText.text = "" + gameOverControllerScript.FinalScore;
+		HighScoreText.text = "" + gameOverControllerScript.FinalScore.ToString ("### ### ### ### ###");
 		WaveText.text = "WAVE: " + gameOverControllerScript.gameControllerScript.Wave;
 
 		CreateMenuActions ();
