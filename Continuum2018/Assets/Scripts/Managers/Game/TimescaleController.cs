@@ -320,7 +320,9 @@ public class TimescaleController : MonoBehaviour
 		gameControllerScript.cursorManagerScript.UnlockMouse ();
 		gameControllerScript.cursorManagerScript.ShowMouse ();
 
+		#if !UNITY_ANDROID
 		playerControllerScript_P1.Vibrate (0, 0, 0);
+		#endif
 	}
 
 	// Rewinding functionality to be called by ability.

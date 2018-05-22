@@ -32,7 +32,7 @@ QualitySettings:
     particleRaycastBudget: 4
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
-    resolutionScalingFixedDPIFactor: 1
+    resolutionScalingFixedDPIFactor: 0.5
     excludedTargetPlatforms:
     - WebGL
     - Android
@@ -67,5 +67,5 @@ QualitySettings:
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
     Android: 0
-    Standalone: 0
+    Standalone: 1
     WebGL: 0
