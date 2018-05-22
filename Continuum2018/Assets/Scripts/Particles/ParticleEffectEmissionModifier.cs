@@ -35,9 +35,8 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 		// Found save and load script.
 		if (saveAndLoadScript != null) 
 		{
-			InvokeRepeating ("RefreshParticleRates", 0.0f, 2);
-			InvokeRepeating ("RefreshBursts", 0.0f, 2);
-
+			RefreshParticleRates ();
+			RefreshBursts ();
 			RefreshMaxParticles ();
 		}
 	}

@@ -818,6 +818,7 @@ public class PlayerController : MonoBehaviour
 		spotlightsScript.NewTarget = ImpactTransform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.ImpactSpotlightSettings ();
+		return;
 	}
 
 	// Special impacts by blocks.
@@ -829,6 +830,7 @@ public class PlayerController : MonoBehaviour
 		camShakeScript.ShakeCam (ImpactBlock.newCamShakeAmount * 10, ImpactBlock.newCamShakeAmount * 10, 99);
 		audioControllerScript.SetTargetLowPassFreq (ImpactBlock.LowPassTargetFreq);
 		audioControllerScript.SetTargetResonance (ImpactBlock.ResonanceTargetFreq);
+		return;
 	}
 
 	// Special impacts by hazards.
@@ -840,6 +842,7 @@ public class PlayerController : MonoBehaviour
 		camShakeScript.ShakeCam (ImpactHazard.newCamShakeAmount * 10, ImpactHazard.newCamShakeAmount * 10, 98);
 		ImpactHazard.SetTargetLowPassFreq (ImpactHazard.LowPassTargetFreq);
 		ImpactHazard.SetTargetResonance (ImpactHazard.ResonanceTargetFreq);
+		return;
 	}
 
 	// When cooldown time is complete.
