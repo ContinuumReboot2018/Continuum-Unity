@@ -201,7 +201,7 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Allows cool image effects tp play that simulates VHS glitch effects and animates them.")]
 	public Animator GlitchEffect;
 	[Tooltip("Collider for invincibility.")]
-	public MeshCollider InvincibleCollider;
+	public Collider InvincibleCollider;
 	[Tooltip("MeshRenderer for invincibility.")]
 	public MeshRenderer InvincibleMesh;
 	[Tooltip("Animator for invincibility.")]
@@ -768,7 +768,6 @@ public class PlayerController : MonoBehaviour
 			gameControllerScript.TargetDepthDistance = 0.1f;
 			isInCooldownMode = true;
 			UsePlayerFollow = false;
-			Invoke ("PlayerTransformPosCooldown", 0.25f);
 		}
 	}
 
