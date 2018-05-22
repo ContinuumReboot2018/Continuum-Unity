@@ -91,18 +91,35 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Gets variables from this script = variables in other scripts.
 	void GetPlayerData ()
 	{
-		if (gameControllerScript != null) 
-		{
-			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
+		#if !UNITY_EDITOR
+			if (gameControllerScript != null) 
 			{
-				ExperiencePoints += (int)Math.Round (gameControllerScript.TargetScore);
+				if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
+				{
+					ExperiencePoints += (int)Math.Round (gameControllerScript.TargetScore);
+				}
 			}
-		}
 
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false) 
-		{
-			ExperiencePoints = 0;
-		}
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false) 
+			{
+				ExperiencePoints = 0;
+			}
+		#endif
+
+		#if UNITY_EDITOR
+			if (gameControllerScript != null) 
+			{
+				if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == true) 
+				{
+					ExperiencePoints += (int)Math.Round (gameControllerScript.TargetScore);
+				}
+			}
+
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == false) 
+			{
+				ExperiencePoints = 0;
+			}
+		#endif
 	}
 
 	// Save PlayerData Main.
@@ -115,7 +132,24 @@ public class SaveAndLoadScript : MonoBehaviour
 
 			// Creates new save file.
 			BinaryFormatter bf = new BinaryFormatter ();
-			FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
+
+			#if !UNITY_EDITOR
+				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
+
+				Debug.Log (
+					"Successfully saved to " +
+					Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat"
+				); 
+			#endif
+
+			#if UNITY_EDITOR
+				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
+
+				Debug.Log (
+					"Successfully saved to " +
+					Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat"
+				); 
+			#endif
 
 			// Does the saving
 			playerData data = new playerData ();
@@ -124,11 +158,6 @@ public class SaveAndLoadScript : MonoBehaviour
 			// Serializes and closes the file.
 			bf.Serialize (file, data);
 			file.Close ();
-
-			Debug.Log (
-				"Successfully saved to " +
-				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat"
-			); 
 		}
 	}
 
@@ -145,6 +174,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Load PlayerData main.
 	public void LoadPlayerData ()
 	{
+		#if !UNITY_EDITOR
 		if (AllowLoading == true)
 		{
 			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
@@ -166,10 +196,36 @@ public class SaveAndLoadScript : MonoBehaviour
 
 			CheckPlayerDataFile ();
 		}
+		#endif
+
+		#if UNITY_EDITOR
+		if (AllowLoading == true)
+		{
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == true) 
+			{
+				// Opens the save data.
+				BinaryFormatter bf = new BinaryFormatter ();
+				FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat", FileMode.Open);
+
+				// Processes the save data into memory.
+				playerData data = (playerData)bf.Deserialize (file);
+				file.Close ();
+
+				LoadPlayerDataContents (data);
+				StorePlayerDataInGame ();
+
+				Debug.Log ("Successfully loaded from " +
+				Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
+			}
+
+			CheckPlayerDataFile ();
+		}
+		#endif
 	}
 
 	void CheckPlayerDataFile ()
 	{
+		#if !UNITY_EDITOR
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false)
 		{
 			Debug.LogWarning ("Unable to load from " +
@@ -184,6 +240,24 @@ public class SaveAndLoadScript : MonoBehaviour
 			Debug.Log ("Saved new player data to " +
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 		}
+		#endif
+
+		#if UNITY_EDITOR
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == false)
+		{
+			Debug.LogWarning ("Unable to load from " +
+			Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
+
+			Leaderboard = new List<LeaderboardEntry> (10);
+
+			Leaderboard = DefaultLeaderboard;
+
+			SavePlayerData ();
+
+			Debug.Log ("Saved new player data to " +
+			Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
+		}
+		#endif
 	}
 
 	// Sets variables in this script by getting data from save file. 
@@ -208,7 +282,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Gets variables from this script = variables in other scripts.
 	void GetSettingsData ()
 	{
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true
+		 || File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == true) 
 		{
 			QualitySettings.SetQualityLevel (QualitySettingsIndex);
 
@@ -244,7 +319,24 @@ public class SaveAndLoadScript : MonoBehaviour
 
 			// Creates new save file.
 			BinaryFormatter bf = new BinaryFormatter ();
-			FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+
+			#if !UNITY_EDITOR
+				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+				
+				Debug.Log (
+					"Successfully saved to " +
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat"
+				); 
+			#endif
+
+			#if UNITY_EDITOR
+				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+
+				Debug.Log (
+					"Successfully saved to " +
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat"
+				); 
+			#endif
 
 			// Does the saving
 			settingsData data = new settingsData ();
@@ -253,11 +345,6 @@ public class SaveAndLoadScript : MonoBehaviour
 			// Serializes and closes the file.
 			bf.Serialize (file, data);
 			file.Close ();
-
-			Debug.Log (
-				"Successfully saved to " +
-				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat"
-			); 
 		}
 	}
 
@@ -291,33 +378,67 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		if (AllowLoading == true)
 		{
-			if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
-			{
-				// Opens the save data.
-				BinaryFormatter bf = new BinaryFormatter ();
-				FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat", FileMode.Open);
+			#if !UNITY_EDITOR
+				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
+				{
+					// Opens the save data.
+					BinaryFormatter bf = new BinaryFormatter ();
 
-				// Processes the save data into memory.
-				settingsData data = (settingsData)bf.Deserialize (file);
-				file.Close ();
+					FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat", FileMode.Open);
 
-				LoadSettingsDataContents (data);
-				StoreSettingsDataInGame ();
+					Debug.Log ("Successfully loaded from " +
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 
-				Debug.Log ("Successfully loaded from " +
-				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
-			}
+					// Processes the save data into memory.
+					settingsData data = (settingsData)bf.Deserialize (file);
+					file.Close ();
 
-			if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == false) 
-			{
-				Debug.LogWarning ("Unable to load from " +
-				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+					LoadSettingsDataContents (data);
+					StoreSettingsDataInGame ();
+				}
 
-				SaveSettingsData ();
+				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == false) 
+				{
+					Debug.LogWarning ("Unable to load from " +
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 
-				Debug.Log ("Saved settings data to " +
-				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
-			}
+					SaveSettingsData ();
+
+					Debug.Log ("Saved settings data to " +
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+				}
+			#endif
+
+			#if UNITY_EDITOR
+				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == true) 
+				{
+					// Opens the save data.
+					BinaryFormatter bf = new BinaryFormatter ();
+
+					FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat", FileMode.Open);
+
+					Debug.Log ("Successfully loaded from " +
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+
+					// Processes the save data into memory.
+					settingsData data = (settingsData)bf.Deserialize (file);
+					file.Close ();
+
+					LoadSettingsDataContents (data);
+					StoreSettingsDataInGame ();
+				}
+
+				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == false) 
+				{
+					Debug.LogWarning ("Unable to load from " +
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+
+					SaveSettingsData ();
+
+					Debug.Log ("Saved settings data to " +
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+				}
+			#endif
 		}
 	}
 
