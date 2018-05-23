@@ -11,15 +11,17 @@ using InControl;
 
 public class GameController : MonoBehaviour 
 {
-	public PlayerController playerControllerScript_P1;		// Reference to the player controller.
-	public TimescaleController timescaleControllerScript;	// Reference to the timescale controller.
-	public AudioController audioControllerScript;			// Reference to the audio controller.
-	public SaveAndLoadScript saveAndLoadScript;			    // Reference to the save and load script.
-	public DeveloperMode developerModeScript;				// Reference to the developer mode for debug info.
-	public CursorManager cursorManagerScript;				// Reference to the cursor state.
-	public PostProcessingProfile ImageEffects;				// Reference to the post processing profile.
-	public GameModifierManager gameModifier;				// Reference to the GameModifierManager Scriptable object.
-	public MenuManager pauseMenuManager;
+	public PlayerController 		playerControllerScript_P1;	// Reference to the player controller.
+	public TimescaleController 		timescaleControllerScript;	// Reference to the timescale controller.
+	public AudioController 			audioControllerScript;		// Reference to the audio controller.
+	public SaveAndLoadScript 		saveAndLoadScript;			// Reference to the save and load script.
+	public DeveloperMode 			developerModeScript;		// Reference to the developer mode for debug info.
+	public CursorManager 			cursorManagerScript;		// Reference to the cursor state.
+	public PostProcessingProfile 	ImageEffects;				// Reference to the post processing profile.
+	public GameModifierManager 		gameModifier;				// Reference to the GameModifierManager Scriptable object.
+	public GameModifierManager[] 	missionModiferSettings;
+	public MenuManager 				pauseMenuManager;
+
 	public static List<InputDevice> playerDevices; 
 
 	[Header ("Game Stats")]
@@ -393,21 +395,24 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
-		// Clear and reset UI for score, waves, and lives.
-		ClearMainUI (); 
-
 		// Get the save and load script.
 		if (saveAndLoadScript == null)
 		{
 			saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 			cursorManagerScript = GameObject.Find ("CursorManager").GetComponent<CursorManager> ();
 			saveAndLoadScript.gameControllerScript = this;
+
+			// Get modifier settings.
+			gameModifier = missionModiferSettings[saveAndLoadScript.MissionId];
+			SetGameModifiers (); // Applies game modifiers.
 		}
+
+		// Clear and reset UI for score, waves, and lives.
+		ClearMainUI (); 
 
 		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1); // Refreshes block spawn time.
 		InvokeRepeating ("UpdateLives", 0, 1); // Refreshes UI for lives.
 		ClearPowerupUI (); // Clears powerup UI from list.
-		SetGameModifiers (); // Applies game modifiers.
 
 		UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
 		InvokeRepeating ("SetStartOrthSize", 0, 1); // Checks orthographic size based on screen ratio.
@@ -433,7 +438,7 @@ public class GameController : MonoBehaviour
 		LivesBackground.enabled = false;
 
 		// Clear wave info stuff.
-		Wave = 1;
+		Wave = gameModifier.startingWave;
 		WaveTimeDuration = FirstWaveTimeDuration;
 		WaveText.text = "";
 		playerControllerScript_P1.WaveAnim.enabled = false;

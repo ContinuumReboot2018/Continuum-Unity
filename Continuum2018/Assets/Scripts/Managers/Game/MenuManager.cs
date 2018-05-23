@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
 using InControl;
 
 public class MenuManager : MonoBehaviour 
@@ -39,6 +40,33 @@ public class MenuManager : MonoBehaviour
 		}
 
 		pointerEventData = new PointerEventData (EventSystem.current);
+
+		if (menuButtons.BackButton != null) 
+		{
+			menuButtons.BackButton.enabled = false;
+		}
+	}
+
+	void OnEnable ()
+	{
+		if (menuButtons.BackButton != null) 
+		{
+			StartCoroutine (EnableBackButton ());
+		}
+	}
+
+	IEnumerator EnableBackButton ()
+	{
+		yield return new WaitForSecondsRealtime (0.25f);
+		menuButtons.BackButton.enabled = true;
+	}
+
+	void OnDisable ()
+	{
+		if (menuButtons.BackButton != null) 
+		{
+			menuButtons.BackButton.enabled = false;
+		}
 	}
 
 	void Update () 
@@ -59,7 +87,11 @@ public class MenuManager : MonoBehaviour
 					{
 						aButtonNextCooldown = Time.unscaledTime + aButtonCoolDown;
 						menuButtons.buttonIndex = 0;
-						MenuOnClick ();
+
+						if (menuButtons.ignoreAutoClick == false)
+						{
+							MenuOnClick ();
+						}
 					}
 				}
 			}
@@ -141,7 +173,7 @@ public class MenuManager : MonoBehaviour
 			// Player presses the B button.
 			if (menuActions.Ability.WasPressed)
 			{
-				if (Time.unscaledTime > bButtonNextCooldown) 
+				if (Time.unscaledTime > bButtonNextCooldown && menuButtons.ignoreAutoClick == false) 
 				{
 					// Set button to first option and execute the command.
 					menuButtons.buttonIndex = 0;
@@ -285,5 +317,6 @@ public class MenuManager : MonoBehaviour
 		public Button BackButton;
 
 		public bool useStartButton;
+		public bool ignoreAutoClick = true;
 	}
 }

@@ -3,6 +3,7 @@ using TMPro;
 
 public class GameModifierReceiver : MonoBehaviour 
 {
+	public SaveAndLoadScript saveAndLoadScript;
 	public GameModifierManager gameModifierManagerScript;
 	[Space (10)]
 	public TextMeshProUGUI TutorialStatusText;
@@ -18,9 +19,12 @@ public class GameModifierReceiver : MonoBehaviour
 	public TextMeshProUGUI StackingStatusText;
 	public TextMeshProUGUI OverheatStatusText;
 	public TextMeshProUGUI BonusRoundsStatusText;
+	public TextMeshProUGUI StartingWaveStatusText;
 
 	void Start ()
 	{
+		// Find the saving script.
+		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		CheckModifierStates ();
 	}
 
@@ -155,6 +159,28 @@ public class GameModifierReceiver : MonoBehaviour
 		Debug.Log ("MODIFIER: Bonus rounds: " + gameModifierManagerScript.bonusRounds.ToString ());
 	}
 
+	public void SetStartingWave ()
+	{
+		if (gameModifierManagerScript.startingWave < 10) 
+		{
+			gameModifierManagerScript.startingWave += 1;
+		} 
+
+		else 
+
+		{
+			gameModifierManagerScript.startingWave = 1;
+		}
+
+		Debug.Log ("MODIFIER: Starting wave: " + gameModifierManagerScript.startingWave.ToString ());
+	}
+
+	public void SetMissionId (int mission)
+	{
+		saveAndLoadScript.MissionId = mission;
+		Debug.Log ("MODIFIER: Set mission ID to: " + saveAndLoadScript.MissionId);
+	}
+
 	public void SetTrialTime (float trialTime)
 	{
 		gameModifierManagerScript.TrialTime = trialTime;
@@ -218,5 +244,6 @@ public class GameModifierReceiver : MonoBehaviour
 		StackingStatusText.text = gameModifierManagerScript.stacking ? "ON" : "OFF";
 		OverheatStatusText.text = gameModifierManagerScript.useOverheat ? "ON" : "OFF";
 		BonusRoundsStatusText.text = gameModifierManagerScript.bonusRounds ? "ON" : "OFF";
+		StartingWaveStatusText.text = gameModifierManagerScript.startingWave.ToString ();
 	}
 }

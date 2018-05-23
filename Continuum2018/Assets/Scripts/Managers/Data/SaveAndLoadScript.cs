@@ -27,6 +27,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	public List<LeaderboardEntry> Leaderboard;
 	public int SelectedAbility;
 	public int SelectedSkin;
+	public int MissionId;
 
 	[Header ("Settings Data")]
 	public PostProcessingProfile VisualSettings;
@@ -169,6 +170,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		data.Leaderboard = Leaderboard;
 		data.SelectedAbility = SelectedAbility;
 		data.SelectedSkin = SelectedSkin;
+		data.MissionId = MissionId;
 	}
 
 	// Load PlayerData main.
@@ -271,6 +273,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		Leaderboard = data.Leaderboard;
 		SelectedAbility = data.SelectedAbility;
 		SelectedSkin = data.SelectedSkin;
+		MissionId = data.MissionId;
 	}
 
 	// Puts new data into relevant scripts.
@@ -517,6 +520,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		public List<LeaderboardEntry> Leaderboard;
 		public int SelectedAbility;
 		public int SelectedSkin;
+		public int MissionId;
 	}
 
 	[Serializable]

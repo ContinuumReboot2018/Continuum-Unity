@@ -63,4 +63,10 @@ public class GameModifierManager : ScriptableObject
 	public bool useOverheat = false;
 	[Tooltip ("Bonus rounds")]
 	public bool bonusRounds = true;
+	[Tooltip ("Starting wave")]
+	public int startingWave = 1;
+
+	[Header ("Mission text")]
+	[Multiline]
+	public string MissionDescription;
 }
