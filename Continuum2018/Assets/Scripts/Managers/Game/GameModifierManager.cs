@@ -61,4 +61,6 @@ public class GameModifierManager : ScriptableObject
 	public bool stacking = true;
 	[Tooltip ("Use overheating?")]
 	public bool useOverheat = false;
+	[Tooltip ("Bonus rounds")]
+	public bool bonusRounds = true;
 }

@@ -17,6 +17,7 @@ public class GameModifierReceiver : MonoBehaviour
 	public TextMeshProUGUI BlockSpawnRateStatusText;
 	public TextMeshProUGUI StackingStatusText;
 	public TextMeshProUGUI OverheatStatusText;
+	public TextMeshProUGUI BonusRoundsStatusText;
 
 	void Start ()
 	{
@@ -148,12 +149,17 @@ public class GameModifierReceiver : MonoBehaviour
 		Debug.Log ("MODIFIER: Use overheat: " + gameModifierManagerScript.useOverheat.ToString ());
 	}
 
+	public void SetBonusRoundsMode ()
+	{
+		gameModifierManagerScript.bonusRounds = !gameModifierManagerScript.bonusRounds;
+		Debug.Log ("MODIFIER: Bonus rounds: " + gameModifierManagerScript.bonusRounds.ToString ());
+	}
+
 	public void SetTrialTime (float trialTime)
 	{
 		gameModifierManagerScript.TrialTime = trialTime;
 	}
-
-
+		
 	public void CheckModifierStates ()
 	{
 		TutorialStatusText.text = gameModifierManagerScript.Tutorial ? "ON" : "OFF";
@@ -211,5 +217,6 @@ public class GameModifierReceiver : MonoBehaviour
 		BlockSpawnRateStatusText.text = gameModifierManagerScript.blockSpawnRateMultiplier.ToString ();
 		StackingStatusText.text = gameModifierManagerScript.stacking ? "ON" : "OFF";
 		OverheatStatusText.text = gameModifierManagerScript.useOverheat ? "ON" : "OFF";
+		BonusRoundsStatusText.text = gameModifierManagerScript.bonusRounds ? "ON" : "OFF";
 	}
 }

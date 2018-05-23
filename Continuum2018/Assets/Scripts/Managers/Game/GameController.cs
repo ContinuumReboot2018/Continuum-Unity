@@ -1479,52 +1479,38 @@ public class GameController : MonoBehaviour
 			// Bonus Round.
 			if (Wave % 3 == 0) 
 			{
-				StartCoroutine (BonusRound ());
+				if (gameModifier.bonusRounds == true) 
+				{
+					StartCoroutine (BonusRound ());
+				} 
+
+				else 
+				
+				{
+					// Wave / 4 has remainders = normal wave.
+					if (Wave % 4 != 0 && Wave % 3 == 0)
+					{
+						CheckWaveMiniBoss ();
+					}
+						
+					// Wave / 4 divides equally = big boss time.
+					if (Wave % 4 == 0 && Wave % 3 == 0) 
+					{
+						CheckWaveBigBoss ();
+					}
+				}
 			}
 
 			// Wave / 4 has remainders = normal wave.
 			if (Wave % 4 != 0 && Wave % 3 != 0)
 			{
-				// Spawn a miniboss as usual in normal mode.
-				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
-				{
-					StartCoroutine (SpawnMiniBoss ());
-				}
-
-				// Go to next wave, skip bosses entirely.
-				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
-				{
-					StartNewWave ();
-					IsInWaveTransition = true;
-				}
-
-				// Wave after big boss wave, clear soundtrack text display.
-				if (Wave % 4 != 1)
-				{
-					SoundtrackText.text = "";
-				}
+				CheckWaveMiniBoss ();
 			}
 
 			// Wave / 4 divides equally = big boss time.
-			if (Wave % 4 == 0 && Wave % 3 != 0)
+			if (Wave % 4 == 0 && Wave % 3 != 0) 
 			{
-				//audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
-				// TODO: Play boss soundtrack.
-
-				// Spawn a big boss in normal mode.
-				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
-				{
-					StartCoroutine (SpawnBigBoss ());
-				}
-
-				// Go to next wave, skip bosses entirely.
-				if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
-				{
-					StartNewWave ();
-					IsInWaveTransition = true;
-				}
-
-				SoundtrackText.text = ""; // Clear sounstrack text display.
+				CheckWaveBigBoss ();
 			}
 
 			WaveTimeRemaining = 0; // Reset wave time remaining.
@@ -1535,6 +1521,49 @@ public class GameController : MonoBehaviour
 		{
 			SoundtrackText.text = audioControllerScript.TrackName + ""; // Display new soundtrack name.
 		}
+	}
+
+	void CheckWaveMiniBoss ()
+	{
+		// Spawn a miniboss as usual in normal mode.
+		if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
+		{
+			StartCoroutine (SpawnMiniBoss ());
+		}
+
+		// Go to next wave, skip bosses entirely.
+		if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
+		{
+			StartNewWave ();
+			IsInWaveTransition = true;
+		}
+
+		// Wave after big boss wave, clear soundtrack text display.
+		if (Wave % 4 != 1)
+		{
+			SoundtrackText.text = "";
+		}
+	}
+
+	void CheckWaveBigBoss ()
+	{
+		//audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
+		// TODO: Play boss soundtrack.
+
+		// Spawn a big boss in normal mode.
+		if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
+		{
+			StartCoroutine (SpawnBigBoss ());
+		}
+
+		// Go to next wave, skip bosses entirely.
+		if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.NoBosses) 
+		{
+			StartNewWave ();
+			IsInWaveTransition = true;
+		}
+
+		SoundtrackText.text = ""; // Clear sounstrack text display.
 	}
 
 	// Prepare next wave.

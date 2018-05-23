@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using InControl;
 
 public class MenuManager : MonoBehaviour 
 {
@@ -26,12 +27,17 @@ public class MenuManager : MonoBehaviour
 
 	// Input data.
 	public PointerEventData pointerEventData;
-	public PlayerActions menuActions;
+	public static PlayerActions menuActions;
 
 	void Awake ()
 	{
 		// Get input data.
-		menuActions = new PlayerActions ();
+		if (menuActions == null) 
+		{
+			menuActions = new PlayerActions ();
+			AssignActionControls ();
+		}
+
 		pointerEventData = new PointerEventData (EventSystem.current);
 	}
 
@@ -45,10 +51,21 @@ public class MenuManager : MonoBehaviour
 		// Only perform tasks if this UI is active.
 		if (UI.activeInHierarchy == true) 
 		{
+			if (menuButtons.useStartButton == true) 
+			{
+				if (menuActions.Pause.WasPressed) 
+				{
+					if (Time.unscaledTime > aButtonNextCooldown) 
+					{
+						aButtonNextCooldown = Time.unscaledTime + aButtonCoolDown;
+						menuButtons.buttonIndex = 0;
+						MenuOnClick ();
+					}
+				}
+			}
+
 			// Player presses up on the left stick or D-Pad up.
-			if ((menuActions.ActiveDevice.LeftStickUp.Value > 0.75f ||
-			    menuActions.ActiveDevice.DPadUp.IsPressed) ||
-			    Input.GetKeyDown (KeyCode.UpArrow)) 
+			if (menuActions.MoveUp.Value > 0.75f) 
 			{
 				if (Time.unscaledTime > nextScroll) 
 				{
@@ -79,9 +96,7 @@ public class MenuManager : MonoBehaviour
 			}
 
 			// Player presses down on the left stick or D-Pad down.
-			if ((menuActions.ActiveDevice.LeftStickDown.Value > 0.75f ||
-			    menuActions.ActiveDevice.DPadDown.IsPressed) ||
-			    Input.GetKeyDown (KeyCode.DownArrow))
+			if (menuActions.MoveDown.Value > 0.75f)
 			{
 				if (Time.unscaledTime > nextScroll) 
 				{
@@ -112,8 +127,7 @@ public class MenuManager : MonoBehaviour
 			}
 
 			// Player presses the A button.
-			if (menuActions.ActiveDevice.Action1.IsPressed ||
-			    Input.GetKeyDown (KeyCode.Return)) 
+			if (menuActions.Shoot.WasPressed) 
 			{
 				if (Time.unscaledTime > aButtonNextCooldown) 
 				{
@@ -125,7 +139,7 @@ public class MenuManager : MonoBehaviour
 			}
 
 			// Player presses the B button.
-			if (menuActions.ActiveDevice.Action2.IsPressed || Input.GetKeyDown (KeyCode.Escape))
+			if (menuActions.Ability.WasPressed)
 			{
 				if (Time.unscaledTime > bButtonNextCooldown) 
 				{
@@ -212,6 +226,46 @@ public class MenuManager : MonoBehaviour
 		MenuOnEnter (menuButtons.buttonIndex);
 	}
 
+	void AssignActionControls ()
+	{
+		// LEFT
+		menuActions.MoveLeft.AddDefaultBinding (Key.A);
+		menuActions.MoveLeft.AddDefaultBinding (Key.LeftArrow);
+		menuActions.MoveLeft.AddDefaultBinding (InputControlType.LeftStickLeft);
+		menuActions.MoveLeft.AddDefaultBinding (InputControlType.DPadLeft);
+
+		// RIGHT
+		menuActions.MoveRight.AddDefaultBinding (Key.D);
+		menuActions.MoveRight.AddDefaultBinding (Key.RightArrow);
+		menuActions.MoveRight.AddDefaultBinding (InputControlType.LeftStickRight);
+		menuActions.MoveRight.AddDefaultBinding (InputControlType.DPadRight);
+
+		// UP
+		menuActions.MoveUp.AddDefaultBinding (Key.W);
+		menuActions.MoveUp.AddDefaultBinding (Key.UpArrow);
+		menuActions.MoveUp.AddDefaultBinding (InputControlType.LeftStickUp);
+		menuActions.MoveUp.AddDefaultBinding (InputControlType.DPadUp);
+
+		// DOWN
+		menuActions.MoveDown.AddDefaultBinding (Key.S);
+		menuActions.MoveDown.AddDefaultBinding (Key.DownArrow);
+		menuActions.MoveDown.AddDefaultBinding (InputControlType.LeftStickDown);
+		menuActions.MoveDown.AddDefaultBinding (InputControlType.DPadDown);
+
+		// A
+		menuActions.Shoot.AddDefaultBinding (Key.Space);
+		menuActions.Shoot.AddDefaultBinding (Key.Return);
+		menuActions.Shoot.AddDefaultBinding (InputControlType.Action1);
+
+		// B
+		menuActions.Ability.AddDefaultBinding (Key.Escape);
+		menuActions.Ability.AddDefaultBinding (InputControlType.Action2);
+
+		// Start
+		menuActions.Pause.AddDefaultBinding (Key.Return);
+		menuActions.Pause.AddDefaultBinding (InputControlType.Command);
+	}
+
 	[Header ("Menu Buttons")]
 	public MenuButtons menuButtons;
 	[System.Serializable]
@@ -229,5 +283,7 @@ public class MenuManager : MonoBehaviour
 
 		[Tooltip ("The button OnClick () event that gets pressed when B is pressed.")]
 		public Button BackButton;
+
+		public bool useStartButton;
 	}
 }
