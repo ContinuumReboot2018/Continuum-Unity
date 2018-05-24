@@ -198,7 +198,7 @@ public class Bullet : MonoBehaviour
 		if (other.tag == "Block") 
 		{
 			// Vibrate the controller on impact.
-			#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID
+			#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
 			playerControllerScript.Vibrate (LeftMotorRumble, RightMotorRumble, VibrationDuration);
 			#endif
 

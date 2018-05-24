@@ -310,7 +310,7 @@ public class TimescaleController : MonoBehaviour
 		gameControllerScript.cursorManagerScript.UnlockMouse ();
 		gameControllerScript.cursorManagerScript.ShowMouse ();
 
-		#if !UNITY_ANDROID
+		#if !UNITY_ANDROID && !PLATFORM_WEBGL
 		playerControllerScript_P1.Vibrate (0, 0, 0);
 		#endif
 	}

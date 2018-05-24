@@ -751,7 +751,7 @@ public class Block : MonoBehaviour
 
 	void DoVibrate ()
 	{
-		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID
+		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
 		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
 		#endif
 	}
