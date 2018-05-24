@@ -12,6 +12,8 @@ public class InitManager : MonoBehaviour
 
 	void Start ()
 	{
+		LoadingMissionText.text = "MAIN MENU";
+
 		if (saveAndLoadScript.QualitySettingsIndex == 0) 
 		{
 			postProcess.enabled = false;

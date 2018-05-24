@@ -18,15 +18,6 @@ public class LoadingScreenTextUpdate : MonoBehaviour
 
 	public void UpdateMissionText (string missionText)
 	{
-		if (SceneManager.GetActiveScene ().name == "menu")
-		{
-			loadingScreenText.text = missionText;
-		} 
-
-		else 
-		
-		{
-			loadingScreenText.text = "MAIN MENU";
-		}
+		loadingScreenText.text = missionText;
 	}
 }
