@@ -26,4 +26,7 @@ MonoBehaviour:
   useOverheat: 0
   bonusRounds: 1
   startingWave: 1
-  MissionDescription: Custom game modifiers. CUSTOM
+  MissionDescription: 'Custom game modifiers. CUSTOM
+
+
+    Select which modifiers you would like to use.'

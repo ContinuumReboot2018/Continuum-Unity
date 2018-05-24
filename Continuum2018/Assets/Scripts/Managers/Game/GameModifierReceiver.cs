@@ -5,6 +5,9 @@ public class GameModifierReceiver : MonoBehaviour
 {
 	public SaveAndLoadScript saveAndLoadScript;
 	public GameModifierManager gameModifierManagerScript;
+
+	public TextMeshProUGUI missionText;
+
 	[Space (10)]
 	public TextMeshProUGUI TutorialStatusText;
 	public TextMeshProUGUI PowerupModeStatusText;
@@ -26,6 +29,7 @@ public class GameModifierReceiver : MonoBehaviour
 		// Find the saving script.
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		CheckModifierStates ();
+		missionText.text = "";
 	}
 
 	// The below methods will be accessed by UI in the main menu.
@@ -184,6 +188,11 @@ public class GameModifierReceiver : MonoBehaviour
 	public void SetTrialTime (float trialTime)
 	{
 		gameModifierManagerScript.TrialTime = trialTime;
+	}
+
+	public void UpdateMissionText (GameModifierManager missionRules)
+	{
+		missionText.text = missionRules.MissionDescription;
 	}
 		
 	public void CheckModifierStates ()
