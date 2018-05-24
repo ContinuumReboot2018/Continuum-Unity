@@ -357,11 +357,17 @@ public class VolumetricLightRenderer : MonoBehaviour
             RenderTexture temp = RenderTexture.GetTemporary(_volumeLightTexture.width, _volumeLightTexture.height, 0, RenderTextureFormat.ARGBHalf);
             temp.filterMode = FilterMode.Bilinear;
 
+			#if PLATFORM_WEBGL
+			this.enabled = false;
+			#endif
+
+			#if !PLATFORM_WEBGL
             // horizontal bilateral blur at full res
             Graphics.Blit(_volumeLightTexture, temp, _bilateralBlurMaterial, 0);
             // vertical bilateral blur at full res
             Graphics.Blit(temp, _volumeLightTexture, _bilateralBlurMaterial, 1);
             RenderTexture.ReleaseTemporary(temp);
+			#endif
         }
         
         // add volume light buffer to rendered scene
