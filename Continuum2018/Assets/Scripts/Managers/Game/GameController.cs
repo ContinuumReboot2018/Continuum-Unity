@@ -404,6 +404,7 @@ public class GameController : MonoBehaviour
 
 			// Get modifier settings.
 			gameModifier = missionModiferSettings[saveAndLoadScript.MissionId];
+			Wave = gameModifier.startingWave;
 			SetGameModifiers (); // Applies game modifiers.
 		}
 
@@ -412,6 +413,7 @@ public class GameController : MonoBehaviour
 
 		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1); // Refreshes block spawn time.
 		InvokeRepeating ("UpdateLives", 0, 1); // Refreshes UI for lives.
+
 		ClearPowerupUI (); // Clears powerup UI from list.
 
 		UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
@@ -423,7 +425,7 @@ public class GameController : MonoBehaviour
 			playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
 		}
 
-		powerupPickupTimeRemaining = 10;
+		powerupPickupTimeRemaining = 14;
 	}
 
 	void ClearMainUI ()
@@ -438,7 +440,7 @@ public class GameController : MonoBehaviour
 		LivesBackground.enabled = false;
 
 		// Clear wave info stuff.
-		Wave = gameModifier.startingWave;
+		//Wave = gameModifier.startingWave;
 		WaveTimeDuration = FirstWaveTimeDuration;
 		WaveText.text = "";
 		playerControllerScript_P1.WaveAnim.enabled = false;
