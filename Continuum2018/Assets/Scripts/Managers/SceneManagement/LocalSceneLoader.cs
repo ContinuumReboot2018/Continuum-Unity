@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LocalSceneLoader : MonoBehaviour 
 {
@@ -8,8 +9,11 @@ public class LocalSceneLoader : MonoBehaviour
 	[Tooltip ("Scene is going to laod another scene.")]
 	public bool SceneLoadCommit;
 
+	public InitManager initManagerScript;
+
 	void Start ()
 	{
+		initManagerScript = GameObject.Find ("MANAGERS").GetComponent<InitManager> ();
 		sceneLoaderScript = GameObject.Find ("SceneLoader").GetComponent<SceneLoader> ();
 	}
 		
@@ -18,6 +22,11 @@ public class LocalSceneLoader : MonoBehaviour
 		SceneLoadCommit = true;
 		sceneLoaderScript.SceneName = sceneName;
 		StartCoroutine (SceneLoadSequence ());
+
+		if (sceneName == "menu") 
+		{
+			initManagerScript.LoadingMissionText.text = "MAIN MENU";
+		}
 	}
 
 	IEnumerator SceneLoadSequence ()

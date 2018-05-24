@@ -460,6 +460,45 @@ public class GameController : MonoBehaviour
 		OverdriveImage.enabled 	= gameModifier.AlwaysOverdrive;
 		OverdriveHex.enabled	= gameModifier.AlwaysOverdrive;
 
+		playerControllerScript_P1.useOverheat = gameModifier.useOverheat;
+
+		if (gameModifier.AlwaysRicochet == true || gameModifier.AlwaysHoming == true) 
+		{
+			playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+			playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+			playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+			playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
+		}
+
+		if (gameModifier.AlwaysRapidfire == true) 
+		{
+			switch (playerControllerScript_P1.ShotType) 
+			{
+			case PlayerController.shotType.Standard:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+				break;	
+			case PlayerController.shotType.Double:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+				break;
+			case PlayerController.shotType.Triple:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+				break;
+			case PlayerController.shotType.Ripple:
+				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+				break;
+			}
+				
+			playerControllerScript_P1.isInRapidFire = true;
+		}
+
+		if (gameModifier.AlwaysOverdrive == true) 
+		{
+			playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Overdrive;
+			playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
+			playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
+			playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+		}
+
 		PowerupImage_P1 [0].texture = StandardShotTexture;
 			
 		// Reset all powerup textures in list.
