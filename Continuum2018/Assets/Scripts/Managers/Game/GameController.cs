@@ -422,7 +422,8 @@ public class GameController : MonoBehaviour
 		// Invokes a game over if the trial time is greater than 0. (Set to -1 just to be safe to avoid this).
 		if (gameModifier.TrialTime > 0) 
 		{
-			playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
+			//playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
+			playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.GameOverDelay (gameModifier.TrialTime));
 		}
 
 		powerupPickupTimeRemaining = 14;
@@ -1458,11 +1459,11 @@ public class GameController : MonoBehaviour
 			yield return new WaitForSeconds (UnityEngine.Random.Range (BonusSpawnDelay.x, BonusSpawnDelay.y));	
 		}
 			
+		yield return new WaitForSeconds (5);
+
 		BonusBlocksDestroyedText.text = "Bonus Blocks Destroyed: " + BonusBlocksDestroyed;
 		BonusAccuracy = Mathf.Clamp ((float)BonusBlocksDestroyed / (float)TotalBonusBlocks, 0, 1);
 		BonusBlocksAccuracyText.text = "Accuracy: " + System.Math.Round (BonusAccuracy * 100, 2) + "%";
-
-		yield return new WaitForSeconds (1);
 
 		BonusEndUI.Play ("BonusEndUI");
 

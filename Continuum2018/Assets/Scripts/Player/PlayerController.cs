@@ -790,6 +790,12 @@ public class PlayerController : MonoBehaviour
 		StartCoroutine (timescaleControllerScript.EndSequenceTimeScale ());
 	}
 
+	public IEnumerator GameOverDelay (float delay)
+	{
+		yield return new WaitForSecondsRealtime (delay);
+		GameOver ();
+	}
+
 	// Impacts by any hazardous object.
 	public void PlayerImpactGeneric ()
 	{

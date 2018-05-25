@@ -53,11 +53,69 @@ public class LeaderboardEntryManager : MonoBehaviour
 		currentCharacter = allCharacters [characterId].ToString ();
 		NewNameText.text = NewName + allCharacters [characterId].ToString ();
 		CheckPlacement ();
-		HighScoreText.text = "" + gameOverControllerScript.FinalScore.ToString ("### ### ### ### ###");
+		CheckFinalScore ();
 		WaveText.text = "WAVE: " + gameOverControllerScript.gameControllerScript.Wave;
 
 		CreateMenuActions ();
 		eventData = new PointerEventData (EventSystem.current);
+	}
+
+	void CheckFinalScore ()
+	{
+		if (gameOverControllerScript.FinalScore > 0 && gameOverControllerScript.FinalScore < 1000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 1000 && gameOverControllerScript.FinalScore < 10000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("# ###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 10000 && gameOverControllerScript.FinalScore < 100000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("## ###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 100000 && gameOverControllerScript.FinalScore < 1000000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("### ###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 1000000 && gameOverControllerScript.FinalScore < 10000000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("# ### ###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 10000000 && gameOverControllerScript.FinalScore < 100000000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("## ### ###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 100000000 && gameOverControllerScript.FinalScore < 1000000000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("### ### ###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 1000000000 && gameOverControllerScript.FinalScore < 10000000000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("# ### ### ###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 10000000000 && gameOverControllerScript.FinalScore < 100000000000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("## ### ### ###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 100000000000 && gameOverControllerScript.FinalScore < 1000000000000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("### ### ### ###");
+		}
+
+		if (gameOverControllerScript.FinalScore >= 1000000000000 && gameOverControllerScript.FinalScore < 10000000000000) 
+		{
+			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("# ### ### ### ###");
+		}
 	}
 
 	void Update ()
