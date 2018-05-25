@@ -7,26 +7,25 @@ namespace InControl
 
 	/// <summary>
 	/// Encapsulates a comparable version number.
-	/// This version number generally conforms to the semantic version system, 
-	/// at least as far as InControl versioning is concerned.
+	/// This version number generally conforms to the semantic version system.
 	/// </summary>
 	public struct VersionInfo : IComparable<VersionInfo>
 	{
 		/// <summary>
 		/// The major version component.
-		/// This number changes when significant incompatible API changes are made.
+		/// This number changes when significant API changes are made.
 		/// </summary>
 		public int Major;
 
 		/// <summary>
 		/// The minor version component.
-		/// This number changes when significant functionality is added in a backwards-compatible manner.
+		/// This number changes when significant functionality is added in a mostly backwards-compatible manner.
 		/// </summary>
 		public int Minor;
 
 		/// <summary>
 		/// The patch version component.
-		/// This number is changed when bug fixes are added in a backwards-compatible manner.
+		/// This number is changed when small updates and fixes are added in a backwards-compatible manner.
 		/// </summary>
 		public int Patch;
 
@@ -38,7 +37,7 @@ namespace InControl
 
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="InControl.VersionInfo"/> with 
+		/// Initializes a new instance of the <see cref="InControl.VersionInfo"/> with
 		/// given version components.
 		/// </summary>
 		/// <param name="major">The major version component.</param>
@@ -64,9 +63,9 @@ namespace InControl
 			return new VersionInfo()
 			{
 				Major = 1,
-				Minor = 6,
-				Patch = 17,
-				Build = 9143
+				Minor = 7,
+				Patch = 0,
+				Build = 9320
 			};
 		}
 
@@ -79,7 +78,7 @@ namespace InControl
 		public static VersionInfo UnityVersion()
 		{
 			var match = Regex.Match( Application.unityVersion, @"^(\d+)\.(\d+)\.(\d+)" );
-			var build = 0;
+			const int build = 0;
 			return new VersionInfo()
 			{
 				Major = Convert.ToInt32( match.Groups[1].Value ),
@@ -95,10 +94,7 @@ namespace InControl
 		/// </summary>
 		public static VersionInfo Min
 		{
-			get
-			{
-				return new VersionInfo( int.MinValue, int.MinValue, int.MinValue, int.MinValue );
-			}
+			get { return new VersionInfo( int.MinValue, int.MinValue, int.MinValue, int.MinValue ); }
 		}
 
 
@@ -107,10 +103,16 @@ namespace InControl
 		/// </summary>
 		public static VersionInfo Max
 		{
-			get
-			{
-				return new VersionInfo( int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue );
-			}
+			get { return new VersionInfo( int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue ); }
+		}
+
+
+		/// <summary>
+		/// Generates the next build version.
+		/// </summary>
+		public VersionInfo Next
+		{
+			get { return new VersionInfo( Major, Minor, Patch, Build + 1 ); }
 		}
 
 
@@ -150,7 +152,7 @@ namespace InControl
 
 
 		/// <summary>
-		/// Compares two instances of <see cref="InControl.VersionInfo"/> to see if 
+		/// Compares two instances of <see cref="InControl.VersionInfo"/> to see if
 		/// the first is equal to or smaller than the second.
 		/// </summary>
 		public static bool operator <=( VersionInfo a, VersionInfo b )
@@ -160,7 +162,7 @@ namespace InControl
 
 
 		/// <summary>
-		/// Compares two instances of <see cref="InControl.VersionInfo"/> to see if 
+		/// Compares two instances of <see cref="InControl.VersionInfo"/> to see if
 		/// the first is equal to or larger than the second.
 		/// </summary>
 		public static bool operator >=( VersionInfo a, VersionInfo b )
@@ -170,7 +172,7 @@ namespace InControl
 
 
 		/// <summary>
-		/// Compares two instances of <see cref="InControl.VersionInfo"/> to see if 
+		/// Compares two instances of <see cref="InControl.VersionInfo"/> to see if
 		/// the first is smaller than the second.
 		/// </summary>
 		public static bool operator <( VersionInfo a, VersionInfo b )
@@ -180,7 +182,7 @@ namespace InControl
 
 
 		/// <summary>
-		/// Compares two instances of <see cref="InControl.VersionInfo"/> to see if 
+		/// Compares two instances of <see cref="InControl.VersionInfo"/> to see if
 		/// the first is larger than the second.
 		/// </summary>
 		public static bool operator >( VersionInfo a, VersionInfo b )
@@ -201,6 +203,7 @@ namespace InControl
 			{
 				return this == ((VersionInfo) other);
 			}
+
 			return false;
 		}
 
@@ -208,7 +211,7 @@ namespace InControl
 		/// <summary>
 		/// Serves as a hash function for a <see cref="InControl.VersionInfo"/> object.
 		/// </summary>
-		/// <returns>A hash code for this instance that is suitable for use in hashing algorithms 
+		/// <returns>A hash code for this instance that is suitable for use in hashing algorithms
 		/// and data structures such as a hash table.</returns>
 		public override int GetHashCode()
 		{
@@ -226,6 +229,7 @@ namespace InControl
 			{
 				return string.Format( "{0}.{1}.{2}", Major, Minor, Patch );
 			}
+
 			return string.Format( "{0}.{1}.{2} build {3}", Major, Minor, Patch, Build );
 		}
 
@@ -240,6 +244,7 @@ namespace InControl
 			{
 				return string.Format( "{0}.{1}.{2}", Major, Minor, Patch );
 			}
+
 			return string.Format( "{0}.{1}.{2}b{3}", Major, Minor, Patch, Build );
 		}
 	}

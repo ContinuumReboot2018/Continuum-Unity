@@ -5,13 +5,14 @@ namespace InControl
 
 	public class UnityInputDeviceProfileList : ScriptableObject
 	{
-		public static string[] Profiles = new string[] 
+		public static readonly string[] Profiles = new string[]
 		{
 			"InControl.AirFloWiredPS3MacProfile",
 			"InControl.AirFloWiredPS3ProfileWin",
 			"InControl.AmazonFireTVProfile",
 			"InControl.AmazonFireTVRemoteProfile",
 			"InControl.AndroidTVAmazonProfile",
+			"InControl.AndroidTVMiBoxRemoteProfile",
 			"InControl.AndroidTVProfile",
 			"InControl.AndroidTVRemoteProfile",
 			"InControl.AppleMFiProfile",

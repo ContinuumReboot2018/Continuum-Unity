@@ -5,6 +5,7 @@ namespace InControl
 	using UnityEngine.EventSystems;
 	using UnityEngine.Serialization;
 
+
 	[AddComponentMenu( "Event/InControl Input Module" )]
 #if UNITY_2017_1_OR_NEWER
 	public class InControlInputModule : PointerInputModule
@@ -30,6 +31,7 @@ namespace InControl
 
 		[Range( 0.1f, 0.9f )]
 		public float analogMoveThreshold = 0.5f;
+
 		public float moveRepeatFirstDuration = 0.8f;
 		public float moveRepeatDelayDuration = 0.1f;
 
@@ -42,6 +44,8 @@ namespace InControl
 
 		public bool allowMouseInput = true;
 		public bool focusOnMouseHover;
+
+		public bool allowTouchInput = true;
 
 		InputDevice inputDevice;
 		Vector3 thisMousePosition;
@@ -79,7 +83,7 @@ namespace InControl
 		{
 #if UNITY_WII || UNITY_PS3 || UNITY_PS4 || UNITY_XBOX360 || UNITY_XBOXONE || UNITY_SWITCH
 			return true;
-#endif
+#else
 
 			if (forceModuleActive || Input.mousePresent || Input.touchSupported)
 			{
@@ -94,6 +98,7 @@ namespace InControl
 #endif
 
 			return false;
+#endif
 		}
 
 
@@ -119,9 +124,9 @@ namespace InControl
 			}
 #endif
 
-			if (Input.touchCount > 0)
+			if (allowTouchInput)
 			{
-				shouldActivate = true;
+				shouldActivate |= Input.touchCount > 0;
 			}
 
 			return shouldActivate;
@@ -164,7 +169,7 @@ namespace InControl
 			}
 
 #if (UNITY_5 && !(UNITY_5_0 || UNITY_5_1)) || UNITY_2017_1_OR_NEWER
-			if (ProcessTouchEvents())
+			if (allowTouchInput && ProcessTouchEvents())
 			{
 				return;
 			}
@@ -228,8 +233,7 @@ namespace InControl
 				//ExecuteEvents.Execute( eventSystem.currentSelectedGameObject, new PointerEventData( EventSystem.current ), ExecuteEvents.pointerDownHandler );
 				ExecuteEvents.Execute( eventSystem.currentSelectedGameObject, eventData, ExecuteEvents.submitHandler );
 			}
-			else
-			if (SubmitWasReleased)
+			else if (SubmitWasReleased)
 			{
 				//ExecuteEvents.Execute( eventSystem.currentSelectedGameObject, new PointerEventData( EventSystem.current ), ExecuteEvents.pointerUpHandler );
 			}
@@ -262,6 +266,7 @@ namespace InControl
 				{
 					ExecuteEvents.Execute( eventSystem.currentSelectedGameObject, axisEventData, ExecuteEvents.moveHandler );
 				}
+
 				SetVectorRepeatTimer();
 			}
 
@@ -338,33 +343,21 @@ namespace InControl
 
 		public InputDevice Device
 		{
-			set
-			{
-				inputDevice = value;
-			}
+			set { inputDevice = value; }
 
-			get
-			{
-				return inputDevice ?? InputManager.ActiveDevice;
-			}
+			get { return inputDevice ?? InputManager.ActiveDevice; }
 		}
 
 
 		InputControl SubmitButton
 		{
-			get
-			{
-				return Device.GetControl( (InputControlType) submitButton );
-			}
+			get { return Device.GetControl( (InputControlType) submitButton ); }
 		}
 
 
 		InputControl CancelButton
 		{
-			get
-			{
-				return Device.GetControl( (InputControlType) cancelButton );
-			}
+			get { return Device.GetControl( (InputControlType) cancelButton ); }
 		}
 
 
@@ -376,28 +369,19 @@ namespace InControl
 
 		bool VectorIsPressed
 		{
-			get
-			{
-				return thisVectorState != Vector2.zero;
-			}
+			get { return thisVectorState != Vector2.zero; }
 		}
 
 
 		bool VectorIsReleased
 		{
-			get
-			{
-				return thisVectorState == Vector2.zero;
-			}
+			get { return thisVectorState == Vector2.zero; }
 		}
 
 
 		bool VectorHasChanged
 		{
-			get
-			{
-				return thisVectorState != lastVectorState;
-			}
+			get { return thisVectorState != lastVectorState; }
 		}
 
 
@@ -417,54 +401,40 @@ namespace InControl
 
 		bool SubmitWasPressed
 		{
-			get
-			{
-				return thisSubmitState && thisSubmitState != lastSubmitState;
-			}
+			get { return thisSubmitState && thisSubmitState != lastSubmitState; }
 		}
 
 
 		bool SubmitWasReleased
 		{
-			get
-			{
-				return !thisSubmitState && thisSubmitState != lastSubmitState;
-			}
+			get { return !thisSubmitState && thisSubmitState != lastSubmitState; }
 		}
 
 
 		bool CancelWasPressed
 		{
-			get
-			{
-				return thisCancelState && thisCancelState != lastCancelState;
-			}
+			get { return thisCancelState && thisCancelState != lastCancelState; }
 		}
 
 
 		bool MouseHasMoved
 		{
-			get
-			{
-				return (thisMousePosition - lastMousePosition).sqrMagnitude > 0.0f;
-			}
+			get { return (thisMousePosition - lastMousePosition).sqrMagnitude > 0.0f; }
 		}
 
 
 		bool MouseButtonIsPressed
 		{
-			get
-			{
-				return Input.GetMouseButtonDown( 0 );
-			}
+			get { return Input.GetMouseButtonDown( 0 ); }
 		}
 
 
 		// Copied from StandaloneInputModule where these are marked private instead of protected in Unity 5.0
+
+
 		#region Unity 5.0 compatibility.
 
 #if UNITY_5_0
-
 		bool SendUpdateEventToSelectedObject()
 		{
 			if (eventSystem.currentSelectedGameObject == null)
@@ -591,6 +561,8 @@ namespace InControl
 
 
 		// Copied from StandaloneInputModule where these are marked private instead of protected in Unity 5.3 / 5.4
+
+
 		#region Unity 5.3 / 5.4 compatibility.
 
 #if UNITY_5_3 || UNITY_5_4
@@ -679,10 +651,11 @@ namespace InControl
 
 
 		// Copied from StandaloneInputModule and TouchInputModule so we can bypass it and inherit directly from PointerInputModule.
+
+
 		#region Unity 2017 compatibility
 
 #if UNITY_2017_1_OR_NEWER
-
 		protected bool SendUpdateEventToSelectedObject()
 		{
 			if (eventSystem.currentSelectedGameObject == null)

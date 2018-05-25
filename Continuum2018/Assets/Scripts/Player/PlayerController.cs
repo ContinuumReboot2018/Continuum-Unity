@@ -1986,39 +1986,6 @@ public class PlayerController : MonoBehaviour
 		playerActions.Back.AddDefaultBinding (Key.Backspace);
 		playerActions.Back.AddDefaultBinding (InputControlType.Action2);
 	}
-		
-	void OnDeviceAttached (InputDevice device)
-	{
-		Debug.Log ("Attached: " + device.Name);
-
-		for (int i=0; i< GameController.playerDevices.Count; i++)
-		{
-			InputDevice InD = GameController.playerDevices[i];
-
-			if (!InD.active)
-			{
-				if (InD.Name == device.Name && InD.Meta == device.Meta)
-				{
-					GameController.playerDevices[i] = device;
-					break;
-				}
-			}
-		}
-	}
-
-	void OnDeviceDetached (InputDevice device)
-	{
-		Debug.Log ("Detached: " + device.Name);
-
-		foreach (InputDevice InD in GameController.playerDevices)
-		{
-			if (InD == device)
-			{
-				InD.active = false;
-				break;
-			}
-		}
-	}
 
 	#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
 	// Creates vibration.

@@ -16,6 +16,7 @@ namespace InControl
 		SerializedProperty forceModuleActive;
 		SerializedProperty allowMouseInput;
 		SerializedProperty focusOnMouseHover;
+		SerializedProperty allowTouchInput;
 
 
 		void OnEnable()
@@ -28,6 +29,7 @@ namespace InControl
 			forceModuleActive = serializedObject.FindProperty( "forceModuleActive" );
 			allowMouseInput = serializedObject.FindProperty( "allowMouseInput" );
 			focusOnMouseHover = serializedObject.FindProperty( "focusOnMouseHover" );
+			allowTouchInput = serializedObject.FindProperty( "allowTouchInput" );
 		}
 
 
@@ -54,6 +56,7 @@ namespace InControl
 			forceModuleActive.boolValue = EditorGUILayout.Toggle( "Force Module Active", forceModuleActive.boolValue );
 			allowMouseInput.boolValue = EditorGUILayout.Toggle( "Allow Mouse Input", allowMouseInput.boolValue );
 			focusOnMouseHover.boolValue = EditorGUILayout.Toggle( "Focus Mouse On Hover", focusOnMouseHover.boolValue );
+			allowTouchInput.boolValue = EditorGUILayout.Toggle( "Allow Touch Input", allowTouchInput.boolValue );
 
 			serializedObject.ApplyModifiedProperties();
 		}
