@@ -321,6 +321,7 @@ public class TimescaleController : MonoBehaviour
 		isRewinding = _isRewinding;
 		RewindDuration = rewindTime;
 		RewindTimeRemaining = RewindDuration;
+		playerControllerScript_P1.InvincibleParticles.Play ();
 	}
 
 	// Timer for rewind state.
@@ -331,7 +332,8 @@ public class TimescaleController : MonoBehaviour
 			isRewinding = false;
 			noiseScript.enabled = false;
 			playerControllerScript_P1.InvincibleCollider.enabled = false;
-			playerControllerScript_P1.InvincibleMesh.enabled = false;
+			//playerControllerScript_P1.InvincibleMesh.enabled = false;
+			playerControllerScript_P1.InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
 			return;
 		}
 
@@ -341,8 +343,8 @@ public class TimescaleController : MonoBehaviour
 			RewindTimeRemaining -= Time.unscaledDeltaTime;
 			noiseScript.enabled = true;
 			playerControllerScript_P1.InvincibleCollider.enabled = true;
-			playerControllerScript_P1.InvincibleMesh.enabled = true;
-			playerControllerScript_P1.InvincibleMeshAnim.Play ("InvincibleMeshFlash");
+			//playerControllerScript_P1.InvincibleMesh.enabled = true;
+			//playerControllerScript_P1.InvincibleMeshAnim.Play ("InvincibleMeshFlash");
 		} 
 
 		else 
@@ -350,6 +352,7 @@ public class TimescaleController : MonoBehaviour
 		{
 			isRewinding = false;
 			noiseScript.enabled = false;
+			playerControllerScript_P1.InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
 		}
 	}
 

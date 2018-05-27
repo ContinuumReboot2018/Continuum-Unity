@@ -1996,15 +1996,25 @@ public class PlayerController : MonoBehaviour
 		playerActions.Back.AddDefaultBinding (InputControlType.Action2);
 	}
 
-	#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
+
 	// Creates vibration.
 	public void Vibrate (float LeftMotor, float RightMotor, float duration)
 	{
+		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
 		PlayerVibrationDuration = duration;
 		PlayerVibrationTimeRemaining = PlayerVibrationDuration;
 		GamePad.SetVibration (PlayerIndex.One, LeftMotor, RightMotor);
+		#endif
 	}
-	#endif
+
+	public void ResetVibration ()
+	{
+		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
+		PlayerVibrationDuration = 0;
+		PlayerVibrationTimeRemaining = 0;
+		GamePad.SetVibration (PlayerIndex.One, 0, 0);
+		#endif
+	}
 
 	// Vibration time remaining is timed and turns off vibration when the timer runs out.
 	void CheckPlayerVibration ()

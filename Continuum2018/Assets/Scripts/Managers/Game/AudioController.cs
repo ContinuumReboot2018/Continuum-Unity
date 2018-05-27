@@ -127,6 +127,13 @@ public class AudioController : MonoBehaviour
 	{
 		TargetCutoffFreq = 22000; // Set target cutoff frequency to max value (22kHz).
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+
+		// Randomize track if on random mode.
+		if (TrackSequenceMode == trackSequence.Random) 
+		{
+			TrackNumber = Random.Range (0, BassTracks.Length);
+		}
+
 		LoadTracks (); // Load the track by track number.
 		InvokeRepeating ("CheckReversePitch", 0, 0.5f); // If in rewind, check for reversing the pitch.
 		AudioListener.volume = saveAndLoadScript.MasterVolume;
