@@ -312,12 +312,12 @@ public class Block : MonoBehaviour
 				gameControllerScript.BonusBlocksDestroyed += 1;
 			}
 
-			if (transform.position.y > 13) 
+			if (transform.position.y > 15) 
 			{
 				return;
 			}
 
-			if (transform.position.y <= 13)
+			if (transform.position.y <= 15)
 			{
 				if (isBossPart == false) 
 				{
@@ -444,12 +444,12 @@ public class Block : MonoBehaviour
 				gameControllerScript.BonusBlocksDestroyed += 1;
 			}
 
-			if (transform.position.y > 13) 
+			if (transform.position.y > 15) 
 			{
 				return;
 			}
 
-			if (transform.position.y <= 13) 
+			if (transform.position.y <= 15) 
 			{
 				if (isBossPart == false)
 				{

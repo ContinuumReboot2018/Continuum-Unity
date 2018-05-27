@@ -206,6 +206,7 @@ public class PlayerController : MonoBehaviour
 	public MeshRenderer InvincibleMesh;
 	[Tooltip("Animator for invincibility.")]
 	public Animator InvincibleMeshAnim;
+	public ParticleSystem InvincibleParticles;
 
 	[Tooltip("Stuff to look at when the player runs out of lives on the impact.")]
 	public ParticleSystem GameOverExplosionParticles;
@@ -525,7 +526,8 @@ public class PlayerController : MonoBehaviour
 		Invoke ("PlaySpaceshipAmbience", 5);
 		InvokeRepeating ("CheckJoinState", 0, 0.5f);
 		InvokeRepeating ("TurretRotatorCheck", 0, 0.5f);
-		InvincibleMeshAnim.Play ("InvincibleMeshOffInstant");
+		//InvincibleMeshAnim.Play ("InvincibleMeshOffInstant");
+		InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
 		Ability = (ability)saveAndLoadScript.SelectedAbility;
 		RefreshAbilityImage ();
@@ -879,7 +881,8 @@ public class PlayerController : MonoBehaviour
 		playerMesh.SetActive (true);
 		audioControllerScript.TargetCutoffFreq = 22000;
 		audioControllerScript.TargetResonance = 1;
-		InvincibleMeshAnim.Play ("InvincibleMeshFlash");
+		//InvincibleMeshAnim.Play ("InvincibleMeshFlash");
+		InvincibleParticles.Play ();
 
 		// Animate lives left text.
 		Invoke ("UpdateLivesLeftA", 0.6f);
