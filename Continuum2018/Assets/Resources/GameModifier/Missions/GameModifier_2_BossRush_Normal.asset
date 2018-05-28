@@ -26,6 +26,7 @@ MonoBehaviour:
   useOverheat: 0
   bonusRounds: 0
   startingWave: 1
+  MissionId: 2
   MissionDescription: 'Boss rush! NORMAL
 
 

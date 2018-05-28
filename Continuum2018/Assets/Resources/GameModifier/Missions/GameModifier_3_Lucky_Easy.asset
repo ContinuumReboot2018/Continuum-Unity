@@ -26,6 +26,7 @@ MonoBehaviour:
   useOverheat: 0
   bonusRounds: 1
   startingWave: 1
+  MissionId: 3
   MissionDescription: 'Lucky Mode! EASY
 
 

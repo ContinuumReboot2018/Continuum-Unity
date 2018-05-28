@@ -66,7 +66,7 @@ public class GameModifierManager : ScriptableObject
 	[Tooltip ("Starting wave")]
 	public int startingWave = 1;
 
-	[Header ("Mission text")]
+	[Header ("Missions")]
 	[Multiline]
 	public string MissionDescription;
 }

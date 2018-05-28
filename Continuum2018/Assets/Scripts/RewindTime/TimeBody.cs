@@ -56,6 +56,7 @@ public class TimeBody : MonoBehaviour
 					blockScript.isStacked = false; // Set to not stacked.
 				}
 			}
+
 		} 
 
 		else 
@@ -63,11 +64,14 @@ public class TimeBody : MonoBehaviour
 		{
 			if (blockScript != null)
 			{
+				Record (); // Record last point in time.
+
+				/*
 				// If the block is not stacked.
 				if (blockScript.isStacked == false) 
 				{
 					Record (); // Record last point in time.
-				}
+				}*/
 			}
 
 			if (isBlock == false) 

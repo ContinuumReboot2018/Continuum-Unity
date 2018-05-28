@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
 	[Tooltip ("Blocks destroyed / Bullets shot.")]
 	public float BlockShotAccuracy;
 
+
 	[Header ("Waves")]
 	[Tooltip ("Current wave number.")]
 	public int Wave;
@@ -388,8 +389,7 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI LastImpactPointText_Debug;
 	public TextMeshProUGUI CooldownTimeRemainingText_Debug;
 	public TextMeshProUGUI CurrentAbilityStateText_Debug;
-	[Space (10)]
-	public TextMeshProUGUI TopLeaderboardScore_Debug;
+
 	public TextMeshProUGUI BlockObjectCount_Debug;
 	public TextMeshProUGUI BulletObjectCount_Debug;
 
@@ -771,9 +771,7 @@ public class GameController : MonoBehaviour
 					"Beats per minute: " + System.Math.Round (audioControllerScript.BeatsPerMinute, 3);
 				TimeSinceTrackLoad_Debug.text = 
 					"Time since last track load: " + System.Math.Round (audioControllerScript.TimeSinceTrackLoad, 2);
-
-				TopLeaderboardScore_Debug.text = 
-					"Top score: " + saveAndLoadScript.Leaderboard [0].score;
+				
 				BlockObjectCount_Debug.text = 
 					"Block objects: " + numberOfBlocks;
 				BulletObjectCount_Debug.text = 

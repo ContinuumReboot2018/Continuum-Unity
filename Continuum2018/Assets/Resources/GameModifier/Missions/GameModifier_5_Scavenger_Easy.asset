@@ -26,6 +26,7 @@ MonoBehaviour:
   useOverheat: 0
   bonusRounds: 1
   startingWave: 5
+  MissionId: 5
   MissionDescription: 'Scavenger Mode! EASY
 
 

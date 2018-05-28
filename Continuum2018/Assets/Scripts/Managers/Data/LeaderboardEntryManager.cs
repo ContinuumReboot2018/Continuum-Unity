@@ -227,7 +227,36 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 		GameOverUI.SetActive (true);
 		gameOverControllerScript.NewLeaderboardEntry (gameOverControllerScript.place, NewName);
-		gameOverControllerScript.saveAndLoadScript.Leaderboard [gameOverControllerScript.place].name = NewName;
+
+		switch (gameOverControllerScript.saveAndLoadScript.MissionId) 
+		{
+		case 0:
+			gameOverControllerScript.saveAndLoadScript.Leaderboard_ArcadeMode [gameOverControllerScript.place].name = NewName;
+			break;
+		case 1:
+			//gameOverControllerScript.saveAndLoadScript.Leaderboard_ModsMode [gameOverControllerScript.place].name = NewName;
+			break;
+		case 2:
+			gameOverControllerScript.saveAndLoadScript.Leaderboard_BossRushMode [gameOverControllerScript.place].name = NewName;
+			break;
+		case 3:
+			gameOverControllerScript.saveAndLoadScript.Leaderboard_LuckyMode [gameOverControllerScript.place].name = NewName;
+			break;
+		case 4:
+			gameOverControllerScript.saveAndLoadScript.Leaderboard_FullyLoadedMode [gameOverControllerScript.place].name = NewName;
+			break;
+		case 5:
+			gameOverControllerScript.saveAndLoadScript.Leaderboard_ScavengerMode [gameOverControllerScript.place].name = NewName;
+			break;
+		case 6:
+			gameOverControllerScript.saveAndLoadScript.Leaderboard_HellMode [gameOverControllerScript.place].name = NewName;
+			break;
+		case 7:
+			gameOverControllerScript.saveAndLoadScript.Leaderboard_FastTrackMode [gameOverControllerScript.place].name = NewName;
+			break;
+		}
+
+		//gameOverControllerScript.saveAndLoadScript.Leaderboard [gameOverControllerScript.place].name = NewName;
 
 		LeaderboardDisplay.SetActive (true);
 

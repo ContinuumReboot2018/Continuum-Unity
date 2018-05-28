@@ -26,6 +26,7 @@ MonoBehaviour:
   useOverheat: 1
   bonusRounds: 0
   startingWave: 1
+  MissionId: 6
   MissionDescription: 'Hell mode! BRUTAL
 
 
