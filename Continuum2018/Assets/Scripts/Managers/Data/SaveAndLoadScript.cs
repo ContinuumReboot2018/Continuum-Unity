@@ -252,9 +252,27 @@ public class SaveAndLoadScript : MonoBehaviour
 			Debug.LogWarning ("Unable to load from " +
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 
-			Leaderboard = new List<LeaderboardEntry> (10);
+			//Leaderboard = new List<LeaderboardEntry> (10);
 
-			Leaderboard = DefaultLeaderboard;
+			//Leaderboard = DefaultLeaderboard;
+
+			//Leaderboard = new List<LeaderboardEntry> (10);
+			Leaderboard_ArcadeMode = new List<LeaderboardEntry> (10);
+			Leaderboard_BossRushMode = new List<LeaderboardEntry> (10);
+			Leaderboard_LuckyMode = new List<LeaderboardEntry> (10);
+			Leaderboard_FullyLoadedMode = new List<LeaderboardEntry> (10);
+			Leaderboard_ScavengerMode = new List<LeaderboardEntry> (10);
+			Leaderboard_HellMode = new List<LeaderboardEntry> (10);
+			Leaderboard_FastTrackMode = new List<LeaderboardEntry> (10);
+
+			//Leaderboard = DefaultLeaderboard;
+			Leaderboard_ArcadeMode = DefaultLeaderboard;
+			Leaderboard_BossRushMode = DefaultLeaderboard;
+			Leaderboard_LuckyMode = DefaultLeaderboard;
+			Leaderboard_FullyLoadedMode = DefaultLeaderboard;
+			Leaderboard_ScavengerMode = DefaultLeaderboard;
+			Leaderboard_HellMode = DefaultLeaderboard;
+			Leaderboard_FastTrackMode = DefaultLeaderboard;
 
 			SavePlayerData ();
 
