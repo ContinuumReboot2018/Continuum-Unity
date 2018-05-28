@@ -881,13 +881,9 @@ public class PlayerController : MonoBehaviour
 		playerMesh.SetActive (true);
 		audioControllerScript.TargetCutoffFreq = 22000;
 		audioControllerScript.TargetResonance = 1;
-		//InvincibleMeshAnim.Play ("InvincibleMeshFlash");
 		InvincibleParticles.Play ();
 
-		// Animate lives left text.
-		Invoke ("UpdateLivesLeftA", 0.6f);
-		Invoke ("UpdateLivesLeftB", 1.2f);
-		Invoke ("UpdateLivesLeftC", 1.8f);
+		UpdateLivesLeftA ();
 
 		spotlightsScript.NewTarget = playerMesh.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
@@ -898,39 +894,15 @@ public class PlayerController : MonoBehaviour
 	{
 		if (gameControllerScript.Lives > 1)
 		{
-			LivesLeftText.text = (gameControllerScript.Lives).ToString ();
+			LivesLeftText.text = (gameControllerScript.Lives).ToString () + " LIVES LEFT";
 		}
 
 		if (gameControllerScript.Lives <= 1) 
 		{
-			LivesLeftText.text = "LAST";
+			LivesLeftText.text = "LAST LIFE";
 		}
 
 		LivesLeftUI.Play ("LivesLeft");
-	}
-
-	void UpdateLivesLeftB ()
-	{
-		if (gameControllerScript.Lives <= 1) 
-		{
-			LivesLeftText.text = "LIFE";
-		}
-
-		if (gameControllerScript.Lives > 1) 
-		{
-			LivesLeftText.text = "LIVES";
-		}
-
-		LivesLeftUI.Play ("LivesLeft");
-	}
-
-	void UpdateLivesLeftC ()
-	{
-		if (gameControllerScript.Lives > 1)
-		{
-			LivesLeftText.text = "LEFT";
-			LivesLeftUI.Play ("LivesLeft");
-		}
 	}
 
 	void PlaySpaceshipAmbience ()
@@ -1145,6 +1117,7 @@ public class PlayerController : MonoBehaviour
 			break;
 		case ability.Rewind:
 			timescaleControllerScript.SetRewindTime (true, 8);
+			gameControllerScript.VhsAnim.SetTrigger ("Rewind");
 			break;
 		case ability.Mirror:
 			MirrorPlayer.SetActive (true);
@@ -1206,7 +1179,11 @@ public class PlayerController : MonoBehaviour
 			empParticles.Stop ();
 		}
 
-		StopRewinding (); // Stops rewinding.
+		if (Ability == ability.Rewind)
+		{
+			StopRewinding (); // Stops rewinding.
+			gameControllerScript.VhsAnim.SetTrigger ("Play");
+		}
 
 		// Reset the camera shake.
 		camShakeScript.ShakeCam (0.0f, 0, 7);
@@ -1858,7 +1835,12 @@ public class PlayerController : MonoBehaviour
 		ShotType = shotType.Standard;
 		CurrentShootingHeatCost = StandardShootingHeatCost;
 		nextTurretSpawn = 0; // Resets turrent spawn index.
-		timeIsSlowed = false;
+
+		if (timeIsSlowed == true) 
+		{
+			timeIsSlowed = false;
+			gameControllerScript.VhsAnim.SetTrigger ("Play");
+		}
 
 		// Resets homing mode if not modified by game modifier object.
 		isHoming = gameControllerScript.gameModifier.AlwaysHoming;

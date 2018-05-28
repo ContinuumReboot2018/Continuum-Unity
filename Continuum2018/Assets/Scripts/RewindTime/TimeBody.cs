@@ -55,8 +55,12 @@ public class TimeBody : MonoBehaviour
 					blockScript.stack.VacateBlock (); // Vacate itself.
 					blockScript.isStacked = false; // Set to not stacked.
 				}
-			}
 
+				if (transform.position.y > 14) 
+				{
+					Destroy (gameObject);
+				}
+			}
 		} 
 
 		else 

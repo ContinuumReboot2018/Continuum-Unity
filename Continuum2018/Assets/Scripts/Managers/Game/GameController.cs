@@ -286,6 +286,7 @@ public class GameController : MonoBehaviour
 	public bool isUpdatingParticleEffects = true;
 	[Tooltip ("For depth of field.")]
 	public float TargetDepthDistance;
+	public Animator VhsAnim;
 
 	[Header ("Star field")]
 	[Tooltip ("Starfield foreground.")]
@@ -1081,6 +1082,8 @@ public class GameController : MonoBehaviour
 			// Stop updating required scripts.
 			if (isPaused) 
 			{
+				VhsAnim.SetTrigger ("Pause");
+
 				PauseUI.SetActive (true);
 
 				playerControllerScript_P1.pauseManagerScript.MenuOnEnter (0);
@@ -1127,6 +1130,21 @@ public class GameController : MonoBehaviour
 	// Unpauses the game.
 	void UnPauseGame ()
 	{
+		if (timescaleControllerScript.isRewinding == true) 
+		{
+			VhsAnim.SetTrigger ("Rewind");
+		}
+
+		if (playerControllerScript_P1.timeIsSlowed == true) 
+		{
+			VhsAnim.SetTrigger ("Slow");
+		}
+
+		if (playerControllerScript_P1.timeIsSlowed == false && timescaleControllerScript.isRewinding == false) 
+		{
+			VhsAnim.SetTrigger ("Play");
+		}
+
 		// Allow player to move and shoot.
 		playerControllerScript_P1.UsePlayerFollow = true;
 		playerControllerScript_P1.canShoot = true;

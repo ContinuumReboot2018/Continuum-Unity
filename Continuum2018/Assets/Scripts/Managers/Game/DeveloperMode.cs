@@ -759,6 +759,7 @@ public class DeveloperMode : MonoBehaviour
 			if (CheatString == SlowTimeCommand) 
 			{
 				gameControllerScript.SetPowerupTime (20);
+				gameControllerScript.VhsAnim.SetTrigger ("Slow");
 
 				playerControllerScript_P1.timeIsSlowed = true;
 
