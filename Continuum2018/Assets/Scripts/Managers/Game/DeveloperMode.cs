@@ -759,7 +759,11 @@ public class DeveloperMode : MonoBehaviour
 			if (CheatString == SlowTimeCommand) 
 			{
 				gameControllerScript.SetPowerupTime (20);
-				gameControllerScript.VhsAnim.SetTrigger ("Slow");
+
+				if (gameControllerScript.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false) 
+				{
+					gameControllerScript.VhsAnim.SetTrigger ("Slow");
+				}
 
 				playerControllerScript_P1.timeIsSlowed = true;
 
@@ -918,8 +922,11 @@ public class DeveloperMode : MonoBehaviour
 
 		ClearCheatString ();
 
-		timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f;
-		timeScaleControllerScript.OverridingTimeScale = 0.2f;
+		if (playerControllerScript_P1.timeIsSlowed == false)
+		{
+			timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f;
+			timeScaleControllerScript.OverridingTimeScale = 0.2f;
+		}
 
 		playerControllerScript_P1.NextFire = nextfire;
 		playerControllerScript_P1.DoubleShotNextFire = nextfire;

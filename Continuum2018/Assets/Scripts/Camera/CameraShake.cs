@@ -57,7 +57,7 @@ public class CameraShake : MonoBehaviour
 				camTransform.localPosition = Vector3.Lerp (
 					camTransform.localPosition, 
 					originalPos + (Random.insideUnitSphere * shakeAmount) + Offset, 
-					smoothAmount * Time.deltaTime
+					smoothAmount * Time.smoothDeltaTime
 				);
 			}
 		

@@ -185,7 +185,12 @@ public class PowerupPickup : MonoBehaviour
 		{
 
 		case powerups.FreezeTime:
-			gameControllerScript.VhsAnim.SetTrigger ("Slow");
+
+			if (gameControllerScript.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false) 
+			{
+				gameControllerScript.VhsAnim.SetTrigger ("Slow");
+			}
+				
 			timescaleControllerScript.OverridingTimeScale = 0.3f;
 			timescaleControllerScript.OverrideTimeScaleTimeRemaining += PowerupTime;
 			timescaleControllerScript.isOverridingTimeScale = true;
