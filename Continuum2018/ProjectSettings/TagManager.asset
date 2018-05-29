@@ -10,6 +10,7 @@ TagManager:
   - PowerupPickup
   - Hazard
   - Barrier
+  - Brain
   layers:
   - Default
   - TransparentFX

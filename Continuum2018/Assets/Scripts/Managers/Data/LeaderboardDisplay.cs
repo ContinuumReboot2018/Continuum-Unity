@@ -12,6 +12,8 @@ public class LeaderboardDisplay : MonoBehaviour
 
 	private int menuLeaderboardId;
 
+	public TextMeshProUGUI MissionText;
+
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
@@ -101,6 +103,11 @@ public class LeaderboardDisplay : MonoBehaviour
 		menuLeaderboardId = leaderboardMenu;
 
 		Invoke ("UpdateLeaderboardDelayed", 0.03f);
+	}
+
+	public void UpdateLeaderboardMissionText (string missionText)
+	{
+		MissionText.text = missionText;
 	}
 
 	public void UpdateLeaderboard ()

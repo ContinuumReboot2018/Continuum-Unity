@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 54304827250689324}
   m_Layer: 14
   m_Name: Brain
-  m_TagString: Untagged
+  m_TagString: Brain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

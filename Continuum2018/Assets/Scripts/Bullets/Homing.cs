@@ -5,8 +5,6 @@ public class Homing : MonoBehaviour
 {
 	[Tooltip ("Object to follow.")]
 	public Transform target;
-	[Tooltip ("Object to find string.")]
-	public string findObject = "Block";
 	[Space(10)]
 	[Tooltip ("Speed to follow position.")]
 	public float speed = 5.0f;
@@ -34,26 +32,67 @@ public class Homing : MonoBehaviour
 	void Start () 
 	{
 		rb = GetComponent<Rigidbody> ();
-		Invoke ("ReleaseHoming", homingTime); // Prepeare homing to release by homing time.
-		InvokeRepeating ("GetObjectToHome", 0, 1);
+		//Invoke ("ReleaseHoming", homingTime); // Prepeare homing to release by homing time.
+		Invoke ("GetObjectToHome", 0);
 	}
 
 	void GetObjectToHome ()
 	{
-		GameObject CheckTagObject = 
-			FindClosestEnemyTag (); // Find the closest object to home in on.
+		GameObject CheckTagObjectBrain = FindClosestEnemyTag ("Brain"); // Find the closest brain to home in on.
 
 		// Found an object to home in on.
-		if (CheckTagObject != null) 
+		if (CheckTagObjectBrain != null) 
 		{
-			target = FindClosestEnemyTag ().transform; // Assign GameObject to target.
+			target = CheckTagObjectBrain.transform; // Assign GameObject to target.
 			speed = initialSpeed;
 		} 
 
 		else 
 
 		{
-			ReleaseHoming (); // Release and bail out, revert to normal movement.
+			// Find the closest block to home in on.
+			GameObject CheckTagObjectBlockUnstacked = FindClosestEnemyTag ("Block"); 
+
+			// Found a GameObject with block tag.
+			if (CheckTagObjectBlockUnstacked != null) 
+			{
+				// Has a block component.
+				if (CheckTagObjectBlockUnstacked.GetComponent<Block> () != null)
+				{
+					// Block is not stacked.
+					if (CheckTagObjectBlockUnstacked.GetComponent<Block> ().isStacked == false)
+					{
+						target = CheckTagObjectBlockUnstacked.transform;
+						speed = initialSpeed;
+					} 
+
+					else // Is stacked
+					
+					{
+						// Find the closest block to home in on.
+						GameObject CheckTagObjectBlockStacked = FindClosestEnemyTag ("Block"); 
+
+						// Has a block component.
+						if (CheckTagObjectBlockUnstacked.GetComponent<Block> () != null) 
+						{
+							// Block is not stacked.
+							if (CheckTagObjectBlockUnstacked.GetComponent<Block> ().isStacked == true) 
+							{
+								target = CheckTagObjectBlockStacked.transform;
+								speed = initialSpeed;
+							} 
+						} 
+
+						else 
+						
+						{
+							ReleaseHoming (); // Release and bail out, revert to normal movement.
+							Invoke ("GetObjectToHome", 1);
+						}
+					}
+				}
+			}
+
 		}
 	}
 
@@ -106,13 +145,13 @@ public class Homing : MonoBehaviour
 	}
 
 	// Finds closest GameObject with requirements.
-	public GameObject FindClosestEnemyTag ()
+	public GameObject FindClosestEnemyTag (string tag)
 	{
 		// Starts array of GameObjects. 
 		GameObject[] gos; 
 
 		// Finds GameObjects by tag in whole scene.
-		gos = GameObject.FindGameObjectsWithTag(findObject); 
+		gos = GameObject.FindGameObjectsWithTag(tag); 
 
 		// Reset closest GameObject to null (none);
 		GameObject closest = null; 
