@@ -776,6 +776,7 @@ public class PlayerController : MonoBehaviour
 	// When the player runs out of lives and unable to respawn.
 	public void GameOver ()
 	{
+		StopCoroutine (GameOverDelay (gameControllerScript.gameModifier.TrialTime));
 		gameControllerScript.isGameOver = true;
 		timescaleControllerScript.isEndSequence = true;
 		PlayerGuides.SetActive (false);
