@@ -314,6 +314,9 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		Username = data.Username;
 		ExperiencePoints = data.ExperiencePoints;
+		SelectedAbility = data.SelectedAbility;
+		SelectedSkin = data.SelectedSkin;
+		MissionId = data.MissionId;
 
 		if (SceneManager.GetActiveScene ().name == "Menu")
 		{
@@ -334,57 +337,45 @@ public class SaveAndLoadScript : MonoBehaviour
 			case 0:
 				data.Leaderboard_ArcadeMode.Capacity = 10;
 				Leaderboard_ArcadeMode.Capacity = 10;
-				//Leaderboard_ArcadeMode = new List<LeaderboardEntry> (10);
 				Leaderboard_ArcadeMode = data.Leaderboard_ArcadeMode;
 				break;
 			case 1:
-				//data.Leaderboard_ModsMode.Capacity = 10;
-				//Leaderboard_ModsMode.Capacity = 10;
-				////Leaderboard_ModsMode = new List<LeaderboardEntry> (10);
-				//Leaderboard_ModsMode = data.Leaderboard_ArcadeMode;
+				// data.Leaderboard_ModsMode.Capacity = 10;
+				// Leaderboard_ModsMode.Capacity = 10;
+				// Leaderboard_ModsMode = data.Leaderboard_ArcadeMode;
 				break;
 			case 2:
 				data.Leaderboard_BossRushMode.Capacity = 10;
 				Leaderboard_BossRushMode.Capacity = 10;
-				//Leaderboard_BossRushMode = new List<LeaderboardEntry> (10);
 				Leaderboard_BossRushMode = data.Leaderboard_BossRushMode;
 				break;
 			case 3:
 				data.Leaderboard_LuckyMode.Capacity = 10;
 				Leaderboard_LuckyMode.Capacity = 10;
-				//Leaderboard_LuckyMode = new List<LeaderboardEntry> (10);
 				Leaderboard_LuckyMode = data.Leaderboard_LuckyMode;
 				break;
 			case 4:
 				data.Leaderboard_FullyLoadedMode.Capacity = 10;
 				Leaderboard_FullyLoadedMode.Capacity = 10;
-				//Leaderboard_FullyLoadedMode = new List<LeaderboardEntry> (10);
 				Leaderboard_FullyLoadedMode = data.Leaderboard_FullyLoadedMode;
 				break;
 			case 5:
 				data.Leaderboard_ScavengerMode.Capacity = 10;
 				Leaderboard_ScavengerMode.Capacity = 10;
-				//Leaderboard_ScavengerMode = new List<LeaderboardEntry> (10);
 				Leaderboard_ScavengerMode = data.Leaderboard_ScavengerMode;
 				break;
 			case 6:
 				data.Leaderboard_HellMode.Capacity = 10;
 				Leaderboard_HellMode.Capacity = 10;
-				//Leaderboard_HellMode = new List<LeaderboardEntry> (10);
 				Leaderboard_HellMode = data.Leaderboard_HellMode;
 				break;
 			case 7:
 				data.Leaderboard_FastTrackMode.Capacity = 10;
 				Leaderboard_FastTrackMode.Capacity = 10;
-				//Leaderboard_FastTrackMode = new List<LeaderboardEntry> (10);
 				Leaderboard_FastTrackMode = data.Leaderboard_FastTrackMode;
 				break;
 			}
 		}
-
-		SelectedAbility = data.SelectedAbility;
-		SelectedSkin = data.SelectedSkin;
-		MissionId = data.MissionId;
 	}
 
 	// Puts new data into relevant scripts.
