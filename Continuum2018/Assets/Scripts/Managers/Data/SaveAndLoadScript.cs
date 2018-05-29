@@ -11,6 +11,7 @@ using UnityStandardAssets.ImageEffects;
 
 public class SaveAndLoadScript : MonoBehaviour 
 {
+	public InitManager initManagerScript;
 	public SettingsManager settingsManagerScript;
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
@@ -53,7 +54,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	public int targetframerate;
 
 	[Space (10)]
-	[Range (0, 2)]
 	public float ParticleEmissionMultiplier = 1;
 
 	[Space (10)]
@@ -85,7 +85,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			}
 		}
 	}
-
+		
 	void CheckUsername ()
 	{
 		if (Username == null || Username == "") 
@@ -95,8 +95,12 @@ public class SaveAndLoadScript : MonoBehaviour
 
 		if (Username == "default") 
 		{
-			Debug.Log ("Username is " + Username + ". Consider changing your username in the menu. " +
-				"You may not have created a local profile yet.");
+			Debug.Log (
+				"Username is " 
+				+ Username + 
+				". Consider changing your username in the menu. " +
+				"You may not have created a local profile yet."
+			);
 		}
 	}
 		
@@ -384,11 +388,11 @@ public class SaveAndLoadScript : MonoBehaviour
 	}
 
 	// Puts new data into relevant scripts.
-	void StorePlayerDataInGame ()
+	public void StorePlayerDataInGame ()
 	{
 
 	}
-
+		
 	// Gets variables from this script = variables in other scripts.
 	void GetSettingsData ()
 	{

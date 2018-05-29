@@ -5,9 +5,7 @@ using TMPro;
 public class InitManager : MonoBehaviour 
 {
 	public SaveAndLoadScript saveAndLoadScript;
-
 	public PostProcessingBehaviour postProcess;
-
 	public TextMeshProUGUI LoadingMissionText;
 
 	void Start ()

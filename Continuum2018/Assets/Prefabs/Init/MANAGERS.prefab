@@ -1051,6 +1051,7 @@ MonoBehaviour:
   saveAndLoadScript: {fileID: 114598295702909340}
   postProcess: {fileID: 114772280294189848}
   LoadingMissionText: {fileID: 114133064651065938}
+  BuildNumber: 0
 --- !u!114 &114262575259439362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1245,6 +1246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9a8135e99dfeb4abcb3284ed834dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initManagerScript: {fileID: 114253284983535580}
   settingsManagerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
   gameControllerScript: {fileID: 0}
@@ -1511,6 +1513,7 @@ MonoBehaviour:
   sunShaftsEnabled: 0
   targetFramerateScript: {fileID: 0}
   targetframerate: 0
+  buildNumber: 0
   ParticleEmissionMultiplier: 1
   MasterVolume: 1
   SoundtrackVolume: 1

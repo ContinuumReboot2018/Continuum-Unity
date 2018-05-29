@@ -42,7 +42,6 @@ public class GameController : MonoBehaviour
 	[Tooltip ("Blocks destroyed / Bullets shot.")]
 	public float BlockShotAccuracy;
 
-
 	[Header ("Waves")]
 	[Tooltip ("Current wave number.")]
 	public int Wave;
@@ -393,6 +392,8 @@ public class GameController : MonoBehaviour
 
 	public TextMeshProUGUI BlockObjectCount_Debug;
 	public TextMeshProUGUI BulletObjectCount_Debug;
+
+	public TextMeshProUGUI BuildNumberText_Debug;
 
 	void Start ()
 	{
@@ -777,6 +778,9 @@ public class GameController : MonoBehaviour
 					"Block objects: " + numberOfBlocks;
 				BulletObjectCount_Debug.text = 
 					"Bullet objects: " + numberOfBullets;
+
+				//BuildNumberText_Debug.text = 
+				//	"Build number: " + saveAndLoadScript.CurrentBuildNumber;
 			}
 		}
 	}

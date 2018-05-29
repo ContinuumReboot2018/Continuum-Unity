@@ -18,7 +18,7 @@ namespace InControl
 		};
 
 
-		[PostProcessBuild]
+		[PostProcessBuildAttribute]
 		public static void OnPostProcessBuild( BuildTarget buildTarget, string buildPath )
 		{
 #if UNITY_5 || UNITY_5_6_OR_NEWER
