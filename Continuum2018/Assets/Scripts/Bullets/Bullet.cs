@@ -46,6 +46,8 @@ public class Bullet : MonoBehaviour
 	[Tooltip ("The Transform component of the Player.")]
 	public Transform playerPos;
 
+	public bool hitABlock;
+
 	[Header ("Overdrive")]
 	[Tooltip ("Allows the bullet collider to deactivate on collision.")]
 	public bool allowBulletColDeactivate = true; 
@@ -319,9 +321,7 @@ public class Bullet : MonoBehaviour
 			// Scale by time scale.
 			if (BulletSpeedType == SpeedType.Scaled) 
 			{
-				BulletRb.velocity = transform.TransformDirection 
-			//BulletRb.velocity = transform.InverseTransformDirection 
-			(
+				BulletRb.velocity = transform.TransformDirection (
 					new Vector3 (
 						0, 
 						Mathf.Clamp (BulletSpeedScaled * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
@@ -336,8 +336,7 @@ public class Bullet : MonoBehaviour
 				float unscaledVelocity = BulletSpeedUnscaled * 
 					((Time.unscaledDeltaTime / Time.timeScale) * fpsCounterScript.FramesPerSec);
 
-				BulletRb.velocity = transform.TransformDirection 
-				(
+				BulletRb.velocity = transform.TransformDirection (
 					new Vector3 (
 						0, 
 							Mathf.Clamp (unscaledVelocity, VelocityLimits.x, VelocityLimits.y), 
@@ -439,5 +438,17 @@ public class Bullet : MonoBehaviour
 	{
 		Destroy (gameObject);
 		return;
+	}
+
+	void OnDestroy ()
+	{
+		float TimeFire = Time.time + (playerControllerScript.CurrentFireRate / (playerControllerScript.FireRateTimeMultiplier));
+
+		if (TimeFire >= playerControllerScript.NextFire && hitABlock == true) 
+		{
+			playerControllerScript.NextFire *= 0.9f;
+			Debug.Log ("Next fire reset.");
+			return;
+		}
 	}
 }

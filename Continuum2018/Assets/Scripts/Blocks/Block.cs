@@ -346,7 +346,7 @@ public class Block : MonoBehaviour
 						// Stops the bullet that hit it from hanging around.
 						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
 						{
-							//particle.GetComponentInParent<Bullet> ().BlockHit ();
+							particle.GetComponentInParent<Bullet> ().hitABlock = true;
 							particle.GetComponentInParent<Bullet> ().DestroyObject ();
 						}
 					}
@@ -478,21 +478,21 @@ public class Block : MonoBehaviour
 
 					// Other object has a bullet component.
 					if (other.GetComponent<Bullet> () != null) 
-						
+					{
 						// Stops the bullet that hit it from hanging around.
-						if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) {
-						//other.GetComponent<Bullet> ().BlockHit ();
-						other.GetComponentInParent<Bullet> ().DestroyObject ();
+						if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true)
+						{
+							other.GetComponentInParent<Bullet> ().hitABlock = true;
+							other.GetComponentInParent<Bullet> ().DestroyObject ();
+						}
 					}
 
 					DoCamShake (); // Destroy this object.
 					DoVibrate ();
 					Destroy (gameObject); // Destroy this object.
 					return; // Prevent any further code execution.
-
 				}
 					
-
 				if (isBossPart == true)
 				{
 					if (HitPoints > 0) 
