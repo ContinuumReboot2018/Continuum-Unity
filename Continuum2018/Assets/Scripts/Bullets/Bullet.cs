@@ -446,8 +446,11 @@ public class Bullet : MonoBehaviour
 
 		if (TimeFire >= playerControllerScript.NextFire && hitABlock == true) 
 		{
-			playerControllerScript.NextFire *= 0.9f;
-			Debug.Log ("Next fire reset.");
+			if (gameObject.name.Contains ("Turret") == false) 
+			{
+				playerControllerScript.NextFire *= 0.9f;
+				Debug.Log ("Next fire reset.");
+			}
 			return;
 		}
 	}
