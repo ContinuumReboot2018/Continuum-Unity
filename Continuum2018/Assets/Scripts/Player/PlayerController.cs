@@ -1167,6 +1167,7 @@ public class PlayerController : MonoBehaviour
 		isShieldOn = false;
 		TargetLensRadius = 0;
 		TargetShieldScale = 0;
+		InvincibleParticles.Play ();
 		Invoke ("DeactivateShield", 1);
 
 		// Deactivates vertcial beam.
