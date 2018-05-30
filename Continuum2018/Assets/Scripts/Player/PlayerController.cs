@@ -1059,8 +1059,13 @@ public class PlayerController : MonoBehaviour
 				AbilityCompletion.Play ("AbilityComplete");
 				AbilityCompletionTexture.texture = AbilityImage.texture;
 				AbilityCompletionText.text = ParseByCase(Ability.ToString ());
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
-				timescaleControllerScript.OverridingTimeScale = 0.1f;
+
+				if (timeIsSlowed == false)
+				{
+					timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
+					timescaleControllerScript.OverridingTimeScale = 0.1f;
+				}
+
 				CurrentAbilityState = abilityState.Ready;
 
 				AbilityAnim.Play ("AbilityBounce");
