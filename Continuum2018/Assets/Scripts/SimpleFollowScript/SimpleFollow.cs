@@ -2,6 +2,13 @@
 
 public class SimpleFollow : MonoBehaviour 
 {
+	public UpdateMethod updateMethod;
+	public enum UpdateMethod
+	{
+		Update = 0,
+		FixedUpdate = 1,
+		LateUpdate = 2
+	}
 	[Tooltip ("Follow position?")]
 	public bool FollowPosition;
 	[Tooltip ("Automatically find Player?")]
@@ -76,33 +83,102 @@ public class SimpleFollow : MonoBehaviour
 		}
 	}
 
+	void Update () 
+	{
+		if (updateMethod == UpdateMethod.Update) 
+		{
+			if (OverrideTransform != null) 
+			{
+				FollowPosX = OverrideTransform.transform;
+				FollowPosY = OverrideTransform.transform;
+				FollowPosZ = OverrideTransform.transform;
+				FollowRotX = OverrideTransform.transform;
+				FollowRotY = OverrideTransform.transform;
+				FollowRotZ = OverrideTransform.transform;
+			}
+
+			if (FollowPosition == true && FollowPosMethod != followPosMethod.NoSmoothing) 
+			{
+				FollowObjectPosition ();
+			}
+
+			CheckFollowPosTransforms ();
+
+			if (FollowRotation == true) 
+			{
+				FollowObjectRotation ();
+			}
+
+			if (FollowPosMethod == followPosMethod.NoSmoothing) 
+			{
+				transform.position = new Vector3 (FollowPosX.position.x, FollowPosY.position.y, FollowPosZ.position.z);
+			}
+		}
+	}
+
+	void FixedUpdate () 
+	{
+		if (updateMethod == UpdateMethod.FixedUpdate) 
+		{
+			if (OverrideTransform != null) 
+			{
+				FollowPosX = OverrideTransform.transform;
+				FollowPosY = OverrideTransform.transform;
+				FollowPosZ = OverrideTransform.transform;
+				FollowRotX = OverrideTransform.transform;
+				FollowRotY = OverrideTransform.transform;
+				FollowRotZ = OverrideTransform.transform;
+			}
+
+			if (FollowPosition == true && FollowPosMethod != followPosMethod.NoSmoothing) 
+			{
+				FollowObjectPosition ();
+			}
+
+			CheckFollowPosTransforms ();
+
+			if (FollowRotation == true) 
+			{
+				FollowObjectRotation ();
+			}
+
+			if (FollowPosMethod == followPosMethod.NoSmoothing) 
+			{
+				transform.position = new Vector3 (FollowPosX.position.x, FollowPosY.position.y, FollowPosZ.position.z);
+			}
+		}
+	}
+
 	void LateUpdate () 
 	{
-		if (OverrideTransform != null) 
+		if (updateMethod == UpdateMethod.LateUpdate) 
 		{
-			FollowPosX = OverrideTransform.transform;
-			FollowPosY = OverrideTransform.transform;
-			FollowPosZ = OverrideTransform.transform;
-			FollowRotX = OverrideTransform.transform;
-			FollowRotY = OverrideTransform.transform;
-			FollowRotZ = OverrideTransform.transform;
-		}
+			if (OverrideTransform != null) 
+			{
+				FollowPosX = OverrideTransform.transform;
+				FollowPosY = OverrideTransform.transform;
+				FollowPosZ = OverrideTransform.transform;
+				FollowRotX = OverrideTransform.transform;
+				FollowRotY = OverrideTransform.transform;
+				FollowRotZ = OverrideTransform.transform;
+			}
 
-		if (FollowPosition == true && FollowPosMethod != followPosMethod.NoSmoothing) 
-		{
-			FollowObjectPosition ();
-		}
+			if (FollowPosition == true && FollowPosMethod != followPosMethod.NoSmoothing) 
+			{
+				FollowObjectPosition ();
+			}
 
-		CheckFollowPosTransforms ();
+			CheckFollowPosTransforms ();
 
-		if (FollowRotation == true) 
-		{
-			FollowObjectRotation ();
-		}
+			if (FollowRotation == true) 
+			{
+				FollowObjectRotation ();
+			}
 
-		if (FollowPosMethod == followPosMethod.NoSmoothing) 
-		{
-			transform.position = new Vector3 (FollowPosX.position.x, FollowPosY.position.y, FollowPosZ.position.z);
+			if (FollowPosMethod == followPosMethod.NoSmoothing) 
+			{
+				transform.position = new Vector3 (FollowPosX.position.x, FollowPosY.position.y, FollowPosZ.position.z);
+			}
 		}
 	}
 

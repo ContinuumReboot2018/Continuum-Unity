@@ -5,7 +5,7 @@ public class Turret : MonoBehaviour
 	public PlayerController playerControllerScript; // Reference to Player Controller.
 	public GameController gameControllerScript; // Reference to Game Controller.
 	[Space (10)]
-	[Tooltip ("Simple: Shoots single bullets, \n Complex: Shoots whatever the player powerup is.")]
+	[Tooltip ("Simple: Shoots single bullets.\nComplex: Shoots whatever the player powerup is.")]
 	public TurretShootingMethod turretShootingMethod;
 	public enum TurretShootingMethod
 	{
