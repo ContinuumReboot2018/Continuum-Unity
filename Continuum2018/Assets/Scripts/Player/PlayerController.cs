@@ -821,8 +821,13 @@ public class PlayerController : MonoBehaviour
 		StartCooldown ();
 		PlayerExplosionAudio.Play ();
 		gameControllerScript.combo = 1;
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining += 2;
-		timescaleControllerScript.OverridingTimeScale = 0.25f;
+
+		if (timeIsSlowed == false) 
+		{
+			timescaleControllerScript.OverrideTimeScaleTimeRemaining += 2;
+			timescaleControllerScript.OverridingTimeScale = 0.25f;
+		}
+
 		ImpactTransform.position = ImpactPoint;
 		spotlightsScript.NewTarget = ImpactTransform;
 		spotlightsScript.OverrideSpotlightLookObject ();

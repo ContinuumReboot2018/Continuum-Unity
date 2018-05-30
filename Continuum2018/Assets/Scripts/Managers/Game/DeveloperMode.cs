@@ -371,8 +371,13 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.AbilityCompletion.Play ("AbilityComplete");
 				playerControllerScript_P1.AbilityCompletionTexture.texture = playerControllerScript_P1.AbilityImage.texture;
 				playerControllerScript_P1.AbilityCompletionText.text = PlayerController.ParseByCase(playerControllerScript_P1.Ability.ToString ());
-				playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
-				playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
+
+				if (playerControllerScript_P1.timeIsSlowed == false) 
+				{
+					playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
+					playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
+				}
+
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;
 				ShowCheatNotification ("CHEAT ACTIVATED: ABILITY CHARGED");
 			}
@@ -956,12 +961,12 @@ public class DeveloperMode : MonoBehaviour
 		LastCheatName = CheatString;
 		ClearCheatString ();
 
-		if (timeScaleControllerScript.OverrideTimeScaleTimeRemaining < 0.5f) 
+		if (timeScaleControllerScript.OverrideTimeScaleTimeRemaining < 0.5f && playerControllerScript_P1.timeIsSlowed) 
 		{
 			timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f;
 		}
 
-		if (timeScaleControllerScript.OverridingTimeScale < 0.2f)
+		if (timeScaleControllerScript.OverridingTimeScale < 0.2f && playerControllerScript_P1.timeIsSlowed)
 		{
 			timeScaleControllerScript.OverridingTimeScale = 0.2f;
 		}
