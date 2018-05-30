@@ -15,7 +15,7 @@ MonoBehaviour:
   PowerupSpawn: 1
   BossSpawn: 2
   TimeIncreaseMode: 3
-  TrialTime: 300
+  TrialTime: -1
   AlwaysHoming: 0
   AlwaysRicochet: 0
   AlwaysRapidfire: 0
@@ -26,7 +26,6 @@ MonoBehaviour:
   useOverheat: 0
   bonusRounds: 1
   startingWave: 1
-  MissionId: 3
   MissionDescription: 'Lucky Mode! EASY
 
 

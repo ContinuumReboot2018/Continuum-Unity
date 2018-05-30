@@ -15,7 +15,7 @@ MonoBehaviour:
   PowerupSpawn: 0
   BossSpawn: 0
   TimeIncreaseMode: 0
-  TrialTime: 300
+  TrialTime: -1
   AlwaysHoming: 1
   AlwaysRicochet: 1
   AlwaysRapidfire: 1
@@ -26,7 +26,6 @@ MonoBehaviour:
   useOverheat: 1
   bonusRounds: 1
   startingWave: 1
-  MissionId: 4
   MissionDescription: 'Full Mod! NORMAL
 
 

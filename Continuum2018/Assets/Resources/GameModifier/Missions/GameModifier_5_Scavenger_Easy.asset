@@ -15,7 +15,7 @@ MonoBehaviour:
   PowerupSpawn: 2
   BossSpawn: 2
   TimeIncreaseMode: 0
-  TrialTime: 300
+  TrialTime: -1
   AlwaysHoming: 0
   AlwaysRicochet: 0
   AlwaysRapidfire: 0
@@ -26,7 +26,6 @@ MonoBehaviour:
   useOverheat: 0
   bonusRounds: 1
   startingWave: 5
-  MissionId: 5
   MissionDescription: 'Scavenger Mode! EASY
 
 

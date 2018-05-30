@@ -249,6 +249,8 @@ public class PlayerController : MonoBehaviour
 		Mirror = 5 			 // Adds a mirror clone to the player.
 	}
 
+	public ParticleSystem AbilityActiveParticles;
+
 	// Ability UI.
 	[Tooltip("Ability UI.")]
 	public GameObject AbilityUI;
@@ -296,6 +298,7 @@ public class PlayerController : MonoBehaviour
 	public RawImage[] RicochetGlowMeshes;
 	[Tooltip("Particles that emit off the glow objects.")]
 	public ParticleSystem[] RicochetGlowParticles;
+	public ParticleSystem PowerupActiveParticles;
 
 	// Double shot.
 	[Tooltip("Left bullet normal.")]
@@ -602,6 +605,7 @@ public class PlayerController : MonoBehaviour
 		CheckCheatConsoleInput ();
 		UpdateImageEffects ();
 		UpdateAudio ();
+		UpdateParticleEffects ();
 	}
 
 	void FixedUpdate ()
@@ -696,6 +700,13 @@ public class PlayerController : MonoBehaviour
 				isInCooldownMode = false;
 			}
 		}
+	}
+
+	void UpdateParticleEffects ()
+	{
+		var AbilityParticlesForceModule = AbilityActiveParticles.forceOverLifetime;
+		AbilityParticlesForceModule.x = -playerActions.Move.Value.x * 0.5f;
+		AbilityParticlesForceModule.y = -playerActions.Move.Value.y * 0.1f;
 	}
 
 	void UpdateInputUI ()
@@ -1030,6 +1041,11 @@ public class PlayerController : MonoBehaviour
 				DeactivateAbility ();
 			}
 
+			if (AbilityActiveParticles.isPlaying == false)
+			{
+				AbilityActiveParticles.Play ();
+			}	
+
 			CurrentAbilityTimeRemaining = Mathf.Clamp (CurrentAbilityTimeRemaining, 0, CurrentAbilityDuration);
 			AbilityAnim.Play ("HexesFadeIn");
 		}
@@ -1167,8 +1183,12 @@ public class PlayerController : MonoBehaviour
 		isShieldOn = false;
 		TargetLensRadius = 0;
 		TargetShieldScale = 0;
-		InvincibleParticles.Play ();
 		Invoke ("DeactivateShield", 1);
+
+		if (AbilityActiveParticles.isPlaying == true)
+		{
+			AbilityActiveParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		}	
 
 		// Deactivates vertcial beam.
 		Invoke ("DeactivateVerticalBeam", 3);

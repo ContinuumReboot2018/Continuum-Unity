@@ -15,7 +15,7 @@ MonoBehaviour:
   PowerupSpawn: 0
   BossSpawn: 1
   TimeIncreaseMode: 2
-  TrialTime: 300
+  TrialTime: -1
   AlwaysHoming: 0
   AlwaysRicochet: 0
   AlwaysRapidfire: 0
@@ -26,7 +26,6 @@ MonoBehaviour:
   useOverheat: 0
   bonusRounds: 0
   startingWave: 1
-  MissionId: 2
   MissionDescription: 'Boss rush! NORMAL
 
 
