@@ -717,8 +717,8 @@ public class PlayerController : MonoBehaviour
 	public void AddParticleActiveEffects ()
 	{
 		var PowerupActiveParticlesSustainMainModule = PowerupActiveParticles.main;
-		newMinSize_PowerupActiveParticles += 0.5f;
-		newMaxSize_PowerupActiveParticles += 0.5f;
+		newMinSize_PowerupActiveParticles += 0.1f;
+		newMaxSize_PowerupActiveParticles += 0.1f;
 		PowerupActiveParticlesSustainMainModule.startSize = new ParticleSystem.MinMaxCurve (
 			newMinSize_PowerupActiveParticles,
 			newMaxSize_PowerupActiveParticles
@@ -744,7 +744,7 @@ public class PlayerController : MonoBehaviour
 
 		var PowerupActiveParticlesSustainMainModule = PowerupActiveParticles.main;
 		newMinSize_PowerupActiveParticles = 0;
-		newMaxSize_PowerupActiveParticles = 2;
+		newMaxSize_PowerupActiveParticles = 0.5f;
 		PowerupActiveParticlesSustainMainModule.startSize = new ParticleSystem.MinMaxCurve (
 			newMinSize_PowerupActiveParticles,
 			newMaxSize_PowerupActiveParticles
