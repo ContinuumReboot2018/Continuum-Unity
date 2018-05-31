@@ -415,6 +415,11 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == DoubleShotCommand) 
 			{
+				if (playerControllerScript_P1.ShotType == PlayerController.shotType.Standard) 
+				{
+					playerControllerScript_P1.AddParticleActiveEffects ();
+				}
+
 				gameControllerScript.SetPowerupTime (20);
 
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
@@ -448,6 +453,11 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == TripleShotCommand)
 			{
+				if (playerControllerScript_P1.ShotType == PlayerController.shotType.Standard) 
+				{
+					playerControllerScript_P1.AddParticleActiveEffects ();
+				}
+
 				gameControllerScript.SetPowerupTime (20);
 
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
@@ -481,6 +491,11 @@ public class DeveloperMode : MonoBehaviour
 
 		if (CheatString == RippleShotCommand)
 		{
+			if (playerControllerScript_P1.ShotType == PlayerController.shotType.Standard) 
+			{
+				playerControllerScript_P1.AddParticleActiveEffects ();
+			}
+
 			gameControllerScript.SetPowerupTime (20);
 
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
@@ -532,6 +547,7 @@ public class DeveloperMode : MonoBehaviour
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.31f, 0.372f, 1, 1);
 
 					ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - TURRET");
+					playerControllerScript_P1.AddParticleActiveEffects ();
 				}
 			}
 
@@ -589,7 +605,8 @@ public class DeveloperMode : MonoBehaviour
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = RapidfireTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.207f, 0.866f, 1, 1);
 
-					ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE: " + playerControllerScript_P1.ShotType.ToString().ToUpper ());
+					ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE: ON");
+					playerControllerScript_P1.AddParticleActiveEffects ();
 				}
 
 				if (playerControllerScript_P1.isInRapidFire == false)
@@ -629,6 +646,7 @@ public class DeveloperMode : MonoBehaviour
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.898f, 0.25f, 1, 1);
 
 					ShowCheatNotification ("CHEAT ACTIVATED: OVERDRIVE MODE ON");
+					playerControllerScript_P1.AddParticleActiveEffects ();
 				}
 
 				if (playerControllerScript_P1.isInOverdrive == false)
@@ -688,6 +706,7 @@ public class DeveloperMode : MonoBehaviour
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.25f, 1, 0.565f, 1);
 
 					ShowCheatNotification ("CHEAT ACTIVATED: RICOCHET MODE ON");
+					playerControllerScript_P1.AddParticleActiveEffects ();
 				}
 
 				if (playerControllerScript_P1.isRicochet == false) 
@@ -727,6 +746,7 @@ public class DeveloperMode : MonoBehaviour
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.57f, 1, 0.277f, 1);
 
 					ShowCheatNotification ("CHEAT ACTIVATED: HOMING MODE ON");
+					playerControllerScript_P1.AddParticleActiveEffects ();
 				}
 
 				if (playerControllerScript_P1.isHoming == false) 
@@ -752,6 +772,7 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.Helix.SetActive (true);
 					UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, HelixTexture, Color.white);
 					gameControllerScript.NextPowerupSlot_P1 += 1;
+					playerControllerScript_P1.AddParticleActiveEffects ();
 				}
 
 				GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);

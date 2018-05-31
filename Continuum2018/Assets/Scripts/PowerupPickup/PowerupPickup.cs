@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PowerupPickup : MonoBehaviour 
 {
@@ -205,6 +205,11 @@ public class PowerupPickup : MonoBehaviour
 
 		case powerups.DoubleShot: 
 
+			if (playerControllerScript_P1.ShotType == PlayerController.shotType.Standard) 
+			{
+				playerControllerScript_P1.AddParticleActiveEffects ();
+			}
+
 			// Switches to double shot mode
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 			playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.DoubleShootingHeatCost;
@@ -249,7 +254,12 @@ public class PowerupPickup : MonoBehaviour
 				break;
 
 		case powerups.TripleShot:
-			
+
+			if (playerControllerScript_P1.ShotType == PlayerController.shotType.Standard) 
+			{
+				playerControllerScript_P1.AddParticleActiveEffects ();
+			}
+
 			// Switches to triple shot mode
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
 			playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.TripleShootingHeatCost;
@@ -318,50 +328,58 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.RippleShot: 
-			
-			// Switches to ripple shot mode.
-			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
-			playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.RippleShootingHeatCost;
 
-			if (playerControllerScript_P1.isInOverdrive == true || playerControllerScript_P1.isHoming == true) 
+			if (playerControllerScript_P1.ShotType == PlayerController.shotType.Standard) 
 			{
-				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+				playerControllerScript_P1.AddParticleActiveEffects ();
 			}
 
-			if (playerControllerScript_P1.isInRapidFire == false) 
+			if (playerControllerScript_P1.ShotType != PlayerController.shotType.Ripple)
 			{
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
-			}
-
-			if (playerControllerScript_P1.isInRapidFire == true) 
-			{
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
-			}
-
-			// Tweaks to conditions based on which iteration the player is on.
-			switch (playerControllerScript_P1.RippleShotIteration) 
-			{
-			case PlayerController.shotIteration.Standard:
+				// Switches to ripple shot mode.
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
+				playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.RippleShootingHeatCost;
 
-				if (gameControllerScript.gameModifier.AlwaysRapidfire == false)
+				if (playerControllerScript_P1.isInOverdrive == true || playerControllerScript_P1.isHoming == true) 
+				{
+					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+				}
+
+				if (playerControllerScript_P1.isInRapidFire == false) 
 				{
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
 				}
-				break;
 
-			case PlayerController.shotIteration.Enhanced:
-				break;
+				if (playerControllerScript_P1.isInRapidFire == true) 
+				{
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+				}
 
-			case PlayerController.shotIteration.Rapid:
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
-				break;
+				// Tweaks to conditions based on which iteration the player is on.
+				switch (playerControllerScript_P1.RippleShotIteration) 
+				{
+				case PlayerController.shotIteration.Standard:
+					playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
 
-			case PlayerController.shotIteration.Overdrive:
-				break;
+					if (gameControllerScript.gameModifier.AlwaysRapidfire == false)
+					{
+						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
+					}
+					break;
+
+				case PlayerController.shotIteration.Enhanced:
+					break;
+
+				case PlayerController.shotIteration.Rapid:
+					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+					break;
+
+				case PlayerController.shotIteration.Overdrive:
+					break;
+				}
+
+				SetPowerupTexture (0); // Set the shooting powerup texture.
 			}
-
-			SetPowerupTexture (0); // Set the shooting powerup texture.
 			break;
 
 		case powerups.Helix:
@@ -372,6 +390,7 @@ public class PowerupPickup : MonoBehaviour
 				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
 				gameControllerScript.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.Helix.SetActive (true);
+				playerControllerScript_P1.AddParticleActiveEffects ();
 			}
 
 			break;
@@ -389,6 +408,7 @@ public class PowerupPickup : MonoBehaviour
 
 				gameControllerScript.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.nextTurretSpawn += 1;
+				playerControllerScript_P1.AddParticleActiveEffects ();
 			}
 			break;
 
@@ -420,6 +440,7 @@ public class PowerupPickup : MonoBehaviour
 				gameControllerScript.RapidfireHex.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
 				gameControllerScript.RapidfireImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				playerControllerScript_P1.AddParticleActiveEffects ();
 			}
 
 			break;
@@ -439,6 +460,7 @@ public class PowerupPickup : MonoBehaviour
 				gameControllerScript.OverdriveHex.enabled = true;
 				playerControllerScript_P1.isInOverdrive = true;
 				gameControllerScript.OverdriveImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				playerControllerScript_P1.AddParticleActiveEffects ();
 			}
 			break;
 
@@ -475,6 +497,7 @@ public class PowerupPickup : MonoBehaviour
 				gameControllerScript.RicochetImage.enabled = true;
 				gameControllerScript.RicochetHex.enabled = true;
 				gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				playerControllerScript_P1.AddParticleActiveEffects ();
 			}
 			break;
 		
@@ -489,6 +512,7 @@ public class PowerupPickup : MonoBehaviour
 				gameControllerScript.HomingImage.enabled = true;
 				gameControllerScript.HomingHex.enabled = true;
 				gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				playerControllerScript_P1.AddParticleActiveEffects ();
 			}
 			break;
 		}

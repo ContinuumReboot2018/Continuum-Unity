@@ -299,6 +299,11 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Particles that emit off the glow objects.")]
 	public ParticleSystem[] RicochetGlowParticles;
 	public ParticleSystem PowerupActiveParticles;
+	public float newMinSize_PowerupActiveParticles;
+	public float newMaxSize_PowerupActiveParticles;
+	public ParticleSystem PowerupActiveParticlesBurst;
+	public float newMinSize_PowerupActiveParticlesBurst;
+	public float newMaxSize_PowerupActiveParticlesBurst;
 
 	// Double shot.
 	[Tooltip("Left bullet normal.")]
@@ -707,6 +712,51 @@ public class PlayerController : MonoBehaviour
 		var AbilityParticlesForceModule = AbilityActiveParticles.forceOverLifetime;
 		AbilityParticlesForceModule.x = -playerActions.Move.Value.x * 0.5f;
 		AbilityParticlesForceModule.y = -playerActions.Move.Value.y * 0.1f;
+	}
+
+	public void AddParticleActiveEffects ()
+	{
+		var PowerupActiveParticlesSustainMainModule = PowerupActiveParticles.main;
+		newMinSize_PowerupActiveParticles += 0.5f;
+		newMaxSize_PowerupActiveParticles += 0.5f;
+		PowerupActiveParticlesSustainMainModule.startSize = new ParticleSystem.MinMaxCurve (
+			newMinSize_PowerupActiveParticles,
+			newMaxSize_PowerupActiveParticles
+		);
+
+		PowerupActiveParticles.Play ();
+			
+		var PowerupActiveParticlesBurstMainModule = PowerupActiveParticlesBurst.main;
+		newMinSize_PowerupActiveParticlesBurst += 0.5f;
+		newMaxSize_PowerupActiveParticlesBurst += 0.5f;
+		PowerupActiveParticlesBurstMainModule.startSize = new ParticleSystem.MinMaxCurve (
+			newMinSize_PowerupActiveParticlesBurst,
+			newMaxSize_PowerupActiveParticlesBurst
+		);
+
+		PowerupActiveParticlesBurst.Play ();
+		// Play firey whoosh sound.
+	}
+
+	void ResetParticleActiveEffects ()
+	{
+		PowerupActiveParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+
+		var PowerupActiveParticlesSustainMainModule = PowerupActiveParticles.main;
+		newMinSize_PowerupActiveParticles = 0;
+		newMaxSize_PowerupActiveParticles = 2;
+		PowerupActiveParticlesSustainMainModule.startSize = new ParticleSystem.MinMaxCurve (
+			newMinSize_PowerupActiveParticles,
+			newMaxSize_PowerupActiveParticles
+		);
+
+		var PowerupActiveParticlesBurstMainModule = PowerupActiveParticlesBurst.main;
+		newMinSize_PowerupActiveParticlesBurst = 0;
+		newMaxSize_PowerupActiveParticlesBurst = 2;
+		PowerupActiveParticlesBurstMainModule.startSize = new ParticleSystem.MinMaxCurve (
+			newMinSize_PowerupActiveParticlesBurst,
+			newMaxSize_PowerupActiveParticlesBurst
+		);
 	}
 
 	void UpdateInputUI ()
@@ -1937,6 +1987,8 @@ public class PlayerController : MonoBehaviour
 
 		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
 		timescaleControllerScript.isOverridingTimeScale = false;
+
+		ResetParticleActiveEffects ();
 	}
 
 	void UpdateImageEffects ()
