@@ -1079,44 +1079,47 @@ public class GameController : MonoBehaviour
 	// Tracks pause state.
 	public void CheckPause ()
 	{
-		if (isInOtherMenu == false)
+		if (isGameOver == false) 
 		{
-			isPaused = !isPaused; // Toggles pausing.
-
-			// Stop updating required scripts.
-			if (isPaused) 
+			if (isInOtherMenu == false)
 			{
-				VhsAnim.SetTrigger ("Pause");
+				isPaused = !isPaused; // Toggles pausing.
 
-				PauseUI.SetActive (true);
+				// Stop updating required scripts.
+				if (isPaused) 
+				{
+					VhsAnim.SetTrigger ("Pause");
 
-				playerControllerScript_P1.pauseManagerScript.MenuOnEnter (0);
-				playerControllerScript_P1.pauseManagerScript.menuButtons.buttonIndex = 0;
+					PauseUI.SetActive (true);
 
-				// Sets audio values for pause.
-				audioControllerScript.updateVolumeAndPitches = false;
-				audioControllerScript.SetTargetLowPassFreq (500);
-				audioControllerScript.SetTargetResonance (2f);
+					playerControllerScript_P1.pauseManagerScript.MenuOnEnter (0);
+					playerControllerScript_P1.pauseManagerScript.menuButtons.buttonIndex = 0;
 
-				// Stops counting score.
-				CountScore = false;
+					// Sets audio values for pause.
+					audioControllerScript.updateVolumeAndPitches = false;
+					audioControllerScript.SetTargetLowPassFreq (500);
+					audioControllerScript.SetTargetResonance (2f);
 
-				// Overrides time scale.
-				timescaleControllerScript.isOverridingTimeScale = true;
-				timescaleControllerScript.OverridingTimeScale = 0; // Completely stop time.
-				timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.1f; // Must increase a little bit so the overriding occurs.
+					// Stops counting score.
+					CountScore = false;
 
-				// Set auto hover on resume button.
-				pauseMenuManager.MenuOnEnter (0);
+					// Overrides time scale.
+					timescaleControllerScript.isOverridingTimeScale = true;
+					timescaleControllerScript.OverridingTimeScale = 0; // Completely stop time.
+					timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.1f; // Must increase a little bit so the overriding occurs.
+
+					// Set auto hover on resume button.
+					pauseMenuManager.MenuOnEnter (0);
+				}
+
+				// Restart updating required scripts.
+				if (!isPaused) 
+				{
+					UnPauseGame ();
+				}
+
+				NextPauseCooldown = Time.unscaledTime + PauseCooldown; // Timer for next pause/unpause input to be read.
 			}
-
-			// Restart updating required scripts.
-			if (!isPaused) 
-			{
-				UnPauseGame ();
-			}
-
-			NextPauseCooldown = Time.unscaledTime + PauseCooldown; // Timer for next pause/unpause input to be read.
 		}
 	}
 

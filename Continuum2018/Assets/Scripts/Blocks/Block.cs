@@ -675,16 +675,21 @@ public class Block : MonoBehaviour
 
 		if (playerControllerScript_P1 != null) 
 		{
-			if (playerControllerScript_P1.CurrentAbilityTimeRemaining < playerControllerScript_P1.CurrentAbilityDuration) 
+			// If player is not recovering.
+			if (playerControllerScript_P1.isInCooldownMode == false)
 			{
-				if (isBossPart == false) 
+				// Ability time remaining must be less than the required duration.
+				if (playerControllerScript_P1.CurrentAbilityTimeRemaining < playerControllerScript_P1.CurrentAbilityDuration)
 				{
-					playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
-				}
+					if (isBossPart == false) // Not a boss part.
+					{
+						playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
+					}
 
-				if (isBossPart == true) 
-				{
-					playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo * 0.1f; // Increase ability time.
+					if (isBossPart == true) // Is boss part.
+					{
+						playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo * 0.1f; // Increase ability time.
+					}
 				}
 			}
 		}
