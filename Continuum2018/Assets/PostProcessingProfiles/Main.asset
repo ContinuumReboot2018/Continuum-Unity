@@ -25,13 +25,13 @@ MonoBehaviour:
         motionVectorsResolution: 23
         motionVectorsAmplitude: 60
   fog:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      excludeSkybox: 1
+      excludeSkybox: 0
   antialiasing:
     m_Enabled: 0
     m_Settings:
-      method: 0
+      method: 1
       fxaaSettings:
         preset: 2
       taaSettings:
@@ -100,11 +100,11 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.009038458
+        intensity: 0.01
         threshold: 0.02
         softKnee: 0
         radius: 5.75
-        antiFlicker: 0
+        antiFlicker: 1
       lensDirt:
         texture: {fileID: 2800000, guid: 4e59c075675385245878c2b676845b22, type: 3}
         intensity: 0.1

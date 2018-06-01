@@ -50,10 +50,26 @@ public class GameModifierReceiver : MonoBehaviour
 		else 
 		
 		{
-			gameModifierManagerScript.PowerupSpawn = 0;
+			gameModifierManagerScript.PowerupSpawn = (GameModifierManager.powerupSpawnMode)0;
 		}
 
-		Debug.Log ("MODIFIER: Powerup spawning mode: " + gameModifierManagerScript.PowerupSpawn.ToString ());
+		Debug.Log ("MODIFIER: Powerup spawning speed: " + gameModifierManagerScript.PowerupSpawn.ToString ());
+	}
+
+	public void SetPowerupModeDown ()
+	{
+		if (gameModifierManagerScript.PowerupSpawn > (GameModifierManager.powerupSpawnMode)1) 
+		{
+			gameModifierManagerScript.PowerupSpawn -= 1;
+		} 
+
+		else 
+
+		{
+			gameModifierManagerScript.PowerupSpawn = (GameModifierManager.powerupSpawnMode)3;
+		}
+
+		Debug.Log ("MODIFIER: Powerup spawning speed: " + gameModifierManagerScript.PowerupSpawn.ToString ());
 	}
 
 	public void SetBossSpawnMode ()
@@ -66,7 +82,23 @@ public class GameModifierReceiver : MonoBehaviour
 		else 
 		
 		{
-			gameModifierManagerScript.BossSpawn = 0;
+			gameModifierManagerScript.BossSpawn = (GameModifierManager.bossSpawnMode)0;
+		}
+
+		Debug.Log ("MODIFIER: Boss spawning mode: " + gameModifierManagerScript.BossSpawn.ToString ());
+	}
+
+	public void SetBossSpawnModeDown ()
+	{
+		if (gameModifierManagerScript.BossSpawn > (GameModifierManager.bossSpawnMode)1) 
+		{
+			gameModifierManagerScript.BossSpawn -= 1;
+		} 
+
+		else 
+
+		{
+			gameModifierManagerScript.BossSpawn = (GameModifierManager.bossSpawnMode)3;
 		}
 
 		Debug.Log ("MODIFIER: Boss spawning mode: " + gameModifierManagerScript.BossSpawn.ToString ());
@@ -82,10 +114,26 @@ public class GameModifierReceiver : MonoBehaviour
 		else 
 
 		{
-			gameModifierManagerScript.TimeIncreaseMode = 0;
+			gameModifierManagerScript.TimeIncreaseMode = (GameModifierManager.timeIncreaseMode)0;
 		}
 			
-		Debug.Log ("MODIFIER: Time increase mode: " + gameModifierManagerScript.TimeIncreaseMode.ToString ());
+		Debug.Log ("MODIFIER: Timescale increase speed: " + gameModifierManagerScript.TimeIncreaseMode.ToString ());
+	}
+
+	public void SetTimeIncreaseModeDown ()
+	{
+		if (gameModifierManagerScript.TimeIncreaseMode > (GameModifierManager.timeIncreaseMode)1) 
+		{
+			gameModifierManagerScript.TimeIncreaseMode -= 1;
+		} 
+
+		else 
+
+		{
+			gameModifierManagerScript.TimeIncreaseMode = (GameModifierManager.timeIncreaseMode)3;
+		}
+
+		Debug.Log ("MODIFIER: Timescale increase speed: " + gameModifierManagerScript.TimeIncreaseMode.ToString ());
 	}
 
 	public void SetAlwaysHoming ()
@@ -125,7 +173,23 @@ public class GameModifierReceiver : MonoBehaviour
 			gameModifierManagerScript.StartingLives = 1;
 		}
 
-		Debug.Log ("MODIFIER: Starting lives: " + gameModifierManagerScript.StartingLives.ToString ());
+		Debug.Log ("MODIFIER: Starting lives: " + gameModifierManagerScript.StartingLives.ToString () + " LIVES");
+	}
+
+	public void SetStartingLivesDown ()
+	{
+		if (gameModifierManagerScript.StartingLives > 1)
+		{
+			gameModifierManagerScript.StartingLives -= 1;
+		} 
+
+		else 
+
+		{
+			gameModifierManagerScript.StartingLives = 10;
+		}
+
+		Debug.Log ("MODIFIER: Starting lives: " + gameModifierManagerScript.StartingLives.ToString () + " LIVES");
 	}
 
 	public void SetBlockSpawnRate ()
@@ -139,6 +203,22 @@ public class GameModifierReceiver : MonoBehaviour
 		
 		{
 			gameModifierManagerScript.blockSpawnRateMultiplier = 1;
+		}
+
+		Debug.Log ("MODIFIER: Block spawn rate multiplier: " + gameModifierManagerScript.blockSpawnRateMultiplier.ToString ());
+	}
+
+	public void SetBlockSpawnRateDown ()
+	{
+		if (gameModifierManagerScript.blockSpawnRateMultiplier > 1) 
+		{
+			gameModifierManagerScript.blockSpawnRateMultiplier -= 1;
+		} 
+
+		else 
+
+		{
+			gameModifierManagerScript.blockSpawnRateMultiplier = 10;
 		}
 
 		Debug.Log ("MODIFIER: Block spawn rate multiplier: " + gameModifierManagerScript.blockSpawnRateMultiplier.ToString ());
@@ -174,6 +254,22 @@ public class GameModifierReceiver : MonoBehaviour
 
 		{
 			gameModifierManagerScript.startingWave = 1;
+		}
+
+		Debug.Log ("MODIFIER: Starting wave: " + gameModifierManagerScript.startingWave.ToString ());
+	}
+
+	public void SetStartingWaveDown ()
+	{
+		if (gameModifierManagerScript.startingWave > 1) 
+		{
+			gameModifierManagerScript.startingWave -= 1;
+		} 
+
+		else 
+
+		{
+			gameModifierManagerScript.startingWave = 10;
 		}
 
 		Debug.Log ("MODIFIER: Starting wave: " + gameModifierManagerScript.startingWave.ToString ());
@@ -249,7 +345,7 @@ public class GameModifierReceiver : MonoBehaviour
 		AlwaysRapidfireStatusText.text = gameModifierManagerScript.AlwaysRapidfire ? "ON" : "OFF";
 		AlwaysOverdriveStatusText.text = gameModifierManagerScript.AlwaysOverdrive ? "ON" : "OFF";
 		StartingLivesStatusText.text = gameModifierManagerScript.StartingLives.ToString ();
-		BlockSpawnRateStatusText.text = gameModifierManagerScript.blockSpawnRateMultiplier.ToString ();
+		BlockSpawnRateStatusText.text = "x" + gameModifierManagerScript.blockSpawnRateMultiplier.ToString ();
 		StackingStatusText.text = gameModifierManagerScript.stacking ? "ON" : "OFF";
 		OverheatStatusText.text = gameModifierManagerScript.useOverheat ? "ON" : "OFF";
 		BonusRoundsStatusText.text = gameModifierManagerScript.bonusRounds ? "ON" : "OFF";
