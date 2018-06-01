@@ -279,6 +279,7 @@ public class GameModifierReceiver : MonoBehaviour
 	{
 		saveAndLoadScript.MissionId = mission;
 		Debug.Log ("MODIFIER: Set mission ID to: " + saveAndLoadScript.MissionId);
+		saveAndLoadScript.SavePlayerData ();
 	}
 
 	public void SetTrialTime (float trialTime)

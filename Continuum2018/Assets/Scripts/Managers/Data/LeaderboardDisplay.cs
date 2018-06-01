@@ -54,6 +54,7 @@ public class LeaderboardDisplay : MonoBehaviour
 				Scores [i].text = saveAndLoadScript.Leaderboard_BossRushMode [i].score.ToString ();
 				Waves  [i].text = saveAndLoadScript.Leaderboard_BossRushMode [i].wave.ToString ();
 			}
+			Debug.Log ("Opened boss mode leaderboard display.");
 			break;
 		case 3:
 			for (int i = 0; i < saveAndLoadScript.Leaderboard_LuckyMode.Count; i++)
@@ -62,6 +63,7 @@ public class LeaderboardDisplay : MonoBehaviour
 				Scores [i].text = saveAndLoadScript.Leaderboard_LuckyMode [i].score.ToString ();
 				Waves  [i].text = saveAndLoadScript.Leaderboard_LuckyMode [i].wave.ToString ();
 			}
+			Debug.Log ("Opened lucky mode leaderboard display.");
 			break;
 		case 4:
 			for (int i = 0; i < saveAndLoadScript.Leaderboard_FullyLoadedMode.Count; i++)
@@ -70,6 +72,7 @@ public class LeaderboardDisplay : MonoBehaviour
 				Scores [i].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [i].score.ToString ();
 				Waves  [i].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [i].wave.ToString ();
 			}
+			Debug.Log ("Opened fully loaded leaderboard display.");
 			break;
 		case 5:
 			for (int i = 0; i < saveAndLoadScript.Leaderboard_ScavengerMode.Count; i++)
@@ -78,6 +81,7 @@ public class LeaderboardDisplay : MonoBehaviour
 				Scores [i].text = saveAndLoadScript.Leaderboard_ScavengerMode [i].score.ToString ();
 				Waves  [i].text = saveAndLoadScript.Leaderboard_ScavengerMode [i].wave.ToString ();
 			}
+			Debug.Log ("Opened scavenger leaderboard display.");
 			break;
 		case 6:
 			for (int i = 0; i < saveAndLoadScript.Leaderboard_HellMode.Count; i++)
@@ -86,6 +90,7 @@ public class LeaderboardDisplay : MonoBehaviour
 				Scores [i].text = saveAndLoadScript.Leaderboard_HellMode [i].score.ToString ();
 				Waves  [i].text = saveAndLoadScript.Leaderboard_HellMode [i].wave.ToString ();
 			}
+			Debug.Log ("Opened hell mode leaderboard display.");
 			break;
 		case 7:
 			for (int i = 0; i < saveAndLoadScript.Leaderboard_FastTrackMode.Count; i++)
@@ -94,6 +99,7 @@ public class LeaderboardDisplay : MonoBehaviour
 				Scores [i].text = saveAndLoadScript.Leaderboard_FastTrackMode [i].score.ToString ();
 				Waves  [i].text = saveAndLoadScript.Leaderboard_FastTrackMode [i].wave.ToString ();
 			}
+			Debug.Log ("Opened fast track mode leaderboard display.");
 			break;
 		}
 	}
@@ -102,7 +108,7 @@ public class LeaderboardDisplay : MonoBehaviour
 	{
 		menuLeaderboardId = leaderboardMenu;
 
-		Invoke ("UpdateLeaderboardDelayed", 0.03f);
+		Invoke ("UpdateLeaderboardDelayed", 0.01667f);
 	}
 
 	public void UpdateLeaderboardMissionText (string missionText)

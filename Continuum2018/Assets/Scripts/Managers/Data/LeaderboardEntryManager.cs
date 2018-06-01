@@ -221,7 +221,6 @@ public class LeaderboardEntryManager : MonoBehaviour
 	IEnumerator CheckLeaderboard ()
 	{
 		SavingText.SetActive (true);
-		gameOverControllerScript.saveAndLoadScript.SavePlayerData ();
 
 		yield return new WaitForSecondsRealtime (2);
 
@@ -257,6 +256,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 		}
 
 		//gameOverControllerScript.saveAndLoadScript.Leaderboard [gameOverControllerScript.place].name = NewName;
+		gameOverControllerScript.saveAndLoadScript.SavePlayerData ();
 
 		LeaderboardDisplay.SetActive (true);
 

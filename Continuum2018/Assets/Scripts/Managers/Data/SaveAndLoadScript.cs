@@ -329,7 +329,20 @@ public class SaveAndLoadScript : MonoBehaviour
 			Leaderboard_FastTrackMode 	= data.Leaderboard_FastTrackMode;
 			return;
 		}
+			
+		if (SceneManager.GetActiveScene ().name != "Menu")
+		{
+			Leaderboard_ArcadeMode 		= data.Leaderboard_ArcadeMode;
+			Leaderboard_BossRushMode 	= data.Leaderboard_BossRushMode;
+			Leaderboard_LuckyMode 		= data.Leaderboard_LuckyMode;
+			Leaderboard_FullyLoadedMode = data.Leaderboard_FullyLoadedMode;
+			Leaderboard_ScavengerMode	= data.Leaderboard_ScavengerMode;
+			Leaderboard_HellMode 		= data.Leaderboard_HellMode;
+			Leaderboard_FastTrackMode 	= data.Leaderboard_FastTrackMode;
+			return;
+		}
 
+		/*
 		if (SceneManager.GetActiveScene ().name != "Menu") 
 		{
 			switch (MissionId)
@@ -376,6 +389,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				break;
 			}
 		}
+		*/
 	}
 
 	// Puts new data into relevant scripts.
