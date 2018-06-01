@@ -13,6 +13,23 @@ public class Attractor : MonoBehaviour
 		MasterAttractor = GameObject.Find ("MasterAttractor").transform;
 		blockScript = GetComponent<Block> ();
 		simpleFollowScript = GetComponent<SimpleFollow> ();
+		InvokeRepeating ("CheckMasterAttractorDistance", 0, 1);
+	}
+
+	void Update ()
+	{
+		//if (Input.GetKeyDown (KeyCode.O)) 
+		//{
+		//	OverrideMovement = true;
+		//}
+	}
+
+	void CheckMasterAttractorDistance ()
+	{
+		if (Vector3.Distance (transform.position, MasterAttractor.position) < 1) 
+		{
+			Destroy (gameObject);
+		}
 	}
 
 	void FixedUpdate () 

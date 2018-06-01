@@ -21,8 +21,8 @@ public class MiniBoss : MonoBehaviour
 	public GameObject MiniBossUI;
 	[Tooltip ("The name of this instance of the boss.")]
 	public string MiniBossName;
-	[Tooltip ("The barrier that comes with this mini boss.")]
-	public GameObject Barrier;
+	//[Tooltip ("The barrier that comes with this mini boss.")]
+	//public GameObject Barrier;
 	public float ColliderTime = 3;
 
 	[Header ("Stats")]
@@ -79,7 +79,7 @@ public class MiniBoss : MonoBehaviour
 	void Awake ()
 	{
 		hitPoints = StartingHitPoints;
-		Invoke ("TurnOffBarrier", ColliderTime);
+		//Invoke ("TurnOffBarrier", ColliderTime);
 	}
 
 	void SpotlightOverrideTransform ()
@@ -161,10 +161,10 @@ public class MiniBoss : MonoBehaviour
 		Invoke ("EnableCol", 5);
 	}
 
-	void TurnOffBarrier ()
-	{
-		Barrier.SetActive (false);
-	}
+	//void TurnOffBarrier ()
+	//{
+		//Barrier.SetActive (false);
+	//}
 
 	void TurnOnEvasiveManeuverScript ()
 	{
@@ -201,14 +201,32 @@ public class MiniBoss : MonoBehaviour
 		// Creates a line from the LineRenderer from itself to the player position and shoots.
 		if (Line.enabled == true && simpleFollowScript.OverrideTransform != null) 
 		{
-			Line.SetPosition (0, transform.position + new Vector3 (0, 0, 0.36f));
-			Line.SetPosition (1, simpleFollowScript.OverrideTransform.position);
+			Line.SetPosition (
+				0, 
+				transform.position + new Vector3 (0, 0, 0.36f)
+			);
+
+			Line.SetPosition (
+				1, 
+				Vector3.Lerp (
+					Line.GetPosition (1), 
+					simpleFollowScript.OverrideTransform.position, 
+					10 * Time.deltaTime
+				)
+			);
 
 			Shoot ();
 
 			// Draws a line in scene view.
 			#if UNITY_EDITOR || UNITY_EDITOR_64
-			Debug.DrawLine (transform.position, simpleFollowScript.OverrideTransform.position, Color.green);
+			Debug.DrawLine (
+				transform.position, 
+				Vector3.Lerp (
+					Line.GetPosition (1), 
+					simpleFollowScript.OverrideTransform.position, 
+					10 * Time.deltaTime), 
+				Color.green
+			);
 			#endif
 		}
 			
@@ -377,11 +395,28 @@ public class MiniBoss : MonoBehaviour
 		AllowShoot = false; // Prevent shooting.
 		Line.enabled = false; // Hide line.
 
+		Line.SetPosition (
+			0, 
+			transform.position + new Vector3 (0, 0, 0.36f)
+		);
+
+		Line.SetPosition (
+			1, 
+			transform.position + new Vector3 (0, 0, 0.36f)
+		);
+
 		yield return new WaitForSeconds (LineTimerOffDuration); // Wait...
 
-		Line.SetPosition (0, transform.position + new Vector3 (0, 0, 0.36f)); // First line point at the boss with some offset.
-		//Line.SetPosition (1, FollowPlayerPos.position); // Second line point at the player.
-		Line.SetPosition (1, simpleFollowScript.OverrideTransform.position); // Second line point at the player.
+		Line.SetPosition (
+			0, 
+			transform.position + new Vector3 (0, 0, 0.36f)
+		);
+
+		Line.SetPosition (
+			1, 
+			transform.position + new Vector3 (0, 0, 0.36f)
+		);
+
 		Line.enabled = true; // Show line.
 		Line.positionCount = 2; // Set position count to 2.
 

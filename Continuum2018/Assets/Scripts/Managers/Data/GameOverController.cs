@@ -81,10 +81,6 @@ public class GameOverController : MonoBehaviour
 
 			if (leaderboardDisplay.gameObject.activeInHierarchy == true) 
 			{
-				//GameOverAnim.enabled = true;
-				//GetGameOverStats ();
-				//LeaderboardUI.SetActive (false);
-
 				ExecuteEvents.Execute (
 					LeaderboardCloseButton.gameObject, 
 					eventData, 

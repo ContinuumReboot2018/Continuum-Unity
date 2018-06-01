@@ -189,10 +189,10 @@ public class DeveloperMode : MonoBehaviour
 			CheatString += c; // Add character to cheat string.
 
 			// Reset cheat string by triple duplicate of same character.
-			if (CheatString.Contains (c.ToString () + c.ToString () + c.ToString ()))
-			{
-				ClearCheatString ();
-			}
+			//if (CheatString.Contains (c.ToString () + c.ToString () + c.ToString ()))
+			//{
+			//	ClearCheatString ();
+			//}
 
 			// Reset cheat string by backquote character.
 			if (CheatString.Contains ("`")) 

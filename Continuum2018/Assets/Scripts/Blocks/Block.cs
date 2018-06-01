@@ -343,10 +343,11 @@ public class Block : MonoBehaviour
 					// Other object has a bullet component.
 					if (particle.GetComponentInParent<Bullet> () != null) 
 					{
+						particle.GetComponentInParent<Bullet> ().hitABlock = true;
+
 						// Stops the bullet that hit it from hanging around.
 						if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
 						{
-							particle.GetComponentInParent<Bullet> ().hitABlock = true;
 							particle.GetComponentInParent<Bullet> ().DestroyObject ();
 						}
 					}
@@ -382,7 +383,7 @@ public class Block : MonoBehaviour
 								Destroy (particle.gameObject);
 							}
 						}
-
+					
 						Destroy (gameObject); // Destroy this object.
 						return; // Prevent any further code execution.
 					}
@@ -428,7 +429,6 @@ public class Block : MonoBehaviour
 				// If the tag is not a bullet.
 				if (other.tag != "Bullet") 
 				{
-		
 					//Destroy (other.gameObject); // Destroy other object.
 					Destroy (gameObject); // Destroy this object.
 					return; // Prevent any further code execution.
@@ -479,14 +479,15 @@ public class Block : MonoBehaviour
 					// Other object has a bullet component.
 					if (other.GetComponent<Bullet> () != null) 
 					{
+						other.GetComponentInParent<Bullet> ().hitABlock = true;
+
 						// Stops the bullet that hit it from hanging around.
 						if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true)
 						{
-							other.GetComponentInParent<Bullet> ().hitABlock = true;
 							other.GetComponentInParent<Bullet> ().DestroyObject ();
 						}
 					}
-
+						
 					DoCamShake (); // Destroy this object.
 					DoVibrate ();
 					Destroy (gameObject); // Destroy this object.
@@ -506,6 +507,7 @@ public class Block : MonoBehaviour
 								if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
 								{
 									Destroy (other.gameObject);
+									Destroy (gameObject); // Destroy this object.
 								}
 							}
 						}
@@ -528,6 +530,7 @@ public class Block : MonoBehaviour
 								if (other.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
 								{
 									Destroy (other.gameObject);
+									Destroy (gameObject); // Destroy this object.
 								}
 							}
 						}
