@@ -250,6 +250,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public ParticleSystem AbilityActiveParticles;
+	public ParticleSystem AbilityActiveBurstParticles;
 
 	// Ability UI.
 	[Tooltip("Ability UI.")]
@@ -728,7 +729,7 @@ public class PlayerController : MonoBehaviour
 			
 		var PowerupActiveParticlesBurstMainModule = PowerupActiveParticlesBurst.main;
 		newMinSize_PowerupActiveParticlesBurst += 0.5f;
-		newMaxSize_PowerupActiveParticlesBurst += 0.5f;
+		newMaxSize_PowerupActiveParticlesBurst += 0.1f;
 		PowerupActiveParticlesBurstMainModule.startSize = new ParticleSystem.MinMaxCurve (
 			newMinSize_PowerupActiveParticlesBurst,
 			newMaxSize_PowerupActiveParticlesBurst
@@ -752,7 +753,7 @@ public class PlayerController : MonoBehaviour
 
 		var PowerupActiveParticlesBurstMainModule = PowerupActiveParticlesBurst.main;
 		newMinSize_PowerupActiveParticlesBurst = 0;
-		newMaxSize_PowerupActiveParticlesBurst = 2;
+		newMaxSize_PowerupActiveParticlesBurst = 3;
 		PowerupActiveParticlesBurstMainModule.startSize = new ParticleSystem.MinMaxCurve (
 			newMinSize_PowerupActiveParticlesBurst,
 			newMaxSize_PowerupActiveParticlesBurst
@@ -1206,6 +1207,9 @@ public class PlayerController : MonoBehaviour
 		timescaleControllerScript.OverridingTimeScale = 0.3f;
 
 		camShakeScript.ShakeCam (0.4f, CurrentAbilityDuration, 6);
+
+		AbilityActiveParticles.Play ();
+		AbilityActiveBurstParticles.Play ();
 	}
 
 	// Use Emp ability.
@@ -1229,6 +1233,8 @@ public class PlayerController : MonoBehaviour
 	// Turn off ability when timer runs out. But allow things to gradually disappear by invoking with delay.
 	public void DeactivateAbility ()
 	{
+		AbilityActiveParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+
 		// Deactivates shield.
 		isShieldOn = false;
 		TargetLensRadius = 0;
