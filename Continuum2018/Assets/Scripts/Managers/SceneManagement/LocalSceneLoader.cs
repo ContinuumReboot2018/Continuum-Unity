@@ -19,19 +19,25 @@ public class LocalSceneLoader : MonoBehaviour
 		
 	public void LoadScene (string sceneName)
 	{
-		SceneLoadCommit = true;
-		sceneLoaderScript.SceneName = sceneName;
-		StartCoroutine (SceneLoadSequence ());
-
-		if (sceneName == "menu") 
+		if (SceneLoadCommit == false)
 		{
-			initManagerScript.LoadingMissionText.text = "MAIN MENU";
+			SceneLoadCommit = true;
+			sceneLoaderScript.SceneName = sceneName;
+			StartCoroutine (SceneLoadSequence ());
+
+			if (sceneName == "menu") 
+			{
+				initManagerScript.LoadingMissionText.text = "MAIN MENU";
+			}
 		}
+
+		return;
 	}
 
 	IEnumerator SceneLoadSequence ()
 	{
-		yield return new WaitForSecondsRealtime (0.1f);
+		//yield return new WaitForSecondsRealtime (0.1f);
 		sceneLoaderScript.StartLoadSequence ();
+		yield return null;
 	}
 }
