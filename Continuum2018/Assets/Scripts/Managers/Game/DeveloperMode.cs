@@ -38,6 +38,7 @@ public class DeveloperMode : MonoBehaviour
 	[Space (10)]
 	// FPS testing cheats.
 	public string FpsUnlockCommand = "fpsunlock"; // Unlocks framerate.
+	public string Fps20Command = "fps20"; // Target framerate set to 20.
 	public string Fps30Command = "fps30"; // Target framerate set to 30.
 	public string Fps60Command = "fps60"; // Target framerate set to 60.
 	public string Fps90Command = "fps90"; // Target framerate set to 90.
@@ -277,6 +278,12 @@ public class DeveloperMode : MonoBehaviour
 			{
 				targetFramerateScript.SetTargetFramerate (30);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 30");
+			}
+
+			if (CheatString == Fps20Command) 
+			{
+				targetFramerateScript.SetTargetFramerate (20);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 20");
 			}
 
 			if (CheatString == Fps90Command) 

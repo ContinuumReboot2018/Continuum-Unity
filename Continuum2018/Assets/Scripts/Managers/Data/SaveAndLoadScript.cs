@@ -45,6 +45,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	public PostProcessingProfile VisualSettings;
 	public PostProcessingBehaviour VisualSettingsComponent;
 	public Camera cam;
+
 	[Space (10)]
 	public int QualitySettingsIndex;
 	public bool useHdr;
@@ -52,6 +53,9 @@ public class SaveAndLoadScript : MonoBehaviour
 
 	public TargetFPS targetFramerateScript;
 	public int targetframerate;
+
+	public FPSCounter fpsCounterScript;
+	public float averageFpsTimer;
 
 	[Space (10)]
 	public float ParticleEmissionMultiplier = 1;
@@ -82,6 +86,45 @@ public class SaveAndLoadScript : MonoBehaviour
 				LoadSettingsData ();
 
 				CheckUsername ();
+			}
+		}
+
+		if (SceneManager.GetActiveScene ().name == "SinglePlayer") 
+		{
+			fpsCounterScript = GameObject.Find ("FPSCounter").GetComponent<FPSCounter> ();
+		}
+	}
+
+	void FixedUpdate ()
+	{
+		if (fpsCounterScript != null)
+		{
+			if (fpsCounterScript.averageFps < 30)
+			{
+				averageFpsTimer += Time.fixedDeltaTime;
+
+				if (averageFpsTimer > 10) 
+				{
+					if (QualitySettingsIndex != 0)
+					{
+						QualitySettingsIndex = 0;
+						Application.targetFrameRate = -1;
+						SaveSettingsData ();
+						LoadSettingsData ();
+						Debug.Log ("Average FPS too low, falling back to lower quality.");
+						averageFpsTimer = 0;
+						return;
+					}
+				}
+			} 
+
+			else 
+			
+			{
+				if (averageFpsTimer != 0) 
+				{
+					averageFpsTimer = 0;
+				}
 			}
 		}
 	}

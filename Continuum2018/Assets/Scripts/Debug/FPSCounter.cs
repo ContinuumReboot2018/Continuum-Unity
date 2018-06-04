@@ -13,6 +13,8 @@ public class FPSCounter : MonoBehaviour
 	public float FramesPerSecB { get; protected set; }
 	public bool toggle;
 	public bool showFps;
+	private float avFps;
+	public float averageFps;
 
 	private void Start()
 	{
@@ -27,6 +29,12 @@ public class FPSCounter : MonoBehaviour
 		{
 			FPSText.enabled = false;
 		}
+	}
+
+	void Update ()
+	{
+		avFps += (Time.unscaledDeltaTime - avFps) * Time.unscaledDeltaTime;
+		averageFps = 1 / avFps;
 	}
 
 	private IEnumerator FPS () 
