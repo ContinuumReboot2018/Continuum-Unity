@@ -47,7 +47,7 @@ GameObject:
   m_Layer: 12
   m_Name: PowerupPickup_FreezeTime
   m_TagString: PowerupPickup
-  m_Icon: {fileID: 2800000, guid: e0d1baa41a4447341852366690a0be89, type: 3}
+  m_Icon: {fileID: 2800000, guid: d599f616dc174754e913cabfdd762512, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

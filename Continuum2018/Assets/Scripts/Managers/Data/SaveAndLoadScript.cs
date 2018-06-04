@@ -109,6 +109,12 @@ public class SaveAndLoadScript : MonoBehaviour
 					{
 						QualitySettingsIndex = 0;
 						Application.targetFrameRate = -1;
+
+						if (Screen.width > 1280 || Screen.height > 720) 
+						{
+							Screen.SetResolution (1280, 720, Screen.fullScreen);
+						}
+
 						SaveSettingsData ();
 						LoadSettingsData ();
 						Debug.Log ("Average FPS too low, falling back to lower quality.");
