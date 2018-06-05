@@ -1247,6 +1247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initManagerScript: {fileID: 114253284983535580}
   settingsManagerScript: {fileID: 0}
+  sceneLoaderScript: {fileID: 114621961245413214}
   playerControllerScript_P1: {fileID: 0}
   gameControllerScript: {fileID: 0}
   AllowLoading: 1
@@ -1508,10 +1509,10 @@ MonoBehaviour:
   VisualSettingsComponent: {fileID: 0}
   cam: {fileID: 0}
   QualitySettingsIndex: 1
-  useHdr: 0
-  sunShaftsEnabled: 0
-  targetFramerateScript: {fileID: 0}
-  targetframerate: 0
+  useHdr: 1
+  sunShaftsEnabled: 1
+  targetFramerateScript: {fileID: 114609436200610846}
+  targetframerate: -1
   fpsCounterScript: {fileID: 0}
   averageFpsTimer: 0
   ParticleEmissionMultiplier: 1
