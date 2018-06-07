@@ -958,12 +958,11 @@ public class PlayerController : MonoBehaviour
 		audioControllerScript.TargetCutoffFreq = 22000;
 		audioControllerScript.TargetResonance = 1;
 		InvincibleParticles.Play ();
-
 		//UpdateLivesLeft ();
-
 		spotlightsScript.NewTarget = playerMesh.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.SuccessSpotlightSettings ();
+		gameControllerScript.VhsAnim.SetTrigger ("Play");
 	}
 
 	/*
