@@ -209,7 +209,7 @@ public class TimescaleController : MonoBehaviour
 			OverrideTimeScaleTimeRemaining = gameControllerScript.PowerupTimeRemaining;
 			var saturationSettings = gameControllerScript.ImageEffects.colorGrading.settings;
 			gameControllerScript.isUpdatingImageEffects = false;
-			saturationSettings.basic.saturation = Mathf.Lerp (saturationSettings.basic.saturation, 0, Time.unscaledDeltaTime);
+			saturationSettings.basic.saturation = Mathf.Lerp (saturationSettings.basic.saturation, 0.2f, Time.unscaledDeltaTime);
 			gameControllerScript.ImageEffects.colorGrading.settings = saturationSettings;
 		}
 

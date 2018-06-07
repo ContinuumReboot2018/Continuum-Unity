@@ -307,11 +307,6 @@ public class Block : MonoBehaviour
 		if (particle.tag == "Bullet" ||
 		    particle.tag == "Hazard") 
 		{
-			if (isBonusBlock == true) 
-			{
-				gameControllerScript.BonusBlocksDestroyed += 1;
-			}
-
 			if (transform.position.y > 15) 
 			{
 				return;
@@ -343,6 +338,11 @@ public class Block : MonoBehaviour
 					// Other object has a bullet component.
 					if (particle.GetComponentInParent<Bullet> () != null) 
 					{
+						if (isBonusBlock == true) 
+						{
+							gameControllerScript.BonusBlocksDestroyed += 1;
+						}
+
 						particle.GetComponentInParent<Bullet> ().hitABlock = true;
 
 						// Stops the bullet that hit it from hanging around.
