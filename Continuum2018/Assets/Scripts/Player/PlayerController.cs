@@ -864,6 +864,8 @@ public class PlayerController : MonoBehaviour
 	// Impacts by any hazardous object.
 	public void PlayerImpactGeneric ()
 	{
+		gameControllerScript.isUpdatingImageEffects = true;
+		timeIsSlowed = false;
 		SetCooldownTime (5);
 		GlitchEffect.Play ("CameraGlitchOn");
 		PlayerExplosionParticles.Play ();
@@ -894,6 +896,13 @@ public class PlayerController : MonoBehaviour
 		spotlightsScript.NewTarget = ImpactTransform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.ImpactSpotlightSettings ();
+
+		if (gameControllerScript.doBonusRound == true) 
+		{
+			StopCoroutine (gameControllerScript.BonusRound ());
+			gameControllerScript.doBonusRound = false;
+		}
+
 		return;
 	}
 
@@ -951,23 +960,33 @@ public class PlayerController : MonoBehaviour
 		audioControllerScript.TargetResonance = 1;
 		InvincibleParticles.Play ();
 
-		UpdateLivesLeftA ();
+		UpdateLivesLeft ();
 
 		spotlightsScript.NewTarget = playerMesh.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.SuccessSpotlightSettings ();
 	}
 
-	void UpdateLivesLeftA ()
+	void UpdateLivesLeft ()
 	{
-		if (gameControllerScript.Lives > 1)
+		if ((gameControllerScript.Lives - 2) > 1)
 		{
-			LivesLeftText.text = (gameControllerScript.Lives).ToString () + " LIVES LEFT";
+			LivesLeftText.text = (gameControllerScript.Lives - 2).ToString () + " LIVES LEFT";
 		}
 
-		if (gameControllerScript.Lives <= 1) 
+		if ((gameControllerScript.Lives - 2) == 1)
+		{
+			LivesLeftText.text = (gameControllerScript.Lives - 2).ToString () + " LIFE LEFT";
+			LivesLeftText.fontSize = 220;
+			LivesLeftText.GetComponent<Animator> ().speed = 0.75f;
+		}
+
+		if ((gameControllerScript.Lives - 2) < 1) 
 		{
 			LivesLeftText.text = "LAST LIFE";
+			LivesLeftText.fontSize = 220;
+			LivesLeftText.color = new Color (1, 0.2f, 0.2f, 1);
+			LivesLeftText.GetComponent<Animator> ().speed = 0.3f;
 		}
 
 		LivesLeftUI.Play ("LivesLeft");

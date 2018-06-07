@@ -1498,7 +1498,7 @@ public class GameController : MonoBehaviour
 		yield return new WaitForSeconds (BonusSpawnEndDelay);
 
 		// Wave / 4 has remainders = normal wave.
-		if (Wave % 4 != 0 || Wave % 3 != 0)
+		if (Wave % 4 != 0)
 		{
 			// Spawn a miniboss as usual in normal mode.
 			if (gameModifier.BossSpawn == GameModifierManager.bossSpawnMode.Normal)
@@ -1542,6 +1542,7 @@ public class GameController : MonoBehaviour
 			SoundtrackText.text = ""; // Clear sounstrack text display.
 		}
 
+		doBonusRound = false;
 		StopCoroutine (BonusRound ());
 	}
 
@@ -1557,7 +1558,6 @@ public class GameController : MonoBehaviour
 				if (gameModifier.bonusRounds == true) 
 				{
 					StartCoroutine (BonusRound ());
-					doBonusRound = false;
 				}
 			} 
 
@@ -1565,13 +1565,13 @@ public class GameController : MonoBehaviour
 			
 			{
 				// Wave / 4 has remainders = normal wave.
-				if (Wave % 4 != 0 && Wave % 3 == 0)
+				if (Wave % 4 != 0)
 				{
 					CheckWaveMiniBoss ();
 				}
 					
 				// Wave / 4 divides equally = big boss time.
-				if (Wave % 4 == 0 && Wave % 3 == 0) 
+				if (Wave % 4 == 0) 
 				{
 					CheckWaveBigBoss ();
 				}
