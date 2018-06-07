@@ -382,7 +382,7 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.timeIsSlowed == false) 
 				{
 					playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
-					playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
+					playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.3f;
 				}
 
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;

@@ -1919,6 +1919,8 @@ public class PlayerController : MonoBehaviour
 	// Resets all active powerups back to standard shot. Does not modify modifiers if enabled.
 	public void ResetPowerups ()
 	{
+		gameControllerScript.isUpdatingImageEffects = true;
+
 		// Sets all shot types to standard iteration.
 		ShotType = shotType.Standard;
 		CurrentShootingHeatCost = StandardShootingHeatCost;
@@ -1999,15 +2001,22 @@ public class PlayerController : MonoBehaviour
 
 	void UpdateImageEffects ()
 	{
-		float localDistance = timescaleControllerScript.Distance;
+		if (gameControllerScript.isUpdatingImageEffects == true) 
+		{
+			float localDistance = timescaleControllerScript.Distance;
 
-		var PostProcessBloomSettings = PostProcessProfile.bloom.settings;
-		PostProcessBloomSettings.bloom.intensity = 0.001f * localDistance + 0.005f;
-		PostProcessProfile.bloom.settings = PostProcessBloomSettings;
+			var PostProcessBloomSettings = PostProcessProfile.bloom.settings;
+			PostProcessBloomSettings.bloom.intensity = 0.001f * localDistance + 0.005f;
+			PostProcessProfile.bloom.settings = PostProcessBloomSettings;
 
-		var PostProcessColorGradingSettings = PostProcessProfile.colorGrading.settings;
-		PostProcessColorGradingSettings.basic.saturation = 0.003f * localDistance + 0.85f;
-		PostProcessProfile.colorGrading.settings = PostProcessColorGradingSettings;
+			var PostProcessColorGradingSettings = PostProcessProfile.colorGrading.settings;
+			PostProcessColorGradingSettings.basic.saturation = Mathf.Lerp (
+				PostProcessColorGradingSettings.basic.saturation,
+				0.003f * localDistance + 0.85f,
+				Time.unscaledDeltaTime
+			);
+			PostProcessProfile.colorGrading.settings = PostProcessColorGradingSettings;
+		}
 	}
 
 	// This is for InControl for initialization.
