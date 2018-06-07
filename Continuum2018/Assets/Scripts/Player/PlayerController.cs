@@ -959,13 +959,14 @@ public class PlayerController : MonoBehaviour
 		audioControllerScript.TargetResonance = 1;
 		InvincibleParticles.Play ();
 
-		UpdateLivesLeft ();
+		//UpdateLivesLeft ();
 
 		spotlightsScript.NewTarget = playerMesh.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.SuccessSpotlightSettings ();
 	}
 
+	/*
 	void UpdateLivesLeft ()
 	{
 		if ((gameControllerScript.Lives - 2) > 1)
@@ -990,6 +991,7 @@ public class PlayerController : MonoBehaviour
 
 		LivesLeftUI.Play ("LivesLeft");
 	}
+	*/
 
 	void PlaySpaceshipAmbience ()
 	{
