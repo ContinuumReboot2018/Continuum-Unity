@@ -58,6 +58,8 @@ public class GameController : MonoBehaviour
 	[Tooltip ("Background of wave text.")]
 	public RawImage WaveBackground;
 
+	public bool doBonusRound;
+
 	[Header ("Wave Transition")]
 	[Tooltip ("Allows wave transition animation.")]
 	public bool IsInWaveTransition;
@@ -1457,9 +1459,12 @@ public class GameController : MonoBehaviour
 		UnityEngine.Debug.Log ("Oh snap! We spawned a big boss!");
 	}
 
-	IEnumerator BonusRound ()
+	public IEnumerator BonusRound ()
 	{
-		BonusesToSpawn = Mathf.Clamp (Mathf.RoundToInt ((Wave / 3) + 3), 1, MaximumBonusesToSpawn);
+		//BonusesToSpawn = Mathf.Clamp (Mathf.RoundToInt ((Wave / 3) + 3), 1, MaximumBonusesToSpawn);
+		BonusesToSpawn = UnityEngine.Random.Range (40, 50);
+		BonusStartSpawnDelay = 0.1f;
+
 		TotalBonusBlocks = 0;
 		BonusAccuracy = 0;
 		BonusBlocksDestroyed = 0;
@@ -1469,7 +1474,7 @@ public class GameController : MonoBehaviour
 
 		BonusRoundUI.Play ("BonusRound");
 
-		yield return new WaitForSeconds (BonusStartSpawnDelay);
+		yield return new WaitForSecondsRealtime (BonusStartSpawnDelay);
 
 		while (BonusesSpawned < BonusesToSpawn)
 		{
@@ -1482,7 +1487,7 @@ public class GameController : MonoBehaviour
 			yield return new WaitForSeconds (UnityEngine.Random.Range (BonusSpawnDelay.x, BonusSpawnDelay.y));	
 		}
 			
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (4);
 
 		BonusBlocksDestroyedText.text = "Bonus Blocks Destroyed: " + BonusBlocksDestroyed;
 		BonusAccuracy = Mathf.Clamp ((float)BonusBlocksDestroyed / (float)TotalBonusBlocks, 0, 1);
@@ -1547,40 +1552,29 @@ public class GameController : MonoBehaviour
 		if (WaveTimeRemaining < 0) 
 		{
 			// Bonus Round.
-			if (Wave % 3 == 0) 
+			if (doBonusRound == true) 
 			{
 				if (gameModifier.bonusRounds == true) 
 				{
 					StartCoroutine (BonusRound ());
-				} 
-
-				else 
-				
-				{
-					// Wave / 4 has remainders = normal wave.
-					if (Wave % 4 != 0 && Wave % 3 == 0)
-					{
-						CheckWaveMiniBoss ();
-					}
-						
-					// Wave / 4 divides equally = big boss time.
-					if (Wave % 4 == 0 && Wave % 3 == 0) 
-					{
-						CheckWaveBigBoss ();
-					}
+					doBonusRound = false;
 				}
-			}
+			} 
 
-			// Wave / 4 has remainders = normal wave.
-			if (Wave % 4 != 0 && Wave % 3 != 0)
+			else 
+			
 			{
-				CheckWaveMiniBoss ();
-			}
-
-			// Wave / 4 divides equally = big boss time.
-			if (Wave % 4 == 0 && Wave % 3 != 0) 
-			{
-				CheckWaveBigBoss ();
+				// Wave / 4 has remainders = normal wave.
+				if (Wave % 4 != 0 && Wave % 3 == 0)
+				{
+					CheckWaveMiniBoss ();
+				}
+					
+				// Wave / 4 divides equally = big boss time.
+				if (Wave % 4 == 0 && Wave % 3 == 0) 
+				{
+					CheckWaveBigBoss ();
+				}
 			}
 
 			WaveTimeRemaining = 0; // Reset wave time remaining.

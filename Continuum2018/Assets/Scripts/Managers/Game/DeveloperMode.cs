@@ -98,6 +98,7 @@ public class DeveloperMode : MonoBehaviour
 	public string NextWaveCommand = "nextwave"; // Wave number increases.
 	public string PreviousWaveCommand = "lastwave"; // Wave number decreases.
 	public string UseOverheatCommand = "useoverheat"; // Allows overheating or not.
+	public string DoBonusRoundCommand = "dobonus"; // Sets up bonus round.
 
 	[Header ("UI and Animations")]
 	public GameObject CheatsMenu; // Cheat menu for viewing possible cheats.
@@ -926,6 +927,13 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.CurrentShootingCooldown = 0;
 					ShowCheatNotification ("CHEAT ACTIVATED: OVERHEAT OFF");
 				}
+			}
+
+			if (CheatString == DoBonusRoundCommand) 
+			{
+				gameControllerScript.doBonusRound = true;
+
+				ShowCheatNotification ("CHEAT ACTIVATED: BONUS ROUND ON");
 			}
 		}
 	}
