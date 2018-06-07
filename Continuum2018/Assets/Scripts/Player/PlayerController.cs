@@ -897,10 +897,9 @@ public class PlayerController : MonoBehaviour
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.ImpactSpotlightSettings ();
 
-		if (gameControllerScript.doBonusRound == true) 
+		if (gameControllerScript.isInBonusRound == true) 
 		{
-			StopCoroutine (gameControllerScript.BonusRound ());
-			gameControllerScript.doBonusRound = false;
+			Debug.Log ("Bonus round cancelled, loading up next boss.");
 		}
 
 		return;

@@ -99,6 +99,8 @@ public class DeveloperMode : MonoBehaviour
 	public string PreviousWaveCommand = "lastwave"; // Wave number decreases.
 	public string UseOverheatCommand = "useoverheat"; // Allows overheating or not.
 	public string DoBonusRoundCommand = "dobonus"; // Sets up bonus round.
+	public string SetQualitySettingsHigh = "highqual"; // Sets quality settings to high.
+	public string SetQualitySettingsLow = "lowqual"; // Sets quality settings to low.
 
 	[Header ("UI and Animations")]
 	public GameObject CheatsMenu; // Cheat menu for viewing possible cheats.
@@ -561,9 +563,11 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == NextWaveCommand) 
 			{
-				gameControllerScript.Wave += 1;
+				StopCoroutine (gameControllerScript.StartBlockSpawn ());
+				gameControllerScript.StartNewWave ();
+
 				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
-				gameControllerScript.BlockSpawnRate -= gameControllerScript.BlockSpawnIncreaseRate;
+
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT WAVE");
 			}
 			
@@ -571,7 +575,8 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (gameControllerScript.Wave > 1)
 				{
-					gameControllerScript.Wave -= 1;
+					StopCoroutine (gameControllerScript.StartBlockSpawn ());
+					gameControllerScript.StartPreviousWave ();
 					gameControllerScript.BlockSpawnRate += gameControllerScript.BlockSpawnIncreaseRate;
 				}
 
@@ -934,6 +939,42 @@ public class DeveloperMode : MonoBehaviour
 				gameControllerScript.doBonusRound = true;
 
 				ShowCheatNotification ("CHEAT ACTIVATED: BONUS ROUND ON");
+			}
+
+			if (CheatString == SetQualitySettingsHigh) 
+			{
+				if (saveAndLoadScript.QualitySettingsIndex != 1)
+				{
+					saveAndLoadScript.QualitySettingsIndex = 1;
+					Application.targetFrameRate = -1;
+
+					if (Screen.width < 1920 || Screen.height < 1080) 
+					{
+						Screen.SetResolution (1920, 1080, Screen.fullScreen);
+					}
+
+					saveAndLoadScript.SaveSettingsData ();
+					saveAndLoadScript.LoadSettingsData ();
+					ShowCheatNotification ("CHEAT ACTIVATED: HIGH QUALITY SETTINGS");
+				}
+			}
+
+			if (CheatString == SetQualitySettingsLow) 
+			{
+				if (saveAndLoadScript.QualitySettingsIndex != 0)
+				{
+					saveAndLoadScript.QualitySettingsIndex = 0;
+					Application.targetFrameRate = -1;
+
+					if (Screen.width > 1280 || Screen.height > 720) 
+					{
+						Screen.SetResolution (1280, 720, Screen.fullScreen);
+					}
+
+					saveAndLoadScript.SaveSettingsData ();
+					saveAndLoadScript.LoadSettingsData ();
+					ShowCheatNotification ("CHEAT ACTIVATED: LOW QUALITY SETTINGS");
+				}
 			}
 		}
 	}

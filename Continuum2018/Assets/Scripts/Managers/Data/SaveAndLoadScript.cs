@@ -46,6 +46,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	public PostProcessingProfile VisualSettings;
 	public PostProcessingBehaviour VisualSettingsComponent;
 	public Camera cam;
+	public FastMobileBloom fastMobileBloomScript;
 
 	[Space (10)]
 	public int QualitySettingsIndex;
@@ -80,6 +81,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 				cam = settingsManagerScript.cam;
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
+				fastMobileBloomScript = cam.GetComponent<FastMobileBloom> ();
 
 				CheckPlayerDataFile ();
 
@@ -464,6 +466,11 @@ public class SaveAndLoadScript : MonoBehaviour
 					VisualSettingsComponent.enabled = false;
 				}
 
+				if (fastMobileBloomScript != null) 
+				{
+					fastMobileBloomScript.enabled = true;
+				}
+
 				sunShaftsEnabled = false;
 				useHdr = false;
 				ParticleEmissionMultiplier = 0.25f;
@@ -474,6 +481,11 @@ public class SaveAndLoadScript : MonoBehaviour
 				if (VisualSettingsComponent != null)
 				{
 					VisualSettingsComponent.enabled = true;
+				}
+
+				if (fastMobileBloomScript != null) 
+				{
+					fastMobileBloomScript.enabled = false;
 				}
 
 				sunShaftsEnabled = true;
