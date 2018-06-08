@@ -207,8 +207,9 @@ public class TimescaleController : MonoBehaviour
 		if (playerControllerScript_P1.timeIsSlowed == true) 
 		{
 			OverrideTimeScaleTimeRemaining = gameControllerScript.PowerupTimeRemaining;
-			var saturationSettings = gameControllerScript.ImageEffects.colorGrading.settings;
 			gameControllerScript.isUpdatingImageEffects = false;
+
+			var saturationSettings = gameControllerScript.ImageEffects.colorGrading.settings;
 			saturationSettings.basic.saturation = Mathf.Lerp (saturationSettings.basic.saturation, 0.2f, Time.unscaledDeltaTime);
 			gameControllerScript.ImageEffects.colorGrading.settings = saturationSettings;
 		}
@@ -242,6 +243,11 @@ public class TimescaleController : MonoBehaviour
 			// If game is not in a wave transition.
 			if (WaveTransitionUI.GetCurrentAnimatorStateInfo (0).IsName ("WaveTransition") == false) 
 			{
+				if (isOverridingTimeScale == false) 
+				{
+					isOverridingTimeScale = true;
+				}
+
 				// Decrease sensitivity of player movement.
 				playerControllerScript_P1.MovementX *= Time.timeScale;
 				playerControllerScript_P1.MovementY *= Time.timeScale;

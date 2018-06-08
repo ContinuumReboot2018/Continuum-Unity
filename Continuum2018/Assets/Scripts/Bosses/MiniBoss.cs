@@ -348,7 +348,7 @@ public class MiniBoss : MonoBehaviour
 		if (gameControllerScript.playerControllerScript_P1.timeIsSlowed == false)
 		{
 			timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 1f; // Temporarily override time scale. 
-			timeScaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
+			timeScaleControllerScript.OverridingTimeScale = 0.3f; // Set overriding time scale.
 		}
 
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("SpotlightOverrideTransform");

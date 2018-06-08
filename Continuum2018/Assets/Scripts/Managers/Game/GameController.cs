@@ -1273,7 +1273,15 @@ public class GameController : MonoBehaviour
 				playerControllerScript_P1.isInCooldownMode == false && 
 				isPaused == false)
 			{
-				SpawnBlock (false); // Spawns a block based on wave number.
+				if (numberOfBlocks < 300)
+				{
+					SpawnBlock (false); // Spawns a block based on wave number.
+				}
+
+				if (numberOfBlocks >= 300) 
+				{
+					Debug.LogWarning ("No more blocks will spawn. Clear some.");
+				}
 
 				/*
 				// Creates a stream of blocks.
