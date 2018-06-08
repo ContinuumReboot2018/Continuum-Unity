@@ -210,7 +210,6 @@ public class Block : MonoBehaviour
 		parentToTransformScript = GetComponent<ParentToTransform> ();
 		timeBodyScript = GetComponent<TimeBody> ();
 
-		//processor = GameObject.Find ("BeatDetectionTrack").GetComponent<AudioProcessor> ();
 		processor = audioControllerScript.BeatDetectionTracks [(int)BlockType].GetComponent<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 

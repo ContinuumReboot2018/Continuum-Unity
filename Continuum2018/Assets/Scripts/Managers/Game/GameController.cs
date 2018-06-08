@@ -140,7 +140,6 @@ public class GameController : MonoBehaviour
 
 	[Header ("Block Spawner")]
 	[Tooltip ("Block prefabs to spawn based on wave number.")]
-	//public GameObject[] Blocks;
 	public List<GameObject> Blocks;
 	[Tooltip ("How often to spawn blocks.")]
 	public float BlockSpawnRate;
@@ -428,11 +427,22 @@ public class GameController : MonoBehaviour
 		// Invokes a game over if the trial time is greater than 0. (Set to -1 just to be safe to avoid this).
 		if (gameModifier.TrialTime > 0) 
 		{
-			//playerControllerScript_P1.Invoke ("GameOver", gameModifier.TrialTime);
 			playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.GameOverDelay (gameModifier.TrialTime));
 		}
 
 		powerupPickupTimeRemaining = 14;
+
+		ClearBlockList ();
+	}
+
+	void ClearBlockList ()
+	{
+		GameObject[] AllBlocks = GameObject.FindGameObjectsWithTag ("Block"); // Find all objects with tag of block.
+
+		foreach (GameObject block in AllBlocks) 
+		{
+			Destroy (block); // Destroy them.
+		}
 	}
 
 	void ClearMainUI ()
@@ -1676,6 +1686,12 @@ public class GameController : MonoBehaviour
 	// Give delay for wave and prepare essential stuff.
 	public IEnumerator GoToNextWave ()
 	{
+		// Every 10 waves, clear blocks on screen.
+		if (Wave % 10 == 0) 
+		{
+			ClearBlockList ();
+		}
+
 		if (Wave >= 9)
 		{
 			Blocks.Add (Blocks [9]);
