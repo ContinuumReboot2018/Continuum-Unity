@@ -579,7 +579,7 @@ MonoBehaviour:
   CollectExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   PowerupTimeRunningOutAudio: {fileID: 0}
-  PowerupPickupUIColor: {r: 0.20588237, g: 0.86856014, b: 1, a: 1}
+  PowerupPickupUIColor: {r: 0.33088237, g: 0.88924974, b: 1, a: 1}
   destroyByTimeScript: {fileID: 0}
   anim: {fileID: 0}
 --- !u!114 &114545287872274978

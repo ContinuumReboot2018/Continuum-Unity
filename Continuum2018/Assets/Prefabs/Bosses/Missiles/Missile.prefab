@@ -228,8 +228,8 @@ TrailRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1273836022028288}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
@@ -258,7 +258,7 @@ TrailRenderer:
   m_Time: 0.4
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.5
+    widthMultiplier: 0.45
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -269,7 +269,7 @@ TrailRenderer:
         outSlope: 14.469232
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.15258689
+        time: 0.042311624
         value: 1
         inSlope: -0.744462
         outSlope: -0.744462
@@ -277,8 +277,8 @@ TrailRenderer:
       - serializedVersion: 2
         time: 1
         value: 0
-        inSlope: -0.2951184
-        outSlope: -0.2951184
+        inSlope: -1.3464233
+        outSlope: -1.3464233
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -509,7 +509,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -762750015
+  randomSeed: -483309385
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -544,9 +544,9 @@ ParticleSystem:
         m_RotationOrder: 0
     startSpeed:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 1.5
-      minScalar: 5
+      minMaxState: 3
+      scalar: 2
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -649,8 +649,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
-      minScalar: 0.1
+      scalar: 0.08
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -985,7 +985,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 150
+      scalar: 450
       minScalar: 10
       maxCurve:
         serializedVersion: 2

@@ -23,13 +23,13 @@ AnimationClip:
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 3
+        time: 2
         value: {x: 0, y: 0, z: 6.48}
-        inSlope: {x: 0, y: 0, z: 33.857773}
-        outSlope: {x: 0, y: 0, z: 33.857773}
+        inSlope: {x: 0, y: 0, z: 50.786663}
+        outSlope: {x: 0, y: 0, z: 50.786663}
         tangentMode: 0
       - serializedVersion: 2
-        time: 4.5
+        time: 3
         value: {x: 0, y: 0, z: 107.2}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -49,13 +49,13 @@ AnimationClip:
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 3
+        time: 2
         value: {x: 32.9, y: -26.5, z: 0}
-        inSlope: {x: 14, y: 0, z: 0}
-        outSlope: {x: 14, y: 0, z: 0}
+        inSlope: {x: 21, y: 0, z: 0}
+        outSlope: {x: 21, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 4.5
+        time: 3
         value: {x: 63.9, y: 9.1, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -80,7 +80,7 @@ AnimationClip:
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
-  m_SampleRate: 60
+  m_SampleRate: 90
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -114,7 +114,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 10
+    m_StopTime: 6.6666665
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -140,13 +140,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 3
+        time: 2
         value: 32.9
-        inSlope: 14
-        outSlope: 14
+        inSlope: 21
+        outSlope: 21
         tangentMode: 136
       - serializedVersion: 2
-        time: 4.5
+        time: 3
         value: 63.9
         inSlope: 0
         outSlope: 0
@@ -168,13 +168,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 3
+        time: 2
         value: -26.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 4.5
+        time: 3
         value: 9.1
         inSlope: 0
         outSlope: 0
@@ -196,13 +196,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 3
+        time: 2
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 4.5
+        time: 3
         value: 0
         inSlope: 0
         outSlope: 0
@@ -224,13 +224,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 3
+        time: 2
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 4.5
+        time: 3
         value: 0
         inSlope: 0
         outSlope: 0
@@ -252,13 +252,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 3
+        time: 2
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 4.5
+        time: 3
         value: 0
         inSlope: 0
         outSlope: 0
@@ -280,13 +280,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 3
+        time: 2
         value: 6.48
-        inSlope: 33.857773
-        outSlope: 33.857773
+        inSlope: 50.786663
+        outSlope: 50.786663
         tangentMode: 136
       - serializedVersion: 2
-        time: 4.5
+        time: 3
         value: 107.2
         inSlope: 0
         outSlope: 0
@@ -381,7 +381,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 10
+  - time: 6.6666665
     functionName: DestroySnake
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -210,7 +210,6 @@ public class Block : MonoBehaviour
 		parentToTransformScript = GetComponent<ParentToTransform> ();
 		timeBodyScript = GetComponent<TimeBody> ();
 
-		//processor = GameObject.Find ("BeatDetectionTrack").GetComponent<AudioProcessor> ();
 		processor = audioControllerScript.BeatDetectionTracks [(int)BlockType].GetComponent<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 
@@ -307,11 +306,6 @@ public class Block : MonoBehaviour
 		if (particle.tag == "Bullet" ||
 		    particle.tag == "Hazard") 
 		{
-			if (isBonusBlock == true) 
-			{
-				gameControllerScript.BonusBlocksDestroyed += 1;
-			}
-
 			if (transform.position.y > 15) 
 			{
 				return;
@@ -343,6 +337,11 @@ public class Block : MonoBehaviour
 					// Other object has a bullet component.
 					if (particle.GetComponentInParent<Bullet> () != null) 
 					{
+						if (isBonusBlock == true) 
+						{
+							gameControllerScript.BonusBlocksDestroyed += 1;
+						}
+
 						particle.GetComponentInParent<Bullet> ().hitABlock = true;
 
 						// Stops the bullet that hit it from hanging around.

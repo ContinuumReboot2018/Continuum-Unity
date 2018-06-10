@@ -5,6 +5,8 @@ using TMPro;
 
 public class FPSCounter : MonoBehaviour 
 {
+	public SaveAndLoadScript saveAndLoadScript;
+
 	[Tooltip ("How often to update calculating fps.")]
 	public float frequency = 0.5f;
 	public TextMeshProUGUI FPSText;
@@ -13,9 +15,14 @@ public class FPSCounter : MonoBehaviour
 	public float FramesPerSecB { get; protected set; }
 	public bool toggle;
 	public bool showFps;
+	private float avFps;
+	public float averageFps;
 
 	private void Start()
 	{
+		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+		saveAndLoadScript.fpsCounterScript = this;
+
 		StartCoroutine (FPS ());
 
 		if (showFps == true)
@@ -27,6 +34,12 @@ public class FPSCounter : MonoBehaviour
 		{
 			FPSText.enabled = false;
 		}
+	}
+
+	void Update ()
+	{
+		avFps += (Time.unscaledDeltaTime - avFps) * Time.unscaledDeltaTime;
+		averageFps = 1 / avFps;
 	}
 
 	private IEnumerator FPS () 

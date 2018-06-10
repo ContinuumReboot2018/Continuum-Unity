@@ -13,6 +13,7 @@ public class SaveAndLoadScript : MonoBehaviour
 {
 	public InitManager initManagerScript;
 	public SettingsManager settingsManagerScript;
+	public SceneLoader sceneLoaderScript;
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
 
@@ -45,6 +46,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	public PostProcessingProfile VisualSettings;
 	public PostProcessingBehaviour VisualSettingsComponent;
 	public Camera cam;
+	public FastMobileBloom fastMobileBloomScript;
+
 	[Space (10)]
 	public int QualitySettingsIndex;
 	public bool useHdr;
@@ -52,6 +55,9 @@ public class SaveAndLoadScript : MonoBehaviour
 
 	public TargetFPS targetFramerateScript;
 	public int targetframerate;
+
+	public FPSCounter fpsCounterScript;
+	public float averageFpsTimer;
 
 	[Space (10)]
 	public float ParticleEmissionMultiplier = 1;
@@ -75,6 +81,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 				cam = settingsManagerScript.cam;
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
+				fastMobileBloomScript = cam.GetComponent<FastMobileBloom> ();
 
 				CheckPlayerDataFile ();
 
@@ -82,6 +89,52 @@ public class SaveAndLoadScript : MonoBehaviour
 				LoadSettingsData ();
 
 				CheckUsername ();
+			}
+		}
+
+		if (SceneManager.GetActiveScene ().name == "SinglePlayer") 
+		{
+			fpsCounterScript = GameObject.Find ("FPSCounter").GetComponent<FPSCounter> ();
+		}
+	}
+
+	void FixedUpdate ()
+	{
+		// This allows the framerate to hitch without causing a quality settings change.
+		if (fpsCounterScript != null && sceneLoaderScript.isLoading == false) 
+		{
+			if (fpsCounterScript.averageFps < 30)
+			{
+				averageFpsTimer += Time.fixedDeltaTime;
+
+				if (averageFpsTimer > 10) 
+				{
+					if (QualitySettingsIndex != 0)
+					{
+						QualitySettingsIndex = 0;
+						Application.targetFrameRate = -1;
+
+						if (Screen.width > 1280 || Screen.height > 720) 
+						{
+							Screen.SetResolution (1280, 720, Screen.fullScreen);
+						}
+
+						SaveSettingsData ();
+						LoadSettingsData ();
+						Debug.Log ("Average FPS too low, falling back to lower quality.");
+						averageFpsTimer = 0;
+						return;
+					}
+				}
+			} 
+
+			else 
+			
+			{
+				if (averageFpsTimer != 0) 
+				{
+					averageFpsTimer = 0;
+				}
 			}
 		}
 	}
@@ -408,7 +461,16 @@ public class SaveAndLoadScript : MonoBehaviour
 
 			if (QualitySettingsIndex == 0) 
 			{
-				VisualSettingsComponent.enabled = false;
+				if (VisualSettingsComponent != null)
+				{
+					VisualSettingsComponent.enabled = false;
+				}
+
+				if (fastMobileBloomScript != null) 
+				{
+					fastMobileBloomScript.enabled = true;
+				}
+
 				sunShaftsEnabled = false;
 				useHdr = false;
 				ParticleEmissionMultiplier = 0.25f;
@@ -416,7 +478,16 @@ public class SaveAndLoadScript : MonoBehaviour
 
 			if (QualitySettingsIndex == 1) 
 			{
-				VisualSettingsComponent.enabled = true;
+				if (VisualSettingsComponent != null)
+				{
+					VisualSettingsComponent.enabled = true;
+				}
+
+				if (fastMobileBloomScript != null) 
+				{
+					fastMobileBloomScript.enabled = false;
+				}
+
 				sunShaftsEnabled = true;
 				useHdr = true;
 				ParticleEmissionMultiplier = 1.0f;
@@ -476,12 +547,22 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			data.useHdr = false;
 			data.sunShaftsEnabled = false;
+
+			if (VisualSettingsComponent != null)
+			{
+				VisualSettingsComponent.enabled = false;
+			}
 		}
 
 		if (data.QualitySettingsIndex == 1) 
 		{
 			data.useHdr = true;
 			data.sunShaftsEnabled = true;
+
+			if (VisualSettingsComponent != null)
+			{
+				VisualSettingsComponent.enabled = false;
+			}
 		}
 
 		data.ParticleEmissionMultiplier = ParticleEmissionMultiplier;
@@ -568,14 +649,22 @@ public class SaveAndLoadScript : MonoBehaviour
 
 		if (QualitySettingsIndex == 0) 
 		{
-			VisualSettingsComponent.enabled = false;
+			if (VisualSettingsComponent != null)
+			{
+				VisualSettingsComponent.enabled = false;
+			}
+
 			useHdr = false;
 			sunShaftsEnabled = false;
 		}
 
 		if (QualitySettingsIndex == 1) 
 		{
-			VisualSettingsComponent.enabled = true;
+			if (VisualSettingsComponent != null)
+			{
+				VisualSettingsComponent.enabled = true;
+			}
+
 			useHdr = true;
 			sunShaftsEnabled = true;
 		}
@@ -611,20 +700,31 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		if (QualitySettingsIndex == 0) 
 		{
-			VisualSettingsComponent.enabled = false;
+			if (VisualSettingsComponent != null)
+			{
+				VisualSettingsComponent.enabled = false;
+			}
+
 			useHdr = false;
 			sunShaftsEnabled = false;
 		}
 
 		if (QualitySettingsIndex == 1) 
 		{
-			VisualSettingsComponent.enabled = true;
+			if (VisualSettingsComponent != null)
+			{
+				VisualSettingsComponent.enabled = true;
+			}
+
 			useHdr = true;
 			sunShaftsEnabled = true;
 		}
 			
-		cam.allowHDR = useHdr;
-		cam.GetComponent<SunShafts> ().enabled = sunShaftsEnabled;
+		if (cam != null) 
+		{
+			cam.allowHDR = useHdr;
+			cam.GetComponent<SunShafts> ().enabled = sunShaftsEnabled;
+		}
 	}
 
 	// Variables stored in data files.

@@ -864,6 +864,8 @@ public class PlayerController : MonoBehaviour
 	// Impacts by any hazardous object.
 	public void PlayerImpactGeneric ()
 	{
+		gameControllerScript.isUpdatingImageEffects = true;
+		timeIsSlowed = false;
 		SetCooldownTime (5);
 		GlitchEffect.Play ("CameraGlitchOn");
 		PlayerExplosionParticles.Play ();
@@ -894,6 +896,12 @@ public class PlayerController : MonoBehaviour
 		spotlightsScript.NewTarget = ImpactTransform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.ImpactSpotlightSettings ();
+
+		if (gameControllerScript.isInBonusRound == true) 
+		{
+			Debug.Log ("Bonus round cancelled, loading up next boss.");
+		}
+
 		return;
 	}
 
@@ -950,28 +958,39 @@ public class PlayerController : MonoBehaviour
 		audioControllerScript.TargetCutoffFreq = 22000;
 		audioControllerScript.TargetResonance = 1;
 		InvincibleParticles.Play ();
-
-		UpdateLivesLeftA ();
-
+		//UpdateLivesLeft ();
 		spotlightsScript.NewTarget = playerMesh.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.SuccessSpotlightSettings ();
+		gameControllerScript.VhsAnim.SetTrigger ("Play");
 	}
 
-	void UpdateLivesLeftA ()
+	/*
+	void UpdateLivesLeft ()
 	{
-		if (gameControllerScript.Lives > 1)
+		if ((gameControllerScript.Lives - 2) > 1)
 		{
-			LivesLeftText.text = (gameControllerScript.Lives).ToString () + " LIVES LEFT";
+			LivesLeftText.text = (gameControllerScript.Lives - 2).ToString () + " LIVES LEFT";
 		}
 
-		if (gameControllerScript.Lives <= 1) 
+		if ((gameControllerScript.Lives - 2) == 1)
+		{
+			LivesLeftText.text = (gameControllerScript.Lives - 2).ToString () + " LIFE LEFT";
+			LivesLeftText.fontSize = 220;
+			LivesLeftText.GetComponent<Animator> ().speed = 0.75f;
+		}
+
+		if ((gameControllerScript.Lives - 2) < 1) 
 		{
 			LivesLeftText.text = "LAST LIFE";
+			LivesLeftText.fontSize = 220;
+			LivesLeftText.color = new Color (1, 0.2f, 0.2f, 1);
+			LivesLeftText.GetComponent<Animator> ().speed = 0.3f;
 		}
 
 		LivesLeftUI.Play ("LivesLeft");
 	}
+	*/
 
 	void PlaySpaceshipAmbience ()
 	{
@@ -1919,6 +1938,8 @@ public class PlayerController : MonoBehaviour
 	// Resets all active powerups back to standard shot. Does not modify modifiers if enabled.
 	public void ResetPowerups ()
 	{
+		gameControllerScript.isUpdatingImageEffects = true;
+
 		// Sets all shot types to standard iteration.
 		ShotType = shotType.Standard;
 		CurrentShootingHeatCost = StandardShootingHeatCost;
@@ -1999,15 +2020,22 @@ public class PlayerController : MonoBehaviour
 
 	void UpdateImageEffects ()
 	{
-		float localDistance = timescaleControllerScript.Distance;
+		if (gameControllerScript.isUpdatingImageEffects == true) 
+		{
+			float localDistance = timescaleControllerScript.Distance;
 
-		var PostProcessBloomSettings = PostProcessProfile.bloom.settings;
-		PostProcessBloomSettings.bloom.intensity = 0.001f * localDistance + 0.005f;
-		PostProcessProfile.bloom.settings = PostProcessBloomSettings;
+			var PostProcessBloomSettings = PostProcessProfile.bloom.settings;
+			PostProcessBloomSettings.bloom.intensity = 0.001f * localDistance + 0.005f;
+			PostProcessProfile.bloom.settings = PostProcessBloomSettings;
 
-		var PostProcessColorGradingSettings = PostProcessProfile.colorGrading.settings;
-		PostProcessColorGradingSettings.basic.saturation = 0.003f * localDistance + 0.85f;
-		PostProcessProfile.colorGrading.settings = PostProcessColorGradingSettings;
+			var PostProcessColorGradingSettings = PostProcessProfile.colorGrading.settings;
+			PostProcessColorGradingSettings.basic.saturation = Mathf.Lerp (
+				PostProcessColorGradingSettings.basic.saturation,
+				0.003f * localDistance + 0.85f,
+				Time.unscaledDeltaTime
+			);
+			PostProcessProfile.colorGrading.settings = PostProcessColorGradingSettings;
+		}
 	}
 
 	// This is for InControl for initialization.

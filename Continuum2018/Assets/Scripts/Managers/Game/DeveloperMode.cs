@@ -38,6 +38,7 @@ public class DeveloperMode : MonoBehaviour
 	[Space (10)]
 	// FPS testing cheats.
 	public string FpsUnlockCommand = "fpsunlock"; // Unlocks framerate.
+	public string Fps20Command = "fps20"; // Target framerate set to 20.
 	public string Fps30Command = "fps30"; // Target framerate set to 30.
 	public string Fps60Command = "fps60"; // Target framerate set to 60.
 	public string Fps90Command = "fps90"; // Target framerate set to 90.
@@ -97,6 +98,9 @@ public class DeveloperMode : MonoBehaviour
 	public string NextWaveCommand = "nextwave"; // Wave number increases.
 	public string PreviousWaveCommand = "lastwave"; // Wave number decreases.
 	public string UseOverheatCommand = "useoverheat"; // Allows overheating or not.
+	public string DoBonusRoundCommand = "dobonus"; // Sets up bonus round.
+	public string SetQualitySettingsHigh = "highqual"; // Sets quality settings to high.
+	public string SetQualitySettingsLow = "lowqual"; // Sets quality settings to low.
 
 	[Header ("UI and Animations")]
 	public GameObject CheatsMenu; // Cheat menu for viewing possible cheats.
@@ -279,6 +283,12 @@ public class DeveloperMode : MonoBehaviour
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 30");
 			}
 
+			if (CheatString == Fps20Command) 
+			{
+				targetFramerateScript.SetTargetFramerate (20);
+				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 20");
+			}
+
 			if (CheatString == Fps90Command) 
 			{
 				targetFramerateScript.SetTargetFramerate (90);
@@ -375,7 +385,7 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.timeIsSlowed == false) 
 				{
 					playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
-					playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.1f;
+					playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.3f;
 				}
 
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;
@@ -553,9 +563,11 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == NextWaveCommand) 
 			{
-				gameControllerScript.Wave += 1;
+				StopCoroutine (gameControllerScript.StartBlockSpawn ());
+				gameControllerScript.StartNewWave ();
+
 				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
-				gameControllerScript.BlockSpawnRate -= gameControllerScript.BlockSpawnIncreaseRate;
+
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT WAVE");
 			}
 			
@@ -563,7 +575,8 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (gameControllerScript.Wave > 1)
 				{
-					gameControllerScript.Wave -= 1;
+					StopCoroutine (gameControllerScript.StartBlockSpawn ());
+					gameControllerScript.StartPreviousWave ();
 					gameControllerScript.BlockSpawnRate += gameControllerScript.BlockSpawnIncreaseRate;
 				}
 
@@ -784,22 +797,25 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == SlowTimeCommand) 
 			{
-				gameControllerScript.SetPowerupTime (20);
-
-				if (gameControllerScript.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false) 
+				if (playerControllerScript_P1.timeIsSlowed == false) 
 				{
-					gameControllerScript.VhsAnim.SetTrigger ("Slow");
+					gameControllerScript.SetPowerupTime (20);
+
+					if (gameControllerScript.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false)
+					{
+						gameControllerScript.VhsAnim.SetTrigger ("Slow");
+					}
+
+					playerControllerScript_P1.timeIsSlowed = true;
+
+					timeScaleControllerScript.OverridingTimeScale = 0.3f;
+					timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 20;
+					timeScaleControllerScript.isOverridingTimeScale = true;
+
+					UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, SlowTimeTexture, Color.white);
+
+					ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - SLOW TIME");
 				}
-
-				playerControllerScript_P1.timeIsSlowed = true;
-
-				timeScaleControllerScript.OverridingTimeScale = 0.3f;
-				timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 20;
-				timeScaleControllerScript.isOverridingTimeScale = true;
-
-				UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, SlowTimeTexture, Color.white);
-
-				ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - SLOW TIME");
 			}
 
 			if (CheatString == StandardShotCommand) 
@@ -918,6 +934,49 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.CurrentShootingHeat = 0;
 					playerControllerScript_P1.CurrentShootingCooldown = 0;
 					ShowCheatNotification ("CHEAT ACTIVATED: OVERHEAT OFF");
+				}
+			}
+
+			if (CheatString == DoBonusRoundCommand) 
+			{
+				gameControllerScript.doBonusRound = true;
+
+				ShowCheatNotification ("CHEAT ACTIVATED: BONUS ROUND ON");
+			}
+
+			if (CheatString == SetQualitySettingsHigh) 
+			{
+				if (saveAndLoadScript.QualitySettingsIndex != 1)
+				{
+					saveAndLoadScript.QualitySettingsIndex = 1;
+					Application.targetFrameRate = -1;
+
+					if (Screen.width < 1920 || Screen.height < 1080) 
+					{
+						Screen.SetResolution (1920, 1080, Screen.fullScreen);
+					}
+
+					saveAndLoadScript.SaveSettingsData ();
+					saveAndLoadScript.LoadSettingsData ();
+					ShowCheatNotification ("CHEAT ACTIVATED: HIGH QUALITY SETTINGS");
+				}
+			}
+
+			if (CheatString == SetQualitySettingsLow) 
+			{
+				if (saveAndLoadScript.QualitySettingsIndex != 0)
+				{
+					saveAndLoadScript.QualitySettingsIndex = 0;
+					Application.targetFrameRate = -1;
+
+					if (Screen.width > 1280 || Screen.height > 720) 
+					{
+						Screen.SetResolution (1280, 720, Screen.fullScreen);
+					}
+
+					saveAndLoadScript.SaveSettingsData ();
+					saveAndLoadScript.LoadSettingsData ();
+					ShowCheatNotification ("CHEAT ACTIVATED: LOW QUALITY SETTINGS");
 				}
 			}
 		}

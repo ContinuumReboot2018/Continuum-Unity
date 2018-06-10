@@ -47,7 +47,7 @@ GameObject:
   m_Layer: 12
   m_Name: PowerupPickup_FreezeTime
   m_TagString: PowerupPickup
-  m_Icon: {fileID: 2800000, guid: e0d1baa41a4447341852366690a0be89, type: 3}
+  m_Icon: {fileID: 2800000, guid: d599f616dc174754e913cabfdd762512, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -607,11 +607,11 @@ MonoBehaviour:
   ThisPowerup: 10
   PowerupTexture: {fileID: 2800000, guid: e1057f6b714b6314893f37e150e38d8f, type: 3}
   isShootingPowerup: 0
-  PowerupTime: 20
+  PowerupTime: 5
   CollectExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   PowerupTimeRunningOutAudio: {fileID: 0}
-  PowerupPickupUIColor: {r: 0.7205882, g: 0.90750504, b: 1, a: 1}
+  PowerupPickupUIColor: {r: 0.7058823, g: 0.7058823, b: 0.7058823, a: 1}
   destroyByTimeScript: {fileID: 0}
   anim: {fileID: 0}
 --- !u!114 &114921647798291688
