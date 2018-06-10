@@ -9,13 +9,6 @@ public class WaveTransition : MonoBehaviour
 	[Tooltip ("UI for soundtrack title.")]
 	public GameObject SoundtrackUI;
 
-	void Start ()
-	{
-		// Disable UI on start.
-		//WaveTransitionUI.SetActive (false);
-		//SoundtrackUI.SetActive (false);
-	}
-
 	// Turn off wave transition UI based on wave number.
 	public void DeactivateWaveTransition ()
 	{
@@ -23,9 +16,13 @@ public class WaveTransition : MonoBehaviour
 
 		if (gameControllerScript.Wave % 4 == 1 || gameControllerScript.Wave == 1) 
 		{
-			//WaveTransitionUI.SetActive (false);
-			//SoundtrackUI.SetActive (false);
+			SoundtrackUI.SetActive (true);
 			gameControllerScript.WaveTransitionUIStats.Play ("WaveTransitionUIStatsExit");
+		}
+
+		if (gameControllerScript.Wave % 4 != 1) 
+		{
+			SoundtrackUI.SetActive (false);
 		}
 	}
 
@@ -34,11 +31,15 @@ public class WaveTransition : MonoBehaviour
 	{
 		gameControllerScript.IsInWaveTransition = true;
 
-		if (gameControllerScript.Wave % 4 == 1 || gameControllerScript.Wave == 1)
+		if (gameControllerScript.Wave % 4 == 1 || gameControllerScript.Wave != 1) 
 		{
+			SoundtrackUI.SetActive (true);
 			gameControllerScript.WaveTransitionUIStats.Play ("WaveTransitionUIStats");
-			//WaveTransitionUI.SetActive (true);
-			//SoundtrackUI.SetActive (true);
+		}
+
+		if (gameControllerScript.Wave % 4 != 1) 
+		{
+			SoundtrackUI.SetActive (false);
 		}
 	}
 }
