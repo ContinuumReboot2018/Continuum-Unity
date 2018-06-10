@@ -337,7 +337,7 @@ public class TimescaleController : MonoBehaviour
 	// Timer for rewind state.
 	void CheckRewindTimeState ()
 	{
-		if (RewindTimeRemaining <= 0) 
+		if (RewindTimeRemaining <= 0 && isRewinding == true) 
 		{
 			isRewinding = false;
 			noiseScript.enabled = false;
@@ -362,7 +362,6 @@ public class TimescaleController : MonoBehaviour
 		{
 			isRewinding = false;
 			noiseScript.enabled = false;
-			playerControllerScript_P1.InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
 		}
 	}
 

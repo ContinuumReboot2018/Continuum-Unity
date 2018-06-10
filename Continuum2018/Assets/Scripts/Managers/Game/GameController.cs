@@ -940,6 +940,8 @@ public class GameController : MonoBehaviour
 				MaxLivesText.text = "";
 			}
 		}
+
+		Lives = Mathf.Clamp (Lives, 0, 11);
 	}
 
 	// Combo time remaining variable is timed and decreases based on what combo it is already on.

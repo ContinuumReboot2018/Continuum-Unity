@@ -602,7 +602,7 @@ MonoBehaviour:
   ThisPowerup: 7
   PowerupTexture: {fileID: 2800000, guid: 78fc1bba443ca9749aeba398d0afb8ad, type: 3}
   isShootingPowerup: 0
-  PowerupTime: 5
+  PowerupTime: 10
   CollectExplosion: {fileID: 1107170480724288, guid: 41d12a7c9d222d5448d5a7181449e93c,
     type: 2}
   PowerupTimeRunningOutAudio: {fileID: 0}

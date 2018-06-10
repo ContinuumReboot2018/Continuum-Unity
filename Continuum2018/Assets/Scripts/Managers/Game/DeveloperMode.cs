@@ -797,22 +797,25 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == SlowTimeCommand) 
 			{
-				gameControllerScript.SetPowerupTime (20);
-
-				if (gameControllerScript.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false) 
+				if (playerControllerScript_P1.timeIsSlowed == false) 
 				{
-					gameControllerScript.VhsAnim.SetTrigger ("Slow");
+					gameControllerScript.SetPowerupTime (20);
+
+					if (gameControllerScript.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false)
+					{
+						gameControllerScript.VhsAnim.SetTrigger ("Slow");
+					}
+
+					playerControllerScript_P1.timeIsSlowed = true;
+
+					timeScaleControllerScript.OverridingTimeScale = 0.3f;
+					timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 20;
+					timeScaleControllerScript.isOverridingTimeScale = true;
+
+					UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, SlowTimeTexture, Color.white);
+
+					ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - SLOW TIME");
 				}
-
-				playerControllerScript_P1.timeIsSlowed = true;
-
-				timeScaleControllerScript.OverridingTimeScale = 0.3f;
-				timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 20;
-				timeScaleControllerScript.isOverridingTimeScale = true;
-
-				UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, SlowTimeTexture, Color.white);
-
-				ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - SLOW TIME");
 			}
 
 			if (CheatString == StandardShotCommand) 
