@@ -391,6 +391,7 @@ public class PlayerController : MonoBehaviour
 	public GameObject Shield;
 	[Tooltip("Camera effect to simulate gravitational lensing.")]
 	public Lens lensScript;
+    private Lens.BlackHole _blackHole;
 	[Tooltip("How large the lensing is.")]
 	public float TargetShieldScale;	
 	[Tooltip("How slow the transition is for the shield lights to grow/shrink.")]
@@ -548,6 +549,9 @@ public class PlayerController : MonoBehaviour
 		TurretSpinSpeed = TurretSpinSpeedNormal;
 		LivesAnim.gameObject.SetActive (false);
 		CurrentShotObject = StandardShot;
+
+        // Find the black hole of the player from the gravitational lensing script
+	    if (lensScript) _blackHole = lensScript.FindBlackHole(playerMesh);
 
 		if (PowerupUI.activeInHierarchy == true) 
 		{
@@ -1170,11 +1174,14 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		lensScript.radius = Mathf.Lerp (
-			lensScript.radius, 
-			TargetLensRadius, 
-			LensRadiusSmoothTime * Time.unscaledDeltaTime
-		);
+        if (_blackHole != null)
+        {
+            _blackHole.Radius = Mathf.Lerp(
+                _blackHole.Radius,
+                TargetLensRadius,
+                LensRadiusSmoothTime * Time.unscaledDeltaTime
+            );
+        }
 
 		Vector3 targetShieldScale = new Vector3 (
 			TargetShieldScale, 

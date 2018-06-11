@@ -1220,7 +1220,7 @@ public class GameController : MonoBehaviour
 		}
 
 		// Updates lens ratio from lens script based on screen ratio.
-		playerControllerScript_P1.lensScript.ratio = 1 / MainCamera.aspect;
+		playerControllerScript_P1.lensScript.Ratio = 1 / MainCamera.aspect;
 	}
 
 	// Wave time remaining timer.
