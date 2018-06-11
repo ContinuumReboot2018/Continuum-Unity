@@ -84,7 +84,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 			SelectSound.Play ();
 		}
 
-		if (menuActions.MoveUp.Value > 0) 
+		if (menuActions.MoveUp.WasPressed) 
 		{
 			if (Time.unscaledTime > nextScroll) 
 			{
@@ -94,7 +94,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 			}
 		}
 
-		if (menuActions.MoveDown.Value > 0) 
+		if (menuActions.MoveDown.WasPressed) 
 		{
 			if (Time.unscaledTime > nextScroll) 
 			{

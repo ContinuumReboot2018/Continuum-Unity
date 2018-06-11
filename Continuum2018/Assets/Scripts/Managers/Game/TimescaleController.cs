@@ -16,6 +16,7 @@ public class TimescaleController : MonoBehaviour
 	public GameModifierManager 	gameModifier;
 	public MenuManager 			gameOverMenuManager;
 	public GameOverController 	gameOverControllerScript;
+	public SimpleFollow CamSimpleFollow;
 
 	[Header ("Read Only")]
 	[Tooltip ("Time.timeScale property.")]
@@ -312,7 +313,7 @@ public class TimescaleController : MonoBehaviour
 		TargetTimeScale = 0;
 		gameOverControllerScript.enabled = true;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
-
+		CamSimpleFollow.enabled = false;
 		gameOverControllerScript.CheckLeaderboard ();
 
 		gameOverMenuManager.menuButtons.buttonIndex = 0;
