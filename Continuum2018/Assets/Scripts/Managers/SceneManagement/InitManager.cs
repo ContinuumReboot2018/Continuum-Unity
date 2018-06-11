@@ -12,6 +12,7 @@ public class InitManager : MonoBehaviour
 	{
 		LoadingMissionText.text = "MAIN MENU";
 		saveAndLoadScript.LoadSettingsData ();
+		saveAndLoadScript.LoadPlayerData ();
 
 		if (saveAndLoadScript.QualitySettingsIndex == 0) 
 		{

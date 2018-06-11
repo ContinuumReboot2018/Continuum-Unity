@@ -85,8 +85,8 @@ public class SaveAndLoadScript : MonoBehaviour
 
 				CheckPlayerDataFile ();
 
-				LoadPlayerData ();
-				LoadSettingsData ();
+				//LoadPlayerData ();
+				//LoadSettingsData ();
 
 				CheckUsername ();
 			}

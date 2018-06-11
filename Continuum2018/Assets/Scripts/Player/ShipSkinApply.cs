@@ -14,7 +14,7 @@ public class ShipSkinApply : MonoBehaviour
 		// Find the saving script.
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 
-		saveAndLoadScript.LoadPlayerData ();
+		//saveAndLoadScript.LoadPlayerData ();
 		ApplySkin (ships[saveAndLoadScript.SelectedSkin]);
 		ResetAllConfirmTextures (saveAndLoadScript.SelectedSkin);
 	}

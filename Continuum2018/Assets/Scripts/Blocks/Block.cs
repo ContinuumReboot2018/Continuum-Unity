@@ -704,7 +704,7 @@ public class Block : MonoBehaviour
 				allowParticleCollisionBoss == true && 
 				(miniBoss.hitPoints > 0.5f * miniBoss.StartingHitPoints))
 			{
-				Debug.Log ("Hit boss part.");
+				//Debug.Log ("Hit boss part.");
 				float blockHitPoints = 1 / (0.5f * miniBoss.BossParts.Length);
 				miniBoss.hitPoints -= blockHitPoints; // Help with 50% of hit points.
 				return;
