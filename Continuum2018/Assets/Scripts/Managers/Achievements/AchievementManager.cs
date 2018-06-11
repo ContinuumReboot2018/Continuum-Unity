@@ -59,6 +59,7 @@ public class AchievementManager : MonoBehaviour
 		if (gameControllerScript.combo >= ComboToBonusRound) 
 		{
 			gameControllerScript.doBonusRound = true;
+			TimesComboToBonus++;
 
 			TriggerAchievementNotification (
 				"Achievement", 

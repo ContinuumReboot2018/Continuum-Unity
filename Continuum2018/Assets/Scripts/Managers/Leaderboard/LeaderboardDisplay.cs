@@ -44,19 +44,18 @@ public class LeaderboardDisplay : MonoBehaviour
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+		menuLeaderboardId = saveAndLoadScript.MissionId;
+		UpdateLeaderboardMissionText_ ();
+		UpdateLeaderboardDelayed ();
 
-		if (SceneManager.GetActiveScene ().name != "Menu")
-		{
-			StartCoroutine (RefreshLeaderboard ());
-		}
+		//if (SceneManager.GetActiveScene ().name != "Menu")
+		//{
+		//	StartCoroutine (RefreshLeaderboard ());
+		//}
 
 		eventData = new PointerEventData (EventSystem.current);
 		LeaderboardActions = new PlayerActions ();
 		AssignActionControls ();
-
-		menuLeaderboardId = 0;
-		UpdateLeaderboardMissionText_ ();
-		UpdateLeaderboardDelayed ();
 	}
 
 	IEnumerator RefreshLeaderboard ()

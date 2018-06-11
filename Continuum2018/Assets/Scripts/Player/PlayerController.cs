@@ -535,7 +535,6 @@ public class PlayerController : MonoBehaviour
 		Invoke ("PlaySpaceshipAmbience", 5);
 		InvokeRepeating ("CheckJoinState", 0, 0.5f);
 		InvokeRepeating ("TurretRotatorCheck", 0, 0.5f);
-		//InvincibleMeshAnim.Play ("InvincibleMeshOffInstant");
 		InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
 		Ability = (ability)saveAndLoadScript.SelectedAbility;

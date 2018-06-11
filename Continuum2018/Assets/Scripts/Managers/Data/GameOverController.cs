@@ -64,6 +64,7 @@ public class GameOverController : MonoBehaviour
 		if (FinalScoreText.gameObject.activeInHierarchy == true) 
 		{
 			CurrentScore = Mathf.Lerp (CurrentScore, FinalScore, ScoreSmoothing * Time.unscaledDeltaTime);
+			FinalScoreText.text = CurrentScore + "";
 		}
 
 		if (gameControllerScript.playerControllerScript_P1.playerActions.Shoot.IsPressed) 

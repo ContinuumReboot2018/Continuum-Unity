@@ -62,60 +62,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 	void CheckFinalScore ()
 	{
-		if (gameOverControllerScript.FinalScore > 0 && gameOverControllerScript.FinalScore < 1000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 1000 && gameOverControllerScript.FinalScore < 10000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("# ###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 10000 && gameOverControllerScript.FinalScore < 100000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("## ###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 100000 && gameOverControllerScript.FinalScore < 1000000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("### ###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 1000000 && gameOverControllerScript.FinalScore < 10000000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("# ### ###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 10000000 && gameOverControllerScript.FinalScore < 100000000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("## ### ###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 100000000 && gameOverControllerScript.FinalScore < 1000000000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("### ### ###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 1000000000 && gameOverControllerScript.FinalScore < 10000000000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("# ### ### ###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 10000000000 && gameOverControllerScript.FinalScore < 100000000000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("## ### ### ###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 100000000000 && gameOverControllerScript.FinalScore < 1000000000000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("### ### ### ###");
-		}
-
-		if (gameOverControllerScript.FinalScore >= 1000000000000 && gameOverControllerScript.FinalScore < 10000000000000) 
-		{
-			HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("# ### ### ### ###");
-		}
+		HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("N0");
 	}
 
 	void Update ()
@@ -225,6 +172,8 @@ public class LeaderboardEntryManager : MonoBehaviour
 		yield return new WaitForSecondsRealtime (2);
 
 		GameOverUI.SetActive (true);
+		LeaderboardDisplay.SetActive (true);
+		leaderboardDisplayScript.enabled = true;
 		gameOverControllerScript.NewLeaderboardEntry (gameOverControllerScript.place, NewName);
 
 		switch (gameOverControllerScript.saveAndLoadScript.MissionId) 
@@ -254,14 +203,15 @@ public class LeaderboardEntryManager : MonoBehaviour
 			gameOverControllerScript.saveAndLoadScript.Leaderboard_FastTrackMode [gameOverControllerScript.place].name = NewName;
 			break;
 		}
-
-		//gameOverControllerScript.saveAndLoadScript.Leaderboard [gameOverControllerScript.place].name = NewName;
+			
 		gameOverControllerScript.saveAndLoadScript.SavePlayerData ();
 
 		LeaderboardDisplay.SetActive (true);
 
 		SavingText.SetActive (false);
 		gameOverControllerScript.LeaderboardEntryUI.SetActive (false);
+
+		StopCoroutine (CheckLeaderboard ());
 	}
 
 	void CheckPlacement ()
