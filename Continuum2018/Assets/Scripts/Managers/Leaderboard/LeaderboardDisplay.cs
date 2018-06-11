@@ -46,13 +46,8 @@ public class LeaderboardDisplay : MonoBehaviour
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		menuLeaderboardId = saveAndLoadScript.MissionId;
 		UpdateLeaderboardMissionText_ ();
-		UpdateLeaderboardDelayed ();
-
-		//if (SceneManager.GetActiveScene ().name != "Menu")
-		//{
-		//	StartCoroutine (RefreshLeaderboard ());
-		//}
-
+		UpdateLeaderboard ();
+		//StartCoroutine (RefreshLeaderboard ());
 		eventData = new PointerEventData (EventSystem.current);
 		LeaderboardActions = new PlayerActions ();
 		AssignActionControls ();
@@ -169,7 +164,7 @@ public class LeaderboardDisplay : MonoBehaviour
 						}
 
 						UpdateLeaderboardMissionText_ ();
-						UpdateLeaderboardDelayed ();
+						//UpdateLeaderboardDelayed ();
 					}
 
 					// Reset scroll speed.
@@ -207,7 +202,7 @@ public class LeaderboardDisplay : MonoBehaviour
 						}
 
 						UpdateLeaderboardMissionText_ ();
-						UpdateLeaderboardDelayed ();
+						//UpdateLeaderboardDelayed ();
 					}
 
 					// Reset scroll speed.

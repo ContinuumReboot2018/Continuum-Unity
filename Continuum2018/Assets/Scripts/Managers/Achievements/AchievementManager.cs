@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using TMPro;
 
 public class AchievementManager : MonoBehaviour 
@@ -31,12 +32,14 @@ public class AchievementManager : MonoBehaviour
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		InvokeRepeating ("CheckScoreCount", 0, 0.5f);
-		InvokeRepeating ("CheckComboCount", 0, 1f);
+		StartCoroutine (CheckScoreCount ());
+		StartCoroutine (CheckComboCount ());
 	}
 
-	void CheckScoreCount ()
+	IEnumerator CheckScoreCount ()
 	{
+		yield return new WaitForSecondsRealtime (1);
+
 		if (gameControllerScript.DisplayScore >= ScoreToBonusRound) 
 		{
 			gameControllerScript.doBonusRound = true;
@@ -52,10 +55,14 @@ public class AchievementManager : MonoBehaviour
 
 			ScoreToBonusRound *= ScoreToBonusRoundMultiplier;
 		}
+
+		StartCoroutine (CheckScoreCount ());
 	}
 
-	void CheckComboCount ()
+	IEnumerator CheckComboCount ()
 	{
+		yield return new WaitForSecondsRealtime (1);
+
 		if (gameControllerScript.combo >= ComboToBonusRound) 
 		{
 			gameControllerScript.doBonusRound = true;
@@ -71,6 +78,8 @@ public class AchievementManager : MonoBehaviour
 
 			ComboToBonusRound *= ComboToBonusRoundMultiplier;
 		}
+
+		StartCoroutine (CheckComboCount ());
 	}
 
 	public void TriggerAchievementNotification 

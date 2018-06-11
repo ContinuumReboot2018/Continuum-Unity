@@ -33,6 +33,6 @@ public class TargetFPS : MonoBehaviour
 	{
 		Application.targetFrameRate = framerate; 
 		saveAndLoadScript.targetframerate = framerate;
-		Debug.Log ("Target framerate set to " + framerate + " FPS.");
+		//Debug.Log ("Target framerate set to " + framerate + " FPS.");
 	}
 }

@@ -421,7 +421,7 @@ public class GameController : MonoBehaviour
 
 		ClearPowerupUI (); // Clears powerup UI from list.
 
-		UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
+		//UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
 		InvokeRepeating ("SetStartOrthSize", 0, 1); // Checks orthographic size based on screen ratio.
 
 		// Invokes a game over if the trial time is greater than 0. (Set to -1 just to be safe to avoid this).
@@ -564,7 +564,7 @@ public class GameController : MonoBehaviour
 
 		// Step down block spawn rate.
 		BlockSpawnRate -= (BlockSpawnIncreaseRate * gameModifier.blockSpawnRateMultiplier);
-		UnityEngine.Debug.Log ("Block spawn rate: " + BlockSpawnRate);
+		//UnityEngine.Debug.Log ("Block spawn rate: " + BlockSpawnRate);
 
 		// Set starting lives.
 		Lives = gameModifier.StartingLives;
@@ -1760,7 +1760,7 @@ public class GameController : MonoBehaviour
 		// Allows/skips tutorial.
 		if (gameModifier.Tutorial == false) 
 		{
-			playerControllerScript_P1.tutorialManagerScript.TurnOffTutorial ();
+			playerControllerScript_P1.tutorialManagerScript.TurnOffTutorial (true);
 		}
 
 		// Sets how powerups should spawn in the game.

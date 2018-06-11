@@ -313,6 +313,8 @@ public class TimescaleController : MonoBehaviour
 		gameOverControllerScript.enabled = true;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 
+		gameOverControllerScript.CheckLeaderboard ();
+
 		gameOverMenuManager.menuButtons.buttonIndex = 0;
 		gameOverMenuManager.MenuOnEnter (gameOverMenuManager.menuButtons.buttonIndex);
 

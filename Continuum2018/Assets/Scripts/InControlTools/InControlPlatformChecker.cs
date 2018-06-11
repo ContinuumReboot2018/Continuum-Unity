@@ -20,14 +20,14 @@ public class InControlPlatformChecker : MonoBehaviour
 		if (Application.isMobilePlatform == true)
 		{
 			inControlTouchManager.enabled = true;
-			Debug.Log ("InControl Touch Manager enabled.");
+			//Debug.Log ("InControl Touch Manager enabled.");
 		} else {
-			Debug.Log ("This is not a mobile or touchscreen platform. InControl Touch Manager component not enabled.");
+			//Debug.Log ("This is not a mobile or touchscreen platform. InControl Touch Manager component not enabled.");
 		}
 
 		#if UNITY_ANDROID
 			inControlTouchManager.enabled = true;
-			Debug.Log ("InControl Touch Manager enabled.");
+			//Debug.Log ("InControl Touch Manager enabled.");
 		#endif
 	}
 }

@@ -225,13 +225,13 @@ public class DeveloperMode : MonoBehaviour
 
 			if (useCheats == true) 
 			{
-				Debug.Log ("Enabled cheats.");
+				//Debug.Log ("Enabled cheats.");
 				ShowCheatActivation ("CHEATS ON");
 			}
 
 			if (useCheats == false)
 			{
-				Debug.Log ("Disabled cheats.");
+				//Debug.Log ("Disabled cheats.");
 				ShowCheatActivation ("CHEATS OFF");
 			}
 		}
@@ -251,7 +251,7 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (forceStarted == false) 
 				{
-					tutorialManagerScript.TurnOffTutorial ();
+					tutorialManagerScript.TurnOffTutorial (true);
 					ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
 					forceStarted = true;
 				}
@@ -915,7 +915,7 @@ public class DeveloperMode : MonoBehaviour
 			if (CheatString == GameOverCommand)
 			{
 				playerControllerScript_P1.GameOver ();
-				Debug.Log ("Player forced game over.");
+				//Debug.Log ("Player forced game over.");
 				ShowCheatNotification ("CHEAT ACTIVATED: FORCE GAME OVER");
 			}
 

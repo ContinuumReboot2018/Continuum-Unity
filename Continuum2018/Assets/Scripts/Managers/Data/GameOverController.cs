@@ -50,7 +50,6 @@ public class GameOverController : MonoBehaviour
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		allowupdateentry = true;
-		CheckLeaderboard ();
 		GetGameOverStats ();
 	}
 
@@ -123,7 +122,7 @@ public class GameOverController : MonoBehaviour
 		UpdateFinalScoreText ();
 	}
 
-	void CheckLeaderboard ()
+	public void CheckLeaderboard ()
 	{
 		// Get final score figure.
 		FinalScore = Mathf.RoundToInt (gameControllerScript.DisplayScore);
@@ -143,7 +142,6 @@ public class GameOverController : MonoBehaviour
 					allowupdateentry = false;
 					GameOverUI.SetActive (false);
 					UpdateFinalScoreText ();
-					return;
 				}
 			}
 			break;
@@ -159,7 +157,6 @@ public class GameOverController : MonoBehaviour
 					allowupdateentry = false;
 					GameOverUI.SetActive (false);
 					UpdateFinalScoreText ();
-					return;
 				}
 			}
 			*/
@@ -175,7 +172,6 @@ public class GameOverController : MonoBehaviour
 					allowupdateentry = false;
 					GameOverUI.SetActive (false);
 					UpdateFinalScoreText ();
-					return;
 				}
 			}
 			break;
@@ -190,7 +186,6 @@ public class GameOverController : MonoBehaviour
 					allowupdateentry = false;
 					GameOverUI.SetActive (false);
 					UpdateFinalScoreText ();
-					return;
 				}
 			}
 			break;
@@ -205,7 +200,6 @@ public class GameOverController : MonoBehaviour
 					allowupdateentry = false;
 					GameOverUI.SetActive (false);
 					UpdateFinalScoreText ();
-					return;
 				}
 			}
 			break;
@@ -220,7 +214,6 @@ public class GameOverController : MonoBehaviour
 					allowupdateentry = false;
 					GameOverUI.SetActive (false);
 					UpdateFinalScoreText ();
-					return;
 				}
 			}
 			break;
@@ -235,7 +228,6 @@ public class GameOverController : MonoBehaviour
 					allowupdateentry = false;
 					GameOverUI.SetActive (false);
 					UpdateFinalScoreText ();
-					return;
 				}
 			}
 			break;
@@ -250,28 +242,12 @@ public class GameOverController : MonoBehaviour
 					allowupdateentry = false;
 					GameOverUI.SetActive (false);
 					UpdateFinalScoreText ();
-					return;
 				}
 			}
 			break;
 		}
-
-		/*
-		// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-		for (int i = 0; i < saveAndLoadScript.Leaderboard.Count; i++) 
-		{
-			if (FinalScore > saveAndLoadScript.Leaderboard [i].score && allowupdateentry == true) 
-			{
-				place = i;
-				LeaderboardEntryUI.SetActive (true);
-				allowupdateentry = false;
-				GameOverUI.SetActive (false);
-				UpdateFinalScoreText ();
-				return;
-			}
-		}
-		*/
 					
+		// Gets called on enable if theres no high score being added.
 		if (allowupdateentry == true) 
 		{
 			GameOverUI.SetActive (true);
@@ -286,7 +262,6 @@ public class GameOverController : MonoBehaviour
 	public void NewLeaderboardEntry (int position, string name)
 	{
 		place = position;
-
 		LeaderboardEntry newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
 
 		switch (saveAndLoadScript.MissionId)
@@ -324,24 +299,20 @@ public class GameOverController : MonoBehaviour
 			saveAndLoadScript.Leaderboard_FastTrackMode.RemoveAt (10);
 			break;
 		}
-
-		//saveAndLoadScript.Leaderboard.Insert (position, newLeaderboardEntry);
-		//saveAndLoadScript.Leaderboard.RemoveAt (10);
-
+			
 		Debug.Log (
 			"Place: " + (position + 1).ToString () + 
 			", Final Score: " + FinalScore +  
 			", Wave: " + gameControllerScript.Wave
 		);
 
-		saveAndLoadScript.SavePlayerData ();
+		return;
 	}
 		
 	void GetXpToAdd ()
 	{
 		CurrentXP = Mathf.RoundToInt (FinalScore);
 		saveAndLoadScript.ExperiencePoints += CurrentXP;
-		saveAndLoadScript.SavePlayerData ();
 	}
 
 	public void UpdateFinalScoreText ()

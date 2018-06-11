@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShipSkinApply : MonoBehaviour 
 {
@@ -21,12 +22,18 @@ public class ShipSkinApply : MonoBehaviour
 
 	public void ApplySkin (Ship ship)
 	{
-		Debug.Log ("Selecting skin: " + ship.ShipIndex);
 		saveAndLoadScript.SelectedSkin = ship.ShipIndex;
 		ResetAllConfirmTextures (ship.ShipIndex);
 		playerMesh.mesh = ship.ShipMesh;
 		playerRend.material = ship.ShipMaterial;
-		saveAndLoadScript.SavePlayerData ();
+		Debug.Log ("Selected player skin from ID: " + ship.ShipIndex);
+
+		// Don't bother saving unless its the menu scene.
+		// Other scenes: just apply the skin.
+		if (SceneManager.GetActiveScene ().name == "Menu") 
+		{
+			saveAndLoadScript.SavePlayerData ();
+		}
 	}
 
 	public void ShipSkinPreview (Ship ship)

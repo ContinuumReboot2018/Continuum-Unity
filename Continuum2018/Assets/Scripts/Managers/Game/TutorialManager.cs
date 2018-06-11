@@ -111,7 +111,7 @@ public class TutorialManager : MonoBehaviour
 		TurnOffPhaseTemp ();
 	}
 
-	public void TurnOffTutorial ()
+	public void TurnOffTutorial (bool wasSkipped)
 	{
 		tutorialComplete = true;
 		TutorialPhase = tutorialPhase.Info;
@@ -119,7 +119,17 @@ public class TutorialManager : MonoBehaviour
 		ControlsObject.SetActive (false);
 		BlocksObject.SetActive (false);
 		MovementObject.SetActive (false);
-		Debug.Log ("Tutorial: Complete! Starting game.");
+
+		if (wasSkipped == false) 
+		{
+			Debug.Log ("Completed tutorial. Starting waves.");
+		}
+
+		if (wasSkipped == true) 
+		{
+			Debug.Log ("Skipped tutorial. Starting waves.");
+		}
+
 		timeScaleControllerScript.SwitchInitialSequence ();
 		playerControllerScript_P1.StartCoroutines ();
 
@@ -129,7 +139,6 @@ public class TutorialManager : MonoBehaviour
 		}
 
 		this.gameObject.SetActive (false);
-		//Destroy (gameObject);
 		return;
 	}
 }

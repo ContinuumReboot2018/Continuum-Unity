@@ -170,47 +170,19 @@ public class LeaderboardEntryManager : MonoBehaviour
 		SavingText.SetActive (true);
 
 		yield return new WaitForSecondsRealtime (2);
-
-		GameOverUI.SetActive (true);
-		LeaderboardDisplay.SetActive (true);
-		leaderboardDisplayScript.enabled = true;
-		gameOverControllerScript.NewLeaderboardEntry (gameOverControllerScript.place, NewName);
-
-		switch (gameOverControllerScript.saveAndLoadScript.MissionId) 
-		{
-		case 0:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_ArcadeMode [gameOverControllerScript.place].name = NewName;
-			break;
-		case 1:
-			//gameOverControllerScript.saveAndLoadScript.Leaderboard_ModsMode [gameOverControllerScript.place].name = NewName;
-			break;
-		case 2:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_BossRushMode [gameOverControllerScript.place].name = NewName;
-			break;
-		case 3:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_LuckyMode [gameOverControllerScript.place].name = NewName;
-			break;
-		case 4:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FullyLoadedMode [gameOverControllerScript.place].name = NewName;
-			break;
-		case 5:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_ScavengerMode [gameOverControllerScript.place].name = NewName;
-			break;
-		case 6:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_HellMode [gameOverControllerScript.place].name = NewName;
-			break;
-		case 7:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FastTrackMode [gameOverControllerScript.place].name = NewName;
-			break;
-		}
+	
+		// This allows the scores and waves to be updated correctly.
+		gameOverControllerScript.NewLeaderboardEntry (gameOverControllerScript.place, NewName); 
 			
 		gameOverControllerScript.saveAndLoadScript.SavePlayerData ();
 
+		GameOverUI.SetActive (true);
+
 		LeaderboardDisplay.SetActive (true);
+		leaderboardDisplayScript.enabled = true;
 
 		SavingText.SetActive (false);
 		gameOverControllerScript.LeaderboardEntryUI.SetActive (false);
-
 		StopCoroutine (CheckLeaderboard ());
 	}
 

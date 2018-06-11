@@ -1508,6 +1508,7 @@ MonoBehaviour:
   VisualSettings: {fileID: 11400000, guid: cb1c9f0b292c9e84fa25332b580b675a, type: 2}
   VisualSettingsComponent: {fileID: 0}
   cam: {fileID: 0}
+  fastMobileBloomScript: {fileID: 0}
   QualitySettingsIndex: 1
   useHdr: 1
   sunShaftsEnabled: 1
@@ -2299,7 +2300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b5e8de77c5b4597ae7fbfb49a95e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logDebugInfo: 1
+  logDebugInfo: 0
   invertYAxis: 0
   useFixedUpdate: 0
   dontDestroyOnLoad: 0

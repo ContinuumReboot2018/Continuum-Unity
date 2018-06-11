@@ -79,7 +79,6 @@ public class MiniBoss : MonoBehaviour
 	void Awake ()
 	{
 		hitPoints = StartingHitPoints;
-		//Invoke ("TurnOffBarrier", ColliderTime);
 	}
 
 	void SpotlightOverrideTransform ()
@@ -160,11 +159,6 @@ public class MiniBoss : MonoBehaviour
 
 		Invoke ("EnableCol", 5);
 	}
-
-	//void TurnOffBarrier ()
-	//{
-		//Barrier.SetActive (false);
-	//}
 
 	void TurnOnEvasiveManeuverScript ()
 	{

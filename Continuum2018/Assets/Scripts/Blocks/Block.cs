@@ -330,7 +330,7 @@ public class Block : MonoBehaviour
 						if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
 						{
 							Debug.Log ("Attempted to turn off tutorial.");
-							tutorialManagerScript.TurnOffTutorial ();
+							tutorialManagerScript.TurnOffTutorial (false);
 						}
 					}
 
@@ -467,7 +467,7 @@ public class Block : MonoBehaviour
 						if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
 						{
 							Debug.Log ("Attempted to turn off tutorial.");
-							tutorialManagerScript.TurnOffTutorial ();
+							tutorialManagerScript.TurnOffTutorial (false);
 						}
 					}
 
