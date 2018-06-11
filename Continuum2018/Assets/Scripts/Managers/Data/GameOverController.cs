@@ -48,13 +48,15 @@ public class GameOverController : MonoBehaviour
 
 	void OnEnable ()
 	{
-		allowupdateentry = true;
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+		allowupdateentry = true;
 		CheckLeaderboard ();
+		GetGameOverStats ();
 	}
 
 	void Start ()
 	{
+		InvokeRepeating ("UpdateFinalScoreText", 0, 0.5f);
 		GetXpToAdd ();
 		eventData = new PointerEventData (EventSystem.current);
 	}
@@ -64,13 +66,12 @@ public class GameOverController : MonoBehaviour
 		if (FinalScoreText.gameObject.activeInHierarchy == true) 
 		{
 			CurrentScore = Mathf.Lerp (CurrentScore, FinalScore, ScoreSmoothing * Time.unscaledDeltaTime);
-			FinalScoreText.text = CurrentScore + "";
 		}
 
 		if (gameControllerScript.playerControllerScript_P1.playerActions.Shoot.IsPressed) 
 		{
 			if (GameOverUI.activeInHierarchy == true && 
-				leaderboardDisplay.gameObject.activeInHierarchy == false) 
+				leaderboardDisplay.UI.gameObject.activeInHierarchy == false) 
 			{
 				// Execute the OnClick event for the continue button.
 				ExecuteEvents.Execute (
@@ -80,7 +81,7 @@ public class GameOverController : MonoBehaviour
 				);
 			}
 
-			if (leaderboardDisplay.gameObject.activeInHierarchy == true) 
+			if (leaderboardDisplay.UI.gameObject.activeInHierarchy == true) 
 			{
 				ExecuteEvents.Execute (
 					LeaderboardCloseButton.gameObject, 
@@ -351,5 +352,7 @@ public class GameOverController : MonoBehaviour
 		{
 			FinalScoreText.text = CurrentScore + "";
 		}
+
+		FinalScoreText.text = CurrentScore.ToString ("N0");
 	}
 }

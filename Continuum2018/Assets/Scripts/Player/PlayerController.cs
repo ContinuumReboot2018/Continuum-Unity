@@ -532,7 +532,7 @@ public class PlayerController : MonoBehaviour
 		GetStartPlayerModifiers ();
 		CheckPowerupImageUI ();
 
-		Invoke ("PlaySpaceshipAmbience", 5);
+		Invoke ("PlaySpaceshipAmbience", 0);
 		InvokeRepeating ("CheckJoinState", 0, 0.5f);
 		InvokeRepeating ("TurretRotatorCheck", 0, 0.5f);
 		InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmittingAndClear);
