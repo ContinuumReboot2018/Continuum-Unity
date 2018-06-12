@@ -8,6 +8,7 @@ using TMPro;
 
 public class GameOverController : MonoBehaviour 
 {
+	public LeaderboardEntry newLeaderboardEntry;
 	private bool allowupdateentry;
 
 	public SaveAndLoadScript saveAndLoadScript;
@@ -261,8 +262,14 @@ public class GameOverController : MonoBehaviour
 
 	public void NewLeaderboardEntry (int position, string name)
 	{
+		Debug.Log (
+			"Place: " + (position + 1).ToString () + 
+			", Final Score: " + FinalScore +  
+			", Wave: " + gameControllerScript.Wave
+		);
+
 		place = position;
-		LeaderboardEntry newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
+		newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
 
 		switch (saveAndLoadScript.MissionId)
 		{
@@ -300,12 +307,6 @@ public class GameOverController : MonoBehaviour
 			break;
 		}
 			
-		Debug.Log (
-			"Place: " + (position + 1).ToString () + 
-			", Final Score: " + FinalScore +  
-			", Wave: " + gameControllerScript.Wave
-		);
-
 		return;
 	}
 		

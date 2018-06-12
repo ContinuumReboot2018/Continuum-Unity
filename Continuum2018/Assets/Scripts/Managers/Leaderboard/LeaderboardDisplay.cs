@@ -358,79 +358,81 @@ public class LeaderboardDisplay : MonoBehaviour
 		switch (menuLeaderboardId)
 		{
 		case 0:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_ArcadeMode.Count; i++) 
+			for (int a = 0; a < saveAndLoadScript.Leaderboard_ArcadeMode.Count; a++) 
 			{
-				Names [i].text = saveAndLoadScript.Leaderboard_ArcadeMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_ArcadeMode [i].score.ToString ("N0");
-				Waves [i].text = saveAndLoadScript.Leaderboard_ArcadeMode [i].wave.ToString ();
+				Names [a].text = saveAndLoadScript.Leaderboard_ArcadeMode [a].name.ToString ();
+				Scores [a].text = saveAndLoadScript.Leaderboard_ArcadeMode [a].score.ToString ("N0");
+				Waves [a].text = saveAndLoadScript.Leaderboard_ArcadeMode [a].wave.ToString ();
 			}
 
 			Debug.Log ("Opened arcade leaderboard display.");
 			break;
 		case 1:
 			/*
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_ModsMode.Count; i++)
+			for (int b = 0; b < saveAndLoadScript.Leaderboard_ModsMode.Count; b++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_ModsMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_ModsMode [i].wave.ToString ();
+				Names  [b].text = saveAndLoadScript.Leaderboard_ModsMode [b].score.ToString ("N0");
+				Waves  [b].text = saveAndLoadScript.Leaderboard_ModsMode [b].wave.ToString ();
 			}
 			*/
 			break;
 		case 2:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_BossRushMode.Count; i++)
+			for (int c = 0; c < saveAndLoadScript.Leaderboard_BossRushMode.Count; c++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_BossRushMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_BossRushMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_BossRushMode [i].wave.ToString ();
+				Names  [c].text = saveAndLoadScript.Leaderboard_BossRushMode [c].name.ToString ();
+				Scores [c].text = saveAndLoadScript.Leaderboard_BossRushMode [c].score.ToString ("N0");
+				Waves  [c].text = saveAndLoadScript.Leaderboard_BossRushMode [c].wave.ToString ();
 			}
 			Debug.Log ("Opened boss mode leaderboard display.");
 			break;
 		case 3:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_LuckyMode.Count; i++)
+			for (int d = 0; d < saveAndLoadScript.Leaderboard_LuckyMode.Count; d++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_LuckyMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_LuckyMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_LuckyMode [i].wave.ToString ();
+				Names  [d].text = saveAndLoadScript.Leaderboard_LuckyMode [d].name.ToString ();
+				Scores [d].text = saveAndLoadScript.Leaderboard_LuckyMode [d].score.ToString ("N0");
+				Waves  [d].text = saveAndLoadScript.Leaderboard_LuckyMode [d].wave.ToString ();
 			}
 			Debug.Log ("Opened lucky mode leaderboard display.");
 			break;
 		case 4:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_FullyLoadedMode.Count; i++)
+			for (int e = 0; e < saveAndLoadScript.Leaderboard_FullyLoadedMode.Count; e++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [i].wave.ToString ();
+				Names  [e].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [e].name.ToString ();
+				Scores [e].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [e].score.ToString ("N0");
+				Waves  [e].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [e].wave.ToString ();
 			}
 			Debug.Log ("Opened fully loaded leaderboard display.");
 			break;
 		case 5:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_ScavengerMode.Count; i++)
+			for (int f = 0; f < saveAndLoadScript.Leaderboard_ScavengerMode.Count; f++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_ScavengerMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_ScavengerMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_ScavengerMode [i].wave.ToString ();
+				Names  [f].text = saveAndLoadScript.Leaderboard_ScavengerMode [f].name.ToString ();
+				Scores [f].text = saveAndLoadScript.Leaderboard_ScavengerMode [f].score.ToString ("N0");
+				Waves  [f].text = saveAndLoadScript.Leaderboard_ScavengerMode [f].wave.ToString ();
 			}
 			Debug.Log ("Opened scavenger leaderboard display.");
 			break;
 		case 6:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_HellMode.Count; i++)
+			for (int g = 0; g < saveAndLoadScript.Leaderboard_HellMode.Count; g++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_HellMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_HellMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_HellMode [i].wave.ToString ();
+				Names  [g].text = saveAndLoadScript.Leaderboard_HellMode [g].name.ToString ();
+				Scores [g].text = saveAndLoadScript.Leaderboard_HellMode [g].score.ToString ("N0");
+				Waves  [g].text = saveAndLoadScript.Leaderboard_HellMode [g].wave.ToString ();
 			}
 			Debug.Log ("Opened hell mode leaderboard display.");
 			break;
 		case 7:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_FastTrackMode.Count; i++)
+			for (int h = 0; h < saveAndLoadScript.Leaderboard_FastTrackMode.Count; h++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_FastTrackMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_FastTrackMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_FastTrackMode [i].wave.ToString ();
+				Names  [h].text = saveAndLoadScript.Leaderboard_FastTrackMode [h].name.ToString ();
+				Scores [h].text = saveAndLoadScript.Leaderboard_FastTrackMode [h].score.ToString ("N0");
+				Waves  [h].text = saveAndLoadScript.Leaderboard_FastTrackMode [h].wave.ToString ();
 			}
 			Debug.Log ("Opened fast track mode leaderboard display.");
 			break;
 		}
+
+		return;
 	}
 
 	public void UpdateLeaderboardMenu (int leaderboardMenu)
@@ -493,62 +495,64 @@ public class LeaderboardDisplay : MonoBehaviour
 			break;
 		case 1:
 			/*
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_ModsMode.Count; i++)
+			for (int j = 0; j < saveAndLoadScript.Leaderboard_ModsMode.Count; j++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_ModsMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_ModsMode [i].wave.ToString ();
+				Names  [j].text = saveAndLoadScript.Leaderboard_ModsMode [j].score.ToString ("N0");
+				Waves  [j].text = saveAndLoadScript.Leaderboard_ModsMode [j].wave.ToString ();
 			}
 			*/
 			break;
 		case 2:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_BossRushMode.Count; i++)
+			for (int k = 0; k < saveAndLoadScript.Leaderboard_BossRushMode.Count; k++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_BossRushMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_BossRushMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_BossRushMode [i].wave.ToString ();
+				Names  [k].text = saveAndLoadScript.Leaderboard_BossRushMode [k].name.ToString ();
+				Scores [k].text = saveAndLoadScript.Leaderboard_BossRushMode [k].score.ToString ("N0");
+				Waves  [k].text = saveAndLoadScript.Leaderboard_BossRushMode [k].wave.ToString ();
 			}
 			break;
 		case 3:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_LuckyMode.Count; i++)
+			for (int l = 0; l < saveAndLoadScript.Leaderboard_LuckyMode.Count; l++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_LuckyMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_LuckyMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_LuckyMode [i].wave.ToString ();
+				Names  [l].text = saveAndLoadScript.Leaderboard_LuckyMode [l].name.ToString ();
+				Scores [l].text = saveAndLoadScript.Leaderboard_LuckyMode [l].score.ToString ("N0");
+				Waves  [l].text = saveAndLoadScript.Leaderboard_LuckyMode [l].wave.ToString ();
 			}
 			break;
 		case 4:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_FullyLoadedMode.Count; i++)
+			for (int m = 0; m < saveAndLoadScript.Leaderboard_FullyLoadedMode.Count; m++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [i].wave.ToString ();
+				Names  [m].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [m].name.ToString ();
+				Scores [m].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [m].score.ToString ("N0");
+				Waves  [m].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [m].wave.ToString ();
 			}
 			break;
 		case 5:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_ScavengerMode.Count; i++)
+			for (int n = 0; n < saveAndLoadScript.Leaderboard_ScavengerMode.Count; n++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_ScavengerMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_ScavengerMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_ScavengerMode [i].wave.ToString ();
+				Names  [n].text = saveAndLoadScript.Leaderboard_ScavengerMode [n].name.ToString ();
+				Scores [n].text = saveAndLoadScript.Leaderboard_ScavengerMode [n].score.ToString ("N0");
+				Waves  [n].text = saveAndLoadScript.Leaderboard_ScavengerMode [n].wave.ToString ();
 			}
 			break;
 		case 6:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_HellMode.Count; i++)
+			for (int o = 0; o < saveAndLoadScript.Leaderboard_HellMode.Count; o++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_HellMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_HellMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_HellMode [i].wave.ToString ();
+				Names  [o].text = saveAndLoadScript.Leaderboard_HellMode [o].name.ToString ();
+				Scores [o].text = saveAndLoadScript.Leaderboard_HellMode [o].score.ToString ("N0");
+				Waves  [o].text = saveAndLoadScript.Leaderboard_HellMode [o].wave.ToString ();
 			}
 			break;
 		case 7:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_FastTrackMode.Count; i++)
+			for (int p = 0; p < saveAndLoadScript.Leaderboard_FastTrackMode.Count; p++)
 			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_FastTrackMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_FastTrackMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_FastTrackMode [i].wave.ToString ();
+				Names  [p].text = saveAndLoadScript.Leaderboard_FastTrackMode [p].name.ToString ();
+				Scores [p].text = saveAndLoadScript.Leaderboard_FastTrackMode [p].score.ToString ("N0");
+				Waves  [p].text = saveAndLoadScript.Leaderboard_FastTrackMode [p].wave.ToString ();
 			}
 			break;
 		}
+
+		return;
 	}
 
 	void AssignActionControls ()
