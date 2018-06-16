@@ -123,6 +123,8 @@ public class GameController : MonoBehaviour
 	[Tooltip ("When lives count reaches max lives, display this text.")]
 	public TextMeshProUGUI MaxLivesText;
 
+	public Animator LivesAnim;
+
 	[Header ("Combo")]
 	[Tooltip ("Current combo.")]
 	public int pointsThisCombo;
@@ -418,7 +420,7 @@ public class GameController : MonoBehaviour
 		ClearMainUI (); 
 
 		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1); // Refreshes block spawn time.
-		InvokeRepeating ("UpdateLives", 0, 1); // Refreshes UI for lives.
+		//InvokeRepeating ("UpdateLives", 0, 1); // Refreshes UI for lives.
 
 		ClearPowerupUI (); // Clears powerup UI from list.
 
@@ -887,7 +889,12 @@ public class GameController : MonoBehaviour
 			{
 				for (int i = 0; i < LifeImages.Length; i++) 
 				{
-					LifeImages [i].enabled = false;
+					//LifeImages [i].enabled = false;
+
+					//if (LifeImages [i].gameObject.activeSelf == true) 
+					//{
+					//	LifeImages [i].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
+					//}
 				}
 					
 				LivesText.gameObject.SetActive (false);
@@ -899,34 +906,52 @@ public class GameController : MonoBehaviour
 		if (timescaleControllerScript.isInInitialSequence == false && 
 			timescaleControllerScript.isInInitialCountdownSequence == false) 
 		{
+			
 			// Loop through amount of lives.
 			for (int i = 0; i < Lives; i++) 
 			{
 				// Enable all life images up to amount of lives.
 				for (int j = 0; j < i; j++) 
 				{
-					LifeImages [j].enabled = true;
+					/*
+					//LifeImages [j].enabled = true;
+					LifeImages [j].gameObject.SetActive (true);
+
+					if (LifeImages [j].GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("LifeImageEnter") == false) 
+					{
+						LifeImages [j].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+					}
+					*/
 				}
 
 				// Disable all life images beyond that
 				for (int j = (Lives - 1); j < LifeImages.Length; j++) 
 				{
-					LifeImages [j].enabled = false;
+					//LifeImages [j].enabled = false;
+					//LifeImages [j].gameObject.SetActive (false);
+
+					if (LifeImages [j].gameObject.activeSelf == true)
+					{
+						LifeImages [j].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
+					}
 				}
 			}
+
 
 			// Only show one life icon and show numerical text next to it.
 			if (Lives >= MaxLives) 
 			{
+				LifeImages [0].gameObject.SetActive (true);
 				LifeImages [0].enabled = true;
 
 				// Disable all life images beyond that
 				for (int i = 1; i < LifeImages.Length; i++) 
 				{
 					LifeImages [i].enabled = false;
+					LifeImages [i].gameObject.SetActive (false);
 				}
 					
-				LivesSpacing.SetActive (true);
+				//LivesSpacing.SetActive (true);
 				LivesText.gameObject.SetActive (true);
 				LivesText.text = "x " + (Lives - 1);
 				MaxLivesText.text = "MAX";

@@ -310,21 +310,23 @@ public class PowerupPickup : MonoBehaviour
 			// Increases life count.
 			gameControllerScript.Lives += 1;
 
-			if (gameControllerScript.Lives < gameControllerScript.MaxLives)
+			if (gameControllerScript.Lives < gameControllerScript.MaxLives) 
 			{
 				gameControllerScript.MaxLivesText.text = "";
 			}
 
-			if (gameControllerScript.Lives >= gameControllerScript.MaxLives)
+			if (gameControllerScript.Lives >= gameControllerScript.MaxLives) 
 			{
 				gameControllerScript.MaxLivesText.text = "MAX";
 				Debug.Log ("Reached maximum lives.");
 			}
 				
-			// Caps maximum lives.
+			// Updates lives.
 			gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
-
-			gameControllerScript.UpdateLives (); // Updates lives UI.
+			gameControllerScript.LifeImages [gameControllerScript.Lives - 2].gameObject.SetActive (true);
+			gameControllerScript.LifeImages [gameControllerScript.Lives - 2].enabled = true;
+			gameControllerScript.LifeImages [gameControllerScript.Lives - 2].color = Color.white;
+			//gameControllerScript.UpdateLives (); // Updates lives UI.
 			break;
 
 		case powerups.RippleShot: 

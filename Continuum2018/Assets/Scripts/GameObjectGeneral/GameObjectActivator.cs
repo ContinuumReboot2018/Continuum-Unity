@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class GameObjectActivator : MonoBehaviour
 {
-	public GameObject[] ObjectsToActivate;
+	public UnityEvent OnActivate;
+	public UnityEvent OnDeactivate;
 
 	public void ActivateObjects ()
 	{
-		foreach (GameObject objectToActivate in ObjectsToActivate)
-		{
-			objectToActivate.SetActive (true);
-		}
+		OnActivate.Invoke ();
+	}
+
+	public void DeactivateObjects ()
+	{
+		OnDeactivate.Invoke ();
 	}
 }

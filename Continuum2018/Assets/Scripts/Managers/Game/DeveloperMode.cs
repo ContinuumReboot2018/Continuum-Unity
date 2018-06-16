@@ -341,6 +341,19 @@ public class DeveloperMode : MonoBehaviour
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = AddlifeTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 1f, 1, 1);
 					gameControllerScript.MaxLivesText.text = "";
+
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 2].gameObject.SetActive (true);
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 2].enabled = true;
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 2].color = Color.white;
+
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.SetActive (true);
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].enabled = true;
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].color = Color.white;
+
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 0].gameObject.SetActive (true);
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 0].enabled = true;
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 0].color = Color.white;
+
 					ShowCheatNotification ("CHEAT ACTIVATED: EXTRA LIFE");
 				}
 
@@ -351,9 +364,8 @@ public class DeveloperMode : MonoBehaviour
 					ShowCheatNotification ("CHEAT ACTIVATED: MAX LIVES");
 				}
 
-				// Caps maximum lives.
 				gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
-				gameControllerScript.UpdateLives ();
+				gameControllerScript.LivesAnim.SetTrigger ("UpdateLives");
 			}
 
 			if (CheatString == ToggleGodmodeCommand) 

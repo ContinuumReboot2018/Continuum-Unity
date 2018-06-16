@@ -700,7 +700,7 @@ public class PlayerController : MonoBehaviour
 				PlayerGuides.SetActive (true);
 				playerCol.gameObject.SetActive (true);
 				playerTrigger.gameObject.SetActive (true);
-				gameControllerScript.Lives -= 1;
+				//gameControllerScript.Lives -= 1;
 				Invoke ("EnableCollider", 5);
 				isInCooldownMode = false;
 			}
@@ -884,6 +884,16 @@ public class PlayerController : MonoBehaviour
 		StartCooldown ();
 		PlayerExplosionAudio.Play ();
 		gameControllerScript.combo = 1;
+		LivesAnim.enabled = false;
+		gameControllerScript.Lives -= 1;
+		gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
+		gameControllerScript.LivesAnim.SetTrigger ("UpdateLives");
+
+		if (gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.activeSelf == true) 
+		{
+			gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
+		}
+		//gameControllerScript.UpdateLives (); // Updates lives UI.
 
 		if (timeIsSlowed == false) 
 		{
@@ -947,7 +957,7 @@ public class PlayerController : MonoBehaviour
 	// Allows player to re enter while temporarily invincible.
 	void RejoinGame ()
 	{
-		gameControllerScript.UpdateLives ();
+		//gameControllerScript.UpdateLives ();
 		CurrentShootingHeat = 0;
 		CurrentShootingCooldown = 0;
 		PlayerFollow.transform.position = Vector3.zero;
@@ -1821,8 +1831,10 @@ public class PlayerController : MonoBehaviour
 			// Horizontal position too far.
 			if (PlayerRb.position.x < LivesCheckPlayerPosX.x) 
 			{
-				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeOut") == false && isHidingLivesUI == false) 
+				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeOut") == false && isHidingLivesUI == false
+					&& isInCooldownMode == false) 
 				{
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.GetComponent<Animator> ().enabled = true;
 					LivesAnim.Play ("LivesFadeOut");
 					isHidingLivesUI = true;
 				}
@@ -1831,8 +1843,11 @@ public class PlayerController : MonoBehaviour
 			// Horizontal position in range.
 			if (PlayerRb.position.x >= LivesCheckPlayerPosX.x) 
 			{
-				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true) 
+				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true
+					&& isInCooldownMode == false) 
 				{
+					LivesAnim.enabled = true;
+					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.GetComponent<Animator> ().enabled = false;
 					LivesAnim.Play ("LivesFadeIn");
 					isHidingLivesUI = false;
 				}
@@ -1842,8 +1857,10 @@ public class PlayerController : MonoBehaviour
 		// Vertical position too far from lives text.
 		if (PlayerRb.position.y <= LivesCheckPlayerPosY.y && LivesAnim.gameObject.activeInHierarchy == true && isInCooldownMode == false) 
 		{
-			if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true) 
+			if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true
+				&& isInCooldownMode == false) 
 			{
+				LivesAnim.enabled = true;
 				LivesAnim.Play ("LivesFadeIn");
 				isHidingLivesUI = false;
 			}
@@ -1863,7 +1880,7 @@ public class PlayerController : MonoBehaviour
 	// Also has autohiding.
 	public void CheckPowerupImageUI ()
 	{
-		if (PowerupUI.activeInHierarchy == true) 
+		if (PowerupUI.activeInHierarchy == true && isInCooldownMode == false) 
 		{
 			foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1) 
 			{
