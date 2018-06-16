@@ -531,5 +531,13 @@ public class AudioController : MonoBehaviour
 	void UpdateTimeSinceTrackLoad ()
 	{
 		TimeSinceTrackLoad += Time.deltaTime;
+
+		if (gameControllerScript.Lives <= 0) 
+		{
+			if (BassTrack.isPlaying == true) 
+			{
+				StopAllSoundtracks ();
+			}
+		}
 	}
 }

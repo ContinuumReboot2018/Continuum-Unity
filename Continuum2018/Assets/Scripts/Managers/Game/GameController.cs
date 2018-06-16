@@ -349,6 +349,7 @@ public class GameController : MonoBehaviour
 	// Debug powerup time stats.
 	public TextMeshProUGUI PowerupTimeRemain_Debug;
 	public TextMeshProUGUI AddedTimeText_Debug;
+	public TextMeshProUGUI PowerupPickupTimeRemain_Debug;
 	[Space (10)]
 	// Debug misc.
 	public TextMeshProUGUI LivesText_Debug;
@@ -593,7 +594,7 @@ public class GameController : MonoBehaviour
 			}
 		}
 
-		InvokeRepeating ("UpdateGameStats", 0, 0.5f);
+		InvokeRepeating ("UpdateGameStats", 0, 0.25f);
 	}
 
 	void Update ()
@@ -733,6 +734,8 @@ public class GameController : MonoBehaviour
 					"Rewind Time Remain: " + System.Math.Round(timescaleControllerScript.RewindTimeRemaining, 2);
 				IsRewindingText_Debug.text = 
 					"Is Rewinding: " + (timescaleControllerScript.isRewinding ? "ON" : "OFF");
+				PowerupPickupTimeRemain_Debug.text = 
+					"Next powerup spawn: " + (System.Math.Round (powerupPickupTimeRemaining, 2) + "s");
 				
 				// Modifier debug values.
 				Modifier_Tutorial_Debug.text = 
@@ -792,9 +795,6 @@ public class GameController : MonoBehaviour
 					"Block objects: " + numberOfBlocks;
 				BulletObjectCount_Debug.text = 
 					"Bullet objects: " + numberOfBullets;
-
-				//BuildNumberText_Debug.text = 
-				//	"Build number: " + saveAndLoadScript.CurrentBuildNumber;
 			}
 		}
 	}
@@ -1104,6 +1104,7 @@ public class GameController : MonoBehaviour
 				// Stop updating required scripts.
 				if (isPaused) 
 				{
+					playerControllerScript_P1.Vibrate (0, 0, 0);
 					VhsAnim.SetTrigger ("Pause");
 
 					PauseUI.SetActive (true);
@@ -1171,6 +1172,7 @@ public class GameController : MonoBehaviour
 		// Allow player to move and shoot.
 		playerControllerScript_P1.UsePlayerFollow = true;
 		playerControllerScript_P1.canShoot = true;
+		playerControllerScript_P1.Vibrate (0, 0, 0);
 
 		// Turn off the pause UI.
 		PauseUI.SetActive (false);
@@ -1405,7 +1407,7 @@ public class GameController : MonoBehaviour
 			playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true) 
 		{
 			// PowerupPickupTimeRemaining is scaled.
-			powerupPickupTimeRemaining -= Time.deltaTime;
+			powerupPickupTimeRemaining -= Time.deltaTime * Time.timeScale;
 
 			if (powerupPickupTimeRemaining <= 0) 
 			{

@@ -247,6 +247,46 @@ public class SaveAndLoadScript : MonoBehaviour
 		data.SelectedSkin = SelectedSkin;
 		data.MissionId = MissionId;
 	}
+
+	public void DeletePlayerDataEditor ()
+	{
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == true)
+		{
+			File.Delete (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
+			Debug.Log ("Successfully deleted file " +
+			Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
+		}
+	}
+
+	public void DeletePlayerDataMain ()
+	{
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
+		{
+			File.Delete (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
+			Debug.Log ("Successfully deleted file " +
+			Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
+		}
+	}
+
+	public void DeleteSettingsDataEditor ()
+	{
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == true) 
+		{
+			File.Delete (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+			Debug.Log ("Successfully deleted file " +
+			Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+		}
+	}
+
+	public void DeleteSettingsDataMain ()
+	{
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true)
+		{
+			File.Delete (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+			Debug.Log ("Successfully deleted file " +
+			Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+		}
+	}
 		
 	// Load PlayerData main.
 	public void LoadPlayerData ()
@@ -264,7 +304,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				playerData data = (playerData)bf.Deserialize (file);
 				file.Close ();
 
-				LoadPlayerDataContents (data, OnFirstLoad);
+				LoadPlayerDataContents (data);
 				StorePlayerDataInGame ();
 
 				Debug.Log ("Successfully loaded from " +

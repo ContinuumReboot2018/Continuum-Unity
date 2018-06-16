@@ -10,13 +10,14 @@ public class TimescaleController : MonoBehaviour
 {
 	public PlayerController 	playerControllerScript_P1;
 	public GameController 		gameControllerScript;
+	public AudioController		audioControllerScript;
 	public LocalSceneLoader 	localSceneLoaderScript;
 	public FPSCounter 			fpsCounterScript;
 	public NoiseAndGrain 		noiseScript;
 	public GameModifierManager 	gameModifier;
 	public MenuManager 			gameOverMenuManager;
 	public GameOverController 	gameOverControllerScript;
-	public SimpleFollow CamSimpleFollow;
+	public SimpleFollow 		CamSimpleFollow;
 
 	[Header ("Read Only")]
 	[Tooltip ("Time.timeScale property.")]
@@ -29,6 +30,12 @@ public class TimescaleController : MonoBehaviour
 	public float MaximumTimeScale = 2.5f; 
 
 	[Header ("Time Manipulation")]
+	public timeCalc TimeCalculation;
+	public enum timeCalc
+	{
+		Continuous,
+		Discrete
+	}
 	[Tooltip ("Should the time scale update by calculating distance?")]
 	public bool UpdateTargetTimeScale;
 	[Tooltip ("Time.timeScale will always try to transition to this value if UpdateTargetTimeScale is on.")]
@@ -169,8 +176,25 @@ public class TimescaleController : MonoBehaviour
 						break;
 				}
 
-				// Set TargetTimeScale with multiplier, distance, minimum timescale, clamp to min and max values.
-				TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance + TargetTimeScaleAdd, MinimumTimeScale, MaximumTimeScale);
+				if (TimeCalculation == timeCalc.Continuous) 
+				{
+					// Set TargetTimeScale with multiplier, distance, minimum timescale, clamp to min and max values.
+					TargetTimeScale = Mathf.Clamp (
+						TargetTimeScaleMult * Distance + TargetTimeScaleAdd, 
+						MinimumTimeScale, 
+						MaximumTimeScale
+					);
+				}
+
+				if (TimeCalculation == timeCalc.Discrete) 
+				{
+					// Get pitch value from bass track in audio controller and allow manipulation.
+					TargetTimeScale = Mathf.Clamp (
+						audioControllerScript.BassTrack.pitch + TargetTimeScaleAdd - 0.3f, 
+						MinimumTimeScale, 
+						MaximumTimeScale
+					);
+				}
 					
 				// Updates fixed time step based on time scale. (Current period: 1/200 of a second, 200Hz).
 				// Physics updates must be this fast to maintain accuracy.

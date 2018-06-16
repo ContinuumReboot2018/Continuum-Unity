@@ -10,7 +10,7 @@ public class PostProcessBuild
 	public static void OnPostprocessBuild (BuildTarget target, string pathToBuiltProject) 
 	{
 		Debug.Log (pathToBuiltProject);
-		IncrementBuildNumber ();
+		//IncrementBuildNumber ();
 	}
 
 	public static void IncrementBuildNumber ()
