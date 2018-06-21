@@ -130,6 +130,23 @@ public class GameOverController : MonoBehaviour
 
 		Debug.Log ("Final score is: " + FinalScore);
 
+		if (saveAndLoadScript.MissionId == 0) 
+		{
+			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
+			for (int i = 0; i < saveAndLoadScript.Leaderboard_ArcadeMode.Count; i++) 
+			{
+				if (FinalScore > saveAndLoadScript.Leaderboard_ArcadeMode [i].score && allowupdateentry == true) 
+				{
+					place = i;
+					LeaderboardEntryUI.SetActive (true);
+					allowupdateentry = false;
+					GameOverUI.SetActive (false);
+					UpdateFinalScoreText ();
+				}
+			}
+			return;
+		}
+
 		switch (saveAndLoadScript.MissionId) 
 		{
 		case 0:
@@ -247,6 +264,7 @@ public class GameOverController : MonoBehaviour
 			}
 			break;
 		}
+
 					
 		// Gets called on enable if theres no high score being added.
 		if (allowupdateentry == true) 

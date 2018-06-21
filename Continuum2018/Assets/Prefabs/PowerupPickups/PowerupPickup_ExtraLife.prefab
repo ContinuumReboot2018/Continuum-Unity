@@ -566,6 +566,8 @@ MonoBehaviour:
   gameControllerScript: {fileID: 0}
   playerControllerScript_P1: {fileID: 0}
   timescaleControllerScript: {fileID: 0}
+  ThresholdPowerupMoveDistance: 20
+  MoveSpeed: 8
   camShakeScript: {fileID: 0}
   AwakeAudio: {fileID: 82212619999221132}
   meshrend: {fileID: 23905459439811988}

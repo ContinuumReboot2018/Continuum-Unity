@@ -36,6 +36,9 @@ public class TimescaleController : MonoBehaviour
 		Continuous,
 		Discrete
 	}
+
+	public TimescalePreset timeScalePreset;
+
 	[Tooltip ("Should the time scale update by calculating distance?")]
 	public bool UpdateTargetTimeScale;
 	[Tooltip ("Time.timeScale will always try to transition to this value if UpdateTargetTimeScale is on.")]
@@ -96,6 +99,22 @@ public class TimescaleController : MonoBehaviour
 	{
 		Time.timeScale = MinimumTimeScale; // Set Time.timeScale to slowest possible value.
 		Time.fixedDeltaTime = 0.005f; // Setting initial fixed time step.
+	}
+
+	void Start ()
+	{
+		if (TimeCalculation == timeCalc.Continuous) 
+		{
+			InvokeRepeating ("UpdateTimeScalePreset", 0, 2);
+		}
+	}
+
+	void UpdateTimeScalePreset ()
+	{
+		TargetTimeScaleMult = timeScalePreset.TimeScaleMult;
+		TargetTimeScaleAdd = timeScalePreset.TimeScaleAdd;
+		TargetTimeScaleIncreaseRate = timeScalePreset.TimeScaleIncreaseRate;
+		TargetTimeScaleSmoothing = timeScalePreset.TimeScaleSmoothing;
 	}
 
 	void Update () 
@@ -222,6 +241,8 @@ public class TimescaleController : MonoBehaviour
 			// Get distance but only use Y component.
 			float DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
 			Distance = DistanceVector;
+
+			// For continuous.
 			TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance, MinimumTimeScale, MaximumTimeScale);
 		}
 	}

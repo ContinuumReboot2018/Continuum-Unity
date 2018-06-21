@@ -7,6 +7,8 @@ public class PowerupPickup : MonoBehaviour
 	public GameController gameControllerScript; // Reference to Game Controller.
 	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
 	public TimescaleController timescaleControllerScript; // Reference to Timescale Controller.
+	public float ThresholdPowerupMoveDistance = 12;
+	public float MoveSpeed = 1;
 	public CameraShake camShakeScript; // Reference to camera shake.
 
 	[Header ("On Awake")]
@@ -71,6 +73,24 @@ public class PowerupPickup : MonoBehaviour
 
 		StartCoroutine (ShowPowerup ()); // Start sequence to animate the powerup pickup to be visible.
 		StartCoroutine (DestroyAnimation ()); // Start sequence to animate the powerup to disappear.
+	}
+
+	void Update ()
+	{
+		CheckPlayerDistance ();
+	}
+
+	void CheckPlayerDistance ()
+	{
+		if (timescaleControllerScript.Distance >= ThresholdPowerupMoveDistance) 
+		{
+			MovePowerupToPlayer ();
+		}
+	}
+
+	void MovePowerupToPlayer ()
+	{
+		transform.position = Vector3.MoveTowards (transform.position, playerControllerScript_P1.playerMesh.transform.position, MoveSpeed * Time.deltaTime);
 	}
 
 	// Makes powerup visible.
