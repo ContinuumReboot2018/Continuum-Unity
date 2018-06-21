@@ -56,8 +56,9 @@ public class LeaderboardDisplay : MonoBehaviour
 	IEnumerator RefreshLeaderboard ()
 	{
 		yield return new WaitForSecondsRealtime (1);
+		//yield return new WaitForSecondsRealtime (0.02f);
 		UpdateLeaderboard ();
-		StartCoroutine (RefreshLeaderboard ());
+		//StartCoroutine (RefreshLeaderboard ());
 	}
 
 	void Update ()
@@ -146,26 +147,7 @@ public class LeaderboardDisplay : MonoBehaviour
 
 					if (useDisplayMode == false) 
 					{
-						if (menuLeaderboardId > 0) 
-						{
-							menuLeaderboardId -= 1;
-
-							// leaderboard ID skip.
-							if (menuLeaderboardId == 1) 
-							{
-								menuLeaderboardId -= 1;
-							}
-						} 
-
-						else 
-						
-						{
-							menuLeaderboardId = 7;
-						}
-
-						UpdateLeaderboardMissionText_ ();
-						//UpdateLeaderboardDelayed ();
-						UpdateLeaderboard ();
+						LeaderboardModeOnClick (0);
 					}
 
 					// Reset scroll speed.
@@ -185,26 +167,7 @@ public class LeaderboardDisplay : MonoBehaviour
 
 					if (useDisplayMode == false) 
 					{
-						if (menuLeaderboardId < 7) 
-						{
-							menuLeaderboardId += 1;
-
-							// leaderboard ID skip.
-							if (menuLeaderboardId == 1) 
-							{
-								menuLeaderboardId += 1;
-							}
-						} 
-
-						else 
-
-						{
-							menuLeaderboardId = 0;
-						}
-
-						UpdateLeaderboardMissionText_ ();
-						//UpdateLeaderboardDelayed ();
-						UpdateLeaderboard ();
+						LeaderboardModeOnClick (1);
 					}
 
 					// Reset scroll speed.
@@ -240,15 +203,15 @@ public class LeaderboardDisplay : MonoBehaviour
 	}
 
 	// Invoke an OnClick event.
-	public void LeaderboardModeOnClick ()
+	public void LeaderboardModeOnClick (int mode)
 	{
 		// Check if there is an Button component present.
-		Button OnClickEvent = leaderboardModeButtons.Buttons [leaderboardModeButtons.LeaderboardModeIndex].GetComponent<Button> ();
+		Button OnClickEvent = leaderboardModeButtons.Buttons [mode].GetComponent<Button> ();
 
 		if (OnClickEvent != null) 
 		{
 			ExecuteEvents.Execute (
-				leaderboardModeButtons.Buttons [leaderboardModeButtons.LeaderboardModeIndex].gameObject, 
+				leaderboardModeButtons.Buttons [mode].gameObject, 
 				eventData, 
 				ExecuteEvents.pointerClickHandler
 			);
@@ -355,85 +318,17 @@ public class LeaderboardDisplay : MonoBehaviour
 		MenuOnEnter_LeaderboardDisplay (leaderboardDisplayButtons.LeaderboardDisplayIndex);
 	}
 
+	// Use this only for menus.
 	public void UpdateLeaderboardDelayed ()
 	{
-		switch (menuLeaderboardId)
+		for (int i = 0; i < saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard.Count; i++) 
 		{
-		case 0:
-			for (int a = 0; a < saveAndLoadScript.Leaderboard_ArcadeMode.Count; a++) 
-			{
-				Names [a].text = saveAndLoadScript.Leaderboard_ArcadeMode [a].name.ToString ();
-				Scores [a].text = saveAndLoadScript.Leaderboard_ArcadeMode [a].score.ToString ("N0");
-				Waves [a].text = saveAndLoadScript.Leaderboard_ArcadeMode [a].wave.ToString ();
-			}
-
-			Debug.Log ("Opened arcade leaderboard display.");
-			break;
-		case 1:
-			/*
-			for (int b = 0; b < saveAndLoadScript.Leaderboard_ModsMode.Count; b++)
-			{
-				Names  [b].text = saveAndLoadScript.Leaderboard_ModsMode [b].score.ToString ("N0");
-				Waves  [b].text = saveAndLoadScript.Leaderboard_ModsMode [b].wave.ToString ();
-			}
-			*/
-			break;
-		case 2:
-			for (int c = 0; c < saveAndLoadScript.Leaderboard_BossRushMode.Count; c++)
-			{
-				Names  [c].text = saveAndLoadScript.Leaderboard_BossRushMode [c].name.ToString ();
-				Scores [c].text = saveAndLoadScript.Leaderboard_BossRushMode [c].score.ToString ("N0");
-				Waves  [c].text = saveAndLoadScript.Leaderboard_BossRushMode [c].wave.ToString ();
-			}
-			Debug.Log ("Opened boss mode leaderboard display.");
-			break;
-		case 3:
-			for (int d = 0; d < saveAndLoadScript.Leaderboard_LuckyMode.Count; d++)
-			{
-				Names  [d].text = saveAndLoadScript.Leaderboard_LuckyMode [d].name.ToString ();
-				Scores [d].text = saveAndLoadScript.Leaderboard_LuckyMode [d].score.ToString ("N0");
-				Waves  [d].text = saveAndLoadScript.Leaderboard_LuckyMode [d].wave.ToString ();
-			}
-			Debug.Log ("Opened lucky mode leaderboard display.");
-			break;
-		case 4:
-			for (int e = 0; e < saveAndLoadScript.Leaderboard_FullyLoadedMode.Count; e++)
-			{
-				Names  [e].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [e].name.ToString ();
-				Scores [e].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [e].score.ToString ("N0");
-				Waves  [e].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [e].wave.ToString ();
-			}
-			Debug.Log ("Opened fully loaded leaderboard display.");
-			break;
-		case 5:
-			for (int f = 0; f < saveAndLoadScript.Leaderboard_ScavengerMode.Count; f++)
-			{
-				Names  [f].text = saveAndLoadScript.Leaderboard_ScavengerMode [f].name.ToString ();
-				Scores [f].text = saveAndLoadScript.Leaderboard_ScavengerMode [f].score.ToString ("N0");
-				Waves  [f].text = saveAndLoadScript.Leaderboard_ScavengerMode [f].wave.ToString ();
-			}
-			Debug.Log ("Opened scavenger leaderboard display.");
-			break;
-		case 6:
-			for (int g = 0; g < saveAndLoadScript.Leaderboard_HellMode.Count; g++)
-			{
-				Names  [g].text = saveAndLoadScript.Leaderboard_HellMode [g].name.ToString ();
-				Scores [g].text = saveAndLoadScript.Leaderboard_HellMode [g].score.ToString ("N0");
-				Waves  [g].text = saveAndLoadScript.Leaderboard_HellMode [g].wave.ToString ();
-			}
-			Debug.Log ("Opened hell mode leaderboard display.");
-			break;
-		case 7:
-			for (int h = 0; h < saveAndLoadScript.Leaderboard_FastTrackMode.Count; h++)
-			{
-				Names  [h].text = saveAndLoadScript.Leaderboard_FastTrackMode [h].name.ToString ();
-				Scores [h].text = saveAndLoadScript.Leaderboard_FastTrackMode [h].score.ToString ("N0");
-				Waves  [h].text = saveAndLoadScript.Leaderboard_FastTrackMode [h].wave.ToString ();
-			}
-			Debug.Log ("Opened fast track mode leaderboard display.");
-			break;
+			Names  [i].text = saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard [i].name.ToString ();
+			Scores [i].text = saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard [i].score.ToString ("N0");
+			Waves  [i].text = saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard [i].wave.ToString ();
 		}
-
+			
+		//UpdateLeaderboard ();
 		return;
 	}
 
@@ -456,9 +351,6 @@ public class LeaderboardDisplay : MonoBehaviour
 		case 0:
 			MissionText.text = "ARCADE";
 			break;
-		//case 1:
-			//MissionText.text = "MODS";
-			//break;
 		case 2:
 			MissionText.text = "BOSS RUSH";
 			break;
@@ -478,80 +370,17 @@ public class LeaderboardDisplay : MonoBehaviour
 			MissionText.text = "FAST TRACK";
 			break;
 		}
-
 	}
 
 	public void UpdateLeaderboard ()
 	{
 		Debug.Log ("Updating leaderboard.");
 
-		switch (saveAndLoadScript.MissionId) 
+		for (int i = 0; i < saveAndLoadScript.Leaderboards[saveAndLoadScript.MissionId].leaderboard.Count; i++)
 		{
-		case 0:
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_ArcadeMode.Count; i++)
-			{
-				Names  [i].text = saveAndLoadScript.Leaderboard_ArcadeMode [i].name.ToString ();
-				Scores [i].text = saveAndLoadScript.Leaderboard_ArcadeMode [i].score.ToString ("N0");
-				Waves  [i].text = saveAndLoadScript.Leaderboard_ArcadeMode [i].wave.ToString ();
-			}
-			break;
-		case 1:
-			/*
-			for (int j = 0; j < saveAndLoadScript.Leaderboard_ModsMode.Count; j++)
-			{
-				Names  [j].text = saveAndLoadScript.Leaderboard_ModsMode [j].score.ToString ("N0");
-				Waves  [j].text = saveAndLoadScript.Leaderboard_ModsMode [j].wave.ToString ();
-			}
-			*/
-			break;
-		case 2:
-			for (int k = 0; k < saveAndLoadScript.Leaderboard_BossRushMode.Count; k++)
-			{
-				Names  [k].text = saveAndLoadScript.Leaderboard_BossRushMode [k].name.ToString ();
-				Scores [k].text = saveAndLoadScript.Leaderboard_BossRushMode [k].score.ToString ("N0");
-				Waves  [k].text = saveAndLoadScript.Leaderboard_BossRushMode [k].wave.ToString ();
-			}
-			break;
-		case 3:
-			for (int l = 0; l < saveAndLoadScript.Leaderboard_LuckyMode.Count; l++)
-			{
-				Names  [l].text = saveAndLoadScript.Leaderboard_LuckyMode [l].name.ToString ();
-				Scores [l].text = saveAndLoadScript.Leaderboard_LuckyMode [l].score.ToString ("N0");
-				Waves  [l].text = saveAndLoadScript.Leaderboard_LuckyMode [l].wave.ToString ();
-			}
-			break;
-		case 4:
-			for (int m = 0; m < saveAndLoadScript.Leaderboard_FullyLoadedMode.Count; m++)
-			{
-				Names  [m].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [m].name.ToString ();
-				Scores [m].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [m].score.ToString ("N0");
-				Waves  [m].text = saveAndLoadScript.Leaderboard_FullyLoadedMode [m].wave.ToString ();
-			}
-			break;
-		case 5:
-			for (int n = 0; n < saveAndLoadScript.Leaderboard_ScavengerMode.Count; n++)
-			{
-				Names  [n].text = saveAndLoadScript.Leaderboard_ScavengerMode [n].name.ToString ();
-				Scores [n].text = saveAndLoadScript.Leaderboard_ScavengerMode [n].score.ToString ("N0");
-				Waves  [n].text = saveAndLoadScript.Leaderboard_ScavengerMode [n].wave.ToString ();
-			}
-			break;
-		case 6:
-			for (int o = 0; o < saveAndLoadScript.Leaderboard_HellMode.Count; o++)
-			{
-				Names  [o].text = saveAndLoadScript.Leaderboard_HellMode [o].name.ToString ();
-				Scores [o].text = saveAndLoadScript.Leaderboard_HellMode [o].score.ToString ("N0");
-				Waves  [o].text = saveAndLoadScript.Leaderboard_HellMode [o].wave.ToString ();
-			}
-			break;
-		case 7:
-			for (int p = 0; p < saveAndLoadScript.Leaderboard_FastTrackMode.Count; p++)
-			{
-				Names  [p].text = saveAndLoadScript.Leaderboard_FastTrackMode [p].name.ToString ();
-				Scores [p].text = saveAndLoadScript.Leaderboard_FastTrackMode [p].score.ToString ("N0");
-				Waves  [p].text = saveAndLoadScript.Leaderboard_FastTrackMode [p].wave.ToString ();
-			}
-			break;
+			Names  [i].text = saveAndLoadScript.Leaderboards[saveAndLoadScript.MissionId].leaderboard [i].name.ToString ();
+			Scores [i].text = saveAndLoadScript.Leaderboards[saveAndLoadScript.MissionId].leaderboard [i].score.ToString ("N0");
+			Waves  [i].text = saveAndLoadScript.Leaderboards[saveAndLoadScript.MissionId].leaderboard [i].wave.ToString ();
 		}
 	}
 

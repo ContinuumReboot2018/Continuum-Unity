@@ -28,13 +28,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	public int ExperiencePoints;
 
 	[Header ("Leaderboards")]
-	public List<LeaderboardEntry> Leaderboard_ArcadeMode;
-	public List<LeaderboardEntry> Leaderboard_BossRushMode;
-	public List<LeaderboardEntry> Leaderboard_LuckyMode;
-	public List<LeaderboardEntry> Leaderboard_FullyLoadedMode;
-	public List<LeaderboardEntry> Leaderboard_ScavengerMode;
-	public List<LeaderboardEntry> Leaderboard_HellMode;
-	public List<LeaderboardEntry> Leaderboard_FastTrackMode;
+	public LeaderboardAsset[] Leaderboards;
 
 	[Space (10)]
 	public int SelectedAbility;
@@ -83,9 +77,6 @@ public class SaveAndLoadScript : MonoBehaviour
 				fastMobileBloomScript = cam.GetComponent<FastMobileBloom> ();
 
 				CheckPlayerDataFile ();
-
-				//LoadPlayerData ();
-				//LoadSettingsData ();
 
 				CheckUsername ();
 			}
@@ -234,41 +225,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		data.Username = Username;
 		data.ExperiencePoints = ExperiencePoints;
-	
-		data.Leaderboard_ArcadeMode = Leaderboard_ArcadeMode;
-		data.Leaderboard_BossRushMode = Leaderboard_BossRushMode;
-		data.Leaderboard_LuckyMode = Leaderboard_LuckyMode;
-		data.Leaderboard_FullyLoadedMode = Leaderboard_FullyLoadedMode;
-		data.Leaderboard_ScavengerMode = Leaderboard_ScavengerMode;
-		data.Leaderboard_HellMode = Leaderboard_HellMode;
-		data.Leaderboard_FastTrackMode = Leaderboard_FastTrackMode;
-
-		/*
-		switch (MissionId) 
-		{
-		case 0:
-			data.Leaderboard_ArcadeMode = Leaderboard_ArcadeMode;
-			break;
-		case 2:
-			data.Leaderboard_BossRushMode = Leaderboard_BossRushMode;
-			break;
-		case 3:
-			data.Leaderboard_LuckyMode = Leaderboard_LuckyMode;
-			break;
-		case 4:
-			data.Leaderboard_FullyLoadedMode = Leaderboard_FullyLoadedMode;
-			break;
-		case 5:
-			data.Leaderboard_ScavengerMode = Leaderboard_ScavengerMode;
-			break;
-		case 6:
-			data.Leaderboard_HellMode = Leaderboard_HellMode;
-			break;
-		case 7:
-			data.Leaderboard_FastTrackMode = Leaderboard_FastTrackMode;
-			break;
-		}*/
-
 		data.SelectedAbility = SelectedAbility;
 		data.SelectedSkin = SelectedSkin;
 		data.MissionId = MissionId;
@@ -337,7 +293,10 @@ public class SaveAndLoadScript : MonoBehaviour
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 			}
 
-			CheckPlayerDataFile ();
+			else
+			{
+				CheckPlayerDataFile ();
+			}
 		}
 		#endif
 
@@ -361,7 +320,10 @@ public class SaveAndLoadScript : MonoBehaviour
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
 			}
 
-			CheckPlayerDataFile ();
+			else
+			{
+				CheckPlayerDataFile ();
+			}
 		}
 		#endif
 	}
@@ -374,13 +336,10 @@ public class SaveAndLoadScript : MonoBehaviour
 			Debug.LogWarning ("Unable to load from " +
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 
-			Leaderboard_ArcadeMode		= DefaultLeaderboard;
-			Leaderboard_BossRushMode 	= DefaultLeaderboard;
-			Leaderboard_LuckyMode 		= DefaultLeaderboard;
-			Leaderboard_FullyLoadedMode = DefaultLeaderboard;
-			Leaderboard_ScavengerMode 	= DefaultLeaderboard;
-			Leaderboard_HellMode 		= DefaultLeaderboard;
-			Leaderboard_FastTrackMode 	= DefaultLeaderboard;
+			foreach (LeaderboardAsset leader in Leaderboards)
+			{
+				leader.leaderboard = DefaultLeaderboard;
+			}
 
 			SavePlayerData ();
 
@@ -395,13 +354,10 @@ public class SaveAndLoadScript : MonoBehaviour
 			Debug.LogWarning ("Unable to load from " +
 			Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
 
-			Leaderboard_ArcadeMode 		= DefaultLeaderboard;
-			Leaderboard_BossRushMode 	= DefaultLeaderboard;
-			Leaderboard_LuckyMode 		= DefaultLeaderboard;
-			Leaderboard_FullyLoadedMode = DefaultLeaderboard;
-			Leaderboard_ScavengerMode 	= DefaultLeaderboard;
-			Leaderboard_HellMode 		= DefaultLeaderboard;
-			Leaderboard_FastTrackMode 	= DefaultLeaderboard;
+			foreach (LeaderboardAsset leader in Leaderboards)
+			{
+				leader.leaderboard = DefaultLeaderboard;
+			}
 
 			SavePlayerData ();
 
@@ -418,44 +374,6 @@ public class SaveAndLoadScript : MonoBehaviour
 		ExperiencePoints = data.ExperiencePoints;
 		SelectedAbility = data.SelectedAbility;
 		SelectedSkin = data.SelectedSkin;
-
-		Leaderboard_ArcadeMode 		= data.Leaderboard_ArcadeMode;
-		Leaderboard_BossRushMode 	= data.Leaderboard_BossRushMode;
-		Leaderboard_LuckyMode 		= data.Leaderboard_LuckyMode;
-		Leaderboard_FullyLoadedMode = data.Leaderboard_FullyLoadedMode;
-		Leaderboard_ScavengerMode	= data.Leaderboard_ScavengerMode;
-		Leaderboard_HellMode 		= data.Leaderboard_HellMode;
-		Leaderboard_FastTrackMode 	= data.Leaderboard_FastTrackMode;
-
-		/*
-		switch (MissionId) 
-		{
-		case 0:
-			Leaderboard_ArcadeMode 		= data.Leaderboard_ArcadeMode;
-			break;
-		case 2:
-			Leaderboard_BossRushMode 	= data.Leaderboard_BossRushMode;
-			break;
-		case 3:
-			Leaderboard_LuckyMode 		= data.Leaderboard_LuckyMode;
-			break;
-		case 4:
-			Leaderboard_FullyLoadedMode = data.Leaderboard_FullyLoadedMode;
-			break;
-		case 5:
-			Leaderboard_ScavengerMode	= data.Leaderboard_ScavengerMode;
-			break;
-		case 6:
-			Leaderboard_HellMode 		= data.Leaderboard_HellMode;
-			break;
-		case 7:
-			Leaderboard_FastTrackMode 	= data.Leaderboard_FastTrackMode;
-			break;
-		default:
-			break;
-		}
-		*/
-
 		MissionId = data.MissionId;
 	}
 		
@@ -746,14 +664,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		public string Username;
 		public int ExperiencePoints;
-
-		public List<LeaderboardEntry> Leaderboard_ArcadeMode;
-		public List<LeaderboardEntry> Leaderboard_BossRushMode;
-		public List<LeaderboardEntry> Leaderboard_LuckyMode;
-		public List<LeaderboardEntry> Leaderboard_FullyLoadedMode;
-		public List<LeaderboardEntry> Leaderboard_ScavengerMode;
-		public List<LeaderboardEntry> Leaderboard_HellMode;
-		public List<LeaderboardEntry> Leaderboard_FastTrackMode;
 
 		public int SelectedAbility;
 		public int SelectedSkin;

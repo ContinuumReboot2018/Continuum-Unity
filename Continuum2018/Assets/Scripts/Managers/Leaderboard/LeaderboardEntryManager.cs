@@ -174,47 +174,11 @@ public class LeaderboardEntryManager : MonoBehaviour
 		// This allows the scores and waves to be updated correctly.
 		gameOverControllerScript.NewLeaderboardEntry (gameOverControllerScript.place, NewName); 
 
-		/*
-		switch (gameOverControllerScript.saveAndLoadScript.MissionId) 
-		{
-		case 0:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_ArcadeMode [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_ArcadeMode [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_ArcadeMode [gameOverControllerScript.place].wave = gameOverControllerScript.gameControllerScript.Wave;
-			break;
-		case 1:
-			break;
-		case 2:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_BossRushMode [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_BossRushMode [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_BossRushMode [gameOverControllerScript.place].wave = gameOverControllerScript.gameControllerScript.Wave;
-			break;
-		case 3:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_LuckyMode [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_LuckyMode [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_LuckyMode [gameOverControllerScript.place].wave = gameOverControllerScript.gameControllerScript.Wave;
-			break;
-		case 4:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FullyLoadedMode [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FullyLoadedMode [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FullyLoadedMode [gameOverControllerScript.place].wave = gameOverControllerScript.gameControllerScript.Wave;
-			break;
-		case 5:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_ScavengerMode [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_ScavengerMode [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_ScavengerMode [gameOverControllerScript.place].wave = gameOverControllerScript.gameControllerScript.Wave;
-			break;
-		case 6:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_HellMode [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_HellMode [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_HellMode [gameOverControllerScript.place].wave = gameOverControllerScript.gameControllerScript.Wave;
-			break;
-		case 7:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FastTrackMode [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FastTrackMode [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FastTrackMode [gameOverControllerScript.place].wave = gameOverControllerScript.gameControllerScript.Wave;
-			break;
-		}*/
+		int missionId = gameOverControllerScript.saveAndLoadScript.MissionId;
+
+		gameOverControllerScript.saveAndLoadScript.Leaderboards[missionId].leaderboard [gameOverControllerScript.place].name = NewName;
+		gameOverControllerScript.saveAndLoadScript.Leaderboards[missionId].leaderboard [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
+		gameOverControllerScript.saveAndLoadScript.Leaderboards[missionId].leaderboard [gameOverControllerScript.place].wave = gameOverControllerScript.gameControllerScript.Wave;
 
 		leaderboardDisplayScript.UpdateLeaderboard ();
 		gameOverControllerScript.saveAndLoadScript.SavePlayerData ();
