@@ -216,6 +216,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 			break;
 		}*/
 
+		leaderboardDisplayScript.UpdateLeaderboard ();
 		gameOverControllerScript.saveAndLoadScript.SavePlayerData ();
 
 		GameOverUI.SetActive (true);
@@ -225,7 +226,6 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 		SavingText.SetActive (false);
 		gameOverControllerScript.LeaderboardEntryUI.SetActive (false);
-		StopCoroutine (CheckLeaderboard ());
 	}
 
 	void CheckPlacement ()

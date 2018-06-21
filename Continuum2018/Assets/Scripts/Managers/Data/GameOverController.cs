@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 using System.Collections;
+using System.Collections.Generic;
 
 using TMPro;
 
@@ -10,6 +11,8 @@ public class GameOverController : MonoBehaviour
 {
 	public LeaderboardEntry newLeaderboardEntry;
 	private bool allowupdateentry;
+
+	public List<LeaderboardEntry> LeaderboardNewEntry;
 
 	public SaveAndLoadScript saveAndLoadScript;
 	public GameController gameControllerScript;
@@ -130,23 +133,7 @@ public class GameOverController : MonoBehaviour
 
 		Debug.Log ("Final score is: " + FinalScore);
 
-		if (saveAndLoadScript.MissionId == 0) 
-		{
-			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_ArcadeMode.Count; i++) 
-			{
-				if (FinalScore > saveAndLoadScript.Leaderboard_ArcadeMode [i].score && allowupdateentry == true) 
-				{
-					place = i;
-					LeaderboardEntryUI.SetActive (true);
-					allowupdateentry = false;
-					GameOverUI.SetActive (false);
-					UpdateFinalScoreText ();
-				}
-			}
-			return;
-		}
-
+		// Allows a leaderboard entry UI to activate.
 		switch (saveAndLoadScript.MissionId) 
 		{
 		case 0:
@@ -162,22 +149,6 @@ public class GameOverController : MonoBehaviour
 					UpdateFinalScoreText ();
 				}
 			}
-			break;
-		case 1:
-			/*
-			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_ModsMode.Count; i++) 
-			{
-				if (FinalScore > saveAndLoadScript.Leaderboard_ModsMode [i].score && allowupdateentry == true) 
-				{
-					place = i;
-					LeaderboardEntryUI.SetActive (true);
-					allowupdateentry = false;
-					GameOverUI.SetActive (false);
-					UpdateFinalScoreText ();
-				}
-			}
-			*/
 			break;
 		case 2:
 			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
@@ -264,7 +235,6 @@ public class GameOverController : MonoBehaviour
 			}
 			break;
 		}
-
 					
 		// Gets called on enable if theres no high score being added.
 		if (allowupdateentry == true) 
@@ -289,15 +259,20 @@ public class GameOverController : MonoBehaviour
 		place = position;
 		newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
 
+		//saveAndLoadScript.Leaderboard_ArcadeMode.Insert (position, newLeaderboardEntry);
+		//saveAndLoadScript.Leaderboard_ArcadeMode.RemoveAt (saveAndLoadScript.Leaderboard_ArcadeMode.Count - 1);
+
+		LeaderboardNewEntry.Insert (position, newLeaderboardEntry);
+		LeaderboardNewEntry.RemoveAt (saveAndLoadScript.Leaderboard_ArcadeMode.Count - 1);
+
+		saveAndLoadScript.Leaderboard_ArcadeMode = LeaderboardNewEntry;
+
+		/*
 		switch (saveAndLoadScript.MissionId)
 		{
 		case 0:
 			saveAndLoadScript.Leaderboard_ArcadeMode.Insert (position, newLeaderboardEntry);
 			saveAndLoadScript.Leaderboard_ArcadeMode.RemoveAt (10);
-			break;
-		case 1:
-			//saveAndLoadScript.Leaderboard_ModsMode.Insert (position, newLeaderboardEntry);
-			//saveAndLoadScript.Leaderboard_ModsMode.RemoveAt (10);
 			break;
 		case 2:
 			saveAndLoadScript.Leaderboard_BossRushMode.Insert (position, newLeaderboardEntry);
@@ -324,6 +299,7 @@ public class GameOverController : MonoBehaviour
 			saveAndLoadScript.Leaderboard_FastTrackMode.RemoveAt (10);
 			break;
 		}
+*/
 			
 		return;
 	}

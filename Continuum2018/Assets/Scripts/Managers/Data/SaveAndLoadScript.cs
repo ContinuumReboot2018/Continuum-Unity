@@ -243,6 +243,32 @@ public class SaveAndLoadScript : MonoBehaviour
 		data.Leaderboard_HellMode = Leaderboard_HellMode;
 		data.Leaderboard_FastTrackMode = Leaderboard_FastTrackMode;
 
+		/*
+		switch (MissionId) 
+		{
+		case 0:
+			data.Leaderboard_ArcadeMode = Leaderboard_ArcadeMode;
+			break;
+		case 2:
+			data.Leaderboard_BossRushMode = Leaderboard_BossRushMode;
+			break;
+		case 3:
+			data.Leaderboard_LuckyMode = Leaderboard_LuckyMode;
+			break;
+		case 4:
+			data.Leaderboard_FullyLoadedMode = Leaderboard_FullyLoadedMode;
+			break;
+		case 5:
+			data.Leaderboard_ScavengerMode = Leaderboard_ScavengerMode;
+			break;
+		case 6:
+			data.Leaderboard_HellMode = Leaderboard_HellMode;
+			break;
+		case 7:
+			data.Leaderboard_FastTrackMode = Leaderboard_FastTrackMode;
+			break;
+		}*/
+
 		data.SelectedAbility = SelectedAbility;
 		data.SelectedSkin = SelectedSkin;
 		data.MissionId = MissionId;
@@ -400,6 +426,35 @@ public class SaveAndLoadScript : MonoBehaviour
 		Leaderboard_ScavengerMode	= data.Leaderboard_ScavengerMode;
 		Leaderboard_HellMode 		= data.Leaderboard_HellMode;
 		Leaderboard_FastTrackMode 	= data.Leaderboard_FastTrackMode;
+
+		/*
+		switch (MissionId) 
+		{
+		case 0:
+			Leaderboard_ArcadeMode 		= data.Leaderboard_ArcadeMode;
+			break;
+		case 2:
+			Leaderboard_BossRushMode 	= data.Leaderboard_BossRushMode;
+			break;
+		case 3:
+			Leaderboard_LuckyMode 		= data.Leaderboard_LuckyMode;
+			break;
+		case 4:
+			Leaderboard_FullyLoadedMode = data.Leaderboard_FullyLoadedMode;
+			break;
+		case 5:
+			Leaderboard_ScavengerMode	= data.Leaderboard_ScavengerMode;
+			break;
+		case 6:
+			Leaderboard_HellMode 		= data.Leaderboard_HellMode;
+			break;
+		case 7:
+			Leaderboard_FastTrackMode 	= data.Leaderboard_FastTrackMode;
+			break;
+		default:
+			break;
+		}
+		*/
 
 		MissionId = data.MissionId;
 	}

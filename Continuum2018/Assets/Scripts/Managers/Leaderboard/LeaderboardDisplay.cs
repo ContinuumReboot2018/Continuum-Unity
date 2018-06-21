@@ -47,7 +47,7 @@ public class LeaderboardDisplay : MonoBehaviour
 		menuLeaderboardId = saveAndLoadScript.MissionId;
 		UpdateLeaderboardMissionText_ ();
 		UpdateLeaderboard ();
-		//StartCoroutine (RefreshLeaderboard ());
+		StartCoroutine (RefreshLeaderboard ());
 		eventData = new PointerEventData (EventSystem.current);
 		LeaderboardActions = new PlayerActions ();
 		AssignActionControls ();
@@ -165,6 +165,7 @@ public class LeaderboardDisplay : MonoBehaviour
 
 						UpdateLeaderboardMissionText_ ();
 						//UpdateLeaderboardDelayed ();
+						UpdateLeaderboard ();
 					}
 
 					// Reset scroll speed.
@@ -203,6 +204,7 @@ public class LeaderboardDisplay : MonoBehaviour
 
 						UpdateLeaderboardMissionText_ ();
 						//UpdateLeaderboardDelayed ();
+						UpdateLeaderboard ();
 					}
 
 					// Reset scroll speed.
@@ -551,8 +553,6 @@ public class LeaderboardDisplay : MonoBehaviour
 			}
 			break;
 		}
-
-		return;
 	}
 
 	void AssignActionControls ()
