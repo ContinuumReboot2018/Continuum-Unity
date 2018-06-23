@@ -87,6 +87,9 @@ public class PlayerController : MonoBehaviour
 
 	public AudioSource SpaceshipAmbience;
 
+	public float RiskDistanceTime;
+	public float RiskDistance = 14;
+
 	[Header ("Player input UI")]
 	// To be shown only in tutorial.
 	public RectTransform MiddlePoint; 
@@ -118,6 +121,8 @@ public class PlayerController : MonoBehaviour
 		Rapid = 2,
 		Overdrive = 3
 	}
+
+	public float NonShootingTime;
 
 	public Animator PlayerRecoil;
 
@@ -198,6 +203,7 @@ public class PlayerController : MonoBehaviour
 	// Stuff to do when hit.
 	public ParticleSystem PlayerExplosionParticles;
 	public AudioSource PlayerExplosionAudio;
+	public ParticleSystem PlayerExplosionEmp;
 	[Tooltip("Allows cool image effects tp play that simulates VHS glitch effects and animates them.")]
 	public Animator GlitchEffect;
 	[Tooltip("Collider for invincibility.")]
@@ -612,6 +618,18 @@ public class PlayerController : MonoBehaviour
 		UpdateImageEffects ();
 		UpdateAudio ();
 		UpdateParticleEffects ();
+		UpdateRiskDistanceTime ();
+	}
+
+	void UpdateRiskDistanceTime ()
+	{
+		if (playerCol.transform.position.y >= RiskDistance) 
+		{
+			if (gameControllerScript.isPaused == false && gameControllerScript.isGameOver == false)
+			{
+				RiskDistanceTime += Time.unscaledDeltaTime;
+			}
+		} 
 	}
 
 	void FixedUpdate ()
@@ -870,7 +888,7 @@ public class PlayerController : MonoBehaviour
 		GlitchEffect.Play ("CameraGlitchOn");
 		PlayerExplosionParticles.Play ();
 		PlayerRb.transform.position = new Vector3 (0, -15, 0);
-		StartCoroutine (UseEmp ());
+		StartCoroutine (UsePlayerExplosion ());
 		ResetPowerups ();
 		playerCol.enabled = false;
 		playerTrigger.enabled = false;
@@ -894,7 +912,6 @@ public class PlayerController : MonoBehaviour
 		{
 			gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
 		}
-		//gameControllerScript.UpdateLives (); // Updates lives UI.
 
 		if (timeIsSlowed == false) 
 		{
@@ -1261,6 +1278,19 @@ public class PlayerController : MonoBehaviour
 		Emp.gameObject.SetActive (false);
 	}
 
+	// Use Emp ability.
+	public IEnumerator UsePlayerExplosion ()
+	{
+		PlayerExplosionEmp.transform.position = ImpactPoint;
+		PlayerExplosionEmp.Play ();
+
+		yield return new WaitForSeconds (3);
+
+		PlayerExplosionEmp.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+
+		yield return new WaitForSeconds (3);
+	}
+
 	// Turn off ability when timer runs out. But allow things to gradually disappear by invoking with delay.
 	public void DeactivateAbility ()
 	{
@@ -1505,6 +1535,7 @@ public class PlayerController : MonoBehaviour
 						}
 							
 						NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
+						NonShootingTime = 0;
 					}
 				}
 
@@ -1517,6 +1548,11 @@ public class PlayerController : MonoBehaviour
 			if (playerActions.Shoot.Value < 0.75f && Time.time >= NextFire && 
 				gameControllerScript.isPaused == false) 
 			{
+				if (gameControllerScript.isPaused == false && gameControllerScript.isGameOver == false) 
+				{
+					NonShootingTime += Time.unscaledDeltaTime;
+				}
+
 				if (Overheated == false) 
 				{
 					// Keeps decreasing heat over time.

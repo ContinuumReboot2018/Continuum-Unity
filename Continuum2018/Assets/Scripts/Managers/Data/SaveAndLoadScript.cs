@@ -90,6 +90,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 	void FixedUpdate ()
 	{
+		#if !UNITY_EDITOR
 		// This allows the framerate to hitch without causing a quality settings change.
 		if (fpsCounterScript != null && sceneLoaderScript.isLoading == false) 
 		{
@@ -127,6 +128,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				}
 			}
 		}
+		#endif
 	}
 		
 	void CheckUsername ()
