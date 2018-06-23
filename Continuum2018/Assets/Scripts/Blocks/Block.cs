@@ -370,6 +370,7 @@ public class Block : MonoBehaviour
 					if (HitPoints <= 0) 
 					{
 						GetTotalPointValue (); // Get total point calculation.
+						IncrementBlocksDestroyed ();
 						CreateExplosion (); // Create the explosion.
 						DoCamShake (); // Destroy this object.
 						DoVibrate ();

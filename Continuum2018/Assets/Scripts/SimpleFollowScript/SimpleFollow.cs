@@ -9,21 +9,13 @@ public class SimpleFollow : MonoBehaviour
 		FixedUpdate = 1,
 		LateUpdate = 2
 	}
-	[Tooltip ("Follow position?")]
 	public bool FollowPosition;
-	[Tooltip ("Automatically find Player?")]
 	public bool AutomaticallyFindPlayerPosObject;
-	[Tooltip ("GameObject to look for.")]
 	public string LookForPosName = "Player";
-	[Tooltip ("Override all positions.")]
 	public Transform OverrideTransform;
-	[Tooltip ("Follow on X Axis.")]
 	public Transform FollowPosX;
-	[Tooltip ("Follow on Y Axis.")]
 	public Transform FollowPosY;
-	[Tooltip ("Follow on Z Axis.")]
 	public Transform FollowPosZ;
-	[Tooltip ("How to follow.")]
 	public followPosMethod FollowPosMethod;
 	public enum followPosMethod
 	{
@@ -33,34 +25,33 @@ public class SimpleFollow : MonoBehaviour
 	}
 
 	private float FollowPosVelX, FollowPosVelY, FollowPosVelZ;
-	[Tooltip ("Offset of each axis.")]
 	public Vector3 FollowPosOffset;
-	[Tooltip ("Smoothing amounts on each axis.")]
 	public Vector3 FollowPosSmoothTime;
-
-	[Tooltip ("X boundaries.")]
+	public bool XPosTimeUnscaled = true;
+	public bool YPosTimeUnscaled = true;
+	public bool ZPosTimeUnscaled = true;
 	public Vector2 PosBoundsX;
-	[Tooltip ("Y boundaries.")]
 	public Vector2 PosBoundsY;
-	[Tooltip ("Z boundaries.")]
 	public Vector2 PosBoundsZ;
 
-	[Tooltip ("Follow rotation?")]
 	public bool FollowRotation;
-	[Tooltip ("Automatically find Player?")]
 	public bool AutomaticallyFindPlayerRotObject;
-	[Tooltip ("GameObject to look for.")]
 	public string LookForRotName = "Player";
-	[Tooltip ("Follow rotation on X Axis.")]
 	public Transform FollowRotX;
-	[Tooltip ("Follow rotation on Y Axis.")]
 	public Transform FollowRotY;
-	[Tooltip ("Follow rotation on Z Axis.")]
 	public Transform FollowRotZ;
-	[Tooltip ("Rotation offsets.")]
 	public Vector3 FollowRotOffset;
-	[Tooltip ("Roation smoothin on axes.")]
 	public Vector3 FollowRotSmoothTime;
+	public bool XRotTimeUnscaled = true;
+	public bool YRotTimeUnscaled = true;
+	public bool ZRotTimeUnscaled = true;
+
+	public enum delta
+	{
+		Scaled,
+		Unscaled,
+		Fixed
+	}
 
 	public void Start ()
 	{
@@ -193,29 +184,31 @@ public class SimpleFollow : MonoBehaviour
 						Mathf.Lerp (
 							transform.position.x, 
 							FollowPosX.position.x + FollowPosOffset.x, 
-							FollowPosSmoothTime.x * Time.unscaledDeltaTime), 
+							FollowPosSmoothTime.x * (XPosTimeUnscaled ? Time.unscaledDeltaTime : Time.deltaTime)), 
 
 						PosBoundsX.x, 
 						PosBoundsX.y
 					),
+
 
 					// Y position.
 					Mathf.Clamp (
 						Mathf.Lerp (
 							transform.position.y, 
 							FollowPosY.position.y + FollowPosOffset.y, 
-							FollowPosSmoothTime.y * Time.unscaledDeltaTime), 
+							FollowPosSmoothTime.y * (YPosTimeUnscaled ? Time.unscaledDeltaTime : Time.deltaTime)), 
 
 						PosBoundsY.x, 
 						PosBoundsY.y
 					),
+
 
 					// Z position.
 					Mathf.Clamp (
 						Mathf.Lerp (
 							transform.position.z, 
 							FollowPosZ.position.z + FollowPosOffset.z, 
-							FollowPosSmoothTime.z * Time.unscaledDeltaTime), 
+							FollowPosSmoothTime.z * (ZPosTimeUnscaled ? Time.unscaledDeltaTime : Time.deltaTime)), 
 
 						PosBoundsZ.x, 
 						PosBoundsZ.y
@@ -233,7 +226,7 @@ public class SimpleFollow : MonoBehaviour
 							transform.position.x, 
 							FollowPosX.position.x + FollowPosOffset.x, 
 							ref FollowPosVelX, 
-							FollowPosSmoothTime.x * Time.unscaledDeltaTime), 
+							FollowPosSmoothTime.x * (XPosTimeUnscaled ? Time.unscaledDeltaTime : Time.deltaTime)), 
 
 						PosBoundsX.x, 
 						PosBoundsX.y
@@ -245,7 +238,7 @@ public class SimpleFollow : MonoBehaviour
 							transform.position.y, 
 							FollowPosY.position.y + FollowPosOffset.y, 
 							ref FollowPosVelY, 
-							FollowPosSmoothTime.y * Time.unscaledDeltaTime), 
+							FollowPosSmoothTime.y * (YPosTimeUnscaled ? Time.unscaledDeltaTime : Time.deltaTime)), 
 
 						PosBoundsY.x, 
 						PosBoundsY.y
@@ -257,7 +250,7 @@ public class SimpleFollow : MonoBehaviour
 							transform.position.z, 
 							FollowPosZ.position.z + FollowPosOffset.z, 
 							ref FollowPosVelZ, 
-							FollowPosSmoothTime.z * Time.unscaledDeltaTime), 
+							FollowPosSmoothTime.z * (ZPosTimeUnscaled ? Time.unscaledDeltaTime : Time.deltaTime)), 
 
 						PosBoundsZ.x, 
 						PosBoundsZ.y
@@ -291,17 +284,17 @@ public class SimpleFollow : MonoBehaviour
 				Mathf.LerpAngle (
 					transform.eulerAngles.x, 
 					FollowRotX.eulerAngles.x + FollowRotOffset.x, 
-					FollowRotSmoothTime.x * Time.unscaledDeltaTime),
+					FollowRotSmoothTime.x * (XRotTimeUnscaled ? Time.unscaledDeltaTime : Time.deltaTime)),
 				
 				Mathf.LerpAngle (
 					transform.eulerAngles.y, 
 					FollowRotY.eulerAngles.y + FollowRotOffset.y, 
-					FollowRotSmoothTime.y * Time.unscaledDeltaTime),
+					FollowRotSmoothTime.y * (YRotTimeUnscaled ? Time.unscaledDeltaTime : Time.deltaTime)),
 				
 				Mathf.LerpAngle (
 					transform.eulerAngles.z, 
 					FollowRotZ.eulerAngles.z + FollowRotOffset.z, 
-					FollowRotSmoothTime.z * Time.unscaledDeltaTime)
+					FollowRotSmoothTime.z * (ZRotTimeUnscaled ? Time.unscaledDeltaTime : Time.deltaTime))
 			);
 
 		transform.rotation = Quaternion.Euler(RotationAngle);

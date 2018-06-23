@@ -185,6 +185,7 @@ public class GameController : MonoBehaviour
 	public float PowerupPickupSpawnRangeX;
 	[Tooltip ("Vertical area to spawn powerup pickups.")]
 	public float PowerupPickupSpawnY;
+	public int totalPowerupsCollected;
 
 	[Header ("Powerup List UI")]
 	[Tooltip ("Powerup slot index.")]
@@ -433,8 +434,6 @@ public class GameController : MonoBehaviour
 			playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.GameOverDelay (gameModifier.TrialTime));
 		}
 
-		powerupPickupTimeRemaining = 14;
-
 		ClearBlockList ();
 	}
 
@@ -460,7 +459,6 @@ public class GameController : MonoBehaviour
 		LivesBackground.enabled = false;
 
 		// Clear wave info stuff.
-		//Wave = gameModifier.startingWave;
 		WaveTimeDuration = FirstWaveTimeDuration;
 		WaveText.text = "";
 		playerControllerScript_P1.WaveAnim.enabled = false;
@@ -543,19 +541,17 @@ public class GameController : MonoBehaviour
 	public void StartGame ()
 	{
 		ResetScore (); // Resets score display and value.
-
 		TrackStats = true;
 
 		// Set wave transition in motion.
 		PlayWaveTransitionVisuals ();
 		WaveTimeRemaining = WaveTimeDuration;
 
-		playerControllerScript_P1.AbilityUIHexes.Play ("HexesFadeIn"); // Fade in hexes.
 		bossId = 0; // Reset boss ID.
-
 		CheckBossSpawnMode (); // Checks mode from game modifier to set boss spawn mode.
 
 		// Allow score animators and UI.
+		playerControllerScript_P1.AbilityUIHexes.Play ("HexesFadeIn"); // Fade in hexes.
 		playerControllerScript_P1.ScoreAnim.enabled = true;
 		playerControllerScript_P1.LivesAnim.gameObject.SetActive (true);
 		playerControllerScript_P1.LivesAnim.enabled = true;
@@ -567,7 +563,6 @@ public class GameController : MonoBehaviour
 
 		// Step down block spawn rate.
 		BlockSpawnRate -= (BlockSpawnIncreaseRate * gameModifier.blockSpawnRateMultiplier);
-		//UnityEngine.Debug.Log ("Block spawn rate: " + BlockSpawnRate);
 
 		// Set starting lives.
 		Lives = gameModifier.StartingLives;
@@ -601,8 +596,6 @@ public class GameController : MonoBehaviour
 
 	void Update ()
 	{
-		// Update game and time stats.
-		//UpdateGameStats ();
 		UpdateTimeStats ();
 
 		CheckCombo (); 						// Check current combo amount and timer.

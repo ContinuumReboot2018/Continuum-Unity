@@ -90,7 +90,17 @@ public class PowerupPickup : MonoBehaviour
 
 	void MovePowerupToPlayer ()
 	{
-		transform.position = Vector3.MoveTowards (transform.position, playerControllerScript_P1.playerMesh.transform.position, MoveSpeed * Time.deltaTime);
+		Vector3 newPos = new Vector3 (
+			playerControllerScript_P1.playerMesh.transform.position.x, 
+			playerControllerScript_P1.playerMesh.transform.position.y, 
+			-2.5f
+		);
+
+		transform.position = Vector3.MoveTowards (
+			transform.position, 
+			newPos, 
+			MoveSpeed * Time.deltaTime
+		);
 	}
 
 	// Makes powerup visible.
@@ -200,6 +210,7 @@ public class PowerupPickup : MonoBehaviour
 	{
 		Instantiate (CollectExplosion, transform.position, Quaternion.identity); // Creates powerup explosion particles.
 		gameControllerScript.SetPowerupTime (PowerupTime);
+		gameControllerScript.totalPowerupsCollected++;
 
 		switch (ThisPowerup) 
 		{

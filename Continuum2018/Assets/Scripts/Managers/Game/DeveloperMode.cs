@@ -218,7 +218,7 @@ public class DeveloperMode : MonoBehaviour
 		}
 
 		// Toggle cheat activation.
-		if (CheatString == ToggleCheatsCommand
+		if (CheatString.Contains (ToggleCheatsCommand)
 		   && allowCheats == true)
 		{
 			useCheats = !useCheats;

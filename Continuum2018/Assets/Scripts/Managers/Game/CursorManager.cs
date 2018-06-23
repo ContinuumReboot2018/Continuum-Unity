@@ -18,7 +18,8 @@ public class CursorManager : MonoBehaviour
 		if (Cursor.visible == false) 
 		{
 			// When the mouse has received input.
-			if (Input.GetAxis ("Mouse X") != 0 || Input.GetAxis ("Mouse Y") != 0) 
+			if (Input.GetAxis ("Mouse X") != 0 || Input.GetAxis ("Mouse Y") != 0
+				|| Input.GetMouseButtonDown (0)) 
 			{
 				UnlockMouse ();
 				ShowMouse ();

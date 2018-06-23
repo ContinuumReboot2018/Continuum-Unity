@@ -251,6 +251,7 @@ public class PlayerController : MonoBehaviour
 
 	public ParticleSystem AbilityActiveParticles;
 	public ParticleSystem AbilityActiveBurstParticles;
+	public int AbilityActivations;
 
 	// Ability UI.
 	[Tooltip("Ability UI.")]
@@ -1229,6 +1230,8 @@ public class PlayerController : MonoBehaviour
 			MirrorPlayer.SetActive (true);
 			break;
 		}
+
+		AbilityActivations++;
 
 		// Briefly slows time down for effect.
 		timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.75f;

@@ -48,17 +48,13 @@ public class GameOverController : MonoBehaviour
 	public Button ContinueButton;
 	public PointerEventData eventData;
 
-	void OnEnable ()
+	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		allowupdateentry = true;
-		GetGameOverStats ();
-	}
-
-	void Start ()
-	{
 		InvokeRepeating ("UpdateFinalScoreText", 0, 0.5f);
-		GetXpToAdd ();
+		//GetXpToAdd ();
+		//GetGameOverStats ();
 		eventData = new PointerEventData (EventSystem.current);
 	}
 

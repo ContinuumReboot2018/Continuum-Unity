@@ -2369,6 +2369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -2379,6 +2380,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -2390,6 +2394,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4113116304134068}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114033979357137476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2566,6 +2573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_1
@@ -2576,6 +2584,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -100, y: 100}
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
@@ -2587,6 +2598,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4476868325712100}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114143806124720030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2674,6 +2688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_5
@@ -2684,6 +2699,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -100, y: 100}
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
@@ -2695,6 +2713,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4634439708720836}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114226488525268462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2772,6 +2793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_8
@@ -2782,6 +2804,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -100, y: 100}
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
@@ -2793,6 +2818,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4929092114172148}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114271370997667090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2804,6 +2832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_6
@@ -2814,6 +2843,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -100, y: 100}
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
@@ -2825,6 +2857,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4398704283617064}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114318267906831000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2935,6 +2970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_4
@@ -2945,6 +2981,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -100, y: 100}
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
@@ -2956,6 +2995,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4086966064252220}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114358323429134924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2967,6 +3009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_3
@@ -2977,6 +3020,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -100, y: 100}
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
@@ -2988,6 +3034,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4703125293835336}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114389815342438892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3109,6 +3158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_2
@@ -3119,6 +3169,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -100, y: 100}
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
@@ -3130,6 +3183,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4816568221543842}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114450994104544484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3159,6 +3215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -3169,6 +3226,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -3180,6 +3240,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4533317367160618}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114478572175933886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3306,6 +3369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Tail_7
@@ -3316,6 +3380,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -100, y: 100}
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
@@ -3327,6 +3394,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4745499673913124}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114577149760807040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3486,6 +3556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -3496,6 +3567,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -3507,6 +3581,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4309055647685466}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114678191802443198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3536,6 +3613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -3546,6 +3624,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -3557,6 +3638,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4963030159236698}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114694758609279206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3586,6 +3670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Follower
@@ -3596,6 +3681,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -100, y: 100}
   PosBoundsY: {x: -100, y: 100}
   PosBoundsZ: {x: -100, y: 100}
@@ -3607,6 +3695,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4113116304134068}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114705196876846286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3746,6 +3837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -3756,6 +3848,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -3767,6 +3862,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4795106563074172}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114821655900128262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3793,6 +3891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -3803,6 +3902,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -3814,6 +3916,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4173371602429426}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114833880652835668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3825,6 +3930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -3835,6 +3941,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -3846,6 +3955,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4558803247449870}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114882064035715560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3857,6 +3969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -3867,6 +3980,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -3878,6 +3994,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4293038287126016}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114901264144027786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3983,6 +4102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -3993,6 +4113,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -4004,6 +4127,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4274533802860362}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114990626014788838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4015,6 +4141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: 
@@ -4025,6 +4152,9 @@ MonoBehaviour:
   FollowPosMethod: 2
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 8, y: 8, z: 0}
+  XPosTimeUnscaled: 0
+  YPosTimeUnscaled: 0
+  ZPosTimeUnscaled: 0
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -4036,6 +4166,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 4314362135216828}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 1000, y: 1000, z: 1000}
+  XRotTimeUnscaled: 0
+  YRotTimeUnscaled: 0
+  ZRotTimeUnscaled: 0
 --- !u!114 &114995046109779804
 MonoBehaviour:
   m_ObjectHideFlags: 1

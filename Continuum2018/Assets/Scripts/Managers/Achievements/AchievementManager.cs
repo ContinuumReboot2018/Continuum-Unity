@@ -18,6 +18,9 @@ public class AchievementManager : MonoBehaviour
 	[Header ("Achievement assets")]
 	public Texture BonusScoreTexture;
 	public Texture BonusComboTexture;
+	public Texture BonusBlocksDestroyedTexture;
+	public Texture BonusPowerupsCollectedTexture;
+	public Texture BonusAbilityActivationsTexture;
 	public AudioSource AchievementSound;
 
 	[Header ("Achievement requirements")]
@@ -28,12 +31,27 @@ public class AchievementManager : MonoBehaviour
 	public int ComboToBonusRound = 20000;
 	public int ComboToBonusRoundMultiplier = 5;
 	private int TimesComboToBonus;
+	[Space (10)]
+	public int BlocksDestroyedToBonusRound = 500;
+	public int BlocksDestroyedToBonusRoundMultiplier = 2;
+	private int TimesBlocksDestroyedToBonus;
+	[Space (10)]
+	public int PowerupsCollectedToBonusRound = 5;
+	public int PowerupsCollectedToBonusRoundMultiplier = 2;
+	private int TimesPowerupsCollectedToBonus;
+	[Space (10)]
+	public int AbilitiesActivatedToBonusRound = 1;
+	public int AbilitiesActivatedToBonusRoundMultiplier = 2;
+	private int TimesAbilitiesActivatedToBonus;
 
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		StartCoroutine (CheckScoreCount ());
 		StartCoroutine (CheckComboCount ());
+		StartCoroutine (CheckBlocksDestroyedCount ());
+		StartCoroutine (CheckPowerupsCollectedCount ());
+		StartCoroutine (CheckAbilityActivationsCount ());
 	}
 
 	IEnumerator CheckScoreCount ()
@@ -80,6 +98,75 @@ public class AchievementManager : MonoBehaviour
 		}
 
 		StartCoroutine (CheckComboCount ());
+	}
+
+	IEnumerator CheckBlocksDestroyedCount ()
+	{
+		yield return new WaitForSecondsRealtime (1);
+
+		if (gameControllerScript.BlocksDestroyed >= BlocksDestroyedToBonusRound) 
+		{
+			gameControllerScript.doBonusRound = true;
+			TimesBlocksDestroyedToBonus++;
+
+			TriggerAchievementNotification (
+				"Achievement",
+				BonusBlocksDestroyedTexture,
+				"BLOCK DESTROYER",
+				("Destroyed " + BlocksDestroyedToBonusRound + " or more blocks").ToString (),
+				TimesBlocksDestroyedToBonus
+			);
+
+			BlocksDestroyedToBonusRound *= BlocksDestroyedToBonusRoundMultiplier;
+		}
+
+		StartCoroutine (CheckBlocksDestroyedCount ());
+	}
+
+	IEnumerator CheckPowerupsCollectedCount ()
+	{
+		yield return new WaitForSecondsRealtime (1);
+
+		if (gameControllerScript.totalPowerupsCollected >= PowerupsCollectedToBonusRound) 
+		{
+			gameControllerScript.doBonusRound = true;
+			TimesPowerupsCollectedToBonus++;
+
+			TriggerAchievementNotification (
+				"Achievement",
+				BonusPowerupsCollectedTexture,
+				"POWERUP COLLECTOR",
+				("Collected " + PowerupsCollectedToBonusRound + " or more powerups").ToString (),
+				TimesPowerupsCollectedToBonus
+			);
+
+			PowerupsCollectedToBonusRound *= PowerupsCollectedToBonusRoundMultiplier;
+		}
+
+		StartCoroutine (CheckPowerupsCollectedCount ());
+	}
+
+	IEnumerator CheckAbilityActivationsCount ()
+	{
+		yield return new WaitForSecondsRealtime (1);
+
+		if (playerControllerScript.AbilityActivations >= AbilitiesActivatedToBonusRound) 
+		{
+			gameControllerScript.doBonusRound = true;
+			TimesAbilitiesActivatedToBonus++;
+
+			TriggerAchievementNotification (
+				"Achievement",
+				BonusAbilityActivationsTexture,
+				"ABILITY ACTIVATOR",
+				("Activated your ability " + AbilitiesActivatedToBonusRound + " or more times").ToString (),
+				TimesAbilitiesActivatedToBonus
+			);
+
+			AbilitiesActivatedToBonusRound *= AbilitiesActivatedToBonusRoundMultiplier;
+		}
+
+		StartCoroutine (CheckAbilityActivationsCount ());
 	}
 
 	public void TriggerAchievementNotification 
