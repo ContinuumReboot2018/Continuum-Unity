@@ -46,7 +46,8 @@ public class LeaderboardDisplay : MonoBehaviour
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		menuLeaderboardId = saveAndLoadScript.MissionId;
 		UpdateLeaderboardMissionText_ ();
-		UpdateLeaderboard ();
+		Invoke ("UpdateLeaderboard", 2);
+		//UpdateLeaderboard ();
 		StartCoroutine (RefreshLeaderboard ());
 		eventData = new PointerEventData (EventSystem.current);
 		LeaderboardActions = new PlayerActions ();
