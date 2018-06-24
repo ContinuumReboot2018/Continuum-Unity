@@ -1864,10 +1864,10 @@ public class PlayerController : MonoBehaviour
 
 		// LIVES UI
 		// When the player is close to the lives text.
-		// Vertical position.
+		// Vertical position in range.
 		if (PlayerRb.position.y > LivesCheckPlayerPosY.y && LivesAnim.gameObject.activeInHierarchy == true && isInCooldownMode == false) 
 		{
-			// Horizontal position too far.
+			// Horizontal position in range.
 			if (PlayerRb.position.x < LivesCheckPlayerPosX.x) 
 			{
 				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeOut") == false && isHidingLivesUI == false
@@ -1876,10 +1876,21 @@ public class PlayerController : MonoBehaviour
 					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.GetComponent<Animator> ().enabled = true;
 					LivesAnim.Play ("LivesFadeOut");
 					isHidingLivesUI = true;
+
+					for (int i = 0; i < gameControllerScript.LifeImages.Length; i++) 
+					{
+						if (gameControllerScript.LifeImages [i].gameObject.activeInHierarchy == true) 
+						{
+							if (gameControllerScript.LifeImages [i].GetComponent<Animator> ().GetBool ("Hidden") == false) 
+							{
+								gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", true);
+							}
+						}
+					}
 				}
 			}
 
-			// Horizontal position in range.
+			// Horizontal position outside range.
 			if (PlayerRb.position.x >= LivesCheckPlayerPosX.x) 
 			{
 				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeIn") == false && isHidingLivesUI == true
@@ -1889,6 +1900,17 @@ public class PlayerController : MonoBehaviour
 					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.GetComponent<Animator> ().enabled = false;
 					LivesAnim.Play ("LivesFadeIn");
 					isHidingLivesUI = false;
+
+					for (int i = 0; i < gameControllerScript.LifeImages.Length; i++) 
+					{
+						if (gameControllerScript.LifeImages [i].gameObject.activeInHierarchy == true) 
+						{
+							if (gameControllerScript.LifeImages [i].GetComponent<Animator> ().GetBool ("Hidden") == true) 
+							{
+								gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -1902,6 +1924,17 @@ public class PlayerController : MonoBehaviour
 				LivesAnim.enabled = true;
 				LivesAnim.Play ("LivesFadeIn");
 				isHidingLivesUI = false;
+
+				for (int i = 0; i < gameControllerScript.LifeImages.Length; i++) 
+				{
+					if (gameControllerScript.LifeImages [i].gameObject.activeInHierarchy == true) 
+					{
+						if (gameControllerScript.LifeImages [i].GetComponent<Animator> ().GetBool ("Hidden") == true) 
+						{
+							gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
+						}
+					}
+				}
 			}
 		}
 
