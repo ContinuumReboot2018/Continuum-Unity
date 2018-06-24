@@ -478,6 +478,7 @@ public class PlayerController : MonoBehaviour
 	public bool isHidingScoreUI;
 	[Tooltip("Score fading in/out animator.")]
 	public Animator ScoreAnim;
+	public Animator PointsThisComboAnim;
 	[Tooltip("Where to check for the player position range.")]
 	public Vector3 ScoreCheckPlayerPos;
 	[Space (10)]
@@ -1838,6 +1839,7 @@ public class PlayerController : MonoBehaviour
 				{
 					ScoreAnim.Play ("ScoreFadeOut");
 					isHidingScoreUI = true;
+					PointsThisComboAnim.SetBool ("Hidden", true);
 				}
 			}
 
@@ -1848,6 +1850,7 @@ public class PlayerController : MonoBehaviour
 				{
 					ScoreAnim.Play ("ScoreFadeIn");
 					isHidingScoreUI = false;
+					PointsThisComboAnim.SetBool ("Hidden", false);
 				}
 			}
 		}
@@ -1859,6 +1862,7 @@ public class PlayerController : MonoBehaviour
 			{
 				ScoreAnim.Play ("ScoreFadeIn");
 				isHidingScoreUI = false;
+				PointsThisComboAnim.SetBool ("Hidden", false);
 			}
 		}
 
