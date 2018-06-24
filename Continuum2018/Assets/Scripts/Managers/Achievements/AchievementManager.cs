@@ -14,6 +14,7 @@ public class AchievementManager : MonoBehaviour
 	public RawImage AchievementImage;
 	public TextMeshProUGUI AchievementTitle;
 	public TextMeshProUGUI AchievementText;
+	public AudioSource AchievementSound;
 
 	[Header ("Achievement assets")]
 	public Texture BonusScoreTexture;
@@ -24,7 +25,7 @@ public class AchievementManager : MonoBehaviour
 	public Texture BonusWaveReachedTexture;
 	public Texture BonusNonShootingTimeTexture;
 	public Texture BonusRiskDistanceTimeTexture;
-	public AudioSource AchievementSound;
+	public Texture BonusPowerupsInUseTexture;
 
 	[Header ("Achievement requirements")]
 	public int ScoreToBonusRound = 2000;
@@ -58,10 +59,19 @@ public class AchievementManager : MonoBehaviour
 	public int NextRiskDistanceTimeToBonus = 10;
 	public int NextRiskDistanceTimeToBonusMultiplier = 2;
 	private int TimesRiskDistanceToBonus;
+	[Space (10)]
+	public int PowerupsInUseToBonus = 4;
+	public int PowerupsInUseIncreaseAmount = 2;
+	private int TimesReachedPowerupsInUseToBonus;
 
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
+		StartAchievementChecking ();
+	}
+
+	void StartAchievementChecking ()
+	{
 		StartCoroutine (CheckScoreCount ());
 		StartCoroutine (CheckComboCount ());
 		StartCoroutine (CheckBlocksDestroyedCount ());
@@ -70,6 +80,7 @@ public class AchievementManager : MonoBehaviour
 		StartCoroutine (CheckWaveToBonusRoundCount ());
 		StartCoroutine (CheckNonShootingTimeCount ());
 		StartCoroutine (CheckRiskDistanceTimeCount ());
+		StartCoroutine (CheckPowerupsInUseCount ());
 	}
 
 	IEnumerator CheckScoreCount ()
@@ -254,6 +265,29 @@ public class AchievementManager : MonoBehaviour
 		}
 
 		StartCoroutine (CheckRiskDistanceTimeCount ());
+	}
+
+	IEnumerator CheckPowerupsInUseCount ()
+	{
+		yield return new WaitForSecondsRealtime (1);
+
+		if (playerControllerScript.powerupsInUse >= PowerupsInUseToBonus) 
+		{
+			gameControllerScript.doBonusRound = true;
+			TimesReachedPowerupsInUseToBonus++;
+
+			TriggerAchievementNotification (
+				"Achievement",
+				BonusPowerupsInUseTexture,
+				"FEEL THE POWER",
+				("Collected " + PowerupsInUseToBonus + " powerups before timer runs out").ToString (),
+				TimesReachedPowerupsInUseToBonus
+			);
+
+			PowerupsInUseToBonus += PowerupsInUseIncreaseAmount;
+		}
+
+		StartCoroutine (CheckPowerupsInUseCount ());
 	}
 
 	public void TriggerAchievementNotification 
