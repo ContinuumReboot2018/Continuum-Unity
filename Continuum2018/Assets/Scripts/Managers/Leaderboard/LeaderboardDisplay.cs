@@ -46,9 +46,7 @@ public class LeaderboardDisplay : MonoBehaviour
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		menuLeaderboardId = saveAndLoadScript.MissionId;
 		UpdateLeaderboardMissionText_ ();
-		Invoke ("UpdateLeaderboard", 2);
-		//UpdateLeaderboard ();
-		StartCoroutine (RefreshLeaderboard ());
+		UpdateLeaderboard ();
 		eventData = new PointerEventData (EventSystem.current);
 		LeaderboardActions = new PlayerActions ();
 		AssignActionControls ();
@@ -57,9 +55,7 @@ public class LeaderboardDisplay : MonoBehaviour
 	IEnumerator RefreshLeaderboard ()
 	{
 		yield return new WaitForSecondsRealtime (1);
-		//yield return new WaitForSecondsRealtime (0.02f);
 		UpdateLeaderboard ();
-		//StartCoroutine (RefreshLeaderboard ());
 	}
 
 	void Update ()

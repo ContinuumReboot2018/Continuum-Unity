@@ -34,7 +34,7 @@ public class TutorialManager : MonoBehaviour
 		InfoObject.SetActive (false);
 
 		TutorialPhase = tutorialPhase.Movement; // Set to first tutorial sequence.
-		StartCoroutine (DeactivateMovementDelay ());
+		//StartCoroutine (DeactivateMovementDelay ());
 	}
 
 	void Update ()

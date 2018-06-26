@@ -506,8 +506,8 @@ public class SaveAndLoadScript : MonoBehaviour
 
 					SaveSettingsData ();
 
-					Debug.Log ("Saved settings data to " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+					//Debug.Log ("Created new settings data at " +
+					//Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 				}
 			#endif
 
@@ -537,8 +537,8 @@ public class SaveAndLoadScript : MonoBehaviour
 
 					SaveSettingsData ();
 
-					Debug.Log ("Saved settings data to " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+					//Debug.Log ("Created new settings data at " +
+					//Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
 				}
 			#endif
 		}
