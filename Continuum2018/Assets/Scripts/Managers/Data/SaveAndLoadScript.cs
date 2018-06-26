@@ -75,10 +75,6 @@ public class SaveAndLoadScript : MonoBehaviour
 				cam = settingsManagerScript.cam;
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 				fastMobileBloomScript = cam.GetComponent<FastMobileBloom> ();
-
-				CheckPlayerDataFile ();
-
-				CheckUsername ();
 			}
 		}
 
@@ -296,8 +292,9 @@ public class SaveAndLoadScript : MonoBehaviour
 			}
 
 			else
+			
 			{
-				CheckPlayerDataFile ();
+				SavePlayerData ();
 			}
 		}
 		#endif
@@ -323,48 +320,10 @@ public class SaveAndLoadScript : MonoBehaviour
 			}
 
 			else
+			
 			{
-				CheckPlayerDataFile ();
+				SavePlayerData ();
 			}
-		}
-		#endif
-	}
-
-	void CheckPlayerDataFile ()
-	{
-		#if !UNITY_EDITOR
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false)
-		{
-			Debug.LogWarning ("Unable to load from " +
-				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
-
-			foreach (LeaderboardAsset leader in Leaderboards)
-			{
-				leader.leaderboard = DefaultLeaderboard;
-			}
-
-			SavePlayerData ();
-
-			Debug.Log ("Saved new player data to " +
-				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
-		}
-		#endif
-
-		#if UNITY_EDITOR
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == false)
-		{
-			Debug.LogWarning ("Unable to load from " +
-			Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
-
-			foreach (LeaderboardAsset leader in Leaderboards)
-			{
-				leader.leaderboard = DefaultLeaderboard;
-			}
-
-			SavePlayerData ();
-
-			Debug.Log ("Saved new player data to " +
-			Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
 		}
 		#endif
 	}
