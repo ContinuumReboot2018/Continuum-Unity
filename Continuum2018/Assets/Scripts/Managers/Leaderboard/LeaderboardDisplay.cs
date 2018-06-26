@@ -373,11 +373,11 @@ public class LeaderboardDisplay : MonoBehaviour
 	{
 		Debug.Log ("Updating leaderboard.");
 
-		for (int i = 0; i < saveAndLoadScript.Leaderboards[saveAndLoadScript.MissionId].leaderboard.Count; i++)
+		for (int i = 0; i < saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard.Count; i++)
 		{
-			Names  [i].text = saveAndLoadScript.Leaderboards[saveAndLoadScript.MissionId].leaderboard [i].name.ToString ();
-			Scores [i].text = saveAndLoadScript.Leaderboards[saveAndLoadScript.MissionId].leaderboard [i].score.ToString ("N0");
-			Waves  [i].text = saveAndLoadScript.Leaderboards[saveAndLoadScript.MissionId].leaderboard [i].wave.ToString ();
+			Names  [i].text = saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard [i].name.ToString ();
+			Scores [i].text = saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard [i].score.ToString ("N0");
+			Waves  [i].text = saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard [i].wave.ToString ();
 		}
 	}
 
