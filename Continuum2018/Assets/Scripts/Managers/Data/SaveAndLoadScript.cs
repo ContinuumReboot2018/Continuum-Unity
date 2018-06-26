@@ -294,6 +294,11 @@ public class SaveAndLoadScript : MonoBehaviour
 			else
 			
 			{
+				foreach (LeaderboardAsset leader in Leaderboards)
+				{
+					leader.leaderboard = DefaultLeaderboard;
+				}
+
 				SavePlayerData ();
 			}
 		}
@@ -322,6 +327,11 @@ public class SaveAndLoadScript : MonoBehaviour
 			else
 			
 			{
+				foreach (LeaderboardAsset leader in Leaderboards)
+				{
+					leader.leaderboard = DefaultLeaderboard;
+				}
+
 				SavePlayerData ();
 			}
 		}
