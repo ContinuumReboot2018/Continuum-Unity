@@ -44,12 +44,17 @@ public class LeaderboardDisplay : MonoBehaviour
 	void Start ()
 	{
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		menuLeaderboardId = saveAndLoadScript.MissionId;
+		CheckMenuLeaderboardId ();
 		UpdateLeaderboardMissionText_ ();
-		UpdateLeaderboard ();
+		//UpdateLeaderboard ();
 		eventData = new PointerEventData (EventSystem.current);
 		LeaderboardActions = new PlayerActions ();
 		AssignActionControls ();
+	}
+
+	void CheckMenuLeaderboardId ()
+	{
+		menuLeaderboardId = saveAndLoadScript.MissionId;
 	}
 
 	IEnumerator RefreshLeaderboard ()
@@ -65,7 +70,7 @@ public class LeaderboardDisplay : MonoBehaviour
 
 	public void NextLeaderboardId ()
 	{
-		if (menuLeaderboardId < 7) 
+		if (menuLeaderboardId < 6) 
 		{
 			menuLeaderboardId += 1;
 
@@ -99,7 +104,7 @@ public class LeaderboardDisplay : MonoBehaviour
 		else 
 
 		{
-			menuLeaderboardId = 7;
+			menuLeaderboardId = 6;
 		}
 	}
 
@@ -108,6 +113,7 @@ public class LeaderboardDisplay : MonoBehaviour
 		// Only perform tasks if this UI is active.
 		if (UI.activeInHierarchy == true) 
 		{
+			/*
 			// Player presses up on the left stick or D-Pad up.
 			if (LeaderboardActions.MoveUp.Value > 0.75f) 
 			{
@@ -131,6 +137,7 @@ public class LeaderboardDisplay : MonoBehaviour
 					nextScroll = Time.unscaledTime + scrollSpeed;
 				}
 			}
+			*/
 
 			// Player presses left on the left stick or D-Pad left.
 			if (LeaderboardActions.MoveLeft.Value > 0.75f)
@@ -324,8 +331,7 @@ public class LeaderboardDisplay : MonoBehaviour
 			Scores [i].text = saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard [i].score.ToString ("N0");
 			Waves  [i].text = saveAndLoadScript.Leaderboards[menuLeaderboardId].leaderboard [i].wave.ToString ();
 		}
-			
-		//UpdateLeaderboard ();
+	
 		return;
 	}
 
@@ -348,22 +354,22 @@ public class LeaderboardDisplay : MonoBehaviour
 		case 0:
 			MissionText.text = "ARCADE";
 			break;
-		case 2:
+		case 1:
 			MissionText.text = "BOSS RUSH";
 			break;
-		case 3:
+		case 2:
 			MissionText.text = "LUCKY";
 			break;
-		case 4:
+		case 3:
 			MissionText.text = "FULLY LOADED";
 			break;
-		case 5:
+		case 4:
 			MissionText.text = "SCAVENGER";
 			break;
-		case 6:
+		case 5:
 			MissionText.text = "HELL";
 			break;
-		case 7:
+		case 6:
 			MissionText.text = "FAST TRACK";
 			break;
 		}

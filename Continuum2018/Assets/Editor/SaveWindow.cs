@@ -71,6 +71,13 @@ public class SaveWindow : Editor
 			savescript.DeleteSettingsDataMain ();
 		}
 
+		GUI.backgroundColor = Color.grey;
+
+		if (GUILayout.Button ("Reset Leaderboards", style)) 
+		{
+			savescript.ResetAllLeaderboards ();
+		}
+
 		GUI.backgroundColor = Color.white;
 		DrawDefaultInspector ();
 	}

@@ -16,20 +16,25 @@ public class SaveAndLoadScript : MonoBehaviour
 	public SceneLoader sceneLoaderScript;
 	public PlayerController playerControllerScript_P1;
 	public GameController gameControllerScript;
-
+	[Space (10)]
 	public bool AllowLoading = true;
 	public bool AllowSaving = true;
-
-	public List<LeaderboardEntry> DefaultLeaderboard;
 
 	// Live variables.
 	[Header ("Player Data")]
 	public string Username = "default";
 	public int ExperiencePoints;
+	[Space (10)]
+	public List<LeaderboardEntry> DefaultLeaderboard_Arcade;
+	public List<LeaderboardEntry> DefaultLeaderboard_BossRush;
+	public List<LeaderboardEntry> DefaultLeaderboard_Lucky;
+	public List<LeaderboardEntry> DefaultLeaderboard_FullyLoaded;
+	public List<LeaderboardEntry> DefaultLeaderboard_Scavenger;
+	public List<LeaderboardEntry> DefaultLeaderboard_Hell;
+	public List<LeaderboardEntry> DefaultLeaderboard_fastTrack;
 
 	[Header ("Leaderboards")]
 	public LeaderboardAsset[] Leaderboards;
-
 	[Space (10)]
 	public int SelectedAbility;
 	public int SelectedSkin;
@@ -40,21 +45,17 @@ public class SaveAndLoadScript : MonoBehaviour
 	public PostProcessingBehaviour VisualSettingsComponent;
 	public Camera cam;
 	public FastMobileBloom fastMobileBloomScript;
-
 	[Space (10)]
 	public int QualitySettingsIndex;
 	public bool useHdr;
 	public bool sunShaftsEnabled;
-
+	[Space (10)]
 	public TargetFPS targetFramerateScript;
 	public int targetframerate;
-
 	public FPSCounter fpsCounterScript;
 	public float averageFpsTimer;
-
 	[Space (10)]
 	public float ParticleEmissionMultiplier = 1;
-
 	[Space (10)]
 	public float MasterVolume;
 	public float SoundtrackVolume;
@@ -267,6 +268,17 @@ public class SaveAndLoadScript : MonoBehaviour
 			Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 		}
 	}
+
+	public void ResetAllLeaderboards ()
+	{
+		Leaderboards [0].leaderboard = DefaultLeaderboard_Arcade;
+		Leaderboards [1].leaderboard = DefaultLeaderboard_BossRush;
+		Leaderboards [2].leaderboard = DefaultLeaderboard_Lucky;
+		Leaderboards [3].leaderboard = DefaultLeaderboard_FullyLoaded;
+		Leaderboards [4].leaderboard = DefaultLeaderboard_Scavenger;
+		Leaderboards [5].leaderboard = DefaultLeaderboard_Hell;
+		Leaderboards [6].leaderboard = DefaultLeaderboard_fastTrack;
+	}
 		
 	// Load PlayerData main.
 	public void LoadPlayerData ()
@@ -291,7 +303,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 			}
 
-			else
+			/*else
 			
 			{
 				foreach (LeaderboardAsset leader in Leaderboards)
@@ -300,7 +312,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				}
 
 				SavePlayerData ();
-			}
+			}*/
 		}
 		#endif
 
@@ -324,7 +336,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
 			}
 
-			else
+			/*else
 			
 			{
 				foreach (LeaderboardAsset leader in Leaderboards)
@@ -333,7 +345,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				}
 
 				SavePlayerData ();
-			}
+			}*/
 		}
 		#endif
 	}
@@ -499,7 +511,7 @@ public class SaveAndLoadScript : MonoBehaviour
 					StoreSettingsDataInGame ();
 				}
 
-				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == false) 
+				/*if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == false) 
 				{
 					Debug.LogWarning ("Unable to load from " +
 					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
@@ -508,7 +520,8 @@ public class SaveAndLoadScript : MonoBehaviour
 
 					//Debug.Log ("Created new settings data at " +
 					//Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
-				}
+				}*/
+
 			#endif
 
 			#if UNITY_EDITOR
@@ -530,7 +543,7 @@ public class SaveAndLoadScript : MonoBehaviour
 					StoreSettingsDataInGame ();
 				}
 
-				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == false) 
+				/*if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == false) 
 				{
 					Debug.LogWarning ("Unable to load from " +
 					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
@@ -539,7 +552,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 					//Debug.Log ("Created new settings data at " +
 					//Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
-				}
+				}*/
 			#endif
 		}
 	}
@@ -635,7 +648,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		public string Username;
 		public int ExperiencePoints;
-
 		public int SelectedAbility;
 		public int SelectedSkin;
 		public int MissionId;
@@ -647,12 +659,9 @@ public class SaveAndLoadScript : MonoBehaviour
 		public int QualitySettingsIndex;
 		public bool useHdr;
 		public bool sunShaftsEnabled;
-
 		[Range (0, 2)]
 		public float ParticleEmissionMultiplier = 1;
-
 		public int targetframerate;
-
 		public float MasterVolume;
 		public float SoundtrackVolume;
 		public float EffectsVolume;
