@@ -21,6 +21,8 @@ public class CameraShake : MonoBehaviour
 	public bool useSmoothing;
 	public float smoothAmount = 10;
 
+	public bool shakeRotation = true;
+
 	[Header ("Synchronization")]
 	public bool SyncWithShaker; // Should this shaker sync with another shaker?
 	public CameraShake SyncShaker; // Shaker to synchronize with.
@@ -49,6 +51,15 @@ public class CameraShake : MonoBehaviour
 			if (useSmoothing == false) 
 			{
 				camTransform.localPosition = originalPos + (Random.insideUnitSphere * shakeAmount) + Offset;
+
+				if (shakeRotation == true) 
+				{
+					camTransform.transform.eulerAngles = new Vector3 (
+						Random.Range (0.25f * shakeAmount, 0.25f * shakeAmount) + Offset.x,
+						Random.Range (0.25f * shakeAmount, 0.25f * shakeAmount) + Offset.y, 
+						Random.Range (-1f * shakeAmount, 1f * shakeAmount) + Offset.z
+					);
+				}
 			}
 
 			// Use smoothing, lerp to new points.
@@ -59,6 +70,15 @@ public class CameraShake : MonoBehaviour
 					originalPos + (Random.insideUnitSphere * shakeAmount) + Offset, 
 					smoothAmount * Time.smoothDeltaTime
 				);
+
+				if (shakeRotation == true) 
+				{
+					camTransform.transform.eulerAngles = new Vector3 (
+						Random.Range (0.25f * shakeAmount, 0.25f * shakeAmount) + Offset.x,
+						Random.Range (0.25f * shakeAmount, 0.25f * shakeAmount) + Offset.y, 
+						Random.Range (-1f * shakeAmount, 1f * shakeAmount) + Offset.z
+					);
+				}
 			}
 		
 			shakeTimeRemaining -= Time.deltaTime * decreaseFactor; // Decrease shake time remaining.
@@ -70,6 +90,7 @@ public class CameraShake : MonoBehaviour
 			Priority = 0; // Reset priority.
 			shakeTimeRemaining = 0f; // Reset shake time.
 			camTransform.localPosition = originalPos + Offset; // Return to original position with offset.
+			camTransform.localRotation = Quaternion.identity;
 		}
 
 		// Syncing with another shaker.

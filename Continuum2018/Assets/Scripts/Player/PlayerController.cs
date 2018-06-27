@@ -2099,6 +2099,7 @@ public class PlayerController : MonoBehaviour
 
 		// Resets powerup time remaining.
 		gameControllerScript.PowerupTimeRemaining = 0;
+		powerupsInUse = 0;
 
 		// Clears powerup UI.
 		CheckPowerupImageUI ();

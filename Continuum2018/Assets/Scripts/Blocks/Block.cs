@@ -500,6 +500,9 @@ public class Block : MonoBehaviour
 					{
 						HitPoints--;
 
+						GetTotalPointValue (); // Get total point calculation.
+						CreateExplosion (); // Create the explosion.
+
 						if (other.GetComponent<Bullet> () != null)
 						{
 							if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true)
@@ -511,9 +514,6 @@ public class Block : MonoBehaviour
 								}
 							}
 						}
-
-						GetTotalPointValue (); // Get total point calculation.
-						CreateExplosion (); // Create the explosion.
 					}
 
 					if (HitPoints <= 0) 
@@ -527,7 +527,7 @@ public class Block : MonoBehaviour
 						{
 							if (other.GetComponent<Bullet> ().allowBulletColDeactivate == true) 
 							{
-								if (other.GetComponentInParent<Bullet> ().BulletTypeName != "Helix") 
+								if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
 								{
 									Destroy (other.gameObject);
 									Destroy (gameObject); // Destroy this object.

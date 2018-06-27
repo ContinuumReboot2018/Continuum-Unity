@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 4f211168a839e8646b0e17a4e8c9fbf4
+timeCreated: 1530082802
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Short Xurkit
+  fontNames:
+  - Short Xurkit
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

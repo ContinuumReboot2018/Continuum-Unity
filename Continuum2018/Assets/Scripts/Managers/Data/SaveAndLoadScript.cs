@@ -83,6 +83,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 				cam = settingsManagerScript.cam;
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
+				VisualSettingsComponent.enabled = true;
 				fastMobileBloomScript = cam.GetComponent<FastMobileBloom> ();
 			}
 		}

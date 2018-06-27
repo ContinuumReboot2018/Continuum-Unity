@@ -356,8 +356,9 @@ public class TimescaleController : MonoBehaviour
 		TargetTimeScale = 1f;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 		TargetTimeScale = 0;
-		gameOverControllerScript.enabled = true;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
+		gameOverControllerScript.transform.parent.gameObject.SetActive (true);
+		gameOverControllerScript.enabled = true;
 		CamSimpleFollow.enabled = false;
 		gameOverControllerScript.CheckLeaderboard ();
 

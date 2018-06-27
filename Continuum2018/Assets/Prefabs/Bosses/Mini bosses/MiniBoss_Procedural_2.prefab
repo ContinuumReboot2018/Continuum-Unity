@@ -495,6 +495,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 9, z: 0}
   FollowPosSmoothTime: {x: 0.5, y: 1, z: 0}
+  XPosTimeUnscaled: 1
+  YPosTimeUnscaled: 1
+  ZPosTimeUnscaled: 1
   PosBoundsX: {x: -10, y: 10}
   PosBoundsY: {x: 0, y: 50}
   PosBoundsZ: {x: 0, y: 0}
@@ -506,6 +509,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  XRotTimeUnscaled: 1
+  YRotTimeUnscaled: 1
+  ZRotTimeUnscaled: 1
 --- !u!114 &114539512354974962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -616,6 +622,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 1000, y: 1000, z: 0}
+  XPosTimeUnscaled: 1
+  YPosTimeUnscaled: 1
+  ZPosTimeUnscaled: 1
   PosBoundsX: {x: -20, y: 20}
   PosBoundsY: {x: 0, y: 25}
   PosBoundsZ: {x: 0, y: 0}
@@ -627,6 +636,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  XRotTimeUnscaled: 1
+  YRotTimeUnscaled: 1
+  ZRotTimeUnscaled: 1
 --- !u!114 &114630239573090416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -654,7 +666,7 @@ MonoBehaviour:
   ParticleHitPointAmount: 0.1
   SmallExplosion: {fileID: 1107170480724288, guid: 9782432a7be92294dba1767b60c80777,
     type: 2}
-  LargeExplosion: {fileID: 1107170480724288, guid: e2323cf201c23094ea1c27a36bcbcc9c,
+  LargeExplosion: {fileID: 1467768591832020, guid: 2a24253e2843f394fb89986c88b5d148,
     type: 2}
   FollowPlayerPos: {fileID: 0}
   PlayerPos: {fileID: 0}

@@ -30,8 +30,13 @@ public class MenuManager : MonoBehaviour
 	public PointerEventData pointerEventData;
 	public static PlayerActions menuActions;
 
-	void Awake ()
+	[Header ("Menu Buttons")]
+	public MenuButtons menuButtons;
+
+	void Start ()
 	{
+		nextScroll = Time.time + scrollSpeed;
+
 		// Get input data.
 		if (menuActions == null) 
 		{
@@ -232,6 +237,12 @@ public class MenuManager : MonoBehaviour
 		}
 	}
 
+	public void NextMenuDefault ()
+	{
+		MenuOnEnter (0);
+		SetButtonIndex (0);
+	}
+
 	public void MenuOnExit (int index)
 	{
 		// Check if there is an EventTrigger component present.
@@ -297,9 +308,7 @@ public class MenuManager : MonoBehaviour
 		menuActions.Pause.AddDefaultBinding (Key.Return);
 		menuActions.Pause.AddDefaultBinding (InputControlType.Command);
 	}
-
-	[Header ("Menu Buttons")]
-	public MenuButtons menuButtons;
+		
 	[System.Serializable]
 	public class MenuButtons
 	{
