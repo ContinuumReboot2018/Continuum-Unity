@@ -70,7 +70,7 @@ public class LeaderboardDisplay : MonoBehaviour
 
 	public void NextLeaderboardId ()
 	{
-		if (menuLeaderboardId < 6) 
+		if (menuLeaderboardId < 7) 
 		{
 			menuLeaderboardId += 1;
 
@@ -104,7 +104,7 @@ public class LeaderboardDisplay : MonoBehaviour
 		else 
 
 		{
-			menuLeaderboardId = 6;
+			menuLeaderboardId = 7;
 		}
 	}
 
@@ -151,7 +151,7 @@ public class LeaderboardDisplay : MonoBehaviour
 
 					if (useDisplayMode == false) 
 					{
-						LeaderboardModeOnClick (0);
+						LeaderboardModeOnClick (1);
 					}
 
 					// Reset scroll speed.
@@ -171,7 +171,7 @@ public class LeaderboardDisplay : MonoBehaviour
 
 					if (useDisplayMode == false) 
 					{
-						LeaderboardModeOnClick (1);
+						LeaderboardModeOnClick (0);
 					}
 
 					// Reset scroll speed.
@@ -418,21 +418,24 @@ public class LeaderboardDisplay : MonoBehaviour
 			MissionText.text = "ARCADE";
 			break;
 		case 1:
-			MissionText.text = "BOSS RUSH";
+			//MissionText.text = "";
 			break;
 		case 2:
-			MissionText.text = "LUCKY";
+			MissionText.text = "BOSS RUSH";
 			break;
 		case 3:
-			MissionText.text = "FULLY LOADED";
+			MissionText.text = "LUCKY";
 			break;
 		case 4:
-			MissionText.text = "SCAVENGER";
+			MissionText.text = "FULLY LOADED";
 			break;
 		case 5:
-			MissionText.text = "HELL";
+			MissionText.text = "SCAVENGER";
 			break;
 		case 6:
+			MissionText.text = "HELL";
+			break;
+		case 7:
 			MissionText.text = "FAST TRACK";
 			break;
 		}

@@ -35,8 +35,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	public List<LeaderboardEntry> DefaultLeaderboard_FastTrack;
 
 	[Header ("Leaderboards")]
-	//public LeaderboardAsset[] Leaderboards;
-
 	public List<LeaderboardEntry> Leaderboard_Arcade;
 	public List<LeaderboardEntry> Leaderboard_BossRush;
 	public List<LeaderboardEntry> Leaderboard_Lucky;
@@ -323,16 +321,13 @@ public class SaveAndLoadScript : MonoBehaviour
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 			}
 
-			/*else
+			else
 			
 			{
-				foreach (LeaderboardAsset leader in Leaderboards)
-				{
-					leader.leaderboard = DefaultLeaderboard;
-				}
+				ResetAllLeaderboards ();
 
 				SavePlayerData ();
-			}*/
+			}
 		}
 		#endif
 
@@ -356,16 +351,13 @@ public class SaveAndLoadScript : MonoBehaviour
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
 			}
 
-			/*else
+			else
 			
 			{
-				foreach (LeaderboardAsset leader in Leaderboards)
-				{
-					leader.leaderboard = DefaultLeaderboard;
-				}
+				ResetAllLeaderboards ();
 
 				SavePlayerData ();
-			}*/
+			}
 		}
 		#endif
 	}

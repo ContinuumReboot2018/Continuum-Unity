@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-//[CustomEditor(typeof(SaveAndLoadScript))]
 public class SaveWindow : EditorWindow
 {
 	static SaveAndLoadScript savescript;
@@ -22,8 +21,8 @@ public class SaveWindow : EditorWindow
 
 	void OnGUI ()
 	{
-		//savescript = new SaveAndLoadScript ();
 		savescript = FindObjectOfType<SaveAndLoadScript> ();
+		//SaveAndLoadScript savescript = (SaveAndLoadScript)FindObjectOfType (typeof(SaveAndLoadScript));
 
 		GUILayout.Label ("Add/Remove your save files here.", EditorStyles.boldLabel);
 
