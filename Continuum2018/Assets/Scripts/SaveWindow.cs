@@ -7,9 +7,17 @@ public class SaveWindow : EditorWindow
 	static SaveAndLoadScript savescript;
 
 	[MenuItem ("Window/Save Editor")]
-	public static void ShowWindow ()
+	public static void ShowSaveEditorWindow ()
 	{
 		GetWindow<SaveWindow> ("Save Editor");
+	}
+
+	[MenuItem ("Window/Open save folder location")]
+	public static void ShowSaveLocationWindow ()
+	{
+		string savefolder = Application.persistentDataPath + "/";
+		Application.OpenURL (savefolder);
+		Debug.Log ("Opened save folder at " + savefolder);
 	}
 
 	void OnGUI ()
@@ -92,12 +100,6 @@ public class SaveWindow : EditorWindow
 			savescript.ResetAllLeaderboards ();
 		}
 
-		if (GUILayout.Button ("Open Save folder location", style)) 
-		{
-			savescript.OpenSaveLocation ();
-		}
-
 		GUI.backgroundColor = Color.white;
 	}
-
 }

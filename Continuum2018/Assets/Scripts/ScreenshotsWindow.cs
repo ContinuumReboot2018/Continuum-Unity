@@ -7,6 +7,8 @@ public class ScreenshotsWindow : EditorWindow
 	public static void ShowWindow ()
 	{
 		//GetWindow<ScreenshotsWindow> ("Screenshots Viewer");
-		Application.OpenURL (Application.persistentDataPath + "/" + "Screenshots");
+		string screenshotsfolder = Application.persistentDataPath + "/" + "Screenshots";
+		Application.OpenURL (screenshotsfolder);
+		Debug.Log ("Opened Screenshots folder at " + screenshotsfolder);
 	}
 }

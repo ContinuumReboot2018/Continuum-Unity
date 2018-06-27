@@ -299,16 +299,6 @@ public class SaveAndLoadScript : MonoBehaviour
 
 		UnityEngine.Debug.Log ("Leaderboards have been reset.");
 	}
-
-	public void OpenSaveLocation ()
-	{
-		string savePath = Application.persistentDataPath;
-	
-		savePath.Replace (@"/", @"\"); // Replace front slashes.
-		Application.OpenURL ("file://" + savePath);
-
-		UnityEngine.Debug.Log ("Opened explorer.exe, " + savePath);
-	}
 		
 	// Load PlayerData main.
 	public void LoadPlayerData ()
