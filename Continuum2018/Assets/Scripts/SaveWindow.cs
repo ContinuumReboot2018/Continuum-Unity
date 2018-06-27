@@ -1,16 +1,27 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(SaveAndLoadScript))]
-public class SaveWindow : Editor
+//[CustomEditor(typeof(SaveAndLoadScript))]
+public class SaveWindow : EditorWindow
 {
-	public override void OnInspectorGUI ()
+	static SaveAndLoadScript savescript;
+
+	[MenuItem ("Window/Save Editor")]
+	public static void ShowWindow ()
 	{
-		SaveAndLoadScript savescript = (SaveAndLoadScript)target;
+		GetWindow<SaveWindow> ("Save Editor");
+	}
+
+	void OnGUI ()
+	{
+		//savescript = new SaveAndLoadScript ();
+		savescript = FindObjectOfType<SaveAndLoadScript> ();
+
+		GUILayout.Label ("Add/Remove your save files here.", EditorStyles.boldLabel);
 
 		var style = new GUIStyle (GUI.skin.button);
 		style.normal.textColor = Color.black;
-		style.fixedWidth = 200;
+		style.stretchWidth = true;
 		style.alignment = TextAnchor.MiddleCenter;
 
 		GUI.backgroundColor = new Color (0.75f, 0.75f, 1, 1);
@@ -32,9 +43,12 @@ public class SaveWindow : Editor
 			savescript.SaveSettingsData ();
 		}
 
-		if (GUILayout.Button ("Load Settings Data", style)) 
+		if (Application.isPlaying == true) 
 		{
-			savescript.LoadSettingsData ();
+			if (GUILayout.Button ("Load Settings Data", style)) 
+			{
+				savescript.LoadSettingsData ();
+			}
 		}
 
 		GUI.backgroundColor = new Color (0.5f, 1, 0.5f, 1);
@@ -71,14 +85,19 @@ public class SaveWindow : Editor
 			savescript.DeleteSettingsDataMain ();
 		}
 
-		GUI.backgroundColor = Color.grey;
+		GUI.backgroundColor = new Color (0.75f, 0.75f, 0.75f, 1);
 
 		if (GUILayout.Button ("Reset Leaderboards", style)) 
 		{
 			savescript.ResetAllLeaderboards ();
 		}
 
+		if (GUILayout.Button ("Open Save folder location", style)) 
+		{
+			savescript.OpenSaveLocation ();
+		}
+
 		GUI.backgroundColor = Color.white;
-		DrawDefaultInspector ();
 	}
+
 }

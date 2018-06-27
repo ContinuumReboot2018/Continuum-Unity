@@ -1440,7 +1440,8 @@ MonoBehaviour:
   - name: 
     score: 0
     wave: 0
-  DefaultLeaderboard_fastTrack:
+  DefaultLeaderboard_FastTrack: []
+  Leaderboard_Arcade:
   - name: 
     score: 0
     wave: 0
@@ -1471,14 +1472,192 @@ MonoBehaviour:
   - name: 
     score: 0
     wave: 0
-  Leaderboards:
-  - {fileID: 11400000, guid: e3bfaecb1479f444c990eaa049164a19, type: 2}
-  - {fileID: 11400000, guid: 87b0bdf4eef88bd469b10623aea02e68, type: 2}
-  - {fileID: 11400000, guid: e91374400e7878d43a32f21171d8269d, type: 2}
-  - {fileID: 11400000, guid: b5dc11164e6dbf045aa69a99e688fb2c, type: 2}
-  - {fileID: 11400000, guid: e6aa9ff92c798864093cc3264ac92912, type: 2}
-  - {fileID: 11400000, guid: a6fdf7ae6b2f24440bbd7136db7c2910, type: 2}
-  - {fileID: 11400000, guid: 03088a0c45c273e4b94fff711c066735, type: 2}
+  Leaderboard_BossRush:
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  Leaderboard_Lucky:
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  Leaderboard_FullyLoaded:
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  Leaderboard_Scavenger:
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  Leaderboard_Hell:
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  Leaderboard_FastTrack:
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
+  - name: 
+    score: 0
+    wave: 0
   SelectedAbility: 0
   SelectedSkin: 0
   MissionId: 0
@@ -1503,6 +1682,223 @@ MonoBehaviour:
     SelectedAbility: 0
     SelectedSkin: 0
     MissionId: 0
+    Leaderboard_Arcade:
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    Leaderboard_BossRush:
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    Leaderboard_Lucky:
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    Leaderboard_FullyLoaded:
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    Leaderboard_Scavenger:
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    Leaderboard_Hell:
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    Leaderboard_FastTrack:
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
+    - name: 
+      score: 0
+      wave: 0
   SettingsData:
     QualitySettingsIndex: 0
     useHdr: 0
