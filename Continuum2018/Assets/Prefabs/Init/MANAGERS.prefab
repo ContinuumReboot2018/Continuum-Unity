@@ -1930,11 +1930,11 @@ MonoBehaviour:
       score: 0
       wave: 0
   SettingsData:
-    QualitySettingsIndex: 0
-    useHdr: 0
-    sunShaftsEnabled: 0
+    QualitySettingsIndex: 1
+    useHdr: 1
+    sunShaftsEnabled: 1
     ParticleEmissionMultiplier: 1
-    targetframerate: 0
+    targetframerate: -1
     MasterVolume: 1
     SoundtrackVolume: 1
     EffectsVolume: 1
