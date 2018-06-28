@@ -686,12 +686,12 @@ public class Block : MonoBehaviour
 				{
 					if (isBossPart == false) // Not a boss part.
 					{
-						playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo; // Increase ability time.
+						playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime; // Increase ability time.
 					}
 
 					if (isBossPart == true) // Is boss part.
 					{
-						playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * gameControllerScript.combo * 0.1f; // Increase ability time.
+						playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime; // Increase ability time.
 					}
 				}
 			}
