@@ -268,21 +268,21 @@ public class SaveAndLoadScript : MonoBehaviour
 
 	public void DeleteSettingsDataEditor ()
 	{
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == true) 
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini") == true) 
 		{
-			File.Delete (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+			File.Delete (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini");
 			UnityEngine.Debug.Log ("Successfully deleted file " +
-			Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+			Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini");
 		}
 	}
 
 	public void DeleteSettingsDataMain ()
 	{
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true)
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini") == true)
 		{
-			File.Delete (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+			File.Delete (Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini");
 			UnityEngine.Debug.Log ("Successfully deleted file " +
-			Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+			Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini");
 		}
 	}
 
@@ -389,8 +389,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Gets variables from this script = variables in other scripts.
 	void GetSettingsData ()
 	{
-		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true
-		 || File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == true) 
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini") == true
+		 || File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini") == true) 
 		{
 			QualitySettings.SetQualityLevel (QualitySettingsIndex);
 
@@ -444,22 +444,24 @@ public class SaveAndLoadScript : MonoBehaviour
 
 			// Creates new save file.
 			BinaryFormatter bf = new BinaryFormatter ();
+			//StreamWriter bf = new StreamWriter ();
 
 			#if !UNITY_EDITOR
-				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+
+				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini");
 				
 				UnityEngine.Debug.Log (
 					"Successfully saved to " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat"
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini"
 				); 
 			#endif
 
 			#if UNITY_EDITOR
-				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini");
 
 				UnityEngine.Debug.Log (
 					"Successfully saved to " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat"
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini"
 				); 
 			#endif
 
@@ -514,15 +516,15 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (AllowLoading == true)
 		{
 			#if !UNITY_EDITOR
-				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
+				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini") == true) 
 				{
 					// Opens the save data.
 					BinaryFormatter bf = new BinaryFormatter ();
 
-					FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat", FileMode.Open);
+					FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini", FileMode.Open);
 
 					UnityEngine.Debug.Log ("Successfully loaded from " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini");
 
 					// Processes the save data into memory.
 					settingsData data = (settingsData)bf.Deserialize (file);
@@ -532,29 +534,29 @@ public class SaveAndLoadScript : MonoBehaviour
 					StoreSettingsDataInGame ();
 				}
 
-				/*if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == false) 
+				/*if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini") == false) 
 				{
 					UnityEngine.Debug.LogWarning ("Unable to load from " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini");
 
 					SaveSettingsData ();
 
 					//UnityEngine.Debug.Log ("Created new settings data at " +
-					//Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+					//Application.persistentDataPath + "/" + Username + "_SettingsConfig.ini");
 				}*/
 
 			#endif
 
 			#if UNITY_EDITOR
-				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == true) 
+				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini") == true) 
 				{
 					// Opens the save data.
 					BinaryFormatter bf = new BinaryFormatter ();
 
-					FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat", FileMode.Open);
+					FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini", FileMode.Open);
 
 					UnityEngine.Debug.Log ("Successfully loaded from " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini");
 
 					// Processes the save data into memory.
 					settingsData data = (settingsData)bf.Deserialize (file);
@@ -564,15 +566,15 @@ public class SaveAndLoadScript : MonoBehaviour
 					StoreSettingsDataInGame ();
 				}
 
-				/*if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == false) 
+				/*if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini") == false) 
 				{
 					UnityEngine.Debug.LogWarning ("Unable to load from " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini");
 
 					SaveSettingsData ();
 
 					//UnityEngine.Debug.Log ("Created new settings data at " +
-					//Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+					//Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.ini");
 				}*/
 			#endif
 		}

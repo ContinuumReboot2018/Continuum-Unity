@@ -1813,6 +1813,7 @@ public class GameController : MonoBehaviour
 		OverdriveImage.enabled = playerControllerScript_P1.isInOverdrive;
 	
 		Lives = gameModifier.StartingLives;
+		UpdateLives ();
 		playerControllerScript_P1.isHoming = gameModifier.AlwaysHoming;
 		playerControllerScript_P1.isRicochet = gameModifier.AlwaysRicochet;
 		playerControllerScript_P1.isInRapidFire = gameModifier.AlwaysRapidfire;

@@ -22,9 +22,12 @@ public class LivesTransition : MonoBehaviour
 	{
 		gameControllerScript.UpdateLives ();
 
-		if (gameControllerScript.LifeImages [gameControllerScript.Lives].gameObject.activeSelf == true) 
+		if (gameControllerScript.Lives < gameControllerScript.LifeImages.Length)
 		{
-			gameControllerScript.LifeImages [gameControllerScript.Lives].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
+			if (gameControllerScript.LifeImages [gameControllerScript.Lives].gameObject.activeSelf == true) 
+			{
+				gameControllerScript.LifeImages [gameControllerScript.Lives].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
+			}
 		}
 	}
 

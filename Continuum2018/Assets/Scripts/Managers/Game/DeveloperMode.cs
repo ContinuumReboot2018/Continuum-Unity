@@ -335,25 +335,43 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (gameControllerScript.Lives < gameControllerScript.MaxLives) 
 				{
-					gameControllerScript.Lives += 3;
+					//gameControllerScript.Lives += 3;
 					gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
 					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = AddlifeTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 1f, 1, 1);
 					gameControllerScript.MaxLivesText.text = "";
 
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 2].gameObject.SetActive (true);
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 2].enabled = true;
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 2].color = Color.white;
+					if (gameControllerScript.Lives <= 7) 
+					{
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].gameObject.SetActive (true);
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].enabled = true;
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].color = Color.white;
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].GetComponent<Animator> ().SetBool ("Hidden", false);
 
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.SetActive (true);
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].enabled = true;
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].color = Color.white;
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.SetActive (true);
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].enabled = true;
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].color = Color.white;
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].GetComponent<Animator> ().SetBool ("Hidden", false);
 
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 0].gameObject.SetActive (true);
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 0].enabled = true;
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 0].color = Color.white;
+						gameControllerScript.LifeImages [gameControllerScript.Lives].gameObject.SetActive (true);
+						gameControllerScript.LifeImages [gameControllerScript.Lives].enabled = true;
+						gameControllerScript.LifeImages [gameControllerScript.Lives].color = Color.white;
+						gameControllerScript.LifeImages [gameControllerScript.Lives].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+						gameControllerScript.LifeImages [gameControllerScript.Lives].GetComponent<Animator> ().SetBool ("Hidden", false);
 
+						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].gameObject.SetActive (true);
+						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].enabled = true;
+						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].color = Color.white;
+						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].GetComponent<Animator> ().SetBool ("Hidden", false);
+					}
+
+					gameControllerScript.Lives += 3;
+
+					//gameControllerScript.UpdateLives ();
 					ShowCheatNotification ("CHEAT ACTIVATED: EXTRA LIFE");
 				}
 

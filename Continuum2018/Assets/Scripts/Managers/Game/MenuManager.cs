@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
 	[Header ("Menu Buttons")]
 	public MenuButtons menuButtons;
 
-	void Start ()
+	void Awake ()
 	{
 		nextScroll = Time.time + scrollSpeed;
 

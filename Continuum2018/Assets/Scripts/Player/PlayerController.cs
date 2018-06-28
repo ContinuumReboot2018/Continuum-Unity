@@ -872,6 +872,7 @@ public class PlayerController : MonoBehaviour
 		camShakeScript.ShakeCam (2, 3, 99);
 		audioControllerScript.StopAllSoundtracks ();
 		StartCoroutine (timescaleControllerScript.EndSequenceTimeScale ());
+		spotlightsScript.gameObject.SetActive (false);
 	}
 
 	public IEnumerator GameOverDelay (float delay)
@@ -907,6 +908,25 @@ public class PlayerController : MonoBehaviour
 		LivesAnim.enabled = false;
 		gameControllerScript.Lives -= 1;
 		gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
+
+		if (gameControllerScript.Lives == 10) 
+		{
+			for (int i = 0; i < 9; i++) 
+			{
+				gameControllerScript.LifeImages [i].gameObject.SetActive (true);
+				gameControllerScript.LifeImages [i].enabled = true;
+				gameControllerScript.LifeImages [i].color = Color.white;
+				gameControllerScript.LifeImages [i].GetComponent<Animator> ().Play ("LifeImageEnter");
+				gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+				gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
+
+				gameControllerScript.LivesSpacing.SetActive (false);
+				gameControllerScript.LivesText.gameObject.SetActive (false);
+				gameControllerScript.LivesText.text = "";
+				gameControllerScript.MaxLivesText.text = "";
+			}
+		}
+
 		gameControllerScript.LivesAnim.SetTrigger ("UpdateLives");
 
 		if (gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.activeSelf == true) 
@@ -986,39 +1006,11 @@ public class PlayerController : MonoBehaviour
 		audioControllerScript.TargetCutoffFreq = 22000;
 		audioControllerScript.TargetResonance = 1;
 		InvincibleParticles.Play ();
-		//UpdateLivesLeft ();
 		spotlightsScript.NewTarget = playerMesh.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.SuccessSpotlightSettings ();
 		gameControllerScript.VhsAnim.SetTrigger ("Play");
 	}
-
-	/*
-	void UpdateLivesLeft ()
-	{
-		if ((gameControllerScript.Lives - 2) > 1)
-		{
-			LivesLeftText.text = (gameControllerScript.Lives - 2).ToString () + " LIVES LEFT";
-		}
-
-		if ((gameControllerScript.Lives - 2) == 1)
-		{
-			LivesLeftText.text = (gameControllerScript.Lives - 2).ToString () + " LIFE LEFT";
-			LivesLeftText.fontSize = 220;
-			LivesLeftText.GetComponent<Animator> ().speed = 0.75f;
-		}
-
-		if ((gameControllerScript.Lives - 2) < 1) 
-		{
-			LivesLeftText.text = "LAST LIFE";
-			LivesLeftText.fontSize = 220;
-			LivesLeftText.color = new Color (1, 0.2f, 0.2f, 1);
-			LivesLeftText.GetComponent<Animator> ().speed = 0.3f;
-		}
-
-		LivesLeftUI.Play ("LivesLeft");
-	}
-	*/
 
 	void PlaySpaceshipAmbience ()
 	{
