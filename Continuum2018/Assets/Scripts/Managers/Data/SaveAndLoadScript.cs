@@ -465,6 +465,15 @@ public class SaveAndLoadScript : MonoBehaviour
 				); 
 			#endif
 
+
+			#if UNITY_STANDALONE_OSX
+				cam.GetComponent<VolumetricLightRenderer> ().enabled = false;
+			#endif
+
+			#if PLATFORM_STANDALONE_OSX
+				cam.GetComponent<VolumetricLightRenderer> ().enabled = false;
+			#endif
+
 			// Does the saving
 			settingsData data = new settingsData ();
 			SetSettingsData (data);
