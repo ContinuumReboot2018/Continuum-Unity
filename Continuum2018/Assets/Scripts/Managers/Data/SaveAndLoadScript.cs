@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using System.Diagnostics;
+//using System.Diagnostics;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -80,11 +80,11 @@ public class SaveAndLoadScript : MonoBehaviour
 			{
 				settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
 				targetFramerateScript = GameObject.Find ("TargetFPS").GetComponent<TargetFPS> ();
-
 				cam = settingsManagerScript.cam;
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
-				VisualSettingsComponent.enabled = true;
 				fastMobileBloomScript = cam.GetComponent<FastMobileBloom> ();
+
+				CheckAndApplyQualitySettings ();
 			}
 		}
 
@@ -118,7 +118,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 						SaveSettingsData ();
 						LoadSettingsData ();
-						UnityEngine.Debug.Log ("Average FPS too low, falling back to lower quality.");
+						Debug.Log ("Average FPS too low, falling back to lower quality.");
 						averageFpsTimer = 0;
 						return;
 					}
@@ -146,7 +146,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 		if (Username == "default") 
 		{
-			UnityEngine.Debug.Log (
+			Debug.Log (
 				"Username is " 
 				+ Username + 
 				". Consider changing your username in the menu. " +
@@ -205,7 +205,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			#if !UNITY_EDITOR
 				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 
-				UnityEngine.Debug.Log (
+				Debug.Log (
 					"Successfully saved to " +
 					Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat"
 				); 
@@ -214,7 +214,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			#if UNITY_EDITOR
 				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
 
-				UnityEngine.Debug.Log (
+				Debug.Log (
 					"Successfully saved to " +
 					Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat"
 				); 
@@ -246,6 +246,14 @@ public class SaveAndLoadScript : MonoBehaviour
 		data.Leaderboard_Scavenger = Leaderboard_Scavenger;
 		data.Leaderboard_Hell = Leaderboard_Hell;
 		data.Leaderboard_FastTrack = DefaultLeaderboard_FastTrack;
+
+		PlayerData.Leaderboard_Arcade = Leaderboard_Arcade;
+		PlayerData.Leaderboard_BossRush = Leaderboard_BossRush;
+		PlayerData.Leaderboard_Lucky = Leaderboard_Lucky;
+		PlayerData.Leaderboard_FullyLoaded = Leaderboard_FullyLoaded;
+		PlayerData.Leaderboard_Scavenger = Leaderboard_Scavenger;
+		PlayerData.Leaderboard_Hell = Leaderboard_Hell;
+		PlayerData.Leaderboard_FastTrack = Leaderboard_FastTrack;
 	}
 
 	public void DeletePlayerDataEditor ()
@@ -253,7 +261,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == true)
 		{
 			File.Delete (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
-			UnityEngine.Debug.Log ("Successfully deleted file " +
+			Debug.Log ("Successfully deleted file " +
 			Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
 		}
 	}
@@ -263,7 +271,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
 		{
 			File.Delete (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
-			UnityEngine.Debug.Log ("Successfully deleted file " +
+			Debug.Log ("Successfully deleted file " +
 			Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 		}
 	}
@@ -273,7 +281,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == true) 
 		{
 			File.Delete (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
-			UnityEngine.Debug.Log ("Successfully deleted file " +
+			Debug.Log ("Successfully deleted file " +
 			Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
 		}
 	}
@@ -283,7 +291,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true)
 		{
 			File.Delete (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
-			UnityEngine.Debug.Log ("Successfully deleted file " +
+			Debug.Log ("Successfully deleted file " +
 			Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 		}
 	}
@@ -298,7 +306,15 @@ public class SaveAndLoadScript : MonoBehaviour
 		Leaderboard_Hell = DefaultLeaderboard_Hell;
 		Leaderboard_FastTrack = DefaultLeaderboard_FastTrack;
 
-		UnityEngine.Debug.Log ("Leaderboards have been reset.");
+		PlayerData.Leaderboard_Arcade = Leaderboard_Arcade;
+		PlayerData.Leaderboard_BossRush = Leaderboard_BossRush;
+		PlayerData.Leaderboard_Lucky = Leaderboard_Lucky;
+		PlayerData.Leaderboard_FullyLoaded = Leaderboard_FullyLoaded;
+		PlayerData.Leaderboard_Scavenger = Leaderboard_Scavenger;
+		PlayerData.Leaderboard_Hell = Leaderboard_Hell;
+		PlayerData.Leaderboard_FastTrack = Leaderboard_FastTrack;
+
+		Debug.Log ("Leaderboards have been reset.");
 	}
 		
 	// Load PlayerData main.
@@ -320,15 +336,13 @@ public class SaveAndLoadScript : MonoBehaviour
 				LoadPlayerDataContents (data);
 				StorePlayerDataInGame ();
 
-				UnityEngine.Debug.Log ("Successfully loaded from " +
+				Debug.Log ("Successfully loaded from " +
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat");
 			}
 
 			else
 			
 			{
-				ResetAllLeaderboards ();
-
 				SavePlayerData ();
 			}
 		}
@@ -350,15 +364,13 @@ public class SaveAndLoadScript : MonoBehaviour
 				LoadPlayerDataContents (data);
 				StorePlayerDataInGame ();
 
-				UnityEngine.Debug.Log ("Successfully loaded from " +
+				Debug.Log ("Successfully loaded from " +
 				Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat");
 			}
 
 			else
 			
 			{
-				ResetAllLeaderboards ();
-
 				SavePlayerData ();
 			}
 		}
@@ -381,6 +393,14 @@ public class SaveAndLoadScript : MonoBehaviour
 		Leaderboard_Scavenger = data.Leaderboard_Scavenger;
 		Leaderboard_Hell = data.Leaderboard_Hell;
 		Leaderboard_FastTrack = data.Leaderboard_FastTrack;
+
+		PlayerData.Leaderboard_Arcade = Leaderboard_Arcade;
+		PlayerData.Leaderboard_BossRush = Leaderboard_BossRush;
+		PlayerData.Leaderboard_Lucky = Leaderboard_Lucky;
+		PlayerData.Leaderboard_FullyLoaded = Leaderboard_FullyLoaded;
+		PlayerData.Leaderboard_Scavenger = Leaderboard_Scavenger;
+		PlayerData.Leaderboard_Hell = Leaderboard_Hell;
+		PlayerData.Leaderboard_FastTrack = Leaderboard_FastTrack;
 	}
 		
 	// Puts new data into relevant scripts.
@@ -400,7 +420,12 @@ public class SaveAndLoadScript : MonoBehaviour
 			{
 				if (VisualSettingsComponent != null)
 				{
-					VisualSettingsComponent.enabled = false;
+					if (VisualSettingsComponent.enabled == true) 
+					{
+						VisualSettingsComponent.enabled = false;
+						initManagerScript.postProcess.enabled = false;
+						Debug.Log ("Turned off visual settings component.");
+					}
 				}
 
 				if (fastMobileBloomScript != null) 
@@ -417,7 +442,12 @@ public class SaveAndLoadScript : MonoBehaviour
 			{
 				if (VisualSettingsComponent != null)
 				{
-					VisualSettingsComponent.enabled = true;
+					if (VisualSettingsComponent.enabled == true)
+					{
+						VisualSettingsComponent.enabled = true;
+						initManagerScript.postProcess.enabled = true;
+						Debug.Log ("Turned on visual settings component.");
+					}
 				}
 
 				if (fastMobileBloomScript != null) 
@@ -452,7 +482,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 				
-				UnityEngine.Debug.Log (
+				Debug.Log (
 					"Successfully saved to " +
 					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat"
 				); 
@@ -461,7 +491,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			#if UNITY_EDITOR
 				FileStream file = File.Create (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
 
-				UnityEngine.Debug.Log (
+				Debug.Log (
 					"Successfully saved to " +
 					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat"
 				); 
@@ -527,67 +557,43 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (AllowLoading == true)
 		{
 			#if !UNITY_EDITOR
-				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
-				{
-					// Opens the save data.
-					BinaryFormatter bf = new BinaryFormatter ();
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == true) 
+			{
+				// Opens the save data.
+				BinaryFormatter bf = new BinaryFormatter ();
 
-					FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat", FileMode.Open);
+				FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat", FileMode.Open);
 
-					UnityEngine.Debug.Log ("Successfully loaded from " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
+				Debug.Log ("Successfully loaded from " +
+				Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
 
-					// Processes the save data into memory.
-					settingsData data = (settingsData)bf.Deserialize (file);
-					file.Close ();
+				// Processes the save data into memory.
+				settingsData data = (settingsData)bf.Deserialize (file);
+				file.Close ();
 
-					LoadSettingsDataContents (data);
-					StoreSettingsDataInGame ();
-				}
-
-				/*if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat") == false) 
-				{
-					UnityEngine.Debug.LogWarning ("Unable to load from " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
-
-					SaveSettingsData ();
-
-
-					//UnityEngine.Debug.Log ("Created new settings data at " +
-					//Application.persistentDataPath + "/" + Username + "_SettingsConfig.dat");
-				}*/
-
+				LoadSettingsDataContents (data);
+				StoreSettingsDataInGame ();
+			}
 			#endif
 
 			#if UNITY_EDITOR
-				if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == true) 
-				{
-					// Opens the save data.
-					BinaryFormatter bf = new BinaryFormatter ();
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == true) 
+			{
+				// Opens the save data.
+				BinaryFormatter bf = new BinaryFormatter ();
 
-					FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat", FileMode.Open);
+				FileStream file = File.Open (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat", FileMode.Open);
 
-					UnityEngine.Debug.Log ("Successfully loaded from " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
+				Debug.Log ("Successfully loaded from " +
+				Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
 
-					// Processes the save data into memory.
-					settingsData data = (settingsData)bf.Deserialize (file);
-					file.Close ();
+				// Processes the save data into memory.
+				settingsData data = (settingsData)bf.Deserialize (file);
+				file.Close ();
 
-					LoadSettingsDataContents (data);
-					StoreSettingsDataInGame ();
-				}
-
-				/*if (File.Exists (Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat") == false) 
-				{
-					UnityEngine.Debug.LogWarning ("Unable to load from " +
-					Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
-
-					SaveSettingsData ();
-
-					//UnityEngine.Debug.Log ("Created new settings data at " +
-					//Application.persistentDataPath + "/" + Username + "_SettingsConfig_Editor.dat");
-				}*/
+				LoadSettingsDataContents (data);
+				StoreSettingsDataInGame ();
+			}
 			#endif
 		}
 	}
@@ -601,7 +607,12 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			if (VisualSettingsComponent != null)
 			{
-				VisualSettingsComponent.enabled = false;
+				if (VisualSettingsComponent.enabled == true) 
+				{
+					VisualSettingsComponent.enabled = false;
+					initManagerScript.postProcess.enabled = false;
+					Debug.Log ("Turned off visual settings component.");
+				}
 			}
 
 			useHdr = false;
@@ -612,7 +623,12 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			if (VisualSettingsComponent != null)
 			{
-				VisualSettingsComponent.enabled = true;
+				if (VisualSettingsComponent.enabled == false) 
+				{
+					VisualSettingsComponent.enabled = true;
+					initManagerScript.postProcess.enabled = true;
+					Debug.Log ("Turned on visual settings component.");
+				}
 			}
 
 			useHdr = true;
@@ -652,7 +668,12 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			if (VisualSettingsComponent != null)
 			{
-				VisualSettingsComponent.enabled = false;
+				if (VisualSettingsComponent.enabled == true)
+				{
+					VisualSettingsComponent.enabled = false;
+					initManagerScript.postProcess.enabled = false;
+					Debug.Log ("Turned off visual settings component.");
+				}
 			}
 
 			useHdr = false;
@@ -663,7 +684,12 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			if (VisualSettingsComponent != null)
 			{
-				VisualSettingsComponent.enabled = true;
+				if (VisualSettingsComponent.enabled == false)
+				{
+					VisualSettingsComponent.enabled = true;
+					initManagerScript.postProcess.enabled = true;
+					Debug.Log ("Turned on visual settings component.");
+				}
 			}
 
 			useHdr = true;
@@ -672,6 +698,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			
 		if (cam != null) 
 		{
+			// Apply camera specific settings here.
 			cam.allowHDR = useHdr;
 			cam.GetComponent<SunShafts> ().enabled = sunShaftsEnabled;
 		}

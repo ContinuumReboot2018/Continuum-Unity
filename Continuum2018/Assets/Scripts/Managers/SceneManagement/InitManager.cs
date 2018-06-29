@@ -13,17 +13,22 @@ public class InitManager : MonoBehaviour
 		LoadingMissionText.text = "MAIN MENU";
 
 		saveAndLoadScript.LoadSettingsData ();
+		saveAndLoadScript.SaveSettingsData ();
 		saveAndLoadScript.LoadPlayerData ();
 
-		saveAndLoadScript.SavePlayerData ();
-		saveAndLoadScript.SaveSettingsData ();
+		CheckPostProcessQuality ();
+	}
 
-		if (saveAndLoadScript.QualitySettingsIndex == 0) 
+	void CheckPostProcessQuality ()
+	{
+		int qualLevel = QualitySettings.GetQualityLevel ();
+
+		if (qualLevel == 0) 
 		{
 			postProcess.enabled = false;
 		}
 
-		if (saveAndLoadScript.QualitySettingsIndex == 1) 
+		if (qualLevel == 1) 
 		{
 			postProcess.enabled = true;
 		}

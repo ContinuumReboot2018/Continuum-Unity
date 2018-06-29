@@ -14,10 +14,19 @@ public class ShipSkinApply : MonoBehaviour
 	{
 		// Find the saving script.
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-
 		//saveAndLoadScript.LoadPlayerData ();
-		ApplySkin (ships[saveAndLoadScript.SelectedSkin]);
+		//ApplySkin (ships[saveAndLoadScript.SelectedSkin]);
+		ApplySkinStartNoSave (ships [saveAndLoadScript.SelectedSkin]);
 		ResetAllConfirmTextures (saveAndLoadScript.SelectedSkin);
+	}
+
+	void ApplySkinStartNoSave (Ship ship)
+	{
+		saveAndLoadScript.SelectedSkin = ship.ShipIndex;
+		ResetAllConfirmTextures (ship.ShipIndex);
+		playerMesh.mesh = ship.ShipMesh;
+		playerRend.material = ship.ShipMaterial;
+		Debug.Log ("Selected player skin from ID: " + ship.ShipIndex);
 	}
 
 	public void ApplySkin (Ship ship)

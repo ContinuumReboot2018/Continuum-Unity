@@ -14,7 +14,7 @@ public class AbilitySelection : MonoBehaviour
 		// Find the saving script.
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 
-		saveAndLoadScript.LoadPlayerData ();
+		//saveAndLoadScript.LoadPlayerData ();
 		SetAbilityId (saveAndLoadScript.SelectedAbility);
 		ResetAllConfirmTextures (saveAndLoadScript.SelectedAbility);
 		AbilityImage.texture = AbilityTextures [saveAndLoadScript.SelectedAbility];
