@@ -289,6 +289,9 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Text for the ability is ready UI.")]
 	public TextMeshProUGUI AbilityCompletionText;
 
+	public float AbilityDampening = 1;
+	public float AbilityDampeningMultiplier = 0.9f;
+
 	[Header ("Powerups")]
 	[Tooltip("Tracks how many powerups are active at the time.")]
 	public int powerupsInUse;
@@ -1129,6 +1132,7 @@ public class PlayerController : MonoBehaviour
 			{
 				CurrentAbilityState = abilityState.Charging;
 				DeactivateAbility ();
+				AbilityDampening *= AbilityDampeningMultiplier;
 			}
 
 			if (AbilityActiveParticles.isPlaying == false)
