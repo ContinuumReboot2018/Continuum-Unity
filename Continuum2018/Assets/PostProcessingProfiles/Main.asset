@@ -79,11 +79,11 @@ MonoBehaviour:
   motionBlur:
     m_Enabled: 1
     m_Settings:
-      shutterAngle: 1
+      shutterAngle: 0.00000001
       sampleCount: 4
       frameBlending: 0
   eyeAdaptation:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       lowPercent: 1
       highPercent: 99
@@ -100,7 +100,7 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.01
+        intensity: 0.012467155
         threshold: 0.02
         softKnee: 0
         radius: 5.75
@@ -124,7 +124,7 @@ MonoBehaviour:
         temperature: 0
         tint: 0
         hueShift: 0
-        saturation: 0.95
+        saturation: 0.8745519
         contrast: 1
       channelMixer:
         red: {x: 1, y: 0, z: 0}
