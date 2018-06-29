@@ -15,7 +15,7 @@ MonoBehaviour:
   PowerupSpawn: 1
   BossSpawn: 2
   TimeIncreaseMode: 3
-  TrialTime: -1
+  TrialTime: 300
   AlwaysHoming: 0
   AlwaysRicochet: 0
   AlwaysRapidfire: 0

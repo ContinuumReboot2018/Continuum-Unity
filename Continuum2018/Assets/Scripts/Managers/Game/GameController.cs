@@ -416,16 +416,10 @@ public class GameController : MonoBehaviour
 			Wave = gameModifier.startingWave;
 			SetGameModifiers (); // Applies game modifiers.
 		}
-
-		// Clear and reset UI for score, waves, and lives.
-		ClearMainUI (); 
-
+			
+		ClearMainUI (); // Clear and reset UI for score, waves, and lives.
 		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1); // Refreshes block spawn time.
-		//InvokeRepeating ("UpdateLives", 0, 1); // Refreshes UI for lives.
-
 		ClearPowerupUI (); // Clears powerup UI from list.
-
-		//UnityEngine.Debug.Log ("Camera aspect ratio = " + Camera.main.aspect.ToString ());
 		InvokeRepeating ("SetStartOrthSize", 0, 1); // Checks orthographic size based on screen ratio.
 
 		// Invokes a game over if the trial time is greater than 0. (Set to -1 just to be safe to avoid this).
@@ -566,6 +560,8 @@ public class GameController : MonoBehaviour
 
 		// Set starting lives.
 		Lives = gameModifier.StartingLives;
+
+		InvokeRepeating ("UpdateGameStats", 0, 0.25f);
 	}
 
 	// Checks mode from game modifier to set boss spawn mode.
@@ -590,8 +586,6 @@ public class GameController : MonoBehaviour
 				Invoke("SpawnBigBossObject", BossSpawnDelay);
 			}
 		}
-
-		InvokeRepeating ("UpdateGameStats", 0, 0.25f);
 	}
 
 	void Update ()
@@ -656,7 +650,7 @@ public class GameController : MonoBehaviour
 	// Updates debug values and gets current values for the current game state.
 	void UpdateGameStats ()
 	{
-		if (TrackStats == true && isPaused == false) 
+		if (TrackStats == true && isPaused == false && developerModeScript.useCheats == true) 
 		{
 			// Put debug stuff here.
 			if (developerModeScript.DebugMenu.activeInHierarchy == true)
@@ -732,7 +726,7 @@ public class GameController : MonoBehaviour
 				PowerupPickupTimeRemain_Debug.text = 
 					"Next powerup spawn: " + (System.Math.Round (powerupPickupTimeRemaining, 2) + "s");
 				
-				// Modifier debug values.
+				// Modifier debug info.
 				Modifier_Tutorial_Debug.text = 
 					"Use Tutorial: " + (gameModifier.Tutorial ? "ON" : "OFF");
 				Modifier_PowerupSpawn_Debug.text = 
@@ -760,23 +754,27 @@ public class GameController : MonoBehaviour
 				Modifier_UseOverheat_Debug.text = 
 					"Use Overheat: " + (gameModifier.useOverheat ? "ON" : "OFF");
 
+				// Overheat debug info.
 				OverheatTimeText_Debug.text = 
 					"Overheat proportion: " + System.Math.Round (playerControllerScript_P1.CurrentShootingHeat, 2);
 				OverheatStateText_Debug.text = 
 					"Overheated: " + (playerControllerScript_P1.Overheated ? "ON" : "OFF");
+				CurrentShootingHeatCostText_Debug.text = 
+					"Current shooting heat cost: " + playerControllerScript_P1.CurrentShootingHeatCost;
+				CooldownTimeRemainingText_Debug.text = 
+					"Cooldown time remain: " + System.Math.Round (playerControllerScript_P1.cooldownTimeRemaining, 2);
+
 				CameraOrthographicSizeText_Debug.text = 
 					"Orthographic size: " + System.Math.Round (Camera.main.orthographicSize, 2);
 				PlayerMovementVector_Debug.text = 
 					"Player move input: " + new Vector2 (playerControllerScript_P1.MovementX, playerControllerScript_P1.MovementY);
-				CurrentShootingHeatCostText_Debug.text = 
-					"Current shooting heat cost: " + playerControllerScript_P1.CurrentShootingHeatCost;
 				LastImpactPointText_Debug.text = 
 					"Last impact point: " + playerControllerScript_P1.ImpactPoint.ToString ();
-				CooldownTimeRemainingText_Debug.text = 
-					"Cooldown time remain: " + System.Math.Round (playerControllerScript_P1.cooldownTimeRemaining, 2);
+			
 				CurrentAbilityStateText_Debug.text = 
 					"P1 Ability State: " + playerControllerScript_P1.CurrentAbilityState.ToString ();
 
+				// Beats debug info.
 				Beats_Debug.text = 
 					"Beats: " + audioControllerScript.Beats;
 				BeatInBar_Debug.text = 
@@ -785,7 +783,8 @@ public class GameController : MonoBehaviour
 					"Beats per minute: " + System.Math.Round (audioControllerScript.BeatsPerMinute, 3);
 				TimeSinceTrackLoad_Debug.text = 
 					"Time since last track load: " + System.Math.Round (audioControllerScript.TimeSinceTrackLoad, 2);
-				
+
+				// Block debug info.
 				BlockObjectCount_Debug.text = 
 					"Block objects: " + numberOfBlocks;
 				BulletObjectCount_Debug.text = 
@@ -799,8 +798,6 @@ public class GameController : MonoBehaviour
 	{
 		if (CountScore == true) 
 		{
-			// Adds score over time.
-
 			// Smooths the current score to the displayed score.
 			CurrentScore = Mathf.Lerp (CurrentScore, TargetScore, ScoreSmoothing * Time.unscaledDeltaTime);
 			DisplayScore = Mathf.Floor (CurrentScore); // Rounds down to nearest integer. 
@@ -813,60 +810,7 @@ public class GameController : MonoBehaviour
 					ScoreText.text = "0";
 				}
 
-				if (DisplayScore > 0 && DisplayScore < 1000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("###");
-				}
-
-				if (DisplayScore >= 1000 && DisplayScore < 10000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("# ###");
-				}
-
-				if (DisplayScore >= 10000 && DisplayScore < 100000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("## ###");
-				}
-
-				if (DisplayScore >= 100000 && DisplayScore < 1000000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("### ###");
-				}
-
-				if (DisplayScore >= 1000000 && DisplayScore < 10000000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("# ### ###");
-				}
-
-				if (DisplayScore >= 10000000 && DisplayScore < 100000000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("## ### ###");
-				}
-
-				if (DisplayScore >= 100000000 && DisplayScore < 1000000000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("### ### ###");
-				}
-
-				if (DisplayScore >= 1000000000 && DisplayScore < 10000000000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("# ### ### ###");
-				}
-
-				if (DisplayScore >= 10000000000 && DisplayScore < 100000000000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("## ### ### ###");
-				}
-
-				if (DisplayScore >= 100000000000 && DisplayScore < 1000000000000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("### ### ### ###");
-				}
-
-				if (DisplayScore >= 1000000000000 && DisplayScore < 10000000000000) 
-				{
-					ScoreText.text = DisplayScore.ToString ("# ### ### ### ###");
-				}
+				ScoreText.text = DisplayScore.ToString ("N0").Replace (",", " ");
 			}
 		}
 	}
@@ -880,16 +824,6 @@ public class GameController : MonoBehaviour
 		{
 			if (LivesText.gameObject.activeSelf == true) 
 			{
-				for (int i = 0; i < LifeImages.Length; i++) 
-				{
-					//LifeImages [i].enabled = false;
-
-					//if (LifeImages [i].gameObject.activeSelf == true) 
-					//{
-					//	LifeImages [i].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
-					//}
-				}
-					
 				LivesText.gameObject.SetActive (false);
 				LivesText.text = "";
 			}
@@ -903,41 +837,23 @@ public class GameController : MonoBehaviour
 			// Loop through amount of lives.
 			for (int i = 0; i < Lives; i++) 
 			{
-				// Enable all life images up to amount of lives.
-				for (int j = 0; j < i; j++) 
-				{
-					/*
-					//LifeImages [j].enabled = true;
-					LifeImages [j].gameObject.SetActive (true);
-
-					if (LifeImages [j].GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("LifeImageEnter") == false) 
-					{
-						LifeImages [j].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-					}
-					*/
-				}
-
 				// Disable all life images beyond that
 				for (int j = (Lives - 1); j < LifeImages.Length; j++) 
 				{
-					//LifeImages [j].enabled = false;
-					//LifeImages [j].gameObject.SetActive (false);
-
 					if (LifeImages [j].gameObject.activeSelf == true)
 					{
 						LifeImages [j].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
 					}
 				}
 			}
-
-
+				
 			// Only show one life icon and show numerical text next to it.
 			if (Lives >= MaxLives) 
 			{
 				LifeImages [0].gameObject.SetActive (true);
 				LifeImages [0].enabled = true;
 
-				// Disable all life images beyond that
+				// Disable all life images beyond that.
 				for (int i = 1; i < LifeImages.Length; i++) 
 				{
 					LifeImages [i].enabled = false;
@@ -997,6 +913,7 @@ public class GameController : MonoBehaviour
 					{
 						PowerupTimeRunningOutAudio.Play ();
 					}
+
 					PowerupAnim.Play ("PowerupTimeRunningOut");
 					playerControllerScript_P1.TurretSpinSpeed = playerControllerScript_P1.TurretSpinSpeedFaster;
 				}
