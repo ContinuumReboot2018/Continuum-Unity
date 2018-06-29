@@ -15,7 +15,8 @@ public class AbilitySelection : MonoBehaviour
 		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 
 		//saveAndLoadScript.LoadPlayerData ();
-		SetAbilityId (saveAndLoadScript.SelectedAbility);
+		//SetAbilityId (saveAndLoadScript.SelectedAbility);
+		SetAbilityIdNoSave (saveAndLoadScript.SelectedAbility);
 		ResetAllConfirmTextures (saveAndLoadScript.SelectedAbility);
 		AbilityImage.texture = AbilityTextures [saveAndLoadScript.SelectedAbility];
 	}
@@ -25,6 +26,14 @@ public class AbilitySelection : MonoBehaviour
 		saveAndLoadScript.SelectedAbility = AbilityId;
 		AbilityImage.texture = AbilityTextures [AbilityId];
 		Debug.Log ("Preview ability: " + AbilityId);
+	}
+
+	void SetAbilityIdNoSave (int AbilityId)
+	{
+		saveAndLoadScript.SelectedAbility = AbilityId;
+		ResetAllConfirmTextures (saveAndLoadScript.SelectedAbility);
+		AbilityImage.texture = AbilityTextures [AbilityId];
+		Debug.Log ("Ability ID set to: " + AbilityId);
 	}
 
 	public void SetAbilityId (int AbilityId)

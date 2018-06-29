@@ -1341,8 +1341,11 @@ public class GameController : MonoBehaviour
 			isPaused == false && 
 			playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true) 
 		{
-			// PowerupPickupTimeRemaining is scaled.
-			powerupPickupTimeRemaining -= Time.deltaTime * Time.timeScale;
+			if (timescaleControllerScript.Distance > 3) 
+			{
+				// PowerupPickupTimeRemaining is scaled.
+				powerupPickupTimeRemaining -= Time.deltaTime * Time.timeScale * 2;
+			}
 
 			if (powerupPickupTimeRemaining <= 0) 
 			{
@@ -1407,6 +1410,10 @@ public class GameController : MonoBehaviour
 		{
 			bossId = 0;
 		}
+
+		yield return new WaitForSecondsRealtime (4);
+
+		audioControllerScript.BigBossSoundtrack.Play ();
 	}
 
 	// Spawns a big boss from big boss array using spawn ID. 

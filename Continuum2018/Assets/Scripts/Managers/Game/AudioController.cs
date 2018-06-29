@@ -123,6 +123,8 @@ public class AudioController : MonoBehaviour
 	[Tooltip ("Is pitch being reversed?")]
 	public bool ReversePitch;
 
+	public AudioSource BigBossSoundtrack;
+
 	void Start ()
 	{
 		TargetCutoffFreq = 22000; // Set target cutoff frequency to max value (22kHz).

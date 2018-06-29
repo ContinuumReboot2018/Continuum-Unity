@@ -6,6 +6,7 @@ using TMPro;
 public class MiniBoss : MonoBehaviour
 {
 	public GameController gameControllerScript; // Reference to Game Controller.
+	private AudioController audioControllerScript;
 	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
 	public CameraShake camShakeScript; // Reference to camera shake.
 	public EvasiveManeuver evasiveManeuverScript;
@@ -81,6 +82,14 @@ public class MiniBoss : MonoBehaviour
 		hitPoints = StartingHitPoints;
 	}
 
+	void OnDestroy ()
+	{
+		if (audioControllerScript.BigBossSoundtrack.isPlaying == true) 
+		{
+			audioControllerScript.BigBossSoundtrack.Stop ();
+		}
+	}
+
 	void SpotlightOverrideTransform ()
 	{
 		gameControllerScript.playerControllerScript_P1.spotlightsScript.NewTarget = this.transform;
@@ -89,6 +98,7 @@ public class MiniBoss : MonoBehaviour
 	void Start () 
 	{
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
 		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 

@@ -302,7 +302,8 @@ public class TimescaleController : MonoBehaviour
 			}
 
 			// Check state of wave transition UI.
-			if (WaveTransitionUI.GetCurrentAnimatorStateInfo (0).IsName ("WaveTransition") == true) 
+			if (WaveTransitionUI.GetCurrentAnimatorStateInfo (0).IsName ("WaveTransition") == true
+				&& gameControllerScript.isPaused == false) 
 			{
 				if (isOverridingTimeScale == true) 
 				{
