@@ -1102,7 +1102,7 @@ public class PlayerController : MonoBehaviour
 		// Player presses ability button.
 		if (playerActions.Ability.WasPressed && 
 			gameControllerScript.isPaused == false && 
-			playerCol.enabled == true && 
+			//playerCol.enabled == true && 
 			isInCooldownMode == false) 
 		{
 			// Ability is charged.

@@ -178,7 +178,12 @@ public class DeveloperMode : MonoBehaviour
 		CheatString = "";
 	}
 
-	void UpdateCheats ()
+	public void ResetCheatStringTimer ()
+	{
+		CheatStringResetTimeRemaining = CheatStringResetDuration;
+	}
+
+	public void UpdateCheats ()
 	{
 		// Timer for cheats.
 		if (CheatStringResetTimeRemaining > 0) 
@@ -225,13 +230,11 @@ public class DeveloperMode : MonoBehaviour
 
 			if (useCheats == true) 
 			{
-				//Debug.Log ("Enabled cheats.");
 				ShowCheatActivation ("CHEATS ON");
 			}
 
 			if (useCheats == false)
 			{
-				//Debug.Log ("Disabled cheats.");
 				ShowCheatActivation ("CHEATS OFF");
 			}
 		}
@@ -1069,6 +1072,7 @@ public class DeveloperMode : MonoBehaviour
 		Instantiate (CheatSound, transform.position, Quaternion.identity);
 
 		LastCheatName = CheatString;
+		//Invoke ("ClearCheatString", 0.1f);
 		ClearCheatString ();
 
 		if (timeScaleControllerScript.OverrideTimeScaleTimeRemaining < 0.5f && playerControllerScript_P1.timeIsSlowed) 

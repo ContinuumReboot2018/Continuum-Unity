@@ -672,7 +672,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				{
 					VisualSettingsComponent.enabled = false;
 					initManagerScript.postProcess.enabled = false;
-					Debug.Log ("Turned off visual settings component.");
+					//Debug.Log ("Turned off visual settings component.");
 				}
 			}
 
@@ -688,7 +688,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				{
 					VisualSettingsComponent.enabled = true;
 					initManagerScript.postProcess.enabled = true;
-					Debug.Log ("Turned on visual settings component.");
+					//Debug.Log ("Turned on visual settings component.");
 				}
 			}
 
