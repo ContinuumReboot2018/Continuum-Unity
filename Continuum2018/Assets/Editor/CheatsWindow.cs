@@ -109,7 +109,7 @@ public class CheatsWindow : EditorWindow
 		}
 
 		// Previous wave.
-		if (GUILayout.Button ("Next wave", style)) 
+		if (GUILayout.Button ("Previous wave", style)) 
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.PreviousWaveCommand;
