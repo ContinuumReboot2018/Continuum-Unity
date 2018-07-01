@@ -5,6 +5,7 @@ public class CheatsWindow : EditorWindow
 {
 	public DeveloperMode developerModeScript;
 	Vector2 scrollPos;
+	string lastCheat;
 
 	[MenuItem ("Window/Cheats")]
 	public static void ShowCheatsEditorWindow ()
@@ -12,11 +13,27 @@ public class CheatsWindow : EditorWindow
 		GetWindow<CheatsWindow> ("Cheats");
 	}
 
+	void UpdateLastCheatButtonLabel ()
+	{
+		lastCheat = "Last cheat: " + developerModeScript.LastCheatName;
+	}
+
+	void UpdateCurrentCheatButtonLabel ()
+	{
+		lastCheat = "Last cheat: " + developerModeScript.CheatString;
+	}
+
+	void ClearLastCheatStringLabel ()
+	{
+		lastCheat = "Last cheat: ";
+	}
+
 	void OnGUI ()
 	{
-		developerModeScript = FindObjectOfType <DeveloperMode> ();
-
-
+		if (developerModeScript == null) 
+		{
+			developerModeScript = FindObjectOfType <DeveloperMode> ();
+		}
 
 		var style = new GUIStyle (GUI.skin.button);
 		style.normal.textColor = Color.black;
@@ -41,6 +58,14 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.ToggleCheatsCommand;
+			UpdateCurrentCheatButtonLabel ();
+		}
+
+		if (GUILayout.Button (lastCheat, style)) 
+		{
+			UpdateLastCheatButtonLabel ();
+			developerModeScript.ResetCheatStringTimer ();
+			developerModeScript.CheatString = developerModeScript.LastCheatName;
 		}
 
 		// Reset cheat string.
@@ -48,6 +73,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.ClearCheatString ();
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Force start.
@@ -55,6 +81,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.ForceStartCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Force restart.
@@ -62,6 +89,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.ForceRestartCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		GUILayout.Label ("General cheats", EditorStyles.boldLabel);
@@ -71,6 +99,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.ToggleGodmodeCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Force game over.
@@ -78,6 +107,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.GameOverCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Add score.
@@ -85,6 +115,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.AddScoreCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Add life.
@@ -92,6 +123,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.AddLifeCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Lose life.
@@ -99,6 +131,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.LoseLifeCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Next wave.
@@ -106,6 +139,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.NextWaveCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Previous wave.
@@ -113,6 +147,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.PreviousWaveCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Do bonus round.
@@ -120,6 +155,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.DoBonusRoundCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		GUILayout.Label ("Framerate cheats", EditorStyles.boldLabel);
@@ -129,6 +165,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.FpsUnlockCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS 20.
@@ -136,6 +173,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.Fps20Command;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS 30.
@@ -143,6 +181,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.Fps30Command;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS 60.
@@ -150,6 +189,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.Fps60Command;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS 90.
@@ -157,6 +197,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.Fps90Command;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS unlock.
@@ -164,6 +205,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.Fps120Command;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		GUILayout.Label ("Save cheats", EditorStyles.boldLabel);
@@ -173,6 +215,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.SaveSettingsCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Load settings.
@@ -180,6 +223,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.LoadSettingsCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Set high quality settings.
@@ -187,6 +231,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.SetQualitySettingsHigh;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Set low quality settings.
@@ -194,6 +239,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.SetQualitySettingsLow;
+			UpdateCurrentCheatButtonLabel ();
 		}
 			
 		GUILayout.Label ("General powerup cheats", EditorStyles.boldLabel);
@@ -203,6 +249,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.PowerupTimeCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Reset all powerups.
@@ -210,6 +257,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.ResetAllPowerupsCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		GUILayout.Label ("Shooting cheats", EditorStyles.boldLabel);
@@ -219,6 +267,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.StandardShotCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Double shot.
@@ -226,6 +275,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.DoubleShotCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Triple shot.
@@ -233,6 +283,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.TripleShotCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Ripple shot.
@@ -240,6 +291,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.RippleShotCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Toggle overheat.
@@ -247,6 +299,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.UseOverheatCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		GUILayout.Label ("Other powerup cheats", EditorStyles.boldLabel);
@@ -256,6 +309,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.TurretCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Helix.
@@ -263,6 +317,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.HelixCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Slow time.
@@ -270,6 +325,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.SlowTimeCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		GUILayout.Label ("Powerup modifier cheats", EditorStyles.boldLabel);
@@ -279,6 +335,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.HomingCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Ricochet.
@@ -286,6 +343,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.RicochetCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Rapidfire.
@@ -293,6 +351,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.RapidfireCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Overdrive.
@@ -300,6 +359,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.OverdriveCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		GUILayout.Label ("Ability cheats", EditorStyles.boldLabel);
@@ -309,6 +369,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.ChargeAbilityCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Refresh ability.
@@ -316,6 +377,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.RefreshAbilityCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Shield ability.
@@ -323,6 +385,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.ShieldCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Emp ability.
@@ -330,6 +393,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.EmpCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Vertical beam ability.
@@ -337,6 +401,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.VerticalBeamCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Horizontal beam ability.
@@ -344,6 +409,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.HorizontalBeamCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Rewind time ability.
@@ -351,6 +417,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.RewindCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Mirror player ability.
@@ -358,6 +425,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.MirrorPlayerCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		GUILayout.Label ("Audio cheats", EditorStyles.boldLabel);
@@ -367,6 +435,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.NextTrackCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Previous track.
@@ -374,6 +443,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.PreviousTrackCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Next track.
@@ -381,6 +451,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.RandomTrackCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		GUILayout.Label ("Spawn cheats", EditorStyles.boldLabel);
@@ -390,6 +461,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.SpawnBlockCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Spawn a powerup.
@@ -397,6 +469,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.SpawnPowerupPickupCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Spawn a boss.
@@ -404,6 +477,7 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.SpawnMiniBossCommand;
+			UpdateCurrentCheatButtonLabel ();
 		}
 			
 		GUILayout.EndScrollView ();
