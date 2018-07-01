@@ -45,7 +45,6 @@ public class BlockFormation : MonoBehaviour
 
 	void Start () 
 	{
-		//GetBlockArray ();
 		// Get range of missing blocks.
 		missingBlocks = Random.Range (
 			Mathf.RoundToInt(MissingBlocksRange.x), 
@@ -61,17 +60,7 @@ public class BlockFormation : MonoBehaviour
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		SetSpawnPosition (); // Restricts spawn position.
 
-		//timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
-
 		GetAccumulatedSpeed (); // Get aggregate speed additively.
-		//rb = GetComponent<Rigidbody> (); // Get the current RigidBody component.
-		/*
-		// Set current velocity.
-		rb.velocity = new Vector3 (
-			0, 
-			speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 
-			0
-		);*/
 
 		InvokeRepeating ("CheckForChildObjects", 0, 1); // Destroys parent object if there are no child objects.
 		InvokeRepeating ("GetBlockArray", 3, 1);
@@ -119,8 +108,6 @@ public class BlockFormation : MonoBehaviour
 				ColorMapObject.GetComponent<Block> ().blockFormationScript = this;
 				ColorMapObject.transform.localPosition = new Vector3 (position.x, position.y, 0);
 				ColorMapObject.transform.localScale = new Vector3 (Scaling.x, Scaling.y, Scaling.z);
-
-				//ColorMapObject.GetComponent<Block> ().miniBoss = MiniBossBrain;
 			}
 		}
 	}
@@ -154,35 +141,6 @@ public class BlockFormation : MonoBehaviour
 		}
 	}
 
-	void Update ()
-	{
-		/*if (timeScaleControllerScript.isRewinding == false) 
-		{
-			speed = AccumulatedSpeed / BlockElements.Length;
-
-			// Set current velocity.
-			rb.velocity = new Vector3 (
-				0, 
-				speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 
-				0
-			);
-
-			return;
-		}
-
-		if (timeScaleControllerScript.isRewinding == true) 
-		{
-			speed = 0;
-
-			// Set current velocity.
-			rb.velocity = new Vector3 (
-				0, 
-				speed * Time.fixedUnscaledDeltaTime * Time.timeScale, 
-				0
-			);
-		} */
-	}
-
 	void GetBlockArray ()
 	{
 		BlockElements = GetComponentsInChildren<Block> ();
@@ -191,7 +149,6 @@ public class BlockFormation : MonoBehaviour
 		{
 			if (block.gameObject.activeInHierarchy == false)
 			{
-				//Destroy (block.transform.parent.gameObject);
 				Destroy (block.gameObject);
 			}
 		}
@@ -261,45 +218,42 @@ public class BlockFormation : MonoBehaviour
 	// Removes missing blocks randomly.
 	void CheckMissingBlocks ()
 	{
-		if (BlockElements.Length > 0) 
+		switch (missingBlocks)
 		{
-			switch (missingBlocks)
-			{
-			case 0:
-				break;
-			case 1:
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				break;
-			case 2:
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				break;
-			case 3:
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				break;
-			case 4:
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-				GetBlockArray ();
-				break;
-			}
+		case 0:
+			break;
+		case 1:
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			break;
+		case 2:
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			break;
+		case 3:
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			break;
+		case 4:
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+			GetBlockArray ();
+			break;
 		}
 			
 		// Destroys the objects that were set inactive.

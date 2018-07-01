@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LocalSceneLoader : MonoBehaviour 
 {
@@ -36,7 +36,6 @@ public class LocalSceneLoader : MonoBehaviour
 
 	IEnumerator SceneLoadSequence ()
 	{
-		//yield return new WaitForSecondsRealtime (0.1f);
 		sceneLoaderScript.StartLoadSequence ();
 		yield return null;
 	}
