@@ -238,7 +238,10 @@ public class GameOverController : MonoBehaviour
 			GameOverUI.SetActive (true);
 			GameOverAnim.enabled = true;
 			GetGameOverStats ();
-			Debug.Log ("Not a new high score.");
+			GetXpToAdd ();
+			GetBlocksDestroyedToAdd ();
+			SaveAndLoadScript.Instance.SavePlayerData ();
+			Debug.Log ("Not a new high score. Updated other stats.");
 			allowupdateentry = false;
 			UpdateFinalScoreText ();
 		}

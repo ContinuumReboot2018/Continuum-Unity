@@ -192,7 +192,7 @@ public class Block : MonoBehaviour
 			processor.onBeat.RemoveListener (onOnbeatDetected);
 		}
 
-		SaveAndLoadScript.Instance.blocksDestroyed++;
+		//SaveAndLoadScript.Instance.blocksDestroyed++;
 	}
 
 	void OnDestroy ()
@@ -211,7 +211,7 @@ public class Block : MonoBehaviour
 			processor.onBeat.RemoveListener (onOnbeatDetected);
 		}
 
-		SaveAndLoadScript.Instance.blocksDestroyed++;
+		//SaveAndLoadScript.Instance.blocksDestroyed++;
 	}
 		
 	void Awake ()
@@ -394,7 +394,7 @@ public class Block : MonoBehaviour
 					{
 						if (isBonusBlock == true) 
 						{
-							GameController.Instance.BonusBlocksDestroyed += 1;
+							IncrementBlocksDestroyed ();
 						}
 
 						particle.GetComponentInParent<Bullet> ().hitABlock = true;
@@ -500,7 +500,7 @@ public class Block : MonoBehaviour
 		{
 			if (isBonusBlock == true) 
 			{
-				GameController.Instance.BonusBlocksDestroyed += 1;
+				IncrementBlocksDestroyed ();
 			}
 
 			if (transform.position.y > 15) 
@@ -726,7 +726,7 @@ public class Block : MonoBehaviour
 		{
 			if (GameController.Instance != null)
 			{
-				GameController.Instance.BlocksDestroyed += 1;
+				GameController.Instance.BlocksDestroyed++;
 			}
 			return;
 		}

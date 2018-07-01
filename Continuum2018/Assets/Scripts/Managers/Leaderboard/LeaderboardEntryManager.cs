@@ -177,6 +177,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 		GameOverController.Instance.GetGameOverStats ();
 		GameOverController.Instance.GetXpToAdd ();
+		GameOverController.Instance.GetBlocksDestroyedToAdd ();
 
 		yield return new WaitForSecondsRealtime (2);
 
