@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
@@ -297,6 +298,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 20, y: 20, z: 0}
+  XPosTimeUnscaled: 1
+  YPosTimeUnscaled: 1
+  ZPosTimeUnscaled: 1
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -308,6 +312,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  XRotTimeUnscaled: 1
+  YRotTimeUnscaled: 1
+  ZRotTimeUnscaled: 1
 --- !u!114 &114936124153306456
 MonoBehaviour:
   m_ObjectHideFlags: 1

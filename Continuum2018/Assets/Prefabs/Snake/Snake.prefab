@@ -2629,7 +2629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114161575372855854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3050,7 +3050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114389990351877692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3147,7 +3147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114414666962787168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3353,7 +3353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114555274660953992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3423,7 +3423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114578368514168052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3451,7 +3451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114600413459899142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3530,7 +3530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114617769500262304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3558,7 +3558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114669884272404060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3724,7 +3724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114715534060196912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4104,7 +4104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBlocks
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114969959293671078
 MonoBehaviour:
   m_ObjectHideFlags: 1
