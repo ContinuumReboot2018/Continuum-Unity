@@ -7,6 +7,11 @@ public class CheatsWindow : EditorWindow
 	Vector2 scrollPos;
 	string lastCheat;
 
+	void Start ()
+	{
+		ClearLastCheatStringLabel ();
+	}
+
 	[MenuItem ("Window/Cheats")]
 	public static void ShowCheatsEditorWindow ()
 	{
@@ -40,18 +45,11 @@ public class CheatsWindow : EditorWindow
 		style.stretchWidth = true;
 		style.alignment = TextAnchor.MiddleCenter;
 
-		GUI.backgroundColor = new Color (0.75f, 0.75f, 0.75f, 1);
 		GUILayout.BeginVertical ();
 
-		scrollPos = GUILayout.BeginScrollView (
-			scrollPos, 
-			false, 
-			true, 
-			GUILayout.ExpandWidth (true), 
-			GUILayout.ExpandHeight (true) 
-		);
 
-		GUILayout.Label ("Cheat list", EditorStyles.boldLabel);
+
+		GUI.backgroundColor = new Color (1f, 1f, 1f, 1); // Grey background.
 
 		// Toggle cheats.
 		if (GUILayout.Button ("Toggle cheats", style)) 
@@ -76,6 +74,38 @@ public class CheatsWindow : EditorWindow
 			UpdateCurrentCheatButtonLabel ();
 		}
 
+		GUILayout.Label ("General cheats", EditorStyles.boldLabel);
+
+		GUI.backgroundColor = new Color (1f, 0.9f, 0.0f, 1); // Yellow background.
+
+		// Toggle God mode.
+		if (GUILayout.Button ("Toggle God mode", style)) 
+		{
+			developerModeScript.ResetCheatStringTimer ();
+			developerModeScript.CheatString = developerModeScript.ToggleGodmodeCommand;
+			UpdateCurrentCheatButtonLabel ();
+		}
+
+		GUI.backgroundColor = new Color (1.0f, 1.0f, 1.0f, 1); // White background.
+
+		scrollPos = GUILayout.BeginScrollView (
+			scrollPos, 
+			false, 
+			true, 
+			GUILayout.ExpandWidth (true), 
+			GUILayout.ExpandHeight (true) 
+		);
+			
+		GUI.backgroundColor = new Color (1.0f, 0.5f, 0.75f, 1); // Grey background.
+
+		// Force game over.
+		if (GUILayout.Button ("Force game over", style)) 
+		{
+			developerModeScript.ResetCheatStringTimer ();
+			developerModeScript.CheatString = developerModeScript.GameOverCommand;
+			UpdateCurrentCheatButtonLabel ();
+		}
+
 		// Force start.
 		if (GUILayout.Button ("Force start", style)) 
 		{
@@ -89,24 +119,6 @@ public class CheatsWindow : EditorWindow
 		{
 			developerModeScript.ResetCheatStringTimer ();
 			developerModeScript.CheatString = developerModeScript.ForceRestartCommand;
-			UpdateCurrentCheatButtonLabel ();
-		}
-
-		GUILayout.Label ("General cheats", EditorStyles.boldLabel);
-
-		// Toggle God mode.
-		if (GUILayout.Button ("Toggle God mode", style)) 
-		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.ToggleGodmodeCommand;
-			UpdateCurrentCheatButtonLabel ();
-		}
-
-		// Force game over.
-		if (GUILayout.Button ("Force game over", style)) 
-		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.GameOverCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -160,6 +172,8 @@ public class CheatsWindow : EditorWindow
 
 		GUILayout.Label ("Framerate cheats", EditorStyles.boldLabel);
 
+		GUI.backgroundColor = new Color (0.75f, 0.75f, 0.75f, 1); // Dark grey background.
+
 		// FPS unlock.
 		if (GUILayout.Button ("Unlock framerate", style)) 
 		{
@@ -210,6 +224,8 @@ public class CheatsWindow : EditorWindow
 
 		GUILayout.Label ("Save cheats", EditorStyles.boldLabel);
 
+		GUI.backgroundColor = new Color (0.0f, 0.8f, 1.0f, 1); // Dark grey background.
+
 		// Save settings.
 		if (GUILayout.Button ("Save settings", style)) 
 		{
@@ -243,6 +259,8 @@ public class CheatsWindow : EditorWindow
 		}
 			
 		GUILayout.Label ("General powerup cheats", EditorStyles.boldLabel);
+
+		GUI.backgroundColor = new Color (0.5f, 0.75f, 1.0f, 1); // Pale blue background.
 
 		// Reset powerup time.
 		if (GUILayout.Button ("Reset powerup time", style)) 
@@ -330,6 +348,8 @@ public class CheatsWindow : EditorWindow
 
 		GUILayout.Label ("Powerup modifier cheats", EditorStyles.boldLabel);
 
+		GUI.backgroundColor = new Color (0.5f, 1f, 0.0f, 1); // Lime background.
+
 		// Homing.
 		if (GUILayout.Button ("Homing", style)) 
 		{
@@ -337,6 +357,8 @@ public class CheatsWindow : EditorWindow
 			developerModeScript.CheatString = developerModeScript.HomingCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
+
+		GUI.backgroundColor = new Color (0.0f, 1f, 0.0f, 1); // Green background.
 
 		// Ricochet.
 		if (GUILayout.Button ("Ricochet", style)) 
@@ -346,6 +368,8 @@ public class CheatsWindow : EditorWindow
 			UpdateCurrentCheatButtonLabel ();
 		}
 
+		GUI.backgroundColor = new Color (0.0f, 1.0f, 1.0f, 1); // Aqua background.
+
 		// Rapidfire.
 		if (GUILayout.Button ("Rapidfire", style)) 
 		{
@@ -353,6 +377,8 @@ public class CheatsWindow : EditorWindow
 			developerModeScript.CheatString = developerModeScript.RapidfireCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
+
+		GUI.backgroundColor = new Color (0.75f, 0.4f, 0.75f, 1); // Purple background.
 
 		// Overdrive.
 		if (GUILayout.Button ("Overdrive", style)) 
@@ -363,6 +389,8 @@ public class CheatsWindow : EditorWindow
 		}
 
 		GUILayout.Label ("Ability cheats", EditorStyles.boldLabel);
+
+		GUI.backgroundColor = new Color (0.75f, 0.9f, 1.0f, 1); // Pale blue background.
 
 		// Charge ability.
 		if (GUILayout.Button ("Charge ability", style)) 
@@ -430,6 +458,8 @@ public class CheatsWindow : EditorWindow
 
 		GUILayout.Label ("Audio cheats", EditorStyles.boldLabel);
 
+		GUI.backgroundColor = new Color (1.0f, 0.75f, 0.0f, 1); // Orange background.
+
 		// Next track.
 		if (GUILayout.Button ("Next soundtrack", style)) 
 		{
@@ -455,6 +485,8 @@ public class CheatsWindow : EditorWindow
 		}
 
 		GUILayout.Label ("Spawn cheats", EditorStyles.boldLabel);
+
+		GUI.backgroundColor = new Color (0.9f, 1f, 0.9f, 1); // Pale green background.
 
 		// Spawn a block.
 		if (GUILayout.Button ("Spawn block prefab", style)) 

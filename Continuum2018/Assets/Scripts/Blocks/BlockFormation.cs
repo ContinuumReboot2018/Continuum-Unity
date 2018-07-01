@@ -261,42 +261,45 @@ public class BlockFormation : MonoBehaviour
 	// Removes missing blocks randomly.
 	void CheckMissingBlocks ()
 	{
-		switch (missingBlocks)
+		if (BlockElements.Length > 0) 
 		{
-		case 0:
-			break;
-		case 1:
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			break;
-		case 2:
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			break;
-		case 3:
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			break;
-		case 4:
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
-			GetBlockArray ();
-			break;
+			switch (missingBlocks)
+			{
+			case 0:
+				break;
+			case 1:
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				break;
+			case 2:
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				break;
+			case 3:
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				break;
+			case 4:
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				BlockElements [Random.Range (0, BlockElements.Length)].gameObject.SetActive (false);
+				GetBlockArray ();
+				break;
+			}
 		}
 			
 		// Destroys the objects that were set inactive.

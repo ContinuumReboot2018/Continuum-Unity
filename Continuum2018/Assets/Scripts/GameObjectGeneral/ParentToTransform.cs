@@ -9,7 +9,7 @@ public class ParentToTransform : MonoBehaviour
 	[Tooltip ("The parent Trasnform.")]
 	private Transform ParentTransform;
 
-	void Start () 
+	void Awake () 
 	{
 		if (OnStart == true)
 		{
