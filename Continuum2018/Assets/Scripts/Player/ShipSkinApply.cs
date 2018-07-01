@@ -11,8 +11,6 @@ public class ShipSkinApply : MonoBehaviour
 
 	void Start ()
 	{
-		//SaveAndLoadScript.Instance.LoadPlayerData ();
-		//ApplySkin (ships[SaveAndLoadScript.Instance.SelectedSkin]);
 		ApplySkinStartNoSave (ships [SaveAndLoadScript.Instance.SelectedSkin]);
 		ResetAllConfirmTextures (SaveAndLoadScript.Instance.SelectedSkin);
 	}

@@ -4,9 +4,16 @@ using System.Collections;
 
 public class LocalSceneLoader : MonoBehaviour 
 {
+	public static LocalSceneLoader Instance { get; private set; }
+
 	[Tooltip ("Scene is going to laod another scene.")]
 	public bool SceneLoadCommit;
 		
+	void Awake ()
+	{
+		Instance = this;
+	}
+
 	public void LoadScene (string sceneName)
 	{
 		if (SceneLoadCommit == false)

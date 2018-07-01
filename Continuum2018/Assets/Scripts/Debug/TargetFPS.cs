@@ -2,6 +2,8 @@
 
 public class TargetFPS : MonoBehaviour 
 {
+	public static TargetFPS Instance { get; private set; }
+
 	[Tooltip ("Game will try to render as fast as the target. Will try to run as fast as possible if set to a negative number.")]
 	public int targetFramerate = 60; 
 	public int currentTargetFramerate;
@@ -10,7 +12,7 @@ public class TargetFPS : MonoBehaviour
 
 	void Awake ()
 	{
-		SaveAndLoadScript.Instance.targetFramerateScript = this;
+		Instance = this;
 
 		if (useScreenRefreshRate == true) 
 		{

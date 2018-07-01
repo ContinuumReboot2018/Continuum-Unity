@@ -9,8 +9,6 @@ public class DeveloperMode : MonoBehaviour
 	public static DeveloperMode Instance { get ; private set; }
 
 	public PlayerController playerControllerScript_P1;
-	public LocalSceneLoader localSceneLoaderScript;
-	public TargetFPS targetFramerateScript;
 
 	public bool forceStarted; // Has the tutorial been skipped via force start command?
 
@@ -131,11 +129,6 @@ public class DeveloperMode : MonoBehaviour
 	{
 		Instance = this;
 		// DontDestroyOnLoad (gameObject);
-	}
-
-	void Start () 
-	{
-		targetFramerateScript = SaveAndLoadScript.Instance.targetFramerateScript;
 	}
 
 	// Check for cheat input by keyboard.
@@ -271,37 +264,37 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == FpsUnlockCommand) 
 			{
-				targetFramerateScript.SetTargetFramerate (-1);
+				TargetFPS.Instance.SetTargetFramerate (-1);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: -1");
 			}
 
 			if (CheatString == Fps60Command) 
 			{
-				targetFramerateScript.SetTargetFramerate (60);
+				TargetFPS.Instance.SetTargetFramerate (60);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 60");
 			}
 
 			if (CheatString == Fps30Command) 
 			{
-				targetFramerateScript.SetTargetFramerate (30);
+				TargetFPS.Instance.SetTargetFramerate (30);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 30");
 			}
 
 			if (CheatString == Fps20Command) 
 			{
-				targetFramerateScript.SetTargetFramerate (20);
+				TargetFPS.Instance.SetTargetFramerate (20);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 20");
 			}
 
 			if (CheatString == Fps90Command) 
 			{
-				targetFramerateScript.SetTargetFramerate (90);
+				TargetFPS.Instance.SetTargetFramerate (90);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 90");
 			}
 
 			if (CheatString == Fps120Command) 
 			{
-				targetFramerateScript.SetTargetFramerate (120);
+				TargetFPS.Instance.SetTargetFramerate (120);
 				ShowCheatNotification ("CHEAT ACTIVATED: FPS: 120");
 			}
 

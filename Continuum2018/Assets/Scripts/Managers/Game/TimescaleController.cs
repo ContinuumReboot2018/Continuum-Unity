@@ -11,8 +11,6 @@ public class TimescaleController : MonoBehaviour
 	public static TimescaleController Instance { get; private set; }
 
 	public PlayerController 	playerControllerScript_P1;
-	public LocalSceneLoader 	localSceneLoaderScript;
-	public FPSCounter 			fpsCounterScript;
 	public NoiseAndGrain 		noiseScript;
 	public GameModifierManager 	gameModifier;
 	public MenuManager 			gameOverMenuManager;
@@ -412,7 +410,7 @@ public class TimescaleController : MonoBehaviour
 	void CheckSceneLoadCommit ()
 	{
 		// Checks to see if the scene loader wants to load another scene.
-		if (localSceneLoaderScript.SceneLoadCommit == true) 
+		if (LocalSceneLoader.Instance.SceneLoadCommit == true) 
 		{
 			Time.timeScale = 0;
 			this.enabled = false;

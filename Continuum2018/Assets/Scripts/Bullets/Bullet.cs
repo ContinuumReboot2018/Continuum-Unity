@@ -5,7 +5,6 @@ public class Bullet : MonoBehaviour
 {
 	// References.
 	public PlayerController playerControllerScript; // Reference to the player controller.
-	public FPSCounter fpsCounterScript;
 
 	[Header ("Stats")]
 	[Tooltip ("The bullet speed to set (Unscaled).")]
@@ -107,7 +106,6 @@ public class Bullet : MonoBehaviour
 
 	void Start ()
 	{
-		fpsCounterScript = GameObject.Find ("FPSCounter").GetComponent<FPSCounter> ();
 		AwakeAudio = GetComponent<AudioSource> (); // Gets current attached audio source.
 		AwakeAudio.panStereo = 0.04f * transform.position.x; // Pans audio based on x position.
 
@@ -142,7 +140,7 @@ public class Bullet : MonoBehaviour
 			if (BulletSpeedType == SpeedType.Unscaled)
 			{
 				float unscaledVelocity = BulletSpeedUnscaled * 
-					((Time.unscaledDeltaTime / Time.timeScale) * fpsCounterScript.FramesPerSec);
+					((Time.unscaledDeltaTime / Time.timeScale) * FPSCounter.Instance.FramesPerSec);
 				
 				// Clamp maximum speed by velocity limits.
 				homingScript.speed = Mathf.Clamp (
@@ -327,7 +325,7 @@ public class Bullet : MonoBehaviour
 			if (BulletSpeedType == SpeedType.Unscaled)
 			{
 				float unscaledVelocity = BulletSpeedUnscaled * 
-					((Time.unscaledDeltaTime / Time.timeScale) * fpsCounterScript.FramesPerSec);
+					((Time.unscaledDeltaTime / Time.timeScale) * FPSCounter.Instance.FramesPerSec);
 
 				BulletRb.velocity = transform.TransformDirection (
 					new Vector3 (

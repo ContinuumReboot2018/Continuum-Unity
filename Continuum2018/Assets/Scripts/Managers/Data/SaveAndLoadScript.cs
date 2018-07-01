@@ -55,9 +55,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	public bool useHdr;
 	public bool sunShaftsEnabled;
 	[Space (10)]
-	public TargetFPS targetFramerateScript;
 	public int targetframerate;
-	public FPSCounter fpsCounterScript;
 	public float averageFpsTimer;
 	[Space (10)]
 	public float ParticleEmissionMultiplier = 1;
@@ -81,7 +79,6 @@ public class SaveAndLoadScript : MonoBehaviour
 		{
 			if (AllowLoading == true) 
 			{
-				targetFramerateScript = GameObject.Find ("TargetFPS").GetComponent<TargetFPS> ();
 				cam = SettingsManager.Instance.cam;
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 				fastMobileBloomScript = cam.GetComponent<FastMobileBloom> ();
@@ -89,20 +86,15 @@ public class SaveAndLoadScript : MonoBehaviour
 				CheckAndApplyQualitySettings ();
 			}
 		}
-
-		if (SceneManager.GetActiveScene ().name == "SinglePlayer") 
-		{
-			fpsCounterScript = GameObject.Find ("FPSCounter").GetComponent<FPSCounter> ();
-		}
 	}
 
 	void FixedUpdate ()
 	{
 		#if !UNITY_EDITOR
 		// This allows the framerate to hitch without causing a quality settings change.
-		if (fpsCounterScript != null && SceneLoader.Instance.isLoading == false) 
+		if (FPSCounter.Instance != null && SceneLoader.Instance.isLoading == false) 
 		{
-			if (fpsCounterScript.averageFps < 30)
+			if (FPSCounter.Instance.averageFps < 30)
 			{
 				averageFpsTimer += Time.fixedDeltaTime;
 
@@ -660,7 +652,7 @@ public class SaveAndLoadScript : MonoBehaviour
 
 		if (targetframerate >= 30 || targetframerate <= -1) 
 		{
-			targetFramerateScript.SetTargetFramerate (targetframerate);
+			TargetFPS.Instance.SetTargetFramerate (targetframerate);
 		}
 	}
 
