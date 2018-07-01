@@ -5,9 +5,6 @@ using TMPro;
 public class Block : MonoBehaviour
 {
 	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
-	public GameController gameControllerScript; // Reference to Game Controller
-	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
-	public AudioController audioControllerScript; // Reference to Audio Controller.
 	public AudioProcessor processor;
 	private TimeBody timeBodyScript;
 	public MeshRenderer rend; // This Mesh Renderer.
@@ -146,8 +143,6 @@ public class Block : MonoBehaviour
 	[Header ("Tutorial")]
 	[Tooltip ("Checks if it is a tutorial block to bypass settings.")]
 	public bool isTutorialBlock;
-	[Tooltip ("Reference to tutorial manager.")]
-	public TutorialManager tutorialManagerScript;
 	[Tooltip ("Checks the block index if part of the tutorial.")]
 	public int tutorialBlockIndex;
 
@@ -203,14 +198,11 @@ public class Block : MonoBehaviour
 	{
 		// Find external scripts.
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
-		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
-		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		parentToTransformScript = GetComponent<ParentToTransform> ();
 		timeBodyScript = GetComponent<TimeBody> ();
 
-		processor = audioControllerScript.BeatDetectionTracks [(int)BlockType].GetComponent<AudioProcessor> ();
+		processor = AudioController.Instance.BeatDetectionTracks [(int)BlockType].GetComponent<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 
 		// Finds texture scroll script.
@@ -236,7 +228,7 @@ public class Block : MonoBehaviour
 	void onOnbeatDetected ()
 	{
 		// Animates in beat based on block type.
-		if (audioControllerScript.BeatInBar == (int)BlockType + 1) 
+		if (AudioController.Instance.BeatInBar == (int)BlockType + 1) 
 		{
 			GetComponentInChildren<Animator> ().Play ("BlockBeat");
 		}
@@ -269,7 +261,7 @@ public class Block : MonoBehaviour
 		}
 
 		// Check if rewinding.
-		if (timeScaleControllerScript.isRewinding == true) 
+		if (TimescaleController.Instance.isRewinding == true) 
 		{
 			if (timeBodyScript != null) 
 			{
@@ -292,7 +284,7 @@ public class Block : MonoBehaviour
 		}
 
 		// For a block which is not part of a formation and is not a boss part and is not stacked yet.
-		if (timeScaleControllerScript.isRewinding == false && 
+		if (TimescaleController.Instance.isRewinding == false && 
 			isBlockFormationConnected == false && 
 			isBossPart == false && isStacked == false) 
 		{
@@ -318,19 +310,21 @@ public class Block : MonoBehaviour
 					BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
 
 					// If tutorial script is referenced.
-					if (tutorialManagerScript != null) 
+					if (TutorialManager.Instance != null) 
 					{
 						// Reset block index in info section.
-						if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info) 
+						if (TutorialManager.Instance.TutorialPhase != TutorialManager.tutorialPhase.Info
+							&& TutorialManager.Instance.gameObject.activeSelf == true) 
 						{
-							tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+							TutorialManager.Instance.Blocks [tutorialBlockIndex] = null;
 						}
 
 						// Turn off the tutorial in info section.
-						if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
+						if (TutorialManager.Instance.TutorialPhase == TutorialManager.tutorialPhase.Info
+							&& TutorialManager.Instance.gameObject.activeSelf == true) 
 						{
 							Debug.Log ("Attempted to turn off tutorial.");
-							tutorialManagerScript.TurnOffTutorial (false);
+							TutorialManager.Instance.TurnOffTutorial (false);
 						}
 					}
 
@@ -456,19 +450,19 @@ public class Block : MonoBehaviour
 					BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
 
 					// If tutorial script is referenced.
-					if (tutorialManagerScript != null)
+					if (TutorialManager.Instance != null)
 					{
 						// Reset block index in info section.
-						if (tutorialManagerScript.TutorialPhase != TutorialManager.tutorialPhase.Info)
+						if (TutorialManager.Instance.TutorialPhase != TutorialManager.tutorialPhase.Info)
 						{
-							tutorialManagerScript.Blocks [tutorialBlockIndex] = null;
+							TutorialManager.Instance.Blocks [tutorialBlockIndex] = null;
 						}
 
 						// Turn off the tutorial in info section.
-						if (tutorialManagerScript.TutorialPhase == TutorialManager.tutorialPhase.Info) 
+						if (TutorialManager.Instance.TutorialPhase == TutorialManager.tutorialPhase.Info) 
 						{
 							Debug.Log ("Attempted to turn off tutorial.");
-							tutorialManagerScript.TurnOffTutorial (false);
+							TutorialManager.Instance.TurnOffTutorial (false);
 						}
 					}
 
@@ -645,7 +639,7 @@ public class Block : MonoBehaviour
 	{
 		if (DontIncrementBlocksDestroyed == false) 
 		{
-			if (gameControllerScript != null)
+			if (GameController.Instance != null)
 			{
 				GameController.Instance.BlocksDestroyed += 1;
 			}
@@ -656,7 +650,7 @@ public class Block : MonoBehaviour
 	// Called when collided with bullet and calculates point value.
 	public void GetTotalPointValue ()
 	{
-		if (gameControllerScript != null)
+		if (GameController.Instance != null)
 		{
 			// Calculates total point value based on current combo from game controller and time scale.
 			totalPointValue = Mathf.Clamp (
@@ -671,7 +665,7 @@ public class Block : MonoBehaviour
 		}
 
 		// If the game controller is not found yet and block gets destroyed.
-		if (gameControllerScript == null) 
+		if (GameController.Instance == null) 
 		{
 			totalPointValue = BasePointValue;
 		}
@@ -721,7 +715,7 @@ public class Block : MonoBehaviour
 	// Changes combo when collided with.
 	public void RefreshCombo ()
 	{
-		if (gameControllerScript != null)
+		if (GameController.Instance != null)
 		{
 			// Adds point value to target score in game controller.
 			GameController.Instance.TargetScore += totalPointValue;

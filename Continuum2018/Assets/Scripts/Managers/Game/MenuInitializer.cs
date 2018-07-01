@@ -4,7 +4,6 @@ using UnityEngine.PostProcessing;
 
 public class MenuInitializer : MonoBehaviour 
 {
-	public SaveAndLoadScript saveAndLoadScript;
 	public PostProcessingProfile postProcess;
 	public float bloomIntensity;
 
@@ -18,9 +17,7 @@ public class MenuInitializer : MonoBehaviour
 
 	void Start () 
 	{
-		// Find the saving script.
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		AudioListener.volume = saveAndLoadScript.MasterVolume;
+		AudioListener.volume = SaveAndLoadScript.Instance.MasterVolume;
 
 		SoundtrackAudioMix.SetFloat ("LowCutoffFrequency", curFreq);
 		EffectsAudioMix.SetFloat ("LowCutoffFrequency", curEffectsFreq);

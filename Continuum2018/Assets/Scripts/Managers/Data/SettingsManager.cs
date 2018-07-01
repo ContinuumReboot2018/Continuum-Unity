@@ -8,7 +8,8 @@ using TMPro;
 
 public class SettingsManager : MonoBehaviour 
 {
-	public SaveAndLoadScript saveAndLoadScript;
+	public static SettingsManager Instance { get; private set; }
+
 	public PostProcessingBehaviour postProcessingBehaviourComponent;
 	public FastMobileBloom fastMobileBloomScript;
 	public VolumetricLightRenderer volLightRend;
@@ -36,12 +37,16 @@ public class SettingsManager : MonoBehaviour
 	public Button EffectsVolumeButtonDown;
 	public TextMeshProUGUI EffectsVolumeValueText;
 
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
+
 	void Start ()
 	{
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		saveAndLoadScript.settingsManagerScript = this; // Assign itself to save and load script.
-		saveAndLoadScript.VisualSettingsComponent = postProcessingBehaviourComponent;
-		saveAndLoadScript.cam = cam;
+		SaveAndLoadScript.Instance.VisualSettingsComponent = postProcessingBehaviourComponent;
+		SaveAndLoadScript.Instance.cam = cam;
 
 		UpdateVisuals ();
 		UpdateVolumeTextValues ();
@@ -49,12 +54,12 @@ public class SettingsManager : MonoBehaviour
 
 	public void SaveSettings ()
 	{
-		saveAndLoadScript.SaveSettingsData ();
+		SaveAndLoadScript.Instance.SaveSettingsData ();
 	}
 
 	public void LoadSettings ()
 	{
-		saveAndLoadScript.LoadSettingsData ();
+		SaveAndLoadScript.Instance.LoadSettingsData ();
 	}
 
 	void Update ()
@@ -67,23 +72,23 @@ public class SettingsManager : MonoBehaviour
 
 	public void OnQualitySettingsButtonClick (int QualityIndex)
 	{
-		saveAndLoadScript.QualitySettingsIndex = QualityIndex;
-		Debug.Log ("Quality Settings index set to: " + saveAndLoadScript.QualitySettingsIndex);
+		SaveAndLoadScript.Instance.QualitySettingsIndex = QualityIndex;
+		Debug.Log ("Quality Settings index set to: " + SaveAndLoadScript.Instance.QualitySettingsIndex);
 	}
 
 	public void UpdateVisuals ()
 	{
 		// Low visual quality settings.
-		if (saveAndLoadScript.QualitySettingsIndex == 0) 
+		if (SaveAndLoadScript.Instance.QualitySettingsIndex == 0) 
 		{
 			QualitySettings.SetQualityLevel (0);
 
-			saveAndLoadScript.ParticleEmissionMultiplier = 0.25f;
+			SaveAndLoadScript.Instance.ParticleEmissionMultiplier = 0.25f;
 
 			cam.allowHDR = false;
-			saveAndLoadScript.useHdr = false;
+			SaveAndLoadScript.Instance.useHdr = false;
 
-			saveAndLoadScript.sunShaftsEnabled = false;
+			SaveAndLoadScript.Instance.sunShaftsEnabled = false;
 			cam.GetComponent<SunShafts> ().enabled = false;
 
 			postProcessingBehaviourComponent.enabled = false;
@@ -92,16 +97,16 @@ public class SettingsManager : MonoBehaviour
 		}
 
 		// High visual quality settings.
-		if (saveAndLoadScript.QualitySettingsIndex == 1) 
+		if (SaveAndLoadScript.Instance.QualitySettingsIndex == 1) 
 		{
 			QualitySettings.SetQualityLevel (1);
 
-			saveAndLoadScript.ParticleEmissionMultiplier = 1f;
+			SaveAndLoadScript.Instance.ParticleEmissionMultiplier = 1f;
 
 			cam.allowHDR = true;
-			saveAndLoadScript.useHdr = true;
+			SaveAndLoadScript.Instance.useHdr = true;
 
-			saveAndLoadScript.sunShaftsEnabled = true;
+			SaveAndLoadScript.Instance.sunShaftsEnabled = true;
 			cam.GetComponent<SunShafts> ().enabled = true;
 
 			postProcessingBehaviourComponent.enabled = true;
@@ -117,8 +122,8 @@ public class SettingsManager : MonoBehaviour
 	{
 		if (AudioListener.volume < 1) 
 		{
-			saveAndLoadScript.MasterVolume += 0.1f;
-			AudioListener.volume = saveAndLoadScript.MasterVolume;
+			SaveAndLoadScript.Instance.MasterVolume += 0.1f;
+			AudioListener.volume = SaveAndLoadScript.Instance.MasterVolume;
 			UpdateVolumeTextValues ();
 		}
 	}
@@ -127,48 +132,48 @@ public class SettingsManager : MonoBehaviour
 	{
 		if (AudioListener.volume > 0) 
 		{
-			saveAndLoadScript.MasterVolume -= 0.1f;
-			AudioListener.volume = saveAndLoadScript.MasterVolume;
+			SaveAndLoadScript.Instance.MasterVolume -= 0.1f;
+			AudioListener.volume = SaveAndLoadScript.Instance.MasterVolume;
 			UpdateVolumeTextValues ();
 		}
 	}
 		
 	public void SoundtrackVolumeUpOnClick ()
 	{
-		saveAndLoadScript.SoundtrackVolume += 8f;
+		SaveAndLoadScript.Instance.SoundtrackVolume += 8f;
 		UpdateSoundtrackVol ();
 	}
 
 	public void SoundtrackVolumeDownOnClick ()
 	{
-		saveAndLoadScript.SoundtrackVolume -= 8f;
+		SaveAndLoadScript.Instance.SoundtrackVolume -= 8f;
 		UpdateSoundtrackVol ();
 	}
 
 	void UpdateSoundtrackVol ()
 	{
-		saveAndLoadScript.SoundtrackVolume = Mathf.Clamp (saveAndLoadScript.SoundtrackVolume, -80, 0);
-		curSoundtrackVol = saveAndLoadScript.SoundtrackVolume;
+		SaveAndLoadScript.Instance.SoundtrackVolume = Mathf.Clamp (SaveAndLoadScript.Instance.SoundtrackVolume, -80, 0);
+		curSoundtrackVol = SaveAndLoadScript.Instance.SoundtrackVolume;
 		SoundtrackVolMix.SetFloat ("SoundtrackVolume", curSoundtrackVol);
 		UpdateVolumeTextValues ();
 	}
 
 	public void EffectsVolumeUpOnClick ()
 	{
-		saveAndLoadScript.EffectsVolume += 8f;
+		SaveAndLoadScript.Instance.EffectsVolume += 8f;
 		UpdateEffectsVol ();
 	}
 
 	public void EffectsVolumeDownOnClick ()
 	{
-		saveAndLoadScript.EffectsVolume -= 8f;
+		SaveAndLoadScript.Instance.EffectsVolume -= 8f;
 		UpdateEffectsVol ();
 	}
 
 	void UpdateEffectsVol ()
 	{
-		saveAndLoadScript.EffectsVolume = Mathf.Clamp (saveAndLoadScript.EffectsVolume, -80, 0);
-		curEffectsVol = saveAndLoadScript.EffectsVolume;
+		SaveAndLoadScript.Instance.EffectsVolume = Mathf.Clamp (SaveAndLoadScript.Instance.EffectsVolume, -80, 0);
+		curEffectsVol = SaveAndLoadScript.Instance.EffectsVolume;
 		EffectsVolMix.SetFloat ("EffectsVolume", curEffectsVol);
 		UpdateVolumeTextValues ();
 	}
@@ -210,14 +215,14 @@ public class SettingsManager : MonoBehaviour
 	void UpdateVolumeTextValues ()
 	{
 		MasterVolumeValueText.text = System.Math.Round (
-			saveAndLoadScript.MasterVolume, 1).ToString ();
+			SaveAndLoadScript.Instance.MasterVolume, 1).ToString ();
 		
 		SoundtrackVolumeValueText.text = (1 +
-			System.Math.Round ((0.0125f * saveAndLoadScript.SoundtrackVolume), 1)
+			System.Math.Round ((0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume), 1)
 		).ToString ();
 		
 		EffectsVolumeValueText.text = (1 +
-			System.Math.Round ((0.0125f * saveAndLoadScript.EffectsVolume), 1)
+			System.Math.Round ((0.0125f * SaveAndLoadScript.Instance.EffectsVolume), 1)
 		).ToString ();
 	}
 		
@@ -226,13 +231,13 @@ public class SettingsManager : MonoBehaviour
 
 	public void ApplySettings ()
 	{
-		saveAndLoadScript.SaveSettingsData ();
-		saveAndLoadScript.LoadSettingsData ();
+		SaveAndLoadScript.Instance.SaveSettingsData ();
+		SaveAndLoadScript.Instance.LoadSettingsData ();
 	}
 
 	public void RevertSettings ()
 	{
-		saveAndLoadScript.LoadSettingsData ();
+		SaveAndLoadScript.Instance.LoadSettingsData ();
 		RefreshSettings ();
 	}
 

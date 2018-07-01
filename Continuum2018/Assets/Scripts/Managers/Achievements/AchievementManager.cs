@@ -5,9 +5,9 @@ using TMPro;
 
 public class AchievementManager : MonoBehaviour 
 {
+	public static AchievementManager Instance { get; private set; }
+
 	public PlayerController playerControllerScript;
-	public GameController gameControllerScript;
-	public SaveAndLoadScript saveAndLoadScript;
 
 	[Header ("Achievement notification")]
 	public Animator AchievementAnim;
@@ -64,9 +64,14 @@ public class AchievementManager : MonoBehaviour
 	public int PowerupsInUseIncreaseAmount = 2;
 	private int TimesReachedPowerupsInUseToBonus;
 
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
+
 	void Start ()
 	{
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		StartAchievementChecking ();
 	}
 

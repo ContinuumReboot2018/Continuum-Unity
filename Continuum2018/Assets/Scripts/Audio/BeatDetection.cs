@@ -2,17 +2,11 @@
 
 public class BeatDetection : MonoBehaviour 
 {
-	public AudioController audioControllerScript;
 	public AudioProcessor processor;
 	public bool isLayerOne;
 
 	void Start ()
 	{
-		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
-
-		//Select the instance of AudioProcessor and pass a reference to this object.
-		//AudioProcessor processor = FindObjectOfType<AudioProcessor> ();
-
 		processor = GetComponent<AudioProcessor> ();
 		processor.onBeat.AddListener (onOnbeatDetected);
 		processor.onSpectrum.AddListener (onSpectrum);
@@ -25,8 +19,8 @@ public class BeatDetection : MonoBehaviour
 		if (isLayerOne == true)
 		{
 			//Debug.Log ("Beat!");
-			audioControllerScript.Beats += 1;
-			audioControllerScript.BeatInBar = (audioControllerScript.Beats % 4) + 1;
+			AudioController.Instance.Beats += 1;
+			AudioController.Instance.BeatInBar = (AudioController.Instance.Beats % 4) + 1;
 			GetBeatsPerMinute ();
 		}
 	}
@@ -45,10 +39,10 @@ public class BeatDetection : MonoBehaviour
 
 	public void GetBeatsPerMinute ()
 	{
-		audioControllerScript.BeatsPerMinute = (
-			audioControllerScript.Beats / 
-			((audioControllerScript.TimeSinceTrackLoad / 60)) * 
-			audioControllerScript.BassTrack.pitch
+		AudioController.Instance.BeatsPerMinute = (
+			AudioController.Instance.Beats / 
+			((AudioController.Instance.TimeSinceTrackLoad / 60)) * 
+			AudioController.Instance.BassTrack.pitch
 		);
 	}
 }

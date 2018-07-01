@@ -6,14 +6,11 @@ using TMPro;
 
 public class DeveloperMode : MonoBehaviour 
 {
+	public static DeveloperMode Instance { get ; private set; }
+
 	public PlayerController playerControllerScript_P1;
-	public GameController gameControllerScript;
-	public TimescaleController timeScaleControllerScript;
 	public LocalSceneLoader localSceneLoaderScript;
-	public AudioController audioControllerScript;
-	public SaveAndLoadScript saveAndLoadScript;
 	public TargetFPS targetFramerateScript;
-	public TutorialManager tutorialManagerScript;
 
 	public bool forceStarted; // Has the tutorial been skipped via force start command?
 
@@ -130,11 +127,15 @@ public class DeveloperMode : MonoBehaviour
 	public GameObject CheatConsole; // Visual input keycodes by user.
 	public TextMeshProUGUI CheatInputText; // Current input visual text.
 
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
+
 	void Start () 
 	{
-		// Find the saving script.
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		targetFramerateScript = saveAndLoadScript.targetFramerateScript;
+		targetFramerateScript = SaveAndLoadScript.Instance.targetFramerateScript;
 	}
 
 	// Check for cheat input by keyboard.
@@ -254,7 +255,7 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (forceStarted == false) 
 				{
-					tutorialManagerScript.TurnOffTutorial (true);
+					TutorialManager.Instance.TurnOffTutorial (true);
 					ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
 					forceStarted = true;
 				}
@@ -262,9 +263,9 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == ForceRestartCommand) 
 			{
-				audioControllerScript.FadeOutSceneAudio ();
-				localSceneLoaderScript.sceneLoaderScript.SceneName = SceneManager.GetActiveScene ().name;
-				localSceneLoaderScript.sceneLoaderScript.StartLoadSequence ();
+				AudioController.Instance.FadeOutSceneAudio ();
+				SceneLoader.Instance.SceneName = SceneManager.GetActiveScene ().name;
+				SceneLoader.Instance.StartLoadSequence ();
 				ShowCheatNotification ("");
 			}
 
@@ -306,31 +307,31 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == NextTrackCommand) 
 			{
-				audioControllerScript.NextTrack ();
+				AudioController.Instance.NextTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT TRACK");
 			}
 
 			if (CheatString == PreviousTrackCommand) 
 			{
-				audioControllerScript.PreviousTrack ();
+				AudioController.Instance.PreviousTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: PREVIOUS TRACK");
 			}
 
 			if (CheatString == RandomTrackCommand)
 			{
-				audioControllerScript.RandomTrack ();
+				AudioController.Instance.RandomTrack ();
 				ShowCheatNotification ("CHEAT ACTIVATED: RANDOM TRACK");
 			}
 
 			if (CheatString == SaveSettingsCommand)
 			{
-				saveAndLoadScript.SaveSettingsData ();
+				SaveAndLoadScript.Instance.SaveSettingsData ();
 				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS SAVE");
 			}
 
 			if (CheatString == LoadSettingsCommand)
 			{
-				saveAndLoadScript.LoadSettingsData ();
+				SaveAndLoadScript.Instance.LoadSettingsData ();
 				ShowCheatNotification ("CHEAT ACTIVATED: SETTINGS LOAD");
 			}
 
@@ -417,8 +418,8 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.timeIsSlowed == false) 
 				{
-					playerControllerScript_P1.timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
-					playerControllerScript_P1.timescaleControllerScript.OverridingTimeScale = 0.3f;
+					TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 1f;
+					TimescaleController.Instance.OverridingTimeScale = 0.3f;
 				}
 
 				playerControllerScript_P1.CurrentAbilityState = PlayerController.abilityState.Ready;
@@ -841,9 +842,9 @@ public class DeveloperMode : MonoBehaviour
 
 					playerControllerScript_P1.timeIsSlowed = true;
 
-					timeScaleControllerScript.OverridingTimeScale = 0.3f;
-					timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 20;
-					timeScaleControllerScript.isOverridingTimeScale = true;
+					TimescaleController.Instance.OverridingTimeScale = 0.3f;
+					TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 20;
+					TimescaleController.Instance.isOverridingTimeScale = true;
 
 					UpdatePowerupImages (GameController.Instance.NextPowerupSlot_P1, SlowTimeTexture, Color.white);
 
@@ -979,9 +980,9 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == SetQualitySettingsHigh) 
 			{
-				if (saveAndLoadScript.QualitySettingsIndex != 1)
+				if (SaveAndLoadScript.Instance.QualitySettingsIndex != 1)
 				{
-					saveAndLoadScript.QualitySettingsIndex = 1;
+					SaveAndLoadScript.Instance.QualitySettingsIndex = 1;
 					Application.targetFrameRate = -1;
 
 					if (Screen.width < 1920 || Screen.height < 1080) 
@@ -989,17 +990,17 @@ public class DeveloperMode : MonoBehaviour
 						Screen.SetResolution (1920, 1080, Screen.fullScreen);
 					}
 
-					saveAndLoadScript.SaveSettingsData ();
-					saveAndLoadScript.LoadSettingsData ();
+					SaveAndLoadScript.Instance.SaveSettingsData ();
+					SaveAndLoadScript.Instance.LoadSettingsData ();
 					ShowCheatNotification ("CHEAT ACTIVATED: HIGH QUALITY SETTINGS");
 				}
 			}
 
 			if (CheatString == SetQualitySettingsLow) 
 			{
-				if (saveAndLoadScript.QualitySettingsIndex != 0)
+				if (SaveAndLoadScript.Instance.QualitySettingsIndex != 0)
 				{
-					saveAndLoadScript.QualitySettingsIndex = 0;
+					SaveAndLoadScript.Instance.QualitySettingsIndex = 0;
 					Application.targetFrameRate = -1;
 
 					if (Screen.width > 1280 || Screen.height > 720) 
@@ -1007,8 +1008,8 @@ public class DeveloperMode : MonoBehaviour
 						Screen.SetResolution (1280, 720, Screen.fullScreen);
 					}
 
-					saveAndLoadScript.SaveSettingsData ();
-					saveAndLoadScript.LoadSettingsData ();
+					SaveAndLoadScript.Instance.SaveSettingsData ();
+					SaveAndLoadScript.Instance.LoadSettingsData ();
 					ShowCheatNotification ("CHEAT ACTIVATED: LOW QUALITY SETTINGS");
 				}
 			}
@@ -1042,8 +1043,8 @@ public class DeveloperMode : MonoBehaviour
 
 		if (playerControllerScript_P1.timeIsSlowed == false)
 		{
-			timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f;
-			timeScaleControllerScript.OverridingTimeScale = 0.2f;
+			TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 0.5f;
+			TimescaleController.Instance.OverridingTimeScale = 0.2f;
 		}
 
 		playerControllerScript_P1.NextFire = nextfire;
@@ -1075,14 +1076,14 @@ public class DeveloperMode : MonoBehaviour
 		//Invoke ("ClearCheatString", 0.1f);
 		ClearCheatString ();
 
-		if (timeScaleControllerScript.OverrideTimeScaleTimeRemaining < 0.5f && playerControllerScript_P1.timeIsSlowed) 
+		if (TimescaleController.Instance.OverrideTimeScaleTimeRemaining < 0.5f && playerControllerScript_P1.timeIsSlowed) 
 		{
-			timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f;
+			TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 0.5f;
 		}
 
-		if (timeScaleControllerScript.OverridingTimeScale < 0.2f && playerControllerScript_P1.timeIsSlowed)
+		if (TimescaleController.Instance.OverridingTimeScale < 0.2f && playerControllerScript_P1.timeIsSlowed)
 		{
-			timeScaleControllerScript.OverridingTimeScale = 0.2f;
+			TimescaleController.Instance.OverridingTimeScale = 0.2f;
 		}
 
 		playerControllerScript_P1.NextFire = nextfire ;

@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class ShipSkinApply : MonoBehaviour 
 {
 	public MenuManager SelectSkinMenu;
-	public SaveAndLoadScript saveAndLoadScript;
 	public MeshFilter playerMesh;
 	public MeshRenderer playerRend;
 	public Ship[] ships;
@@ -12,17 +11,15 @@ public class ShipSkinApply : MonoBehaviour
 
 	void Start ()
 	{
-		// Find the saving script.
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		//saveAndLoadScript.LoadPlayerData ();
-		//ApplySkin (ships[saveAndLoadScript.SelectedSkin]);
-		ApplySkinStartNoSave (ships [saveAndLoadScript.SelectedSkin]);
-		ResetAllConfirmTextures (saveAndLoadScript.SelectedSkin);
+		//SaveAndLoadScript.Instance.LoadPlayerData ();
+		//ApplySkin (ships[SaveAndLoadScript.Instance.SelectedSkin]);
+		ApplySkinStartNoSave (ships [SaveAndLoadScript.Instance.SelectedSkin]);
+		ResetAllConfirmTextures (SaveAndLoadScript.Instance.SelectedSkin);
 	}
 
 	void ApplySkinStartNoSave (Ship ship)
 	{
-		saveAndLoadScript.SelectedSkin = ship.ShipIndex;
+		SaveAndLoadScript.Instance.SelectedSkin = ship.ShipIndex;
 		ResetAllConfirmTextures (ship.ShipIndex);
 		playerMesh.mesh = ship.ShipMesh;
 		playerRend.material = ship.ShipMaterial;
@@ -31,7 +28,7 @@ public class ShipSkinApply : MonoBehaviour
 
 	public void ApplySkin (Ship ship)
 	{
-		saveAndLoadScript.SelectedSkin = ship.ShipIndex;
+		SaveAndLoadScript.Instance.SelectedSkin = ship.ShipIndex;
 		ResetAllConfirmTextures (ship.ShipIndex);
 		playerMesh.mesh = ship.ShipMesh;
 		playerRend.material = ship.ShipMaterial;
@@ -41,7 +38,7 @@ public class ShipSkinApply : MonoBehaviour
 		// Other scenes: just apply the skin.
 		if (SceneManager.GetActiveScene ().name == "Menu") 
 		{
-			saveAndLoadScript.SavePlayerData ();
+			SaveAndLoadScript.Instance.SavePlayerData ();
 		}
 	}
 
@@ -71,15 +68,15 @@ public class ShipSkinApply : MonoBehaviour
 
 	public void ForceReloadPlayerShipData ()
 	{
-		saveAndLoadScript.LoadPlayerData ();
-		Debug.Log ("Loading Skin: " + saveAndLoadScript.SelectedSkin);
-		playerMesh.mesh = ships[saveAndLoadScript.SelectedSkin].ShipMesh;
-		playerRend.material = ships[saveAndLoadScript.SelectedSkin].ShipMaterial;
-		saveAndLoadScript.SavePlayerData ();
+		SaveAndLoadScript.Instance.LoadPlayerData ();
+		Debug.Log ("Loading Skin: " + SaveAndLoadScript.Instance.SelectedSkin);
+		playerMesh.mesh = ships[SaveAndLoadScript.Instance.SelectedSkin].ShipMesh;
+		playerRend.material = ships[SaveAndLoadScript.Instance.SelectedSkin].ShipMaterial;
+		SaveAndLoadScript.Instance.SavePlayerData ();
 	}
 
 	public void OverrideButtonIndex ()
 	{
-		SelectSkinMenu.SetButtonIndex (saveAndLoadScript.SelectedSkin);
+		SelectSkinMenu.SetButtonIndex (SaveAndLoadScript.Instance.SelectedSkin);
 	}
 }

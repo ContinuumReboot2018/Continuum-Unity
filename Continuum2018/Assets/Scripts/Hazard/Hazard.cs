@@ -3,9 +3,6 @@
 public class Hazard : MonoBehaviour 
 {
 	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
-	public GameController gameControllerScript; // Reference to Game Controller.
-	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
-	public AudioController audioControllerScript; // Reference to Audio Controller.
 
 	[Header ("Hazard Type")]
 	[Tooltip ("Current hazard type.")]
@@ -42,9 +39,6 @@ public class Hazard : MonoBehaviour
 	void FindReferences ()
 	{
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
-		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
-		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 	}
 
@@ -127,11 +121,11 @@ public class Hazard : MonoBehaviour
 	// Audio effects.
 	public void SetTargetLowPassFreq (float lowPassFreq)
 	{
-		audioControllerScript.TargetCutoffFreq = lowPassFreq;
+		AudioController.Instance.TargetCutoffFreq = lowPassFreq;
 	}
 
 	public void SetTargetResonance (float resAmt)
 	{
-		audioControllerScript.TargetResonance = resAmt;
+		AudioController.Instance.TargetResonance = resAmt;
 	}
 }

@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class TimeBody : MonoBehaviour 
 {
-	public TimescaleController timeScaleControllerScript; // Reference to timescale controller.
-
 	[Tooltip ("Recording time multiplier.")]
 	public float MaxRecordingTime = 5.0f;
 	[Tooltip ("Use Rigidbody component to turn on isKinematic property.")]
@@ -23,9 +21,6 @@ public class TimeBody : MonoBehaviour
 
 	void Start ()
 	{
-		// Find the TimescaleController gameObject.
-		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
-
 		// Check if block.
 		if (isBlock == true) 
 		{
@@ -42,7 +37,7 @@ public class TimeBody : MonoBehaviour
 	void FixedUpdate ()
 	{
 		// If the timescale controller's state is on rewinding.
-		if (timeScaleControllerScript.isRewinding == true) 
+		if (TimescaleController.Instance.isRewinding == true) 
 		{
 			Rewind (); // Call rewind method.
 
@@ -100,7 +95,7 @@ public class TimeBody : MonoBehaviour
 		else 
 		
 		{
-			if (timeScaleControllerScript.RewindTimeRemaining <= 0)
+			if (TimescaleController.Instance.RewindTimeRemaining <= 0)
 			{
 				StopRewind (); // Stop backtracking.
 			}

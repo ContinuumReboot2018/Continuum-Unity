@@ -20,12 +20,12 @@ public class CheatsWindow : EditorWindow
 
 	void UpdateLastCheatButtonLabel ()
 	{
-		lastCheat = "Last cheat: " + developerModeScript.LastCheatName;
+		lastCheat = "Last cheat: " + DeveloperMode.Instance.LastCheatName;
 	}
 
 	void UpdateCurrentCheatButtonLabel ()
 	{
-		lastCheat = "Last cheat: " + developerModeScript.CheatString;
+		lastCheat = "Last cheat: " + DeveloperMode.Instance.CheatString;
 	}
 
 	void ClearLastCheatStringLabel ()
@@ -47,30 +47,28 @@ public class CheatsWindow : EditorWindow
 
 		GUILayout.BeginVertical ();
 
-
-
 		GUI.backgroundColor = new Color (1f, 1f, 1f, 1); // Grey background.
 
 		// Toggle cheats.
 		if (GUILayout.Button ("Toggle cheats", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.ToggleCheatsCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.ToggleCheatsCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		if (GUILayout.Button (lastCheat, style)) 
 		{
 			UpdateLastCheatButtonLabel ();
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.LastCheatName;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.LastCheatName;
 		}
 
 		// Reset cheat string.
 		if (GUILayout.Button ("Clear cheat string", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.ClearCheatString ();
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.ClearCheatString ();
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -81,8 +79,8 @@ public class CheatsWindow : EditorWindow
 		// Toggle God mode.
 		if (GUILayout.Button ("Toggle God mode", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.ToggleGodmodeCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.ToggleGodmodeCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -101,72 +99,72 @@ public class CheatsWindow : EditorWindow
 		// Force game over.
 		if (GUILayout.Button ("Force game over", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.GameOverCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.GameOverCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Force start.
 		if (GUILayout.Button ("Force start", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.ForceStartCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.ForceStartCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Force restart.
 		if (GUILayout.Button ("Force restart", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.ForceRestartCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.ForceRestartCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Add score.
 		if (GUILayout.Button ("Add 1,000,000 score", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.AddScoreCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.AddScoreCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Add life.
 		if (GUILayout.Button ("Add 3 lives", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.AddLifeCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.AddLifeCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Lose life.
 		if (GUILayout.Button ("Lose a life", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.LoseLifeCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.LoseLifeCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Next wave.
 		if (GUILayout.Button ("Next wave", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.NextWaveCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.NextWaveCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Previous wave.
 		if (GUILayout.Button ("Previous wave", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.PreviousWaveCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.PreviousWaveCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Do bonus round.
 		if (GUILayout.Button ("Do bonus round", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.DoBonusRoundCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.DoBonusRoundCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -177,48 +175,48 @@ public class CheatsWindow : EditorWindow
 		// FPS unlock.
 		if (GUILayout.Button ("Unlock framerate", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.FpsUnlockCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.FpsUnlockCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS 20.
 		if (GUILayout.Button ("FPS limit = 20", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.Fps20Command;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps20Command;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS 30.
 		if (GUILayout.Button ("FPS limit = 30", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.Fps30Command;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps30Command;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS 60.
 		if (GUILayout.Button ("FPS limit = 60", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.Fps60Command;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps60Command;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS 90.
 		if (GUILayout.Button ("FPS limit = 90", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.Fps90Command;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps90Command;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// FPS unlock.
 		if (GUILayout.Button ("FPS limit = 120", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.Fps120Command;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps120Command;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -229,32 +227,32 @@ public class CheatsWindow : EditorWindow
 		// Save settings.
 		if (GUILayout.Button ("Save settings", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.SaveSettingsCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.SaveSettingsCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Load settings.
 		if (GUILayout.Button ("Load settings", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.LoadSettingsCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.LoadSettingsCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Set high quality settings.
 		if (GUILayout.Button ("High quality settings", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.SetQualitySettingsHigh;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.SetQualitySettingsHigh;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Set low quality settings.
 		if (GUILayout.Button ("Low quality settings", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.SetQualitySettingsLow;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.SetQualitySettingsLow;
 			UpdateCurrentCheatButtonLabel ();
 		}
 			
@@ -265,16 +263,16 @@ public class CheatsWindow : EditorWindow
 		// Reset powerup time.
 		if (GUILayout.Button ("Reset powerup time", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.PowerupTimeCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.PowerupTimeCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Reset all powerups.
 		if (GUILayout.Button ("Reset all powerups", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.ResetAllPowerupsCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.ResetAllPowerupsCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -283,40 +281,40 @@ public class CheatsWindow : EditorWindow
 		// Standard shot.
 		if (GUILayout.Button ("Standard shot", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.StandardShotCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.StandardShotCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Double shot.
 		if (GUILayout.Button ("Double shot", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.DoubleShotCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.DoubleShotCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Triple shot.
 		if (GUILayout.Button ("Triple shot", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.TripleShotCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.TripleShotCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Ripple shot.
 		if (GUILayout.Button ("Ripple shot", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.RippleShotCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.RippleShotCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Toggle overheat.
 		if (GUILayout.Button ("Toggle overheat", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.UseOverheatCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.UseOverheatCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -325,24 +323,24 @@ public class CheatsWindow : EditorWindow
 		// Turret.
 		if (GUILayout.Button ("Add turret", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.TurretCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.TurretCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Helix.
 		if (GUILayout.Button ("Helix", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.HelixCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.HelixCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Slow time.
 		if (GUILayout.Button ("Slow time", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.SlowTimeCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.SlowTimeCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -353,8 +351,8 @@ public class CheatsWindow : EditorWindow
 		// Homing.
 		if (GUILayout.Button ("Homing", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.HomingCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.HomingCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -363,8 +361,8 @@ public class CheatsWindow : EditorWindow
 		// Ricochet.
 		if (GUILayout.Button ("Ricochet", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.RicochetCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.RicochetCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -373,8 +371,8 @@ public class CheatsWindow : EditorWindow
 		// Rapidfire.
 		if (GUILayout.Button ("Rapidfire", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.RapidfireCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.RapidfireCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -383,8 +381,8 @@ public class CheatsWindow : EditorWindow
 		// Overdrive.
 		if (GUILayout.Button ("Overdrive", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.OverdriveCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.OverdriveCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -395,64 +393,64 @@ public class CheatsWindow : EditorWindow
 		// Charge ability.
 		if (GUILayout.Button ("Charge ability", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.ChargeAbilityCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.ChargeAbilityCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Refresh ability.
 		if (GUILayout.Button ("Refresh ability", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.RefreshAbilityCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.RefreshAbilityCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Shield ability.
 		if (GUILayout.Button ("Shield ability", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.ShieldCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.ShieldCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Emp ability.
 		if (GUILayout.Button ("EMP ability", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.EmpCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.EmpCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Vertical beam ability.
 		if (GUILayout.Button ("Vertical beam ability", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.VerticalBeamCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.VerticalBeamCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Horizontal beam ability.
 		if (GUILayout.Button ("Horizontal beam ability", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.HorizontalBeamCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.HorizontalBeamCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Rewind time ability.
 		if (GUILayout.Button ("Rewind time ability", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.RewindCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.RewindCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Mirror player ability.
 		if (GUILayout.Button ("Mirror player ability", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.MirrorPlayerCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.MirrorPlayerCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -463,24 +461,24 @@ public class CheatsWindow : EditorWindow
 		// Next track.
 		if (GUILayout.Button ("Next soundtrack", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.NextTrackCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.NextTrackCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Previous track.
 		if (GUILayout.Button ("Previous soundtrack", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.PreviousTrackCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.PreviousTrackCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Next track.
 		if (GUILayout.Button ("Random soundtrack", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.RandomTrackCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.RandomTrackCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
@@ -491,24 +489,24 @@ public class CheatsWindow : EditorWindow
 		// Spawn a block.
 		if (GUILayout.Button ("Spawn block prefab", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.SpawnBlockCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.SpawnBlockCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Spawn a powerup.
 		if (GUILayout.Button ("Spawn powerup prefab", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.SpawnPowerupPickupCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.SpawnPowerupPickupCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 
 		// Spawn a boss.
 		if (GUILayout.Button ("Spawn mini boss prefab", style)) 
 		{
-			developerModeScript.ResetCheatStringTimer ();
-			developerModeScript.CheatString = developerModeScript.SpawnMiniBossCommand;
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.SpawnMiniBossCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
 			

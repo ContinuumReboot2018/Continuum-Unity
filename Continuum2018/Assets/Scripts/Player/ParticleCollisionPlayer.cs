@@ -3,9 +3,6 @@
 public class ParticleCollisionPlayer : MonoBehaviour 
 {
 	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
-	public GameController gameControllerScript; // Reference to Game Controller.
-	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
-	public AudioController audioControllerScript;  // Reference to Audio Controller.
 	public CameraShake camShakeScript; // Reference to camera shake.
 	[Space (10)]
 	[Tooltip ("Player explosion.")]
@@ -55,12 +52,12 @@ public class ParticleCollisionPlayer : MonoBehaviour
 	// Set the low pass filter cutoff frequency.
 	void SetTargetLowPassFreq (float lowPassFreq)
 	{
-		audioControllerScript.TargetCutoffFreq = lowPassFreq;
+		AudioController.Instance.TargetCutoffFreq = lowPassFreq;
 	}
 
 	// Set the low pass filter resonance.
 	void SetTargetResonance (float resAmt)
 	{
-		audioControllerScript.TargetResonance = resAmt;
+		AudioController.Instance.TargetResonance = resAmt;
 	}
 }

@@ -3,9 +3,7 @@ using TMPro;
 
 public class GameModifierReceiver : MonoBehaviour 
 {
-	public SaveAndLoadScript saveAndLoadScript;
 	public GameModifierManager gameModifierManagerScript;
-
 	public TextMeshProUGUI missionText;
 
 	[Space (10)]
@@ -26,8 +24,6 @@ public class GameModifierReceiver : MonoBehaviour
 
 	void Start ()
 	{
-		// Find the saving script.
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		CheckModifierStates ();
 		missionText.text = "";
 	}
@@ -277,9 +273,9 @@ public class GameModifierReceiver : MonoBehaviour
 
 	public void SetMissionId (int mission)
 	{
-		saveAndLoadScript.MissionId = mission;
-		Debug.Log ("MODIFIER: Set mission ID to: " + saveAndLoadScript.MissionId);
-		saveAndLoadScript.SavePlayerData ();
+		SaveAndLoadScript.Instance.MissionId = mission;
+		Debug.Log ("MODIFIER: Set mission ID to: " + SaveAndLoadScript.Instance.MissionId);
+		SaveAndLoadScript.Instance.SavePlayerData ();
 	}
 
 	public void SetTrialTime (float trialTime)

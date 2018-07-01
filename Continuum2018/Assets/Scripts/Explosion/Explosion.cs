@@ -3,7 +3,6 @@ using TMPro;
 
 public class Explosion : MonoBehaviour 
 {
-	public GameController gameControllerScript; // Reference to Game Controller.
 	public Block blockScript; // Reference to Block script.
 	public float Lifetime = 2; // Lifetime of explosion before it destroys.
 	public AudioSource ExplosionSound; // Sound to pay when exploding.
@@ -28,7 +27,6 @@ public class Explosion : MonoBehaviour
 	{
 		Destroy (gameObject, Lifetime); // Set a destroy command.
 		ExplosionSound = GameObject.Find("ComboSound").GetComponent<AudioSource> ();
-		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController>();
 		ExplosionSound.pitch = Mathf.Clamp (0.01f * GameController.Instance.combo + 0.5f, 0, 2.5f); // Clamp explosion sound pitch.
 		ExplosionSound.Play (); // Play explosion sound.
 

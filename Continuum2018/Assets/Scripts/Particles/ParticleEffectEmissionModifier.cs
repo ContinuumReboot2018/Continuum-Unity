@@ -3,7 +3,6 @@
 public class ParticleEffectEmissionModifier : MonoBehaviour 
 {
 	public ParticleSystem particleEffect;
-	private SaveAndLoadScript saveAndLoadScript;
 	public float BaseRateDistance = 24;
 	public float BaseRateTime = 24;
 
@@ -14,14 +13,8 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 
 	void FindComponents ()
 	{
-		// Try to find save and load script.
-		if (GameObject.Find ("SaveAndLoad") != null) 
-		{
-			saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		}
-
 		// If no save and load script found, bail out.
-		if (saveAndLoadScript == null) 
+		if (SaveAndLoadScript.Instance == null) 
 		{
 			return;
 		}
@@ -33,7 +26,7 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 		}	
 
 		// Found save and load script.
-		if (saveAndLoadScript != null) 
+		if (SaveAndLoadScript.Instance != null) 
 		{
 			RefreshParticleRates ();
 			RefreshBursts ();
@@ -54,16 +47,16 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 		ParticleEmissionRateoverDistanceMode = ParticleSystemCurveMode.Constant;
 
 		// Modify rate over distance.
-		float newRateOverDist = BaseRateDistance * saveAndLoadScript.ParticleEmissionMultiplier;
+		float newRateOverDist = BaseRateDistance * SaveAndLoadScript.Instance.ParticleEmissionMultiplier;
 		ParticleEmission.rateOverDistance = new ParticleSystem.MinMaxCurve (newRateOverDist);
 
 		// Modify rate over time.
-		float newRateOverTime = BaseRateTime * saveAndLoadScript.ParticleEmissionMultiplier;
+		float newRateOverTime = BaseRateTime * SaveAndLoadScript.Instance.ParticleEmissionMultiplier;
 		ParticleEmission.rateOverTime = new ParticleSystem.MinMaxCurve (newRateOverTime);
 
 		// Max particles modifier.
 		//var ParticleMax = particleEffect.main;
-		//ParticleMax.maxParticles = Mathf.RoundToInt (ParticleMax.maxParticles * saveAndLoadScript.ParticleEmissionMultiplier);
+		//ParticleMax.maxParticles = Mathf.RoundToInt (ParticleMax.maxParticles * SaveAndLoadScript.Instance.ParticleEmissionMultiplier);
 	}
 
 	void RefreshBursts ()
@@ -79,7 +72,7 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 				i, 
 				new ParticleSystem.Burst (
 					burstEmission.GetBurst (i).time,
-					burstEmission.GetBurst (i).count.constant * saveAndLoadScript.ParticleEmissionMultiplier
+					burstEmission.GetBurst (i).count.constant * SaveAndLoadScript.Instance.ParticleEmissionMultiplier
 				)
 			);
 		}
@@ -91,6 +84,6 @@ public class ParticleEffectEmissionModifier : MonoBehaviour
 
 		var ParticleMainModule = particleEffect.main;
 
-		ParticleMainModule.maxParticles *= Mathf.RoundToInt (saveAndLoadScript.ParticleEmissionMultiplier * 3);
+		ParticleMainModule.maxParticles *= Mathf.RoundToInt (SaveAndLoadScript.Instance.ParticleEmissionMultiplier * 3);
 	}
 }

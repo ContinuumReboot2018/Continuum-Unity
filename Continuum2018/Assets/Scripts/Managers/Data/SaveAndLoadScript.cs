@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-//using System.Diagnostics;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,11 +11,9 @@ using UnityStandardAssets.ImageEffects;
 
 public class SaveAndLoadScript : MonoBehaviour 
 {
-	public InitManager initManagerScript;
-	public SettingsManager settingsManagerScript;
-	public SceneLoader sceneLoaderScript;
+	public static SaveAndLoadScript Instance { get; private set; }
+
 	public PlayerController playerControllerScript_P1;
-	public GameController gameControllerScript;
 	[Space (10)]
 	public bool AllowLoading = true;
 	public bool AllowSaving = true;
@@ -72,15 +69,20 @@ public class SaveAndLoadScript : MonoBehaviour
 	public playerData PlayerData;
 	public settingsData SettingsData;
 
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
+
 	void Start ()
 	{
 		if (SceneManager.GetActiveScene ().name != "Init")
 		{
 			if (AllowLoading == true) 
 			{
-				settingsManagerScript = GameObject.Find ("SettingsManager").GetComponent<SettingsManager> ();
 				targetFramerateScript = GameObject.Find ("TargetFPS").GetComponent<TargetFPS> ();
-				cam = settingsManagerScript.cam;
+				cam = SettingsManager.Instance.cam;
 				VisualSettingsComponent = cam.GetComponent<PostProcessingBehaviour> ();
 				fastMobileBloomScript = cam.GetComponent<FastMobileBloom> ();
 
@@ -98,7 +100,7 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		#if !UNITY_EDITOR
 		// This allows the framerate to hitch without causing a quality settings change.
-		if (fpsCounterScript != null && sceneLoaderScript.isLoading == false) 
+		if (fpsCounterScript != null && SceneLoader.Instance.isLoading == false) 
 		{
 			if (fpsCounterScript.averageFps < 30)
 			{
@@ -159,35 +161,35 @@ public class SaveAndLoadScript : MonoBehaviour
 	void GetPlayerData ()
 	{
 		#if !UNITY_EDITOR
-			if (gameControllerScript != null) 
+		if (GameController.Instance != null) 
+		{
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
 			{
-				if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
-				{
-					ExperiencePoints += (int)Math.Round (GameController.Instance.TargetScore);
-				}
+				ExperiencePoints += (int)Math.Round (GameController.Instance.TargetScore);
 			}
+		}
 
-			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false) 
-			{
-				ExperiencePoints = 0;
-				ResetAllLeaderboards ();
-			}
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false) 
+		{
+			ExperiencePoints = 0;
+			ResetAllLeaderboards ();
+		}
 		#endif
 
 		#if UNITY_EDITOR
-			if (gameControllerScript != null) 
+		if (GameController.Instance != null) 
+		{
+			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == true) 
 			{
-				if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == true) 
-				{
-					ExperiencePoints += (int)Math.Round (GameController.Instance.TargetScore);
-				}
+				ExperiencePoints += (int)Math.Round (GameController.Instance.TargetScore);
 			}
+		}
 
-			if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == false) 
-			{
-				ExperiencePoints = 0;
-				ResetAllLeaderboards ();
-			}
+		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == false) 
+		{
+			ExperiencePoints = 0;
+			ResetAllLeaderboards ();
+		}
 		#endif
 	}
 
@@ -423,7 +425,7 @@ public class SaveAndLoadScript : MonoBehaviour
 					if (VisualSettingsComponent.enabled == true) 
 					{
 						VisualSettingsComponent.enabled = false;
-						initManagerScript.postProcess.enabled = false;
+						InitManager.Instance.postProcess.enabled = false;
 						Debug.Log ("Turned off visual settings component.");
 					}
 				}
@@ -445,7 +447,7 @@ public class SaveAndLoadScript : MonoBehaviour
 					if (VisualSettingsComponent.enabled == true)
 					{
 						VisualSettingsComponent.enabled = true;
-						initManagerScript.postProcess.enabled = true;
+						InitManager.Instance.postProcess.enabled = true;
 						Debug.Log ("Turned on visual settings component.");
 					}
 				}
@@ -610,7 +612,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				if (VisualSettingsComponent.enabled == true) 
 				{
 					VisualSettingsComponent.enabled = false;
-					initManagerScript.postProcess.enabled = false;
+					InitManager.Instance.postProcess.enabled = false;
 					Debug.Log ("Turned off visual settings component.");
 				}
 			}
@@ -626,7 +628,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				if (VisualSettingsComponent.enabled == false) 
 				{
 					VisualSettingsComponent.enabled = true;
-					initManagerScript.postProcess.enabled = true;
+					InitManager.Instance.postProcess.enabled = true;
 					Debug.Log ("Turned on visual settings component.");
 				}
 			}
@@ -671,7 +673,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				if (VisualSettingsComponent.enabled == true)
 				{
 					VisualSettingsComponent.enabled = false;
-					initManagerScript.postProcess.enabled = false;
+					InitManager.Instance.postProcess.enabled = false;
 					//Debug.Log ("Turned off visual settings component.");
 				}
 			}
@@ -687,7 +689,7 @@ public class SaveAndLoadScript : MonoBehaviour
 				if (VisualSettingsComponent.enabled == false)
 				{
 					VisualSettingsComponent.enabled = true;
-					initManagerScript.postProcess.enabled = true;
+					InitManager.Instance.postProcess.enabled = true;
 					//Debug.Log ("Turned on visual settings component.");
 				}
 			}

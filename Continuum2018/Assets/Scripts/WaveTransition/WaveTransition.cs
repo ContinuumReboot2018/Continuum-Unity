@@ -2,8 +2,6 @@
 
 public class WaveTransition : MonoBehaviour 
 {
-	[Tooltip ("Reference to Game Controller.")]
-	public GameController gameControllerScript;
 	[Tooltip ("Wave Transition UI GameObject.")]
 	public GameObject WaveTransitionUI;
 	[Tooltip ("UI for soundtrack title.")]

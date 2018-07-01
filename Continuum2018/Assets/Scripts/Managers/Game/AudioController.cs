@@ -5,17 +5,14 @@ using UnityEngine.Audio;
 
 public class AudioController : MonoBehaviour 
 {
+	public static AudioController Instance { get; private set; }
+
 	public PlayerController playerControllerScript_P1;
-	public GameController gameControllerScript;
-	public TimescaleController timescaleControllerScript;
-	public SaveAndLoadScript saveAndLoadScript;
 
 	[Tooltip ("If true, the music will update to volume and pitch.")]
 	public bool updateVolumeAndPitches = true;
-	[Tooltip ("Gets distance from timescaleControllerScript.")]
+	[Tooltip ("Gets distance from TimescaleController.Instance.")]
 	public float Distance;
-
-	//public UnityWebRequestMultimedia
 
 	[Tooltip ("Audio mixer on soundtracks.")]
 	public AudioMixer SoundtrackAudioMix;
@@ -125,10 +122,15 @@ public class AudioController : MonoBehaviour
 
 	public AudioSource BigBossSoundtrack;
 
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
+
 	void Start ()
 	{
 		TargetCutoffFreq = 22000; // Set target cutoff frequency to max value (22kHz).
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 
 		// Randomize track if on random mode.
 		if (TrackSequenceMode == trackSequence.Random) 
@@ -138,7 +140,7 @@ public class AudioController : MonoBehaviour
 
 		LoadTracks (); // Load the track by track number.
 		InvokeRepeating ("CheckReversePitch", 0, 0.5f); // If in rewind, check for reversing the pitch.
-		AudioListener.volume = saveAndLoadScript.MasterVolume;
+		AudioListener.volume = SaveAndLoadScript.Instance.MasterVolume;
 	}
 
 	void Update ()
@@ -152,14 +154,14 @@ public class AudioController : MonoBehaviour
 		
 	void UpdateAudio ()
 	{
-		if (gameControllerScript.isPaused == false && 
-			timescaleControllerScript.isInInitialCountdownSequence == false && 
-			timescaleControllerScript.isInInitialSequence == false)
+		if (GameController.Instance.isPaused == false && 
+			TimescaleController.Instance.isInInitialCountdownSequence == false && 
+			TimescaleController.Instance.isInInitialSequence == false)
 		{
 			UpdateSoundtrackVolumeAndPitches (); // Update sound pitch based on distance.
 		}
 
-		if (timescaleControllerScript.isOverridingTimeScale == true) 
+		if (TimescaleController.Instance.isOverridingTimeScale == true) 
 		{
 			BassTargetPitch = Time.timeScale; // pitch based on Time.timeScale when time is overriding.
 		}
@@ -191,7 +193,7 @@ public class AudioController : MonoBehaviour
 	// Reverses the pitch if rewinding.
 	void CheckReversePitch ()
 	{
-		ReversePitch = timescaleControllerScript.isRewinding;
+		ReversePitch = TimescaleController.Instance.isRewinding;
 	}
 
 	// Gets current low pass cutoff frequency value.
@@ -266,7 +268,7 @@ public class AudioController : MonoBehaviour
 	{
 		if (updateVolumeAndPitches == true) 
 		{
-			Distance = timescaleControllerScript.Distance;
+			Distance = TimescaleController.Instance.Distance;
 
 			UpdateSoundtracksVolume ();
 			UpdateSoundtracksPitch ();
@@ -367,25 +369,25 @@ public class AudioController : MonoBehaviour
 
 		BassTrack.volume = Mathf.Lerp (
 			BassTrack.volume, 
-			BaseTargetVolume + (1 + (float)System.Math.Round (0.0125f * saveAndLoadScript.SoundtrackVolume, 1)), 
+			BaseTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
 			VolumeSmoothTime * Time.unscaledDeltaTime
 		);
 
 		LayerOneTrack.volume = Mathf.Lerp (
 			LayerOneTrack.volume, 
-			LayerOneTargetVolume + (1 + (float)System.Math.Round (0.0125f * saveAndLoadScript.SoundtrackVolume, 1)), 
+			LayerOneTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
 			VolumeSmoothTime * Time.unscaledDeltaTime
 		);
 
 		LayerTwoTrack.volume = Mathf.Lerp (
 			LayerTwoTrack.volume, 
-			LayerTwoTargetVolume + (1 + (float)System.Math.Round (0.0125f * saveAndLoadScript.SoundtrackVolume, 1)), 
+			LayerTwoTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
 			VolumeSmoothTime * Time.unscaledDeltaTime
 		);
 
 		LayerThreeTrack.volume = Mathf.Lerp (
 			LayerThreeTrack.volume, 
-			LayerThreeTargetVolume + (1 + (float)System.Math.Round (0.0125f * saveAndLoadScript.SoundtrackVolume, 1)), 
+			LayerThreeTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
 			VolumeSmoothTime * Time.unscaledDeltaTime
 		);
 	}
@@ -534,7 +536,7 @@ public class AudioController : MonoBehaviour
 	{
 		TimeSinceTrackLoad += Time.deltaTime;
 
-		if (gameControllerScript.Lives <= 0) 
+		if (GameController.Instance.Lives <= 0) 
 		{
 			if (BassTrack.isPlaying == true) 
 			{

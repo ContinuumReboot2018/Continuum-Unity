@@ -2,7 +2,6 @@
 
 public class LivesTransition : MonoBehaviour 
 {
-	public GameController gameControllerScript;
 	public Animator LastLifeText;
 
 	void Start ()

@@ -9,13 +9,10 @@ using TMPro;
 
 public class GameOverController : MonoBehaviour 
 {
+	public static GameOverController Instance { get; private set; }
+
 	public LeaderboardEntry newLeaderboardEntry;
 	private bool allowupdateentry;
-
-	public SaveAndLoadScript saveAndLoadScript;
-	public GameController gameControllerScript;
-	public DeveloperMode developerModeScript;
-	public LeaderboardDisplay leaderboardDisplay;
 
 	[Header ("Stats")]
 	public string myName;
@@ -48,9 +45,14 @@ public class GameOverController : MonoBehaviour
 	public Button ContinueButton;
 	public PointerEventData eventData;
 
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
+
 	void Start ()
 	{
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
 		allowupdateentry = true;
 		InvokeRepeating ("UpdateFinalScoreText", 0, 0.5f);
 		//GetXpToAdd ();
@@ -68,7 +70,7 @@ public class GameOverController : MonoBehaviour
 		if (GameController.Instance.playerControllerScript_P1.playerActions.Shoot.IsPressed) 
 		{
 			if (GameOverUI.activeInHierarchy == true && 
-				leaderboardDisplay.UI.gameObject.activeInHierarchy == false) 
+				LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == false) 
 			{
 				// Execute the OnClick event for the continue button.
 				ExecuteEvents.Execute (
@@ -78,7 +80,7 @@ public class GameOverController : MonoBehaviour
 				);
 			}
 
-			if (leaderboardDisplay.UI.gameObject.activeInHierarchy == true) 
+			if (LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == true) 
 			{
 				ExecuteEvents.Execute (
 					LeaderboardCloseButton.gameObject, 
@@ -128,13 +130,13 @@ public class GameOverController : MonoBehaviour
 		Debug.Log ("Final score is: " + FinalScore);
 
 		// Allows a leaderboard entry UI to activate.
-		switch (saveAndLoadScript.MissionId) 
+		switch (SaveAndLoadScript.Instance.MissionId) 
 		{
 		case 0:
 			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_Arcade.Count; i++) 
+			for (int i = 0; i < SaveAndLoadScript.Instance.Leaderboard_Arcade.Count; i++) 
 			{
-				if (FinalScore > saveAndLoadScript.Leaderboard_Arcade [i].score && allowupdateentry == true) 
+				if (FinalScore > SaveAndLoadScript.Instance.Leaderboard_Arcade [i].score && allowupdateentry == true) 
 				{
 					place = i;
 					LeaderboardEntryUI.SetActive (true);
@@ -146,9 +148,9 @@ public class GameOverController : MonoBehaviour
 			break;
 		case 2:
 			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_BossRush.Count; i++) 
+			for (int i = 0; i < SaveAndLoadScript.Instance.Leaderboard_BossRush.Count; i++) 
 			{
-				if (FinalScore > saveAndLoadScript.Leaderboard_BossRush [i].score && allowupdateentry == true) 
+				if (FinalScore > SaveAndLoadScript.Instance.Leaderboard_BossRush [i].score && allowupdateentry == true) 
 				{
 					place = i;
 					LeaderboardEntryUI.SetActive (true);
@@ -160,9 +162,9 @@ public class GameOverController : MonoBehaviour
 			break;
 		case 3:
 			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_Lucky.Count; i++) 
+			for (int i = 0; i < SaveAndLoadScript.Instance.Leaderboard_Lucky.Count; i++) 
 			{
-				if (FinalScore > saveAndLoadScript.Leaderboard_Lucky [i].score && allowupdateentry == true) 
+				if (FinalScore > SaveAndLoadScript.Instance.Leaderboard_Lucky [i].score && allowupdateentry == true) 
 				{
 					place = i;
 					LeaderboardEntryUI.SetActive (true);
@@ -174,9 +176,9 @@ public class GameOverController : MonoBehaviour
 			break;
 		case 4:
 			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_FullyLoaded.Count; i++) 
+			for (int i = 0; i < SaveAndLoadScript.Instance.Leaderboard_FullyLoaded.Count; i++) 
 			{
-				if (FinalScore > saveAndLoadScript.Leaderboard_FullyLoaded [i].score && allowupdateentry == true) 
+				if (FinalScore > SaveAndLoadScript.Instance.Leaderboard_FullyLoaded [i].score && allowupdateentry == true) 
 				{
 					place = i;
 					LeaderboardEntryUI.SetActive (true);
@@ -188,9 +190,9 @@ public class GameOverController : MonoBehaviour
 			break;
 		case 5:
 			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_Scavenger.Count; i++) 
+			for (int i = 0; i < SaveAndLoadScript.Instance.Leaderboard_Scavenger.Count; i++) 
 			{
-				if (FinalScore > saveAndLoadScript.Leaderboard_Scavenger [i].score && allowupdateentry == true) 
+				if (FinalScore > SaveAndLoadScript.Instance.Leaderboard_Scavenger [i].score && allowupdateentry == true) 
 				{
 					place = i;
 					LeaderboardEntryUI.SetActive (true);
@@ -202,9 +204,9 @@ public class GameOverController : MonoBehaviour
 			break;
 		case 6:
 			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_Hell.Count; i++) 
+			for (int i = 0; i < SaveAndLoadScript.Instance.Leaderboard_Hell.Count; i++) 
 			{
-				if (FinalScore > saveAndLoadScript.Leaderboard_Hell [i].score && allowupdateentry == true) 
+				if (FinalScore > SaveAndLoadScript.Instance.Leaderboard_Hell [i].score && allowupdateentry == true) 
 				{
 					place = i;
 					LeaderboardEntryUI.SetActive (true);
@@ -216,9 +218,9 @@ public class GameOverController : MonoBehaviour
 			break;
 		case 7:
 			// Loop through all positions in leaderboard. Add one entry only when requirement is met. 
-			for (int i = 0; i < saveAndLoadScript.Leaderboard_FastTrack.Count; i++) 
+			for (int i = 0; i < SaveAndLoadScript.Instance.Leaderboard_FastTrack.Count; i++) 
 			{
-				if (FinalScore > saveAndLoadScript.Leaderboard_FastTrack [i].score && allowupdateentry == true) 
+				if (FinalScore > SaveAndLoadScript.Instance.Leaderboard_FastTrack [i].score && allowupdateentry == true) 
 				{
 					place = i;
 					LeaderboardEntryUI.SetActive (true);
@@ -253,43 +255,43 @@ public class GameOverController : MonoBehaviour
 		place = position;
 		newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), GameController.Instance.Wave);
 
-		switch (saveAndLoadScript.MissionId) 
+		switch (SaveAndLoadScript.Instance.MissionId) 
 		{
 		case 0:
-			saveAndLoadScript.Leaderboard_Arcade.Insert (position, newLeaderboardEntry);
-			saveAndLoadScript.Leaderboard_Arcade.RemoveAt (10);
+			SaveAndLoadScript.Instance.Leaderboard_Arcade.Insert (position, newLeaderboardEntry);
+			SaveAndLoadScript.Instance.Leaderboard_Arcade.RemoveAt (10);
 			break;
 		case 1:
 			// mods
 			break;
 		case 2:
-			saveAndLoadScript.Leaderboard_BossRush.Insert (position, newLeaderboardEntry);
-			saveAndLoadScript.Leaderboard_BossRush.RemoveAt (10);
+			SaveAndLoadScript.Instance.Leaderboard_BossRush.Insert (position, newLeaderboardEntry);
+			SaveAndLoadScript.Instance.Leaderboard_BossRush.RemoveAt (10);
 			break;
 		case 3:
-			saveAndLoadScript.Leaderboard_Lucky.Insert (position, newLeaderboardEntry);
-			saveAndLoadScript.Leaderboard_Lucky.RemoveAt (10);
+			SaveAndLoadScript.Instance.Leaderboard_Lucky.Insert (position, newLeaderboardEntry);
+			SaveAndLoadScript.Instance.Leaderboard_Lucky.RemoveAt (10);
 			break;
 		case 4:
-			saveAndLoadScript.Leaderboard_FullyLoaded.Insert (position, newLeaderboardEntry);
-			saveAndLoadScript.Leaderboard_FullyLoaded.RemoveAt (10);
+			SaveAndLoadScript.Instance.Leaderboard_FullyLoaded.Insert (position, newLeaderboardEntry);
+			SaveAndLoadScript.Instance.Leaderboard_FullyLoaded.RemoveAt (10);
 			break;
 		case 5:
-			saveAndLoadScript.Leaderboard_Scavenger.Insert (position, newLeaderboardEntry);
-			saveAndLoadScript.Leaderboard_Scavenger.RemoveAt (10);
+			SaveAndLoadScript.Instance.Leaderboard_Scavenger.Insert (position, newLeaderboardEntry);
+			SaveAndLoadScript.Instance.Leaderboard_Scavenger.RemoveAt (10);
 			break;
 		case 6:
-			saveAndLoadScript.Leaderboard_Hell.Insert (position, newLeaderboardEntry);
-			saveAndLoadScript.Leaderboard_Hell.RemoveAt (10);
+			SaveAndLoadScript.Instance.Leaderboard_Hell.Insert (position, newLeaderboardEntry);
+			SaveAndLoadScript.Instance.Leaderboard_Hell.RemoveAt (10);
 			break;
 		case 7:
-			saveAndLoadScript.Leaderboard_FastTrack.Insert (position, newLeaderboardEntry);
-			saveAndLoadScript.Leaderboard_FastTrack.RemoveAt (10);
+			SaveAndLoadScript.Instance.Leaderboard_FastTrack.Insert (position, newLeaderboardEntry);
+			SaveAndLoadScript.Instance.Leaderboard_FastTrack.RemoveAt (10);
 			break;
 		}
 
-		//saveAndLoadScript.Leaderboards [saveAndLoadScript.MissionId].leaderboard.Insert (position, newLeaderboardEntry);
-		//saveAndLoadScript.Leaderboards [saveAndLoadScript.MissionId].leaderboard.RemoveAt (10);
+		//SaveAndLoadScript.Instance.Leaderboards [SaveAndLoadScript.Instance.MissionId].leaderboard.Insert (position, newLeaderboardEntry);
+		//SaveAndLoadScript.Instance.Leaderboards [SaveAndLoadScript.Instance.MissionId].leaderboard.RemoveAt (10);
 	
 		return;
 	}
@@ -297,7 +299,7 @@ public class GameOverController : MonoBehaviour
 	void GetXpToAdd ()
 	{
 		CurrentXP = Mathf.RoundToInt (FinalScore);
-		saveAndLoadScript.ExperiencePoints += CurrentXP;
+		SaveAndLoadScript.Instance.ExperiencePoints += CurrentXP;
 	}
 
 	public void UpdateFinalScoreText ()

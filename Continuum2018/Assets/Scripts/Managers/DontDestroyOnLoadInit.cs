@@ -2,11 +2,15 @@
 
 public class DontDestroyOnLoadInit : MonoBehaviour 
 {
+	public static DontDestroyOnLoadInit Instance { get; private set; }
+
 	[Tooltip ("Managers Prefab.")]
 	public GameObject ManagersPrefab;
 
 	void Awake ()
 	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
 		Time.timeScale = 1;
 		DetectManagers ();
 	}

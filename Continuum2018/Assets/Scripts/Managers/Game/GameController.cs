@@ -14,11 +14,6 @@ public class GameController : MonoBehaviour
 	public static GameController Instance { get; private set; }
 
 	public PlayerController 		playerControllerScript_P1;	// Reference to the player controller.
-	public TimescaleController 		timescaleControllerScript;	// Reference to the timescale controller.
-	public AudioController 			audioControllerScript;		// Reference to the audio controller.
-	public SaveAndLoadScript 		saveAndLoadScript;			// Reference to the save and load script.
-	public DeveloperMode 			developerModeScript;		// Reference to the developer mode for debug info.
-	public CursorManager 			cursorManagerScript;		// Reference to the cursor state.
 	public PostProcessingProfile 	ImageEffects;				// Reference to the post processing profile.
 	public GameModifierManager 		gameModifier;				// Reference to the GameModifierManager Scriptable object.
 	public GameModifierManager[] 	missionModiferSettings;
@@ -413,14 +408,10 @@ public class GameController : MonoBehaviour
 	void Start ()
 	{
 		// Get the save and load script.
-		if (saveAndLoadScript == null)
+		if (SaveAndLoadScript.Instance != null)
 		{
-			saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-			cursorManagerScript = GameObject.Find ("CursorManager").GetComponent<CursorManager> ();
-			saveAndLoadScript.gameControllerScript = this;
-
 			// Get modifier settings.
-			gameModifier = missionModiferSettings[saveAndLoadScript.MissionId];
+			gameModifier = missionModiferSettings[SaveAndLoadScript.Instance.MissionId];
 			Wave = gameModifier.startingWave;
 			SetGameModifiers (); // Applies game modifiers.
 		}
@@ -658,10 +649,10 @@ public class GameController : MonoBehaviour
 	// Updates debug values and gets current values for the current game state.
 	void UpdateGameStats ()
 	{
-		if (TrackStats == true && isPaused == false && developerModeScript.useCheats == true) 
+		if (TrackStats == true && isPaused == false && DeveloperMode.Instance.useCheats == true) 
 		{
 			// Put debug stuff here.
-			if (developerModeScript.DebugMenu.activeInHierarchy == true)
+			if (DeveloperMode.Instance.DebugMenu.activeInHierarchy == true)
 			{
 				WaveText_Debug.text = 
 					"Wave: " + Wave;
@@ -680,9 +671,9 @@ public class GameController : MonoBehaviour
 				TimeRatioText_Debug.text = 
 					"Time Ratio: " + Math.Round (TimeRatio, 2);
 				TargetPitch_Debug.text = 
-					"Target Pitch: " + audioControllerScript.BassTargetPitch;
+					"Target Pitch: " + AudioController.Instance.BassTargetPitch;
 				CurrentPitch_Debug.text = 
-					"Current Pitch: " + Math.Round (audioControllerScript.BassTrack.pitch, 4);
+					"Current Pitch: " + Math.Round (AudioController.Instance.BassTrack.pitch, 4);
 				TimeScaleText_Debug.text = 
 					"Time.timeScale: " + Math.Round (Time.timeScale, 2);
 				FixedTimeStepText_Debug.text = 
@@ -702,11 +693,11 @@ public class GameController : MonoBehaviour
 				P1_AbilityTimeProportion.text = 
 					"P1 Ability Fill: " + Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 6);
 				CheatTimeRemainText_Debug.text = 
-					"Cheat Time Remain: " + Math.Round (developerModeScript.CheatStringResetTimeRemaining, 1);
+					"Cheat Time Remain: " + Math.Round (DeveloperMode.Instance.CheatStringResetTimeRemaining, 1);
 				CheatStringText_Debug.text = 
-					"Cheat Input Field: " + developerModeScript.CheatString;
+					"Cheat Input Field: " + DeveloperMode.Instance.CheatString;
 				LastCheatText_Debug.text = 
-					"Last Cheat: " + developerModeScript.LastCheatName;
+					"Last Cheat: " + DeveloperMode.Instance.LastCheatName;
 				PowerupTimeRemain_Debug.text = 
 					"Powerup Time Remain: " + Math.Round (PowerupTimeRemaining, 1);
 				P1_ShootingIterationRapid.text = 
@@ -716,7 +707,7 @@ public class GameController : MonoBehaviour
 				P1_ShootingIterationRicochet.text = 
 					"Ricochet: " + (playerControllerScript_P1.isRicochet ? "ON" : "OFF");
 				AddedTimeText_Debug.text = 
-					"Added Time: " + System.Math.Round((timescaleControllerScript.TargetTimeScaleAdd), 3);
+					"Added Time: " + System.Math.Round((TimescaleController.Instance.TargetTimeScaleAdd), 3);
 				LivesText_Debug.text = 
 					"Lives: " + Lives;
 				BlocksDestroyedText_Debug.text = 
@@ -728,9 +719,9 @@ public class GameController : MonoBehaviour
 				BlockShotAccuracyText_Debug.text = 
 					"Block Shot Accuracy: " + (System.Math.Round((BlockShotAccuracy * 100), 2)) + "%";
 				RewindTimeRemainingText_Debug.text = 
-					"Rewind Time Remain: " + System.Math.Round(timescaleControllerScript.RewindTimeRemaining, 2);
+					"Rewind Time Remain: " + System.Math.Round(TimescaleController.Instance.RewindTimeRemaining, 2);
 				IsRewindingText_Debug.text = 
-					"Is Rewinding: " + (timescaleControllerScript.isRewinding ? "ON" : "OFF");
+					"Is Rewinding: " + (TimescaleController.Instance.isRewinding ? "ON" : "OFF");
 				PowerupPickupTimeRemain_Debug.text = 
 					"Next powerup spawn: " + (System.Math.Round (powerupPickupTimeRemaining, 2) + "s");
 				
@@ -784,13 +775,13 @@ public class GameController : MonoBehaviour
 
 				// Beats debug info.
 				Beats_Debug.text = 
-					"Beats: " + audioControllerScript.Beats;
+					"Beats: " + AudioController.Instance.Beats;
 				BeatInBar_Debug.text = 
-					"Beat in bar: " + audioControllerScript.BeatInBar;
+					"Beat in bar: " + AudioController.Instance.BeatInBar;
 				BeatsPerMinute_Debug.text = 
-					"Beats per minute: " + System.Math.Round (audioControllerScript.BeatsPerMinute, 3);
+					"Beats per minute: " + System.Math.Round (AudioController.Instance.BeatsPerMinute, 3);
 				TimeSinceTrackLoad_Debug.text = 
-					"Time since last track load: " + System.Math.Round (audioControllerScript.TimeSinceTrackLoad, 2);
+					"Time since last track load: " + System.Math.Round (AudioController.Instance.TimeSinceTrackLoad, 2);
 
 				// Block debug info.
 				BlockObjectCount_Debug.text = 
@@ -811,7 +802,7 @@ public class GameController : MonoBehaviour
 			DisplayScore = Mathf.Floor (CurrentScore); // Rounds down to nearest integer. 
 
 			// Formats score text string based on value.
-			if (playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true)
+			if (TutorialManager.Instance.tutorialComplete == true)
 			{
 				if (DisplayScore <= 0) 
 				{
@@ -827,8 +818,8 @@ public class GameController : MonoBehaviour
 	public void UpdateLives ()
 	{
 		// When in first wave transition.
-		if (timescaleControllerScript.isInInitialSequence == true || 
-			timescaleControllerScript.isInInitialCountdownSequence == true) 
+		if (TimescaleController.Instance.isInInitialSequence == true || 
+			TimescaleController.Instance.isInInitialCountdownSequence == true) 
 		{
 			if (LivesText.gameObject.activeSelf == true) 
 			{
@@ -838,8 +829,8 @@ public class GameController : MonoBehaviour
 		}
 
 		// For every wave after that.
-		if (timescaleControllerScript.isInInitialSequence == false && 
-			timescaleControllerScript.isInInitialCountdownSequence == false) 
+		if (TimescaleController.Instance.isInInitialSequence == false && 
+			TimescaleController.Instance.isInInitialCountdownSequence == false) 
 		{
 			
 			// Loop through amount of lives.
@@ -951,7 +942,7 @@ public class GameController : MonoBehaviour
 	{
 		if (isPaused == false && TrackStats == true) 
 		{
-			Distance = timescaleControllerScript.Distance; // Gets distance from Time Scale Controller.
+			Distance = TimescaleController.Instance.Distance; // Gets distance from Time Scale Controller.
 			GameTime += Time.deltaTime; // Increases time scaled.
 			RealTime += Time.unscaledDeltaTime; // Increases time unscaled.
 
@@ -1012,10 +1003,10 @@ public class GameController : MonoBehaviour
 
 			if (isPaused == false)
 			{
-				if (timescaleControllerScript.isInInitialSequence == false && timescaleControllerScript.isInInitialCountdownSequence == false)
+				if (TimescaleController.Instance.isInInitialSequence == false && TimescaleController.Instance.isInInitialCountdownSequence == false)
 				{
 					//var ImageEffectsMotionBlurModuleSettings = ImageEffects.motionBlur.settings;
-					//ImageEffectsMotionBlurModuleSettings.frameBlending = Mathf.Clamp (-0.12f * timescaleControllerScript.Distance + 1.18f, 0, 1); 
+					//ImageEffectsMotionBlurModuleSettings.frameBlending = Mathf.Clamp (-0.12f * TimescaleController.Instance.Distance + 1.18f, 0, 1); 
 					//ImageEffects.motionBlur.settings = ImageEffectsMotionBlurModuleSettings;
 
 					//var ImageEffectsDofModuleSettings = ImageEffects.depthOfField.settings;
@@ -1024,7 +1015,7 @@ public class GameController : MonoBehaviour
 					//ImageEffects.depthOfField.settings = ImageEffectsDofModuleSettings;
 				}
 
-				if (timescaleControllerScript.isInInitialSequence == true || timescaleControllerScript.isInInitialCountdownSequence == true) 
+				if (TimescaleController.Instance.isInInitialSequence == true || TimescaleController.Instance.isInInitialCountdownSequence == true) 
 				{
 					//var ImageEffectsMotionBlurModuleSettings = ImageEffects.motionBlur.settings;
 					//ImageEffectsMotionBlurModuleSettings.frameBlending = 0; 
@@ -1056,17 +1047,17 @@ public class GameController : MonoBehaviour
 					playerControllerScript_P1.pauseManagerScript.menuButtons.buttonIndex = 0;
 
 					// Sets audio values for pause.
-					audioControllerScript.updateVolumeAndPitches = false;
-					audioControllerScript.SetTargetLowPassFreq (500);
-					audioControllerScript.SetTargetResonance (2f);
+					AudioController.Instance.updateVolumeAndPitches = false;
+					AudioController.Instance.SetTargetLowPassFreq (500);
+					AudioController.Instance.SetTargetResonance (2f);
 
 					// Stops counting score.
 					CountScore = false;
 
 					// Overrides time scale.
-					timescaleControllerScript.isOverridingTimeScale = true;
-					timescaleControllerScript.OverridingTimeScale = 0; // Completely stop time.
-					timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.1f; // Must increase a little bit so the overriding occurs.
+					TimescaleController.Instance.isOverridingTimeScale = true;
+					TimescaleController.Instance.OverridingTimeScale = 0; // Completely stop time.
+					TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 0.1f; // Must increase a little bit so the overriding occurs.
 
 					// Set auto hover on resume button.
 					pauseMenuManager.MenuOnEnter (0);
@@ -1097,7 +1088,7 @@ public class GameController : MonoBehaviour
 	// Unpauses the game.
 	void UnPauseGame ()
 	{
-		if (timescaleControllerScript.isRewinding == true) 
+		if (TimescaleController.Instance.isRewinding == true) 
 		{
 			VhsAnim.SetTrigger ("Rewind");
 		}
@@ -1107,7 +1098,7 @@ public class GameController : MonoBehaviour
 			VhsAnim.SetTrigger ("Slow");
 		}
 
-		if (playerControllerScript_P1.timeIsSlowed == false && timescaleControllerScript.isRewinding == false) 
+		if (playerControllerScript_P1.timeIsSlowed == false && TimescaleController.Instance.isRewinding == false) 
 		{
 			VhsAnim.SetTrigger ("Play");
 		}
@@ -1121,25 +1112,25 @@ public class GameController : MonoBehaviour
 		PauseUI.SetActive (false);
 
 		// Set mouse cursor states.
-		cursorManagerScript.LockMouse ();
-		cursorManagerScript.HideMouse ();
+		CursorManager.Instance.LockMouse ();
+		CursorManager.Instance.HideMouse ();
 
 		// Set audio controller values to resumed state.
-		audioControllerScript.updateVolumeAndPitches = true;
-		audioControllerScript.BassTrack.pitch = 1;
-		audioControllerScript.SetTargetLowPassFreq (22000);
-		audioControllerScript.SetTargetResonance (1);
+		AudioController.Instance.updateVolumeAndPitches = true;
+		AudioController.Instance.BassTrack.pitch = 1;
+		AudioController.Instance.SetTargetLowPassFreq (22000);
+		AudioController.Instance.SetTargetResonance (1);
 
 		// Allow counting score if not in initial transition.
-		if (timescaleControllerScript.isInInitialSequence == false && 
-			timescaleControllerScript.isInInitialCountdownSequence == false) 
+		if (TimescaleController.Instance.isInInitialSequence == false && 
+			TimescaleController.Instance.isInInitialCountdownSequence == false) 
 		{
 			CountScore = true;
 		}
 
 		if (playerControllerScript_P1.timeIsSlowed == true) 
 		{
-			timescaleControllerScript.OverridingTimeScale = 0.3f;
+			TimescaleController.Instance.OverridingTimeScale = 0.3f;
 		}
 	}
 
@@ -1347,9 +1338,9 @@ public class GameController : MonoBehaviour
 	{
 		if (isGameOver == false && 
 			isPaused == false && 
-			playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true) 
+			TutorialManager.Instance.tutorialComplete == true) 
 		{
-			if (timescaleControllerScript.Distance > 3) 
+			if (TimescaleController.Instance.Distance > 3) 
 			{
 				// PowerupPickupTimeRemaining is scaled.
 				powerupPickupTimeRemaining -= Time.deltaTime * Time.timeScale * 2;
@@ -1402,7 +1393,7 @@ public class GameController : MonoBehaviour
 	{
 		yield return new WaitForSeconds (BigBossSpawnDelay);
 
-		audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
+		AudioController.Instance.StopAllSoundtracks (); // Stop all soundtracks.
 		// TODO: Play boss soundtrack.
 
 		SpawnBigBossObject ();
@@ -1421,7 +1412,7 @@ public class GameController : MonoBehaviour
 
 		yield return new WaitForSecondsRealtime (4);
 
-		audioControllerScript.BigBossSoundtrack.Play ();
+		AudioController.Instance.BigBossSoundtrack.Play ();
 	}
 
 	// Spawns a big boss from big boss array using spawn ID. 
@@ -1496,7 +1487,7 @@ public class GameController : MonoBehaviour
 		// Wave / 4 divides equally = big boss time.
 		if (Wave % 4 == 0)
 		{
-			//audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
+			//AudioController.Instance.StopAllSoundtracks (); // Stop all soundtracks.
 			// TODO: Play boss soundtrack.
 
 			// Spawn a big boss in normal mode.
@@ -1550,7 +1541,7 @@ public class GameController : MonoBehaviour
 		// For every wave after a major boss fight.
 		if (Wave % 4 == 1 || Wave == 1) 
 		{
-			SoundtrackText.text = audioControllerScript.TrackName + ""; // Display new soundtrack name.
+			SoundtrackText.text = AudioController.Instance.TrackName + ""; // Display new soundtrack name.
 		}
 	}
 
@@ -1583,7 +1574,7 @@ public class GameController : MonoBehaviour
 	{
 		if (Wave % 4 == 0) 
 		{
-			//audioControllerScript.StopAllSoundtracks (); // Stop all soundtracks.
+			//AudioController.Instance.StopAllSoundtracks (); // Stop all soundtracks.
 			// TODO: Play boss soundtrack.
 
 			// Spawn a big boss in normal mode.
@@ -1662,14 +1653,14 @@ public class GameController : MonoBehaviour
 		// When wave is after a multiple of 4.
 		if (Wave % 4 == 1) 
 		{
-			audioControllerScript.NextTrack (); // Set audio controller to next track.
-			audioControllerScript.LoadTracks (); // Play loaded tracks.
-			UnityEngine.Debug.Log ("New soundtrack loaded. Soundtrack: " + audioControllerScript.TrackName);
+			AudioController.Instance.NextTrack (); // Set audio controller to next track.
+			AudioController.Instance.LoadTracks (); // Play loaded tracks.
+			UnityEngine.Debug.Log ("New soundtrack loaded. Soundtrack: " + AudioController.Instance.TrackName);
 		}
 
 		if (Wave == 1) 
 		{
-			//SoundtrackText.text = audioControllerScript.TrackName + ""; // Display new soundtrack name.
+			//SoundtrackText.text = AudioController.Instance.TrackName + ""; // Display new soundtrack name.
 			//WaveTransitionUIStats.Play ("WaveTransitionUIStats");
 		}
 
@@ -1712,7 +1703,7 @@ public class GameController : MonoBehaviour
 		// Allows/skips tutorial.
 		if (gameModifier.Tutorial == false) 
 		{
-			playerControllerScript_P1.tutorialManagerScript.TurnOffTutorial (true);
+			TutorialManager.Instance.TurnOffTutorial (true);
 		}
 
 		// Sets how powerups should spawn in the game.

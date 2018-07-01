@@ -2,8 +2,6 @@
 
 public class ObjectsOnScreen : MonoBehaviour 
 {
-	public GameController gameControllerScript;
-
 	public type ObjectType;
 	public enum type
 	{
@@ -13,8 +11,6 @@ public class ObjectsOnScreen : MonoBehaviour
 
 	void Awake ()
 	{
-		gameControllerScript = GameObject.Find ("GameController").GetComponent<GameController> ();
-
 		switch (ObjectType) 
 		{
 		case type.Block:

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+	public static TutorialManager Instance { get; private set; }
+
 	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
-	public GameController gameControllerScript; // Reference to Game Controller.
-	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
 
 	[Header ("Tutorial Stats")]
 	public bool tutorialComplete; // Has the tutorial been completed?
@@ -23,6 +23,12 @@ public class TutorialManager : MonoBehaviour
 	public GameObject ControlsObject; // Controls section.
 	public GameObject BlocksObject; // Blocks section.
 	public GameObject InfoObject; // More info section.
+
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
 
 	void Start ()
 	{
@@ -130,7 +136,7 @@ public class TutorialManager : MonoBehaviour
 			Debug.Log ("Skipped tutorial. Starting waves.");
 		}
 
-		timeScaleControllerScript.SwitchInitialSequence ();
+		TimescaleController.Instance.SwitchInitialSequence ();
 		playerControllerScript_P1.StartCoroutines ();
 
 		foreach (GameObject block in Blocks) 

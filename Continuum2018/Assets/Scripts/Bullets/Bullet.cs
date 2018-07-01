@@ -5,7 +5,6 @@ public class Bullet : MonoBehaviour
 {
 	// References.
 	public PlayerController playerControllerScript; // Reference to the player controller.
-	public GameController gameControllerScript; // Reference to the game controller.
 	public FPSCounter fpsCounterScript;
 
 	[Header ("Stats")]
@@ -126,14 +125,8 @@ public class Bullet : MonoBehaviour
 			RicochetSound = GameObject.Find ("RicochetSound").GetComponent<AudioSource> (); // Finds ricochet sound.
 		}
 
-		// Find the game controller.
-		if (gameControllerScript == null) 
-		{
-			gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-		}
-
 		// Only count bullets shot after tutorial is complete.
-		if (playerControllerScript.tutorialManagerScript.tutorialComplete == true) 
+		if (TutorialManager.Instance.tutorialComplete == true) 
 		{
 			GameController.Instance.BulletsShot += 1;
 		}

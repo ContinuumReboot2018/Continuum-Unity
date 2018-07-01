@@ -2,9 +2,17 @@
 
 public class CursorManager : MonoBehaviour 
 {
+	public static CursorManager Instance { get; private set; }
+
 	[Tooltip ("How long the timer can last before hiding the mouse.")]
 	public float VisibleTimer = 5.0f;
 	public float VisibleTimerRemain;
+
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
 
 	void Start ()
 	{

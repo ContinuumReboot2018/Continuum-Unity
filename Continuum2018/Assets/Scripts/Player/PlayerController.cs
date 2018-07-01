@@ -15,14 +15,11 @@ using XInputDotNetPure; 			// Accessing controller vibration system and raw inpu
 // One instance per player.
 public class PlayerController : MonoBehaviour 
 {
+	public static PlayerController PlayerOneInstance { get; private set; }
+	public static PlayerController PlayerTwoInstance { get; private set; }
+
 	// Reference scripts.
-	public GameController 		 gameControllerScript;
-	public TimescaleController   timescaleControllerScript;
-	public AudioController 		 audioControllerScript;
-	public SaveAndLoadScript 	 saveAndLoadScript;
 	public CameraShake 			 camShakeScript;
-	public DeveloperMode 		 developerModeScript;
-	public TutorialManager 		 tutorialManagerScript;
 	public PostProcessingProfile PostProcessProfile;
 	public MenuManager 			 pauseManagerScript;
 	public Spotlights 			 spotlightsScript;
@@ -529,13 +526,27 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	void Awake ()
+	{
+		if (PlayerId == 1) 
+		{
+			PlayerOneInstance = this;
+			Debug.Log ("Player one instance set.");
+		}
+
+		if (PlayerId == 2) 
+		{
+			PlayerTwoInstance = this;
+			Debug.Log ("Player two instance set.");
+		}
+	}
+
 	void Start () 
 	{
 		// Get the save and load script.
-		if (saveAndLoadScript == null)
+		if (SaveAndLoadScript.Instance == null)
 		{
-			saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-			saveAndLoadScript.playerControllerScript_P1 = this;
+			SaveAndLoadScript.Instance.playerControllerScript_P1 = this;
 		}
 
 		CreatePlayerActions ();
@@ -548,7 +559,7 @@ public class PlayerController : MonoBehaviour
 		InvokeRepeating ("TurretRotatorCheck", 0, 0.5f);
 		InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
-		Ability = (ability)saveAndLoadScript.SelectedAbility;
+		Ability = (ability)SaveAndLoadScript.Instance.SelectedAbility;
 		RefreshAbilityImage ();
 		RefreshAbilityName ();
 
@@ -561,18 +572,18 @@ public class PlayerController : MonoBehaviour
 
 		if (PowerupUI.activeInHierarchy == true) 
 		{
-			gameControllerScript.PowerupImage_P1 [0].GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+			GameController.Instance.PowerupImage_P1 [0].GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
-			foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1) 
+			foreach (RawImage powerupimage in GameController.Instance.PowerupImage_P1) 
 			{
-				if (powerupimage != gameControllerScript.PowerupImage_P1 [0])
+				if (powerupimage != GameController.Instance.PowerupImage_P1 [0])
 				{
 					powerupimage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemFadeOutInstant");
 				}
 			}
 		}
 
-		useOverheat = gameControllerScript.gameModifier.useOverheat;
+		useOverheat = GameController.Instance.gameModifier.useOverheat;
 		OverheatImageL.fillAmount = 0;
 		OverheatImageL.material.EnableKeyword ("_EMISSION");
 	}
@@ -583,12 +594,12 @@ public class PlayerController : MonoBehaviour
 
 	void GetStartPlayerModifiers ()
 	{
-		isInRapidFire = gameControllerScript.gameModifier.AlwaysRapidfire;
-		isHoming 	  = gameControllerScript.gameModifier.AlwaysHoming;
-		isRicochet 	  = gameControllerScript.gameModifier.AlwaysRicochet;
-		isInOverdrive = gameControllerScript.gameModifier.AlwaysOverdrive;
+		isInRapidFire = GameController.Instance.gameModifier.AlwaysRapidfire;
+		isHoming 	  = GameController.Instance.gameModifier.AlwaysHoming;
+		isRicochet 	  = GameController.Instance.gameModifier.AlwaysRicochet;
+		isInOverdrive = GameController.Instance.gameModifier.AlwaysOverdrive;
 
-		if (gameControllerScript.gameModifier.AlwaysRicochet == true) 
+		if (GameController.Instance.gameModifier.AlwaysRicochet == true) 
 		{
 			StandardShotIteration = shotIteration.Enhanced;
 			DoubleShotIteration = shotIteration.Enhanced;
@@ -597,7 +608,7 @@ public class PlayerController : MonoBehaviour
 			EnableRicochetObject ();
 		}
 
-		if (gameControllerScript.gameModifier.AlwaysOverdrive == true) 
+		if (GameController.Instance.gameModifier.AlwaysOverdrive == true) 
 		{
 			StandardShotIteration = shotIteration.Overdrive;
 			DoubleShotIteration = shotIteration.Overdrive;
@@ -629,7 +640,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (playerCol.transform.position.y >= RiskDistance) 
 		{
-			if (gameControllerScript.isPaused == false && gameControllerScript.isGameOver == false)
+			if (GameController.Instance.isPaused == false && GameController.Instance.isGameOver == false)
 			{
 				RiskDistanceTime += Time.unscaledDeltaTime;
 			}
@@ -643,7 +654,7 @@ public class PlayerController : MonoBehaviour
 
 	void MovePlayerPhysics ()
 	{
-		if (timescaleControllerScript.isEndSequence == false) 
+		if (TimescaleController.Instance.isEndSequence == false) 
 		{
 			// This moves the transform position which the player will follow.
 			PlayerFollowRb.velocity = new Vector3 (
@@ -717,13 +728,13 @@ public class PlayerController : MonoBehaviour
 			}
 
 			// Cooldown time is finished, re enable the things.
-			if (cooldownTimeRemaining <= 0 && gameControllerScript.Lives > 0) 
+			if (cooldownTimeRemaining <= 0 && GameController.Instance.Lives > 0) 
 			{
 				RejoinGame ();
 				PlayerGuides.SetActive (true);
 				playerCol.gameObject.SetActive (true);
 				playerTrigger.gameObject.SetActive (true);
-				//gameControllerScript.Lives -= 1;
+				//GameController.Instance.Lives -= 1;
 				Invoke ("EnableCollider", 5);
 				isInCooldownMode = false;
 			}
@@ -842,16 +853,16 @@ public class PlayerController : MonoBehaviour
 	{
 		cooldownDuration = cooldownTime;
 		cooldownTimeRemaining = cooldownDuration;
-		gameControllerScript.NextPowerupSlot_P1 = 1;
-		gameControllerScript.NextPowerupShootingSlot_P1 = 0;
+		GameController.Instance.NextPowerupSlot_P1 = 1;
+		GameController.Instance.NextPowerupShootingSlot_P1 = 0;
 	}
 
 	// Cooldown sequence.
 	public void StartCooldown ()
 	{
-		if (gameControllerScript.Lives > 0) 
+		if (GameController.Instance.Lives > 0) 
 		{
-			gameControllerScript.TargetDepthDistance = 0.1f;
+			GameController.Instance.TargetDepthDistance = 0.1f;
 			isInCooldownMode = true;
 			UsePlayerFollow = false;
 		}
@@ -860,9 +871,9 @@ public class PlayerController : MonoBehaviour
 	// When the player runs out of lives and unable to respawn.
 	public void GameOver ()
 	{
-		StopCoroutine (GameOverDelay (gameControllerScript.gameModifier.TrialTime));
-		gameControllerScript.isGameOver = true;
-		timescaleControllerScript.isEndSequence = true;
+		StopCoroutine (GameOverDelay (GameController.Instance.gameModifier.TrialTime));
+		GameController.Instance.isGameOver = true;
+		TimescaleController.Instance.isEndSequence = true;
 		PlayerGuides.SetActive (false);
 		canShoot = false;
 		UsePlayerFollow = false;
@@ -873,8 +884,8 @@ public class PlayerController : MonoBehaviour
 		GameOverExplosionParticles.Play ();
 		GameOverExplosionAudio.Play ();
 		camShakeScript.ShakeCam (2, 3, 99);
-		audioControllerScript.StopAllSoundtracks ();
-		StartCoroutine (timescaleControllerScript.EndSequenceTimeScale ());
+		AudioController.Instance.StopAllSoundtracks ();
+		StartCoroutine (TimescaleController.Instance.EndSequenceTimeScale ());
 		spotlightsScript.gameObject.SetActive (false);
 	}
 
@@ -887,7 +898,7 @@ public class PlayerController : MonoBehaviour
 	// Impacts by any hazardous object.
 	public void PlayerImpactGeneric ()
 	{
-		gameControllerScript.isUpdatingImageEffects = true;
+		GameController.Instance.isUpdatingImageEffects = true;
 		timeIsSlowed = false;
 		SetCooldownTime (5);
 		GlitchEffect.Play ("CameraGlitchOn");
@@ -907,40 +918,40 @@ public class PlayerController : MonoBehaviour
 		canShoot = false;
 		StartCooldown ();
 		PlayerExplosionAudio.Play ();
-		gameControllerScript.combo = 1;
+		GameController.Instance.combo = 1;
 		LivesAnim.enabled = false;
-		gameControllerScript.Lives -= 1;
-		gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
+		GameController.Instance.Lives -= 1;
+		GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
 
-		if (gameControllerScript.Lives == 10) 
+		if (GameController.Instance.Lives == 10) 
 		{
 			for (int i = 0; i < 9; i++) 
 			{
-				gameControllerScript.LifeImages [i].gameObject.SetActive (true);
-				gameControllerScript.LifeImages [i].enabled = true;
-				gameControllerScript.LifeImages [i].color = Color.white;
-				gameControllerScript.LifeImages [i].GetComponent<Animator> ().Play ("LifeImageEnter");
-				gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-				gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
+				GameController.Instance.LifeImages [i].gameObject.SetActive (true);
+				GameController.Instance.LifeImages [i].enabled = true;
+				GameController.Instance.LifeImages [i].color = Color.white;
+				GameController.Instance.LifeImages [i].GetComponent<Animator> ().Play ("LifeImageEnter");
+				GameController.Instance.LifeImages [i].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+				GameController.Instance.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
 
-				gameControllerScript.LivesSpacing.SetActive (false);
-				gameControllerScript.LivesText.gameObject.SetActive (false);
-				gameControllerScript.LivesText.text = "";
-				gameControllerScript.MaxLivesText.text = "";
+				GameController.Instance.LivesSpacing.SetActive (false);
+				GameController.Instance.LivesText.gameObject.SetActive (false);
+				GameController.Instance.LivesText.text = "";
+				GameController.Instance.MaxLivesText.text = "";
 			}
 		}
 
-		gameControllerScript.LivesAnim.SetTrigger ("UpdateLives");
+		GameController.Instance.LivesAnim.SetTrigger ("UpdateLives");
 
-		if (gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.activeSelf == true) 
+		if (GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.activeSelf == true) 
 		{
-			gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
+			GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
 		}
 
 		if (timeIsSlowed == false) 
 		{
-			timescaleControllerScript.OverrideTimeScaleTimeRemaining += 2;
-			timescaleControllerScript.OverridingTimeScale = 0.25f;
+			TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 2;
+			TimescaleController.Instance.OverridingTimeScale = 0.25f;
 		}
 
 		ImpactTransform.position = ImpactPoint;
@@ -948,7 +959,7 @@ public class PlayerController : MonoBehaviour
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.ImpactSpotlightSettings ();
 
-		if (gameControllerScript.isInBonusRound == true) 
+		if (GameController.Instance.isInBonusRound == true) 
 		{
 			Debug.Log ("Bonus round cancelled, loading up next boss.");
 		}
@@ -963,8 +974,8 @@ public class PlayerController : MonoBehaviour
 		PlayerExplosionParticles.transform.position = ImpactPoint;
 		Instantiate (ImpactBlock.playerExplosion, ImpactPoint, Quaternion.identity);
 		camShakeScript.ShakeCam (ImpactBlock.newCamShakeAmount * 10, ImpactBlock.newCamShakeAmount * 10, 99);
-		audioControllerScript.SetTargetLowPassFreq (ImpactBlock.LowPassTargetFreq);
-		audioControllerScript.SetTargetResonance (ImpactBlock.ResonanceTargetFreq);
+		AudioController.Instance.SetTargetLowPassFreq (ImpactBlock.LowPassTargetFreq);
+		AudioController.Instance.SetTargetResonance (ImpactBlock.ResonanceTargetFreq);
 		return;
 	}
 
@@ -989,7 +1000,7 @@ public class PlayerController : MonoBehaviour
 		PlayerLight.intensity = 12;
 
 		// Checks for gode mode, allows god mode to stay on if needed.
-		if (developerModeScript.isGod == false) 
+		if (DeveloperMode.Instance.isGod == false) 
 		{
 			playerCol.enabled = true;
 			playerTrigger.enabled = true;
@@ -999,20 +1010,20 @@ public class PlayerController : MonoBehaviour
 	// Allows player to re enter while temporarily invincible.
 	void RejoinGame ()
 	{
-		//gameControllerScript.UpdateLives ();
+		//GameController.Instance.UpdateLives ();
 		CurrentShootingHeat = 0;
 		CurrentShootingCooldown = 0;
 		PlayerFollow.transform.position = Vector3.zero;
 		canShoot = true;
 		UsePlayerFollow = true;
 		playerMesh.SetActive (true);
-		audioControllerScript.TargetCutoffFreq = 22000;
-		audioControllerScript.TargetResonance = 1;
+		AudioController.Instance.TargetCutoffFreq = 22000;
+		AudioController.Instance.TargetResonance = 1;
 		InvincibleParticles.Play ();
 		spotlightsScript.NewTarget = playerMesh.transform;
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.SuccessSpotlightSettings ();
-		gameControllerScript.VhsAnim.SetTrigger ("Play");
+		GameController.Instance.VhsAnim.SetTrigger ("Play");
 	}
 
 	void PlaySpaceshipAmbience ()
@@ -1048,11 +1059,11 @@ public class PlayerController : MonoBehaviour
 	// Reads input from InControl Player Actions and sets values.
 	void MovePlayer ()
 	{
-		if (gameControllerScript.isGameOver == false)
+		if (GameController.Instance.isGameOver == false)
 		{
-			if (UsePlayerFollow == true && timescaleControllerScript.isEndSequence == false)
+			if (UsePlayerFollow == true && TimescaleController.Instance.isEndSequence == false)
 			{
-				if (gameControllerScript.isPaused == false) 
+				if (GameController.Instance.isPaused == false) 
 				{
 					// Reads movement input on two axis.
 					if (FlipScreenAnim.transform.eulerAngles.z < 90) // When screen is right way up.
@@ -1101,15 +1112,15 @@ public class PlayerController : MonoBehaviour
 
 		// Player presses ability button.
 		if (playerActions.Ability.WasPressed && 
-			gameControllerScript.isPaused == false && 
+			GameController.Instance.isPaused == false && 
 			//playerCol.enabled == true && 
 			isInCooldownMode == false) 
 		{
 			// Ability is charged.
 			if (CurrentAbilityState == abilityState.Ready && 
 				cooldownTimeRemaining <= 0 &&
-				timescaleControllerScript.isInInitialSequence == false && 
-				timescaleControllerScript.isInInitialCountdownSequence == false) 
+				TimescaleController.Instance.isInInitialSequence == false && 
+				TimescaleController.Instance.isInInitialCountdownSequence == false) 
 			{
 				ActivateAbility ();
 				CurrentAbilityState = abilityState.Active;
@@ -1160,10 +1171,10 @@ public class PlayerController : MonoBehaviour
 		{
 			if (CurrentAbilityTimeRemaining < CurrentAbilityDuration && 
 				cooldownTimeRemaining <= 0 &&
-				timescaleControllerScript.isInInitialSequence == false && 
-				timescaleControllerScript.isInInitialCountdownSequence == false && 
-				gameControllerScript.isPaused == false &&
-				tutorialManagerScript.tutorialComplete == true) 
+				TimescaleController.Instance.isInInitialSequence == false && 
+				TimescaleController.Instance.isInInitialCountdownSequence == false && 
+				GameController.Instance.isPaused == false &&
+				TutorialManager.Instance.tutorialComplete == true) 
 			{
 				//CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
 			}
@@ -1177,8 +1188,8 @@ public class PlayerController : MonoBehaviour
 
 				if (timeIsSlowed == false)
 				{
-					timescaleControllerScript.OverrideTimeScaleTimeRemaining += 1f;
-					timescaleControllerScript.OverridingTimeScale = 0.1f;
+					TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 1f;
+					TimescaleController.Instance.OverridingTimeScale = 0.1f;
 				}
 
 				CurrentAbilityState = abilityState.Ready;
@@ -1237,8 +1248,8 @@ public class PlayerController : MonoBehaviour
 			HorizontalBeam.SetActive (true);
 			break;
 		case ability.Rewind:
-			timescaleControllerScript.SetRewindTime (true, 8);
-			gameControllerScript.VhsAnim.SetTrigger ("Rewind");
+			TimescaleController.Instance.SetRewindTime (true, 8);
+			GameController.Instance.VhsAnim.SetTrigger ("Rewind");
 			break;
 		case ability.Mirror:
 			MirrorPlayer.SetActive (true);
@@ -1248,8 +1259,8 @@ public class PlayerController : MonoBehaviour
 		AbilityActivations++;
 
 		// Briefly slows time down for effect.
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.75f;
-		timescaleControllerScript.OverridingTimeScale = 0.3f;
+		TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 0.75f;
+		TimescaleController.Instance.OverridingTimeScale = 0.3f;
 
 		camShakeScript.ShakeCam (0.4f, CurrentAbilityDuration, 6);
 
@@ -1328,7 +1339,7 @@ public class PlayerController : MonoBehaviour
 		if (Ability == ability.Rewind)
 		{
 			StopRewinding (); // Stops rewinding.
-			gameControllerScript.VhsAnim.SetTrigger ("Play");
+			GameController.Instance.VhsAnim.SetTrigger ("Play");
 		}
 
 		// Reset the camera shake.
@@ -1340,13 +1351,13 @@ public class PlayerController : MonoBehaviour
 	void StopRewinding ()
 	{
 		// Stop rewinding.
-		timescaleControllerScript.SetRewindTime (false, 0);
+		TimescaleController.Instance.SetRewindTime (false, 0);
 	}
 
 	// Deactivate Shield.
 	void DeactivateShield ()
 	{
-		if (developerModeScript.isGod == false) 
+		if (DeveloperMode.Instance.isGod == false) 
 		{
 			playerCol.enabled = true;
 			playerTrigger.enabled = true;
@@ -1512,14 +1523,14 @@ public class PlayerController : MonoBehaviour
 	{
 		if (canShoot == true) 
 		{
-			if (playerActions.Shoot.Value > 0.75f && gameControllerScript.isPaused == false) 
+			if (playerActions.Shoot.Value > 0.75f && GameController.Instance.isPaused == false) 
 			{
 				if (Time.time >= NextFire)
 				{
 					// Every time the player shoots, decremement the combo.
-					if (gameControllerScript.combo > 1)
+					if (GameController.Instance.combo > 1)
 					{
-						gameControllerScript.combo -= 1;
+						GameController.Instance.combo -= 1;
 					}
 
 					if (Overheated == false && AbilityFillImage.color != HotColor)
@@ -1543,9 +1554,9 @@ public class PlayerController : MonoBehaviour
 			}
 
 			if (playerActions.Shoot.Value < 0.75f && Time.time >= NextFire && 
-				gameControllerScript.isPaused == false) 
+				GameController.Instance.isPaused == false) 
 			{
-				if (gameControllerScript.isPaused == false && gameControllerScript.isGameOver == false) 
+				if (GameController.Instance.isPaused == false && GameController.Instance.isGameOver == false) 
 				{
 					NonShootingTime += Time.unscaledDeltaTime;
 				}
@@ -1752,13 +1763,13 @@ public class PlayerController : MonoBehaviour
 	{
 		if (playerActions.Pause.WasPressed) 
 		{
-			if (Time.unscaledTime > gameControllerScript.NextPauseCooldown) 
+			if (Time.unscaledTime > GameController.Instance.NextPauseCooldown) 
 			{
-				gameControllerScript.CheckPause ();
+				GameController.Instance.CheckPause ();
 			}
 		}
 
-		if (gameControllerScript.isPaused == true) 
+		if (GameController.Instance.isPaused == true) 
 		{
 			if (isShieldOn == true) 
 			{
@@ -1769,7 +1780,7 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		if (gameControllerScript.isPaused == false) 
+		if (GameController.Instance.isPaused == false) 
 		{
 			if (isShieldOn == true) 
 			{
@@ -1873,17 +1884,17 @@ public class PlayerController : MonoBehaviour
 				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeOut") == false && isHidingLivesUI == false
 					&& isInCooldownMode == false) 
 				{
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.GetComponent<Animator> ().enabled = true;
+					GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.GetComponent<Animator> ().enabled = true;
 					LivesAnim.Play ("LivesFadeOut");
 					isHidingLivesUI = true;
 
-					for (int i = 0; i < gameControllerScript.LifeImages.Length; i++) 
+					for (int i = 0; i < GameController.Instance.LifeImages.Length; i++) 
 					{
-						if (gameControllerScript.LifeImages [i].gameObject.activeInHierarchy == true) 
+						if (GameController.Instance.LifeImages [i].gameObject.activeInHierarchy == true) 
 						{
-							if (gameControllerScript.LifeImages [i].GetComponent<Animator> ().GetBool ("Hidden") == false) 
+							if (GameController.Instance.LifeImages [i].GetComponent<Animator> ().GetBool ("Hidden") == false) 
 							{
-								gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", true);
+								GameController.Instance.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", true);
 							}
 						}
 					}
@@ -1897,17 +1908,17 @@ public class PlayerController : MonoBehaviour
 					&& isInCooldownMode == false) 
 				{
 					LivesAnim.enabled = true;
-					gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.GetComponent<Animator> ().enabled = false;
+					GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.GetComponent<Animator> ().enabled = false;
 					LivesAnim.Play ("LivesFadeIn");
 					isHidingLivesUI = false;
 
-					for (int i = 0; i < gameControllerScript.LifeImages.Length; i++) 
+					for (int i = 0; i < GameController.Instance.LifeImages.Length; i++) 
 					{
-						if (gameControllerScript.LifeImages [i].gameObject.activeInHierarchy == true) 
+						if (GameController.Instance.LifeImages [i].gameObject.activeInHierarchy == true) 
 						{
-							if (gameControllerScript.LifeImages [i].GetComponent<Animator> ().GetBool ("Hidden") == true) 
+							if (GameController.Instance.LifeImages [i].GetComponent<Animator> ().GetBool ("Hidden") == true) 
 							{
-								gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
+								GameController.Instance.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
 							}
 						}
 					}
@@ -1925,13 +1936,13 @@ public class PlayerController : MonoBehaviour
 				LivesAnim.Play ("LivesFadeIn");
 				isHidingLivesUI = false;
 
-				for (int i = 0; i < gameControllerScript.LifeImages.Length; i++) 
+				for (int i = 0; i < GameController.Instance.LifeImages.Length; i++) 
 				{
-					if (gameControllerScript.LifeImages [i].gameObject.activeInHierarchy == true) 
+					if (GameController.Instance.LifeImages [i].gameObject.activeInHierarchy == true) 
 					{
-						if (gameControllerScript.LifeImages [i].GetComponent<Animator> ().GetBool ("Hidden") == true) 
+						if (GameController.Instance.LifeImages [i].GetComponent<Animator> ().GetBool ("Hidden") == true) 
 						{
-							gameControllerScript.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
+							GameController.Instance.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
 						}
 					}
 				}
@@ -1941,10 +1952,10 @@ public class PlayerController : MonoBehaviour
 		CheckPowerupImageUI ();
 
 		// Defaults powerup texture with standard shot image.
-		if (gameControllerScript.PowerupImage_P1 [0].texture == null) 
+		if (GameController.Instance.PowerupImage_P1 [0].texture == null) 
 		{
-			gameControllerScript.PowerupImage_P1 [0].color = Color.white;
-			gameControllerScript.PowerupImage_P1 [0].texture = gameControllerScript.StandardShotTexture;
+			GameController.Instance.PowerupImage_P1 [0].color = Color.white;
+			GameController.Instance.PowerupImage_P1 [0].texture = GameController.Instance.StandardShotTexture;
 		}
 	}
 
@@ -1954,7 +1965,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (PowerupUI.activeInHierarchy == true && isInCooldownMode == false) 
 		{
-			foreach (RawImage powerupimage in gameControllerScript.PowerupImage_P1) 
+			foreach (RawImage powerupimage in GameController.Instance.PowerupImage_P1) 
 			{
 				if (powerupimage.gameObject.activeInHierarchy == true) 
 				{
@@ -1975,19 +1986,19 @@ public class PlayerController : MonoBehaviour
 			if (playerCol.transform.position.y > PowerupUICheckPos.y &&
 			   playerCol.transform.position.x > PowerupUICheckPos.x)
 			{
-				gameControllerScript.HomingImage.GetComponent<Animator> ().SetBool ("Visible", false);
-				gameControllerScript.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", false);
-				gameControllerScript.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", false);
-				gameControllerScript.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", false);
+				GameController.Instance.HomingImage.GetComponent<Animator> ().SetBool ("Visible", false);
+				GameController.Instance.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", false);
+				GameController.Instance.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", false);
+				GameController.Instance.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", false);
 			}
 
 			if (playerCol.transform.position.y <= PowerupUICheckPos.y ||
 			   playerCol.transform.position.x <= PowerupUICheckPos.x) 
 			{
-				gameControllerScript.HomingImage.GetComponent<Animator> ().SetBool ("Visible", true);
-				gameControllerScript.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", true);
-				gameControllerScript.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", true);
-				gameControllerScript.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", true);
+				GameController.Instance.HomingImage.GetComponent<Animator> ().SetBool ("Visible", true);
+				GameController.Instance.RicochetImage.GetComponent<Animator> ().SetBool ("Visible", true);
+				GameController.Instance.RapidfireImage.GetComponent<Animator> ().SetBool ("Visible", true);
+				GameController.Instance.OverdriveImage.GetComponent<Animator> ().SetBool ("Visible", true);
 			}
 		}
 	}
@@ -2003,7 +2014,7 @@ public class PlayerController : MonoBehaviour
 	{
 		TurretRotatorScript.rotateDegreesPerSecond.value = new Vector3 (0, 0, TurretSpinSpeed);
 
-		if (gameControllerScript.PowerupTimeRemaining > 3) 
+		if (GameController.Instance.PowerupTimeRemaining > 3) 
 		{
 			TurretSpinSpeed = TurretSpinSpeedNormal;
 		}
@@ -2026,7 +2037,7 @@ public class PlayerController : MonoBehaviour
 	// Resets all active powerups back to standard shot. Does not modify modifiers if enabled.
 	public void ResetPowerups ()
 	{
-		gameControllerScript.isUpdatingImageEffects = true;
+		GameController.Instance.isUpdatingImageEffects = true;
 
 		// Sets all shot types to standard iteration.
 		ShotType = shotType.Standard;
@@ -2036,17 +2047,17 @@ public class PlayerController : MonoBehaviour
 		if (timeIsSlowed == true) 
 		{
 			timeIsSlowed = false;
-			gameControllerScript.VhsAnim.SetTrigger ("Play");
+			GameController.Instance.VhsAnim.SetTrigger ("Play");
 		}
 
 		// Resets homing mode if not modified by game modifier object.
-		isHoming = gameControllerScript.gameModifier.AlwaysHoming;
-		isRicochet = gameControllerScript.gameModifier.AlwaysRicochet;
-		isInRapidFire = gameControllerScript.gameModifier.AlwaysRapidfire;
-		isInOverdrive = gameControllerScript.gameModifier.AlwaysOverdrive;
+		isHoming = GameController.Instance.gameModifier.AlwaysHoming;
+		isRicochet = GameController.Instance.gameModifier.AlwaysRicochet;
+		isInRapidFire = GameController.Instance.gameModifier.AlwaysRapidfire;
+		isInOverdrive = GameController.Instance.gameModifier.AlwaysOverdrive;
 
 		// Resets ricochet mode if not modified by game modifier object.
-		if (gameControllerScript.gameModifier.AlwaysRicochet == false)
+		if (GameController.Instance.gameModifier.AlwaysRicochet == false)
 		{
 			foreach (ParticleSystem glowParticles in RicochetGlowParticles)
 			{
@@ -2060,13 +2071,13 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Resets rapidfire mode if not modified by game modifier object.
-		if (gameControllerScript.gameModifier.AlwaysRapidfire == false) 
+		if (GameController.Instance.gameModifier.AlwaysRapidfire == false) 
 		{
 			CurrentFireRate = StandardFireRate;
 		}
 			
 		// Resets overdrive mode if not modified by game modifier object.
-		if (gameControllerScript.gameModifier.AlwaysOverdrive == false) 
+		if (GameController.Instance.gameModifier.AlwaysOverdrive == false) 
 		{
 			StandardShotIteration = shotIteration.Standard;
 			DoubleShotIteration = shotIteration.Standard;
@@ -2094,24 +2105,24 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Resets powerup time remaining.
-		gameControllerScript.PowerupTimeRemaining = 0;
+		GameController.Instance.PowerupTimeRemaining = 0;
 		powerupsInUse = 0;
 
 		// Clears powerup UI.
 		CheckPowerupImageUI ();
-		gameControllerScript.ClearPowerupUI ();
+		GameController.Instance.ClearPowerupUI ();
 
-		timescaleControllerScript.OverrideTimeScaleTimeRemaining = 0;
-		timescaleControllerScript.isOverridingTimeScale = false;
+		TimescaleController.Instance.OverrideTimeScaleTimeRemaining = 0;
+		TimescaleController.Instance.isOverridingTimeScale = false;
 
 		ResetParticleActiveEffects ();
 	}
 
 	void UpdateImageEffects ()
 	{
-		if (gameControllerScript.isUpdatingImageEffects == true) 
+		if (GameController.Instance.isUpdatingImageEffects == true) 
 		{
-			float localDistance = timescaleControllerScript.Distance;
+			float localDistance = TimescaleController.Instance.Distance;
 
 			var PostProcessBloomSettings = PostProcessProfile.bloom.settings;
 			PostProcessBloomSettings.bloom.intensity = 0.001f * localDistance + 0.005f;
@@ -2239,19 +2250,19 @@ public class PlayerController : MonoBehaviour
 
 	void CheckCheatConsoleInput ()
 	{
-		if (developerModeScript.useCheats == true) 
+		if (DeveloperMode.Instance.useCheats == true) 
 		{
 			if (playerActions.CheatConsole.WasPressed) 
 			{
-				developerModeScript.CheatConsole.SetActive (!developerModeScript.CheatConsole.activeSelf);
-				developerModeScript.ClearCheatString ();
+				DeveloperMode.Instance.CheatConsole.SetActive (!DeveloperMode.Instance.CheatConsole.activeSelf);
+				DeveloperMode.Instance.ClearCheatString ();
 
-				if (developerModeScript.CheatConsole.activeSelf) 
+				if (DeveloperMode.Instance.CheatConsole.activeSelf) 
 				{
 					Debug.Log ("Cheat console opened.");
 				}
 
-				if (!developerModeScript.CheatConsole.activeSelf) 
+				if (!DeveloperMode.Instance.CheatConsole.activeSelf) 
 				{
 					Debug.Log ("Cheat console closed.");
 				}
@@ -2259,11 +2270,11 @@ public class PlayerController : MonoBehaviour
 
 			if (playerActions.CheatConsole.WasReleased)
 			{
-				developerModeScript.ClearCheatString ();
-				developerModeScript.CheatInputText.text = ">_ ";
+				DeveloperMode.Instance.ClearCheatString ();
+				DeveloperMode.Instance.CheatInputText.text = ">_ ";
 			}
 
-			developerModeScript.CheatInputText.text = developerModeScript.CheatString;
+			DeveloperMode.Instance.CheatInputText.text = DeveloperMode.Instance.CheatString;
 		}
 	}
 

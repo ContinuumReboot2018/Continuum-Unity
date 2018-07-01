@@ -3,7 +3,6 @@
 public class Turret : MonoBehaviour 
 {
 	public PlayerController playerControllerScript; // Reference to Player Controller.
-	public GameController gameControllerScript; // Reference to Game Controller.
 	[Space (10)]
 	[Tooltip ("Simple: Shoots single bullets.\nComplex: Shoots whatever the player powerup is.")]
 	public TurretShootingMethod turretShootingMethod;
@@ -31,8 +30,6 @@ public class Turret : MonoBehaviour
 
 	void OnEnable () 
 	{
-		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-
 		if (playerControllerScript == null) 
 		{
 			playerControllerScript = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();

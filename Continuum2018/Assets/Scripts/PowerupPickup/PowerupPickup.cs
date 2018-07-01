@@ -4,9 +4,7 @@ using System.Collections;
 
 public class PowerupPickup : MonoBehaviour 
 {
-	public GameController gameControllerScript; // Reference to Game Controller.
 	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
-	public TimescaleController timescaleControllerScript; // Reference to Timescale Controller.
 	public float ThresholdPowerupMoveDistance = 12;
 	public float MoveSpeed = 1;
 	public CameraShake camShakeScript; // Reference to camera shake.
@@ -63,9 +61,7 @@ public class PowerupPickup : MonoBehaviour
 
 	void Start ()
 	{
-		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
-		timescaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		PowerupTimeRunningOutAudio = GameObject.Find ("PowerupRunningOutSound").GetComponent<AudioSource> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		destroyByTimeScript = GetComponent<DestroyByTime> (); // Timer for lifetime.
@@ -82,7 +78,7 @@ public class PowerupPickup : MonoBehaviour
 
 	void CheckPlayerDistance ()
 	{
-		if (timescaleControllerScript.Distance >= ThresholdPowerupMoveDistance) 
+		if (TimescaleController.Instance.Distance >= ThresholdPowerupMoveDistance) 
 		{
 			MovePowerupToPlayer ();
 		}
@@ -177,8 +173,8 @@ public class PowerupPickup : MonoBehaviour
 
 		if (playerControllerScript_P1.timeIsSlowed == false)
 		{
-			timescaleControllerScript.OverrideTimeScaleTimeRemaining += 0.5f; // Set Timescale ovveride time.
-			timescaleControllerScript.OverridingTimeScale = 0.2f; // Set overriding time scale.
+			TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 0.5f; // Set Timescale ovveride time.
+			TimescaleController.Instance.OverridingTimeScale = 0.2f; // Set overriding time scale.
 		}
 
 		camShakeScript.ShakeCam (0.5f, 1, 1);
@@ -239,9 +235,9 @@ public class PowerupPickup : MonoBehaviour
 				GameController.Instance.VhsAnim.SetTrigger ("Slow");
 			}
 				
-			timescaleControllerScript.OverridingTimeScale = 0.3f;
-			timescaleControllerScript.OverrideTimeScaleTimeRemaining += PowerupTime;
-			timescaleControllerScript.isOverridingTimeScale = true;
+			TimescaleController.Instance.OverridingTimeScale = 0.3f;
+			TimescaleController.Instance.OverrideTimeScaleTimeRemaining += PowerupTime;
+			TimescaleController.Instance.isOverridingTimeScale = true;
 
 			if (playerControllerScript_P1.timeIsSlowed == false) 
 			{

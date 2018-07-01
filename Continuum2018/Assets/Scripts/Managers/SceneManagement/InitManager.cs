@@ -4,17 +4,24 @@ using TMPro;
 
 public class InitManager : MonoBehaviour 
 {
-	public SaveAndLoadScript saveAndLoadScript;
+	public static InitManager Instance { get; private set; }
+
 	public PostProcessingBehaviour postProcess;
 	public TextMeshProUGUI LoadingMissionText;
+
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
 
 	void Start ()
 	{
 		LoadingMissionText.text = "MAIN MENU";
 
-		saveAndLoadScript.LoadSettingsData ();
-		saveAndLoadScript.SaveSettingsData ();
-		saveAndLoadScript.LoadPlayerData ();
+		SaveAndLoadScript.Instance.LoadSettingsData ();
+		SaveAndLoadScript.Instance.SaveSettingsData ();
+		SaveAndLoadScript.Instance.LoadPlayerData ();
 
 		CheckPostProcessQuality ();
 	}

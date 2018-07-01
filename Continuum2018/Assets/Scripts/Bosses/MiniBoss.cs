@@ -5,9 +5,6 @@ using TMPro;
 
 public class MiniBoss : MonoBehaviour
 {
-	public GameController gameControllerScript; // Reference to Game Controller.
-	private AudioController audioControllerScript;
-	public TimescaleController timeScaleControllerScript; // Reference to Timescale Controller.
 	public CameraShake camShakeScript; // Reference to camera shake.
 	public EvasiveManeuver evasiveManeuverScript;
 	public MiniBossFormationGenerator miniBossFormation;
@@ -84,11 +81,11 @@ public class MiniBoss : MonoBehaviour
 
 	void OnDestroy ()
 	{
-		if (audioControllerScript != null) 
+		if (AudioController.Instance != null) 
 		{
-			if (audioControllerScript.BigBossSoundtrack.isPlaying == true)
+			if (AudioController.Instance.BigBossSoundtrack.isPlaying == true)
 			{
-				audioControllerScript.BigBossSoundtrack.Stop ();
+				AudioController.Instance.BigBossSoundtrack.Stop ();
 			}
 		}
 	}
@@ -100,9 +97,6 @@ public class MiniBoss : MonoBehaviour
 
 	void Start () 
 	{
-		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-		audioControllerScript = GameObject.Find ("AudioController").GetComponent<AudioController> ();
-		timeScaleControllerScript = GameObject.Find ("TimescaleController").GetComponent<TimescaleController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 
 		evasiveManeuverScript.enabled = false;
@@ -354,8 +348,8 @@ public class MiniBoss : MonoBehaviour
 
 		if (GameController.Instance.playerControllerScript_P1.timeIsSlowed == false)
 		{
-			timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 1f; // Temporarily override time scale. 
-			timeScaleControllerScript.OverridingTimeScale = 0.3f; // Set overriding time scale.
+			TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 1f; // Temporarily override time scale. 
+			TimescaleController.Instance.OverridingTimeScale = 0.3f; // Set overriding time scale.
 		}
 
 		GameController.Instance.playerControllerScript_P1.spotlightsScript.CancelInvoke ("SpotlightOverrideTransform");

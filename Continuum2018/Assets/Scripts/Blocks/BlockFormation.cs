@@ -55,7 +55,6 @@ public class BlockFormation : MonoBehaviour
 		CheckMissingBlocks (); // Disables blocks that are deemed missing.
 		GetBlockArray ();
 
-		//gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		SetSpawnPosition (); // Restricts spawn position.
 
 		GetAccumulatedSpeed (); // Get aggregate speed additively.

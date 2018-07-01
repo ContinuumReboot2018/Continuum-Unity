@@ -2,8 +2,6 @@
 
 public class TargetFPS : MonoBehaviour 
 {
-	public SaveAndLoadScript saveAndLoadScript;
-
 	[Tooltip ("Game will try to render as fast as the target. Will try to run as fast as possible if set to a negative number.")]
 	public int targetFramerate = 60; 
 	public int currentTargetFramerate;
@@ -12,8 +10,7 @@ public class TargetFPS : MonoBehaviour
 
 	void Awake ()
 	{
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-		saveAndLoadScript.targetFramerateScript = this;
+		SaveAndLoadScript.Instance.targetFramerateScript = this;
 
 		if (useScreenRefreshRate == true) 
 		{
@@ -32,7 +29,7 @@ public class TargetFPS : MonoBehaviour
 	public void SetTargetFramerate (int framerate)
 	{
 		Application.targetFrameRate = framerate; 
-		saveAndLoadScript.targetframerate = framerate;
+		SaveAndLoadScript.Instance.targetframerate = framerate;
 		//Debug.Log ("Target framerate set to " + framerate + " FPS.");
 	}
 }

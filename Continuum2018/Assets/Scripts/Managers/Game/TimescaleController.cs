@@ -8,15 +8,14 @@ using TMPro;
 
 public class TimescaleController : MonoBehaviour 
 {
+	public static TimescaleController Instance { get; private set; }
+
 	public PlayerController 	playerControllerScript_P1;
-	public GameController 		gameControllerScript;
-	public AudioController		audioControllerScript;
 	public LocalSceneLoader 	localSceneLoaderScript;
 	public FPSCounter 			fpsCounterScript;
 	public NoiseAndGrain 		noiseScript;
 	public GameModifierManager 	gameModifier;
 	public MenuManager 			gameOverMenuManager;
-	public GameOverController 	gameOverControllerScript;
 	public SimpleFollow 		CamSimpleFollow;
 
 	[Header ("Read Only")]
@@ -97,6 +96,9 @@ public class TimescaleController : MonoBehaviour
 
 	void Awake () 
 	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+
 		Time.timeScale = MinimumTimeScale; // Set Time.timeScale to slowest possible value.
 		Time.fixedDeltaTime = 0.005f; // Setting initial fixed time step.
 	}
@@ -163,11 +165,11 @@ public class TimescaleController : MonoBehaviour
 	// Detect dsiatnce, apply time.
 	void UpdateMainTargetTimeScale ()
 	{
-		if (useTwoPlayers == false && gameControllerScript.isPaused == false && 
+		if (useTwoPlayers == false && GameController.Instance.isPaused == false && 
 			isEndSequence == false && playerControllerScript_P1.isInCooldownMode == false) 
 		{
 			if (isOverridingTimeScale == false && isInInitialSequence == false && 
-				isInInitialCountdownSequence == false && playerControllerScript_P1.tutorialManagerScript.tutorialComplete == true) 
+				isInInitialCountdownSequence == false && TutorialManager.Instance.tutorialComplete == true) 
 			{
 				// Gets vertical distance from player to reference point.
 				// Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
@@ -209,7 +211,7 @@ public class TimescaleController : MonoBehaviour
 				{
 					// Get pitch value from bass track in audio controller and allow manipulation.
 					TargetTimeScale = Mathf.Clamp (
-						audioControllerScript.BassTrack.pitch + TargetTimeScaleAdd - 0.3f, 
+						AudioController.Instance.BassTrack.pitch + TargetTimeScaleAdd - 0.3f, 
 						MinimumTimeScale, 
 						MaximumTimeScale
 					);
@@ -252,12 +254,12 @@ public class TimescaleController : MonoBehaviour
 	{
 		if (playerControllerScript_P1.timeIsSlowed == true) 
 		{
-			OverrideTimeScaleTimeRemaining = gameControllerScript.PowerupTimeRemaining;
-			gameControllerScript.isUpdatingImageEffects = false;
+			OverrideTimeScaleTimeRemaining = GameController.Instance.PowerupTimeRemaining;
+			GameController.Instance.isUpdatingImageEffects = false;
 
-			var saturationSettings = gameControllerScript.ImageEffects.colorGrading.settings;
+			var saturationSettings = GameController.Instance.ImageEffects.colorGrading.settings;
 			saturationSettings.basic.saturation = Mathf.Lerp (saturationSettings.basic.saturation, 0.2f, Time.unscaledDeltaTime);
-			gameControllerScript.ImageEffects.colorGrading.settings = saturationSettings;
+			GameController.Instance.ImageEffects.colorGrading.settings = saturationSettings;
 		}
 
 		if (OverrideTimeScaleTimeRemaining <= 0) 
@@ -275,7 +277,7 @@ public class TimescaleController : MonoBehaviour
 		if (OverrideTimeScaleTimeRemaining > 0) 
 		{
 			// Normal overriding curcumstances.
-			if (gameControllerScript.isPaused == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
+			if (GameController.Instance.isPaused == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
 			{
 				OverrideTimeScaleTimeRemaining -= Time.unscaledDeltaTime; // Decrease override time remaining unscaled.
 			}
@@ -303,7 +305,7 @@ public class TimescaleController : MonoBehaviour
 
 			// Check state of wave transition UI.
 			if (WaveTransitionUI.GetCurrentAnimatorStateInfo (0).IsName ("WaveTransition") == true
-				&& gameControllerScript.isPaused == false) 
+				&& GameController.Instance.isPaused == false) 
 			{
 				if (isOverridingTimeScale == true) 
 				{
@@ -339,10 +341,10 @@ public class TimescaleController : MonoBehaviour
 			if (InitialCountdownSequenceTimeRemaining <= 0) 
 			{
 				Time.timeScale = 1;
-				gameControllerScript.CountScore = true;
+				GameController.Instance.CountScore = true;
 				isInInitialCountdownSequence = false;
-				gameControllerScript.NextLevel ();
-				gameControllerScript.StartGame ();
+				GameController.Instance.NextLevel ();
+				GameController.Instance.StartGame ();
 			}
 
 			yield return null;
@@ -358,17 +360,17 @@ public class TimescaleController : MonoBehaviour
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 		TargetTimeScale = 0;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
-		gameOverControllerScript.transform.parent.gameObject.SetActive (true);
-		gameOverControllerScript.enabled = true;
+		GameOverController.Instance.transform.parent.gameObject.SetActive (true);
+		GameOverController.Instance.enabled = true;
 		CamSimpleFollow.enabled = false;
-		gameOverControllerScript.CheckLeaderboard ();
+		GameOverController.Instance.CheckLeaderboard ();
 
 		gameOverMenuManager.menuButtons.buttonIndex = 0;
 		gameOverMenuManager.MenuOnEnter (gameOverMenuManager.menuButtons.buttonIndex);
 
 		// Show mouse and allow control for player.
-		gameControllerScript.cursorManagerScript.UnlockMouse ();
-		gameControllerScript.cursorManagerScript.ShowMouse ();
+		CursorManager.Instance.UnlockMouse ();
+		CursorManager.Instance.ShowMouse ();
 
 		#if !UNITY_ANDROID && !PLATFORM_WEBGL
 		playerControllerScript_P1.Vibrate (0, 0, 0);

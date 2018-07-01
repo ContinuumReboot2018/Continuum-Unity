@@ -4,43 +4,39 @@ using UnityEngine.UI;
 public class AbilitySelection : MonoBehaviour 
 {
 	public MenuManager SelectAbilityMenu;
-	public SaveAndLoadScript saveAndLoadScript;
 	public RawImage AbilityImage;
 	public Texture2D[] AbilityTextures;
 	public GameObject[] ConfirmImages;
 
 	void Start ()
 	{
-		// Find the saving script.
-		saveAndLoadScript = GameObject.Find ("SaveAndLoad").GetComponent<SaveAndLoadScript> ();
-
-		//saveAndLoadScript.LoadPlayerData ();
-		//SetAbilityId (saveAndLoadScript.SelectedAbility);
-		SetAbilityIdNoSave (saveAndLoadScript.SelectedAbility);
-		ResetAllConfirmTextures (saveAndLoadScript.SelectedAbility);
-		AbilityImage.texture = AbilityTextures [saveAndLoadScript.SelectedAbility];
+		//SaveAndLoadScript.Instance.LoadPlayerData ();
+		//SetAbilityId (SaveAndLoadScript.Instance.SelectedAbility);
+		SetAbilityIdNoSave (SaveAndLoadScript.Instance.SelectedAbility);
+		ResetAllConfirmTextures (SaveAndLoadScript.Instance.SelectedAbility);
+		AbilityImage.texture = AbilityTextures [SaveAndLoadScript.Instance.SelectedAbility];
 	}
 
 	public void PreviewAbilityId (int AbilityId)
 	{
-		saveAndLoadScript.SelectedAbility = AbilityId;
+		SaveAndLoadScript.Instance.SelectedAbility = AbilityId;
 		AbilityImage.texture = AbilityTextures [AbilityId];
 		Debug.Log ("Preview ability: " + AbilityId);
 	}
 
 	void SetAbilityIdNoSave (int AbilityId)
 	{
-		saveAndLoadScript.SelectedAbility = AbilityId;
-		ResetAllConfirmTextures (saveAndLoadScript.SelectedAbility);
+		SaveAndLoadScript.Instance.SelectedAbility = AbilityId;
+		ResetAllConfirmTextures (SaveAndLoadScript.Instance.SelectedAbility);
 		AbilityImage.texture = AbilityTextures [AbilityId];
 		Debug.Log ("Ability ID set to: " + AbilityId);
 	}
 
 	public void SetAbilityId (int AbilityId)
 	{
-		saveAndLoadScript.SelectedAbility = AbilityId;
-		saveAndLoadScript.SavePlayerData ();
-		ResetAllConfirmTextures (saveAndLoadScript.SelectedAbility);
+		SaveAndLoadScript.Instance.SelectedAbility = AbilityId;
+		SaveAndLoadScript.Instance.SavePlayerData ();
+		ResetAllConfirmTextures (SaveAndLoadScript.Instance.SelectedAbility);
 		AbilityImage.texture = AbilityTextures [AbilityId];
 		Debug.Log ("Ability ID set to: " + AbilityId);
 	}
@@ -64,14 +60,14 @@ public class AbilitySelection : MonoBehaviour
 
 	public void ForceReloadPlayerAbilityData ()
 	{
-		saveAndLoadScript.LoadPlayerData ();
-		Debug.Log ("Loading Ability: " + saveAndLoadScript.SelectedAbility);
-		AbilityImage.texture = AbilityTextures [saveAndLoadScript.SelectedAbility];
-		saveAndLoadScript.SavePlayerData ();
+		SaveAndLoadScript.Instance.LoadPlayerData ();
+		Debug.Log ("Loading Ability: " + SaveAndLoadScript.Instance.SelectedAbility);
+		AbilityImage.texture = AbilityTextures [SaveAndLoadScript.Instance.SelectedAbility];
+		SaveAndLoadScript.Instance.SavePlayerData ();
 	}
 
 	public void OverrideButtonIndex ()
 	{
-		SelectAbilityMenu.SetButtonIndex (saveAndLoadScript.SelectedAbility);
+		SelectAbilityMenu.SetButtonIndex (SaveAndLoadScript.Instance.SelectedAbility);
 	}
 }

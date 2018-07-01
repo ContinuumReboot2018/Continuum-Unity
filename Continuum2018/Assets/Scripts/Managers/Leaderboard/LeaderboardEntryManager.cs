@@ -9,10 +9,10 @@ using InControl;
 
 public class LeaderboardEntryManager : MonoBehaviour 
 {
-	public LeaderboardDisplay leaderboardDisplayScript;
-	public GameOverController gameOverControllerScript;
+	public static LeaderboardEntryManager Instance { get; private set; }
+
 	public GameObject GameOverUI;
-	public GameObject LeaderboardDisplay;
+	public GameObject LeaderboardDisplayObject;
 	public AudioSource SelectSound;
 	public AudioSource ScrollSound;
 
@@ -44,6 +44,12 @@ public class LeaderboardEntryManager : MonoBehaviour
 	public PlayerActions menuActions;
 	public PointerEventData eventData;
 
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
+
 	void Start ()
 	{
 		SavingText.SetActive (false);
@@ -62,7 +68,7 @@ public class LeaderboardEntryManager : MonoBehaviour
 
 	void CheckFinalScore ()
 	{
-		HighScoreText.text = gameOverControllerScript.FinalScore.ToString ("N0");
+		HighScoreText.text = GameOverController.Instance.FinalScore.ToString ("N0");
 	}
 
 	void Update ()
@@ -172,67 +178,67 @@ public class LeaderboardEntryManager : MonoBehaviour
 		yield return new WaitForSecondsRealtime (2);
 
 		// This allows the scores and waves to be updated correctly.
-		gameOverControllerScript.NewLeaderboardEntry (gameOverControllerScript.place, NewName); 
+		GameOverController.Instance.NewLeaderboardEntry (GameOverController.Instance.place, NewName); 
 
-		int missionId = gameOverControllerScript.saveAndLoadScript.MissionId;
+		int missionId = SaveAndLoadScript.Instance.MissionId;
 
 		switch (missionId) 
 		{
 		case 0:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Arcade [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Arcade [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Arcade [gameOverControllerScript.place].wave = GameController.Instance.Wave;
+			SaveAndLoadScript.Instance.Leaderboard_Arcade [GameOverController.Instance.place].name = NewName;
+			SaveAndLoadScript.Instance.Leaderboard_Arcade [GameOverController.Instance.place].score = Mathf.RoundToInt (GameOverController.Instance.FinalScore);
+			SaveAndLoadScript.Instance.Leaderboard_Arcade [GameOverController.Instance.place].wave = GameController.Instance.Wave;
 			break;
 		case 1:
 			// mods.
 			break;
 		case 2:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_BossRush [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_BossRush [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_BossRush [gameOverControllerScript.place].wave = GameController.Instance.Wave;
+			SaveAndLoadScript.Instance.Leaderboard_BossRush [GameOverController.Instance.place].name = NewName;
+			SaveAndLoadScript.Instance.Leaderboard_BossRush [GameOverController.Instance.place].score = Mathf.RoundToInt (GameOverController.Instance.FinalScore);
+			SaveAndLoadScript.Instance.Leaderboard_BossRush [GameOverController.Instance.place].wave = GameController.Instance.Wave;
 			break;
 		case 3:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Lucky [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Lucky [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Lucky [gameOverControllerScript.place].wave = GameController.Instance.Wave;
+			SaveAndLoadScript.Instance.Leaderboard_Lucky [GameOverController.Instance.place].name = NewName;
+			SaveAndLoadScript.Instance.Leaderboard_Lucky [GameOverController.Instance.place].score = Mathf.RoundToInt (GameOverController.Instance.FinalScore);
+			SaveAndLoadScript.Instance.Leaderboard_Lucky [GameOverController.Instance.place].wave = GameController.Instance.Wave;
 			break;
 		case 4:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FullyLoaded [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FullyLoaded [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FullyLoaded [gameOverControllerScript.place].wave = GameController.Instance.Wave;
+			SaveAndLoadScript.Instance.Leaderboard_FullyLoaded [GameOverController.Instance.place].name = NewName;
+			SaveAndLoadScript.Instance.Leaderboard_FullyLoaded [GameOverController.Instance.place].score = Mathf.RoundToInt (GameOverController.Instance.FinalScore);
+			SaveAndLoadScript.Instance.Leaderboard_FullyLoaded [GameOverController.Instance.place].wave = GameController.Instance.Wave;
 			break;
 		case 5:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Scavenger [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Scavenger [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Scavenger [gameOverControllerScript.place].wave = GameController.Instance.Wave;
+			SaveAndLoadScript.Instance.Leaderboard_Scavenger [GameOverController.Instance.place].name = NewName;
+			SaveAndLoadScript.Instance.Leaderboard_Scavenger [GameOverController.Instance.place].score = Mathf.RoundToInt (GameOverController.Instance.FinalScore);
+			SaveAndLoadScript.Instance.Leaderboard_Scavenger [GameOverController.Instance.place].wave = GameController.Instance.Wave;
 			break;
 		case 6:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Hell [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Hell [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_Hell [gameOverControllerScript.place].wave = GameController.Instance.Wave;
+			SaveAndLoadScript.Instance.Leaderboard_Hell [GameOverController.Instance.place].name = NewName;
+			SaveAndLoadScript.Instance.Leaderboard_Hell [GameOverController.Instance.place].score = Mathf.RoundToInt (GameOverController.Instance.FinalScore);
+			SaveAndLoadScript.Instance.Leaderboard_Hell [GameOverController.Instance.place].wave = GameController.Instance.Wave;
 			break;
 		case 7:
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FastTrack [gameOverControllerScript.place].name = NewName;
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FastTrack [gameOverControllerScript.place].score = Mathf.RoundToInt (gameOverControllerScript.FinalScore);
-			gameOverControllerScript.saveAndLoadScript.Leaderboard_FastTrack [gameOverControllerScript.place].wave = GameController.Instance.Wave;
+			SaveAndLoadScript.Instance.Leaderboard_FastTrack [GameOverController.Instance.place].name = NewName;
+			SaveAndLoadScript.Instance.Leaderboard_FastTrack [GameOverController.Instance.place].score = Mathf.RoundToInt (GameOverController.Instance.FinalScore);
+			SaveAndLoadScript.Instance.Leaderboard_FastTrack [GameOverController.Instance.place].wave = GameController.Instance.Wave;
 			break;
 		}
-
-		leaderboardDisplayScript.UpdateLeaderboard ();
-		gameOverControllerScript.saveAndLoadScript.SavePlayerData ();
+			
+		LeaderboardDisplay.Instance.UpdateLeaderboard ();
+		SaveAndLoadScript.Instance.SavePlayerData ();
 
 		GameOverUI.SetActive (true);
 
-		LeaderboardDisplay.SetActive (true);
-		leaderboardDisplayScript.enabled = true;
+		LeaderboardDisplayObject.SetActive (true);
+		LeaderboardDisplay.Instance.enabled = true;
 
 		SavingText.SetActive (false);
-		gameOverControllerScript.LeaderboardEntryUI.SetActive (false);
+		GameOverController.Instance.LeaderboardEntryUI.SetActive (false);
 	}
 
 	void CheckPlacement ()
 	{
-		switch (gameOverControllerScript.place)
+		switch (GameOverController.Instance.place)
 		{
 		case 0:
 			PlacementText.text = "1st";
