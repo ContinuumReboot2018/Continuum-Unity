@@ -18,10 +18,10 @@ public class ObjectsOnScreen : MonoBehaviour
 		switch (ObjectType) 
 		{
 		case type.Block:
-			gameControllerScript.numberOfBlocks++;
+			GameController.Instance.numberOfBlocks++;
 			break;
 		case type.Bullet:
-			gameControllerScript.numberOfBullets++;
+			GameController.Instance.numberOfBullets++;
 			break;
 		}
 	}
@@ -31,10 +31,10 @@ public class ObjectsOnScreen : MonoBehaviour
 		switch (ObjectType) 
 		{
 		case type.Block:
-			gameControllerScript.numberOfBlocks--;
+			GameController.Instance.numberOfBlocks--;
 			break;
 		case type.Bullet:
-			gameControllerScript.numberOfBullets--;
+			GameController.Instance.numberOfBullets--;
 			break;
 		}
 	}

@@ -95,7 +95,7 @@ public class MiniBoss : MonoBehaviour
 
 	void SpotlightOverrideTransform ()
 	{
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.NewTarget = this.transform;
+		GameController.Instance.playerControllerScript_P1.spotlightsScript.NewTarget = this.transform;
 	}
 
 	void Start () 
@@ -114,16 +114,16 @@ public class MiniBoss : MonoBehaviour
 		MiniBossUIObject.GetComponentInChildren<Animator> ().Play ("MiniBossUI");
 
 		InvokeRepeating ("SpotlightOverrideTransform", 0, 1);
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("OverrideSpotlightLookObject", 0, 1);
+		GameController.Instance.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("OverrideSpotlightLookObject", 0, 1);
 
 		if (isBigBoss == false) 
 		{
-			gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("BossSpotlightSettings", 0, 1);
+			GameController.Instance.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("BossSpotlightSettings", 0, 1);
 		}
 
 		if (isBigBoss == true) 
 		{
-			gameControllerScript.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("BigBossSpotlightSettings", 0, 1);
+			GameController.Instance.playerControllerScript_P1.spotlightsScript.InvokeRepeating ("BigBossSpotlightSettings", 0, 1);
 		}
 
 		// If no brain has been referenced, reference the brain from here.
@@ -153,8 +153,8 @@ public class MiniBoss : MonoBehaviour
 			BossPartsConvertToNoise ();
 			hitPoints = 0;
 			Instantiate (LargeExplosion, transform.position, Quaternion.identity);
-			gameControllerScript.StartNewWave ();
-			gameControllerScript.IsInWaveTransition = true;
+			GameController.Instance.StartNewWave ();
+			GameController.Instance.IsInWaveTransition = true;
 			Debug.LogWarning ("No player found, bailing out.");
 			Destroy (MiniBossParent.gameObject);
 			return;
@@ -349,23 +349,23 @@ public class MiniBoss : MonoBehaviour
 		BossPartsConvertToNoise (); // Convert all blocks in array to noise and detach.
 		hitPoints = 0; // Reset all hit points.
 		Instantiate (LargeExplosion, transform.position, Quaternion.identity); // Spawn a large explosion.
-		gameControllerScript.StartNewWave (); // Go to next wave.
-		gameControllerScript.IsInWaveTransition = true; // Set to be in wave transition.
+		GameController.Instance.StartNewWave (); // Go to next wave.
+		GameController.Instance.IsInWaveTransition = true; // Set to be in wave transition.
 
-		if (gameControllerScript.playerControllerScript_P1.timeIsSlowed == false)
+		if (GameController.Instance.playerControllerScript_P1.timeIsSlowed == false)
 		{
 			timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 1f; // Temporarily override time scale. 
 			timeScaleControllerScript.OverridingTimeScale = 0.3f; // Set overriding time scale.
 		}
 
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("SpotlightOverrideTransform");
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("OverrideSpotlightLookObject");
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("BossSpotlightSettings");
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.CancelInvoke ("BigBossSpotlightSettings");
+		GameController.Instance.playerControllerScript_P1.spotlightsScript.CancelInvoke ("SpotlightOverrideTransform");
+		GameController.Instance.playerControllerScript_P1.spotlightsScript.CancelInvoke ("OverrideSpotlightLookObject");
+		GameController.Instance.playerControllerScript_P1.spotlightsScript.CancelInvoke ("BossSpotlightSettings");
+		GameController.Instance.playerControllerScript_P1.spotlightsScript.CancelInvoke ("BigBossSpotlightSettings");
 
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.SuccessSpotlightSettings ();
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.NewTarget = PlayerPos;
-		gameControllerScript.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject ();
+		GameController.Instance.playerControllerScript_P1.spotlightsScript.SuccessSpotlightSettings ();
+		GameController.Instance.playerControllerScript_P1.spotlightsScript.NewTarget = PlayerPos;
+		GameController.Instance.playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject ();
 
 		// Reset camera rotation animator parameter.
 		if (FlipScreen.GetCurrentAnimatorStateInfo (0).IsName ("CameraRotateUpsideDown") == true) 

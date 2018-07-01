@@ -339,7 +339,7 @@ public class Block : MonoBehaviour
 					{
 						if (isBonusBlock == true) 
 						{
-							gameControllerScript.BonusBlocksDestroyed += 1;
+							GameController.Instance.BonusBlocksDestroyed += 1;
 						}
 
 						particle.GetComponentInParent<Bullet> ().hitABlock = true;
@@ -441,7 +441,7 @@ public class Block : MonoBehaviour
 		{
 			if (isBonusBlock == true) 
 			{
-				gameControllerScript.BonusBlocksDestroyed += 1;
+				GameController.Instance.BonusBlocksDestroyed += 1;
 			}
 
 			if (transform.position.y > 15) 
@@ -546,7 +546,7 @@ public class Block : MonoBehaviour
 		if (other.tag == "Player" && isTutorialBlock == false) 
 		{
 			// Impact the player normally when lives > 1.
-			if (gameControllerScript.Lives > 1) 
+			if (GameController.Instance.Lives > 1) 
 			{
 				playerControllerScript_P1.PlayerBlockImpact (this);
 				playerControllerScript_P1.PlayerImpactGeneric ();
@@ -557,7 +557,7 @@ public class Block : MonoBehaviour
 			}
 
 			// On last life, set game over.
-			if (gameControllerScript.Lives == 1) 
+			if (GameController.Instance.Lives == 1) 
 			{
 				playerControllerScript_P1.GameOver ();
 			}
@@ -647,7 +647,7 @@ public class Block : MonoBehaviour
 		{
 			if (gameControllerScript != null)
 			{
-				gameControllerScript.BlocksDestroyed += 1;
+				GameController.Instance.BlocksDestroyed += 1;
 			}
 			return;
 		}
@@ -660,14 +660,14 @@ public class Block : MonoBehaviour
 		{
 			// Calculates total point value based on current combo from game controller and time scale.
 			totalPointValue = Mathf.Clamp (
-				(BasePointValue + gameControllerScript.Wave) * gameControllerScript.combo * Time.timeScale, 
+				(BasePointValue + GameController.Instance.Wave) * GameController.Instance.combo * Time.timeScale, 
 			// Keep between...
-				1, gameControllerScript.MaximumBlockPoints
+				1, GameController.Instance.MaximumBlockPoints
 			);
 
-			gameControllerScript.pointsThisCombo += (int)totalPointValue;
-			gameControllerScript.PointsThisComboAnim.SetTrigger ("PointsThisCombo");
-			gameControllerScript.PointsThisComboText.text = "+ " + gameControllerScript.pointsThisCombo;
+			GameController.Instance.pointsThisCombo += (int)totalPointValue;
+			GameController.Instance.PointsThisComboAnim.SetTrigger ("PointsThisCombo");
+			GameController.Instance.PointsThisComboText.text = "+ " + GameController.Instance.pointsThisCombo;
 		}
 
 		// If the game controller is not found yet and block gets destroyed.
@@ -724,7 +724,7 @@ public class Block : MonoBehaviour
 		if (gameControllerScript != null)
 		{
 			// Adds point value to target score in game controller.
-			gameControllerScript.TargetScore += totalPointValue;
+			GameController.Instance.TargetScore += totalPointValue;
 
 			// Plays animation if not faded out score text.
 			if (playerControllerScript_P1.ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false) 
@@ -733,18 +733,18 @@ public class Block : MonoBehaviour
 			}
 
 			// Adds to next combo.
-			if (gameControllerScript.combo > 1)
+			if (GameController.Instance.combo > 1)
 			{
-				gameControllerScript.combo += 2;
+				GameController.Instance.combo += 2;
 			}
 
-			if (gameControllerScript.combo <= 1)
+			if (GameController.Instance.combo <= 1)
 			{
-				gameControllerScript.combo += 1;
+				GameController.Instance.combo += 1;
 			}
 
 			// Resets combo time.
-			gameControllerScript.comboTimeRemaining = gameControllerScript.comboDuration;
+			GameController.Instance.comboTimeRemaining = GameController.Instance.comboDuration;
 		}
 	}
 

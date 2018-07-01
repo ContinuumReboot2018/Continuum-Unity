@@ -336,57 +336,57 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == AddLifeCommand) 
 			{
-				if (gameControllerScript.Lives < gameControllerScript.MaxLives) 
+				if (GameController.Instance.Lives < GameController.Instance.MaxLives) 
 				{
-					//gameControllerScript.Lives += 3;
-					gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
-					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					//GameController.Instance.Lives += 3;
+					GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
+					GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = AddlifeTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 1f, 1, 1);
-					gameControllerScript.MaxLivesText.text = "";
+					GameController.Instance.MaxLivesText.text = "";
 
-					if (gameControllerScript.Lives <= 7) 
+					if (GameController.Instance.Lives <= 7) 
 					{
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].gameObject.SetActive (true);
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].enabled = true;
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].color = Color.white;
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 2].GetComponent<Animator> ().SetBool ("Hidden", false);
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].gameObject.SetActive (true);
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].enabled = true;
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].color = Color.white;
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().SetBool ("Hidden", false);
 
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].gameObject.SetActive (true);
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].enabled = true;
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].color = Color.white;
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-						gameControllerScript.LifeImages [gameControllerScript.Lives - 1].GetComponent<Animator> ().SetBool ("Hidden", false);
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.SetActive (true);
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].enabled = true;
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].color = Color.white;
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].GetComponent<Animator> ().SetBool ("Hidden", false);
 
-						gameControllerScript.LifeImages [gameControllerScript.Lives].gameObject.SetActive (true);
-						gameControllerScript.LifeImages [gameControllerScript.Lives].enabled = true;
-						gameControllerScript.LifeImages [gameControllerScript.Lives].color = Color.white;
-						gameControllerScript.LifeImages [gameControllerScript.Lives].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-						gameControllerScript.LifeImages [gameControllerScript.Lives].GetComponent<Animator> ().SetBool ("Hidden", false);
+						GameController.Instance.LifeImages [GameController.Instance.Lives].gameObject.SetActive (true);
+						GameController.Instance.LifeImages [GameController.Instance.Lives].enabled = true;
+						GameController.Instance.LifeImages [GameController.Instance.Lives].color = Color.white;
+						GameController.Instance.LifeImages [GameController.Instance.Lives].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+						GameController.Instance.LifeImages [GameController.Instance.Lives].GetComponent<Animator> ().SetBool ("Hidden", false);
 
-						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].gameObject.SetActive (true);
-						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].enabled = true;
-						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].color = Color.white;
-						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-						gameControllerScript.LifeImages [gameControllerScript.Lives + 1].GetComponent<Animator> ().SetBool ("Hidden", false);
+						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].gameObject.SetActive (true);
+						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].enabled = true;
+						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].color = Color.white;
+						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].GetComponent<Animator> ().SetBool ("Hidden", false);
 					}
 
-					gameControllerScript.Lives += 3;
+					GameController.Instance.Lives += 3;
 
-					//gameControllerScript.UpdateLives ();
+					//GameController.Instance.UpdateLives ();
 					ShowCheatNotification ("CHEAT ACTIVATED: EXTRA LIFE");
 				}
 
-				if (gameControllerScript.Lives >= gameControllerScript.MaxLives) 
+				if (GameController.Instance.Lives >= GameController.Instance.MaxLives) 
 				{
-					gameControllerScript.MaxLivesText.text = "MAX";
+					GameController.Instance.MaxLivesText.text = "MAX";
 					Debug.Log ("Reached maximum lives.");
 					ShowCheatNotification ("CHEAT ACTIVATED: MAX LIVES");
 				}
 
-				gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
-				gameControllerScript.LivesAnim.SetTrigger ("UpdateLives");
+				GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
+				GameController.Instance.LivesAnim.SetTrigger ("UpdateLives");
 			}
 
 			if (CheatString == ToggleGodmodeCommand) 
@@ -434,25 +434,25 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == SpawnBlockCommand)
 			{
-				gameControllerScript.SpawnBlock (true);
+				GameController.Instance.SpawnBlock (true);
 				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN BLOCK");
 			}
 				
 			if (CheatString == SpawnMiniBossCommand) 
 			{
-				gameControllerScript.SpawnMiniBossObject ();
+				GameController.Instance.SpawnMiniBossObject ();
 				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN MINI BOSS");
 			}
 
 			if (CheatString == SpawnPowerupPickupCommand)
 			{
-				gameControllerScript.SpawnPowerupPickup ();
+				GameController.Instance.SpawnPowerupPickup ();
 				ShowCheatNotification ("CHEAT ACTIVATED: SPAWN POWERUP");
 			}
 
 			if (CheatString == PowerupTimeCommand)
 			{
-				gameControllerScript.PowerupTimeRemaining = gameControllerScript.PowerupTimeDuration;
+				GameController.Instance.PowerupTimeRemaining = GameController.Instance.PowerupTimeDuration;
 				ShowCheatNotification ("CHEAT ACTIVATED: POWERUP TIME REFRESH");
 			}
 
@@ -463,7 +463,7 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.AddParticleActiveEffects ();
 				}
 
-				gameControllerScript.SetPowerupTime (20);
+				GameController.Instance.SetPowerupTime (20);
 
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 				playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.DoubleShootingHeatCost;
@@ -483,11 +483,11 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
 				}
 					
-				gameControllerScript.PowerupImage_P1[0].texture = DoubleShotTexture;
-				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
-				gameControllerScript.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				GameController.Instance.PowerupImage_P1[0].texture = DoubleShotTexture;
+				GameController.Instance.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
+				GameController.Instance.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
-				GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+				GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 				powerupPickupUI.GetComponentInChildren<RawImage> ().texture = DoubleShotTexture;
 				powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.3f, 0.7f, 1, 1);
 
@@ -501,7 +501,7 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.AddParticleActiveEffects ();
 				}
 
-				gameControllerScript.SetPowerupTime (20);
+				GameController.Instance.SetPowerupTime (20);
 
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
 				playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.TripleShootingHeatCost;
@@ -521,11 +521,11 @@ public class DeveloperMode : MonoBehaviour
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
 				}
 
-				gameControllerScript.PowerupImage_P1[0].texture = TripleShotTexture;
-				gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
-				gameControllerScript.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				GameController.Instance.PowerupImage_P1[0].texture = TripleShotTexture;
+				GameController.Instance.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
+				GameController.Instance.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
-				GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+				GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 				powerupPickupUI.GetComponentInChildren<RawImage> ().texture = TripleShotTexture;
 				powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.435f, 0.717f, 1, 1);
 
@@ -539,7 +539,7 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.AddParticleActiveEffects ();
 			}
 
-			gameControllerScript.SetPowerupTime (20);
+			GameController.Instance.SetPowerupTime (20);
 
 			playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
 			playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.RippleShootingHeatCost;
@@ -559,11 +559,11 @@ public class DeveloperMode : MonoBehaviour
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
 			}
 
-			gameControllerScript.PowerupImage_P1[0].texture = RippleShotTexture;
-			gameControllerScript.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
-			gameControllerScript.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+			GameController.Instance.PowerupImage_P1[0].texture = RippleShotTexture;
+			GameController.Instance.PowerupImage_P1[0].color = new Color (1, 1, 1, 1);
+			GameController.Instance.PowerupImage_P1[0].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
-			GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+			GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 			powerupPickupUI.GetComponentInChildren<RawImage> ().texture = RippleShotTexture;
 			powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.31f, 0.372f, 1, 1);
 
@@ -574,18 +574,18 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (playerControllerScript_P1.nextTurretSpawn < 4) 
 				{
-					gameControllerScript.SetPowerupTime (20);
+					GameController.Instance.SetPowerupTime (20);
 
 					GameObject Turret = playerControllerScript_P1.Turrets [playerControllerScript_P1.nextTurretSpawn];
 					Turret.SetActive (true);
 					Turret.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
 
-					UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, TurretTexture, Color.white);
+					UpdatePowerupImages (GameController.Instance.NextPowerupSlot_P1, TurretTexture, Color.white);
 
-					gameControllerScript.NextPowerupSlot_P1 += 1;
+					GameController.Instance.NextPowerupSlot_P1 += 1;
 					playerControllerScript_P1.nextTurretSpawn += 1;
 
-					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = TurretTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.31f, 0.372f, 1, 1);
 
@@ -596,24 +596,24 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == NextWaveCommand) 
 			{
-				StopCoroutine (gameControllerScript.StartBlockSpawn ());
-				gameControllerScript.StartNewWave ();
+				StopCoroutine (GameController.Instance.StartBlockSpawn ());
+				GameController.Instance.StartNewWave ();
 
-				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
+				GameController.Instance.WaveText.text = "WAVE " + GameController.Instance.Wave;
 
 				ShowCheatNotification ("CHEAT ACTIVATED: NEXT WAVE");
 			}
 			
 			if (CheatString == PreviousWaveCommand)
 			{
-				if (gameControllerScript.Wave > 1)
+				if (GameController.Instance.Wave > 1)
 				{
-					StopCoroutine (gameControllerScript.StartBlockSpawn ());
-					gameControllerScript.StartPreviousWave ();
-					gameControllerScript.BlockSpawnRate += gameControllerScript.BlockSpawnIncreaseRate;
+					StopCoroutine (GameController.Instance.StartBlockSpawn ());
+					GameController.Instance.StartPreviousWave ();
+					GameController.Instance.BlockSpawnRate += GameController.Instance.BlockSpawnIncreaseRate;
 				}
 
-				gameControllerScript.WaveText.text = "WAVE " + gameControllerScript.Wave;
+				GameController.Instance.WaveText.text = "WAVE " + GameController.Instance.Wave;
 				ShowCheatNotification ("CHEAT ACTIVATED: LAST WAVE");
 			}
 
@@ -624,12 +624,12 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isInRapidFire == true)
 				{
-					gameControllerScript.SetPowerupTime (20);
-					gameControllerScript.RapidfireImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
-					gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-					gameControllerScript.RapidfireImage.enabled = true;
-					gameControllerScript.RapidfireHex.enabled = true;
-					gameControllerScript.RapidfireImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+					GameController.Instance.SetPowerupTime (20);
+					GameController.Instance.RapidfireImage.transform.SetSiblingIndex (-GameController.Instance.NextPowerupShootingSlot_P1 + 3);
+					GameController.Instance.NextPowerupShootingSlot_P1 += 1;
+					GameController.Instance.RapidfireImage.enabled = true;
+					GameController.Instance.RapidfireHex.enabled = true;
+					GameController.Instance.RapidfireImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
 					switch (playerControllerScript_P1.ShotType) 
 					{
@@ -647,7 +647,7 @@ public class DeveloperMode : MonoBehaviour
 						break;
 					}
 
-					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = RapidfireTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.207f, 0.866f, 1, 1);
 
@@ -657,13 +657,13 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isInRapidFire == false)
 				{
-					if (gameControllerScript.NextPowerupShootingSlot_P1 > 0)
+					if (GameController.Instance.NextPowerupShootingSlot_P1 > 0)
 					{
-						gameControllerScript.NextPowerupShootingSlot_P1 -= 1;
+						GameController.Instance.NextPowerupShootingSlot_P1 -= 1;
 					}
 
-					gameControllerScript.RapidfireImage.enabled = false;
-					gameControllerScript.RapidfireHex.enabled = false;
+					GameController.Instance.RapidfireImage.enabled = false;
+					GameController.Instance.RapidfireHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: RAPIDFIRE OFF");
 				}
 			}
@@ -675,19 +675,19 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isInOverdrive == true) 
 				{
-					gameControllerScript.SetPowerupTime (20);
-					gameControllerScript.OverdriveImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
-					gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-					gameControllerScript.OverdriveImage.enabled = true;
-					gameControllerScript.OverdriveHex.enabled = true;
-					gameControllerScript.OverdriveImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+					GameController.Instance.SetPowerupTime (20);
+					GameController.Instance.OverdriveImage.transform.SetSiblingIndex (-GameController.Instance.NextPowerupShootingSlot_P1 + 3);
+					GameController.Instance.NextPowerupShootingSlot_P1 += 1;
+					GameController.Instance.OverdriveImage.enabled = true;
+					GameController.Instance.OverdriveHex.enabled = true;
+					GameController.Instance.OverdriveImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
 					playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
 					playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
 
-					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = OverdriveTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.898f, 0.25f, 1, 1);
 
@@ -697,13 +697,13 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isInOverdrive == false)
 				{
-					if (gameControllerScript.NextPowerupShootingSlot_P1 > 0)
+					if (GameController.Instance.NextPowerupShootingSlot_P1 > 0)
 					{
-						gameControllerScript.NextPowerupShootingSlot_P1 -= 1;
+						GameController.Instance.NextPowerupShootingSlot_P1 -= 1;
 					}
 
-					gameControllerScript.OverdriveImage.enabled = false;
-					gameControllerScript.OverdriveHex.enabled = false;
+					GameController.Instance.OverdriveImage.enabled = false;
+					GameController.Instance.OverdriveHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: OVERDRIVE MODE OFF");
 				}
 			}
@@ -715,7 +715,7 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isRicochet == true) 
 				{
-					gameControllerScript.SetPowerupTime (20);
+					GameController.Instance.SetPowerupTime (20);
 					playerControllerScript_P1.EnableRicochetObject ();
 
 					if (playerControllerScript_P1.DoubleShotIteration != PlayerController.shotIteration.Overdrive) 
@@ -739,15 +739,15 @@ public class DeveloperMode : MonoBehaviour
 					}
 
 					playerControllerScript_P1.isRicochet = true;
-					gameControllerScript.RicochetImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
-					gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-					gameControllerScript.RicochetImage.enabled = true;
-					gameControllerScript.RicochetHex.enabled = true;
-					gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+					GameController.Instance.RicochetImage.transform.SetSiblingIndex (-GameController.Instance.NextPowerupShootingSlot_P1 + 3);
+					GameController.Instance.NextPowerupShootingSlot_P1 += 1;
+					GameController.Instance.RicochetImage.enabled = true;
+					GameController.Instance.RicochetHex.enabled = true;
+					GameController.Instance.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
 					playerControllerScript_P1.EnableRicochetObject ();
 
-					GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+					GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = RicochetTexture;
 					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (0.25f, 1, 0.565f, 1);
 
@@ -757,13 +757,13 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isRicochet == false) 
 				{
-					if (gameControllerScript.NextPowerupShootingSlot_P1 > 0)
+					if (GameController.Instance.NextPowerupShootingSlot_P1 > 0)
 					{
-						gameControllerScript.NextPowerupShootingSlot_P1 -= 1;
+						GameController.Instance.NextPowerupShootingSlot_P1 -= 1;
 					}
 
-					gameControllerScript.RicochetImage.enabled = false;
-					gameControllerScript.RicochetHex.enabled = false;
+					GameController.Instance.RicochetImage.enabled = false;
+					GameController.Instance.RicochetHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: RICOCHET MODE OFF");
 				}
 			}
@@ -775,15 +775,15 @@ public class DeveloperMode : MonoBehaviour
 
 				if (playerControllerScript_P1.isHoming == true) 
 				{
-					gameControllerScript.SetPowerupTime (20);
-					gameControllerScript.HomingImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
-					gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-					gameControllerScript.HomingImage.enabled = true;
-					gameControllerScript.HomingHex.enabled = true;
-					gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+					GameController.Instance.SetPowerupTime (20);
+					GameController.Instance.HomingImage.transform.SetSiblingIndex (-GameController.Instance.NextPowerupShootingSlot_P1 + 3);
+					GameController.Instance.NextPowerupShootingSlot_P1 += 1;
+					GameController.Instance.HomingImage.enabled = true;
+					GameController.Instance.HomingHex.enabled = true;
+					GameController.Instance.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 
 					GameObject powerupPickupUI = Instantiate (
-						gameControllerScript.PowerupPickupUI, 
+						GameController.Instance.PowerupPickupUI, 
 						playerControllerScript_P1.playerCol.transform.position, 
 						Quaternion.identity
 					);
@@ -798,30 +798,30 @@ public class DeveloperMode : MonoBehaviour
 				if (playerControllerScript_P1.isHoming == false) 
 				{
 
-					if (gameControllerScript.NextPowerupShootingSlot_P1 > 0)
+					if (GameController.Instance.NextPowerupShootingSlot_P1 > 0)
 					{
-						gameControllerScript.NextPowerupShootingSlot_P1 -= 1;
+						GameController.Instance.NextPowerupShootingSlot_P1 -= 1;
 					}
 
-					gameControllerScript.HomingImage.enabled = false;
-					gameControllerScript.HomingHex.enabled = false;
+					GameController.Instance.HomingImage.enabled = false;
+					GameController.Instance.HomingHex.enabled = false;
 					ShowCheatNotification ("CHEAT ACTIVATED: HOMING MODE OFF");
 				}
 			}
 
 			if (CheatString == HelixCommand) 
 			{
-				gameControllerScript.SetPowerupTime (20);
+				GameController.Instance.SetPowerupTime (20);
 
 				if (playerControllerScript_P1.Helix.activeInHierarchy == false)
 				{
 					playerControllerScript_P1.Helix.SetActive (true);
-					UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, HelixTexture, Color.white);
-					gameControllerScript.NextPowerupSlot_P1 += 1;
+					UpdatePowerupImages (GameController.Instance.NextPowerupSlot_P1, HelixTexture, Color.white);
+					GameController.Instance.NextPowerupSlot_P1 += 1;
 					playerControllerScript_P1.AddParticleActiveEffects ();
 				}
 
-				GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
+				GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, playerControllerScript_P1.playerCol.transform.position, Quaternion.identity);
 				powerupPickupUI.GetComponentInChildren<RawImage> ().texture = HelixTexture;
 				powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 0.278f, 0.561f, 1);
 
@@ -832,11 +832,11 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (playerControllerScript_P1.timeIsSlowed == false) 
 				{
-					gameControllerScript.SetPowerupTime (20);
+					GameController.Instance.SetPowerupTime (20);
 
-					if (gameControllerScript.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false)
+					if (GameController.Instance.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false)
 					{
-						gameControllerScript.VhsAnim.SetTrigger ("Slow");
+						GameController.Instance.VhsAnim.SetTrigger ("Slow");
 					}
 
 					playerControllerScript_P1.timeIsSlowed = true;
@@ -845,7 +845,7 @@ public class DeveloperMode : MonoBehaviour
 					timeScaleControllerScript.OverrideTimeScaleTimeRemaining += 20;
 					timeScaleControllerScript.isOverridingTimeScale = true;
 
-					UpdatePowerupImages (gameControllerScript.NextPowerupSlot_P1, SlowTimeTexture, Color.white);
+					UpdatePowerupImages (GameController.Instance.NextPowerupSlot_P1, SlowTimeTexture, Color.white);
 
 					ShowCheatNotification ("CHEAT ACTIVATED: POWERUP - SLOW TIME");
 				}
@@ -853,8 +853,8 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == StandardShotCommand) 
 			{
-				gameControllerScript.PowerupImage_P1 [0].texture = null;
-				gameControllerScript.PowerupImage_P1 [0].color = new Color (0, 0, 0, 0);
+				GameController.Instance.PowerupImage_P1 [0].texture = null;
+				GameController.Instance.PowerupImage_P1 [0].color = new Color (0, 0, 0, 0);
 
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Standard;
 				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.StandardFireRate;
@@ -866,7 +866,7 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == ResetAllPowerupsCommand) 
 			{
-				gameControllerScript.PowerupTimeRemaining = 0;
+				GameController.Instance.PowerupTimeRemaining = 0;
 				playerControllerScript_P1.ResetPowerups ();
 				playerControllerScript_P1.CurrentShootingHeatCost = playerControllerScript_P1.StandardShootingHeatCost;
 
@@ -934,14 +934,14 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == AddScoreCommand) 
 			{
-				gameControllerScript.TargetScore += AddScoreAmount;
+				GameController.Instance.TargetScore += AddScoreAmount;
 				ShowCheatNotification ("CHEAT ACTIVATED: ADD SCORE");
 			}
 
 			if (CheatString == LoseLifeCommand) 
 			{
-				gameControllerScript.Lives -= 1;
-				gameControllerScript.UpdateLives ();
+				GameController.Instance.Lives -= 1;
+				GameController.Instance.UpdateLives ();
 				ShowCheatNotification ("CHEAT ACTIVATED: LOSE LIFE");
 			}
 
@@ -972,7 +972,7 @@ public class DeveloperMode : MonoBehaviour
 
 			if (CheatString == DoBonusRoundCommand) 
 			{
-				gameControllerScript.doBonusRound = true;
+				GameController.Instance.doBonusRound = true;
 
 				ShowCheatNotification ("CHEAT ACTIVATED: BONUS ROUND ON");
 			}
@@ -1017,10 +1017,10 @@ public class DeveloperMode : MonoBehaviour
 
 	void UpdatePowerupImages (int index, Texture2D powerupTex, Color powerupCol)
 	{
-		gameControllerScript.PowerupImage_P1 [index].gameObject.SetActive (true);
-		gameControllerScript.PowerupImage_P1 [index].texture = powerupTex;
-		gameControllerScript.PowerupImage_P1 [index].color = powerupCol;
-		gameControllerScript.PowerupImage_P1 [index].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+		GameController.Instance.PowerupImage_P1 [index].gameObject.SetActive (true);
+		GameController.Instance.PowerupImage_P1 [index].texture = powerupTex;
+		GameController.Instance.PowerupImage_P1 [index].color = powerupCol;
+		GameController.Instance.PowerupImage_P1 [index].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 	}
 
 	// What happens when cheats get enabled.

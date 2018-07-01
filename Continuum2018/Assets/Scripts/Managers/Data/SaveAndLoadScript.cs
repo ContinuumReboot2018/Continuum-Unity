@@ -163,7 +163,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			{
 				if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == true) 
 				{
-					ExperiencePoints += (int)Math.Round (gameControllerScript.TargetScore);
+					ExperiencePoints += (int)Math.Round (GameController.Instance.TargetScore);
 				}
 			}
 
@@ -179,7 +179,7 @@ public class SaveAndLoadScript : MonoBehaviour
 			{
 				if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == true) 
 				{
-					ExperiencePoints += (int)Math.Round (gameControllerScript.TargetScore);
+					ExperiencePoints += (int)Math.Round (GameController.Instance.TargetScore);
 				}
 			}
 

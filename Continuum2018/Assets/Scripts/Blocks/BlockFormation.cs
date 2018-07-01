@@ -3,8 +3,6 @@
 [ExecuteInEditMode]
 public class BlockFormation : MonoBehaviour 
 {
-	private GameController gameControllerScript; // Reference to the GameController.
-
 	[Header ("Stats")]
 	[Tooltip ("The average speed of the total accumulated speed.")]
 	public float speed;
@@ -57,7 +55,7 @@ public class BlockFormation : MonoBehaviour
 		CheckMissingBlocks (); // Disables blocks that are deemed missing.
 		GetBlockArray ();
 
-		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+		//gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		SetSpawnPosition (); // Restricts spawn position.
 
 		GetAccumulatedSpeed (); // Get aggregate speed additively.
@@ -185,31 +183,31 @@ public class BlockFormation : MonoBehaviour
 		switch (Columns) 
 		{
 		case 1:
-			int blockPosIdOneColumn = Random.Range (0, gameControllerScript.BlockSpawnXPositions.Length);
+			int blockPosIdOneColumn = Random.Range (0, GameController.Instance.BlockSpawnXPositions.Length);
 			transform.position = new Vector3 (
-				gameControllerScript.BlockSpawnXPositions [blockPosIdOneColumn], 
-				gameControllerScript.BlockSpawnYPosition, 
+				GameController.Instance.BlockSpawnXPositions [blockPosIdOneColumn], 
+				GameController.Instance.BlockSpawnYPosition, 
 				0);
 			break;
 		case 2:
-			int blockPosIdTwoColumns = Random.Range (1, gameControllerScript.BlockSpawnXPositions.Length - 1);
+			int blockPosIdTwoColumns = Random.Range (1, GameController.Instance.BlockSpawnXPositions.Length - 1);
 			transform.position = new Vector3 (
-				gameControllerScript.BlockSpawnXPositions [blockPosIdTwoColumns], 
-				gameControllerScript.BlockSpawnYPosition, 
+				GameController.Instance.BlockSpawnXPositions [blockPosIdTwoColumns], 
+				GameController.Instance.BlockSpawnYPosition, 
 				0);
 			break;
 		case 3:
-			int blockPosIdThreeColumns = Random.Range (2, gameControllerScript.BlockSpawnXPositions.Length - 2);
+			int blockPosIdThreeColumns = Random.Range (2, GameController.Instance.BlockSpawnXPositions.Length - 2);
 			transform.position = new Vector3 (
-				gameControllerScript.BlockSpawnXPositions [blockPosIdThreeColumns], 
-				gameControllerScript.BlockSpawnYPosition, 
+				GameController.Instance.BlockSpawnXPositions [blockPosIdThreeColumns], 
+				GameController.Instance.BlockSpawnYPosition, 
 				0);
 			break;
 		case 4:
-			int blockPosIdFourColumns = Random.Range (3, gameControllerScript.BlockSpawnXPositions.Length - 3);
+			int blockPosIdFourColumns = Random.Range (3, GameController.Instance.BlockSpawnXPositions.Length - 3);
 			transform.position = new Vector3 (
-				gameControllerScript.BlockSpawnXPositions [blockPosIdFourColumns], 
-				gameControllerScript.BlockSpawnYPosition, 
+				GameController.Instance.BlockSpawnXPositions [blockPosIdFourColumns], 
+				GameController.Instance.BlockSpawnYPosition, 
 				0);
 			break;
 		}

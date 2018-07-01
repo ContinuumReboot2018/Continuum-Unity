@@ -29,13 +29,13 @@ public class Explosion : MonoBehaviour
 		Destroy (gameObject, Lifetime); // Set a destroy command.
 		ExplosionSound = GameObject.Find("ComboSound").GetComponent<AudioSource> ();
 		gameControllerScript = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController>();
-		ExplosionSound.pitch = Mathf.Clamp (0.01f * gameControllerScript.combo + 0.5f, 0, 2.5f); // Clamp explosion sound pitch.
+		ExplosionSound.pitch = Mathf.Clamp (0.01f * GameController.Instance.combo + 0.5f, 0, 2.5f); // Clamp explosion sound pitch.
 		ExplosionSound.Play (); // Play explosion sound.
 
 		// Scales points text based on combo.
 		ComboAnim.gameObject.transform.localScale = new Vector3 (
-			Mathf.Clamp (0.02f * gameControllerScript.combo + 1.2f, 0, MaxScale), 
-			Mathf.Clamp (0.02f * gameControllerScript.combo + 1.2f, 0, MaxScale), 
+			Mathf.Clamp (0.02f * GameController.Instance.combo + 1.2f, 0, MaxScale), 
+			Mathf.Clamp (0.02f * GameController.Instance.combo + 1.2f, 0, MaxScale), 
 			1
 		);
 

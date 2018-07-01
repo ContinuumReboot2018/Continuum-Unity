@@ -27,7 +27,7 @@ public class ParticleCollisionPlayer : MonoBehaviour
 		{
 			playerControllerScript_P1.SetCooldownTime (5);
 
-			if (gameControllerScript.Lives > 1) 
+			if (GameController.Instance.Lives > 1) 
 			{
 				playerControllerScript_P1.PlayerImpactGeneric ();
 				Instantiate (playerExplosion, transform.position, Quaternion.identity);
@@ -37,7 +37,7 @@ public class ParticleCollisionPlayer : MonoBehaviour
 			}
 
 			// Make game over when lives run out.
-			if (gameControllerScript.Lives == 1) 
+			if (GameController.Instance.Lives == 1) 
 			{
 				playerControllerScript_P1.GameOver ();
 			}

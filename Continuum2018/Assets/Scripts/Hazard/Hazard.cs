@@ -94,7 +94,7 @@ public class Hazard : MonoBehaviour
 			{
 				playerControllerScript_P1.SetCooldownTime (5);
 
-				if (gameControllerScript.Lives > 1) 
+				if (GameController.Instance.Lives > 1) 
 				{
 					playerControllerScript_P1.PlayerHazardImpact (this);
 					playerControllerScript_P1.PlayerImpactGeneric ();
@@ -103,7 +103,7 @@ public class Hazard : MonoBehaviour
 					return;
 				}
 
-				if (gameControllerScript.Lives == 1) 
+				if (GameController.Instance.Lives == 1) 
 				{
 					playerControllerScript_P1.GameOver ();
 				}

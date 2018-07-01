@@ -42,7 +42,7 @@ public class Turret : MonoBehaviour
 	void Update () 
 	{
 		// Check for powerup time remaining, disable if time ran out.
-		if (gameControllerScript.PowerupTimeRemaining <= 0) 
+		if (GameController.Instance.PowerupTimeRemaining <= 0) 
 		{
 			gameObject.SetActive (false);
 		}

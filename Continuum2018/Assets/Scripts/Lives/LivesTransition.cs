@@ -12,7 +12,7 @@ public class LivesTransition : MonoBehaviour
 
 	void CheckLastLifeText ()
 	{
-		if (gameControllerScript.Lives != 1) 
+		if (GameController.Instance.Lives != 1) 
 		{
 			LastLifeText.gameObject.SetActive (false);
 		}
@@ -20,22 +20,22 @@ public class LivesTransition : MonoBehaviour
 
 	public void UpdateLives ()
 	{
-		gameControllerScript.UpdateLives ();
+		GameController.Instance.UpdateLives ();
 
-		if (gameControllerScript.Lives < gameControllerScript.LifeImages.Length)
+		if (GameController.Instance.Lives < GameController.Instance.LifeImages.Length)
 		{
-			if (gameControllerScript.LifeImages [gameControllerScript.Lives].gameObject.activeSelf == true) 
+			if (GameController.Instance.LifeImages [GameController.Instance.Lives].gameObject.activeSelf == true) 
 			{
-				gameControllerScript.LifeImages [gameControllerScript.Lives].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
+				GameController.Instance.LifeImages [GameController.Instance.Lives].gameObject.GetComponent<Animator> ().SetTrigger ("LifeImageExit");
 			}
 		}
 	}
 
 	public void CheckLastLife ()
 	{
-		if (gameControllerScript.Lives == 1) 
+		if (GameController.Instance.Lives == 1) 
 		{
-			gameControllerScript.LifeImages [0].gameObject.SetActive (false);
+			GameController.Instance.LifeImages [0].gameObject.SetActive (false);
 			LastLifeText.gameObject.SetActive (true);
 			LastLifeText.Play ("LastLifeText");
 		}

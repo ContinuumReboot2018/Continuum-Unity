@@ -87,9 +87,9 @@ public class AchievementManager : MonoBehaviour
 	{
 		yield return new WaitForSecondsRealtime (1);
 
-		if (gameControllerScript.DisplayScore >= ScoreToBonusRound) 
+		if (GameController.Instance.DisplayScore >= ScoreToBonusRound) 
 		{
-			gameControllerScript.doBonusRound = true;
+			GameController.Instance.doBonusRound = true;
 			TimesScoredToBonus++;
 
 			TriggerAchievementNotification (
@@ -110,9 +110,9 @@ public class AchievementManager : MonoBehaviour
 	{
 		yield return new WaitForSecondsRealtime (1);
 
-		if (gameControllerScript.combo >= ComboToBonusRound) 
+		if (GameController.Instance.combo >= ComboToBonusRound) 
 		{
-			gameControllerScript.doBonusRound = true;
+			GameController.Instance.doBonusRound = true;
 			TimesComboToBonus++;
 
 			TriggerAchievementNotification (
@@ -133,9 +133,9 @@ public class AchievementManager : MonoBehaviour
 	{
 		yield return new WaitForSecondsRealtime (1);
 
-		if (gameControllerScript.BlocksDestroyed >= BlocksDestroyedToBonusRound) 
+		if (GameController.Instance.BlocksDestroyed >= BlocksDestroyedToBonusRound) 
 		{
-			gameControllerScript.doBonusRound = true;
+			GameController.Instance.doBonusRound = true;
 			TimesBlocksDestroyedToBonus++;
 
 			TriggerAchievementNotification (
@@ -156,9 +156,9 @@ public class AchievementManager : MonoBehaviour
 	{
 		yield return new WaitForSecondsRealtime (1);
 
-		if (gameControllerScript.totalPowerupsCollected >= PowerupsCollectedToBonusRound) 
+		if (GameController.Instance.totalPowerupsCollected >= PowerupsCollectedToBonusRound) 
 		{
-			gameControllerScript.doBonusRound = true;
+			GameController.Instance.doBonusRound = true;
 			TimesPowerupsCollectedToBonus++;
 
 			TriggerAchievementNotification (
@@ -181,7 +181,7 @@ public class AchievementManager : MonoBehaviour
 
 		if (playerControllerScript.AbilityActivations >= AbilitiesActivatedToBonusRound) 
 		{
-			gameControllerScript.doBonusRound = true;
+			GameController.Instance.doBonusRound = true;
 			TimesAbilitiesActivatedToBonus++;
 
 			TriggerAchievementNotification (
@@ -202,16 +202,16 @@ public class AchievementManager : MonoBehaviour
 	{
 		yield return new WaitForSecondsRealtime (1);
 
-		if (gameControllerScript.Wave >= WaveToBonusRound) 
+		if (GameController.Instance.Wave >= WaveToBonusRound) 
 		{
-			gameControllerScript.doBonusRound = true;
+			GameController.Instance.doBonusRound = true;
 			TimesWaveToBonusRoundReached++;
 
 			TriggerAchievementNotification (
 				"Achievement",
 				BonusWaveReachedTexture,
 				"WAVE REACHER",
-				("Reached wave " + gameControllerScript.Wave + "").ToString (),
+				("Reached wave " + GameController.Instance.Wave + "").ToString (),
 				TimesWaveToBonusRoundReached
 			);
 
@@ -227,7 +227,7 @@ public class AchievementManager : MonoBehaviour
 
 		if (playerControllerScript.NonShootingTime >= NextNonShootingTimeToBonus) 
 		{
-			gameControllerScript.doBonusRound = true;
+			GameController.Instance.doBonusRound = true;
 			TimesNonShootingToBonus++;
 
 			TriggerAchievementNotification (
@@ -250,7 +250,7 @@ public class AchievementManager : MonoBehaviour
 
 		if (playerControllerScript.RiskDistanceTime >= NextRiskDistanceTimeToBonus) 
 		{
-			gameControllerScript.doBonusRound = true;
+			GameController.Instance.doBonusRound = true;
 			TimesRiskDistanceToBonus++;
 
 			TriggerAchievementNotification (
@@ -273,7 +273,7 @@ public class AchievementManager : MonoBehaviour
 
 		if (playerControllerScript.powerupsInUse >= PowerupsInUseToBonus) 
 		{
-			gameControllerScript.doBonusRound = true;
+			GameController.Instance.doBonusRound = true;
 			TimesReachedPowerupsInUseToBonus++;
 
 			TriggerAchievementNotification (

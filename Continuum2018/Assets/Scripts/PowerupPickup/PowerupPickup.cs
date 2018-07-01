@@ -200,7 +200,7 @@ public class PowerupPickup : MonoBehaviour
 	// Creates a particle effect at the impact point and sets powerup textures.
 	public void CreatePowerupPickupUI ()
 	{
-		GameObject powerupPickupUI = Instantiate (gameControllerScript.PowerupPickupUI, transform.position, Quaternion.identity);
+		GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, transform.position, Quaternion.identity);
 		powerupPickupUI.GetComponentInChildren<RawImage> ().texture = PowerupTexture;
 		powerupPickupUI.GetComponentInChildren<RawImage> ().color = PowerupPickupUIColor;
 	}
@@ -226,17 +226,17 @@ public class PowerupPickup : MonoBehaviour
 	void ActivatePowerup_P1 ()
 	{
 		Instantiate (CollectExplosion, transform.position, Quaternion.identity); // Creates powerup explosion particles.
-		gameControllerScript.SetPowerupTime (PowerupTime);
-		gameControllerScript.totalPowerupsCollected++;
+		GameController.Instance.SetPowerupTime (PowerupTime);
+		GameController.Instance.totalPowerupsCollected++;
 
 		switch (ThisPowerup) 
 		{
 
 		case powerups.FreezeTime:
 
-			if (gameControllerScript.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false) 
+			if (GameController.Instance.VhsAnim.GetCurrentAnimatorStateInfo (0).IsName ("Slow") == false) 
 			{
-				gameControllerScript.VhsAnim.SetTrigger ("Slow");
+				GameController.Instance.VhsAnim.SetTrigger ("Slow");
 			}
 				
 			timescaleControllerScript.OverridingTimeScale = 0.3f;
@@ -246,8 +246,8 @@ public class PowerupPickup : MonoBehaviour
 			if (playerControllerScript_P1.timeIsSlowed == false) 
 			{
 				playerControllerScript_P1.timeIsSlowed = true;
-				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
-				gameControllerScript.NextPowerupSlot_P1 += 1;
+				SetPowerupTexture (GameController.Instance.NextPowerupSlot_P1);
+				GameController.Instance.NextPowerupSlot_P1 += 1;
 				IncrementPowerupsInUse (false);
 			}
 			break;
@@ -287,7 +287,7 @@ public class PowerupPickup : MonoBehaviour
 				
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Double;
 
-				if (gameControllerScript.gameModifier.AlwaysRapidfire == false)
+				if (GameController.Instance.gameModifier.AlwaysRapidfire == false)
 				{
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [0];
 				}
@@ -338,7 +338,7 @@ public class PowerupPickup : MonoBehaviour
 			case PlayerController.shotIteration.Standard:
 				playerControllerScript_P1.ShotType = PlayerController.shotType.Triple;
 
-				if (gameControllerScript.gameModifier.AlwaysRapidfire == false)
+				if (GameController.Instance.gameModifier.AlwaysRapidfire == false)
 				{
 					playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [0];
 				}
@@ -361,25 +361,25 @@ public class PowerupPickup : MonoBehaviour
 		case powerups.ExtraLife: 
 			
 			// Increases life count.
-			gameControllerScript.Lives += 1;
+			GameController.Instance.Lives += 1;
 
-			if (gameControllerScript.Lives < gameControllerScript.MaxLives) 
+			if (GameController.Instance.Lives < GameController.Instance.MaxLives) 
 			{
-				gameControllerScript.MaxLivesText.text = "";
+				GameController.Instance.MaxLivesText.text = "";
 			}
 
-			if (gameControllerScript.Lives >= gameControllerScript.MaxLives) 
+			if (GameController.Instance.Lives >= GameController.Instance.MaxLives) 
 			{
-				gameControllerScript.MaxLivesText.text = "MAX";
+				GameController.Instance.MaxLivesText.text = "MAX";
 				Debug.Log ("Reached maximum lives.");
 			}
 				
 			// Updates lives.
-			gameControllerScript.Lives = Mathf.Clamp (gameControllerScript.Lives, 0, gameControllerScript.MaxLives);
-			gameControllerScript.LifeImages [gameControllerScript.Lives - 2].gameObject.SetActive (true);
-			gameControllerScript.LifeImages [gameControllerScript.Lives - 2].enabled = true;
-			gameControllerScript.LifeImages [gameControllerScript.Lives - 2].color = Color.white;
-			//gameControllerScript.UpdateLives (); // Updates lives UI.
+			GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
+			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].gameObject.SetActive (true);
+			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].enabled = true;
+			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].color = Color.white;
+			//GameController.Instance.UpdateLives (); // Updates lives UI.
 			break;
 
 		case powerups.RippleShot: 
@@ -418,7 +418,7 @@ public class PowerupPickup : MonoBehaviour
 				case PlayerController.shotIteration.Standard:
 					playerControllerScript_P1.ShotType = PlayerController.shotType.Ripple;
 
-					if (gameControllerScript.gameModifier.AlwaysRapidfire == false)
+					if (GameController.Instance.gameModifier.AlwaysRapidfire == false)
 					{
 						playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [0];
 					}
@@ -444,8 +444,8 @@ public class PowerupPickup : MonoBehaviour
 			// Adds a helix object that follows the player.
 			if (playerControllerScript_P1.Helix.activeInHierarchy == false) 
 			{
-				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
-				gameControllerScript.NextPowerupSlot_P1 += 1;
+				SetPowerupTexture (GameController.Instance.NextPowerupSlot_P1);
+				GameController.Instance.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.Helix.SetActive (true);
 				playerControllerScript_P1.AddParticleActiveEffects ();
 				IncrementPowerupsInUse (false);
@@ -462,9 +462,9 @@ public class PowerupPickup : MonoBehaviour
 				clone.SetActive (true);
 				clone.GetComponent<Turret> ().playerControllerScript = playerControllerScript_P1;
 
-				SetPowerupTexture (gameControllerScript.NextPowerupSlot_P1);
+				SetPowerupTexture (GameController.Instance.NextPowerupSlot_P1);
 
-				gameControllerScript.NextPowerupSlot_P1 += 1;
+				GameController.Instance.NextPowerupSlot_P1 += 1;
 				playerControllerScript_P1.nextTurretSpawn += 1;
 				playerControllerScript_P1.AddParticleActiveEffects ();
 				IncrementPowerupsInUse (false);
@@ -492,13 +492,13 @@ public class PowerupPickup : MonoBehaviour
 					break;
 				}
 
-				gameControllerScript.RapidfireImage.enabled = true;
-				gameControllerScript.RapidfireImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
+				GameController.Instance.RapidfireImage.enabled = true;
+				GameController.Instance.RapidfireImage.transform.SetSiblingIndex (-GameController.Instance.NextPowerupShootingSlot_P1 + 3);
 
-				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-				gameControllerScript.RapidfireHex.enabled = true;
+				GameController.Instance.NextPowerupShootingSlot_P1 += 1;
+				GameController.Instance.RapidfireHex.enabled = true;
 				playerControllerScript_P1.isInRapidFire = true;
-				gameControllerScript.RapidfireImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				GameController.Instance.RapidfireImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 				playerControllerScript_P1.AddParticleActiveEffects ();
 				IncrementPowerupsInUse (false);
 			}
@@ -514,12 +514,12 @@ public class PowerupPickup : MonoBehaviour
 				playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
 				playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
 				playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
-				gameControllerScript.OverdriveImage.enabled = true;
-				gameControllerScript.OverdriveImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
-				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-				gameControllerScript.OverdriveHex.enabled = true;
+				GameController.Instance.OverdriveImage.enabled = true;
+				GameController.Instance.OverdriveImage.transform.SetSiblingIndex (-GameController.Instance.NextPowerupShootingSlot_P1 + 3);
+				GameController.Instance.NextPowerupShootingSlot_P1 += 1;
+				GameController.Instance.OverdriveHex.enabled = true;
 				playerControllerScript_P1.isInOverdrive = true;
-				gameControllerScript.OverdriveImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				GameController.Instance.OverdriveImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 				playerControllerScript_P1.AddParticleActiveEffects ();
 				IncrementPowerupsInUse (false);
 			}
@@ -553,11 +553,11 @@ public class PowerupPickup : MonoBehaviour
 				}
 
 				playerControllerScript_P1.isRicochet = true;
-				gameControllerScript.RicochetImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
-				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-				gameControllerScript.RicochetImage.enabled = true;
-				gameControllerScript.RicochetHex.enabled = true;
-				gameControllerScript.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				GameController.Instance.RicochetImage.transform.SetSiblingIndex (-GameController.Instance.NextPowerupShootingSlot_P1 + 3);
+				GameController.Instance.NextPowerupShootingSlot_P1 += 1;
+				GameController.Instance.RicochetImage.enabled = true;
+				GameController.Instance.RicochetHex.enabled = true;
+				GameController.Instance.RicochetImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 				playerControllerScript_P1.AddParticleActiveEffects ();
 				IncrementPowerupsInUse (false);
 			}
@@ -569,11 +569,11 @@ public class PowerupPickup : MonoBehaviour
 			if (playerControllerScript_P1.isHoming == false) 
 			{
 				playerControllerScript_P1.isHoming = true;
-				gameControllerScript.HomingImage.transform.SetSiblingIndex (-gameControllerScript.NextPowerupShootingSlot_P1 + 3);
-				gameControllerScript.NextPowerupShootingSlot_P1 += 1;
-				gameControllerScript.HomingImage.enabled = true;
-				gameControllerScript.HomingHex.enabled = true;
-				gameControllerScript.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+				GameController.Instance.HomingImage.transform.SetSiblingIndex (-GameController.Instance.NextPowerupShootingSlot_P1 + 3);
+				GameController.Instance.NextPowerupShootingSlot_P1 += 1;
+				GameController.Instance.HomingImage.enabled = true;
+				GameController.Instance.HomingHex.enabled = true;
+				GameController.Instance.HomingImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 				playerControllerScript_P1.AddParticleActiveEffects ();
 				IncrementPowerupsInUse (false);
 			}
@@ -586,9 +586,9 @@ public class PowerupPickup : MonoBehaviour
 
 	void SetPowerupTexture (int index)
 	{
-		gameControllerScript.PowerupImage_P1 [index].gameObject.SetActive (true);
-		gameControllerScript.PowerupImage_P1 [index].texture = PowerupTexture;
-		gameControllerScript.PowerupImage_P1 [index].color = new Color (1, 1, 1, 1);
-		gameControllerScript.PowerupImage_P1 [index].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+		GameController.Instance.PowerupImage_P1 [index].gameObject.SetActive (true);
+		GameController.Instance.PowerupImage_P1 [index].texture = PowerupTexture;
+		GameController.Instance.PowerupImage_P1 [index].color = new Color (1, 1, 1, 1);
+		GameController.Instance.PowerupImage_P1 [index].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 	}
 }

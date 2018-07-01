@@ -12,15 +12,15 @@ public class WaveTransition : MonoBehaviour
 	// Turn off wave transition UI based on wave number.
 	public void DeactivateWaveTransition ()
 	{
-		gameControllerScript.IsInWaveTransition = false;
+		GameController.Instance.IsInWaveTransition = false;
 
-		if (gameControllerScript.Wave % 4 == 1 || gameControllerScript.Wave == 1) 
+		if (GameController.Instance.Wave % 4 == 1 || GameController.Instance.Wave == 1) 
 		{
 			SoundtrackUI.SetActive (true);
-			gameControllerScript.WaveTransitionUIStats.Play ("WaveTransitionUIStatsExit");
+			GameController.Instance.WaveTransitionUIStats.Play ("WaveTransitionUIStatsExit");
 		}
 
-		if (gameControllerScript.Wave % 4 != 1) 
+		if (GameController.Instance.Wave % 4 != 1) 
 		{
 			SoundtrackUI.SetActive (false);
 		}
@@ -29,15 +29,15 @@ public class WaveTransition : MonoBehaviour
 	// Turn on wave transition UI based on wave number.
 	public void ActivateWaveTransitionUI ()
 	{
-		gameControllerScript.IsInWaveTransition = true;
+		GameController.Instance.IsInWaveTransition = true;
 
-		if (gameControllerScript.Wave % 4 == 1 || gameControllerScript.Wave != 1) 
+		if (GameController.Instance.Wave % 4 == 1 || GameController.Instance.Wave != 1) 
 		{
 			SoundtrackUI.SetActive (true);
-			gameControllerScript.WaveTransitionUIStats.Play ("WaveTransitionUIStats");
+			GameController.Instance.WaveTransitionUIStats.Play ("WaveTransitionUIStats");
 		}
 
-		if (gameControllerScript.Wave % 4 != 1) 
+		if (GameController.Instance.Wave % 4 != 1) 
 		{
 			SoundtrackUI.SetActive (false);
 		}

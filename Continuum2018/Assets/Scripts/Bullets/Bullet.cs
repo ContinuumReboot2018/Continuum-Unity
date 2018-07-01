@@ -135,7 +135,7 @@ public class Bullet : MonoBehaviour
 		// Only count bullets shot after tutorial is complete.
 		if (playerControllerScript.tutorialManagerScript.tutorialComplete == true) 
 		{
-			gameControllerScript.BulletsShot += 1;
+			GameController.Instance.BulletsShot += 1;
 		}
 
 		// Bullet is set to homing but not a helix object.
@@ -296,7 +296,7 @@ public class Bullet : MonoBehaviour
 			transform.rotation = Quaternion.Euler (0, 0, newZrot); // Set new angle to this.
 		}
 
-		if (playedRicochetSound == false && gameControllerScript.isPaused == false)
+		if (playedRicochetSound == false && GameController.Instance.isPaused == false)
 		{
 			RicochetSound.Play (); // Play ricochet sound.
 			playedRicochetSound = true;
@@ -316,7 +316,7 @@ public class Bullet : MonoBehaviour
 	// Sets bullet to a set velocity
 	void SetBulletVelocity ()
 	{
-		if (gameControllerScript.isPaused == false) 
+		if (GameController.Instance.isPaused == false) 
 		{
 			// Scale by time scale.
 			if (BulletSpeedType == SpeedType.Scaled) 

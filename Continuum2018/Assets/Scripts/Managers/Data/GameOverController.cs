@@ -65,7 +65,7 @@ public class GameOverController : MonoBehaviour
 			CurrentScore = Mathf.Lerp (CurrentScore, FinalScore, ScoreSmoothing * Time.unscaledDeltaTime);
 		}
 
-		if (gameControllerScript.playerControllerScript_P1.playerActions.Shoot.IsPressed) 
+		if (GameController.Instance.playerControllerScript_P1.playerActions.Shoot.IsPressed) 
 		{
 			if (GameOverUI.activeInHierarchy == true && 
 				leaderboardDisplay.UI.gameObject.activeInHierarchy == false) 
@@ -94,28 +94,28 @@ public class GameOverController : MonoBehaviour
 		TotalGameTimeText.text = 
 			"Total Game Time: " + string.Format (
 				"{0}:{1:00}", 
-				(int)gameControllerScript.GameTime / 60, 
-				(int)gameControllerScript.GameTime % 60
+				(int)GameController.Instance.GameTime / 60, 
+				(int)GameController.Instance.GameTime % 60
 			);
 
 		TotalRealTimeText.text = 
 			"Total Real Time: " + string.Format (
 				"{0}:{1:00}", 
-				(int)gameControllerScript.RealTime / 60, 
-				(int)gameControllerScript.RealTime % 60
+				(int)GameController.Instance.RealTime / 60, 
+				(int)GameController.Instance.RealTime % 60
 			);	
 		
 		TimeRatioText.text = 
-			"Time Ratio: " + System.Math.Round (gameControllerScript.TimeRatio, 2);
+			"Time Ratio: " + System.Math.Round (GameController.Instance.TimeRatio, 2);
 
 		TotalBulletsShotText.text = 
-			"Total Bullets Shot: " + gameControllerScript.BulletsShot;
+			"Total Bullets Shot: " + GameController.Instance.BulletsShot;
 
 		TotalBlockDestroyedText.text = 
-			"Total Blocks Destroyed: " + gameControllerScript.BlocksDestroyed;
+			"Total Blocks Destroyed: " + GameController.Instance.BlocksDestroyed;
 
 		AccuracyText.text = 
-			"Accuracy: " + (System.Math.Round((gameControllerScript.BlockShotAccuracy * 100), 2)) + "%";
+			"Accuracy: " + (System.Math.Round((GameController.Instance.BlockShotAccuracy * 100), 2)) + "%";
 
 		UpdateFinalScoreText ();
 	}
@@ -123,7 +123,7 @@ public class GameOverController : MonoBehaviour
 	public void CheckLeaderboard ()
 	{
 		// Get final score figure.
-		FinalScore = Mathf.RoundToInt (gameControllerScript.DisplayScore);
+		FinalScore = Mathf.RoundToInt (GameController.Instance.DisplayScore);
 
 		Debug.Log ("Final score is: " + FinalScore);
 
@@ -247,11 +247,11 @@ public class GameOverController : MonoBehaviour
 		Debug.Log (
 			"Place: " + (position + 1).ToString () + 
 			", Final Score: " + FinalScore +  
-			", Wave: " + gameControllerScript.Wave
+			", Wave: " + GameController.Instance.Wave
 		);
 
 		place = position;
-		newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), gameControllerScript.Wave);
+		newLeaderboardEntry = new LeaderboardEntry (name, Mathf.RoundToInt (FinalScore), GameController.Instance.Wave);
 
 		switch (saveAndLoadScript.MissionId) 
 		{
@@ -302,7 +302,7 @@ public class GameOverController : MonoBehaviour
 
 	public void UpdateFinalScoreText ()
 	{
-		CurrentScore = gameControllerScript.DisplayScore;
+		CurrentScore = GameController.Instance.DisplayScore;
 
 		if (FinalScoreText.gameObject.activeInHierarchy == true) 
 		{

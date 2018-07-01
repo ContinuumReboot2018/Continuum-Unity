@@ -11,6 +11,8 @@ using InControl;
 
 public class GameController : MonoBehaviour 
 {
+	public static GameController Instance { get; private set; }
+
 	public PlayerController 		playerControllerScript_P1;	// Reference to the player controller.
 	public TimescaleController 		timescaleControllerScript;	// Reference to the timescale controller.
 	public AudioController 			audioControllerScript;		// Reference to the audio controller.
@@ -401,6 +403,12 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI BulletObjectCount_Debug;
 
 	public TextMeshProUGUI BuildNumberText_Debug;
+
+	void Awake ()
+	{
+		Instance = this;
+		// DontDestroyOnLoad (gameObject);
+	}
 
 	void Start ()
 	{
