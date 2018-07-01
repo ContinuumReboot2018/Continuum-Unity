@@ -4,7 +4,6 @@ using TMPro;
 
 public class Block : MonoBehaviour
 {
-	public PlayerController playerControllerScript_P1; // Reference to Player Controller.
 	public AudioProcessor processor;
 	private TimeBody timeBodyScript;
 	public MeshRenderer rend; // This Mesh Renderer.
@@ -154,18 +153,45 @@ public class Block : MonoBehaviour
 		}
 
 		allBlocks.Add (this);
+		SetNewBlockType ();
+		RefreshBlockStats ();
+		UpdateBlockType ();
+	}
+
+	void SetNewBlockType ()
+	{
+		if (isBossPart == false && isBonusBlock == false) 
+		{
+			int BlockId = Random.Range (0, GameController.Instance.Wave);
+			BlockType = (mainBlockType)BlockId;
+		}
 	}
 
 	void OnDisable ()
 	{
+		if (isStacked == true) 
+		{
+			stack.VacateBlock ();
+			isStacked = false;
+		}
+
 		allBlocks.Remove (this);
+		processor.onBeat.RemoveListener (onOnbeatDetected);
 	}
 
 	void OnDestroy ()
 	{
-		allBlocks.Remove (this);
-	}
+		if (isStacked == true) 
+		{
+			stack.VacateBlock ();
+			isStacked = false;
+		}
 
+		BlockChecker.Instance.BlocksInstanced.Remove (gameObject);
+		allBlocks.Remove (this);
+		processor.onBeat.RemoveListener (onOnbeatDetected);
+	}
+		
 	void Awake ()
 	{
 		// Initialize self.
@@ -174,6 +200,11 @@ public class Block : MonoBehaviour
 		rend = GetComponentInChildren<MeshRenderer> (true);
 		InvokeRepeating ("CheckBounds", 0, 0.5f);
 		normalBlockTypeListLength = System.Enum.GetValues (typeof(mainBlockType)).Length;
+
+		if (isBossPart == false && isBonusBlock == false) 
+		{
+			BlockChecker.Instance.BlocksInstanced.Add (gameObject);
+		}
 
 		// Static: Don't change type, update once.
 		if (BlockChangeType == blockChangeType.Static) 
@@ -194,10 +225,17 @@ public class Block : MonoBehaviour
 		UpdateBlockType ();
 	}
 
-	void Start () 
+	public void RefreshBlockStats ()
+	{
+		if (isStacked == true)
+		{
+			stack.VacateBlock ();
+		}
+	}
+
+	public void Start () 
 	{
 		// Find external scripts.
-		playerControllerScript_P1 = GameObject.Find ("PlayerController_P1").GetComponent<PlayerController> ();
 		camShakeScript = GameObject.Find ("CamShake").GetComponent<CameraShake> ();
 		parentToTransformScript = GetComponent<ParentToTransform> ();
 		timeBodyScript = GetComponent<TimeBody> ();
@@ -350,7 +388,9 @@ public class Block : MonoBehaviour
 					IncrementBlocksDestroyed (); // Increment blocks destroyed.
 					DoCamShake (); // Shake camera.
 					DoVibrate ();
-					Destroy (gameObject);
+
+					//Destroy (gameObject);
+					gameObject.SetActive (false);
 					return;
 				}
 
@@ -378,7 +418,8 @@ public class Block : MonoBehaviour
 							}
 						}
 					
-						Destroy (gameObject); // Destroy this object.
+						//Destroy (gameObject); // Destroy this object.
+						gameObject.SetActive (false);
 						return; // Prevent any further code execution.
 					}
 
@@ -424,7 +465,8 @@ public class Block : MonoBehaviour
 				if (other.tag != "Bullet") 
 				{
 					//Destroy (other.gameObject); // Destroy other object.
-					Destroy (gameObject); // Destroy this object.
+					//Destroy (gameObject); // Destroy this object.
+					gameObject.SetActive (false);
 					return; // Prevent any further code execution.
 				}
 			}
@@ -484,7 +526,8 @@ public class Block : MonoBehaviour
 						
 					DoCamShake (); // Destroy this object.
 					DoVibrate ();
-					Destroy (gameObject); // Destroy this object.
+					//Destroy (gameObject); // Destroy this object.
+					gameObject.SetActive (false);
 					return; // Prevent any further code execution.
 				}
 					
@@ -504,7 +547,8 @@ public class Block : MonoBehaviour
 								if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
 								{
 									Destroy (other.gameObject);
-									Destroy (gameObject); // Destroy this object.
+									//Destroy (gameObject); // Destroy this object.
+									gameObject.SetActive (false);
 								}
 							}
 						}
@@ -524,12 +568,14 @@ public class Block : MonoBehaviour
 								if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
 								{
 									Destroy (other.gameObject);
-									Destroy (gameObject); // Destroy this object.
+									//Destroy (gameObject); // Destroy this object.
+									gameObject.SetActive (false);
 								}
 							}
 						}
 
-						Destroy (gameObject); // Destroy this object.
+						//Destroy (gameObject); // Destroy this object.
+						gameObject.SetActive (false);
 						return; // Prevent any further code execution.
 					}
 				}
@@ -542,18 +588,29 @@ public class Block : MonoBehaviour
 			// Impact the player normally when lives > 1.
 			if (GameController.Instance.Lives > 1) 
 			{
-				playerControllerScript_P1.PlayerBlockImpact (this);
-				playerControllerScript_P1.PlayerImpactGeneric ();
+				if (other.name.Contains ("P1")) 
+				{
+					PlayerController.PlayerOneInstance.PlayerBlockImpact (this);
+					PlayerController.PlayerOneInstance.PlayerImpactGeneric ();
+				}
+
+				if (other.name.Contains ("P2")) 
+				{
+					PlayerController.PlayerTwoInstance.PlayerBlockImpact (this);
+					PlayerController.PlayerTwoInstance.PlayerImpactGeneric ();
+				}
+
 				DoCamShake ();
 				DoVibrate ();
-				Destroy (gameObject);
+				//Destroy (gameObject);
+				gameObject.SetActive (false);
 				return;
 			}
 
 			// On last life, set game over.
 			if (GameController.Instance.Lives == 1) 
 			{
-				playerControllerScript_P1.GameOver ();
+				PlayerController.PlayerOneInstance.GameOver ();
 			}
 		}
 	}
@@ -611,7 +668,8 @@ public class Block : MonoBehaviour
 		// Block falls below MinYPos, destroy it.
 		if (transform.position.y < MinYPos) 
 		{
-			Destroy (gameObject);
+			//Destroy (gameObject);
+			gameObject.SetActive (false);
 			return;
 		}
 
@@ -627,7 +685,8 @@ public class Block : MonoBehaviour
 
 				if (transform.position.y > BoundaryY.y) 
 				{
-					Destroy (gameObject);
+					//Destroy (gameObject);
+					gameObject.SetActive (false);
 					return;
 				}
 			}
@@ -670,22 +729,22 @@ public class Block : MonoBehaviour
 			totalPointValue = BasePointValue;
 		}
 
-		if (playerControllerScript_P1 != null) 
+		if (PlayerController.PlayerOneInstance != null) 
 		{
 			// If player is not recovering.
-			if (playerControllerScript_P1.isInCooldownMode == false)
+			if (PlayerController.PlayerOneInstance.isInCooldownMode == false)
 			{
 				// Ability time remaining must be less than the required duration.
-				if (playerControllerScript_P1.CurrentAbilityTimeRemaining < playerControllerScript_P1.CurrentAbilityDuration)
+				if (PlayerController.PlayerOneInstance.CurrentAbilityTimeRemaining < PlayerController.PlayerOneInstance.CurrentAbilityDuration)
 				{
 					if (isBossPart == false) // Not a boss part.
 					{
-						playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * playerControllerScript_P1.AbilityDampening; // Increase ability time.
+						PlayerController.PlayerOneInstance.CurrentAbilityTimeRemaining += AddAbilityTime * PlayerController.PlayerOneInstance.AbilityDampening; // Increase ability time.
 					}
 
 					if (isBossPart == true) // Is boss part.
 					{
-						playerControllerScript_P1.CurrentAbilityTimeRemaining += AddAbilityTime * playerControllerScript_P1.AbilityDampening; // Increase ability time.
+						PlayerController.PlayerOneInstance.CurrentAbilityTimeRemaining += AddAbilityTime * PlayerController.PlayerOneInstance.AbilityDampening; // Increase ability time.
 					}
 				}
 			}
@@ -721,9 +780,9 @@ public class Block : MonoBehaviour
 			GameController.Instance.TargetScore += totalPointValue;
 
 			// Plays animation if not faded out score text.
-			if (playerControllerScript_P1.ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false) 
+			if (PlayerController.PlayerOneInstance.ScoreAnim.GetCurrentAnimatorStateInfo (0).IsName ("ScoreFadeOut") == false) 
 			{
-				playerControllerScript_P1.ScoreAnim.Play ("ScorePoints");
+				PlayerController.PlayerOneInstance.ScoreAnim.Play ("ScorePoints");
 			}
 
 			// Adds to next combo.
@@ -754,7 +813,13 @@ public class Block : MonoBehaviour
 	void DoVibrate ()
 	{
 		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
-		playerControllerScript_P1.Vibrate (0.7f, 0.7f, 0.2f);
+		PlayerController.PlayerOneInstance.Vibrate (0.7f, 0.7f, 0.2f);
+
+		if (PlayerController.PlayerTwoInstance != null)
+		{
+			PlayerController.PlayerTwoInstance.Vibrate (0.7f, 0.7f, 0.2f);
+		}
+
 		#endif
 	}
 
@@ -776,7 +841,8 @@ public class Block : MonoBehaviour
 			transform.position.y > BoundaryY.y || 
 			transform.position.y < BoundaryY.x) 
 		{
-			Destroy (gameObject);
+			//Destroy (gameObject);
+			gameObject.SetActive (false);
 			return;
 		}
 	}
@@ -839,6 +905,7 @@ public class Block : MonoBehaviour
 				BasePointValue = AquaBlock.BasePointValue;
 				TextColor = AquaBlock.TextColor;
 				Explosion = AquaBlock.Explosion;
+				transform.name = "Aqua Block";
 				break;
 			case mainBlockType.Blue:
 				speed = BlueBlock.Speed;
@@ -846,6 +913,7 @@ public class Block : MonoBehaviour
 				BasePointValue = BlueBlock.BasePointValue;
 				TextColor = BlueBlock.TextColor;
 				Explosion = BlueBlock.Explosion;
+				transform.name = "Blue Block";
 				break;
 			case mainBlockType.Purple:
 				speed = PurpleBlock.Speed;
@@ -853,6 +921,7 @@ public class Block : MonoBehaviour
 				BasePointValue = PurpleBlock.BasePointValue;
 				TextColor = PurpleBlock.TextColor;
 				Explosion = PurpleBlock.Explosion;
+				transform.name = "Purple Block";
 				break;
 			case mainBlockType.Pink:
 				speed = PinkBlock.Speed;
@@ -860,6 +929,7 @@ public class Block : MonoBehaviour
 				BasePointValue = PinkBlock.BasePointValue;
 				TextColor = PinkBlock.TextColor;
 				Explosion = PinkBlock.Explosion;
+				transform.name = "Pink Block";
 				break;
 			}
 		}

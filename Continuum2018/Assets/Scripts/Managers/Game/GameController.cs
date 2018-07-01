@@ -12,6 +12,7 @@ using InControl;
 public class GameController : MonoBehaviour 
 {
 	public static GameController Instance { get; private set; }
+	public ObjectPooler objectPooler;
 
 	public PlayerController 		playerControllerScript_P1;	// Reference to the player controller.
 	public PostProcessingProfile 	ImageEffects;				// Reference to the post processing profile.
@@ -407,6 +408,8 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
+		objectPooler = ObjectPooler.instance;
+
 		// Get the save and load script.
 		if (SaveAndLoadScript.Instance != null)
 		{
@@ -1282,6 +1285,32 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	void SpawnBlockById (int Id)
+	{
+		Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
+
+		switch (Id) 
+		{
+		case 0:
+			objectPooler.SpawnFromPool ("AquaBlock", SpawnPosRand, Quaternion.identity);
+			break;
+		case 1:
+			objectPooler.SpawnFromPool ("BlueBlock", SpawnPosRand, Quaternion.identity);
+			break;
+		case 2:
+			objectPooler.SpawnFromPool ("PurpleBlock", SpawnPosRand, Quaternion.identity);
+			break;
+		case 3:
+			objectPooler.SpawnFromPool ("PinkBlock", SpawnPosRand, Quaternion.identity);
+			break;
+		}
+	}
+
+	void CheckInstancedBlocks ()
+	{
+		
+	}
+
 	// Spawn block based on wave number.
 	public void SpawnBlock (bool anyBlock)
 	{
@@ -1292,9 +1321,39 @@ public class GameController : MonoBehaviour
 				if (Wave < 5) 
 				{
 					int BlockIndexRange = UnityEngine.Random.Range (0, Wave);
-					GameObject Block = Blocks [BlockIndexRange];
+					GameObject BlockA = Blocks [BlockIndexRange];
 					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-					Instantiate (Block, SpawnPosRand, Quaternion.identity);
+					//Instantiate (BlockA, SpawnPosRand, Quaternion.identity);
+
+					//SpawnBlockById (BlockIndexRange);
+
+					bool recycledBlock = false;
+
+					if (BlockChecker.Instance.BlocksInstanced.Count > 0) 
+					{
+						// Go through instanced blocks list.
+						for (int i = 0; i < BlockChecker.Instance.BlocksInstanced.Count; i++) 
+						{
+							// Find first block GameObject that is disabled.
+							if (BlockChecker.Instance.BlocksInstanced [i].gameObject.activeInHierarchy == false) 
+							{
+								if (BlockChecker.Instance.BlocksInstanced [i].GetComponent<Block> ().BlockType == Block.mainBlockType.Aqua) {
+
+									BlockChecker.Instance.BlocksInstanced [i].SetActive (true);
+									BlockChecker.Instance.BlocksInstanced [i].transform.position = SpawnPosRand;
+									recycledBlock = true;
+									//Debug.Log ("Recycled a block.");
+									return;
+								}
+							}
+						}
+					}
+
+					// Could not find block of the right type to activate, spawning a new one.
+					if (recycledBlock == false) 
+					{
+						Instantiate (BlockA, SpawnPosRand, Quaternion.identity);
+					}
 				}
 
 				if (Wave >= 5 && Wave < 9) 

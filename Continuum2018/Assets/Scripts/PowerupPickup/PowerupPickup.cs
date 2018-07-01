@@ -251,8 +251,7 @@ public class PowerupPickup : MonoBehaviour
 			CheckActivatePowerup (2);
 		}
 			
-		if (PlayerController.PlayerOneInstance.timeIsSlowed == false ||
-			PlayerController.PlayerTwoInstance.timeIsSlowed == false)
+		if (PlayerController.PlayerOneInstance.timeIsSlowed == false)
 		{
 			TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 0.5f; // Set Timescale ovveride time.
 			TimescaleController.Instance.OverridingTimeScale = 0.2f; // Set overriding time scale.
