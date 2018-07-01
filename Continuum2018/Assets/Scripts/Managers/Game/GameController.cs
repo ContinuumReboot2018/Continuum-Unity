@@ -926,7 +926,12 @@ public class GameController : MonoBehaviour
 			PowerupTimeRemaining = 0;
 			PowerupAnim.StopPlayback ();
 			PowerupResetAudio.Play ();
-			playerControllerScript_P1.ResetPowerups ();
+			PlayerController.PlayerOneInstance.ResetPowerups ();
+
+			if (PlayerController.PlayerTwoInstance != null) 
+			{
+				PlayerController.PlayerTwoInstance.ResetPowerups ();
+			}
 		}
 	}
 

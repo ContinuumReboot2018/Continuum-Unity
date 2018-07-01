@@ -10,7 +10,6 @@ public class TimescaleController : MonoBehaviour
 {
 	public static TimescaleController Instance { get; private set; }
 
-	public PlayerController 	playerControllerScript_P1;
 	public NoiseAndGrain 		noiseScript;
 	public GameModifierManager 	gameModifier;
 	public MenuManager 			gameOverMenuManager;
@@ -107,6 +106,11 @@ public class TimescaleController : MonoBehaviour
 		{
 			InvokeRepeating ("UpdateTimeScalePreset", 0, 2);
 		}
+
+		if (PlayerController.PlayerTwoInstance != null) 
+		{
+			useTwoPlayers = true;
+		}
 	}
 
 	void UpdateTimeScalePreset ()
@@ -163,8 +167,7 @@ public class TimescaleController : MonoBehaviour
 	// Detect dsiatnce, apply time.
 	void UpdateMainTargetTimeScale ()
 	{
-		if (useTwoPlayers == false && GameController.Instance.isPaused == false && 
-			isEndSequence == false && playerControllerScript_P1.isInCooldownMode == false) 
+		if (GameController.Instance.isPaused == false && isEndSequence == false)
 		{
 			if (isOverridingTimeScale == false && isInInitialSequence == false && 
 				isInInitialCountdownSequence == false && TutorialManager.Instance.tutorialComplete == true) 
@@ -172,8 +175,43 @@ public class TimescaleController : MonoBehaviour
 				// Gets vertical distance from player to reference point.
 				// Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
 				// Get distance but only use Y component.
-				float DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
-				Distance = DistanceVector;
+				if (useTwoPlayers == false && PlayerController.PlayerOneInstance.isInCooldownMode == false) 
+				{
+					float DistanceVector = Vector3.Distance (
+						PlayerOne.transform.position, 
+						ReferencePoint.transform.position
+					);
+
+					Distance = DistanceVector;
+				}
+
+				if (useTwoPlayers == true && PlayerController.PlayerOneInstance.isInCooldownMode == false && 
+					PlayerController.PlayerTwoInstance.isInCooldownMode == false) 
+				{
+					// Average out the distance between players.
+					float AverageDistanceVector = Vector3.Distance (
+						0.5f * (PlayerController.PlayerOneInstance.transform.position + PlayerController.PlayerTwoInstance.transform.position), 
+						ReferencePoint.transform.position
+					);
+
+					Distance = AverageDistanceVector;
+
+					/*
+					float MaxDistanceVector = Vector3.Max (
+						0.5f * (PlayerController.PlayerOneInstance.transform.position + PlayerController.PlayerTwoInstance.transform.position), 
+						ReferencePoint.transform.position
+					);
+
+					Distance = MaxDistanceVector;
+
+					float MinDistanceVector = Vector3.Min (
+						0.5f * (PlayerController.PlayerOneInstance.transform.position + PlayerController.PlayerTwoInstance.transform.position), 
+						ReferencePoint.transform.position
+					);
+
+					Distance = MinDistanceVector;
+					*/
+				}
 
 				// Checks for game modifier time increasing mode over real time.
 				switch (gameModifier.TimeIncreaseMode)
@@ -195,25 +233,7 @@ public class TimescaleController : MonoBehaviour
 						break;
 				}
 
-				if (TimeCalculation == timeCalc.Continuous) 
-				{
-					// Set TargetTimeScale with multiplier, distance, minimum timescale, clamp to min and max values.
-					TargetTimeScale = Mathf.Clamp (
-						TargetTimeScaleMult * Distance + TargetTimeScaleAdd, 
-						MinimumTimeScale, 
-						MaximumTimeScale
-					);
-				}
 
-				if (TimeCalculation == timeCalc.Discrete) 
-				{
-					// Get pitch value from bass track in audio controller and allow manipulation.
-					TargetTimeScale = Mathf.Clamp (
-						AudioController.Instance.BassTrack.pitch + TargetTimeScaleAdd - 0.3f, 
-						MinimumTimeScale, 
-						MaximumTimeScale
-					);
-				}
 					
 				// Updates fixed time step based on time scale. (Current period: 1/200 of a second, 200Hz).
 				// Physics updates must be this fast to maintain accuracy.
@@ -233,8 +253,7 @@ public class TimescaleController : MonoBehaviour
 			}
 		} 
 
-		else 
-		
+		if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
 		{
 			// Gets vertical distance from player to reference point. (Default).
 			// Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
@@ -242,7 +261,26 @@ public class TimescaleController : MonoBehaviour
 			float DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
 			Distance = DistanceVector;
 
-			// For continuous.
+			if (TimeCalculation == timeCalc.Continuous) 
+			{
+				// Set TargetTimeScale with multiplier, distance, minimum timescale, clamp to min and max values.
+				TargetTimeScale = Mathf.Clamp (
+					TargetTimeScaleMult * Distance + TargetTimeScaleAdd, 
+					MinimumTimeScale, 
+					MaximumTimeScale
+				);
+			}
+
+			if (TimeCalculation == timeCalc.Discrete) 
+			{
+				// Get pitch value from bass track in audio controller and allow manipulation.
+				TargetTimeScale = Mathf.Clamp (
+					AudioController.Instance.BassTrack.pitch + TargetTimeScaleAdd - 0.3f, 
+					MinimumTimeScale, 
+					MaximumTimeScale
+				);
+			}
+
 			TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance, MinimumTimeScale, MaximumTimeScale);
 		}
 	}
@@ -250,7 +288,7 @@ public class TimescaleController : MonoBehaviour
 	// What to do when override time scale is active.
 	void CheckOverrideTimeScale ()
 	{
-		if (playerControllerScript_P1.timeIsSlowed == true) 
+		if (PlayerController.PlayerOneInstance.timeIsSlowed == true) 
 		{
 			OverrideTimeScaleTimeRemaining = GameController.Instance.PowerupTimeRemaining;
 			GameController.Instance.isUpdatingImageEffects = false;
@@ -267,7 +305,12 @@ public class TimescaleController : MonoBehaviour
 				isOverridingTimeScale = false;
 			}
 				
-			playerControllerScript_P1.SmoothFollowTime = 15;
+			PlayerController.PlayerOneInstance.SmoothFollowTime = 15;
+
+			if (PlayerController.PlayerTwoInstance != null)
+			{
+				PlayerController.PlayerTwoInstance.SmoothFollowTime = 15;
+			}
 
 			return;
 		}
@@ -275,7 +318,9 @@ public class TimescaleController : MonoBehaviour
 		if (OverrideTimeScaleTimeRemaining > 0) 
 		{
 			// Normal overriding curcumstances.
-			if (GameController.Instance.isPaused == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
+			if (GameController.Instance.isPaused == false && 
+				isInInitialSequence == false && 
+				isInInitialCountdownSequence == false) 
 			{
 				OverrideTimeScaleTimeRemaining -= Time.unscaledDeltaTime; // Decrease override time remaining unscaled.
 			}
@@ -295,9 +340,17 @@ public class TimescaleController : MonoBehaviour
 				}
 
 				// Decrease sensitivity of player movement.
-				playerControllerScript_P1.MovementX *= Time.timeScale;
-				playerControllerScript_P1.MovementY *= Time.timeScale;
-				playerControllerScript_P1.SmoothFollowTime = 2 / Time.timeScale;
+				PlayerController.PlayerOneInstance.MovementX *= Time.timeScale;
+				PlayerController.PlayerOneInstance.MovementY *= Time.timeScale;
+				PlayerController.PlayerOneInstance.SmoothFollowTime = 2 / Time.timeScale;
+
+				if (PlayerController.PlayerTwoInstance != null)
+				{
+					PlayerController.PlayerTwoInstance.MovementX *= Time.timeScale;
+					PlayerController.PlayerTwoInstance.MovementY *= Time.timeScale;
+					PlayerController.PlayerTwoInstance.SmoothFollowTime = 2 / Time.timeScale;
+				}
+
 				return;
 			}
 
@@ -310,7 +363,12 @@ public class TimescaleController : MonoBehaviour
 					isOverridingTimeScale = false;
 				}
 
-				playerControllerScript_P1.SmoothFollowTime = 15;
+				PlayerController.PlayerOneInstance.SmoothFollowTime = 15;
+
+				if (PlayerController.PlayerTwoInstance != null) 
+				{
+					PlayerController.PlayerTwoInstance.SmoothFollowTime = 15;
+				}
 
 				return;
 			}
@@ -339,8 +397,8 @@ public class TimescaleController : MonoBehaviour
 			if (InitialCountdownSequenceTimeRemaining <= 0) 
 			{
 				Time.timeScale = 1;
-				GameController.Instance.CountScore = true;
 				isInInitialCountdownSequence = false;
+				GameController.Instance.CountScore = true;
 				GameController.Instance.NextLevel ();
 				GameController.Instance.StartGame ();
 			}
@@ -360,8 +418,8 @@ public class TimescaleController : MonoBehaviour
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 		GameOverController.Instance.transform.parent.gameObject.SetActive (true);
 		GameOverController.Instance.enabled = true;
-		CamSimpleFollow.enabled = false;
 		GameOverController.Instance.CheckLeaderboard ();
+		CamSimpleFollow.enabled = false;
 
 		gameOverMenuManager.menuButtons.buttonIndex = 0;
 		gameOverMenuManager.MenuOnEnter (gameOverMenuManager.menuButtons.buttonIndex);
@@ -371,7 +429,12 @@ public class TimescaleController : MonoBehaviour
 		CursorManager.Instance.ShowMouse ();
 
 		#if !UNITY_ANDROID && !PLATFORM_WEBGL
-		playerControllerScript_P1.Vibrate (0, 0, 0);
+		PlayerController.PlayerOneInstance.Vibrate (0, 0, 0);
+
+		if (PlayerController.PlayerTwoInstance != null) 
+		{
+			PlayerController.PlayerTwoInstance.Vibrate (0, 0, 0);
+		}
 		#endif
 	}
 
@@ -381,7 +444,15 @@ public class TimescaleController : MonoBehaviour
 		isRewinding = _isRewinding;
 		RewindDuration = rewindTime;
 		RewindTimeRemaining = RewindDuration;
-		playerControllerScript_P1.InvincibleParticles.Play ();
+
+		PlayerController.PlayerOneInstance.InvincibleParticles.Play ();
+		PlayerController.PlayerOneInstance.InvincibleParticles.Play ();
+
+		if (PlayerController.PlayerTwoInstance != null) 
+		{
+			PlayerController.PlayerTwoInstance.InvincibleParticles.Play ();
+			PlayerController.PlayerTwoInstance.InvincibleParticles.Play ();
+		}
 	}
 
 	// Timer for rewind state.
@@ -391,8 +462,14 @@ public class TimescaleController : MonoBehaviour
 		{
 			isRewinding = false;
 			noiseScript.enabled = false;
-			playerControllerScript_P1.InvincibleCollider.enabled = false;
-			playerControllerScript_P1.InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+			PlayerController.PlayerOneInstance.InvincibleCollider.enabled = false;
+			PlayerController.PlayerOneInstance.InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+
+			if (PlayerController.PlayerTwoInstance != null) 
+			{
+				PlayerController.PlayerTwoInstance.InvincibleCollider.enabled = false;
+				PlayerController.PlayerTwoInstance.InvincibleParticles.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+			}
 			return;
 		}
 
@@ -401,7 +478,12 @@ public class TimescaleController : MonoBehaviour
 			isRewinding = true;
 			RewindTimeRemaining -= Time.unscaledDeltaTime;
 			noiseScript.enabled = true;
-			playerControllerScript_P1.InvincibleCollider.enabled = true;
+			PlayerController.PlayerOneInstance.InvincibleCollider.enabled = true;
+
+			if (PlayerController.PlayerTwoInstance != null)
+			{
+				PlayerController.PlayerTwoInstance.InvincibleCollider.enabled = true;
+			}
 		} 
 	}
 

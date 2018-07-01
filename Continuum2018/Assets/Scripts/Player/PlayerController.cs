@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
 	public float MainEngineParticleEmissionLerpSpeed = 4;
 
 	[Tooltip("To be used to calculate distance and therefore time scale.")]
+	public float RelativeDistance;
 	public Transform ReferencePoint;
 	[Tooltip("Visuals for the player guides.")]
 	public GameObject PlayerGuides;
@@ -634,6 +635,48 @@ public class PlayerController : MonoBehaviour
 		UpdateAudio ();
 		UpdateParticleEffects ();
 		UpdateRiskDistanceTime ();
+		//CheckDistanceToOtherPlayer ();
+	}
+
+	void CheckDistanceToOtherPlayer ()
+	{
+		if (PlayerOneInstance == this) 
+		{
+			if (Vector3.Distance (PlayerOneInstance.transform.position, PlayerTwoInstance.transform.position) < 2)
+			{
+				// Other player is on the right.
+				if (PlayerTwoInstance.transform.position.x > transform.position.x) 
+				{
+					
+				}
+
+				// Other player is on the left.
+				if (PlayerTwoInstance.transform.position.x < transform.position.x) 
+				{
+
+				}
+
+				// Other player is above.
+				if (PlayerTwoInstance.transform.position.y > transform.position.y) 
+				{
+
+				}
+
+				// Other player is below.
+				if (PlayerTwoInstance.transform.position.y < transform.position.y) 
+				{
+
+				}
+			}
+		}
+
+		if (PlayerTwoInstance == this) 
+		{
+			if (Vector3.Distance (PlayerOneInstance.transform.position, PlayerTwoInstance.transform.position) < 2)
+			{
+
+			}
+		}
 	}
 
 	void UpdateRiskDistanceTime ()
@@ -1466,6 +1509,7 @@ public class PlayerController : MonoBehaviour
 		
 	void DrawReferencePointLine ()
 	{
+		RelativeDistance = Vector3.Distance (playerCol.transform.position, ReferencePoint.transform.position);
 		Debug.DrawLine (playerCol.transform.position, ReferencePoint.transform.position, Color.red);
 	}
 

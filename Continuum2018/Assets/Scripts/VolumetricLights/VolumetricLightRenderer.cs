@@ -25,13 +25,12 @@
 //  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
-
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering;
 using System;
 
+//[ExecuteInEditMode]
 [RequireComponent(typeof(Camera))]
 public class VolumetricLightRenderer : MonoBehaviour
 {
@@ -71,37 +70,21 @@ public class VolumetricLightRenderer : MonoBehaviour
 
     public CommandBuffer GlobalCommandBuffer { get { return _preLightPass; } }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
     public static Material GetLightMaterial()
     {
         return _lightMaterial;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+		
     public static Mesh GetPointLightMesh()
     {
         return _pointLightMesh;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+		
     public static Mesh GetSpotLightMesh()
     {
         return _spotLightMesh;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+		
     public RenderTexture GetVolumeLightBuffer()
     {
         if (Resolution == VolumtericResolution.Quarter)
@@ -111,11 +94,7 @@ public class VolumetricLightRenderer : MonoBehaviour
         else
             return _volumeLightTexture;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+		
     public RenderTexture GetVolumeLightDepthBuffer()
     {
         if (Resolution == VolumtericResolution.Quarter)
@@ -126,18 +105,11 @@ public class VolumetricLightRenderer : MonoBehaviour
             return null;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
     public static Texture GetDefaultSpotCookie()
     {
         return _defaultSpotCookie;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
+		
     void Awake()
     {
         _camera = GetComponent<Camera>();
@@ -189,10 +161,7 @@ public class VolumetricLightRenderer : MonoBehaviour
         LoadNoise3dTexture();
         GenerateDitherTexture();
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
+		
     void OnEnable()
     {
         //_camera.RemoveAllCommandBuffers();
@@ -201,10 +170,7 @@ public class VolumetricLightRenderer : MonoBehaviour
         else
             _camera.AddCommandBuffer(CameraEvent.BeforeLighting, _preLightPass);
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
+		
     void OnDisable()
     {
         //_camera.RemoveAllCommandBuffers();
@@ -213,10 +179,7 @@ public class VolumetricLightRenderer : MonoBehaviour
         else
             _camera.RemoveCommandBuffer(CameraEvent.BeforeLighting, _preLightPass);
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
+		
     void ChangeResolution()
     {
         int width = _camera.pixelWidth;
@@ -264,9 +227,6 @@ public class VolumetricLightRenderer : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public void OnPreRender()
     {
 
@@ -385,10 +345,7 @@ public class VolumetricLightRenderer : MonoBehaviour
         Shader.SetGlobalTexture("_DitherTexture", _ditheringTexture);
         Shader.SetGlobalTexture("_NoiseTexture", _noiseTexture);
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
+		
     void Update()
     {
         //#if UNITY_EDITOR
@@ -402,10 +359,7 @@ public class VolumetricLightRenderer : MonoBehaviour
             ChangeResolution();
         //#endif
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
+		
     void LoadNoise3dTexture()
     {
         // basic dds loader for 3d texture - !not very robust!
@@ -470,10 +424,7 @@ public class VolumetricLightRenderer : MonoBehaviour
         _noiseTexture.SetPixels(c);
         _noiseTexture.Apply();
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
+		
     private void GenerateDitherTexture()
     {
         if (_ditheringTexture != null)
@@ -589,11 +540,7 @@ public class VolumetricLightRenderer : MonoBehaviour
         _ditheringTexture.SetPixels32(c);
         _ditheringTexture.Apply();
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+		
     private Mesh CreateSpotLightMesh()
     {
         // copy & pasted from other project, the geometry is too complex, should be simplified

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[ExecuteInEditMode]
 public class Spotlights : MonoBehaviour 
 {
 	public Light[] SpotLights;

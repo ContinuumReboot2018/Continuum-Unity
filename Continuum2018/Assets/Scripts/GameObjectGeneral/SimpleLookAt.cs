@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[ExecuteInEditMode]
 public class SimpleLookAt : MonoBehaviour 
 {
 	[Tooltip ("Position to look at.")]
