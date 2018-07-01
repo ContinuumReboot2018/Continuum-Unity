@@ -9,7 +9,7 @@ public class ObjectsOnScreen : MonoBehaviour
 		Bullet
 	}
 
-	void Awake ()
+	void OnEnable ()
 	{
 		switch (ObjectType) 
 		{
@@ -22,13 +22,26 @@ public class ObjectsOnScreen : MonoBehaviour
 		}
 	}
 
-	void OnDestroy ()
+	void OnDisable ()
 	{
 		switch (ObjectType) 
 		{
 		case type.Block:
 			GameController.Instance.numberOfBlocks--;
 			break;
+		//case type.Bullet:
+		//	GameController.Instance.numberOfBullets--;
+		//	break;
+		}
+	}
+
+	void OnDestroy ()
+	{
+		switch (ObjectType) 
+		{
+		//case type.Block:
+		//	GameController.Instance.numberOfBlocks--;
+		//	break;
 		case type.Bullet:
 			GameController.Instance.numberOfBullets--;
 			break;

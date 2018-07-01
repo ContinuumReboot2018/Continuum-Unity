@@ -319,7 +319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c79d5e58d505247b448ae2a1be54e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   blockScript: {fileID: 0}
   Lifetime: 2
   ExplosionSound: {fileID: 82630998734724706}
@@ -340,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedExplosions
-  OnStart: 1
+  OnStart: 0
 --- !u!114 &114344286343468894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,7 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c79d5e58d505247b448ae2a1be54e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   blockScript: {fileID: 0}
   Lifetime: 2
   ExplosionSound: {fileID: 82290292129079766}

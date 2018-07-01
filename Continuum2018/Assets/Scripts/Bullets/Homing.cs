@@ -32,7 +32,6 @@ public class Homing : MonoBehaviour
 	void Start () 
 	{
 		rb = GetComponent<Rigidbody> ();
-		//Invoke ("ReleaseHoming", homingTime); // Prepeare homing to release by homing time.
 		Invoke ("GetObjectToHome", 0);
 	}
 
@@ -101,6 +100,13 @@ public class Homing : MonoBehaviour
 		if (target != null) 
 		{
 			Debug.DrawLine (transform.position, target.position, new Color (0.47f, 1.0f, 0.05f));
+
+			if (target.gameObject.activeInHierarchy == false) 
+			{
+				//ReleaseHoming ();
+				//target = null;
+				//Invoke ("GetObjectToHome", 0);
+			}
 		}
 	}
 

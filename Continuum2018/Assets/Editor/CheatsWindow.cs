@@ -7,6 +7,11 @@ public class CheatsWindow : EditorWindow
 	Vector2 scrollPos;
 	string lastCheat;
 
+	void OnApplicationQuit ()
+	{
+		ClearLastCheatStringLabel ();
+	}
+
 	void Start ()
 	{
 		ClearLastCheatStringLabel ();
@@ -167,59 +172,7 @@ public class CheatsWindow : EditorWindow
 			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.DoBonusRoundCommand;
 			UpdateCurrentCheatButtonLabel ();
 		}
-
-		GUILayout.Label ("Framerate cheats", EditorStyles.boldLabel);
-
-		GUI.backgroundColor = new Color (0.75f, 0.75f, 0.75f, 1); // Dark grey background.
-
-		// FPS unlock.
-		if (GUILayout.Button ("Unlock framerate", style)) 
-		{
-			DeveloperMode.Instance.ResetCheatStringTimer ();
-			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.FpsUnlockCommand;
-			UpdateCurrentCheatButtonLabel ();
-		}
-
-		// FPS 20.
-		if (GUILayout.Button ("FPS limit = 20", style)) 
-		{
-			DeveloperMode.Instance.ResetCheatStringTimer ();
-			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps20Command;
-			UpdateCurrentCheatButtonLabel ();
-		}
-
-		// FPS 30.
-		if (GUILayout.Button ("FPS limit = 30", style)) 
-		{
-			DeveloperMode.Instance.ResetCheatStringTimer ();
-			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps30Command;
-			UpdateCurrentCheatButtonLabel ();
-		}
-
-		// FPS 60.
-		if (GUILayout.Button ("FPS limit = 60", style)) 
-		{
-			DeveloperMode.Instance.ResetCheatStringTimer ();
-			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps60Command;
-			UpdateCurrentCheatButtonLabel ();
-		}
-
-		// FPS 90.
-		if (GUILayout.Button ("FPS limit = 90", style)) 
-		{
-			DeveloperMode.Instance.ResetCheatStringTimer ();
-			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps90Command;
-			UpdateCurrentCheatButtonLabel ();
-		}
-
-		// FPS unlock.
-		if (GUILayout.Button ("FPS limit = 120", style)) 
-		{
-			DeveloperMode.Instance.ResetCheatStringTimer ();
-			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps120Command;
-			UpdateCurrentCheatButtonLabel ();
-		}
-
+			
 		GUILayout.Label ("Save cheats", EditorStyles.boldLabel);
 
 		GUI.backgroundColor = new Color (0.0f, 0.8f, 1.0f, 1); // Dark grey background.
@@ -510,6 +463,58 @@ public class CheatsWindow : EditorWindow
 			UpdateCurrentCheatButtonLabel ();
 		}
 			
+		GUILayout.Label ("Framerate cheats", EditorStyles.boldLabel);
+
+		GUI.backgroundColor = new Color (0.75f, 0.75f, 0.75f, 1); // Dark grey background.
+
+		// FPS unlock.
+		if (GUILayout.Button ("Unlock framerate", style)) 
+		{
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.FpsUnlockCommand;
+			UpdateCurrentCheatButtonLabel ();
+		}
+
+		// FPS 20.
+		if (GUILayout.Button ("FPS limit = 20", style)) 
+		{
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps20Command;
+			UpdateCurrentCheatButtonLabel ();
+		}
+
+		// FPS 30.
+		if (GUILayout.Button ("FPS limit = 30", style)) 
+		{
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps30Command;
+			UpdateCurrentCheatButtonLabel ();
+		}
+
+		// FPS 60.
+		if (GUILayout.Button ("FPS limit = 60", style)) 
+		{
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps60Command;
+			UpdateCurrentCheatButtonLabel ();
+		}
+
+		// FPS 90.
+		if (GUILayout.Button ("FPS limit = 90", style)) 
+		{
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps90Command;
+			UpdateCurrentCheatButtonLabel ();
+		}
+
+		// FPS 120.
+		if (GUILayout.Button ("FPS limit = 120", style)) 
+		{
+			DeveloperMode.Instance.ResetCheatStringTimer ();
+			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.Fps120Command;
+			UpdateCurrentCheatButtonLabel ();
+		}
+
 		GUILayout.EndScrollView ();
 		GUILayout.EndVertical ();
 	}

@@ -249,6 +249,7 @@ public class DeveloperMode : MonoBehaviour
 				if (forceStarted == false) 
 				{
 					TutorialManager.Instance.TurnOffTutorial (true);
+					TutorialManager.Instance.gameObject.SetActive (false);
 					ShowCheatNotification ("CHEAT ACTIVATED: FORCE START");
 					forceStarted = true;
 				}

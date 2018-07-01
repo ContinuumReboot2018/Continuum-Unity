@@ -289,17 +289,19 @@ public class GameOverController : MonoBehaviour
 			SaveAndLoadScript.Instance.Leaderboard_FastTrack.RemoveAt (10);
 			break;
 		}
-
-		//SaveAndLoadScript.Instance.Leaderboards [SaveAndLoadScript.Instance.MissionId].leaderboard.Insert (position, newLeaderboardEntry);
-		//SaveAndLoadScript.Instance.Leaderboards [SaveAndLoadScript.Instance.MissionId].leaderboard.RemoveAt (10);
-	
+			
 		return;
 	}
 		
-	void GetXpToAdd ()
+	public void GetXpToAdd ()
 	{
 		CurrentXP = Mathf.RoundToInt (FinalScore);
 		SaveAndLoadScript.Instance.ExperiencePoints += CurrentXP;
+	}
+
+	public void GetBlocksDestroyedToAdd ()
+	{
+		SaveAndLoadScript.Instance.blocksDestroyed += GameController.Instance.BlocksDestroyed;
 	}
 
 	public void UpdateFinalScoreText ()

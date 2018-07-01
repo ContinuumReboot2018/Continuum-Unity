@@ -175,6 +175,9 @@ public class LeaderboardEntryManager : MonoBehaviour
 	{
 		SavingText.SetActive (true);
 
+		GameOverController.Instance.GetGameOverStats ();
+		GameOverController.Instance.GetXpToAdd ();
+
 		yield return new WaitForSecondsRealtime (2);
 
 		// This allows the scores and waves to be updated correctly.

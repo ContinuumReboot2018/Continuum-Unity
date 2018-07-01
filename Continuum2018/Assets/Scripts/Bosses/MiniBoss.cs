@@ -127,9 +127,9 @@ public class MiniBoss : MonoBehaviour
 		}
 
 		// Found a player, set PlayerPos.
-		if (GameObject.Find ("PlayerCollider").transform != null) 
+		if (PlayerController.PlayerOneInstance != null) 
 		{
-			PlayerPos = GameObject.Find ("PlayerCollider").transform;
+			PlayerPos = PlayerController.PlayerOneInstance.transform;
 			FollowPlayerPos = PlayerPos;
 			Invoke ("GetBossParts", 0.5f);
 			StartCoroutine (DrawLineToPlayer ());
@@ -142,7 +142,7 @@ public class MiniBoss : MonoBehaviour
 
 
 		// Couldn't find the player. Bail out and go to next wave.
-		if (GameObject.Find ("PlayerCollider").transform == null) 
+		if (PlayerController.PlayerOneInstance == null) 
 		{
 			BossPartsConvertToNoise ();
 			hitPoints = 0;
@@ -341,8 +341,10 @@ public class MiniBoss : MonoBehaviour
 	void KillMiniBoss ()
 	{
 		BossPartsConvertToNoise (); // Convert all blocks in array to noise and detach.
+
 		hitPoints = 0; // Reset all hit points.
 		Instantiate (LargeExplosion, transform.position, Quaternion.identity); // Spawn a large explosion.
+
 		GameController.Instance.StartNewWave (); // Go to next wave.
 		GameController.Instance.IsInWaveTransition = true; // Set to be in wave transition.
 

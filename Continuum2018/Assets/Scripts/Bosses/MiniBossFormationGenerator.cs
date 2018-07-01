@@ -40,9 +40,13 @@ public class MiniBossFormationGenerator : MonoBehaviour
 
 	void OnDestroy ()
 	{
-		foreach (GameObject spawnedbosspart in SpawnedBossParts) 
+		if (Application.isPlaying == false) 
 		{
-			DestroyImmediate (spawnedbosspart);
+			// Destroy each block only in edit mode.
+			foreach (GameObject spawnedbosspart in SpawnedBossParts) 
+			{
+				DestroyImmediate (spawnedbosspart);
+			}
 		}
 
 		SpawnedBossParts.Clear ();

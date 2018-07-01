@@ -162,8 +162,18 @@ public class Block : MonoBehaviour
 	{
 		if (isBossPart == false && isBonusBlock == false) 
 		{
-			int BlockId = Random.Range (0, GameController.Instance.Wave);
-			BlockType = (mainBlockType)BlockId;
+			if (GameController.Instance.Wave < 5) 
+			{
+				int BlockId = Random.Range (0, GameController.Instance.Wave);
+				BlockType = (mainBlockType)BlockId;
+			} 
+
+			else 
+			
+			{
+				int BlockId = Random.Range (0, 4);
+				BlockType = (mainBlockType)BlockId;
+			}
 		}
 	}
 
@@ -176,7 +186,13 @@ public class Block : MonoBehaviour
 		}
 
 		allBlocks.Remove (this);
-		processor.onBeat.RemoveListener (onOnbeatDetected);
+
+		if (processor != null)
+		{
+			processor.onBeat.RemoveListener (onOnbeatDetected);
+		}
+
+		SaveAndLoadScript.Instance.blocksDestroyed++;
 	}
 
 	void OnDestroy ()
@@ -189,7 +205,13 @@ public class Block : MonoBehaviour
 
 		BlockChecker.Instance.BlocksInstanced.Remove (gameObject);
 		allBlocks.Remove (this);
-		processor.onBeat.RemoveListener (onOnbeatDetected);
+
+		if (processor != null)
+		{
+			processor.onBeat.RemoveListener (onOnbeatDetected);
+		}
+
+		SaveAndLoadScript.Instance.blocksDestroyed++;
 	}
 		
 	void Awake ()
@@ -348,7 +370,7 @@ public class Block : MonoBehaviour
 					BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
 
 					// If tutorial script is referenced.
-					if (TutorialManager.Instance != null) 
+					if (TutorialManager.Instance != null && TutorialManager.Instance.tutorialComplete == false) 
 					{
 						// Reset block index in info section.
 						if (TutorialManager.Instance.TutorialPhase != TutorialManager.tutorialPhase.Info
@@ -363,6 +385,7 @@ public class Block : MonoBehaviour
 						{
 							Debug.Log ("Attempted to turn off tutorial.");
 							TutorialManager.Instance.TurnOffTutorial (false);
+							TutorialManager.Instance.gameObject.SetActive (false);
 						}
 					}
 
@@ -492,7 +515,7 @@ public class Block : MonoBehaviour
 					BoxCol.enabled = false; // Turn off box collider to prevent multiple collisions.
 
 					// If tutorial script is referenced.
-					if (TutorialManager.Instance != null)
+					if (TutorialManager.Instance != null && TutorialManager.Instance.tutorialComplete == false)
 					{
 						// Reset block index in info section.
 						if (TutorialManager.Instance.TutorialPhase != TutorialManager.tutorialPhase.Info)
@@ -505,6 +528,7 @@ public class Block : MonoBehaviour
 						{
 							Debug.Log ("Attempted to turn off tutorial.");
 							TutorialManager.Instance.TurnOffTutorial (false);
+							TutorialManager.Instance.gameObject.SetActive (false);
 						}
 					}
 
@@ -618,6 +642,8 @@ public class Block : MonoBehaviour
 	// MiniBoss script calls this on all its children blocks.
 	public void ConvertToNoiseBossPart ()
 	{
+		//parentToTransformScript.ParentNow ();
+
 		// Checks if this is a boss part, it doesnt have a parent, and did not get attached yet.
 		HitPoints = 1;
 		textureScrollScript.enabled = true; // Turn on texture scroll script.

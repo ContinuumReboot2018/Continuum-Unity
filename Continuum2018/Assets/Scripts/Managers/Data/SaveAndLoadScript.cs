@@ -22,6 +22,13 @@ public class SaveAndLoadScript : MonoBehaviour
 	[Header ("Player Data")]
 	public string Username = "default";
 	public int ExperiencePoints;
+	public int blocksDestroyed;
+
+	[Space (10)]
+	public int SelectedAbility;
+	public int SelectedSkin;
+	public int MissionId;
+
 	[Space (10)]
 	public List<LeaderboardEntry> DefaultLeaderboard_Arcade;
 	public List<LeaderboardEntry> DefaultLeaderboard_BossRush;
@@ -39,11 +46,6 @@ public class SaveAndLoadScript : MonoBehaviour
 	public List<LeaderboardEntry> Leaderboard_Scavenger;
 	public List<LeaderboardEntry> Leaderboard_Hell;
 	public List<LeaderboardEntry> Leaderboard_FastTrack;
-
-	[Space (10)]
-	public int SelectedAbility;
-	public int SelectedSkin;
-	public int MissionId;
 
 	[Header ("Settings Data")]
 	public PostProcessingProfile VisualSettings;
@@ -164,6 +166,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig.dat") == false) 
 		{
 			ExperiencePoints = 0;
+			blocksDestroyed = 0;
 			ResetAllLeaderboards ();
 		}
 		#endif
@@ -180,6 +183,7 @@ public class SaveAndLoadScript : MonoBehaviour
 		if (File.Exists (Application.persistentDataPath + "/" + Username + "_PlayerConfig_Editor.dat") == false) 
 		{
 			ExperiencePoints = 0;
+			blocksDestroyed = 0;
 			ResetAllLeaderboards ();
 		}
 		#endif
@@ -229,6 +233,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		data.Username = Username;
 		data.ExperiencePoints = ExperiencePoints;
+		data.blocksDestroyed = blocksDestroyed;
+
 		data.SelectedAbility = SelectedAbility;
 		data.SelectedSkin = SelectedSkin;
 		data.MissionId = MissionId;
@@ -376,6 +382,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		Username = data.Username;
 		ExperiencePoints = data.ExperiencePoints;
+		blocksDestroyed = data.blocksDestroyed;
+
 		SelectedAbility = data.SelectedAbility;
 		SelectedSkin = data.SelectedSkin;
 		MissionId = data.MissionId;
@@ -704,6 +712,8 @@ public class SaveAndLoadScript : MonoBehaviour
 	{
 		public string Username;
 		public int ExperiencePoints;
+		public int blocksDestroyed;
+
 		public int SelectedAbility;
 		public int SelectedSkin;
 		public int MissionId;

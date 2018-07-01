@@ -1337,14 +1337,11 @@ public class GameController : MonoBehaviour
 							// Find first block GameObject that is disabled.
 							if (BlockChecker.Instance.BlocksInstanced [i].gameObject.activeInHierarchy == false) 
 							{
-								if (BlockChecker.Instance.BlocksInstanced [i].GetComponent<Block> ().BlockType == Block.mainBlockType.Aqua) {
-
-									BlockChecker.Instance.BlocksInstanced [i].SetActive (true);
-									BlockChecker.Instance.BlocksInstanced [i].transform.position = SpawnPosRand;
-									recycledBlock = true;
-									//Debug.Log ("Recycled a block.");
-									return;
-								}
+								BlockChecker.Instance.BlocksInstanced [i].SetActive (true);
+								BlockChecker.Instance.BlocksInstanced [i].transform.position = SpawnPosRand;
+								recycledBlock = true;
+								//Debug.Log ("Recycled a block.");
+								return;
 							}
 						}
 					}
@@ -1768,6 +1765,7 @@ public class GameController : MonoBehaviour
 		if (gameModifier.Tutorial == false) 
 		{
 			TutorialManager.Instance.TurnOffTutorial (true);
+			TutorialManager.Instance.gameObject.SetActive (false);
 		}
 
 		// Sets how powerups should spawn in the game.

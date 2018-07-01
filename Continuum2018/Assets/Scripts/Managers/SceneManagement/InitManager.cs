@@ -40,4 +40,10 @@ public class InitManager : MonoBehaviour
 			postProcess.enabled = true;
 		}
 	}
+
+
+	void OnApplicationQuit ()
+	{
+		Debug.Log ("Application ended after " + Time.unscaledTime + " seconds.");
+	}
 }
