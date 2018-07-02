@@ -534,12 +534,14 @@ public class PlayerController : MonoBehaviour
 		{
 			PlayerOneInstance = this;
 			Debug.Log ("Player one instance set.");
+			//playerActions_P1.Device = GameController.playerDevices[deviceID];
 		}
 
 		if (PlayerId == 2) 
 		{
 			PlayerTwoInstance = this;
 			Debug.Log ("Player two instance set.");
+			//playerActions_P2.Device = GameController.playerDevices[deviceID];
 		}
 	}
 

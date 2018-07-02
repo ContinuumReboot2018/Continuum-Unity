@@ -81,7 +81,7 @@ public class MiniBoss : MonoBehaviour
 
 	void OnDestroy ()
 	{
-		if (AudioController.Instance != null) 
+		if (AudioController.Instance.BigBossSoundtrack != null) 
 		{
 			if (AudioController.Instance.BigBossSoundtrack.isPlaying == true)
 			{
