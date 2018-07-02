@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5230ad3e6b0884b950fd8b7db05075, type: 3}
+  m_Name: NoiseBlock
+  m_EditorClassIdentifier: 
+  Speed: 0
+  Material: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
+  BasePointValue: 0
+  Explosion: {fileID: 1081727288271718, guid: 2a66aaa9745d95349baee88eeb156b89, type: 2}
+  TextColor: {r: 0.5588235, g: 0.5588235, b: 0.5588235, a: 1}

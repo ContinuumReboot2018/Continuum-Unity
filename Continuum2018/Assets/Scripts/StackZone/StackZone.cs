@@ -133,7 +133,7 @@ public class StackZone : MonoBehaviour
 				CapturedBlockParentRigidbody != null) 
 			{
 				CapturedBlockParentRigidbody.velocity = Vector3.zero;
-				CapturedBlockParentBlockFormation.enabled = false;
+				//CapturedBlockParentBlockFormation.enabled = false;
 				CapturedBlockParentToTransform.ParentNow ();
 			}
 		}

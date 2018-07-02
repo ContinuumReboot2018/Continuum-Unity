@@ -12,9 +12,6 @@ using InControl;
 public class GameController : MonoBehaviour 
 {
 	public static GameController Instance { get; private set; }
-	public ObjectPooler objectPooler;
-
-	public PlayerController 		playerControllerScript_P1;	// Reference to the player controller.
 	public PostProcessingProfile 	ImageEffects;				// Reference to the post processing profile.
 	public GameModifierManager 		gameModifier;				// Reference to the GameModifierManager Scriptable object.
 	public GameModifierManager[] 	missionModiferSettings;
@@ -408,8 +405,6 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
-		objectPooler = ObjectPooler.instance;
-
 		// Get the save and load script.
 		if (SaveAndLoadScript.Instance != null)
 		{
@@ -427,7 +422,9 @@ public class GameController : MonoBehaviour
 		// Invokes a game over if the trial time is greater than 0. (Set to -1 just to be safe to avoid this).
 		if (gameModifier.TrialTime > 0) 
 		{
-			playerControllerScript_P1.StartCoroutine (playerControllerScript_P1.GameOverDelay (gameModifier.TrialTime));
+			PlayerController.PlayerOneInstance.StartCoroutine (
+				PlayerController.PlayerOneInstance.GameOverDelay (gameModifier.TrialTime)
+			);
 		}
 
 		ClearBlockList ();
@@ -457,14 +454,14 @@ public class GameController : MonoBehaviour
 		// Clear wave info stuff.
 		WaveTimeDuration = FirstWaveTimeDuration;
 		WaveText.text = "";
-		playerControllerScript_P1.WaveAnim.enabled = false;
+		PlayerController.PlayerOneInstance.WaveAnim.enabled = false;
 		WaveBackground.enabled = false;
 		IsInWaveTransition = false;
 	}
 
 	public void ClearPowerupUI ()
 	{
-		// Reset powerup modifiers.
+		#region Reset powerup images
 		HomingImage.enabled 	= gameModifier.AlwaysHoming;
 		HomingHex.enabled 		= gameModifier.AlwaysHoming;
 		RicochetImage.enabled	= gameModifier.AlwaysRicochet;
@@ -473,45 +470,96 @@ public class GameController : MonoBehaviour
 		RapidfireHex.enabled 	= gameModifier.AlwaysRapidfire;
 		OverdriveImage.enabled 	= gameModifier.AlwaysOverdrive;
 		OverdriveHex.enabled	= gameModifier.AlwaysOverdrive;
+		#endregion
 
-		playerControllerScript_P1.useOverheat = gameModifier.useOverheat;
+		#region Check overheat status
+		PlayerController.PlayerOneInstance.useOverheat = gameModifier.useOverheat;
 
+		if (PlayerController.PlayerTwoInstance != null) 
+		{
+			PlayerController.PlayerTwoInstance.useOverheat = gameModifier.useOverheat;
+		}
+		#endregion
+
+		#region Check ricochet and homing status
 		if (gameModifier.AlwaysRicochet == true || gameModifier.AlwaysHoming == true) 
 		{
-			playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Enhanced;
-			playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
-			playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Enhanced;
-			playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Enhanced;
-		}
+			PlayerController.PlayerOneInstance.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+			PlayerController.PlayerOneInstance.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+			PlayerController.PlayerOneInstance.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+			PlayerController.PlayerOneInstance.RippleShotIteration = PlayerController.shotIteration.Enhanced;
 
+			if (PlayerController.PlayerTwoInstance != null) 
+			{
+				PlayerController.PlayerTwoInstance.StandardShotIteration = PlayerController.shotIteration.Enhanced;
+				PlayerController.PlayerTwoInstance.DoubleShotIteration = PlayerController.shotIteration.Enhanced;
+				PlayerController.PlayerTwoInstance.TripleShotIteration = PlayerController.shotIteration.Enhanced;
+				PlayerController.PlayerTwoInstance.RippleShotIteration = PlayerController.shotIteration.Enhanced;
+			}
+		}
+		#endregion
+
+		#region Check rapidfire status
 		if (gameModifier.AlwaysRapidfire == true) 
 		{
-			switch (playerControllerScript_P1.ShotType) 
+			switch (PlayerController.PlayerOneInstance.ShotType) 
 			{
 			case PlayerController.shotType.Standard:
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+				PlayerController.PlayerOneInstance.CurrentFireRate = PlayerController.PlayerOneInstance.DoubleShotFireRates [1];
 				break;	
 			case PlayerController.shotType.Double:
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.DoubleShotFireRates [1];
+				PlayerController.PlayerOneInstance.CurrentFireRate = PlayerController.PlayerOneInstance.DoubleShotFireRates [1];
 				break;
 			case PlayerController.shotType.Triple:
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+				PlayerController.PlayerOneInstance.CurrentFireRate = PlayerController.PlayerOneInstance.TripleShotFireRates [1];
 				break;
 			case PlayerController.shotType.Ripple:
-				playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.RippleShotFireRates [1];
+				PlayerController.PlayerOneInstance.CurrentFireRate = PlayerController.PlayerOneInstance.RippleShotFireRates [1];
 				break;
 			}
 				
-			playerControllerScript_P1.isInRapidFire = true;
-		}
+			PlayerController.PlayerOneInstance.isInRapidFire = true;
 
+			if (PlayerController.PlayerTwoInstance != null)
+			{
+				switch (PlayerController.PlayerTwoInstance.ShotType) 
+				{
+				case PlayerController.shotType.Standard:
+					PlayerController.PlayerTwoInstance.CurrentFireRate = PlayerController.PlayerTwoInstance.DoubleShotFireRates [1];
+					break;	
+				case PlayerController.shotType.Double:
+					PlayerController.PlayerTwoInstance.CurrentFireRate = PlayerController.PlayerTwoInstance.DoubleShotFireRates [1];
+					break;
+				case PlayerController.shotType.Triple:
+					PlayerController.PlayerTwoInstance.CurrentFireRate = PlayerController.PlayerTwoInstance.TripleShotFireRates [1];
+					break;
+				case PlayerController.shotType.Ripple:
+					PlayerController.PlayerTwoInstance.CurrentFireRate = PlayerController.PlayerTwoInstance.RippleShotFireRates [1];
+					break;
+				}
+
+				PlayerController.PlayerTwoInstance.isInRapidFire = true;
+			}
+		}
+		#endregion
+
+		#region Check overdrive status
 		if (gameModifier.AlwaysOverdrive == true) 
 		{
-			playerControllerScript_P1.StandardShotIteration = PlayerController.shotIteration.Overdrive;
-			playerControllerScript_P1.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
-			playerControllerScript_P1.TripleShotIteration = PlayerController.shotIteration.Overdrive;
-			playerControllerScript_P1.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+			PlayerController.PlayerOneInstance.StandardShotIteration = PlayerController.shotIteration.Overdrive;
+			PlayerController.PlayerOneInstance.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
+			PlayerController.PlayerOneInstance.TripleShotIteration = PlayerController.shotIteration.Overdrive;
+			PlayerController.PlayerOneInstance.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+
+			if (PlayerController.PlayerTwoInstance != null)
+			{
+				PlayerController.PlayerTwoInstance.StandardShotIteration = PlayerController.shotIteration.Overdrive;
+				PlayerController.PlayerTwoInstance.DoubleShotIteration = PlayerController.shotIteration.Overdrive;
+				PlayerController.PlayerTwoInstance.TripleShotIteration = PlayerController.shotIteration.Overdrive;
+				PlayerController.PlayerTwoInstance.RippleShotIteration = PlayerController.shotIteration.Overdrive;
+			}
 		}
+		#endregion
 
 		PowerupImage_P1 [0].texture = StandardShotTexture;
 			
@@ -525,7 +573,7 @@ public class GameController : MonoBehaviour
 
 			powerupImage.texture = null;
 			powerupImage.color = new Color (0, 0, 0, 0);
-			playerControllerScript_P1.CheckPowerupImageUI ();
+			PlayerController.PlayerOneInstance.CheckPowerupImageUI ();
 		}
 
 		// Reset inital powerup slot index.
@@ -547,11 +595,11 @@ public class GameController : MonoBehaviour
 		CheckBossSpawnMode (); // Checks mode from game modifier to set boss spawn mode.
 
 		// Allow score animators and UI.
-		playerControllerScript_P1.AbilityUIHexes.Play ("HexesFadeIn"); // Fade in hexes.
-		playerControllerScript_P1.ScoreAnim.enabled = true;
-		playerControllerScript_P1.LivesAnim.gameObject.SetActive (true);
-		playerControllerScript_P1.LivesAnim.enabled = true;
-		playerControllerScript_P1.WaveAnim.enabled = true;
+		PlayerController.PlayerOneInstance.AbilityUIHexes.Play ("HexesFadeIn"); // Fade in hexes.
+		PlayerController.PlayerOneInstance.ScoreAnim.enabled = true;
+		PlayerController.PlayerOneInstance.LivesAnim.gameObject.SetActive (true);
+		PlayerController.PlayerOneInstance.LivesAnim.enabled = true;
+		PlayerController.PlayerOneInstance.WaveAnim.enabled = true;
 
 		ScoreBackground.enabled = true;
 		LivesBackground.enabled = true;
@@ -686,15 +734,15 @@ public class GameController : MonoBehaviour
 				WaveTimeRemainingText_Debug.text = 
 					"Wave Time Remain: " + Math.Round (WaveTimeRemaining, 1) + " s";
 				P1_CurrentFireRate.text = 
-					"P1 Fire Rate: " + playerControllerScript_P1.CurrentFireRate;
+					"P1 Fire Rate: " + PlayerController.PlayerOneInstance.CurrentFireRate;
 				P1_Ability.text = 
-					"P1 Ability: " + playerControllerScript_P1.AbilityName;
+					"P1 Ability: " + PlayerController.PlayerOneInstance.AbilityName;
 				P1_AbilityTimeRemaining.text = 
-					"P1 Ability Remain: " + Math.Round (playerControllerScript_P1.CurrentAbilityTimeRemaining, 2);
+					"P1 Ability Remain: " + Math.Round (PlayerController.PlayerOneInstance.CurrentAbilityTimeRemaining, 2);
 				P1_AbilityTimeDuration.text = 
-					"P1 Max Ability Time: " + playerControllerScript_P1.CurrentAbilityDuration;
+					"P1 Max Ability Time: " + PlayerController.PlayerOneInstance.CurrentAbilityDuration;
 				P1_AbilityTimeProportion.text = 
-					"P1 Ability Fill: " + Math.Round (playerControllerScript_P1.AbilityTimeAmountProportion, 6);
+					"P1 Ability Fill: " + Math.Round (PlayerController.PlayerOneInstance.AbilityTimeAmountProportion, 6);
 				CheatTimeRemainText_Debug.text = 
 					"Cheat Time Remain: " + Math.Round (DeveloperMode.Instance.CheatStringResetTimeRemaining, 1);
 				CheatStringText_Debug.text = 
@@ -704,11 +752,11 @@ public class GameController : MonoBehaviour
 				PowerupTimeRemain_Debug.text = 
 					"Powerup Time Remain: " + Math.Round (PowerupTimeRemaining, 1);
 				P1_ShootingIterationRapid.text = 
-					"Rapid Fire: " + (playerControllerScript_P1.isInRapidFire ? "ON" : "OFF");
+					"Rapid Fire: " + (PlayerController.PlayerOneInstance.isInRapidFire ? "ON" : "OFF");
 				P1_ShootingIterationOverdrive.text = 
-					"Overdrive: " + (playerControllerScript_P1.isInOverdrive ? "ON" : "OFF");
+					"Overdrive: " + (PlayerController.PlayerOneInstance.isInOverdrive ? "ON" : "OFF");
 				P1_ShootingIterationRicochet.text = 
-					"Ricochet: " + (playerControllerScript_P1.isRicochet ? "ON" : "OFF");
+					"Ricochet: " + (PlayerController.PlayerOneInstance.isRicochet ? "ON" : "OFF");
 				AddedTimeText_Debug.text = 
 					"Added Time: " + System.Math.Round((TimescaleController.Instance.TargetTimeScaleAdd), 3);
 				LivesText_Debug.text = 
@@ -758,23 +806,23 @@ public class GameController : MonoBehaviour
 
 				// Overheat debug info.
 				OverheatTimeText_Debug.text = 
-					"Overheat proportion: " + System.Math.Round (playerControllerScript_P1.CurrentShootingHeat, 2);
+					"Overheat proportion: " + System.Math.Round (PlayerController.PlayerOneInstance.CurrentShootingHeat, 2);
 				OverheatStateText_Debug.text = 
-					"Overheated: " + (playerControllerScript_P1.Overheated ? "ON" : "OFF");
+					"Overheated: " + (PlayerController.PlayerOneInstance.Overheated ? "ON" : "OFF");
 				CurrentShootingHeatCostText_Debug.text = 
-					"Current shooting heat cost: " + playerControllerScript_P1.CurrentShootingHeatCost;
+					"Current shooting heat cost: " + PlayerController.PlayerOneInstance.CurrentShootingHeatCost;
 				CooldownTimeRemainingText_Debug.text = 
-					"Cooldown time remain: " + System.Math.Round (playerControllerScript_P1.cooldownTimeRemaining, 2);
+					"Cooldown time remain: " + System.Math.Round (PlayerController.PlayerOneInstance.cooldownTimeRemaining, 2);
 
 				CameraOrthographicSizeText_Debug.text = 
 					"Orthographic size: " + System.Math.Round (Camera.main.orthographicSize, 2);
 				PlayerMovementVector_Debug.text = 
-					"Player move input: " + new Vector2 (playerControllerScript_P1.MovementX, playerControllerScript_P1.MovementY);
+					"Player move input: " + new Vector2 (PlayerController.PlayerOneInstance.MovementX, PlayerController.PlayerOneInstance.MovementY);
 				LastImpactPointText_Debug.text = 
-					"Last impact point: " + playerControllerScript_P1.ImpactPoint.ToString ();
+					"Last impact point: " + PlayerController.PlayerOneInstance.ImpactPoint.ToString ();
 			
 				CurrentAbilityStateText_Debug.text = 
-					"P1 Ability State: " + playerControllerScript_P1.CurrentAbilityState.ToString ();
+					"P1 Ability State: " + PlayerController.PlayerOneInstance.CurrentAbilityState.ToString ();
 
 				// Beats debug info.
 				Beats_Debug.text = 
@@ -917,7 +965,7 @@ public class GameController : MonoBehaviour
 					}
 
 					PowerupAnim.Play ("PowerupTimeRunningOut");
-					playerControllerScript_P1.TurretSpinSpeed = playerControllerScript_P1.TurretSpinSpeedFaster;
+					PlayerController.PlayerOneInstance.TurretSpinSpeed = PlayerController.PlayerOneInstance.TurretSpinSpeedFaster;
 				}
 			}
 		}
@@ -925,10 +973,17 @@ public class GameController : MonoBehaviour
 		// Reset all powrups when timer runs out.
 		if (PowerupTimeRemaining < 0) 
 		{
-			playerControllerScript_P1.powerupsInUse = 0;
+			PlayerController.PlayerOneInstance.powerupsInUse = 0;
+
+			if (PlayerController.PlayerTwoInstance != null) 
+			{
+				PlayerController.PlayerTwoInstance.powerupsInUse = 0;
+			}
+
 			PowerupTimeRemaining = 0;
 			PowerupAnim.StopPlayback ();
 			PowerupResetAudio.Play ();
+
 			PlayerController.PlayerOneInstance.ResetPowerups ();
 
 			if (PlayerController.PlayerTwoInstance != null) 
@@ -1046,13 +1101,20 @@ public class GameController : MonoBehaviour
 				// Stop updating required scripts.
 				if (isPaused) 
 				{
-					playerControllerScript_P1.Vibrate (0, 0, 0);
+					PlayerController.PlayerOneInstance.Vibrate (0, 0, 0);
+
+					if (PlayerController.PlayerTwoInstance != null) 
+					{
+						PlayerController.PlayerTwoInstance.Vibrate (0, 0, 0);
+					}
+
 					VhsAnim.SetTrigger ("Pause");
 
 					PauseUI.SetActive (true);
 
-					playerControllerScript_P1.pauseManagerScript.MenuOnEnter (0);
-					playerControllerScript_P1.pauseManagerScript.menuButtons.buttonIndex = 0;
+					// Only player one should control the pause menu.
+					PlayerController.PlayerOneInstance.pauseManagerScript.MenuOnEnter (0);
+					PlayerController.PlayerOneInstance.pauseManagerScript.menuButtons.buttonIndex = 0;
 
 					// Sets audio values for pause.
 					AudioController.Instance.updateVolumeAndPitches = false;
@@ -1101,20 +1163,27 @@ public class GameController : MonoBehaviour
 			VhsAnim.SetTrigger ("Rewind");
 		}
 
-		if (playerControllerScript_P1.timeIsSlowed == true) 
+		if (PlayerController.PlayerOneInstance.timeIsSlowed == true) 
 		{
 			VhsAnim.SetTrigger ("Slow");
 		}
 
-		if (playerControllerScript_P1.timeIsSlowed == false && TimescaleController.Instance.isRewinding == false) 
+		if (PlayerController.PlayerOneInstance.timeIsSlowed == false && TimescaleController.Instance.isRewinding == false) 
 		{
 			VhsAnim.SetTrigger ("Play");
 		}
 
 		// Allow player to move and shoot.
-		playerControllerScript_P1.UsePlayerFollow = true;
-		playerControllerScript_P1.canShoot = true;
-		playerControllerScript_P1.Vibrate (0, 0, 0);
+		PlayerController.PlayerOneInstance.UsePlayerFollow = true;
+		PlayerController.PlayerOneInstance.canShoot = true;
+		PlayerController.PlayerOneInstance.Vibrate (0, 0, 0);
+
+		if (PlayerController.PlayerTwoInstance != null)
+		{
+			PlayerController.PlayerTwoInstance.UsePlayerFollow = true;
+			PlayerController.PlayerTwoInstance.canShoot = true;
+			PlayerController.PlayerTwoInstance.Vibrate (0, 0, 0);
+		}
 
 		// Turn off the pause UI.
 		PauseUI.SetActive (false);
@@ -1136,7 +1205,7 @@ public class GameController : MonoBehaviour
 			CountScore = true;
 		}
 
-		if (playerControllerScript_P1.timeIsSlowed == true) 
+		if (PlayerController.PlayerOneInstance.timeIsSlowed == true) 
 		{
 			TimescaleController.Instance.OverridingTimeScale = 0.3f;
 		}
@@ -1164,7 +1233,7 @@ public class GameController : MonoBehaviour
 		}
 
 		// Updates lens ratio from lens script based on screen ratio.
-		playerControllerScript_P1.lensScript.ratio = 1 / MainCamera.aspect;
+		PlayerController.PlayerOneInstance.lensScript.ratio = 1 / MainCamera.aspect;
 	}
 
 	// Wave time remaining timer.
@@ -1172,7 +1241,7 @@ public class GameController : MonoBehaviour
 	{
 		if (WaveTimeRemaining > 0 && IsInWaveTransition == false) 
 		{
-			if (playerControllerScript_P1.isInCooldownMode == false && isPaused == false && isGameOver == false) 
+			if (PlayerController.PlayerOneInstance.isInCooldownMode == false && isPaused == false && isGameOver == false) 
 			{
 				WaveTimeRemaining -= Time.deltaTime;
 			}
@@ -1194,15 +1263,21 @@ public class GameController : MonoBehaviour
 		PlayWaveTransitionVisuals (); // Trigger wave transition.
 
 		WaveTransitionText.text = "WAVE " + Wave;
-
 		WaveTransitionAudio.Play ();
-		playerControllerScript_P1.AbilityUI.SetActive (true);
-		playerControllerScript_P1.PowerupUI.SetActive (true);
+
+		PlayerController.PlayerOneInstance.AbilityUI.SetActive (true);
+		PlayerController.PlayerOneInstance.PowerupUI.SetActive (true);
 
 		// Shake the camera and vibrate the controller.
-		playerControllerScript_P1.camShakeScript.ShakeCam (0.6f, 3.7f, 99);
+		PlayerController.PlayerOneInstance.camShakeScript.ShakeCam (0.6f, 3.7f, 99);
+
 		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
-		playerControllerScript_P1.Vibrate (0.6f, 0.6f, 3);
+		PlayerController.PlayerOneInstance.Vibrate (0.6f, 0.6f, 3);
+
+		if (PlayerController.PlayerTwoInstance != null)
+		{
+			PlayerController.PlayerTwoInstance.Vibrate (0.6f, 0.6f, 3);
+		}
 		#endif
 	}
 
@@ -1226,7 +1301,7 @@ public class GameController : MonoBehaviour
 		while (WaveTimeRemaining > 0) // Wave time must be greater than 0 to keep spawning blocks.
 		{
 			if (Time.time > NextBlockSpawn && 
-				playerControllerScript_P1.isInCooldownMode == false && 
+				PlayerController.PlayerOneInstance.isInCooldownMode == false && 
 				isPaused == false)
 			{
 				if (numberOfBlocks < 300)
@@ -1285,98 +1360,100 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	void SpawnBlockById (int Id)
-	{
-		Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-
-		switch (Id) 
-		{
-		case 0:
-			objectPooler.SpawnFromPool ("AquaBlock", SpawnPosRand, Quaternion.identity);
-			break;
-		case 1:
-			objectPooler.SpawnFromPool ("BlueBlock", SpawnPosRand, Quaternion.identity);
-			break;
-		case 2:
-			objectPooler.SpawnFromPool ("PurpleBlock", SpawnPosRand, Quaternion.identity);
-			break;
-		case 3:
-			objectPooler.SpawnFromPool ("PinkBlock", SpawnPosRand, Quaternion.identity);
-			break;
-		}
-	}
-
-	void CheckInstancedBlocks ()
-	{
-		
-	}
-
 	// Spawn block based on wave number.
 	public void SpawnBlock (bool anyBlock)
 	{
-		if (anyBlock == false) 
+		if (isGameOver == false) 
 		{
-			if (isGameOver == false) 
+			// Get new block index and spawn position ready.
+			int BlockIndexRange = UnityEngine.Random.Range (0, Wave);
+			Vector3 SpawnPosRand = new Vector3 (
+				BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], 
+				BlockSpawnYPosition, 
+				BlockSpawnZPosition
+			);
+
+			if (Wave < 9) 
 			{
-				if (Wave < 5) 
+				bool recycledBlock = false;
+
+				if (BlockChecker.Instance.BlocksInstanced.Count > 0) 
 				{
-					int BlockIndexRange = UnityEngine.Random.Range (0, Wave);
-					GameObject BlockA = Blocks [BlockIndexRange];
-					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-					//Instantiate (BlockA, SpawnPosRand, Quaternion.identity);
-
-					//SpawnBlockById (BlockIndexRange);
-
-					bool recycledBlock = false;
-
-					if (BlockChecker.Instance.BlocksInstanced.Count > 0) 
+					// Go through instanced blocks list.
+					for (int i = 0; i < BlockChecker.Instance.BlocksInstanced.Count; i++) 
 					{
-						// Go through instanced blocks list.
-						for (int i = 0; i < BlockChecker.Instance.BlocksInstanced.Count; i++) 
+						// Find first block GameObject that is disabled.
+						if (BlockChecker.Instance.BlocksInstanced [i].gameObject.activeInHierarchy == false) 
 						{
-							// Find first block GameObject that is disabled.
-							if (BlockChecker.Instance.BlocksInstanced [i].gameObject.activeInHierarchy == false) 
-							{
-								BlockChecker.Instance.BlocksInstanced [i].SetActive (true);
-								BlockChecker.Instance.BlocksInstanced [i].transform.position = SpawnPosRand;
-								recycledBlock = true;
-								//Debug.Log ("Recycled a block.");
-								return;
-							}
+							BlockChecker.Instance.BlocksInstanced [i].SetActive (true);
+							BlockChecker.Instance.BlocksInstanced [i].transform.position = SpawnPosRand;
+							recycledBlock = true;
+							return;
 						}
 					}
+				}
 
-					// Could not find block of the right type to activate, spawning a new one.
-					if (recycledBlock == false) 
+				// Could not find block of the right type to activate, spawning a new one.
+				if (recycledBlock == false) 
+				{
+					GameObject BlockA = Blocks [BlockIndexRange];
+					Instantiate (BlockA, SpawnPosRand, Quaternion.identity);
+				}
+			}
+				
+			if (Wave >= 9) 
+			{
+
+				bool recycledBlock = false;
+
+				if (BlockChecker.Instance.BlocksInstanced.Count > 0) 
+				{
+					// Go through instanced blocks list.
+					for (int i = 0; i < BlockChecker.Instance.BlocksInstanced.Count; i++) 
 					{
-						Instantiate (BlockA, SpawnPosRand, Quaternion.identity);
+						// Find first block GameObject that is disabled.
+						if (BlockChecker.Instance.BlocksInstanced [i].gameObject.activeInHierarchy == false) 
+						{
+							// Allow special blocks.
+							float randomSpecial = UnityEngine.Random.Range (0, 1);
+
+							if (randomSpecial <= 0.5f) 
+							{
+								BlockChecker.Instance.BlocksInstanced [i].GetComponent<Block> ().isSpecialBlockType = false;
+
+								if (BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> () != null) 
+								{
+									BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> ().Stop (true, ParticleSystemStopBehavior.StopEmittingAndClear);
+								}
+							}
+
+							if (randomSpecial > 0.5f) 
+							{
+								BlockChecker.Instance.BlocksInstanced [i].GetComponent<Block> ().isSpecialBlockType = true;
+
+								if (BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> () != null)
+								{
+									BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> ().Play (true);
+								}
+							}
+
+							BlockChecker.Instance.BlocksInstanced [i].SetActive (true);
+							BlockChecker.Instance.BlocksInstanced [i].transform.position = SpawnPosRand;
+							BlockChecker.Instance.BlocksInstanced [i].GetComponent<ParentToTransform> ().ParentNow ();
+
+							recycledBlock = true;
+							return;
+						}
 					}
 				}
 
-				if (Wave >= 5 && Wave < 9) 
+				// Could not find block of the right type to activate, spawning a new one.
+				if (recycledBlock == false) 
 				{
-					GameObject Block = Blocks [UnityEngine.Random.Range (0, 6)];
-					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-					Instantiate (Block, SpawnPosRand, Quaternion.identity);
+					GameObject BlockA = Blocks [UnityEngine.Random.Range (0, Blocks.Count)];
+					Instantiate (BlockA, SpawnPosRand, Quaternion.identity);
+					// Allow special blocks.
 				}
-
-				if (Wave >= 9) 
-				{
-					GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Count)];
-					Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-					Instantiate (Block, SpawnPosRand, Quaternion.identity);
-				}
-			}
-		}
-
-		if (anyBlock == true) 
-		{
-			if (isGameOver == false) 
-			{
-				//GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Length)];
-				GameObject Block = Blocks [UnityEngine.Random.Range (0, Blocks.Count)];
-				Vector3 SpawnPosRand = new Vector3 (BlockSpawnXPositions [UnityEngine.Random.Range (0, BlockSpawnXPositions.Length)], BlockSpawnYPosition, BlockSpawnZPosition);
-				Instantiate (Block, SpawnPosRand, Quaternion.identity);
 			}
 		}
 	}
@@ -1445,7 +1522,7 @@ public class GameController : MonoBehaviour
 	{
 		GameObject MiniBoss = MiniBosses [UnityEngine.Random.Range (0, MiniBosses.Length)];
 		Instantiate (MiniBoss, MiniBossSpawnPos.position, MiniBossSpawnPos.rotation);
-		playerControllerScript_P1.spotlightsScript.BossSpotlightSettings ();
+		PlayerController.PlayerOneInstance.spotlightsScript.BossSpotlightSettings ();
 		UnityEngine.Debug.Log ("Spawned a mini boss.");
 	}
 
@@ -1482,7 +1559,7 @@ public class GameController : MonoBehaviour
 		//GameObject BigBoss = BigBosses [UnityEngine.Random.Range (0, bossId)];
 		GameObject BigBoss = BigBosses [bossId];
 		Instantiate (BigBoss, BigBossSpawnPos.position, BigBossSpawnPos.rotation);
-		playerControllerScript_P1.spotlightsScript.BigBossSpotlightSettings ();
+		PlayerController.PlayerOneInstance.spotlightsScript.BigBossSpotlightSettings ();
 		UnityEngine.Debug.Log ("Oh snap! We spawned a big boss!");
 	}
 
@@ -1501,7 +1578,7 @@ public class GameController : MonoBehaviour
 
 		yield return new WaitForSeconds (BonusStartSpawnDelay);
 
-		while (BonusesSpawned < BonusesToSpawn && playerControllerScript_P1.isInCooldownMode == false)
+		while (BonusesSpawned < BonusesToSpawn && PlayerController.PlayerOneInstance.isInCooldownMode == false)
 		{
 			BonusesSpawned += 1;
 
@@ -1704,9 +1781,10 @@ public class GameController : MonoBehaviour
 		}
 
 		yield return new WaitForSecondsRealtime (1);
-		playerControllerScript_P1.spotlightsScript.NormalSpotlightSettings ();
-		playerControllerScript_P1.spotlightsScript.NewTarget = playerControllerScript_P1.playerMesh.transform;
-		playerControllerScript_P1.spotlightsScript.OverrideSpotlightLookObject ();
+
+		PlayerController.PlayerOneInstance.spotlightsScript.NormalSpotlightSettings ();
+		PlayerController.PlayerOneInstance.spotlightsScript.NewTarget = PlayerController.PlayerOneInstance.playerMesh.transform;
+		PlayerController.PlayerOneInstance.spotlightsScript.OverrideSpotlightLookObject ();
 
 		yield return new WaitForSecondsRealtime (4);
 		NextLevel ();
@@ -1717,12 +1795,6 @@ public class GameController : MonoBehaviour
 			AudioController.Instance.NextTrack (); // Set audio controller to next track.
 			AudioController.Instance.LoadTracks (); // Play loaded tracks.
 			UnityEngine.Debug.Log ("New soundtrack loaded. Soundtrack: " + AudioController.Instance.TrackName);
-		}
-
-		if (Wave == 1) 
-		{
-			//SoundtrackText.text = AudioController.Instance.TrackName + ""; // Display new soundtrack name.
-			//WaveTransitionUIStats.Play ("WaveTransitionUIStats");
 		}
 
 		// Go straight to block spawning.
@@ -1786,23 +1858,33 @@ public class GameController : MonoBehaviour
 		}
 
 		// Starting shooting modifier conditions.
-		HomingImage.enabled = playerControllerScript_P1.isHoming;
-		RicochetImage.enabled = playerControllerScript_P1.isRicochet;
+		HomingImage.enabled = PlayerController.PlayerOneInstance.isHoming;
+		RicochetImage.enabled = PlayerController.PlayerOneInstance.isRicochet;
 
-		if (playerControllerScript_P1.isInRapidFire == true) 
+		if (PlayerController.PlayerOneInstance.isInRapidFire == true) 
 		{
-			playerControllerScript_P1.CurrentFireRate = playerControllerScript_P1.TripleShotFireRates [1];
+			PlayerController.PlayerOneInstance.CurrentFireRate = PlayerController.PlayerOneInstance.TripleShotFireRates [1];
 			RapidfireImage.enabled = true;
 		}
 
-		OverdriveImage.enabled = playerControllerScript_P1.isInOverdrive;
+		OverdriveImage.enabled = PlayerController.PlayerOneInstance.isInOverdrive;
 	
 		Lives = gameModifier.StartingLives;
 		UpdateLives ();
-		playerControllerScript_P1.isHoming = gameModifier.AlwaysHoming;
-		playerControllerScript_P1.isRicochet = gameModifier.AlwaysRicochet;
-		playerControllerScript_P1.isInRapidFire = gameModifier.AlwaysRapidfire;
-		playerControllerScript_P1.isInOverdrive = gameModifier.AlwaysOverdrive;
+
+		PlayerController.PlayerOneInstance.isHoming = gameModifier.AlwaysHoming;
+		PlayerController.PlayerOneInstance.isRicochet = gameModifier.AlwaysRicochet;
+		PlayerController.PlayerOneInstance.isInRapidFire = gameModifier.AlwaysRapidfire;
+		PlayerController.PlayerOneInstance.isInOverdrive = gameModifier.AlwaysOverdrive;
+
+		if (PlayerController.PlayerTwoInstance != null)
+		{
+			PlayerController.PlayerTwoInstance.isHoming = gameModifier.AlwaysHoming;
+			PlayerController.PlayerTwoInstance.isRicochet = gameModifier.AlwaysRicochet;
+			PlayerController.PlayerTwoInstance.isInRapidFire = gameModifier.AlwaysRapidfire;
+			PlayerController.PlayerTwoInstance.isInOverdrive = gameModifier.AlwaysOverdrive;
+		}
+
 		StackingObject.SetActive (gameModifier.stacking);
 	}
 }

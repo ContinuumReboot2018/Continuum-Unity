@@ -41,6 +41,8 @@ public class BlockFormation : MonoBehaviour
 	[Tooltip ("Offset to center the image. (Can be in decimals).")]
 	public Vector2 Center;
 
+	private bool checkChildObjects;
+
 	void Start () 
 	{
 		// Get range of missing blocks.
@@ -272,5 +274,25 @@ public class BlockFormation : MonoBehaviour
 			Destroy (gameObject);
 			return;
 		}
+
+		// Only will occur on the second call.
+		if (checkChildObjects == true)
+		{
+			// Has child Gameobjects.
+			if (transform.childCount > 0) 
+			{
+				foreach (Transform child in gameObject.GetComponentsInChildren<Transform> ()) 
+				{
+					// Child GameObject is inactive.
+					if (child.gameObject.activeSelf == false) 
+					{
+						// Reparent to set GameObject.
+						child.GetComponent<ParentToTransform> ().ParentNow ();
+					}
+				}
+			}
+		}
+
+		checkChildObjects = true;
 	}
 }

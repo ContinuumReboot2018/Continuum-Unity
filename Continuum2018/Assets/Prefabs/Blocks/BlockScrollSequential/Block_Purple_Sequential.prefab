@@ -197,7 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   ObjectType: 0
 --- !u!114 &114197010652989608
 MonoBehaviour:
@@ -223,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e83bdcee770143a7592404d570f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMethod: 0
   FollowPosition: 1
   AutomaticallyFindPlayerPosObject: 0
   LookForPosName: Player
@@ -233,6 +233,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 20, y: 20, z: 0}
+  XPosTimeUnscaled: 1
+  YPosTimeUnscaled: 1
+  ZPosTimeUnscaled: 1
   PosBoundsX: {x: -21, y: 21}
   PosBoundsY: {x: -15, y: 15}
   PosBoundsZ: {x: -10, y: 10}
@@ -244,6 +247,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  XRotTimeUnscaled: 1
+  YRotTimeUnscaled: 1
+  ZRotTimeUnscaled: 1
 --- !u!114 &114488244137542644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -273,10 +279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5ca2f7eacc8ee499648e986b2a0095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerControllerScript_P1: {fileID: 0}
-  gameControllerScript: {fileID: 0}
-  timeScaleControllerScript: {fileID: 0}
-  audioControllerScript: {fileID: 0}
   processor: {fileID: 0}
   rend: {fileID: 0}
   textureScrollScript: {fileID: 0}
@@ -293,6 +295,11 @@ MonoBehaviour:
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
   PurpleBlock: {fileID: 11400000, guid: 6455345e71738cf42a36eb8f96cdd672, type: 2}
   PinkBlock: {fileID: 11400000, guid: a5884e4bd20124542a8e44a8a320dd74, type: 2}
+  BlockType: 2
+  NoiseBlock: {fileID: 11400000, guid: df87158863af66546a1f2df623af00dc, type: 2}
+  RedBlock: {fileID: 11400000, guid: b532628d0db59c34fba0c07b9537f3fb, type: 2}
+  isSpecialBlockType: 0
+  SpecialBlockType: 0
   isBossPart: 1
   GotDetached: 0
   miniBoss: {fileID: 0}
@@ -302,11 +309,8 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 2
   BlockChangeType: 3
   ChangeRate: 0.125
-  isSpecialBlockType: 0
-  SpecialBlockType: 0
   isBonusBlock: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,
@@ -326,7 +330,6 @@ MonoBehaviour:
   LowPassTargetFreq: 400
   ResonanceTargetFreq: 2.5
   isTutorialBlock: 0
-  tutorialManagerScript: {fileID: 0}
   tutorialBlockIndex: 0
 --- !u!114 &114872848676051532
 MonoBehaviour:
@@ -339,7 +342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12b2bd4458099645a7835e1283fdbe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScaleControllerScript: {fileID: 0}
   MaxRecordingTime: 20
   rb: {fileID: 0}
   isBlock: 1

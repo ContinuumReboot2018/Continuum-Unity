@@ -295,6 +295,11 @@ MonoBehaviour:
   BlueBlock: {fileID: 11400000, guid: 09109556114ccaa4f9755be3db830d8f, type: 2}
   PurpleBlock: {fileID: 11400000, guid: 6455345e71738cf42a36eb8f96cdd672, type: 2}
   PinkBlock: {fileID: 11400000, guid: a5884e4bd20124542a8e44a8a320dd74, type: 2}
+  BlockType: 0
+  NoiseBlock: {fileID: 11400000, guid: df87158863af66546a1f2df623af00dc, type: 2}
+  RedBlock: {fileID: 11400000, guid: b532628d0db59c34fba0c07b9537f3fb, type: 2}
+  isSpecialBlockType: 0
+  SpecialBlockType: 0
   isBossPart: 0
   GotDetached: 0
   miniBoss: {fileID: 0}
@@ -304,11 +309,8 @@ MonoBehaviour:
   allowParticleCollisionBoss: 0
   BoundaryX: {x: -20.6, y: 20.6}
   BoundaryY: {x: -11.5, y: 11.5}
-  BlockType: 0
   BlockChangeType: 0
   ChangeRate: 0.5
-  isSpecialBlockType: 0
-  SpecialBlockType: 0
   isBonusBlock: 0
   noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
   NoiseExplosion: {fileID: 1072586396597310, guid: fe510a223851c5a408654a95aeb81706,

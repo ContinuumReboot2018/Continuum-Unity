@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UnityEditor;
 
 public class CheatsWindow : EditorWindow
 {
 	public DeveloperMode developerModeScript;
 	Vector2 scrollPos;
+
 	string lastCheat;
+	string nextwavelabel;
+	string previouswavelabel;
+	string DoBonusRoundLabel;
 
 	void OnApplicationQuit ()
 	{
@@ -31,11 +36,17 @@ public class CheatsWindow : EditorWindow
 	void UpdateCurrentCheatButtonLabel ()
 	{
 		lastCheat = "Last cheat: " + DeveloperMode.Instance.CheatString;
+		nextwavelabel = "Next wave";
+		previouswavelabel = "Previous wave";
+		DoBonusRoundLabel = "Bonus round";
 	}
 
 	void ClearLastCheatStringLabel ()
 	{
 		lastCheat = "Last cheat: ";
+		nextwavelabel = "Next wave";
+		previouswavelabel = "Previous wave";
+		DoBonusRoundLabel = "Bonus round";
 	}
 
 	void OnGUI ()
@@ -150,7 +161,7 @@ public class CheatsWindow : EditorWindow
 		}
 
 		// Next wave.
-		if (GUILayout.Button ("Next wave", style)) 
+		if (GUILayout.Button (nextwavelabel, style)) 
 		{
 			DeveloperMode.Instance.ResetCheatStringTimer ();
 			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.NextWaveCommand;
@@ -158,7 +169,7 @@ public class CheatsWindow : EditorWindow
 		}
 
 		// Previous wave.
-		if (GUILayout.Button ("Previous wave", style)) 
+		if (GUILayout.Button (previouswavelabel, style)) 
 		{
 			DeveloperMode.Instance.ResetCheatStringTimer ();
 			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.PreviousWaveCommand;
@@ -166,7 +177,7 @@ public class CheatsWindow : EditorWindow
 		}
 
 		// Do bonus round.
-		if (GUILayout.Button ("Do bonus round", style)) 
+		if (GUILayout.Button (DoBonusRoundLabel, style)) 
 		{
 			DeveloperMode.Instance.ResetCheatStringTimer ();
 			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.DoBonusRoundCommand;

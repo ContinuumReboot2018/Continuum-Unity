@@ -12,7 +12,7 @@ public class Block : MonoBehaviour
 	public ScrollTextureOverTime textureScrollScript; // Reference to Texture Scroll Script.
 	public ParentToTransform parentToTransformScript; // Parent to transform script reference.
 
-	[Header ("Current Stats")]
+	[Header ("Current stats")]
 	[Tooltip ("How fast the block falls from the top.")]
 	public float speed;
 	[Tooltip ("If on, velocity can be overridden.")]
@@ -30,11 +30,39 @@ public class Block : MonoBehaviour
 	[Tooltip ("List of homing objects that have this object locked on to it.")]
 	public List<Homing> homedObjects;
 
-	[Header ("BlockTypes")]
+	[Header ("Normal block type settings")]
 	public BlockManager AquaBlock;
 	public BlockManager BlueBlock;
 	public BlockManager PurpleBlock;
 	public BlockManager PinkBlock;
+
+	[Header ("Normal block types")]
+	[Tooltip ("The current block type for normal types.")]
+	public mainBlockType BlockType;
+	public enum mainBlockType
+	{
+		Aqua   = 0,
+		Blue   = 1,
+		Purple = 2, 
+		Pink   = 3
+	}
+	private int normalBlockTypeListLength;
+
+	[Header ("Special block type settings")]
+	public BlockManager NoiseBlock;
+	public BlockManager RedBlock;
+
+	[Header ("Special Block Types")]
+	[Tooltip ("Be a special block.")]
+	public bool isSpecialBlockType = false;
+	[Tooltip ("Type of special block.")]
+	public specialBlockType SpecialBlockType;
+	public enum specialBlockType
+	{
+		Noise = 0, // Frozen and scrolling noise texture to achieve glitch effect.
+		Red = 1, // Explosive and its explosion can harm the player.
+		Tutorial = 2 // Like a normal block except doesnt contribute to the game.
+	}
 
 	[Header ("Boss Part")]
 	[Tooltip ("Is the block part of a boss.")]
@@ -58,18 +86,6 @@ public class Block : MonoBehaviour
 	[Tooltip ("Vertical bounds.")]
 	public Vector2 BoundaryY;
 
-	[Header ("Normal Block Types")]
-	[Tooltip ("The current block type for normal types.")]
-	public mainBlockType BlockType;
-	public enum mainBlockType
-	{
-		Aqua   = 0,
-		Blue   = 1,
-		Purple = 2, 
-		Pink   = 3
-	}
-	private int normalBlockTypeListLength;
-			
 	[Header ("Block changes")]
 	[Tooltip ("How the block type changes.")]
 	public blockChangeType BlockChangeType;
@@ -83,27 +99,9 @@ public class Block : MonoBehaviour
 
 	[Tooltip ("How frequent the type changes over time.")]
 	public float ChangeRate;
-
-	[Header ("Special Block Types")]
-	[Tooltip ("Be a special block.")]
-	public bool isSpecialBlockType = false;
-	[Tooltip ("Type of special block.")]
-	public specialBlockType SpecialBlockType;
-	public enum specialBlockType
-	{
-		Noise = 0, // Frozen and scrolling noise texture to achieve glitch effect.
-		Red = 1, // Explosive and its explosion can harm the player.
-		Tutorial = 2 // Like a normal block except doesnt contribute to the game.
-	}
-
 	public bool isBonusBlock;
 
 	public static List<Block> allBlocks;
-
-	[Tooltip ("Material for noise type.")]
-	public Material noiseMat;
-	[Tooltip ("Explosion for noise type.")]
-	public GameObject NoiseExplosion;
 
 	[Header ("Explosion Combo")]
 	[Tooltip ("The currently selected explosion.")]
@@ -186,12 +184,6 @@ public class Block : MonoBehaviour
 		}
 
 		allBlocks.Remove (this);
-
-		if (processor != null)
-		{
-			processor.onBeat.RemoveListener (onOnbeatDetected);
-		}
-
 		//SaveAndLoadScript.Instance.blocksDestroyed++;
 	}
 
@@ -205,12 +197,6 @@ public class Block : MonoBehaviour
 
 		BlockChecker.Instance.BlocksInstanced.Remove (gameObject);
 		allBlocks.Remove (this);
-
-		if (processor != null)
-		{
-			processor.onBeat.RemoveListener (onOnbeatDetected);
-		}
-
 		//SaveAndLoadScript.Instance.blocksDestroyed++;
 	}
 		
@@ -287,10 +273,15 @@ public class Block : MonoBehaviour
 
 	void onOnbeatDetected ()
 	{
+		Animator anim = GetComponentInChildren<Animator> ();
+
 		// Animates in beat based on block type.
 		if (AudioController.Instance.BeatInBar == (int)BlockType + 1) 
 		{
-			GetComponentInChildren<Animator> ().Play ("BlockBeat");
+			if (anim != null) 
+			{
+				anim.Play ("BlockBeat");
+			}
 		}
 
 		// Changes block type if random.
@@ -487,8 +478,6 @@ public class Block : MonoBehaviour
 				// If the tag is not a bullet.
 				if (other.tag != "Bullet") 
 				{
-					//Destroy (other.gameObject); // Destroy other object.
-					//Destroy (gameObject); // Destroy this object.
 					gameObject.SetActive (false);
 					return; // Prevent any further code execution.
 				}
@@ -550,7 +539,6 @@ public class Block : MonoBehaviour
 						
 					DoCamShake (); // Destroy this object.
 					DoVibrate ();
-					//Destroy (gameObject); // Destroy this object.
 					gameObject.SetActive (false);
 					return; // Prevent any further code execution.
 				}
@@ -571,7 +559,6 @@ public class Block : MonoBehaviour
 								if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
 								{
 									Destroy (other.gameObject);
-									//Destroy (gameObject); // Destroy this object.
 									gameObject.SetActive (false);
 								}
 							}
@@ -592,13 +579,11 @@ public class Block : MonoBehaviour
 								if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
 								{
 									Destroy (other.gameObject);
-									//Destroy (gameObject); // Destroy this object.
 									gameObject.SetActive (false);
 								}
 							}
 						}
-
-						//Destroy (gameObject); // Destroy this object.
+							
 						gameObject.SetActive (false);
 						return; // Prevent any further code execution.
 					}
@@ -626,7 +611,6 @@ public class Block : MonoBehaviour
 
 				DoCamShake ();
 				DoVibrate ();
-				//Destroy (gameObject);
 				gameObject.SetActive (false);
 				return;
 			}
@@ -642,18 +626,19 @@ public class Block : MonoBehaviour
 	// MiniBoss script calls this on all its children blocks.
 	public void ConvertToNoiseBossPart ()
 	{
-		//parentToTransformScript.ParentNow ();
-
 		// Checks if this is a boss part, it doesnt have a parent, and did not get attached yet.
 		HitPoints = 1;
 		textureScrollScript.enabled = true; // Turn on texture scroll script.
+
 		isSpecialBlockType = true; // Set to special block type.
 		SpecialBlockType = specialBlockType.Noise; // Set to block type list.
-		speed = 0; // Freeze speed.
-		rend.material = noiseMat; // Set material to noise.
-		BasePointValue = 0; // Reset base point value.
-		TextColor = new Color (0.5f, 0.5f, 0.5f, 1); // set gray text color.
-		Explosion = NoiseExplosion; // Set noise explosion.
+
+		speed = NoiseBlock.Speed; // Freeze speed.
+		rend.material = NoiseBlock.Material; // Set material to noise.
+		BasePointValue = NoiseBlock.BasePointValue; // Reset base point value.
+		TextColor = NoiseBlock.TextColor; // set gray text color.
+		Explosion = NoiseBlock.Explosion; // Set noise explosion.
+
 		GetComponentInChildren<Animator> (true).enabled = false;
 
 		// Set scale for noise.
@@ -711,7 +696,6 @@ public class Block : MonoBehaviour
 
 				if (transform.position.y > BoundaryY.y) 
 				{
-					//Destroy (gameObject);
 					gameObject.SetActive (false);
 					return;
 				}
@@ -727,7 +711,13 @@ public class Block : MonoBehaviour
 			if (GameController.Instance != null)
 			{
 				GameController.Instance.BlocksDestroyed++;
+
+				if (isBonusBlock == true) 
+				{
+					GameController.Instance.BonusBlocksDestroyed++;
+				}
 			}
+
 			return;
 		}
 	}
@@ -784,7 +774,6 @@ public class Block : MonoBehaviour
 				allowParticleCollisionBoss == true && 
 				(miniBoss.hitPoints > 0.5f * miniBoss.StartingHitPoints))
 			{
-				//Debug.Log ("Hit boss part.");
 				float blockHitPoints = 1 / (0.5f * miniBoss.BossParts.Length);
 				miniBoss.hitPoints -= blockHitPoints; // Help with 50% of hit points.
 				return;
@@ -904,12 +893,21 @@ public class Block : MonoBehaviour
 			switch (SpecialBlockType) 
 			{
 			case specialBlockType.Noise:
-				speed = 0;
-				rend.material = noiseMat;
-				BasePointValue = 0;
-				TextColor = new Color (0.5f, 0.5f, 0.5f, 1);
-				Explosion = NoiseExplosion;
-				//CheckForNoiseBoundary ();
+				speed = NoiseBlock.Speed;
+				rend.material = NoiseBlock.Material;
+				BasePointValue = NoiseBlock.BasePointValue;
+				TextColor = NoiseBlock.TextColor;
+				Explosion = NoiseBlock.Explosion;
+				transform.name = "Noise block";
+				break;
+
+			case specialBlockType.Red:
+				speed = RedBlock.Speed;
+				rend.material = RedBlock.Material;
+				BasePointValue = RedBlock.BasePointValue;
+				TextColor = RedBlock.TextColor;
+				Explosion = RedBlock.Explosion;
+				transform.name = "Red block";
 				break;
 			}
 
@@ -919,6 +917,11 @@ public class Block : MonoBehaviour
 		// Check for normal block type changes.
 		if (isSpecialBlockType == false) 
 		{
+			if (GetComponentInChildren<ParticleSystem> () != null) 
+			{
+				GetComponentInChildren<ParticleSystem> ().Stop (true, ParticleSystemStopBehavior.StopEmittingAndClear);
+			}
+
 			// Update speed stat.
 			// Update material stat.
 			// Update base point value stat.

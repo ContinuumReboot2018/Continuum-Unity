@@ -86,12 +86,11 @@ public class Homing : MonoBehaviour
 						
 						{
 							ReleaseHoming (); // Release and bail out, revert to normal movement.
-							Invoke ("GetObjectToHome", 1);
+							Invoke ("GetObjectToHome", 3);
 						}
 					}
 				}
 			}
-
 		}
 	}
 
@@ -115,6 +114,7 @@ public class Homing : MonoBehaviour
 		if (target == null)
 		{
 			rb.angularVelocity = Vector3.zero;
+			speed = initialSpeed;
 			return;
 		}
 
@@ -127,7 +127,13 @@ public class Homing : MonoBehaviour
 			rb.angularVelocity = -rotateAmount * rotateSpeed;
 			rb.velocity = transform.up * speed;
 			speed -= 25 * Time.deltaTime;
-			speed = Mathf.Clamp (speed, 10, 1000);
+			speed = Mathf.Clamp (speed, 50, initialSpeed);
+
+			if (target.gameObject.activeSelf == false) 
+			{
+				ReleaseHoming ();
+				//Invoke ("GetObjectToHome", 1);
+			}
 		}
 	}
 		
@@ -143,6 +149,8 @@ public class Homing : MonoBehaviour
 				0
 			)
 		);
+
+		speed = initialSpeed;
 	}
 
 	void OnDisable ()
@@ -156,8 +164,21 @@ public class Homing : MonoBehaviour
 		// Starts array of GameObjects. 
 		GameObject[] gos; 
 
+		//BlockChecker.Instance.BlocksInstanced.ToArray ();
+
 		// Finds GameObjects by tag in whole scene.
-		gos = GameObject.FindGameObjectsWithTag(tag); 
+		//gos = GameObject.FindGameObjectsWithTag(tag); 
+
+		if (tag == "Block")
+		{
+			gos = BlockChecker.Instance.BlocksInstanced.ToArray ();
+		}
+
+		else
+		
+		{
+			gos = GameObject.FindGameObjectsWithTag (tag); 
+		}
 
 		// Reset closest GameObject to null (none);
 		GameObject closest = null; 
@@ -171,21 +192,24 @@ public class Homing : MonoBehaviour
 		// Loop through found GameObjects.
 		foreach (GameObject go in gos)
 		{
-			// Get difference in distances.
-			Vector3 diff = go.transform.position - position; 
-
-			// Get square magnitudes.
-			float curDistance = diff.sqrMagnitude;
-
-			// curDistance must be less than best distance to advance.
-			// Obect's position myst be under the cutoff height.
-			// Diff magnitude squared must be less than max range squared.
-			if (curDistance < distance && 
-				go.transform.position.y < cutoffHeight &&
-				diff.sqrMagnitude < (maxRange * maxRange))
+			if (go.activeSelf == true) 
 			{
-				closest = go; // Assign to closest object found.
-				distance = curDistance; // Set best distance.
+				// Get difference in distances.
+				Vector3 diff = go.transform.position - position; 
+
+				// Get square magnitudes.
+				float curDistance = diff.sqrMagnitude;
+
+				// curDistance must be less than best distance to advance.
+				// Obect's position myst be under the cutoff height.
+				// Diff magnitude squared must be less than max range squared.
+				if (curDistance < distance &&
+				   go.transform.position.y < cutoffHeight &&
+				   diff.sqrMagnitude < (maxRange * maxRange)) 
+				{
+					closest = go; // Assign to closest object found.
+					distance = curDistance; // Set best distance.
+				}
 			}
 		}
 
