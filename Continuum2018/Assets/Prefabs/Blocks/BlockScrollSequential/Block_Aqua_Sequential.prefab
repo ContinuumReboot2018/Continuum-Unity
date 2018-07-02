@@ -143,7 +143,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 72
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!65 &65042592598039324
 BoxCollider:
@@ -285,9 +285,6 @@ MonoBehaviour:
   BlockChangeType: 3
   ChangeRate: 0.125
   isBonusBlock: 0
-  noiseMat: {fileID: 2100000, guid: c5aa92efe010da54bb2e6b7fbdbe2c8d, type: 2}
-  NoiseExplosion: {fileID: 1081727288271718, guid: 2a66aaa9745d95349baee88eeb156b89,
-    type: 2}
   Explosion: {fileID: 1081727288271718, guid: 2a66aaa9745d95349baee88eeb156b89, type: 2}
   BasePointValue: 1
   totalPointValue: 0

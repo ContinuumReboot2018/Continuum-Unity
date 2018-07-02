@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [ExecuteInEditMode]
 public class PlayerParent : MonoBehaviour
@@ -11,7 +12,47 @@ public class PlayerParent : MonoBehaviour
 
 	void Awake ()
 	{
+		if (SceneManager.GetActiveScene ().name == "Menu") 
+		{
+			return;
+		}
+
 		playerControllerScript = GetComponentInChildren <PlayerController> ();
+
+		if (TimescaleController.Instance.useTwoPlayers == true) 
+		{
+			if (playerControllerScript.PlayerId == 1)
+			{
+				transform.position = new Vector3 (
+					-2.9f, 
+					transform.position.y, 
+					transform.position.z
+				);
+			}
+
+			if (playerControllerScript.PlayerId == 2) 
+			{
+				transform.position = new Vector3 (
+					2.9f, 
+					transform.position.y, 
+					transform.position.z
+				);
+			}
+		} 
+
+		if (TimescaleController.Instance.useTwoPlayers == false) 
+		{
+			if (playerControllerScript.PlayerId == 1)
+			{
+				transform.position = new Vector3 (
+					0, 
+					transform.position.y, 
+					transform.position.z
+				);
+			}
+		}
+
+		anim.enabled = true;
 	}
 
 	// Enables player input by animation events.

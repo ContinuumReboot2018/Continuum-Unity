@@ -110,6 +110,10 @@ public class TimescaleController : MonoBehaviour
 		if (PlayerController.PlayerTwoInstance != null) 
 		{
 			useTwoPlayers = true;
+			Debug.Log ("Two player mode active");
+
+			PlayerOne.parent.parent.transform.position = new Vector3 (-2.98f, 0, 0);
+			PlayerTwo.parent.parent.transform.position = new Vector3 (2.98f, 0, 0);
 		}
 	}
 
@@ -172,45 +176,55 @@ public class TimescaleController : MonoBehaviour
 			if (isOverridingTimeScale == false && isInInitialSequence == false && 
 				isInInitialCountdownSequence == false && TutorialManager.Instance.tutorialComplete == true) 
 			{
-				// Gets vertical distance from player to reference point.
-				// Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
-				// Get distance but only use Y component.
 				if (useTwoPlayers == false && PlayerController.PlayerOneInstance.isInCooldownMode == false) 
 				{
-					float DistanceVector = Vector3.Distance (
+					/*float DistanceVector = Vector3.Distance (
 						PlayerOne.transform.position, 
 						ReferencePoint.transform.position
+					);*/
+
+					float DistanceVector = Mathf.Clamp ( 
+						Mathf.Abs (
+							PlayerOne.transform.position.y -  
+							ReferencePoint.transform.position.y
+						),
+						0,
+						20
 					);
 
-					Distance = DistanceVector;
+					Distance = DistanceVector; 
 				}
 
 				if (useTwoPlayers == true && PlayerController.PlayerOneInstance.isInCooldownMode == false && 
 					PlayerController.PlayerTwoInstance.isInCooldownMode == false) 
 				{
-					// Average out the distance between players.
+					/*// Average out the distance between players.
 					float AverageDistanceVector = Vector3.Distance (
 						0.5f * (PlayerController.PlayerOneInstance.transform.position + PlayerController.PlayerTwoInstance.transform.position), 
 						ReferencePoint.transform.position
 					);
 
-					Distance = AverageDistanceVector;
+					Distance = AverageDistanceVector;*/
 
-					/*
-					float MaxDistanceVector = Vector3.Max (
-						0.5f * (PlayerController.PlayerOneInstance.transform.position + PlayerController.PlayerTwoInstance.transform.position), 
+					float DistanceA = Vector3.Distance (
+						PlayerOne.transform.position, 
 						ReferencePoint.transform.position
 					);
 
-					Distance = MaxDistanceVector;
-
-					float MinDistanceVector = Vector3.Min (
-						0.5f * (PlayerController.PlayerOneInstance.transform.position + PlayerController.PlayerTwoInstance.transform.position), 
+					float DistanceB = Vector3.Distance (
+						PlayerTwo.transform.position, 
 						ReferencePoint.transform.position
 					);
+						
+					if (DistanceA > DistanceB) 
+					{
+						Distance = DistanceA;
+					}
 
-					Distance = MinDistanceVector;
-					*/
+					if (DistanceB > DistanceA) 
+					{
+						Distance = DistanceB;
+					}
 				}
 
 				// Checks for game modifier time increasing mode over real time.
@@ -232,12 +246,10 @@ public class TimescaleController : MonoBehaviour
 					case GameModifierManager.timeIncreaseMode.Off:
 						break;
 				}
-
-
 					
 				// Updates fixed time step based on time scale. (Current period: 1/200 of a second, 200Hz).
 				// Physics updates must be this fast to maintain accuracy.
-				Time.fixedDeltaTime = Time.timeScale * 0.005f;
+				Time.fixedDeltaTime = Time.timeScale * 0.005f; // gets called 200 times per second.
 				Time.maximumParticleDeltaTime = Time.timeScale * 0.005f;
 			}
 
@@ -253,13 +265,15 @@ public class TimescaleController : MonoBehaviour
 			}
 		} 
 
-		if (isOverridingTimeScale == false && isInInitialSequence == false && isInInitialCountdownSequence == false) 
+		// Time is not overriding. 
+		if (isOverridingTimeScale == false 
+			&& isInInitialSequence == false && isInInitialCountdownSequence == false) 
 		{
-			// Gets vertical distance from player to reference point. (Default).
-			// Distance = PlayerOne.transform.position.y - ReferencePoint.position.y;
-			// Get distance but only use Y component.
-			float DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
-			Distance = DistanceVector;
+			if (useTwoPlayers == false && PlayerController.PlayerOneInstance.isInCooldownMode == false) 
+			{
+				float DistanceVector = Vector3.Distance (PlayerOne.transform.position, ReferencePoint.transform.position);
+				Distance = DistanceVector;
+			}
 
 			if (TimeCalculation == timeCalc.Continuous) 
 			{

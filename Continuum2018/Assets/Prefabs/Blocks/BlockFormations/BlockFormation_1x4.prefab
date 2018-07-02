@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03106b28700b2a14495dea5bbdef7176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: NaN
+  speed: -700
   AccumulatedSpeed: 0
   Rows: 1
   Columns: 4

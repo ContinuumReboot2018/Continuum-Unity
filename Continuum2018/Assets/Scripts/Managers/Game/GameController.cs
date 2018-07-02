@@ -131,6 +131,10 @@ public class GameController : MonoBehaviour
 	[Tooltip ("Current time left of the current combo before it decremements.")]
 	public float comboTimeRemaining;
 
+	public float CurrentAbilityTimeRemaining;
+	public float CurrentAbilityDuration = 20;
+	public float AbilityTimeAmountProportion;
+
 	[Header ("Stacking")]
 	[Tooltip ("Stack zones parent object.")]
 	public GameObject StackingObject;
@@ -738,11 +742,11 @@ public class GameController : MonoBehaviour
 				P1_Ability.text = 
 					"P1 Ability: " + PlayerController.PlayerOneInstance.AbilityName;
 				P1_AbilityTimeRemaining.text = 
-					"P1 Ability Remain: " + Math.Round (PlayerController.PlayerOneInstance.CurrentAbilityTimeRemaining, 2);
+					"P1 Ability Remain: " + Math.Round (GameController.Instance.CurrentAbilityTimeRemaining, 2);
 				P1_AbilityTimeDuration.text = 
-					"P1 Max Ability Time: " + PlayerController.PlayerOneInstance.CurrentAbilityDuration;
+					"P1 Max Ability Time: " + GameController.Instance.CurrentAbilityDuration;
 				P1_AbilityTimeProportion.text = 
-					"P1 Ability Fill: " + Math.Round (PlayerController.PlayerOneInstance.AbilityTimeAmountProportion, 6);
+					"P1 Ability Fill: " + Math.Round (GameController.Instance.AbilityTimeAmountProportion, 6);
 				CheatTimeRemainText_Debug.text = 
 					"Cheat Time Remain: " + Math.Round (DeveloperMode.Instance.CheatStringResetTimeRemaining, 1);
 				CheatStringText_Debug.text = 

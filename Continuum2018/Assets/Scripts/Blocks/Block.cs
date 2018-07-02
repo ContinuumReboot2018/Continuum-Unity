@@ -405,7 +405,16 @@ public class Block : MonoBehaviour
 					CreateExplosion (); // Create the explosion.
 					IncrementBlocksDestroyed (); // Increment blocks destroyed.
 					DoCamShake (); // Shake camera.
-					DoVibrate ();
+
+					if (particle.name.Contains ("P1")) 
+					{
+						DoVibrate (1);
+					}
+
+					if (particle.name.Contains ("P2")) 
+					{
+						DoVibrate (2);
+					}
 
 					//Destroy (gameObject);
 					gameObject.SetActive (false);
@@ -425,7 +434,16 @@ public class Block : MonoBehaviour
 						IncrementBlocksDestroyed ();
 						CreateExplosion (); // Create the explosion.
 						DoCamShake (); // Destroy this object.
-						DoVibrate ();
+
+						if (particle.name.Contains ("P1")) 
+						{
+							DoVibrate (1);
+						}
+
+						if (particle.name.Contains ("P2")) 
+						{
+							DoVibrate (2);
+						}
 
 						if (particle.GetComponentInParent<Bullet> () != null) 
 						{
@@ -477,7 +495,9 @@ public class Block : MonoBehaviour
 				CreateExplosion (); // Create the explosion.
 				IncrementBlocksDestroyed (); // Increment blocks destroyed.
 				DoCamShake (); // Shake camera.
-				DoVibrate ();
+
+				DoVibrate (1);
+				DoVibrate (2);
 
 				// If the tag is not a bullet.
 				if (other.tag != "Bullet") 
@@ -542,7 +562,18 @@ public class Block : MonoBehaviour
 					}
 						
 					DoCamShake (); // Destroy this object.
-					DoVibrate ();
+
+					if (other.transform.parent.name.Contains ("P1")) 
+					{
+						DoVibrate (1);
+					}
+
+
+					if (other.transform.parent.name.Contains ("P2")) 
+					{
+						DoVibrate (2);
+					}
+
 					gameObject.SetActive (false);
 					return; // Prevent any further code execution.
 				}
@@ -574,7 +605,17 @@ public class Block : MonoBehaviour
 						GetTotalPointValue (); // Get total point calculation.
 						CreateExplosion (); // Create the explosion.
 						DoCamShake (); // Destroy this object.
-						DoVibrate ();
+
+						if (other.transform.parent.name.Contains ("P1")) 
+						{
+							DoVibrate (1);
+						}
+
+
+						if (other.transform.parent.name.Contains ("P2")) 
+						{
+							DoVibrate (2);
+						}
 
 						if (other.GetComponent<Bullet> () != null) 
 						{
@@ -605,16 +646,18 @@ public class Block : MonoBehaviour
 				{
 					PlayerController.PlayerOneInstance.PlayerBlockImpact (this);
 					PlayerController.PlayerOneInstance.PlayerImpactGeneric ();
+					DoVibrate (1);
 				}
 
 				if (other.name.Contains ("P2")) 
 				{
 					PlayerController.PlayerTwoInstance.PlayerBlockImpact (this);
 					PlayerController.PlayerTwoInstance.PlayerImpactGeneric ();
+					DoVibrate (2);
 				}
 
 				DoCamShake ();
-				DoVibrate ();
+
 				gameObject.SetActive (false);
 				return;
 			}
@@ -755,16 +798,16 @@ public class Block : MonoBehaviour
 			if (PlayerController.PlayerOneInstance.isInCooldownMode == false)
 			{
 				// Ability time remaining must be less than the required duration.
-				if (PlayerController.PlayerOneInstance.CurrentAbilityTimeRemaining < PlayerController.PlayerOneInstance.CurrentAbilityDuration)
+				if (GameController.Instance.CurrentAbilityTimeRemaining < GameController.Instance.CurrentAbilityDuration)
 				{
 					if (isBossPart == false) // Not a boss part.
 					{
-						PlayerController.PlayerOneInstance.CurrentAbilityTimeRemaining += AddAbilityTime * PlayerController.PlayerOneInstance.AbilityDampening; // Increase ability time.
+						GameController.Instance.CurrentAbilityTimeRemaining += AddAbilityTime * PlayerController.PlayerOneInstance.AbilityDampening; // Increase ability time.
 					}
 
 					if (isBossPart == true) // Is boss part.
 					{
-						PlayerController.PlayerOneInstance.CurrentAbilityTimeRemaining += AddAbilityTime * PlayerController.PlayerOneInstance.AbilityDampening; // Increase ability time.
+						GameController.Instance.CurrentAbilityTimeRemaining += AddAbilityTime * PlayerController.PlayerOneInstance.AbilityDampening; // Increase ability time.
 					}
 				}
 			}
@@ -829,14 +872,21 @@ public class Block : MonoBehaviour
 		}
 	}
 
-	void DoVibrate ()
+	void DoVibrate (int playerId)
 	{
 		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
-		PlayerController.PlayerOneInstance.Vibrate (0.7f, 0.7f, 0.2f);
 
-		if (PlayerController.PlayerTwoInstance != null)
+		if (playerId == 1)
 		{
-			PlayerController.PlayerTwoInstance.Vibrate (0.7f, 0.7f, 0.2f);
+			PlayerController.PlayerOneInstance.Vibrate (0.7f, 0.7f, 0.2f);
+		}
+
+		if (playerId == 2)
+		{
+			if (PlayerController.PlayerTwoInstance != null)
+			{
+				PlayerController.PlayerTwoInstance.Vibrate (0.7f, 0.7f, 0.2f);
+			}
 		}
 
 		#endif

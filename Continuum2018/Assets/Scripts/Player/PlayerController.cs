@@ -228,13 +228,13 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Ability stats.
-	[Tooltip("Maximum ability time.")]
-	public float CurrentAbilityDuration;
-	[Tooltip("Timer for the ability.")]
-	public float CurrentAbilityTimeRemaining;
-	[Range (0.0f, 1.0f)]
-	[Tooltip("Time remining / duration.")]
-	public float AbilityTimeAmountProportion;
+	//[Tooltip("Maximum ability time.")]
+	//public float CurrentAbilityDuration;
+	//[Tooltip("Timer for the ability.")]
+	//public float CurrentAbilityTimeRemaining;
+	//[Range (0.0f, 1.0f)]
+	//[Tooltip("Time remining / duration.")]
+	//public float AbilityTimeAmountProportion;
 	[Tooltip("How fast the ability bar charges.")]
 	public float AbilityChargeSpeedMultiplier = 0.5f;
 	[Tooltip("How fast the ability bar diminishes.")]
@@ -543,6 +543,8 @@ public class PlayerController : MonoBehaviour
 			Debug.Log ("Player two instance set.");
 			//playerActions_P2.Device = GameController.playerDevices[deviceID];
 		}
+
+		playerCol.transform.localPosition = Vector3.zero;
 	}
 
 	void Start () 
@@ -781,6 +783,9 @@ public class PlayerController : MonoBehaviour
 				// Timer down for cooldown.
 				cooldownTimeRemaining -= Time.unscaledDeltaTime;
 				PlayerLight.intensity = 0;
+
+				TimescaleController.Instance.OverridingTimeScale = 0.3f;
+				TimescaleController.Instance.OverrideTimeScaleTimeRemaining = cooldownTimeRemaining;
 			}
 
 			// Cooldown time is finished, re enable the things.
@@ -1154,14 +1159,33 @@ public class PlayerController : MonoBehaviour
 					{
 						if (PlayerId == 1) 
 						{
-							MovementX = playerActions_P1.Move.Value.x;
-							MovementY = playerActions_P1.Move.Value.y;
+							if (InputManager.Devices.Count > 0) 
+							{
+								if (InputManager.Devices [0].IsAttached) 
+								{
+									MovementX = InputManager.Devices [0].LeftStick.Value.x;
+									MovementY = InputManager.Devices [0].LeftStick.Value.y;
+								}
+							} 
+
+							else 
+							
+							{
+								MovementX = playerActions_P1.Move.Value.x;
+								MovementY = playerActions_P1.Move.Value.y;
+							}
 						}
 
 						if (PlayerId == 2) 
 						{
-							MovementX = playerActions_P2.Move.Value.x;
-							MovementY = playerActions_P2.Move.Value.y;
+							if (InputManager.Devices.Count > 1) 
+							{
+								if (InputManager.Devices [1].IsAttached)
+								{
+									MovementX = InputManager.Devices [1].LeftStick.Value.x;
+									MovementY = InputManager.Devices [1].LeftStick.Value.y;
+								}
+							}
 						}
 					}
 
@@ -1170,14 +1194,23 @@ public class PlayerController : MonoBehaviour
 					{
 						if (PlayerId == 1) 
 						{
-							MovementX = playerActions_P1.Move.Value.x;
-							MovementY = playerActions_P1.Move.Value.y;
+							if (InputManager.Devices [0].IsAttached) 
+							{
+								MovementX = -InputManager.Devices [0].LeftStick.Value.x;
+								MovementY = InputManager.Devices [0].LeftStick.Value.y;
+							}
 						}
 
 						if (PlayerId == 2) 
 						{
-							MovementX = -playerActions_P2.Move.Value.x;
-							MovementY = -playerActions_P2.Move.Value.y;
+							if (InputManager.Devices.Count > 1)
+							{
+								if (InputManager.Devices [1].IsAttached) 
+								{
+									MovementX = -InputManager.Devices [1].LeftStick.Value.x;
+									MovementY = InputManager.Devices [1].LeftStick.Value.y;
+								}
+							}
 						}
 					}
 				}
@@ -1226,23 +1259,56 @@ public class PlayerController : MonoBehaviour
 	void CheckAbilityTime ()
 	{
 		// Updates the ability UI involved.
-		AbilityTimeAmountProportion = CurrentAbilityTimeRemaining / CurrentAbilityDuration;
-		AbilityFillImage.fillAmount = 1f * AbilityTimeAmountProportion;
+		GameController.Instance.AbilityTimeAmountProportion = GameController.Instance.CurrentAbilityTimeRemaining / GameController.Instance.CurrentAbilityDuration;
+		AbilityFillImage.fillAmount = 1f * GameController.Instance.AbilityTimeAmountProportion;
 
-		// Player presses ability button.
-		if (playerActions_P1.Ability.WasPressed && 
-			GameController.Instance.isPaused == false && 
-			//playerCol.enabled == true && 
-			isInCooldownMode == false) 
+		if (PlayerId == 1) 
 		{
-			// Ability is charged.
-			if (CurrentAbilityState == abilityState.Ready && 
-				cooldownTimeRemaining <= 0 &&
-				TimescaleController.Instance.isInInitialSequence == false && 
-				TimescaleController.Instance.isInInitialCountdownSequence == false) 
+			if (InputManager.Devices.Count > 0) 
 			{
-				ActivateAbility ();
-				CurrentAbilityState = abilityState.Active;
+				if (InputManager.Devices [0].IsAttached) 
+				{
+					// Player presses ability button.
+					if ((InputManager.Devices [0].LeftTrigger.Value > 0.75f || InputManager.Devices [0].Action3.IsPressed)
+					   && GameController.Instance.isPaused == false &&
+					   isInCooldownMode == false)
+					{
+						// Ability is charged.
+						if (CurrentAbilityState == abilityState.Ready &&
+						   cooldownTimeRemaining <= 0 &&
+						   TimescaleController.Instance.isInInitialSequence == false &&
+						   TimescaleController.Instance.isInInitialCountdownSequence == false)
+						{
+							ActivateAbility ();
+							CurrentAbilityState = abilityState.Active;
+						}
+					}
+				}
+			}
+		}
+
+		if (PlayerId == 2) 
+		{
+			if (InputManager.Devices.Count > 1) 
+			{
+				if (InputManager.Devices [1].IsAttached) 
+				{
+					// Player presses ability button.
+					if ((InputManager.Devices [1].LeftTrigger.Value > 0.75f || InputManager.Devices [1].Action3.IsPressed)
+					   && GameController.Instance.isPaused == false &&
+					   isInCooldownMode == false)
+					{
+						// Ability is charged.
+						if (CurrentAbilityState == abilityState.Ready &&
+						   cooldownTimeRemaining <= 0 &&
+						   TimescaleController.Instance.isInInitialSequence == false &&
+						   TimescaleController.Instance.isInInitialCountdownSequence == false) 
+						{
+							ActivateAbility ();
+							CurrentAbilityState = abilityState.Active;
+						}
+					}
+				}
 			}
 		}
 
@@ -1253,12 +1319,12 @@ public class PlayerController : MonoBehaviour
 				AbilityUseColor * AbilityBrightness
 			);
 				
-			if (CurrentAbilityTimeRemaining > 0)
+			if (GameController.Instance.CurrentAbilityTimeRemaining > 0)
 			{
-				CurrentAbilityTimeRemaining -= 0.75f * AbilityUseSpeedMultiplier * Time.unscaledDeltaTime;
+				GameController.Instance.CurrentAbilityTimeRemaining -= 0.75f * AbilityUseSpeedMultiplier * Time.unscaledDeltaTime;
 			}
 
-			if (CurrentAbilityTimeRemaining <= 0) 
+			if (GameController.Instance.CurrentAbilityTimeRemaining <= 0) 
 			{
 				CurrentAbilityState = abilityState.Charging;
 				DeactivateAbility ();
@@ -1270,7 +1336,7 @@ public class PlayerController : MonoBehaviour
 				AbilityActiveParticles.Play ();
 			}	
 
-			CurrentAbilityTimeRemaining = Mathf.Clamp (CurrentAbilityTimeRemaining, 0, CurrentAbilityDuration);
+			GameController.Instance.CurrentAbilityTimeRemaining = Mathf.Clamp (GameController.Instance.CurrentAbilityTimeRemaining, 0, GameController.Instance.CurrentAbilityDuration);
 			AbilityAnim.Play ("HexesFadeIn");
 		}
 
@@ -1288,19 +1354,19 @@ public class PlayerController : MonoBehaviour
 
 		if (CurrentAbilityState == abilityState.Charging) 
 		{
-			if (CurrentAbilityTimeRemaining < CurrentAbilityDuration && 
+			if (GameController.Instance.CurrentAbilityTimeRemaining < GameController.Instance.CurrentAbilityDuration && 
 				cooldownTimeRemaining <= 0 &&
 				TimescaleController.Instance.isInInitialSequence == false && 
 				TimescaleController.Instance.isInInitialCountdownSequence == false && 
 				GameController.Instance.isPaused == false &&
 				TutorialManager.Instance.tutorialComplete == true) 
 			{
-				//CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
+				//GameController.Instance.CurrentAbilityTimeRemaining += AbilityChargeSpeedMultiplier * Time.unscaledDeltaTime; // Add slowdown.
 			}
 
-			if (CurrentAbilityTimeRemaining >= CurrentAbilityDuration) 
+			if (GameController.Instance.CurrentAbilityTimeRemaining >= GameController.Instance.CurrentAbilityDuration) 
 			{
-				CurrentAbilityTimeRemaining = CurrentAbilityDuration;
+				GameController.Instance.CurrentAbilityTimeRemaining = GameController.Instance.CurrentAbilityDuration;
 				AbilityCompletion.Play ("AbilityComplete");
 				AbilityCompletionTexture.texture = AbilityImage.texture;
 				AbilityCompletionText.text = ParseByCase(Ability.ToString ());
@@ -1316,7 +1382,7 @@ public class PlayerController : MonoBehaviour
 				AbilityAnim.Play ("AbilityBounce");
 			}
 
-			if (AbilityTimeAmountProportion < 1f)
+			if (GameController.Instance.AbilityTimeAmountProportion < 1f)
 			{
 				AbilityFillImage.material.SetColor ("_EmissionColor",
 					AbilityChargingColor * AbilityBrightness
@@ -1381,7 +1447,7 @@ public class PlayerController : MonoBehaviour
 		TimescaleController.Instance.OverrideTimeScaleTimeRemaining += 0.75f;
 		TimescaleController.Instance.OverridingTimeScale = 0.3f;
 
-		camShakeScript.ShakeCam (0.4f, CurrentAbilityDuration, 6);
+		camShakeScript.ShakeCam (0.4f, GameController.Instance.CurrentAbilityDuration, 6);
 
 		AbilityActiveParticles.Play ();
 		AbilityActiveBurstParticles.Play ();
@@ -1586,7 +1652,16 @@ public class PlayerController : MonoBehaviour
 	void DrawReferencePointLine ()
 	{
 		RelativeDistance = Vector3.Distance (playerCol.transform.position, ReferencePoint.transform.position);
-		Debug.DrawLine (playerCol.transform.position, ReferencePoint.transform.position, Color.red);
+
+		if (PlayerController.PlayerOneInstance == this)
+		{
+			Debug.DrawLine (playerCol.transform.position, ReferencePoint.transform.position, Color.red);
+		}
+
+		if (PlayerController.PlayerTwoInstance == this) 
+		{
+			Debug.DrawLine (playerCol.transform.position, PlayerController.PlayerOneInstance.playerCol.transform.position, new Color (1, 0.5f, 0));
+		}
 	}
 
 	void CheckShootingCooldown ()
@@ -1645,47 +1720,101 @@ public class PlayerController : MonoBehaviour
 		{
 			if (canShoot == true) 
 			{
-				if (playerActions_P1.Shoot.Value > 0.75f && GameController.Instance.isPaused == false) 
+				if (InputManager.Devices.Count > 0) 
 				{
-					if (Time.time >= NextFire) {
-						// Every time the player shoots, decremement the combo.
-						if (GameController.Instance.combo > 1) 
-						{
-							GameController.Instance.combo -= 1;
-						}
-
-						if (Overheated == false && AbilityFillImage.color != HotColor) 
-						{
-							Shoot ();
-
-							if (MirrorPlayer.activeInHierarchy == true) 
-							{
-								mirrorPlayerScript.Shoot ();
-							}
-							
-							NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
-							NonShootingTime = 0;
-						}
-					}
-
-					if (Overheated == false) 
+					if (InputManager.Devices [0].IsAttached)
 					{
-						CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier) * Time.deltaTime; // Increase by cost.
+						if ((InputManager.Devices [0].RightTrigger.Value > 0.75f || InputManager.Devices [0].Action1.IsPressed)
+						    && GameController.Instance.isPaused == false) 
+						{
+							if (Time.time >= NextFire) 
+							{
+								// Every time the player shoots, decremement the combo.
+								if (GameController.Instance.combo > 1) 
+								{
+									GameController.Instance.combo -= 1;
+								}
+
+								if (Overheated == false && AbilityFillImage.color != HotColor) 
+								{
+									Shoot ();
+
+									if (MirrorPlayer.activeInHierarchy == true) 
+									{
+										mirrorPlayerScript.Shoot ();
+									}
+							
+									NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
+									NonShootingTime = 0;
+								}
+							}
+
+							if (Overheated == false) {
+								CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier) * Time.deltaTime; // Increase by cost.
+							}
+						}
+
+						if ((InputManager.Devices [0].RightTrigger.Value < 0.75f || InputManager.Devices [0].Action1.WasReleased)
+						    && Time.time >= NextFire && GameController.Instance.isPaused == false) {
+							if (GameController.Instance.isPaused == false && GameController.Instance.isGameOver == false) 
+							{
+								NonShootingTime += Time.unscaledDeltaTime;
+							}
+
+							if (Overheated == false) 
+							{
+								// Keeps decreasing heat over time.
+								CurrentShootingCooldown -= Time.deltaTime * ShootingCooldownDecreaseRate;
+							}
+						}
 					}
 				}
 
-				if (playerActions_P1.Shoot.Value < 0.75f && Time.time >= NextFire &&
-				   GameController.Instance.isPaused == false)
+				else 
+				
 				{
-					if (GameController.Instance.isPaused == false && GameController.Instance.isGameOver == false)
+					if ((Input.GetKey (KeyCode.Space) || Input.GetKey (KeyCode.LeftControl))
+						&& GameController.Instance.isPaused == false) 
 					{
-						NonShootingTime += Time.unscaledDeltaTime;
+						if (Time.time >= NextFire) 
+						{
+							// Every time the player shoots, decremement the combo.
+							if (GameController.Instance.combo > 1) 
+							{
+								GameController.Instance.combo -= 1;
+							}
+
+							if (Overheated == false && AbilityFillImage.color != HotColor) 
+							{
+								Shoot ();
+
+								if (MirrorPlayer.activeInHierarchy == true) 
+								{
+									mirrorPlayerScript.Shoot ();
+								}
+
+								NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
+								NonShootingTime = 0;
+							}
+						}
+
+						if (Overheated == false) {
+							CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier) * Time.deltaTime; // Increase by cost.
+						}
 					}
 
-					if (Overheated == false) 
-					{
-						// Keeps decreasing heat over time.
-						CurrentShootingCooldown -= Time.deltaTime * ShootingCooldownDecreaseRate;
+					if ((Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.LeftControl))
+						&& Time.time >= NextFire && GameController.Instance.isPaused == false) {
+						if (GameController.Instance.isPaused == false && GameController.Instance.isGameOver == false) 
+						{
+							NonShootingTime += Time.unscaledDeltaTime;
+						}
+
+						if (Overheated == false) 
+						{
+							// Keeps decreasing heat over time.
+							CurrentShootingCooldown -= Time.deltaTime * ShootingCooldownDecreaseRate;
+						}
 					}
 				}
 			}
@@ -1695,47 +1824,55 @@ public class PlayerController : MonoBehaviour
 		{
 			if (canShoot == true) 
 			{
-				if (playerActions_P2.Shoot.Value > 0.75f && GameController.Instance.isPaused == false) 
+				if (InputManager.Devices.Count > 1) 
 				{
-					if (Time.time >= NextFire) {
-						// Every time the player shoots, decremement the combo.
-						if (GameController.Instance.combo > 1) 
+					if (InputManager.Devices [1].IsAttached) 
+					{
+						if ((InputManager.Devices [1].RightTrigger.Value > 0.75f || InputManager.Devices [1].Action1.IsPressed)
+						   && GameController.Instance.isPaused == false) 
 						{
-							GameController.Instance.combo -= 1;
-						}
-
-						if (Overheated == false && AbilityFillImage.color != HotColor) 
-						{
-							Shoot ();
-
-							if (MirrorPlayer.activeInHierarchy == true) 
+							if (Time.time >= NextFire)
 							{
-								mirrorPlayerScript.Shoot ();
+								// Every time the player shoots, decremement the combo.
+								if (GameController.Instance.combo > 1) 
+								{
+									GameController.Instance.combo -= 1;
+								}
+
+								if (Overheated == false && AbilityFillImage.color != HotColor) 
+								{
+									Shoot ();
+
+									if (MirrorPlayer.activeInHierarchy == true) 
+									{
+										mirrorPlayerScript.Shoot ();
+									}
+
+									NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
+									NonShootingTime = 0;
+								}
 							}
 
-							NextFire = Time.time + (CurrentFireRate / (FireRateTimeMultiplier));
-							NonShootingTime = 0;
+							if (Overheated == false) 
+							{
+								CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier) * Time.deltaTime; // Increase by cost.
+							}
 						}
-					}
 
-					if (Overheated == false) 
-					{
-						CurrentShootingCooldown += (CurrentShootingHeatCost / FireRateTimeMultiplier) * Time.deltaTime; // Increase by cost.
-					}
-				}
+						if ((InputManager.Devices [1].RightTrigger.Value < 0.75f || InputManager.Devices [1].Action1.WasReleased)
+						   && Time.time >= NextFire && GameController.Instance.isPaused == false) 
+						{
+							if (GameController.Instance.isPaused == false && GameController.Instance.isGameOver == false) 
+							{
+								NonShootingTime += Time.unscaledDeltaTime;
+							}
 
-				if (playerActions_P2.Shoot.Value < 0.75f && Time.time >= NextFire &&
-					GameController.Instance.isPaused == false)
-				{
-					if (GameController.Instance.isPaused == false && GameController.Instance.isGameOver == false)
-					{
-						NonShootingTime += Time.unscaledDeltaTime;
-					}
-
-					if (Overheated == false) 
-					{
-						// Keeps decreasing heat over time.
-						CurrentShootingCooldown -= Time.deltaTime * ShootingCooldownDecreaseRate;
+							if (Overheated == false) 
+							{
+								// Keeps decreasing heat over time.
+								CurrentShootingCooldown -= Time.deltaTime * ShootingCooldownDecreaseRate;
+							}
+						}
 					}
 				}
 			}
@@ -1973,23 +2110,24 @@ public class PlayerController : MonoBehaviour
 		// Vertical position.
 		if (PlayerRb.position.y > AbilityCheckPlayerPos.y) 
 		{
-			// Horizontal position too far.
-			if (PlayerRb.position.x < AbilityCheckPlayerPos.x) 
+			if (AbilityUI.activeInHierarchy == true) 
 			{
-				if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeOut") == false && isHidingAbilityUI == false) 
+				// Horizontal position too far.
+				if (PlayerRb.position.x < AbilityCheckPlayerPos.x)
 				{
-					AbilityUIHexes.Play ("HexesFadeOut");
-					isHidingAbilityUI = true;
+					if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeOut") == false && isHidingAbilityUI == false) {
+						AbilityUIHexes.Play ("HexesFadeOut");
+						isHidingAbilityUI = true;
+					}
 				}
-			}
 
-			// Horizontal position in range.
-			if (PlayerRb.position.x >= AbilityCheckPlayerPos.x) 
-			{
-				if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeIn") == false && isHidingAbilityUI == true) 
+				// Horizontal position in range.
+				if (PlayerRb.position.x >= AbilityCheckPlayerPos.x) 
 				{
-					AbilityUIHexes.Play ("HexesFadeIn");
-					isHidingAbilityUI = false;
+					if (AbilityUIHexes.GetCurrentAnimatorStateInfo (0).IsName ("HexesFadeIn") == false && isHidingAbilityUI == true) {
+						AbilityUIHexes.Play ("HexesFadeIn");
+						isHidingAbilityUI = false;
+					}
 				}
 			}
 		}
@@ -2323,25 +2461,25 @@ public class PlayerController : MonoBehaviour
 	{
 		// LEFT
 		playerActions_P1.MoveLeft.AddDefaultBinding (Key.A);
-		//playerActions_P1.MoveLeft.AddDefaultBinding (Key.LeftArrow);
+		playerActions_P1.MoveLeft.AddDefaultBinding (Key.LeftArrow);
 		playerActions_P1.MoveLeft.AddDefaultBinding (InputControlType.LeftStickLeft);
 		playerActions_P1.MoveLeft.AddDefaultBinding (InputControlType.DPadLeft);
 
 		// RIGHT
 		playerActions_P1.MoveRight.AddDefaultBinding (Key.D);
-		//playerActions_P1.MoveRight.AddDefaultBinding (Key.RightArrow);
+		playerActions_P1.MoveRight.AddDefaultBinding (Key.RightArrow);
 		playerActions_P1.MoveRight.AddDefaultBinding (InputControlType.LeftStickRight);
 		playerActions_P1.MoveRight.AddDefaultBinding (InputControlType.DPadRight);
 
 		// UP
 		playerActions_P1.MoveUp.AddDefaultBinding (Key.W);
-		//playerActions_P1.MoveUp.AddDefaultBinding (Key.UpArrow);
+		playerActions_P1.MoveUp.AddDefaultBinding (Key.UpArrow);
 		playerActions_P1.MoveUp.AddDefaultBinding (InputControlType.LeftStickUp);
 		playerActions_P1.MoveUp.AddDefaultBinding (InputControlType.DPadUp);
 
 		// DOWN
 		playerActions_P1.MoveDown.AddDefaultBinding (Key.S);
-		//playerActions_P1.MoveDown.AddDefaultBinding (Key.DownArrow);
+		playerActions_P1.MoveDown.AddDefaultBinding (Key.DownArrow);
 		playerActions_P1.MoveDown.AddDefaultBinding (InputControlType.LeftStickDown);
 		playerActions_P1.MoveDown.AddDefaultBinding (InputControlType.DPadDown);
 
@@ -2429,7 +2567,16 @@ public class PlayerController : MonoBehaviour
 		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
 		PlayerVibrationDuration = duration;
 		PlayerVibrationTimeRemaining = PlayerVibrationDuration;
-		GamePad.SetVibration (PlayerIndex.One, LeftMotor, RightMotor);
+
+		if (PlayerId == 1)
+		{
+			GamePad.SetVibration (PlayerIndex.One, LeftMotor, RightMotor);
+		}
+
+		if (PlayerId == 2)
+		{
+			GamePad.SetVibration (PlayerIndex.Two, LeftMotor, RightMotor);
+		}
 		#endif
 	}
 
@@ -2439,6 +2586,7 @@ public class PlayerController : MonoBehaviour
 		PlayerVibrationDuration = 0;
 		PlayerVibrationTimeRemaining = 0;
 		GamePad.SetVibration (PlayerIndex.One, 0, 0);
+		GamePad.SetVibration (PlayerIndex.Two, 0, 0);
 		#endif
 	}
 
@@ -2462,6 +2610,7 @@ public class PlayerController : MonoBehaviour
 	{
 		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
 		GamePad.SetVibration (PlayerIndex.One, 0, 0);
+		GamePad.SetVibration (PlayerIndex.Two, 0, 0);
 		#endif
 	}
 
