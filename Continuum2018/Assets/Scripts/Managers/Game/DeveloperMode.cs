@@ -148,7 +148,7 @@ public class DeveloperMode : MonoBehaviour
 	// Shows/hides debug and cheat menus.
 	void UpdateDebugMenu ()
 	{
-		if (playerControllerScript_P1.playerActions.DebugMenu.WasPressed) 
+		if (playerControllerScript_P1.playerActions_P1.DebugMenu.WasPressed) 
 		{
 			showDebugMenu = !showDebugMenu;
 

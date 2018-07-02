@@ -1478,7 +1478,7 @@ public class GameController : MonoBehaviour
 			isPaused == false && 
 			TutorialManager.Instance.tutorialComplete == true) 
 		{
-			if (TimescaleController.Instance.Distance > 3) 
+			if (TimescaleController.Instance.Distance > 3 && IsInWaveTransition == false) 
 			{
 				// PowerupPickupTimeRemaining is scaled.
 				powerupPickupTimeRemaining -= Time.deltaTime * Time.timeScale * 2;

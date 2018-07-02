@@ -145,6 +145,9 @@ public class Block : MonoBehaviour
 
 	void OnEnable ()
 	{
+		processor = AudioController.Instance.BeatDetectionTracks [(int)BlockType].GetComponent<AudioProcessor> ();
+		processor.onBeat.AddListener (onOnbeatDetected);
+
 		if (allBlocks == null) 
 		{
 			allBlocks = new List<Block> ();
@@ -248,9 +251,6 @@ public class Block : MonoBehaviour
 		parentToTransformScript = GetComponent<ParentToTransform> ();
 		timeBodyScript = GetComponent<TimeBody> ();
 
-		processor = AudioController.Instance.BeatDetectionTracks [(int)BlockType].GetComponent<AudioProcessor> ();
-		processor.onBeat.AddListener (onOnbeatDetected);
-
 		// Finds texture scroll script.
 		if (textureScrollScript == null) 
 		{
@@ -280,7 +280,11 @@ public class Block : MonoBehaviour
 		{
 			if (anim != null) 
 			{
-				anim.Play ("BlockBeat");
+				// Prevents inactive GameObjects from animating.
+				if (anim.gameObject.activeInHierarchy == true) 
+				{
+					anim.Play ("BlockBeat");
+				}
 			}
 		}
 

@@ -67,7 +67,7 @@ public class GameOverController : MonoBehaviour
 			CurrentScore = Mathf.Lerp (CurrentScore, FinalScore, ScoreSmoothing * Time.unscaledDeltaTime);
 		}
 
-		if (PlayerController.PlayerOneInstance.playerActions.Shoot.IsPressed) 
+		if (PlayerController.PlayerOneInstance.playerActions_P1.Shoot.IsPressed) 
 		{
 			if (GameOverUI.activeInHierarchy == true && 
 				LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == false) 

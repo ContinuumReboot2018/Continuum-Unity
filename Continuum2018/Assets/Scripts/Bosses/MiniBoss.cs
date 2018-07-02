@@ -126,20 +126,15 @@ public class MiniBoss : MonoBehaviour
 			Brain = this.gameObject;
 		}
 
-		// Found a player, set PlayerPos.
-		if (PlayerController.PlayerOneInstance != null) 
-		{
-			PlayerPos = PlayerController.PlayerOneInstance.transform;
-			FollowPlayerPos = PlayerPos;
-			Invoke ("GetBossParts", 0.5f);
-			StartCoroutine (DrawLineToPlayer ());
-			FlipScreen = GameObject.Find ("Camera Rig").GetComponent<Animator>();
+		PlayerPos = PlayerController.PlayerOneInstance.playerCol.transform;
+		FollowPlayerPos = PlayerPos;
+		Invoke ("GetBossParts", 0.5f);
+		StartCoroutine (DrawLineToPlayer ());
+		FlipScreen = GameObject.Find ("Camera Rig").GetComponent<Animator>();
 
-			// Set looking at script and following script accordingly.
-			BrainLookScript.LookAtPos = FollowPlayerPos.transform;
-			simpleFollowScript.OverrideTransform = FollowPlayerPos.transform;
-		}
-
+		// Set looking at script and following script accordingly.
+		BrainLookScript.LookAtPos = FollowPlayerPos.transform;
+		simpleFollowScript.OverrideTransform = FollowPlayerPos.transform;
 
 		// Couldn't find the player. Bail out and go to next wave.
 		if (PlayerController.PlayerOneInstance == null) 
