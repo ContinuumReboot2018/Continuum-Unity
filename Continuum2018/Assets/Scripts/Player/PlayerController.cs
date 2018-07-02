@@ -2377,6 +2377,8 @@ public class PlayerController : MonoBehaviour
 		playerActions_P2.MoveLeft.AddDefaultBinding (Key.LeftArrow);
 		playerActions_P2.MoveLeft.AddDefaultBinding (InputControlType.LeftStickLeft);
 		playerActions_P2.MoveLeft.AddDefaultBinding (InputControlType.DPadLeft);
+		//playerActions_P2.MoveLeft.AddDefaultBinding (GameController.playerDevices[deviceID].DPadLeft);
+		//playerActions_P2.MoveLeft.AddDefaultBinding (GameController.playerDevices[deviceID].LeftStickLeft);
 
 		// RIGHT
 		//playerActions_P2.MoveRight.AddDefaultBinding (Key.D);
