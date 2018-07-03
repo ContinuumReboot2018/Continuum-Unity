@@ -1270,18 +1270,37 @@ public class PlayerController : MonoBehaviour
 				{
 					// Player presses ability button.
 					if ((InputManager.Devices [0].LeftTrigger.Value > 0.75f || InputManager.Devices [0].Action3.IsPressed)
-					   && GameController.Instance.isPaused == false &&
-					   isInCooldownMode == false)
+					    && GameController.Instance.isPaused == false &&
+					    isInCooldownMode == false)
 					{
 						// Ability is charged.
 						if (CurrentAbilityState == abilityState.Ready &&
-						   cooldownTimeRemaining <= 0 &&
-						   TimescaleController.Instance.isInInitialSequence == false &&
-						   TimescaleController.Instance.isInInitialCountdownSequence == false)
+						    cooldownTimeRemaining <= 0 &&
+						    TimescaleController.Instance.isInInitialSequence == false &&
+						    TimescaleController.Instance.isInInitialCountdownSequence == false)
 						{
 							ActivateAbility ();
 							CurrentAbilityState = abilityState.Active;
 						}
+					}
+				}
+			} 
+
+			else 
+			
+			{
+				if (Input.GetKeyDown (KeyCode.LeftAlt) && 
+					GameController.Instance.isPaused == false &&
+					isInCooldownMode == false) 
+				{
+					// Ability is charged.
+					if (CurrentAbilityState == abilityState.Ready &&
+						cooldownTimeRemaining <= 0 &&
+						TimescaleController.Instance.isInInitialSequence == false &&
+						TimescaleController.Instance.isInInitialCountdownSequence == false)
+					{
+						ActivateAbility ();
+						CurrentAbilityState = abilityState.Active;
 					}
 				}
 			}
@@ -1390,11 +1409,15 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		lensScript.radius = Mathf.Lerp (
-			lensScript.radius, 
-			TargetLensRadius, 
-			LensRadiusSmoothTime * Time.unscaledDeltaTime
-		);
+		// Update lens length.
+		if (lensScript.BlackHoles.Count > 0) 
+		{
+			lensScript.BlackHoles [0].radius = Mathf.Lerp (
+				lensScript.BlackHoles [0].radius, 
+				TargetLensRadius, 
+				LensRadiusSmoothTime * Time.unscaledDeltaTime
+			);
+		}
 
 		Vector3 targetShieldScale = new Vector3 (
 			TargetShieldScale, 
