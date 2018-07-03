@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 using TMPro;
 
+using InControl;
+
 public class GameOverController : MonoBehaviour 
 {
 	public static GameOverController Instance { get; private set; }
@@ -55,8 +57,6 @@ public class GameOverController : MonoBehaviour
 	{
 		allowupdateentry = true;
 		InvokeRepeating ("UpdateFinalScoreText", 0, 0.5f);
-		//GetXpToAdd ();
-		//GetGameOverStats ();
 		eventData = new PointerEventData (EventSystem.current);
 	}
 
@@ -67,26 +67,35 @@ public class GameOverController : MonoBehaviour
 			CurrentScore = Mathf.Lerp (CurrentScore, FinalScore, ScoreSmoothing * Time.unscaledDeltaTime);
 		}
 
-		if (PlayerController.PlayerOneInstance.playerActions_P1.Shoot.IsPressed) 
+		// Theres a controller listed.
+		if (InputManager.Devices.Count > 0) 
 		{
-			if (GameOverUI.activeInHierarchy == true && 
-				LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == false) 
+			// Listed controller is attached.
+			if (InputManager.Devices [0].IsAttached) 
 			{
-				// Execute the OnClick event for the continue button.
-				ExecuteEvents.Execute (
-					ContinueButton.gameObject, 
-					eventData, 
-					ExecuteEvents.pointerClickHandler
-				);
-			}
+				// A button is pressed.
+				if (InputManager.Devices [0].Action1.IsPressed) 
+				{
+					if (GameOverUI.activeInHierarchy == true &&
+					   LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == false) 
+					{
+						// Execute the OnClick event for the continue button.
+						ExecuteEvents.Execute (
+							ContinueButton.gameObject, 
+							eventData, 
+							ExecuteEvents.pointerClickHandler
+						);
+					}
 
-			if (LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == true) 
-			{
-				ExecuteEvents.Execute (
-					LeaderboardCloseButton.gameObject, 
-					eventData, 
-					ExecuteEvents.pointerClickHandler
-				);
+					if (LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == true) 
+					{
+						ExecuteEvents.Execute (
+							LeaderboardCloseButton.gameObject, 
+							eventData, 
+							ExecuteEvents.pointerClickHandler
+						);
+					}
+				}
 			}
 		}
 	}

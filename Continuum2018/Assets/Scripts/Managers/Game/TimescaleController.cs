@@ -100,7 +100,7 @@ public class TimescaleController : MonoBehaviour
 		Time.fixedDeltaTime = 0.005f; // Setting initial fixed time step.
 	}
 
-	void Start ()
+	public void Start ()
 	{
 		if (TimeCalculation == timeCalc.Continuous) 
 		{

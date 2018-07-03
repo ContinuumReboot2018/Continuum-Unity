@@ -69,4 +69,5 @@ public class GameModifierManager : ScriptableObject
 	[Header ("Missions")]
 	[Multiline]
 	public string MissionDescription;
+	public bool Multiplayer;
 }

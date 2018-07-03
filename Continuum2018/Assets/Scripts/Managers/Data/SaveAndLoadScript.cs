@@ -410,6 +410,11 @@ public class SaveAndLoadScript : MonoBehaviour
 	// Puts new data into relevant scripts.
 	public void StorePlayerDataInGame ()
 	{
+		if (GameModifierReceiver.Instance != null) 
+		{
+			// Sets modifier manager scirpt to change
+			GameModifierReceiver.Instance.loadedModifierManagerScript = GameModifierReceiver.Instance.gameModifiers [MissionId];
+		}
 	}
 		
 	// Gets variables from this script = variables in other scripts.

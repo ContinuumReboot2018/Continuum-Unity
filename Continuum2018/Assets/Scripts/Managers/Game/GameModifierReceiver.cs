@@ -3,7 +3,11 @@ using TMPro;
 
 public class GameModifierReceiver : MonoBehaviour 
 {
+	public static GameModifierReceiver Instance;
+
 	public GameModifierManager gameModifierManagerScript;
+	public GameModifierManager loadedModifierManagerScript;
+	public GameModifierManager[] gameModifiers;
 	public TextMeshProUGUI missionText;
 
 	[Space (10)]
@@ -22,10 +26,20 @@ public class GameModifierReceiver : MonoBehaviour
 	public TextMeshProUGUI BonusRoundsStatusText;
 	public TextMeshProUGUI StartingWaveStatusText;
 
+	void Awake ()
+	{
+		Instance = this;
+	}
+
 	void Start ()
 	{
 		CheckModifierStates ();
 		missionText.text = "";
+	}
+
+	public void SetMultiplayerModeModifier (bool Multiplayer)
+	{
+		loadedModifierManagerScript.Multiplayer = Multiplayer;
 	}
 
 	// The below methods will be accessed by UI in the main menu.
