@@ -226,15 +226,7 @@ public class PlayerController : MonoBehaviour
 		Ready, 	  // Ability can be used.
 		Active 	  // Ability is being used.
 	}
-
-	// Ability stats.
-	//[Tooltip("Maximum ability time.")]
-	//public float CurrentAbilityDuration;
-	//[Tooltip("Timer for the ability.")]
-	//public float CurrentAbilityTimeRemaining;
-	//[Range (0.0f, 1.0f)]
-	//[Tooltip("Time remining / duration.")]
-	//public float AbilityTimeAmountProportion;
+		
 	[Tooltip("How fast the ability bar charges.")]
 	public float AbilityChargeSpeedMultiplier = 0.5f;
 	[Tooltip("How fast the ability bar diminishes.")]
@@ -534,14 +526,12 @@ public class PlayerController : MonoBehaviour
 		{
 			PlayerOneInstance = this;
 			Debug.Log ("Player one instance set.");
-			//playerActions_P1.Device = GameController.playerDevices[deviceID];
 		}
 
 		if (PlayerId == 2) 
 		{
 			PlayerTwoInstance = this;
 			Debug.Log ("Player two instance set.");
-			//playerActions_P2.Device = GameController.playerDevices[deviceID];
 		}
 
 		playerCol.transform.localPosition = Vector3.zero;
@@ -1412,8 +1402,8 @@ public class PlayerController : MonoBehaviour
 		// Update lens length.
 		if (lensScript.BlackHoles.Count > 0) 
 		{
-			lensScript.BlackHoles [PlayerId].radius = Mathf.Lerp (
-				lensScript.BlackHoles [PlayerId].radius, 
+			lensScript.BlackHoles [PlayerId - 1].radius = Mathf.Lerp (
+				lensScript.BlackHoles [PlayerId - 1].radius, 
 				TargetLensRadius, 
 				LensRadiusSmoothTime * Time.unscaledDeltaTime
 			);
