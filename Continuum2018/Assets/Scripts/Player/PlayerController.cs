@@ -1412,8 +1412,8 @@ public class PlayerController : MonoBehaviour
 		// Update lens length.
 		if (lensScript.BlackHoles.Count > 0) 
 		{
-			lensScript.BlackHoles [0].radius = Mathf.Lerp (
-				lensScript.BlackHoles [0].radius, 
+			lensScript.BlackHoles [PlayerId].radius = Mathf.Lerp (
+				lensScript.BlackHoles [PlayerId].radius, 
 				TargetLensRadius, 
 				LensRadiusSmoothTime * Time.unscaledDeltaTime
 			);
