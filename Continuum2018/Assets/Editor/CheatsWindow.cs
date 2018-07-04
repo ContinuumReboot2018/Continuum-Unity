@@ -145,7 +145,7 @@ public class CheatsWindow : EditorWindow
 		}
 
 		// Add life.
-		if (GUILayout.Button ("Add 3 lives", style)) 
+		if (GUILayout.Button ("Add 1 life", style)) 
 		{
 			DeveloperMode.Instance.ResetCheatStringTimer ();
 			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.AddLifeCommand;
@@ -153,7 +153,7 @@ public class CheatsWindow : EditorWindow
 		}
 
 		// Lose life.
-		if (GUILayout.Button ("Lose a life", style)) 
+		if (GUILayout.Button ("Lose 1 life", style)) 
 		{
 			DeveloperMode.Instance.ResetCheatStringTimer ();
 			DeveloperMode.Instance.CheatString = DeveloperMode.Instance.LoseLifeCommand;

@@ -126,7 +126,6 @@ public class DeveloperMode : MonoBehaviour
 	void Awake ()
 	{
 		Instance = this;
-		// DontDestroyOnLoad (gameObject);
 	}
 
 	// Check for cheat input by keyboard.
@@ -351,43 +350,49 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (GameController.Instance.Lives < GameController.Instance.MaxLives) 
 				{
-					//GameController.Instance.Lives += 3;
-					GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
-					GameObject powerupPickupUI = Instantiate (GameController.Instance.PowerupPickupUI, PlayerController.PlayerOneInstance.playerCol.transform.position, Quaternion.identity);
-					powerupPickupUI.GetComponentInChildren<RawImage> ().texture = AddlifeTexture;
-					powerupPickupUI.GetComponentInChildren<RawImage> ().color = new Color (1f, 1f, 1, 1);
-					GameController.Instance.MaxLivesText.text = "";
-
-					if (GameController.Instance.Lives <= 7) 
+					// Increases life count.
+					if (GameController.Instance.Lives < GameController.Instance.MaxLives)
 					{
+						GameController.Instance.Lives += 1;
+					}
+
+					if (GameController.Instance.Lives < GameController.Instance.MaxLives)
+					{
+						GameController.Instance.MaxLivesText.text = "";
+					}
+
+					if (GameController.Instance.Lives >= GameController.Instance.MaxLives) 
+					{
+						GameController.Instance.MaxLivesText.text = "MAX";
+						Debug.Log ("Reached maximum lives.");
+					}
+
+					// Updates lives.
+					if (GameController.Instance.Lives < GameController.Instance.MaxLives) 
+					{
+						GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
 						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].gameObject.SetActive (true);
 						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].enabled = true;
 						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].color = Color.white;
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().SetBool ("Hidden", false);
-
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.SetActive (true);
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].enabled = true;
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].color = Color.white;
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].GetComponent<Animator> ().SetBool ("Hidden", false);
-
-						GameController.Instance.LifeImages [GameController.Instance.Lives].gameObject.SetActive (true);
-						GameController.Instance.LifeImages [GameController.Instance.Lives].enabled = true;
-						GameController.Instance.LifeImages [GameController.Instance.Lives].color = Color.white;
-						GameController.Instance.LifeImages [GameController.Instance.Lives].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-						GameController.Instance.LifeImages [GameController.Instance.Lives].GetComponent<Animator> ().SetBool ("Hidden", false);
-
-						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].gameObject.SetActive (true);
-						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].enabled = true;
-						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].color = Color.white;
-						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-						GameController.Instance.LifeImages [GameController.Instance.Lives + 1].GetComponent<Animator> ().SetBool ("Hidden", false);
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().Play ("LifeImageEnter");
 					}
 
-					GameController.Instance.Lives += 3;
+					// On full lives.
+					if (GameController.Instance.Lives > (GameController.Instance.MaxLives - 1)) 
+					{
+						// Reverse loop down and deactivate lives objects up to icon #1.
+						for (int i = 9; i > 0; i--) 
+						{
+							GameController.Instance.LifeImages [i].gameObject.SetActive (false);
+							GameController.Instance.LifeImages [i].enabled = false;
 
-					//GameController.Instance.UpdateLives ();
+							// Enable max lives text.
+							GameController.Instance.LivesText.gameObject.SetActive (true);
+							GameController.Instance.LivesText.text = "x " + (GameController.Instance.MaxLives - 1);
+							GameController.Instance.MaxLivesText.text = "MAX";
+						}
+					}
+
 					ShowCheatNotification ("CHEAT ACTIVATED: EXTRA LIFE");
 				}
 
