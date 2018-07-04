@@ -33,6 +33,7 @@ public class GameModifierReceiver : MonoBehaviour
 
 	void Start ()
 	{
+		loadedModifierManagerScript = gameModifiers [SaveAndLoadScript.Instance.MissionId];
 		CheckModifierStates ();
 		missionText.text = "";
 	}

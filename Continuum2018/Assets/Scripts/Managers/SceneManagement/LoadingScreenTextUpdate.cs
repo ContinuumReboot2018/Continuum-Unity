@@ -16,6 +16,7 @@ public class LoadingScreenTextUpdate : MonoBehaviour
 
 	public void UpdateMissionText (string missionText)
 	{
-		loadingScreenText.text = missionText;
+		loadingScreenText.text = missionText + 
+			(GameModifierReceiver.Instance.loadedModifierManagerScript.Multiplayer ? " MULTIPLAYER" : "");
 	}
 }

@@ -94,17 +94,22 @@ public class TimescaleController : MonoBehaviour
 	void Awake () 
 	{
 		Instance = this;
-		// DontDestroyOnLoad (gameObject);
 
 		Time.timeScale = MinimumTimeScale; // Set Time.timeScale to slowest possible value.
 		Time.fixedDeltaTime = 0.005f; // Setting initial fixed time step.
 	}
 
-	public void Start ()
+	public void OnStart ()
 	{
 		if (TimeCalculation == timeCalc.Continuous) 
 		{
 			InvokeRepeating ("UpdateTimeScalePreset", 0, 2);
+		}
+
+		if (PlayerController.PlayerTwoInstance == null)
+		{
+			PlayerController.PlayerOneInstance.transform.parent.GetComponent<PlayerParent> ().anim.enabled = true;
+			PlayerController.PlayerOneInstance.transform.parent.GetComponent<PlayerParent> ().anim.Play ("PlayerEntry");
 		}
 
 		if (PlayerController.PlayerTwoInstance != null) 
@@ -112,8 +117,10 @@ public class TimescaleController : MonoBehaviour
 			useTwoPlayers = true;
 			Debug.Log ("Two player mode active");
 
-			PlayerOne.parent.parent.transform.position = new Vector3 (-2.98f, 0, 0);
-			PlayerTwo.parent.parent.transform.position = new Vector3 (2.98f, 0, 0);
+			PlayerController.PlayerOneInstance.transform.parent.GetComponent<PlayerParent> ().anim.enabled = true;
+			PlayerController.PlayerOneInstance.transform.parent.GetComponent<PlayerParent> ().anim.Play ("PlayerEntryLeft");
+			PlayerController.PlayerTwoInstance.transform.parent.GetComponent<PlayerParent> ().anim.enabled = true;
+			PlayerController.PlayerTwoInstance.transform.parent.GetComponent<PlayerParent> ().anim.Play ("PlayerEntryRight");
 		}
 	}
 
@@ -178,11 +185,6 @@ public class TimescaleController : MonoBehaviour
 			{
 				if (useTwoPlayers == false && PlayerController.PlayerOneInstance.isInCooldownMode == false) 
 				{
-					/*float DistanceVector = Vector3.Distance (
-						PlayerOne.transform.position, 
-						ReferencePoint.transform.position
-					);*/
-
 					float DistanceVector = Mathf.Clamp ( 
 						Mathf.Abs (
 							PlayerOne.transform.position.y -  
@@ -329,6 +331,7 @@ public class TimescaleController : MonoBehaviour
 			return;
 		}
 
+		// Time is overriding.
 		if (OverrideTimeScaleTimeRemaining > 0) 
 		{
 			// Normal overriding curcumstances.

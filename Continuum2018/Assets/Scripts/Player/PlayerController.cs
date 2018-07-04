@@ -1434,6 +1434,17 @@ public class PlayerController : MonoBehaviour
 			Shield.SetActive (true);
 			TargetLensRadius = LensOnRadius;
 			TargetShieldScale = 1;
+
+			if (PlayerId == 1) 
+			{
+				lensScript.BlackHoles [0].enabled = true;
+			}
+
+			if (PlayerId == 2) 
+			{
+				lensScript.BlackHoles [1].enabled = true;
+			}
+
 			break;
 		case ability.Emp:
 			Emp.transform.position = playerCol.transform.position;

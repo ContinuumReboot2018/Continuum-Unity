@@ -187,7 +187,6 @@ public class Block : MonoBehaviour
 		}
 
 		allBlocks.Remove (this);
-		//SaveAndLoadScript.Instance.blocksDestroyed++;
 	}
 
 	void OnDestroy ()
@@ -200,7 +199,6 @@ public class Block : MonoBehaviour
 
 		BlockChecker.Instance.BlocksInstanced.Remove (gameObject);
 		allBlocks.Remove (this);
-		//SaveAndLoadScript.Instance.blocksDestroyed++;
 	}
 		
 	void Awake ()
@@ -454,7 +452,6 @@ public class Block : MonoBehaviour
 							}
 						}
 					
-						//Destroy (gameObject); // Destroy this object.
 						gameObject.SetActive (false);
 						return; // Prevent any further code execution.
 					}
@@ -697,7 +694,7 @@ public class Block : MonoBehaviour
 			);
 
 		transform.rotation = Quaternion.identity; // Reset rotation.
-		GotDetached = true; // Set detached.
+		GotDetached = true; // Set detached state.
 		parentToTransformScript.enabled = true; // Parent to transform.
 
 		if (GetComponentInChildren<ParticleSystem> () != null) 
@@ -853,6 +850,7 @@ public class Block : MonoBehaviour
 				GameController.Instance.combo += 2;
 			}
 
+			// Add 1 to the combo if combo is first one.
 			if (GameController.Instance.combo <= 1)
 			{
 				GameController.Instance.combo += 1;
@@ -872,6 +870,7 @@ public class Block : MonoBehaviour
 		}
 	}
 
+	// Vibrate player controllers.
 	void DoVibrate (int playerId)
 	{
 		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
@@ -910,7 +909,6 @@ public class Block : MonoBehaviour
 			transform.position.y > BoundaryY.y || 
 			transform.position.y < BoundaryY.x) 
 		{
-			//Destroy (gameObject);
 			gameObject.SetActive (false);
 			return;
 		}
@@ -953,6 +951,7 @@ public class Block : MonoBehaviour
 				TextColor = NoiseBlock.TextColor;
 				Explosion = NoiseBlock.Explosion;
 				transform.name = "Noise block";
+				transform.GetChild (0).name = "Noise block child";
 				break;
 
 			case specialBlockType.Red:
@@ -962,6 +961,7 @@ public class Block : MonoBehaviour
 				TextColor = RedBlock.TextColor;
 				Explosion = RedBlock.Explosion;
 				transform.name = "Red block";
+				transform.GetChild (0).name = "Red block child";
 				break;
 			}
 
@@ -988,7 +988,8 @@ public class Block : MonoBehaviour
 				BasePointValue = AquaBlock.BasePointValue;
 				TextColor = AquaBlock.TextColor;
 				Explosion = AquaBlock.Explosion;
-				transform.name = "Aqua Block";
+				transform.name = "Aqua block";
+				transform.GetChild (0).name = "Aqua block child";
 				break;
 			case mainBlockType.Blue:
 				speed = BlueBlock.Speed;
@@ -996,7 +997,8 @@ public class Block : MonoBehaviour
 				BasePointValue = BlueBlock.BasePointValue;
 				TextColor = BlueBlock.TextColor;
 				Explosion = BlueBlock.Explosion;
-				transform.name = "Blue Block";
+				transform.name = "Blue block";
+				transform.GetChild (0).name = "Blue block child";
 				break;
 			case mainBlockType.Purple:
 				speed = PurpleBlock.Speed;
@@ -1004,7 +1006,8 @@ public class Block : MonoBehaviour
 				BasePointValue = PurpleBlock.BasePointValue;
 				TextColor = PurpleBlock.TextColor;
 				Explosion = PurpleBlock.Explosion;
-				transform.name = "Purple Block";
+				transform.name = "Purple block";
+				transform.GetChild (0).name = "Purple block child";
 				break;
 			case mainBlockType.Pink:
 				speed = PinkBlock.Speed;
@@ -1012,7 +1015,8 @@ public class Block : MonoBehaviour
 				BasePointValue = PinkBlock.BasePointValue;
 				TextColor = PinkBlock.TextColor;
 				Explosion = PinkBlock.Explosion;
-				transform.name = "Pink Block";
+				transform.name = "Pink block";
+				transform.GetChild (0).name = "Pink block child";
 				break;
 			}
 		}

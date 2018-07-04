@@ -291,6 +291,7 @@ public class GameController : MonoBehaviour
 	[Tooltip ("For depth of field.")]
 	public float TargetDepthDistance;
 	public Animator VhsAnim;
+	private Lens blackHoleScript;
 
 	[Header ("Star field")]
 	[Tooltip ("Starfield foreground.")]
@@ -422,6 +423,7 @@ public class GameController : MonoBehaviour
 		InvokeRepeating ("UpdateBlockSpawnTime", 0, 1); // Refreshes block spawn time.
 		ClearPowerupUI (); // Clears powerup UI from list.
 		InvokeRepeating ("SetStartOrthSize", 0, 1); // Checks orthographic size based on screen ratio.
+		blackHoleScript = MainCamera.GetComponent<Lens> ();
 
 		// Invokes a game over if the trial time is greater than 0. (Set to -1 just to be safe to avoid this).
 		if (gameModifier.TrialTime > 0) 
@@ -1228,12 +1230,14 @@ public class GameController : MonoBehaviour
 		if (MainCamera.aspect > 1.6f) 
 		{
 			MainCamera.orthographicSize = 12.0f;
+			blackHoleScript.ratio = 0.5625f;
 		}
 
 		// 16:10 ratio.
 		if (MainCamera.aspect <= 1.6f) 
 		{
 			MainCamera.orthographicSize = 13.35f;
+			blackHoleScript.ratio = 0.625f;
 		}
 
 		// Updates lens ratio from lens script based on screen ratio.
@@ -1391,6 +1395,7 @@ public class GameController : MonoBehaviour
 						{
 							BlockChecker.Instance.BlocksInstanced [i].SetActive (true);
 							BlockChecker.Instance.BlocksInstanced [i].transform.position = SpawnPosRand;
+							BlockChecker.Instance.BlocksInstanced [i].transform.SetAsLastSibling ();
 							recycledBlock = true;
 							return;
 						}
@@ -1407,9 +1412,8 @@ public class GameController : MonoBehaviour
 				
 			if (Wave >= 9) 
 			{
-
 				bool recycledBlock = false;
-
+					
 				if (BlockChecker.Instance.BlocksInstanced.Count > 0) 
 				{
 					// Go through instanced blocks list.
@@ -1421,21 +1425,21 @@ public class GameController : MonoBehaviour
 							// Allow special blocks.
 							float randomSpecial = UnityEngine.Random.Range (0, 1);
 
-							if (randomSpecial <= 0.5f) 
+							if (randomSpecial <= 0.5f)
 							{
 								BlockChecker.Instance.BlocksInstanced [i].GetComponent<Block> ().isSpecialBlockType = false;
 
-								if (BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> () != null) 
-								{
+								if (BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> () != null)
+								{	
 									BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> ().Stop (true, ParticleSystemStopBehavior.StopEmittingAndClear);
 								}
 							}
 
-							if (randomSpecial > 0.5f) 
+							if (randomSpecial > 0.5f)
 							{
 								BlockChecker.Instance.BlocksInstanced [i].GetComponent<Block> ().isSpecialBlockType = true;
 
-								if (BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> () != null)
+								if (BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> () != null) 
 								{
 									BlockChecker.Instance.BlocksInstanced [i].GetComponentInChildren<ParticleSystem> ().Play (true);
 								}
@@ -1443,7 +1447,8 @@ public class GameController : MonoBehaviour
 
 							BlockChecker.Instance.BlocksInstanced [i].SetActive (true);
 							BlockChecker.Instance.BlocksInstanced [i].transform.position = SpawnPosRand;
-							BlockChecker.Instance.BlocksInstanced [i].GetComponent<ParentToTransform> ().ParentNow ();
+							BlockChecker.Instance.BlocksInstanced [i].transform.SetAsLastSibling ();
+							//BlockChecker.Instance.BlocksInstanced [i].GetComponent<ParentToTransform> ().ParentNow ();
 
 							recycledBlock = true;
 							return;
@@ -1451,12 +1456,11 @@ public class GameController : MonoBehaviour
 					}
 				}
 
-				// Could not find block of the right type to activate, spawning a new one.
+				// Could not find block of the right type to activate, spawning a new one from the list.
 				if (recycledBlock == false) 
 				{
 					GameObject BlockA = Blocks [UnityEngine.Random.Range (0, Blocks.Count)];
 					Instantiate (BlockA, SpawnPosRand, Quaternion.identity);
-					// Allow special blocks.
 				}
 			}
 		}

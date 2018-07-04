@@ -10,13 +10,13 @@ public class PlayerChecker : MonoBehaviour
 		if (GameController.Instance.missionModiferSettings [SaveAndLoadScript.Instance.MissionId].Multiplayer == true) 
 		{
 			PlayerTwo.SetActive (true);
-			TimescaleController.Instance.Start ();
+			TimescaleController.Instance.OnStart ();
 		}
 
 		if (GameController.Instance.missionModiferSettings [SaveAndLoadScript.Instance.MissionId].Multiplayer == false) 
 		{
 			PlayerTwo.SetActive (false);
-			TimescaleController.Instance.Start ();
+			TimescaleController.Instance.OnStart ();
 		}
 	}
 }

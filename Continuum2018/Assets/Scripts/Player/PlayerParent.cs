@@ -10,49 +10,17 @@ public class PlayerParent : MonoBehaviour
 	[Tooltip ("Checks whether player input should be used.")]
 	public bool DontUsePlayerInput;
 
-	void Awake ()
+	void Start ()
 	{
 		if (SceneManager.GetActiveScene ().name == "Menu") 
 		{
+			anim.enabled = true;
+			anim.Play ("PlayerEntry");
 			return;
 		}
 
 		playerControllerScript = GetComponentInChildren <PlayerController> ();
-
-		if (TimescaleController.Instance.useTwoPlayers == true) 
-		{
-			if (playerControllerScript.PlayerId == 1)
-			{
-				transform.position = new Vector3 (
-					-2.9f, 
-					transform.position.y, 
-					transform.position.z
-				);
-			}
-
-			if (playerControllerScript.PlayerId == 2) 
-			{
-				transform.position = new Vector3 (
-					2.9f, 
-					transform.position.y, 
-					transform.position.z
-				);
-			}
-		} 
-
-		if (TimescaleController.Instance.useTwoPlayers == false) 
-		{
-			if (playerControllerScript.PlayerId == 1)
-			{
-				transform.position = new Vector3 (
-					0, 
-					transform.position.y, 
-					transform.position.z
-				);
-			}
-		}
-
-		anim.enabled = true;
+		//anim.enabled = true;
 	}
 
 	// Enables player input by animation events.
