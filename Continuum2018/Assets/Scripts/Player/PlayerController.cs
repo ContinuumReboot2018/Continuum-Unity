@@ -980,15 +980,21 @@ public class PlayerController : MonoBehaviour
 		StartCooldown ();
 		PlayerExplosionAudio.Play ();
 		GameController.Instance.combo = 1;
+
 		LivesAnim.enabled = false;
+		GameController.Instance.LifeImages [9].gameObject.SetActive (false); // Turn off element 9 life image.
 		GameController.Instance.Lives -= 1;
 		GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
 
-		if (GameController.Instance.Lives == 10) 
+		if (GameController.Instance.Lives <= 10) 
 		{
-			for (int i = 0; i < 9; i++) 
+			for (int i = 0; i < 10; i++) 
 			{
-				GameController.Instance.LifeImages [i].gameObject.SetActive (true);
+				if (i > 0) 
+				{
+					GameController.Instance.LifeImages [Mathf.Clamp (i, 0, GameController.Instance.Lives - 1)].gameObject.SetActive (true);
+				}
+
 				GameController.Instance.LifeImages [i].enabled = true;
 				GameController.Instance.LifeImages [i].color = Color.white;
 				GameController.Instance.LifeImages [i].GetComponent<Animator> ().Play ("LifeImageEnter");
@@ -2221,7 +2227,11 @@ public class PlayerController : MonoBehaviour
 				if (LivesAnim.GetCurrentAnimatorStateInfo (0).IsName ("LivesFadeOut") == false && isHidingLivesUI == false
 					&& isInCooldownMode == false) 
 				{
-					GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.GetComponent<Animator> ().enabled = true;
+					if (GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.activeInHierarchy == true) 
+					{
+						GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.GetComponent<Animator> ().enabled = true;
+					}
+
 					LivesAnim.Play ("LivesFadeOut");
 					isHidingLivesUI = true;
 

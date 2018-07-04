@@ -588,7 +588,10 @@ public class PowerupPickup : MonoBehaviour
 		case powerups.ExtraLife: 
 			
 			// Increases life count.
-			GameController.Instance.Lives += 1;
+			if (GameController.Instance.Lives < GameController.Instance.MaxLives)
+			{
+				GameController.Instance.Lives += 1;
+			}
 
 			if (GameController.Instance.Lives < GameController.Instance.MaxLives)
 			{
@@ -602,17 +605,17 @@ public class PowerupPickup : MonoBehaviour
 			}
 				
 			// Updates lives.
-			if (GameController.Instance.Lives < 10) 
+			if (GameController.Instance.Lives < GameController.Instance.MaxLives) 
 			{
 				GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
-				GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.SetActive (true);
-				GameController.Instance.LifeImages [GameController.Instance.Lives - 1].enabled = true;
-				GameController.Instance.LifeImages [GameController.Instance.Lives - 1].color = Color.white;
-				GameController.Instance.LifeImages [GameController.Instance.Lives - 1].GetComponent<Animator> ().Play ("LifeImageEnter");
+				GameController.Instance.LifeImages [GameController.Instance.Lives - 2].gameObject.SetActive (true);
+				GameController.Instance.LifeImages [GameController.Instance.Lives - 2].enabled = true;
+				GameController.Instance.LifeImages [GameController.Instance.Lives - 2].color = Color.white;
+				GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().Play ("LifeImageEnter");
 			}
 
 			// On full lives.
-			if (GameController.Instance.Lives >= 10) 
+			if (GameController.Instance.Lives > (GameController.Instance.MaxLives - 1)) 
 			{
 				// Reverse loop down and deactivate lives objects up to icon #1.
 				for (int i = 9; i > 0; i--) 
@@ -622,7 +625,7 @@ public class PowerupPickup : MonoBehaviour
 
 					// Enable max lives text.
 					GameController.Instance.LivesText.gameObject.SetActive (true);
-					GameController.Instance.LivesText.text = "x " + (GameController.Instance.Lives);
+					GameController.Instance.LivesText.text = "x " + (GameController.Instance.MaxLives - 1);
 					GameController.Instance.MaxLivesText.text = "MAX";
 				}
 			}
