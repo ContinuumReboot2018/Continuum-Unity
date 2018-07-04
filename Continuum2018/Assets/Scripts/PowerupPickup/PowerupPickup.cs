@@ -590,13 +590,11 @@ public class PowerupPickup : MonoBehaviour
 			// Increases life count.
 			GameController.Instance.Lives += 1;
 
-			if (GameController.Instance.Lives < GameController.Instance.MaxLives) 
-			{
+			if (GameController.Instance.Lives < GameController.Instance.MaxLives) {
 				GameController.Instance.MaxLivesText.text = "";
 			}
 
-			if (GameController.Instance.Lives >= GameController.Instance.MaxLives) 
-			{
+			if (GameController.Instance.Lives >= GameController.Instance.MaxLives) {
 				GameController.Instance.MaxLivesText.text = "MAX";
 				Debug.Log ("Reached maximum lives.");
 			}
@@ -604,6 +602,7 @@ public class PowerupPickup : MonoBehaviour
 			// Updates lives.
 			GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
 			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].gameObject.SetActive (true);
+			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().Play ("LifeImageEnter");
 			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].enabled = true;
 			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].color = Color.white;
 			break;
