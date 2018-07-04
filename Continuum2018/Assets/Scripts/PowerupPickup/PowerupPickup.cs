@@ -590,21 +590,43 @@ public class PowerupPickup : MonoBehaviour
 			// Increases life count.
 			GameController.Instance.Lives += 1;
 
-			if (GameController.Instance.Lives < GameController.Instance.MaxLives) {
+			if (GameController.Instance.Lives < GameController.Instance.MaxLives)
+			{
 				GameController.Instance.MaxLivesText.text = "";
 			}
 
-			if (GameController.Instance.Lives >= GameController.Instance.MaxLives) {
+			if (GameController.Instance.Lives >= GameController.Instance.MaxLives) 
+			{
 				GameController.Instance.MaxLivesText.text = "MAX";
 				Debug.Log ("Reached maximum lives.");
 			}
 				
 			// Updates lives.
-			GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
-			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].gameObject.SetActive (true);
-			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().Play ("LifeImageEnter");
-			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].enabled = true;
-			GameController.Instance.LifeImages [GameController.Instance.Lives - 2].color = Color.white;
+			if (GameController.Instance.Lives < 10) 
+			{
+				GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
+				GameController.Instance.LifeImages [GameController.Instance.Lives - 1].gameObject.SetActive (true);
+				GameController.Instance.LifeImages [GameController.Instance.Lives - 1].enabled = true;
+				GameController.Instance.LifeImages [GameController.Instance.Lives - 1].color = Color.white;
+				GameController.Instance.LifeImages [GameController.Instance.Lives - 1].GetComponent<Animator> ().Play ("LifeImageEnter");
+			}
+
+			// On full lives.
+			if (GameController.Instance.Lives >= 10) 
+			{
+				// Reverse loop down and deactivate lives objects up to icon #1.
+				for (int i = 9; i > 0; i--) 
+				{
+					GameController.Instance.LifeImages [i].gameObject.SetActive (false);
+					GameController.Instance.LifeImages [i].enabled = false;
+
+					// Enable max lives text.
+					GameController.Instance.LivesText.gameObject.SetActive (true);
+					GameController.Instance.LivesText.text = "x " + (GameController.Instance.Lives);
+					GameController.Instance.MaxLivesText.text = "MAX";
+				}
+			}
+
 			break;
 
 		case powerups.RippleShot: 

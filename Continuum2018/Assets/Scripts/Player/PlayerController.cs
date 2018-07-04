@@ -1435,6 +1435,8 @@ public class PlayerController : MonoBehaviour
 			TargetLensRadius = LensOnRadius;
 			TargetShieldScale = 1;
 
+			//lensScript.ratio = rati
+
 			if (PlayerId == 1) 
 			{
 				lensScript.BlackHoles [0].enabled = true;
