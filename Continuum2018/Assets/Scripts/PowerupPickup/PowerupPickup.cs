@@ -586,32 +586,20 @@ public class PowerupPickup : MonoBehaviour
 			break;
 
 		case powerups.ExtraLife: 
-			
-			// Increases life count.
-			if (GameController.Instance.Lives < GameController.Instance.MaxLives)
-			{
-				GameController.Instance.Lives += 1;
-			}
-
-			if (GameController.Instance.Lives < GameController.Instance.MaxLives)
-			{
-				GameController.Instance.MaxLivesText.text = "";
-			}
-
-			if (GameController.Instance.Lives >= GameController.Instance.MaxLives) 
-			{
-				GameController.Instance.MaxLivesText.text = "MAX";
-				Debug.Log ("Reached maximum lives.");
-			}
 				
 			// Updates lives.
 			if (GameController.Instance.Lives < GameController.Instance.MaxLives) 
 			{
-				GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
-				GameController.Instance.LifeImages [GameController.Instance.Lives - 2].gameObject.SetActive (true);
-				GameController.Instance.LifeImages [GameController.Instance.Lives - 2].enabled = true;
-				GameController.Instance.LifeImages [GameController.Instance.Lives - 2].color = Color.white;
-				GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().Play ("LifeImageEnter");
+				GameController.Instance.Lives += 1;
+				GameController.Instance.MaxLivesText.text = "";
+
+				RawImage NewLife = GameController.Instance.LifeImages [GameController.Instance.Lives - 2];
+
+				NewLife.gameObject.SetActive (true);
+				NewLife.enabled = true;
+				NewLife.color = Color.white;
+				NewLife.texture = NewLife.GetComponent<TextureSwapper> ().Textures [0];
+				NewLife.GetComponent<Animator> ().StopPlayback ();
 			}
 
 			// On full lives.
@@ -622,13 +610,17 @@ public class PowerupPickup : MonoBehaviour
 				{
 					GameController.Instance.LifeImages [i].gameObject.SetActive (false);
 					GameController.Instance.LifeImages [i].enabled = false;
-
-					// Enable max lives text.
-					GameController.Instance.LivesText.gameObject.SetActive (true);
-					GameController.Instance.LivesText.text = "x " + (GameController.Instance.MaxLives - 1);
-					GameController.Instance.MaxLivesText.text = "MAX";
+					GameController.Instance.LifeImages [i].GetComponent<Animator> ().StopPlayback ();
 				}
+
+				// Enable max lives text.
+				GameController.Instance.LivesText.gameObject.SetActive (true);
+				GameController.Instance.LivesText.text = "x " + (GameController.Instance.MaxLives - 1);
+				GameController.Instance.MaxLivesText.text = "MAX";
+				Debug.Log ("Reached maximum lives.");
 			}
+
+			GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
 
 			break;
 

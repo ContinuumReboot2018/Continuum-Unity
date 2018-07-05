@@ -995,12 +995,20 @@ public class PlayerController : MonoBehaviour
 					GameController.Instance.LifeImages [Mathf.Clamp (i, 0, GameController.Instance.Lives - 1)].gameObject.SetActive (true);
 				}
 
-				GameController.Instance.LifeImages [i].enabled = true;
-				GameController.Instance.LifeImages [i].color = Color.white;
-				GameController.Instance.LifeImages [i].GetComponent<Animator> ().Play ("LifeImageEnter");
-				GameController.Instance.LifeImages [i].GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
-				GameController.Instance.LifeImages [i].GetComponent<Animator> ().SetBool ("Hidden", false);
+				RawImage NewLife = GameController.Instance.LifeImages [i];
+				NewLife.enabled = true;
+				NewLife.color = Color.white;
+				NewLife.texture = NewLife.GetComponent<TextureSwapper> ().Textures [0];
 
+				// Update animator states.
+				if (NewLife.gameObject.activeInHierarchy == true) 
+				{
+					//NewLife.GetComponent<Animator> ().Play ("LifeImageEnter");
+					//NewLife.GetComponent<Animator> ().SetTrigger ("LifeImageEnter");
+					NewLife.GetComponent<Animator> ().SetBool ("Hidden", false);
+				}
+
+				// Max lives state.
 				GameController.Instance.LivesSpacing.SetActive (false);
 				GameController.Instance.LivesText.gameObject.SetActive (false);
 				GameController.Instance.LivesText.text = "";

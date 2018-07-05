@@ -350,61 +350,39 @@ public class DeveloperMode : MonoBehaviour
 			{
 				if (GameController.Instance.Lives < GameController.Instance.MaxLives) 
 				{
-					// Increases life count.
-					if (GameController.Instance.Lives < GameController.Instance.MaxLives)
-					{
-						GameController.Instance.Lives += 1;
-					}
+					GameController.Instance.Lives += 1;
+					GameController.Instance.MaxLivesText.text = "";
 
-					if (GameController.Instance.Lives < GameController.Instance.MaxLives)
-					{
-						GameController.Instance.MaxLivesText.text = "";
-					}
+					RawImage NewLife = GameController.Instance.LifeImages [GameController.Instance.Lives - 2];
 
-					if (GameController.Instance.Lives >= GameController.Instance.MaxLives) 
-					{
-						GameController.Instance.MaxLivesText.text = "MAX";
-						Debug.Log ("Reached maximum lives.");
-					}
-
-					// Updates lives.
-					if (GameController.Instance.Lives < GameController.Instance.MaxLives) 
-					{
-						GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].gameObject.SetActive (true);
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].enabled = true;
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].color = Color.white;
-						GameController.Instance.LifeImages [GameController.Instance.Lives - 2].GetComponent<Animator> ().Play ("LifeImageEnter");
-					}
-
-					// On full lives.
-					if (GameController.Instance.Lives > (GameController.Instance.MaxLives - 1)) 
-					{
-						// Reverse loop down and deactivate lives objects up to icon #1.
-						for (int i = 9; i > 0; i--) 
-						{
-							GameController.Instance.LifeImages [i].gameObject.SetActive (false);
-							GameController.Instance.LifeImages [i].enabled = false;
-
-							// Enable max lives text.
-							GameController.Instance.LivesText.gameObject.SetActive (true);
-							GameController.Instance.LivesText.text = "x " + (GameController.Instance.MaxLives - 1);
-							GameController.Instance.MaxLivesText.text = "MAX";
-						}
-					}
+					NewLife.gameObject.SetActive (true);
+					NewLife.enabled = true;
+					NewLife.color = Color.white;
+					NewLife.texture = NewLife.GetComponent<TextureSwapper> ().Textures [0];
 
 					ShowCheatNotification ("CHEAT ACTIVATED: EXTRA LIFE");
 				}
 
-				if (GameController.Instance.Lives >= GameController.Instance.MaxLives) 
+				// On full lives.
+				if (GameController.Instance.Lives > (GameController.Instance.MaxLives - 1)) 
 				{
+					// Reverse loop down and deactivate lives objects up to icon #1.
+					for (int i = 9; i > 0; i--) 
+					{
+						GameController.Instance.LifeImages [i].gameObject.SetActive (false);
+						GameController.Instance.LifeImages [i].enabled = false;
+					}
+
+					// Enable max lives text.
+					GameController.Instance.LivesText.gameObject.SetActive (true);
+					GameController.Instance.LivesText.text = "x " + (GameController.Instance.MaxLives - 1);
 					GameController.Instance.MaxLivesText.text = "MAX";
 					Debug.Log ("Reached maximum lives.");
+
 					ShowCheatNotification ("CHEAT ACTIVATED: MAX LIVES");
 				}
-
+					
 				GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
-				GameController.Instance.LivesAnim.SetTrigger ("UpdateLives");
 			}
 
 			if (CheatString == ToggleGodmodeCommand) 
@@ -984,14 +962,30 @@ public class DeveloperMode : MonoBehaviour
 			if (CheatString == LoseLifeCommand) 
 			{
 				GameController.Instance.Lives -= 1;
-				GameController.Instance.UpdateLives ();
+				GameController.Instance.LivesText.text = "";
+				GameController.Instance.MaxLivesText.text = "";
+
+				// Enable all objects up to life count.
+				for (int i = 0; i < GameController.Instance.Lives; i++) 
+				{
+					GameController.Instance.LifeImages [i].gameObject.SetActive (true);
+					GameController.Instance.LifeImages [i].enabled = true;
+				}
+					
+				// Turn off all icons above it.
+				for (int i = GameController.Instance.Lives; i < GameController.Instance.MaxLives; i++) 
+				{
+					GameController.Instance.LifeImages [i - 1].gameObject.SetActive (false);
+					GameController.Instance.LifeImages [i - 1].enabled = false;
+				}
+					
+				GameController.Instance.Lives = Mathf.Clamp (GameController.Instance.Lives, 0, GameController.Instance.MaxLives);
 				ShowCheatNotification ("CHEAT ACTIVATED: LOSE LIFE");
 			}
 
 			if (CheatString == GameOverCommand)
 			{
 				PlayerController.PlayerOneInstance.GameOver ();
-				//Debug.Log ("Player forced game over.");
 				ShowCheatNotification ("CHEAT ACTIVATED: FORCE GAME OVER");
 			}
 
@@ -1060,10 +1054,12 @@ public class DeveloperMode : MonoBehaviour
 
 	void UpdatePowerupImages (int index, Texture2D powerupTex, Color powerupCol)
 	{
-		GameController.Instance.PowerupImage_P1 [index].gameObject.SetActive (true);
-		GameController.Instance.PowerupImage_P1 [index].texture = powerupTex;
-		GameController.Instance.PowerupImage_P1 [index].color = powerupCol;
-		GameController.Instance.PowerupImage_P1 [index].gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
+		RawImage powerupImage = GameController.Instance.PowerupImage_P1 [index];
+		
+		powerupImage.gameObject.SetActive (true);
+		powerupImage.texture = powerupTex;
+		powerupImage.color = powerupCol;
+		powerupImage.gameObject.GetComponent<Animator> ().Play ("PowerupListItemPopIn");
 	}
 
 	// What happens when cheats get enabled.
