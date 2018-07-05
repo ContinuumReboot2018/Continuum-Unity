@@ -236,19 +236,22 @@ public class PowerupPickup : MonoBehaviour
 			CheckActivatePowerup (1);
 		}
 
-		if (PlayerId == 2)
+		if (PlayerController.PlayerTwoInstance != null) 
 		{
-			float nextfire = 
-				Time.time + 
-				(PlayerController.PlayerTwoInstance.CurrentFireRate / (PlayerController.PlayerTwoInstance.FireRateTimeMultiplier * Time.timeScale));
+			if (PlayerId == 2) 
+			{
+				float nextfire = 
+					Time.time +
+					(PlayerController.PlayerTwoInstance.CurrentFireRate / (PlayerController.PlayerTwoInstance.FireRateTimeMultiplier * Time.timeScale));
 
-			PlayerController.PlayerTwoInstance.CheckPowerupImageUI ();
-			PlayerController.PlayerTwoInstance.NextFire = nextfire; // Allow player to shoot.
-			PlayerController.PlayerTwoInstance.DoubleShotNextFire = nextfire; // Allow player to shoot.
-			PlayerController.PlayerTwoInstance.TripleShotNextFire = nextfire; // Allow player to shoot.
-			PlayerController.PlayerTwoInstance.RippleShotNextFire = nextfire; // Allow player to shoot.
+				PlayerController.PlayerTwoInstance.CheckPowerupImageUI ();
+				PlayerController.PlayerTwoInstance.NextFire = nextfire; // Allow player to shoot.
+				PlayerController.PlayerTwoInstance.DoubleShotNextFire = nextfire; // Allow player to shoot.
+				PlayerController.PlayerTwoInstance.TripleShotNextFire = nextfire; // Allow player to shoot.
+				PlayerController.PlayerTwoInstance.RippleShotNextFire = nextfire; // Allow player to shoot.
 
-			CheckActivatePowerup (2);
+				CheckActivatePowerup (2);
+			}
 		}
 			
 		if (PlayerController.PlayerOneInstance.timeIsSlowed == false)
@@ -599,7 +602,6 @@ public class PowerupPickup : MonoBehaviour
 				NewLife.enabled = true;
 				NewLife.color = Color.white;
 				NewLife.texture = NewLife.GetComponent<TextureSwapper> ().Textures [0];
-				NewLife.GetComponent<Animator> ().StopPlayback ();
 			}
 
 			// On full lives.

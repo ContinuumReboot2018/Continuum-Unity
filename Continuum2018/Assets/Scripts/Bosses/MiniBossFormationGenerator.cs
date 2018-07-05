@@ -12,6 +12,9 @@ public class MiniBossFormationGenerator : MonoBehaviour
 	[Tooltip ("Set prefabs to spawn by color.")]
 	public ColorToPrefab[] colorMappings;
 	[Space (10)]
+	[Tooltip ("The name of this instance of the boss.")]
+	public string MiniBossName;
+
 	[Header ("Transforms")]
 	[Tooltip ("Set where the spawned prefab should parent to.")]
 	public Transform ParentTransform;

@@ -17,10 +17,7 @@ public class MiniBoss : MonoBehaviour
 	public GameObject MiniBossParent;
 	[Tooltip ("The UI to spawn when the boss spawns.")]
 	public GameObject MiniBossUI;
-	[Tooltip ("The name of this instance of the boss.")]
-	public string MiniBossName;
-	//[Tooltip ("The barrier that comes with this mini boss.")]
-	//public GameObject Barrier;
+
 	public float ColliderTime = 3;
 
 	[Header ("Stats")]
@@ -102,10 +99,6 @@ public class MiniBoss : MonoBehaviour
 		evasiveManeuverScript.enabled = false;
 		InvokeRepeating ("GetBossParts", 0.1f, 1f);
 		Invoke ("TurnOnEvasiveManeuverScript", 4);
-
-		GameObject MiniBossUIObject = GameObject.Find("MiniBossUI");
-		MiniBossUIObject.GetComponentInChildren<TextMeshProUGUI> ().text = MiniBossName;
-		MiniBossUIObject.GetComponentInChildren<Animator> ().Play ("MiniBossUI");
 
 		InvokeRepeating ("SpotlightOverrideTransform", 0, 1);
 		PlayerController.PlayerOneInstance.spotlightsScript.InvokeRepeating ("OverrideSpotlightLookObject", 0, 1);
