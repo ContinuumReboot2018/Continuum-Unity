@@ -68,7 +68,7 @@ public class MiniBossFormationGenerator : MonoBehaviour
 		GameObject MiniBossUIObject = GameObject.Find("MiniBossUI");
 		MiniBossUIObject.GetComponentInChildren<TextMeshProUGUI> ().text = MiniBossNames [ChosenMapId];
 		MiniBossUIObject.GetComponentInChildren<Animator> ().Play ("MiniBossUI");
-		ParentTransform.gameObject.SetActive (false);
+		//ParentTransform.gameObject.SetActive (false);
 	}
 
 	// Read the image then generate the formation.

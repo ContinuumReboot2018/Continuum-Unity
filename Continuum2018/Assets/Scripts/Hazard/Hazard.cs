@@ -50,23 +50,33 @@ public class Hazard : MonoBehaviour
 			CreateExplosion ();
 			DoCamShake ();
 
-			if (particle.GetComponentInParent<Bullet> () != null)
+			// Other object has a bullet component.
+			if (particle.GetComponentInParent<Bullet> () != null) 
 			{
-				if (particle.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Ripple") ||
-				    particle.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix")) 
-				{
-					Destroy (gameObject);
-					return;
-				}
+				particle.GetComponentInParent<Bullet> ().hitABlock = true;
 
-				else
-					
+				// Stops the bullet that hit it from hanging around.
+				if (particle.GetComponentInParent<Bullet> ().allowBulletColDeactivate == true) 
 				{
-					Destroy (particle.gameObject);
+					particle.GetComponentInParent<Bullet> ().DestroyObject ();
 				}
 			}
 
+			CreateExplosion (); // Create the explosion.
+			DoCamShake (); // Shake camera.
+
+			if (particle.name.Contains ("P1")) 
+			{
+				DoVibrate (1);
+			}
+
+			if (particle.name.Contains ("P2")) 
+			{
+				DoVibrate (2);
+			}
+
 			Destroy (gameObject);
+			//gameObject.SetActive (false);
 			return;
 		}
 	}
@@ -127,5 +137,26 @@ public class Hazard : MonoBehaviour
 	public void SetTargetResonance (float resAmt)
 	{
 		AudioController.Instance.TargetResonance = resAmt;
+	}
+
+	// Vibrate player controllers.
+	void DoVibrate (int playerId)
+	{
+		#if !PLATFORM_STANDALONE_OSX && !PLATFORM_ANDROID && !PLATFORM_WEBGL
+
+		if (playerId == 1)
+		{
+			PlayerController.PlayerOneInstance.Vibrate (0.7f, 0.7f, 0.2f);
+		}
+
+		if (playerId == 2)
+		{
+			if (PlayerController.PlayerTwoInstance != null)
+			{
+				PlayerController.PlayerTwoInstance.Vibrate (0.7f, 0.7f, 0.2f);
+			}
+		}
+
+		#endif
 	}
 }

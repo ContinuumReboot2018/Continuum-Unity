@@ -672,10 +672,20 @@ public class Block : MonoBehaviour
 	{
 		// Checks if this is a boss part, it doesnt have a parent, and did not get attached yet.
 		HitPoints = 1;
-		textureScrollScript.enabled = true; // Turn on texture scroll script.
 
 		isSpecialBlockType = true; // Set to special block type.
 		SpecialBlockType = specialBlockType.Noise; // Set to block type list.
+
+		if (textureScrollScript == null)
+		{
+			if (GetComponentInChildren <ScrollTextureOverTime> () != null)
+			{
+				textureScrollScript = GetComponentInChildren <ScrollTextureOverTime> ();
+				textureScrollScript.enabled = true; // Turn on texture scroll script.
+			}
+		}
+
+		UpdateBlockType ();
 
 		speed = NoiseBlock.Speed; // Freeze speed.
 		rend.material = NoiseBlock.Material; // Set material to noise.
