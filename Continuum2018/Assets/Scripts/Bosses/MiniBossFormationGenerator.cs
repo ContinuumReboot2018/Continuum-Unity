@@ -1,6 +1,7 @@
 ﻿// Generates a block formation based on the color data from a texture.
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 [ExecuteInEditMode]
 public class MiniBossFormationGenerator : MonoBehaviour 
@@ -8,12 +9,13 @@ public class MiniBossFormationGenerator : MonoBehaviour
 	public Texture2D[] MiniBossMaps;
 	[Tooltip ("Drop the texture in this slot in the inspector to read from.")]
 	public Texture2D ChosenMap;
+	private int ChosenMapId;
 	[Header ("Color texture maps")]
 	[Tooltip ("Set prefabs to spawn by color.")]
 	public ColorToPrefab[] colorMappings;
 	[Space (10)]
 	[Tooltip ("The name of this instance of the boss.")]
-	public string MiniBossName;
+	public string[] MiniBossNames;
 
 	[Header ("Transforms")]
 	[Tooltip ("Set where the spawned prefab should parent to.")]
@@ -57,14 +59,16 @@ public class MiniBossFormationGenerator : MonoBehaviour
 
 	void ChooseMap ()
 	{
-		int ChosenMapId = Random.Range (0, MiniBossMaps.Length);
-		ChosenMap = MiniBossMaps[ChosenMapId];
+		ChosenMapId = Random.Range (0, MiniBossMaps.Length);
+		ChosenMap = MiniBossMaps [ChosenMapId];
 	}
 
 	void Start ()
 	{
+		GameObject MiniBossUIObject = GameObject.Find("MiniBossUI");
+		MiniBossUIObject.GetComponentInChildren<TextMeshProUGUI> ().text = MiniBossNames [ChosenMapId];
+		MiniBossUIObject.GetComponentInChildren<Animator> ().Play ("MiniBossUI");
 		ParentTransform.gameObject.SetActive (false);
-		//Invoke ("TurnOnParentBossFormation", 3);
 	}
 
 	// Read the image then generate the formation.

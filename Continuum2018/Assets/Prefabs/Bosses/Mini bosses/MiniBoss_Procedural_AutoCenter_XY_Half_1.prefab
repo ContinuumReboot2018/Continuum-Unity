@@ -613,7 +613,6 @@ MonoBehaviour:
   Brain: {fileID: 1887779462268618}
   MiniBossParent: {fileID: 1761358554297378}
   MiniBossUI: {fileID: 0}
-  MiniBossName: SPIDER
   ColliderTime: 3
   hitPoints: 5
   StartingHitPoints: 5
@@ -690,6 +689,8 @@ MonoBehaviour:
     prefab: {fileID: 1969426158575550, guid: 51b72e5b50640784397e83d8936facbb, type: 2}
   - color: {r: 1, g: 0.3019608, b: 0.75686276, a: 0.5019608}
     prefab: {fileID: 1987925496388862, guid: 5c519a0f21a9d1f4887996de080c43d1, type: 2}
+  MiniBossNames:
+  - BOSS
   ParentTransform: {fileID: 4273405538986862}
   Spacing: 0.8
   Scaling: {x: 1.35, y: 1.35, z: 1.35}
