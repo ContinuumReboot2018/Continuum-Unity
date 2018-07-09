@@ -414,8 +414,8 @@ public class Block : MonoBehaviour
 						DoVibrate (2);
 					}
 
-					//Destroy (gameObject);
-					gameObject.SetActive (false);
+					Destroy (gameObject);
+					//gameObject.SetActive (false);
 					return;
 				}
 
@@ -452,7 +452,8 @@ public class Block : MonoBehaviour
 							}
 						}
 					
-						gameObject.SetActive (false);
+						Destroy (gameObject);
+						//gameObject.SetActive (false);
 						return; // Prevent any further code execution.
 					}
 
@@ -499,7 +500,8 @@ public class Block : MonoBehaviour
 				// If the tag is not a bullet.
 				if (other.tag != "Bullet") 
 				{
-					gameObject.SetActive (false);
+					Destroy (gameObject);
+					//gameObject.SetActive (false);
 					return; // Prevent any further code execution.
 				}
 			}
@@ -571,7 +573,8 @@ public class Block : MonoBehaviour
 						DoVibrate (2);
 					}
 
-					gameObject.SetActive (false);
+					Destroy (gameObject);
+					//gameObject.SetActive (false);
 					return; // Prevent any further code execution.
 				}
 					
@@ -591,7 +594,8 @@ public class Block : MonoBehaviour
 								if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
 								{
 									Destroy (other.gameObject);
-									gameObject.SetActive (false);
+									Destroy (gameObject);
+									//gameObject.SetActive (false);
 								}
 							}
 						}
@@ -621,12 +625,14 @@ public class Block : MonoBehaviour
 								if (other.GetComponentInParent<Bullet> ().BulletTypeName.Contains ("Helix") == false) 
 								{
 									Destroy (other.gameObject);
-									gameObject.SetActive (false);
+									Destroy (gameObject);
+									//gameObject.SetActive (false);
 								}
 							}
 						}
 							
-						gameObject.SetActive (false);
+						Destroy (gameObject);
+						//gameObject.SetActive (false);
 						return; // Prevent any further code execution.
 					}
 				}
@@ -655,7 +661,8 @@ public class Block : MonoBehaviour
 
 				DoCamShake ();
 
-				gameObject.SetActive (false);
+				Destroy (gameObject);
+				//gameObject.SetActive (false);
 				return;
 			}
 
@@ -733,8 +740,8 @@ public class Block : MonoBehaviour
 		// Block falls below MinYPos, destroy it.
 		if (transform.position.y < MinYPos) 
 		{
-			//Destroy (gameObject);
-			gameObject.SetActive (false);
+			Destroy (gameObject);
+			//gameObject.SetActive (false);
 			return;
 		}
 
@@ -750,7 +757,8 @@ public class Block : MonoBehaviour
 
 				if (transform.position.y > BoundaryY.y) 
 				{
-					gameObject.SetActive (false);
+					Destroy (gameObject);
+					//gameObject.SetActive (false);
 					return;
 				}
 			}
@@ -919,7 +927,8 @@ public class Block : MonoBehaviour
 			transform.position.y > BoundaryY.y || 
 			transform.position.y < BoundaryY.x) 
 		{
-			gameObject.SetActive (false);
+			Destroy (gameObject);
+			//gameObject.SetActive (false);
 			return;
 		}
 	}
@@ -962,6 +971,16 @@ public class Block : MonoBehaviour
 				Explosion = NoiseBlock.Explosion;
 				transform.name = "Noise block";
 				transform.GetChild (0).name = "Noise block child";
+
+				if (textureScrollScript == null)
+				{
+					if (GetComponentInChildren <ScrollTextureOverTime> () != null)
+					{
+						textureScrollScript = GetComponentInChildren <ScrollTextureOverTime> ();
+						textureScrollScript.enabled = true; // Turn on texture scroll script.
+					}
+				}
+
 				break;
 
 			case specialBlockType.Red:
@@ -986,6 +1005,16 @@ public class Block : MonoBehaviour
 				GetComponentInChildren<ParticleSystem> ().Stop (true, ParticleSystemStopBehavior.StopEmittingAndClear);
 			}
 
+			if (textureScrollScript == null)
+			{
+				if (GetComponentInChildren <ScrollTextureOverTime> () != null)
+				{
+					textureScrollScript = GetComponentInChildren <ScrollTextureOverTime> ();
+					textureScrollScript.CurrentOffset = Vector2.zero;
+					textureScrollScript.enabled = false; // Turn off texture scroll script.
+				}
+			}
+				
 			// Update speed stat.
 			// Update material stat.
 			// Update base point value stat.

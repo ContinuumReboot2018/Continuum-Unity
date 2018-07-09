@@ -53,6 +53,8 @@ public class GameController : MonoBehaviour
 	[Tooltip ("Background of wave text.")]
 	public RawImage WaveBackground;
 
+	public Vector2 NewWaveWaitTimes;
+
 	public bool doBonusRound;
 	public bool isInBonusRound;
 
@@ -1385,7 +1387,8 @@ public class GameController : MonoBehaviour
 			{
 				bool recycledBlock = false;
 
-				if (BlockChecker.Instance.BlocksInstanced.Count > 0) 
+				// If we want to recycle blocks.
+				/*if (BlockChecker.Instance.BlocksInstanced.Count > 0) 
 				{
 					// Go through instanced blocks list.
 					for (int i = 0; i < BlockChecker.Instance.BlocksInstanced.Count; i++) 
@@ -1400,7 +1403,7 @@ public class GameController : MonoBehaviour
 							return;
 						}
 					}
-				}
+				}*/
 
 				// Could not find block of the right type to activate, spawning a new one.
 				if (recycledBlock == false) 
@@ -1414,7 +1417,8 @@ public class GameController : MonoBehaviour
 			{
 				bool recycledBlock = false;
 					
-				if (BlockChecker.Instance.BlocksInstanced.Count > 0) 
+				// If we want to recycle blocks.
+				/*if (BlockChecker.Instance.BlocksInstanced.Count > 0) 
 				{
 					// Go through instanced blocks list.
 					for (int i = 0; i < BlockChecker.Instance.BlocksInstanced.Count; i++) 
@@ -1454,7 +1458,7 @@ public class GameController : MonoBehaviour
 							return;
 						}
 					}
-				}
+				}*/
 
 				// Could not find block of the right type to activate, spawning a new one from the list.
 				if (recycledBlock == false) 
@@ -1788,13 +1792,13 @@ public class GameController : MonoBehaviour
 			Blocks.Add (Blocks [9]);
 		}
 
-		yield return new WaitForSecondsRealtime (1);
+		yield return new WaitForSeconds (NewWaveWaitTimes.x);
 
 		PlayerController.PlayerOneInstance.spotlightsScript.NormalSpotlightSettings ();
 		PlayerController.PlayerOneInstance.spotlightsScript.NewTarget = PlayerController.PlayerOneInstance.playerMesh.transform;
 		PlayerController.PlayerOneInstance.spotlightsScript.OverrideSpotlightLookObject ();
 
-		yield return new WaitForSecondsRealtime (4);
+		yield return new WaitForSeconds (NewWaveWaitTimes.y);
 		NextLevel ();
 
 		// When wave is after a multiple of 4.

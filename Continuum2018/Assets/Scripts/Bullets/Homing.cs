@@ -24,10 +24,12 @@ public class Homing : MonoBehaviour
 	public Vector2 VelocityLimits = new Vector2 (180, 220);
 	private Rigidbody rb; // Reference to current RigidBody.
 
-	[SerializeField]
+	//[SerializeField]
 	private Vector2 direction;
-	[SerializeField]
+	//[SerializeField]
 	private Vector3 rotateAmount;
+
+	public GameObject[] gos;
 
 	void Start () 
 	{
@@ -102,8 +104,8 @@ public class Homing : MonoBehaviour
 
 			if (target.gameObject.activeInHierarchy == false) 
 			{
-				//ReleaseHoming ();
-				//target = null;
+				ReleaseHoming ();
+				target = null;
 				//Invoke ("GetObjectToHome", 0);
 			}
 		}
@@ -127,11 +129,12 @@ public class Homing : MonoBehaviour
 			rb.angularVelocity = -rotateAmount * rotateSpeed;
 			rb.velocity = transform.up * speed;
 			speed -= 25 * Time.deltaTime;
-			speed = Mathf.Clamp (speed, 50, initialSpeed);
+			speed = Mathf.Clamp (speed, 10, initialSpeed);
 
 			if (target.gameObject.activeSelf == false) 
 			{
 				ReleaseHoming ();
+				target = null;
 				//Invoke ("GetObjectToHome", 1);
 			}
 		}
@@ -145,7 +148,7 @@ public class Homing : MonoBehaviour
 		rb.velocity = transform.TransformDirection (
 			new Vector3 (
 				0, 
-				Mathf.Clamp (speed * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
+				Mathf.Clamp (initialSpeed * Time.fixedUnscaledDeltaTime * (1.5f * Time.timeScale), VelocityLimits.x, VelocityLimits.y), 
 				0
 			)
 		);
@@ -162,7 +165,8 @@ public class Homing : MonoBehaviour
 	public GameObject FindClosestEnemyTag (string tag)
 	{
 		// Starts array of GameObjects. 
-		GameObject[] gos; 
+		//GameObject[] gos; 
+		//Candidates = gos;
 
 		//BlockChecker.Instance.BlocksInstanced.ToArray ();
 

@@ -959,6 +959,10 @@ public class PlayerController : MonoBehaviour
 	// Impacts by any hazardous object.
 	public void PlayerImpactGeneric ()
 	{
+		#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPaused = true;
+		#endif
+
 		GameController.Instance.isUpdatingImageEffects = true;
 		timeIsSlowed = false;
 		SetCooldownTime (5);

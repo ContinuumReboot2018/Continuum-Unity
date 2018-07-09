@@ -373,6 +373,7 @@ public class MiniBoss : MonoBehaviour
 			{
 				block.ConvertToNoiseBossPart ();
 				//block.CheckForNoiseBoundary ();
+				block.textureScrollScript.enabled = true;
 				block.parentToTransformScript.ParentNow ();
 			}
 		}
