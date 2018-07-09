@@ -390,7 +390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c79d5e58d505247b448ae2a1be54e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   blockScript: {fileID: 0}
   Lifetime: 2
   ExplosionSound: {fileID: 82359759596746866}
@@ -459,7 +458,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -25000375
+  randomSeed: -1799119242
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -549,7 +548,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.39310342, b: 0, a: 1}
+      maxColor: {r: 1, g: 0.39310342, b: 0, a: 0.159}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -3841,7 +3840,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -360985094
+  randomSeed: 1036936380
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4487,7 +4486,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 1200
+        scalar: 600
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -4508,7 +4507,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 700
+        scalar: 350
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -4553,7 +4552,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 700
+        scalar: 350
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -7319,7 +7318,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -821386522
+  randomSeed: -165459938
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7471,8 +7470,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.6
-      minScalar: 0.4
+      scalar: 0.4
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7965,7 +7964,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 1000
+        scalar: 500
         minScalar: 0
         maxCurve:
           serializedVersion: 2

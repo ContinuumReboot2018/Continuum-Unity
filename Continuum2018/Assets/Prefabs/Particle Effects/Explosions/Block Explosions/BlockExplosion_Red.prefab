@@ -111,7 +111,6 @@ GameObject:
   - component: {fileID: 4942551433710030}
   - component: {fileID: 198993062324146030}
   - component: {fileID: 199588318088694990}
-  - component: {fileID: 114949448349503696}
   m_Layer: 14
   m_Name: ShockWave
   m_TagString: Block
@@ -489,7 +488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c79d5e58d505247b448ae2a1be54e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   blockScript: {fileID: 0}
   Lifetime: 2
   ExplosionSound: {fileID: 82493372611424884}
@@ -498,20 +496,6 @@ MonoBehaviour:
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
   TextPos: {x: 1, y: 1}
---- !u!114 &114949448349503696
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1875158053759168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 378afd9663f247a4fa50200da720a72a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleEffect: {fileID: 0}
-  BaseRateDistance: 0
-  BaseRateTime: 0
 --- !u!114 &114994073970807432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3925,7 +3909,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875158053759168}
   serializedVersion: 5
-  lengthInSec: 0.3
+  lengthInSec: 0.2
   simulationSpeed: 1
   stopAction: 0
   looping: 0
@@ -4068,7 +4052,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.2352941, g: 0, b: 0, a: 1}
+      maxColor: {r: 0.2352941, g: 0, b: 0, a: 0.23529412}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

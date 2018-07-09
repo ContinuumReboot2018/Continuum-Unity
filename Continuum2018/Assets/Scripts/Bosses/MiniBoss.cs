@@ -134,7 +134,7 @@ public class MiniBoss : MonoBehaviour
 		{
 			BossPartsConvertToNoise ();
 			hitPoints = 0;
-			Instantiate (LargeExplosion, transform.position, Quaternion.identity);
+			Instantiate (LargeExplosion, transform.position, Quaternion.Euler (75, 75, 0));
 			GameController.Instance.StartNewWave ();
 			GameController.Instance.IsInWaveTransition = true;
 			Debug.LogWarning ("No player found, bailing out.");
@@ -331,7 +331,7 @@ public class MiniBoss : MonoBehaviour
 		BossPartsConvertToNoise (); // Convert all blocks in array to noise and detach.
 
 		hitPoints = 0; // Reset all hit points.
-		Instantiate (LargeExplosion, transform.position, Quaternion.identity); // Spawn a large explosion.
+		Instantiate (LargeExplosion, transform.position, Quaternion.Euler (75, 75, 0)); // Spawn a large explosion.
 
 		GameController.Instance.StartNewWave (); // Go to next wave.
 		GameController.Instance.IsInWaveTransition = true; // Set to be in wave transition.

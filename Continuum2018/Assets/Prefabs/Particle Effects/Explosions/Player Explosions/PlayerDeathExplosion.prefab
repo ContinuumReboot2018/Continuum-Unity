@@ -68,13 +68,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1781124802439604}
-  m_LocalRotation: {x: 0.49866816, y: 0.45504877, z: -0.34917116, w: 0.6498771}
+  m_LocalRotation: {x: 0.38302222, y: 0.38302222, z: -0.17860618, w: 0.82139385}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4223533413772470}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 75, y: 70, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 50, z: 0}
 --- !u!82 &82416826305370060
 AudioSource:
   m_ObjectHideFlags: 1
@@ -244,7 +244,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1237309404
+  randomSeed: 388079154
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -279,9 +279,9 @@ ParticleSystem:
         m_RotationOrder: 0
     startSpeed:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 160
-      minScalar: 160
+      minMaxState: 0
+      scalar: 30
+      minScalar: 40
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -3638,7 +3638,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -920719919
+  randomSeed: -449433860
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3674,7 +3674,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 200
+      scalar: 70
       minScalar: 400
       maxCurve:
         serializedVersion: 2
@@ -3766,7 +3766,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
+      scalar: 4
       minScalar: 2
       maxCurve:
         serializedVersion: 2
@@ -4265,7 +4265,7 @@ ParticleSystem:
       cycleCount: 1
       repeatInterval: 0.01
   SizeModule:
-    enabled: 1
+    enabled: 0
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -6271,14 +6271,14 @@ ParticleSystem:
         atime0: 0
         atime1: 6361
         atime2: 54163
-        atime3: 65535
+        atime3: 65150
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 4
+        m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
         key0: {r: 0.57254905, g: 0, b: 1, a: 1}
@@ -6374,7 +6374,7 @@ ParticleSystem:
         ctime7: 0
         atime0: 14842
         atime1: 51850
-        atime2: 65535
+        atime2: 65150
         atime3: 65535
         atime4: 0
         atime5: 0
@@ -6382,7 +6382,7 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 3
+        m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
         key0: {r: 0.30882353, g: 0.54239357, b: 1, a: 1}

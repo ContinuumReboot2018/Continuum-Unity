@@ -608,9 +608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ebe4c7d6a6d6b489128bd9c11979c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
-  playerControllerScript_P1: {fileID: 0}
-  timescaleControllerScript: {fileID: 0}
   ThresholdPowerupMoveDistance: 20
   MoveSpeed: 8
   camShakeScript: {fileID: 0}
@@ -791,7 +788,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.2794118, g: 0.6326808, b: 1, a: 1}
-      maxColor: {r: 0.2647059, g: 0.6251844, b: 1, a: 1}
+      maxColor: {r: 0.2647059, g: 0.6251844, b: 1, a: 0.19607843}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
