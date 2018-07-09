@@ -9,6 +9,8 @@ public class BlockManager : ScriptableObject
 	public Material Material;
 	[Tooltip ("Default base point value for this block type.")]
 	public int BasePointValue;
+	[Tooltip ("Ability time to add when destroyed.")]
+	public float AddAbilityTime;
 	[Tooltip ("Default explosion for this block type.")]
 	public GameObject Explosion;
 	[Tooltip ("Default text color for this block type.")]

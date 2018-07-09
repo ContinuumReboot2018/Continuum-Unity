@@ -960,7 +960,7 @@ public class PlayerController : MonoBehaviour
 	public void PlayerImpactGeneric ()
 	{
 		#if UNITY_EDITOR
-		UnityEditor.EditorApplication.isPaused = true;
+		//UnityEditor.EditorApplication.isPaused = true;
 		#endif
 
 		GameController.Instance.isUpdatingImageEffects = true;

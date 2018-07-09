@@ -45,6 +45,7 @@ public class GameOverController : MonoBehaviour
 	public GameObject LeaderboardUI;
 	public Button LeaderboardCloseButton;
 	public Button ContinueButton;
+	public EventTrigger ContinueButtonTrigger;
 	public PointerEventData eventData;
 
 	void Awake ()
@@ -77,7 +78,7 @@ public class GameOverController : MonoBehaviour
 				if (InputManager.Devices [0].Action1.IsPressed) 
 				{
 					if (GameOverUI.activeInHierarchy == true &&
-					   LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == false) 
+					    LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == false) 
 					{
 						// Execute the OnClick event for the continue button.
 						ExecuteEvents.Execute (
@@ -87,7 +88,7 @@ public class GameOverController : MonoBehaviour
 						);
 					}
 
-					if (LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == true) 
+					if (LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == true)
 					{
 						ExecuteEvents.Execute (
 							LeaderboardCloseButton.gameObject, 
@@ -95,6 +96,34 @@ public class GameOverController : MonoBehaviour
 							ExecuteEvents.pointerClickHandler
 						);
 					}
+				}
+			}
+		}
+
+		else 
+		
+		{
+			// Enter or space button is pressed.
+			if (Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown (KeyCode.Space)) 
+			{
+				if (GameOverUI.activeInHierarchy == true &&
+					LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == false) 
+				{
+					// Execute the OnClick event for the continue button.
+					ExecuteEvents.Execute (
+						ContinueButton.gameObject, 
+						eventData, 
+						ExecuteEvents.pointerClickHandler
+					);
+				}
+
+				if (LeaderboardDisplay.Instance.UI.gameObject.activeInHierarchy == true) 
+				{
+					ExecuteEvents.Execute (
+						LeaderboardCloseButton.gameObject, 
+						eventData, 
+						ExecuteEvents.pointerClickHandler
+					);
 				}
 			}
 		}
@@ -326,5 +355,10 @@ public class GameOverController : MonoBehaviour
 		}
 
 		FinalScoreText.text = CurrentScore.ToString ("N0");
+	}
+
+	public void ContinueButtonOnEnter ()
+	{
+		ExecuteEvents.Execute (ContinueButtonTrigger.gameObject, eventData, ExecuteEvents.pointerEnterHandler);
 	}
 }

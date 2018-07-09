@@ -14,5 +14,6 @@ MonoBehaviour:
   Speed: -1500
   Material: {fileID: 2100000, guid: 18f8ccdee01f973438b6bba3eb911511, type: 2}
   BasePointValue: 0
+  AddAbilityTime: 0.1
   Explosion: {fileID: 1450244663619750, guid: 0e17050179583d947804383b4098cecf, type: 2}
   TextColor: {r: 1, g: 0, b: 0, a: 1}

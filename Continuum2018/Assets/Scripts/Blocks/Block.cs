@@ -967,6 +967,7 @@ public class Block : MonoBehaviour
 				speed = NoiseBlock.Speed;
 				rend.material = NoiseBlock.Material;
 				BasePointValue = NoiseBlock.BasePointValue;
+				AddAbilityTime = NoiseBlock.AddAbilityTime;
 				TextColor = NoiseBlock.TextColor;
 				Explosion = NoiseBlock.Explosion;
 				transform.name = "Noise block";
@@ -987,6 +988,7 @@ public class Block : MonoBehaviour
 				speed = RedBlock.Speed;
 				rend.material = RedBlock.Material;
 				BasePointValue = RedBlock.BasePointValue;
+				AddAbilityTime = RedBlock.AddAbilityTime;
 				TextColor = RedBlock.TextColor;
 				Explosion = RedBlock.Explosion;
 				transform.name = "Red block";
@@ -1025,6 +1027,7 @@ public class Block : MonoBehaviour
 				speed = AquaBlock.Speed;
 				rend.material = AquaBlock.Material;
 				BasePointValue = AquaBlock.BasePointValue;
+				AddAbilityTime = AquaBlock.AddAbilityTime;
 				TextColor = AquaBlock.TextColor;
 				Explosion = AquaBlock.Explosion;
 				transform.name = "Aqua block";
@@ -1034,6 +1037,7 @@ public class Block : MonoBehaviour
 				speed = BlueBlock.Speed;
 				rend.material = BlueBlock.Material;
 				BasePointValue = BlueBlock.BasePointValue;
+				AddAbilityTime = BlueBlock.AddAbilityTime;
 				TextColor = BlueBlock.TextColor;
 				Explosion = BlueBlock.Explosion;
 				transform.name = "Blue block";
@@ -1043,6 +1047,7 @@ public class Block : MonoBehaviour
 				speed = PurpleBlock.Speed;
 				rend.material = PurpleBlock.Material;
 				BasePointValue = PurpleBlock.BasePointValue;
+				AddAbilityTime = PurpleBlock.AddAbilityTime;
 				TextColor = PurpleBlock.TextColor;
 				Explosion = PurpleBlock.Explosion;
 				transform.name = "Purple block";
@@ -1052,6 +1057,7 @@ public class Block : MonoBehaviour
 				speed = PinkBlock.Speed;
 				rend.material = PinkBlock.Material;
 				BasePointValue = PinkBlock.BasePointValue;
+				AddAbilityTime = PinkBlock.AddAbilityTime;
 				TextColor = PinkBlock.TextColor;
 				Explosion = PinkBlock.Explosion;
 				transform.name = "Pink block";
