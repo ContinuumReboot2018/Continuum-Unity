@@ -732,7 +732,8 @@ public class GameController : MonoBehaviour
 				TargetPitch_Debug.text = 
 					"Target Pitch: " + AudioController.Instance.BassTargetPitch;
 				CurrentPitch_Debug.text = 
-					"Current Pitch: " + Math.Round (AudioController.Instance.BassTrack.pitch, 4);
+					"Current Pitch: " + Math.Round (AudioController.Instance.LayerSources [0].pitch, 4);
+					//"Current Pitch: " + Math.Round (AudioController.Instance.BassTrack.pitch, 4);
 				TimeScaleText_Debug.text = 
 					"Time.timeScale: " + Math.Round (Time.timeScale, 2);
 				FixedTimeStepText_Debug.text = 
@@ -1202,7 +1203,8 @@ public class GameController : MonoBehaviour
 
 		// Set audio controller values to resumed state.
 		AudioController.Instance.updateVolumeAndPitches = true;
-		AudioController.Instance.BassTrack.pitch = 1;
+		AudioController.Instance.LayerSources [0].pitch = 1;
+		//AudioController.Instance.BassTrack.pitch = 1;
 		AudioController.Instance.SetTargetLowPassFreq (22000);
 		AudioController.Instance.SetTargetResonance (1);
 

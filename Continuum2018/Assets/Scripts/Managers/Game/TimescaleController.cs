@@ -285,19 +285,20 @@ public class TimescaleController : MonoBehaviour
 					MinimumTimeScale, 
 					MaximumTimeScale
 				);
+
+				TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance, MinimumTimeScale, MaximumTimeScale);
 			}
 
 			if (TimeCalculation == timeCalc.Discrete) 
 			{
 				// Get pitch value from bass track in audio controller and allow manipulation.
 				TargetTimeScale = Mathf.Clamp (
-					AudioController.Instance.BassTrack.pitch + TargetTimeScaleAdd - 0.3f, 
+					//AudioController.Instance.BassTrack.pitch + TargetTimeScaleAdd - 0.3f, 
+					AudioController.Instance.LayerSources[0].pitch + TargetTimeScaleAdd, 
 					MinimumTimeScale, 
 					MaximumTimeScale
 				);
 			}
-
-			TargetTimeScale = Mathf.Clamp (TargetTimeScaleMult * Distance, MinimumTimeScale, MaximumTimeScale);
 		}
 	}
 

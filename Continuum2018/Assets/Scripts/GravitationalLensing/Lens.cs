@@ -127,6 +127,7 @@ public class Lens: MonoBehaviour
 						Vector3.Distance (BlackHoles [i].BH.position, this.transform.position));
 
 					Graphics.Blit (TextureSource, TextureDestination, BlackHoles [i].material);
+					Debug.Log ("Blit index " + i);
 				} 
 
 				else 

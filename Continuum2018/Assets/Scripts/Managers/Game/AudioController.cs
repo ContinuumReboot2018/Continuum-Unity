@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-//using UnityEngine.Networking;
+using System.Collections.Generic;
+using System.Linq;
 
 public class AudioController : MonoBehaviour 
 {
@@ -11,45 +12,64 @@ public class AudioController : MonoBehaviour
 
 	[Tooltip ("If true, the music will update to volume and pitch.")]
 	public bool updateVolumeAndPitches = true;
+
 	[Tooltip ("Gets distance from TimescaleController.Instance.")]
 	public float Distance;
 
 	[Tooltip ("Audio mixer on soundtracks.")]
 	public AudioMixer SoundtrackAudioMix;
 	public AudioMixer EffectsAudioMix;
+
 	[Tooltip ("Current low pass frequency from mixer.")]
 	public float curFreq;
 	public float curEffectsFreq;
+
 	[Tooltip ("Target low pass frequency for mixer.")]
 	public float TargetCutoffFreq;
+
 	[Tooltip ("Low pass frequency smooth time.")]
 	public float CutoffFreqSmoothing;
+
 	[Tooltip ("Current low pass resonance from mixer.")]
 	public float curRes;
 	public float curEffectsRes;
+
 	[Tooltip ("Target low pass resonance for mixer.")]
 	public float TargetResonance;
+
 	[Tooltip ("Low pass resonance smooth time.")]
 	public float ResonanceSmoothing;
 
 	// Distances to edit
 	[Header ("Distance values")]
+
+	public float[] DistanceValues;
+
+	/*
 	[Tooltip ("The distance at which any lower will give the lowest assigned audio pitch.")]
 	public float BaseDistance;
+
 	[Tooltip ("Higher = 1.0f, Lower = 0.75f.")]
 	public float LowDistance;
+
 	[Tooltip ("Higher = 1.25f, Lower = 1.0f.")]
 	public float MediumDistance;
+
 	[Tooltip ("The distance at which any higher will give the highest assigned audio pitch.")]
 	public float HighDistance;
+	*/
 
 	[Header ("Track Sequence")]
+
 	[Tooltip ("Current track number referenced in array.")]
 	public int TrackNumber;
+
 	[Tooltip ("The track name based on track number.")]
 	public string TrackName;
+
 	[Tooltip ("List of all track names.")]
 	public string[] TrackNames;
+
 	[Tooltip ("Can change the way tracks are sequenced.")]
 	public trackSequence TrackSequenceMode;
 	public enum trackSequence
@@ -58,28 +78,43 @@ public class AudioController : MonoBehaviour
 		Random,
 	}
 
+	public AudioSource[] LayerSources;
+
+	/*
 	// The soundtrack audio sources.
 	[Tooltip ("Plays bass tracks.")]
 	public AudioSource BassTrack;
+
 	[Tooltip ("Plays layer one tracks.")]
 	public AudioSource LayerOneTrack;
+
 	[Tooltip ("Plays layer two tracks.")]
 	public AudioSource LayerTwoTrack;
+
 	[Tooltip ("Plays layer three tracks.")]
 	public AudioSource LayerThreeTrack;
+	*/
+
 	[Tooltip ("Plays beat detection tracks.")]
 	public AudioSource[] BeatDetectionTracks;
 
 	[Header ("Soundtrack Library")]
-	// A library of all each type of track.
+
+	public List<AudioClipsByLayer> TracksByLayer;
+	/*
 	[Tooltip ("Bassdrums, main beat, bed.")]
 	public AudioClip[] BassTracks;
+
 	[Tooltip ("Bass synths, Pads.")]
 	public AudioClip[] LayerOneTracks;
+
 	[Tooltip ("Mains and lead synths.")]
 	public AudioClip[] LayerTwoTracks; 
+
 	[Tooltip ("Riffs, arps, all sorts of cool audio flourishes.")]
 	public AudioClip[] LayerThreeTracks;
+	*/
+
 	[Tooltip ("Beat detection tracks. Must show what tempo this is to synchronize with audio.")]
 	public AudioClip[] BeatDetectionLayerOneTracks;
 	public AudioClip[] BeatDetectionLayerTwoTracks;
@@ -87,36 +122,64 @@ public class AudioController : MonoBehaviour
 	public AudioClip[] BeatDetectionLayerFourTracks;
 
 	[Header ("Beat Detection")]
+
 	[Tooltip ("Increments by 1 every time a beat is detected.")]
 	public int Beats;
+
 	[Tooltip ("Divides beats by 4 and returns the remainder.")]
 	public int BeatInBar;
+
 	[Tooltip ("Calculates BPM.")]
 	public float BeatsPerMinute;
+
 	[Tooltip ("Scaled time since the audio track changed.")]
 	public float TimeSinceTrackLoad;
 
 	[Header ("Volume")]
+
+	public float[] TargetVolumes;
+
+	public List<VolumesByLayer> TrackVolumesByLayer;
+
+	/*
 	[Tooltip ("Bass current volume lerps to this value.")]
 	public float BaseTargetVolume;
+
 	[Tooltip ("Layer one current volume lerps to this value.")]
 	public float LayerOneTargetVolume;
+
 	[Tooltip ("Layer two current volume lerps to this value.")]
 	public float LayerTwoTargetVolume;
+
 	[Tooltip ("Layer two current volume lerps to this value.")]
 	public float LayerThreeTargetVolume;
+	*/
+
 	[Tooltip ("Layer three current volume lerps to this value.")]
 	public float VolumeSmoothTime;
+
+
+
+	/*
 	[Tooltip ("Volume values based on distance value.")]
 	public Vector4 BassVolume, LayerOneVolume, LayerTwoVolume, LayerThreeVolume;
+	*/
 
 	[Header ("Pitch")]
+
 	[Tooltip ("Current bass track pitch lerps to this value, other tracks synchronize automatically.")]
 	public float BassTargetPitch;
+
 	[Tooltip ("Pitch smoothing time.")]
 	public float PitchSmoothTime;
+
+	public List<float> TimePitchesByLayer;
+
+	/*
 	[Tooltip ("Pitch values based on distance values.")]
 	public Vector4 TimePitch;
+	*/
+
 	[Tooltip ("Is pitch being reversed?")]
 	public bool ReversePitch;
 
@@ -135,8 +198,15 @@ public class AudioController : MonoBehaviour
 		// Randomize track if on random mode.
 		if (TrackSequenceMode == trackSequence.Random) 
 		{
+			TrackNumber = Random.Range (0, TracksByLayer.Count);
+		}
+
+		/*
+		if (TrackSequenceMode == trackSequence.Random) 
+		{
 			TrackNumber = Random.Range (0, BassTracks.Length);
 		}
+		*/
 
 		LoadTracks (); // Load the track by track number.
 		InvokeRepeating ("CheckReversePitch", 0, 0.5f); // If in rewind, check for reversing the pitch.
@@ -281,6 +351,15 @@ public class AudioController : MonoBehaviour
 	// Updates target volume values for the sountrack to interpolate towards.
 	void UpdateTargetVolumes ()
 	{
+		for (int i = 0; i < DistanceValues.Length; i++)
+		{
+			if (Distance > DistanceValues [i]) 
+			{
+				TargetVolumes [i] = TrackVolumesByLayer [i].Volumes[i];
+			}
+		}
+
+		/*
 		// Base distance.
 		if (Distance < BaseDistance) 
 		{
@@ -325,11 +404,21 @@ public class AudioController : MonoBehaviour
 			LayerTwoTargetVolume = 1;
 			LayerThreeTargetVolume = 1;
 		}
+		*/
 	}
 
 	// Updates target pitch values for the sountrack to interpolate towards.
 	void UpdateTargetPitches ()
 	{
+		for (int i = 0; i < DistanceValues.Length; i++) 
+		{
+			if (Distance > DistanceValues [i]) 
+			{
+				BassTargetPitch = TimePitchesByLayer [i] * (ReversePitch ? -1 : 1);
+			}
+		}
+
+		/*
 		// Base distance.
 		if (Distance < BaseDistance) 
 		{
@@ -359,6 +448,7 @@ public class AudioController : MonoBehaviour
 		{
 			BassTargetPitch = 1.5f * (ReversePitch ? -1 : 1);
 		}
+		*/
 	}
 
 	// Updates volume by reading targets and lerping.
@@ -367,6 +457,16 @@ public class AudioController : MonoBehaviour
 		// Updates target volumes.
 		// We need to compensate for how the mmixer volume is displayed in dB (-80 to 0).
 
+		for (int i = 0; i < LayerSources.Length; i++)
+		{
+			LayerSources [i].volume = Mathf.Lerp (
+				LayerSources [i].volume,
+				TargetVolumes [i] + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)),
+				VolumeSmoothTime * Time.unscaledDeltaTime
+			);
+		}
+
+		/*
 		BassTrack.volume = Mathf.Lerp (
 			BassTrack.volume, 
 			BaseTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
@@ -390,6 +490,7 @@ public class AudioController : MonoBehaviour
 			LayerThreeTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
 			VolumeSmoothTime * Time.unscaledDeltaTime
 		);
+		*/
 	}
 
 	// Updates pitch by reading targets and lerping.
@@ -397,11 +498,19 @@ public class AudioController : MonoBehaviour
 	{
 		// Updates target pitch for bass track. 
 		// We only need to update the bass track as the other layers of audio have a pitch sync script taking care of this.
+		LayerSources[0].pitch = Mathf.Lerp (
+			LayerSources[0].pitch, 
+			BassTargetPitch, 
+			PitchSmoothTime * Time.unscaledDeltaTime
+		);
+
+		/*
 		BassTrack.pitch = Mathf.Lerp (
 			BassTrack.pitch, 
 			BassTargetPitch, 
 			PitchSmoothTime * Time.unscaledDeltaTime
 		);
+		*/
 	}
 
 	// Updates the current track name string value.
@@ -413,12 +522,22 @@ public class AudioController : MonoBehaviour
 	// Replaces audio clips in the specified audio source by index.
 	public void LoadTracks ()
 	{
-		// Assigns clips to audio sources.
 		TrackName 			 = TrackNames 		[TrackNumber];
+
+		// Assigns clips to audio sources.
+
+		for (int i = 0; i < LayerSources.Length; i++) 
+		{
+			LayerSources [i].clip = TracksByLayer [i].clips [TrackNumber];
+			LayerSources [i].Play ();
+		}
+
+		/*
 		BassTrack.clip 		 = BassTracks 		[TrackNumber];
 		LayerOneTrack.clip	 = LayerOneTracks 	[TrackNumber];
 		LayerTwoTrack.clip 	 = LayerTwoTracks 	[TrackNumber];
 		LayerThreeTrack.clip = LayerThreeTracks [TrackNumber];
+		*/
 
 		// Loop through beat detection tracks, assign beat detection clip.
 		for (int i = 0; i < BeatDetectionTracks.Length; i++)
@@ -442,11 +561,13 @@ public class AudioController : MonoBehaviour
 			BeatDetectionTracks [i].Play ();
 		}
 
+		/*
 		// Plays all audio sources.
 		BassTrack.Play ();
 		LayerOneTrack.Play ();
 		LayerTwoTrack.Play ();
 		LayerThreeTrack.Play ();
+		*/
 
 		// Reset beat amounts.
 		Beats = 1;
@@ -459,6 +580,17 @@ public class AudioController : MonoBehaviour
 		// Increase by sequential order.
 		if (TrackSequenceMode == trackSequence.Sequential) 
 		{
+			if (TrackNumber < TracksByLayer[0].clips.Count) 
+			{
+				TrackNumber += 1;
+			}
+
+			if (TrackNumber >= TracksByLayer[0].clips.Count) 
+			{
+				TrackNumber = 0;
+			}
+
+			/*
 			if (TrackNumber < BassTracks.Length) 
 			{
 				TrackNumber += 1;
@@ -468,12 +600,14 @@ public class AudioController : MonoBehaviour
 			{
 				TrackNumber = 0;
 			}
+			*/
 		}
 
 		// Randomize.
 		if (TrackSequenceMode == trackSequence.Random) 
 		{
-			TrackNumber = Random.Range (0, BassTracks.Length);
+			//TrackNumber = Random.Range (0, BassTracks.Length);
+			TrackNumber = Random.Range (0, TracksByLayer[0].clips.Count);
 		}
 
 		LoadTracks ();
@@ -487,7 +621,8 @@ public class AudioController : MonoBehaviour
 		{
 			if (TrackNumber <= 0) 
 			{
-				TrackNumber = BassTracks.Length;
+				//TrackNumber = BassTracks.Length;
+				TrackNumber = TracksByLayer[0].clips.Count;
 			}
 
 			if (TrackNumber > 0) 
@@ -499,7 +634,8 @@ public class AudioController : MonoBehaviour
 		// Randomize.
 		if (TrackSequenceMode == trackSequence.Random) 
 		{
-			TrackNumber = Random.Range (0, BassTracks.Length);
+			//TrackNumber = Random.Range (0, BassTracks.Length);
+			TrackNumber = Random.Range (0, TracksByLayer[0].clips.Count);
 		}
 
 		LoadTracks ();
@@ -508,17 +644,25 @@ public class AudioController : MonoBehaviour
 	// Set a random track.
 	public void RandomTrack ()
 	{
-		TrackNumber = Random.Range (0, BassTracks.Length);
+		//TrackNumber = Random.Range (0, BassTracks.Length);
+		TrackNumber = Random.Range (0, TracksByLayer[0].clips.Count);
 		LoadTracks ();
 	}
 
 	// Pause all currently playing soundtrack audio sources.
 	public void StopAllSoundtracks ()
 	{
+		for (int i = 0; i < LayerSources.Length; i++) 
+		{
+			LayerSources [i].Pause ();
+		}
+
+		/*
 		BassTrack.Pause ();
 		LayerOneTrack.Pause ();
 		LayerTwoTrack.Pause ();
 		LayerThreeTrack.Pause ();
+		*/
 
 		foreach (AudioSource beatdetection in BeatDetectionTracks) 
 		{
@@ -538,10 +682,17 @@ public class AudioController : MonoBehaviour
 
 		if (GameController.Instance.Lives <= 0) 
 		{
+			if (LayerSources[0].isPlaying == true) 
+			{
+				StopAllSoundtracks ();
+			}
+
+			/*
 			if (BassTrack.isPlaying == true) 
 			{
 				StopAllSoundtracks ();
 			}
+			*/
 		}
 	}
 }

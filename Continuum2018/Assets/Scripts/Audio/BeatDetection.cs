@@ -42,7 +42,15 @@ public class BeatDetection : MonoBehaviour
 		AudioController.Instance.BeatsPerMinute = (
 			AudioController.Instance.Beats / 
 			((AudioController.Instance.TimeSinceTrackLoad / 60)) * 
+			AudioController.Instance.LayerSources[0].pitch
+		);
+
+		/*
+		AudioController.Instance.BeatsPerMinute = (
+			AudioController.Instance.Beats / 
+			((AudioController.Instance.TimeSinceTrackLoad / 60)) * 
 			AudioController.Instance.BassTrack.pitch
 		);
+		*/
 	}
 }
