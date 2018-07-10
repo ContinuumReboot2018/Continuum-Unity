@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Bitcrusher : MonoBehaviour {
-
+public class Bitcrusher : MonoBehaviour 
+{
 	[Range(30,1)]
 	public int bitdepth = 30;
 
@@ -19,10 +18,11 @@ public class Bitcrusher : MonoBehaviour {
 	private float rightholdValue = 0.0f;
 	private int holdCount = 0;
 
-    void OnAudioFilterRead(float[] data, int channels)
+    void OnAudioFilterRead (float[] data, int channels)
     {
         float bcMult = (1 << (bitdepth - 1));
-        if (channels == 2)
+        
+		if (channels == 2)
         {
             for (int i = 0; i <  data.Length; i+=2)
             {
@@ -32,12 +32,16 @@ public class Bitcrusher : MonoBehaviour {
                     leftholdValue = ((int)(data [i] * bcMult)) / bcMult;
                     rightholdValue = ((int)(data [i + 1] * bcMult)) / bcMult;
                 }
+
                 data [i] = volume * (data [i] * (1 - dryWet) + (dryWet) * (leftholdValue));
                 data [i + 1] = volume * (data [i + 1] * (1 - dryWet) + (dryWet) * (rightholdValue));
                 holdCount--;
             }
-        } else
-        {
+        } 
+
+		else
+        
+		{
             for (int i = 0; i < data.Length; i++)
             {
                 if (holdCount == 0)
@@ -45,6 +49,7 @@ public class Bitcrusher : MonoBehaviour {
                     holdCount = sampleRateReduction;
                     leftholdValue = ((int)(data [i] * bcMult)) / bcMult;
                 }
+
                 data [i] = volume * (data [i] * dryWet + (1 - dryWet) * (leftholdValue));
                 holdCount--;
             }
