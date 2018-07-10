@@ -7,7 +7,7 @@ using TMPro;
 public class DeveloperMode : MonoBehaviour 
 {
 	public static DeveloperMode Instance { get ; private set; }
-
+	public bool OnlyInEditor = true;
 	public bool forceStarted; // Has the tutorial been skipped via force start command?
 
 	[Header ("Cheats")]
@@ -126,6 +126,13 @@ public class DeveloperMode : MonoBehaviour
 	void Awake ()
 	{
 		Instance = this;
+
+		#if !UNITY_EDITOR
+		if (OnlyInEditor)
+		{
+			this.enabled = false;
+		}
+		#endif
 	}
 
 	// Check for cheat input by keyboard.
