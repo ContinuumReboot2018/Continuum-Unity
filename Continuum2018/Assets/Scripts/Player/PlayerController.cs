@@ -1057,8 +1057,8 @@ public class PlayerController : MonoBehaviour
 		PlayerExplosionParticles.transform.position = ImpactPoint;
 		Instantiate (ImpactBlock.playerExplosion, ImpactPoint, Quaternion.identity);
 		camShakeScript.ShakeCam (ImpactBlock.newCamShakeAmount * 10, ImpactBlock.newCamShakeAmount * 10, 99);
-		AudioController.Instance.SetTargetLowPassFreq (ImpactBlock.LowPassTargetFreq);
-		AudioController.Instance.SetTargetResonance (ImpactBlock.ResonanceTargetFreq);
+		//AudioController.Instance.SetTargetLowPassFreq (ImpactBlock.LowPassTargetFreq);
+		//AudioController.Instance.SetTargetResonance (ImpactBlock.ResonanceTargetFreq);
 		return;
 	}
 
@@ -1069,8 +1069,8 @@ public class PlayerController : MonoBehaviour
 		PlayerExplosionParticles.transform.position = ImpactPoint;
 		Instantiate (ImpactHazard.playerExplosion, ImpactPoint, Quaternion.identity);
 		camShakeScript.ShakeCam (ImpactHazard.newCamShakeAmount * 10, ImpactHazard.newCamShakeAmount * 10, 98);
-		ImpactHazard.SetTargetLowPassFreq (ImpactHazard.LowPassTargetFreq);
-		ImpactHazard.SetTargetResonance (ImpactHazard.ResonanceTargetFreq);
+		//ImpactHazard.SetTargetLowPassFreq (ImpactHazard.LowPassTargetFreq);
+		//ImpactHazard.SetTargetResonance (ImpactHazard.ResonanceTargetFreq);
 		return;
 	}
 

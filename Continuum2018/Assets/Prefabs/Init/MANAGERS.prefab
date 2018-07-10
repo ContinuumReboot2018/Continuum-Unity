@@ -500,7 +500,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206208298503716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.880005, y: -5, z: 0}
+  m_LocalPosition: {x: 8.900441, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -582,7 +582,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1072815788808384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004442003, y: 5, z: 0}
+  m_LocalPosition: {x: 0.0057760878, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -595,7 +595,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407336111842324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.880005, y: -5, z: 0}
+  m_LocalPosition: {x: 8.900441, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -694,7 +694,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266182147391190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.880005, y: 0, z: 0}
+  m_LocalPosition: {x: 8.900441, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4668918646734058}
@@ -1048,7 +1048,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0401a3da0b586074d9dbe738cd7b9791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveAndLoadScript: {fileID: 114598295702909340}
   postProcess: {fileID: 114772280294189848}
   LoadingMissionText: {fileID: 114133064651065938}
 --- !u!114 &114262575259439362
@@ -1245,15 +1244,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9a8135e99dfeb4abcb3284ed834dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initManagerScript: {fileID: 114253284983535580}
-  settingsManagerScript: {fileID: 0}
-  sceneLoaderScript: {fileID: 114621961245413214}
   playerControllerScript_P1: {fileID: 0}
-  gameControllerScript: {fileID: 0}
   AllowLoading: 1
   AllowSaving: 1
   Username: Player
   ExperiencePoints: 0
+  blocksDestroyed: 0
+  SelectedAbility: 0
+  SelectedSkin: 0
+  MissionId: 0
   DefaultLeaderboard_Arcade:
   - name: A.S
     score: 1052670
@@ -1688,9 +1687,6 @@ MonoBehaviour:
   - name: 
     score: 0
     wave: 0
-  SelectedAbility: 0
-  SelectedSkin: 0
-  MissionId: 0
   VisualSettings: {fileID: 11400000, guid: cb1c9f0b292c9e84fa25332b580b675a, type: 2}
   VisualSettingsComponent: {fileID: 0}
   cam: {fileID: 0}
@@ -1698,9 +1694,7 @@ MonoBehaviour:
   QualitySettingsIndex: 1
   useHdr: 1
   sunShaftsEnabled: 1
-  targetFramerateScript: {fileID: 114609436200610846}
   targetframerate: -1
-  fpsCounterScript: {fileID: 0}
   averageFpsTimer: 0
   ParticleEmissionMultiplier: 1
   MasterVolume: 1
@@ -1709,6 +1703,7 @@ MonoBehaviour:
   PlayerData:
     Username: 
     ExperiencePoints: 0
+    blocksDestroyed: 0
     SelectedAbility: 0
     SelectedSkin: 0
     MissionId: 0
@@ -1975,7 +1970,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60afcb647de8b9b4a8e9e6c97e136524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveAndLoadScript: {fileID: 0}
   targetFramerate: 60
   currentTargetFramerate: 0
   useScreenRefreshRate: 0
@@ -2566,14 +2560,14 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -2614,7 +2608,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 603974808
+  randomSeed: -1208465081
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5933,14 +5927,14 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -5981,7 +5975,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -127083230
+  randomSeed: 308383776
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9300,14 +9294,14 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -9348,7 +9342,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1130405210
+  randomSeed: 1111593888
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12667,14 +12661,14 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -12715,7 +12709,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 603974808
+  randomSeed: -564765508
   InitialModule:
     serializedVersion: 3
     enabled: 1

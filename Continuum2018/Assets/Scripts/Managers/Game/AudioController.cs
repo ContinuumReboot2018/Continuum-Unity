@@ -216,9 +216,9 @@ public class AudioController : MonoBehaviour
 	void Update ()
 	{
 		UpdateAudio (); // Method to update audio states.
-		//GetMasterLowPassValue (); // Update low pass filter cutoff frequency.
-		//GetMasterResonanceValue (); // Update low pass filter resonance amount.
-		//SetFilterEffectAmounts (); // Sets filter properties based on audio states.
+		GetMasterLowPassValue (); // Update low pass filter cutoff frequency.
+		GetMasterResonanceValue (); // Update low pass filter resonance amount.
+		SetFilterEffectAmounts (); // Sets filter properties based on audio states.
 		UpdateTimeSinceTrackLoad ();
 	}
 		
@@ -271,7 +271,7 @@ public class AudioController : MonoBehaviour
 	{
 		bool curFreqResult = SoundtrackAudioMix.GetFloat ("LowCutoffFrequency", out curFreq);
 
-		if (curFreqResult) 
+		if (curFreqResult && GameController.Instance.isPaused == false) 
 		{
 			return curFreq;
 		}
@@ -279,7 +279,7 @@ public class AudioController : MonoBehaviour
 		else
 		
 		{
-			return 0f;
+			return 22000f;
 		}
 	}
 
@@ -288,7 +288,7 @@ public class AudioController : MonoBehaviour
 	{
 		bool curResResult = SoundtrackAudioMix.GetFloat ("Resonance", out curRes);
 
-		if (curResResult) 
+		if (curResResult && GameController.Instance.isPaused == false) 
 		{
 			return curRes;
 		} 
@@ -304,7 +304,7 @@ public class AudioController : MonoBehaviour
 	{
 		bool curFreqEffectsResult = EffectsAudioMix.GetFloat ("LowCutoffFrequency", out curEffectsFreq);
 
-		if (curFreqEffectsResult) 
+		if (curFreqEffectsResult && GameController.Instance.isPaused == false) 
 		{
 			return curEffectsFreq;
 		}
@@ -312,7 +312,7 @@ public class AudioController : MonoBehaviour
 		else
 
 		{
-			return 0f;
+			return 22000f;
 		}
 	}
 
@@ -321,7 +321,7 @@ public class AudioController : MonoBehaviour
 	{
 		bool curEffectsResResult = EffectsAudioMix.GetFloat ("Resonance", out curEffectsRes);
 
-		if (curEffectsResResult) 
+		if (curEffectsResResult && GameController.Instance.isPaused == false) 
 		{
 			return curEffectsRes;
 		} 

@@ -28,7 +28,7 @@ public class MenuManager : MonoBehaviour
 
 	// Input data.
 	public PointerEventData pointerEventData;
-	public static PlayerActions menuActions;
+	//public static PlayerActions menuActions;
 
 	[Header ("Menu Buttons")]
 	public MenuButtons menuButtons;
@@ -37,12 +37,14 @@ public class MenuManager : MonoBehaviour
 	{
 		nextScroll = Time.time + scrollSpeed;
 
+		/*
 		// Get input data.
 		if (menuActions == null) 
 		{
 			menuActions = new PlayerActions ();
 			AssignActionControls ();
 		}
+		*/
 
 		pointerEventData = new PointerEventData (EventSystem.current);
 
@@ -86,120 +88,265 @@ public class MenuManager : MonoBehaviour
 		{
 			if (menuButtons.useStartButton == true) 
 			{
-				if (menuActions.Pause.WasPressed) 
+				if (InputManager.Devices.Count > 0) 
+				{
+					if (InputManager.Devices [0].Command.WasPressed) 
+					{
+						if (Time.unscaledTime > startButtonNextCooldown) 
+						{
+							startButtonNextCooldown = Time.unscaledTime + startButtonCooldown;
+							menuButtons.buttonIndex = 0;
+
+							if (menuButtons.ignoreAutoClick == false) 
+							{
+								MenuOnClick ();
+							}
+						}
+					}
+				} 
+
+				if (InputManager.Devices.Count > 0 == false) 
+				{
+					if (Input.GetKeyDown (KeyCode.Escape)) 
+					{
+						if (Time.unscaledTime > startButtonNextCooldown) 
+						{
+							startButtonNextCooldown = Time.unscaledTime + startButtonCooldown;
+							menuButtons.buttonIndex = 0;
+
+							if (menuButtons.ignoreAutoClick == false) 
+							{
+								MenuOnClick ();
+							}
+						}
+					}
+				}
+			}
+
+			if (InputManager.Devices.Count > 0)
+			{
+				// Player presses up on the left stick or D-Pad up.
+				if (InputManager.Devices [0].LeftStickUp.Value > 0.75f || InputManager.Devices [0].DPadUp.WasPressed) 
+				{
+					if (Time.unscaledTime > nextScroll) 
+					{
+						// Scrolling down, before reaching the end.
+						if (menuButtons.buttonIndex >= 1) 
+						{
+							menuButtons.buttonIndex -= 1; // Decrement button index.
+							menuButtons.buttonIndex = Mathf.Clamp (
+								menuButtons.buttonIndex, 
+								0, 
+								menuButtons.maxButtons
+							);
+
+							int HighlightUpVal = menuButtons.buttonIndex;
+							int UnHighlightUpVal = Mathf.Clamp (
+								                       menuButtons.buttonIndex + 1, 
+								                       0, 
+								                       menuButtons.maxButtons
+							                       );
+
+							MenuOnEnter (HighlightUpVal);
+							MenuOnExit (UnHighlightUpVal);
+						}
+
+						// Reset scroll speed.
+						nextScroll = Time.unscaledTime + scrollSpeed;
+					}
+				} 
+			}
+
+			if (InputManager.Devices.Count > 0 == false)
+			{
+				if (Input.GetKeyDown (KeyCode.UpArrow)) 
+				{
+					if (Time.unscaledTime > nextScroll) 
+					{
+						// Scrolling down, before reaching the end.
+						if (menuButtons.buttonIndex >= 1) 
+						{
+							menuButtons.buttonIndex -= 1; // Decrement button index.
+							menuButtons.buttonIndex = Mathf.Clamp (
+								menuButtons.buttonIndex, 
+								0, 
+								menuButtons.maxButtons
+							);
+
+							int HighlightUpVal = menuButtons.buttonIndex;
+							int UnHighlightUpVal = Mathf.Clamp (
+								menuButtons.buttonIndex + 1, 
+								0, 
+								menuButtons.maxButtons
+							);
+
+							MenuOnEnter (HighlightUpVal);
+							MenuOnExit (UnHighlightUpVal);
+						}
+
+						// Reset scroll speed.
+						nextScroll = Time.unscaledTime + scrollSpeed;
+					}
+				}
+			}
+
+			if (InputManager.Devices.Count > 0) 
+			{
+				// Player presses down on the left stick or D-Pad down.
+				if (InputManager.Devices [0].LeftStickDown.Value > 0.75f || InputManager.Devices [0].DPadDown.WasPressed) 
+				{
+					if (Time.unscaledTime > nextScroll) 
+					{
+						// Scrolling down, before reaching the end.
+						if (menuButtons.buttonIndex < menuButtons.maxButtons) 
+						{
+							menuButtons.buttonIndex += 1; // Increment button index.
+							menuButtons.buttonIndex = Mathf.Clamp (
+								menuButtons.buttonIndex, 
+								0, 
+								menuButtons.maxButtons
+							);
+
+							int HighlightDownVal = menuButtons.buttonIndex;
+							int UnHighlightDownVal = Mathf.Clamp (
+								                        menuButtons.buttonIndex - 1, 
+								                        0, 
+								                        menuButtons.maxButtons
+							                        );
+
+							MenuOnEnter (HighlightDownVal);
+							MenuOnExit (UnHighlightDownVal);
+						}
+
+						// Reset scroll speed.
+						nextScroll = Time.unscaledTime + scrollSpeed;
+					}
+				}
+			}
+
+			if (InputManager.Devices.Count > 0 == false) 
+			{
+				// Player presses down on the left stick or D-Pad down.
+				if (Input.GetKeyDown (KeyCode.DownArrow)) 
+				{
+					if (Time.unscaledTime > nextScroll) 
+					{
+						// Scrolling down, before reaching the end.
+						if (menuButtons.buttonIndex < menuButtons.maxButtons) 
+						{
+							menuButtons.buttonIndex += 1; // Increment button index.
+							menuButtons.buttonIndex = Mathf.Clamp (
+								menuButtons.buttonIndex, 
+								0, 
+								menuButtons.maxButtons
+							);
+
+							int HighlightDownVal = menuButtons.buttonIndex;
+							int UnHighlightDownVal = Mathf.Clamp (
+								menuButtons.buttonIndex - 1, 
+								0, 
+								menuButtons.maxButtons
+							);
+
+							MenuOnEnter (HighlightDownVal);
+							MenuOnExit (UnHighlightDownVal);
+						}
+
+						// Reset scroll speed.
+						nextScroll = Time.unscaledTime + scrollSpeed;
+					}
+				}
+			}
+
+			if (InputManager.Devices.Count > 0) 
+			{
+				// Player presses the A button.
+				if (InputManager.Devices [0].Action1.WasPressed) 
 				{
 					if (Time.unscaledTime > aButtonNextCooldown) 
 					{
+						MenuOnClick ();
+
+						// Reset A button cooldown.
 						aButtonNextCooldown = Time.unscaledTime + aButtonCoolDown;
+					}
+				}
+			}
+
+			if (InputManager.Devices.Count > 0 == false) 
+			{
+				// Player presses the A button.
+				if (Input.GetKeyDown (KeyCode.Return)) 
+				{
+					if (Time.unscaledTime > aButtonNextCooldown) 
+					{
+						MenuOnClick ();
+
+						// Reset A button cooldown.
+						aButtonNextCooldown = Time.unscaledTime + aButtonCoolDown;
+					}
+				}
+			}
+
+			if (InputManager.Devices.Count > 0) 
+			{
+				// Player presses the B button.
+				if (InputManager.Devices [0].Action2.WasPressed) 
+				{
+					if (Time.unscaledTime > bButtonNextCooldown && menuButtons.ignoreAutoClick == false)
+					{
+						// Set button to first option and execute the command.
 						menuButtons.buttonIndex = 0;
 
-						if (menuButtons.ignoreAutoClick == false)
+						// Override button event for navigating back.
+						if (menuButtons.BackButton != null) 
 						{
-							MenuOnClick ();
+							Button OnClickEvent = menuButtons.BackButton.GetComponent<Button> ();
+
+							if (OnClickEvent != null) 
+							{
+								ExecuteEvents.Execute (
+									menuButtons.BackButton.gameObject, 
+									pointerEventData, 
+									ExecuteEvents.pointerClickHandler
+								);
+							}
 						}
+
+						// Reset B button cooldown.
+						bButtonNextCooldown = Time.unscaledTime + bButtonCoolDown;
 					}
 				}
 			}
 
-			// Player presses up on the left stick or D-Pad up.
-			if (menuActions.MoveUp.Value > 0.75f) 
+			if (InputManager.Devices.Count > 0 == false) 
 			{
-				if (Time.unscaledTime > nextScroll) 
+				// Player presses the B button.
+				if (Input.GetKeyDown (KeyCode.Escape)) 
 				{
-					// Scrolling down, before reaching the end.
-					if (menuButtons.buttonIndex >= 1)
+					if (Time.unscaledTime > bButtonNextCooldown && menuButtons.ignoreAutoClick == false)
 					{
-						menuButtons.buttonIndex -= 1; // Decrement button index.
-						menuButtons.buttonIndex = Mathf.Clamp (
-							menuButtons.buttonIndex, 
-							0, 
-							menuButtons.maxButtons
-						);
+						// Set button to first option and execute the command.
+						menuButtons.buttonIndex = 0;
 
-						int HighlightUpVal = menuButtons.buttonIndex;
-						int UnHighlightUpVal = Mathf.Clamp (
-							menuButtons.buttonIndex + 1, 
-							0, 
-							menuButtons.maxButtons
-						);
-
-						MenuOnEnter (HighlightUpVal);
-						MenuOnExit (UnHighlightUpVal);
-					}
-
-					// Reset scroll speed.
-					nextScroll = Time.unscaledTime + scrollSpeed;
-				}
-			}
-
-			// Player presses down on the left stick or D-Pad down.
-			if (menuActions.MoveDown.Value > 0.75f)
-			{
-				if (Time.unscaledTime > nextScroll) 
-				{
-					// Scrolling down, before reaching the end.
-					if (menuButtons.buttonIndex < menuButtons.maxButtons) 
-					{
-						menuButtons.buttonIndex += 1; // Increment button index.
-						menuButtons.buttonIndex = Mathf.Clamp (
-							menuButtons.buttonIndex, 
-							0, 
-							menuButtons.maxButtons
-						);
-
-						int HighlightDownVal = menuButtons.buttonIndex;
-						int UnHighlightDownVal = Mathf.Clamp (
-							menuButtons.buttonIndex - 1, 
-							0, 
-							menuButtons.maxButtons
-						);
-
-						MenuOnEnter (HighlightDownVal);
-						MenuOnExit (UnHighlightDownVal);
-					}
-
-					// Reset scroll speed.
-					nextScroll = Time.unscaledTime + scrollSpeed;
-				}
-			}
-
-			// Player presses the A button.
-			if (menuActions.Shoot.WasPressed) 
-			{
-				if (Time.unscaledTime > aButtonNextCooldown) 
-				{
-					MenuOnClick ();
-
-					// Reset A button cooldown.
-					aButtonNextCooldown = Time.unscaledTime + aButtonCoolDown;
-				}
-			}
-
-			// Player presses the B button.
-			if (menuActions.Ability.WasPressed)
-			{
-				if (Time.unscaledTime > bButtonNextCooldown && menuButtons.ignoreAutoClick == false) 
-				{
-					// Set button to first option and execute the command.
-					menuButtons.buttonIndex = 0;
-
-					// Override button event for navigating back.
-					if (menuButtons.BackButton != null) 
-					{
-						Button OnClickEvent = menuButtons.BackButton.GetComponent<Button> ();
-
-						if (OnClickEvent != null) 
+						// Override button event for navigating back.
+						if (menuButtons.BackButton != null) 
 						{
-							ExecuteEvents.Execute (
-								menuButtons.BackButton.gameObject, 
-								pointerEventData, 
-								ExecuteEvents.pointerClickHandler
-							);
-						}
-					}
+							Button OnClickEvent = menuButtons.BackButton.GetComponent<Button> ();
 
-					// Reset B button cooldown.
-					bButtonNextCooldown = Time.unscaledTime + bButtonCoolDown;
+							if (OnClickEvent != null) 
+							{
+								ExecuteEvents.Execute (
+									menuButtons.BackButton.gameObject, 
+									pointerEventData, 
+									ExecuteEvents.pointerClickHandler
+								);
+							}
+						}
+
+						// Reset B button cooldown.
+						bButtonNextCooldown = Time.unscaledTime + bButtonCoolDown;
+					}
 				}
 			}
 		} 
@@ -269,6 +416,7 @@ public class MenuManager : MonoBehaviour
 		MenuOnEnter (menuButtons.buttonIndex);
 	}
 
+	/*
 	void AssignActionControls ()
 	{
 		// LEFT
@@ -308,6 +456,7 @@ public class MenuManager : MonoBehaviour
 		menuActions.Pause.AddDefaultBinding (Key.Return);
 		menuActions.Pause.AddDefaultBinding (InputControlType.Command);
 	}
+	*/
 		
 	[System.Serializable]
 	public class MenuButtons
