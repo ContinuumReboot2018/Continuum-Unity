@@ -428,12 +428,17 @@ public class TimescaleController : MonoBehaviour
 	// In Game Over state, sequence for end game.
 	public IEnumerator EndSequenceTimeScale ()
 	{
+		PlayerController.PlayerOneInstance.GlitchEffect.Play ("CameraGlitchOn");
+
 		TargetTimeScale = 0.02f;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 		TargetTimeScale = 1f;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
 		TargetTimeScale = 0;
 		yield return new WaitForSecondsRealtime (EndSequenceInitialDelay);
+
+		PlayerController.PlayerOneInstance.GlitchEffect.Play ("CameraGlitchDefault");
+
 		GameOverController.Instance.transform.parent.gameObject.SetActive (true);
 		GameOverController.Instance.enabled = true;
 		GameOverController.Instance.CheckLeaderboard ();
