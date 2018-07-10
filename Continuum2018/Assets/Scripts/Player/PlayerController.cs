@@ -964,6 +964,8 @@ public class PlayerController : MonoBehaviour
 		#endif
 
 		GameController.Instance.isUpdatingImageEffects = true;
+		//PostProcessProfile.grain.enabled = true;
+
 		timeIsSlowed = false;
 		SetCooldownTime (5);
 		GlitchEffect.Play ("CameraGlitchOn");
@@ -1105,6 +1107,7 @@ public class PlayerController : MonoBehaviour
 		spotlightsScript.SuccessSpotlightSettings ();
 		GameController.Instance.VhsAnim.SetTrigger ("Play");
 		GlitchEffect.Play ("CameraGlitchDefault");
+		//PostProcessProfile.grain.enabled = false;
 		Invoke ("ResetBitcrushParameters", 5);
 	}
 
@@ -1495,6 +1498,7 @@ public class PlayerController : MonoBehaviour
 			TimescaleController.Instance.SetRewindTime (true, 8);
 			GameController.Instance.VhsAnim.SetTrigger ("Rewind");
 			GlitchEffect.Play ("CameraGlitchOn");
+			//PostProcessProfile.grain.enabled = true;
 			break;
 		case ability.Mirror:
 			MirrorPlayer.SetActive (true);
@@ -1597,6 +1601,7 @@ public class PlayerController : MonoBehaviour
 		// Stop rewinding.
 		TimescaleController.Instance.SetRewindTime (false, 0);
 		GameController.Instance.VhsAnim.SetTrigger ("Play");
+		//PostProcessProfile.grain.enabled = false;
 		GlitchEffect.Play ("CameraGlitchDefault");
 	}
 
