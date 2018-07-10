@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114362973262341084}
   - component: {fileID: 114745086498253656}
   - component: {fileID: 82133026625446234}
+  - component: {fileID: 114845417646641102}
   m_Layer: 11
   m_Name: MiniBoss_6_11x11_Procedural_Half_AutoCenter_XY
   m_TagString: Untagged
@@ -650,6 +651,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBosses
   OnStart: 1
+--- !u!114 &114845417646641102
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1006754957104620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114950185102559762
 MonoBehaviour:
   m_ObjectHideFlags: 1

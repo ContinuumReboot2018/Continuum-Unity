@@ -31,6 +31,7 @@ GameObject:
   - component: {fileID: 114859653664519102}
   - component: {fileID: 114200078049973334}
   - component: {fileID: 114776807249480562}
+  - component: {fileID: 114573446905844562}
   m_Layer: 9
   m_Name: RippleShot_Enhanced
   m_TagString: Bullet
@@ -48,6 +49,7 @@ GameObject:
   - component: {fileID: 4590140110767858}
   - component: {fileID: 82067006413127616}
   - component: {fileID: 114372572667812350}
+  - component: {fileID: 114992035717902598}
   m_Layer: 9
   m_Name: BuzzSawSound
   m_TagString: Untagged
@@ -539,6 +541,22 @@ MonoBehaviour:
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
+--- !u!114 &114573446905844562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1040239009667148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114703309680719688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -564,7 +582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   ObjectType: 1
 --- !u!114 &114795641193647468
 MonoBehaviour:
@@ -592,8 +609,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
-  gameControllerScript: {fileID: 0}
-  fpsCounterScript: {fileID: 0}
   BulletSpeedUnscaled: 25
   BulletSpeedScaled: 1800
   BulletSpeedType: 0
@@ -648,8 +663,23 @@ MonoBehaviour:
   maxRange: 45
   RotateSpeedIncreaseRate: 100
   VelocityLimits: {x: 60, y: 180}
-  direction: {x: 0, y: 0}
-  rotateAmount: {x: 0, y: 0, z: 0}
+  gos: []
+--- !u!114 &114992035717902598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1049892693855998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!136 &136362273311417102
 CapsuleCollider:
   m_ObjectHideFlags: 1

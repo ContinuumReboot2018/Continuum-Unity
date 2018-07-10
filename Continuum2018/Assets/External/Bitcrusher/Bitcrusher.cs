@@ -2,6 +2,8 @@
 
 public class Bitcrusher : MonoBehaviour 
 {
+	public bool UpdateOnStart = true;
+
 	[Range(30,1)]
 	public int bitdepth = 30;
 
@@ -17,6 +19,17 @@ public class Bitcrusher : MonoBehaviour
 	private float leftholdValue = 0.0f;
 	private float rightholdValue = 0.0f;
 	private int holdCount = 0;
+
+	void Start ()
+	{
+		if (UpdateOnStart == true) 
+		{
+			bitdepth = 				BitcrusherGroup.Instance.bitdepth;
+			sampleRateReduction = 	BitcrusherGroup.Instance.sampleRateReduction;
+			volume = 				BitcrusherGroup.Instance.volume;
+			dryWet = 				BitcrusherGroup.Instance.dryWet;
+		}
+	}
 
     void OnAudioFilterRead (float[] data, int channels)
     {

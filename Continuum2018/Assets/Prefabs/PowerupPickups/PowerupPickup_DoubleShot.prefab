@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 4697852430796904}
   - component: {fileID: 82880371642437666}
   - component: {fileID: 114505159607697392}
+  - component: {fileID: 114336806674003598}
   m_Layer: 12
   m_Name: AwakeAudio
   m_TagString: Untagged
@@ -608,6 +609,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedPowerupPickups
   OnStart: 1
+--- !u!114 &114336806674003598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1939802942563336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114505159607697392
 MonoBehaviour:
   m_ObjectHideFlags: 1

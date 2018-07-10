@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 114935999006858662}
   - component: {fileID: 114176477060133388}
   - component: {fileID: 82746858509126570}
+  - component: {fileID: 114830470426138976}
   m_Layer: 11
   m_Name: MiniBoss_5_13x5_Procedural_Half_AutoCenter_XY
   m_TagString: Untagged
@@ -555,6 +556,22 @@ MonoBehaviour:
   LineTimerOffDuration: 4
   LineTimerOnDuration: 3
   FlipScreen: {fileID: 0}
+--- !u!114 &114830470426138976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1516922942868910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114888093548672654
 MonoBehaviour:
   m_ObjectHideFlags: 1

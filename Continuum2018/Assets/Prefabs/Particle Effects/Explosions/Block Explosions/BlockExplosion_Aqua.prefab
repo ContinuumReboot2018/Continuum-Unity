@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 82630998734724706}
   - component: {fileID: 114538948711491612}
   - component: {fileID: 114830167657803740}
+  - component: {fileID: 114995214212400726}
   m_Layer: 0
   m_Name: BlockExplosion_Aqua
   m_TagString: Untagged
@@ -514,6 +515,22 @@ MonoBehaviour:
   particleEffect: {fileID: 198657113447096838}
   BaseRateDistance: 0
   BaseRateTime: 0
+--- !u!114 &114995214212400726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072586396597310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!198 &198657113447096838
 ParticleSystem:
   m_ObjectHideFlags: 1

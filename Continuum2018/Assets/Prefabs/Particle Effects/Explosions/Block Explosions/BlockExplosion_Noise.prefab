@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 82854371204699814}
   - component: {fileID: 114172317614392464}
   - component: {fileID: 114997764973308148}
+  - component: {fileID: 114506349663514914}
   m_Layer: 0
   m_Name: BlockExplosion_Noise
   m_TagString: Untagged
@@ -371,6 +372,22 @@ MonoBehaviour:
   canvas: {fileID: 0}
   cam: {fileID: 0}
   CameraSpace: 0
+--- !u!114 &114506349663514914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1081727288271718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114600853742484666
 MonoBehaviour:
   m_ObjectHideFlags: 1

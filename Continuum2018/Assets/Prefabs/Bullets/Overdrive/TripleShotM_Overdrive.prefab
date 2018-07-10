@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 114320495374854324}
   - component: {fileID: 65945943612379382}
   - component: {fileID: 114609727034557566}
+  - component: {fileID: 114029867178570978}
   m_Layer: 9
   m_Name: TripleShotM_Overdrive
   m_TagString: Bullet
@@ -261,6 +262,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114029867178570978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1946333366677798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114077639847431826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -318,7 +335,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  findObject: Block
   speed: 60
   initialSpeed: 60
   rotateSpeed: 600
@@ -327,8 +343,7 @@ MonoBehaviour:
   maxRange: 45
   RotateSpeedIncreaseRate: 100
   VelocityLimits: {x: 60, y: 180}
-  direction: {x: 0, y: 0}
-  rotateAmount: {x: 0, y: 0, z: 0}
+  gos: []
 --- !u!114 &114609727034557566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -340,7 +355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   ObjectType: 1
 --- !u!114 &114709920479532618
 MonoBehaviour:
@@ -368,8 +382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
-  gameControllerScript: {fileID: 0}
-  fpsCounterScript: {fileID: 0}
   BulletSpeedUnscaled: 25
   BulletSpeedScaled: 1300
   BulletSpeedType: 0
@@ -385,6 +397,7 @@ MonoBehaviour:
   hasDisappeared: 0
   DestroyDelayTime: 0
   playerPos: {fileID: 0}
+  hitABlock: 0
   allowBulletColDeactivate: 1
   isRicochet: 0
   RicochetYpos: 11.75

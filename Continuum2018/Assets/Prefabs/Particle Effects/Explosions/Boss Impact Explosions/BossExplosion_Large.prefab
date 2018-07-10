@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 114808349846884096}
   - component: {fileID: 114950144086609448}
   - component: {fileID: 114761209950128014}
+  - component: {fileID: 114949060129875630}
   m_Layer: 0
   m_Name: BossExplosion_Large
   m_TagString: Untagged
@@ -365,6 +366,22 @@ MonoBehaviour:
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
+--- !u!114 &114949060129875630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467768591832020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114950144086609448
 MonoBehaviour:
   m_ObjectHideFlags: 1

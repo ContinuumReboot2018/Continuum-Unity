@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114189240069765730}
   - component: {fileID: 114860031102868790}
   - component: {fileID: 82406188789224716}
+  - component: {fileID: 114343523271485750}
   m_Layer: 11
   m_Name: MiniBoss_2_14x10_Procedural_AutoCenter_XY
   m_TagString: Untagged
@@ -451,6 +452,22 @@ MonoBehaviour:
   XRotTimeUnscaled: 1
   YRotTimeUnscaled: 1
   ZRotTimeUnscaled: 1
+--- !u!114 &114343523271485750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1021244520965488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114580474541758704
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 82493372611424884}
   - component: {fileID: 114994073970807432}
   - component: {fileID: 114428494665079332}
+  - component: {fileID: 114929850739687922}
   m_Layer: 14
   m_Name: BlockExplosion_Red
   m_TagString: Hazard
@@ -496,6 +497,22 @@ MonoBehaviour:
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
   TextPos: {x: 1, y: 1}
+--- !u!114 &114929850739687922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450244663619750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114994073970807432
 MonoBehaviour:
   m_ObjectHideFlags: 1

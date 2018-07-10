@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 4471897455373854}
   - component: {fileID: 82337156415251326}
   - component: {fileID: 114684021209612490}
+  - component: {fileID: 114508127064067018}
   m_Layer: 12
   m_Name: AwakeAudio
   m_TagString: Untagged
@@ -581,6 +582,22 @@ MonoBehaviour:
   PowerupPickupUIColor: {r: 0.33088237, g: 0.88924974, b: 1, a: 1}
   destroyByTimeScript: {fileID: 0}
   anim: {fileID: 0}
+--- !u!114 &114508127064067018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1972099355589658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114545287872274978
 MonoBehaviour:
   m_ObjectHideFlags: 1

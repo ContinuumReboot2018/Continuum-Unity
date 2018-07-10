@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 114093933342162546}
   - component: {fileID: 65979764025747680}
   - component: {fileID: 114546766069311526}
+  - component: {fileID: 114850540519086620}
   m_Layer: 9
   m_Name: TripleShotL_Overdrive
   m_TagString: Bullet
@@ -300,7 +301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  findObject: Block
   speed: 60
   initialSpeed: 60
   rotateSpeed: 600
@@ -309,8 +309,7 @@ MonoBehaviour:
   maxRange: 45
   RotateSpeedIncreaseRate: 100
   VelocityLimits: {x: 60, y: 180}
-  direction: {x: 0, y: 0}
-  rotateAmount: {x: 0, y: 0, z: 0}
+  gos: []
 --- !u!114 &114149608802399836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -354,7 +353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   ObjectType: 1
 --- !u!114 &114774248348035078
 MonoBehaviour:
@@ -368,8 +366,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
-  gameControllerScript: {fileID: 0}
-  fpsCounterScript: {fileID: 0}
   BulletSpeedUnscaled: 25
   BulletSpeedScaled: 1300
   BulletSpeedType: 0
@@ -385,6 +381,7 @@ MonoBehaviour:
   hasDisappeared: 0
   DestroyDelayTime: 0
   playerPos: {fileID: 0}
+  hitABlock: 0
   allowBulletColDeactivate: 1
   isRicochet: 0
   RicochetYpos: 11.75
@@ -403,6 +400,22 @@ MonoBehaviour:
   LeftMotorRumble: 0.4
   RightMotorRumble: 0.4
   VibrationDuration: 0.15
+--- !u!114 &114850540519086620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723503575457920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!198 &198330421933922668
 ParticleSystem:
   m_ObjectHideFlags: 1

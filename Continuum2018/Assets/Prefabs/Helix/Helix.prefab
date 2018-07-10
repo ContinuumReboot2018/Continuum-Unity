@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 4528721513916862}
   - component: {fileID: 114542232566434784}
   - component: {fileID: 82062692243326560}
+  - component: {fileID: 114463452861906824}
   m_Layer: 9
   m_Name: Helix
   m_TagString: Untagged
@@ -849,6 +850,22 @@ MonoBehaviour:
   particleEffect: {fileID: 0}
   BaseRateDistance: 40
   BaseRateTime: 0
+--- !u!114 &114463452861906824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1475629841261626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114542232566434784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -871,6 +888,9 @@ MonoBehaviour:
   FollowPosMethod: 0
   FollowPosOffset: {x: 0, y: 0, z: 0}
   FollowPosSmoothTime: {x: 10, y: 10, z: 0}
+  XPosTimeUnscaled: 1
+  YPosTimeUnscaled: 1
+  ZPosTimeUnscaled: 1
   PosBoundsX: {x: -10000, y: 10000}
   PosBoundsY: {x: -10000, y: 10000}
   PosBoundsZ: {x: 0, y: 0}
@@ -882,6 +902,9 @@ MonoBehaviour:
   FollowRotZ: {fileID: 0}
   FollowRotOffset: {x: 0, y: 0, z: 0}
   FollowRotSmoothTime: {x: 0, y: 0, z: 0}
+  XRotTimeUnscaled: 1
+  YRotTimeUnscaled: 1
+  ZRotTimeUnscaled: 1
 --- !u!114 &114554884502499560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -912,8 +935,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
-  gameControllerScript: {fileID: 0}
-  fpsCounterScript: {fileID: 0}
   BulletSpeedUnscaled: 0
   BulletSpeedScaled: 1300
   BulletSpeedType: 0
@@ -1031,8 +1052,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
-  gameControllerScript: {fileID: 0}
-  fpsCounterScript: {fileID: 0}
   BulletSpeedUnscaled: 0
   BulletSpeedScaled: 1300
   BulletSpeedType: 0

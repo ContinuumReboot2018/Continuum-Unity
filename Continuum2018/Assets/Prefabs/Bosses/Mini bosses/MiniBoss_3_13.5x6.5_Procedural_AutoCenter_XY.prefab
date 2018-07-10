@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 114422056915393166}
   - component: {fileID: 114861694685019182}
   - component: {fileID: 82233843431918478}
+  - component: {fileID: 114280601414938246}
   m_Layer: 11
   m_Name: MiniBoss_3_13.5x6.5_Procedural_AutoCenter_XY
   m_TagString: Untagged
@@ -412,6 +413,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114280601414938246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1354005914402500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114386642446202364
 MonoBehaviour:
   m_ObjectHideFlags: 1

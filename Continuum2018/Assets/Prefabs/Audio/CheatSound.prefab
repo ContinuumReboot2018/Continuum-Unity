@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 82823228836851730}
   - component: {fileID: 114359312676820550}
   - component: {fileID: 114287815448742354}
+  - component: {fileID: 114835021719532680}
   m_Layer: 0
   m_Name: CheatSound
   m_TagString: Untagged
@@ -150,3 +151,19 @@ MonoBehaviour:
   delay: 1
   DestroyObj: {fileID: 0}
   useUnscaledTime: 0
+--- !u!114 &114835021719532680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1079460939476350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1

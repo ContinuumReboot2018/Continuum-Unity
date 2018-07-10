@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 4536181131209686}
   - component: {fileID: 82263305166002358}
   - component: {fileID: 114136487200656876}
+  - component: {fileID: 114150027004251164}
   m_Layer: 12
   m_Name: AwakeAudio
   m_TagString: Untagged
@@ -613,6 +614,22 @@ MonoBehaviour:
   minimumPitch: 0.0001
   maximumPitch: 20
   addPitch: 0
+--- !u!114 &114150027004251164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1066326149312408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114687245101214462
 MonoBehaviour:
   m_ObjectHideFlags: 1

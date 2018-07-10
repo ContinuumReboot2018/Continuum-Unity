@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4248741427032430}
   - component: {fileID: 82119743940140796}
   - component: {fileID: 114185866525928708}
+  - component: {fileID: 114125405683588896}
   m_Layer: 9
   m_Name: BuzzSawSound
   m_TagString: Bullet
@@ -84,6 +85,7 @@ GameObject:
   - component: {fileID: 114065708444104570}
   - component: {fileID: 114297727746046428}
   - component: {fileID: 114948307396692986}
+  - component: {fileID: 114433132984695196}
   m_Layer: 9
   m_Name: RippleShot_Standard
   m_TagString: Bullet
@@ -464,8 +466,23 @@ MonoBehaviour:
   maxRange: 45
   RotateSpeedIncreaseRate: 100
   VelocityLimits: {x: 60, y: 180}
-  direction: {x: 0, y: 0}
-  rotateAmount: {x: 0, y: 0, z: 0}
+  gos: []
+--- !u!114 &114125405683588896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1177702088689692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114185866525928708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -529,6 +546,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParentTransformName: InstantiatedBullets
   OnStart: 1
+--- !u!114 &114433132984695196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527851726018156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9678cd1cd3b4f13a6ac2e4652b40d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnStart: 1
+  bitdepth: 30
+  sampleRateReduction: 1
+  volume: 0.7
+  dryWet: 1
 --- !u!114 &114583680589089564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -573,8 +606,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerScript: {fileID: 0}
-  gameControllerScript: {fileID: 0}
-  fpsCounterScript: {fileID: 0}
   BulletSpeedUnscaled: 0
   BulletSpeedScaled: 0
   BulletSpeedType: 0
@@ -648,7 +679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac33bc74c014fb24d85f5de5c2688bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControllerScript: {fileID: 0}
   ObjectType: 1
 --- !u!136 &136682191184681828
 CapsuleCollider:
