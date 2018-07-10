@@ -1104,6 +1104,7 @@ public class PlayerController : MonoBehaviour
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.SuccessSpotlightSettings ();
 		GameController.Instance.VhsAnim.SetTrigger ("Play");
+		GlitchEffect.Play ("CameraGlitchDefault");
 		Invoke ("ResetBitcrushParameters", 5);
 	}
 
@@ -1493,6 +1494,7 @@ public class PlayerController : MonoBehaviour
 		case ability.Rewind:
 			TimescaleController.Instance.SetRewindTime (true, 8);
 			GameController.Instance.VhsAnim.SetTrigger ("Rewind");
+			GlitchEffect.Play ("CameraGlitchOn");
 			break;
 		case ability.Mirror:
 			MirrorPlayer.SetActive (true);
@@ -1582,7 +1584,6 @@ public class PlayerController : MonoBehaviour
 		if (Ability == ability.Rewind)
 		{
 			StopRewinding (); // Stops rewinding.
-			GameController.Instance.VhsAnim.SetTrigger ("Play");
 		}
 
 		// Reset the camera shake.
@@ -1595,6 +1596,8 @@ public class PlayerController : MonoBehaviour
 	{
 		// Stop rewinding.
 		TimescaleController.Instance.SetRewindTime (false, 0);
+		GameController.Instance.VhsAnim.SetTrigger ("Play");
+		GlitchEffect.Play ("CameraGlitchDefault");
 	}
 
 	// Deactivate Shield.
