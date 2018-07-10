@@ -7,6 +7,13 @@ public class BitcrusherGroup : MonoBehaviour
 	public static BitcrusherGroup Instance { get; private set; }
 
 	public Bitcrusher[] Bitcrushers;
+	[Space (10)]
+	public BitcrusherParameters CurrentBitcrusherparam;
+
+	[Space (10)]
+	public BitcrusherParameters NormalBitcrushParameters;
+	public BitcrusherParameters OverrideBitcrushParameters;
+	[Space (10)]
 
 	public float UpdateRefreshParameterTime = 1;
 
@@ -28,21 +35,25 @@ public class BitcrusherGroup : MonoBehaviour
 		Instance = this;
 	}
 
-	void Start ()
-	{
-		StartCoroutine (BitcrushParameterRefresh ());
-	}
-
 	IEnumerator BitcrushParameterRefresh ()
 	{
 		while (true) 
 		{
 			yield return new WaitForSecondsRealtime (UpdateRefreshParameterTime);
-			UpdateBitcrusherParameters ();
+			UpdateBitcrusherParameters (CurrentBitcrusherparam);
+			UpdateBitcrushers ();
 		}
 	}
 
-	void UpdateBitcrusherParameters ()
+	public void UpdateBitcrusherParameters (BitcrusherParameters bitcrushparam)
+	{
+		bitdepth = bitcrushparam.bitdepth;
+		sampleRateReduction = bitcrushparam.sampleRateReduction;
+		volume = bitcrushparam.volume;
+		dryWet = bitcrushparam.dryWet;
+	}
+
+	public void UpdateBitcrushers ()
 	{
 		for (int i = 0; i < Bitcrushers.Length; i++) 
 		{

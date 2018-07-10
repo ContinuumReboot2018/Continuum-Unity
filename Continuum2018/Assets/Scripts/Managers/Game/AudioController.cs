@@ -216,9 +216,9 @@ public class AudioController : MonoBehaviour
 	void Update ()
 	{
 		UpdateAudio (); // Method to update audio states.
-		GetMasterLowPassValue (); // Update low pass filter cutoff frequency.
-		GetMasterResonanceValue (); // Update low pass filter resonance amount.
-		SetFilterEffectAmounts (); // Sets filter properties based on audio states.
+		//GetMasterLowPassValue (); // Update low pass filter cutoff frequency.
+		//GetMasterResonanceValue (); // Update low pass filter resonance amount.
+		//SetFilterEffectAmounts (); // Sets filter properties based on audio states.
 		UpdateTimeSinceTrackLoad ();
 	}
 		

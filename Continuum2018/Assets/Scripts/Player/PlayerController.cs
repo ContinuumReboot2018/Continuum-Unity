@@ -1038,6 +1038,8 @@ public class PlayerController : MonoBehaviour
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.ImpactSpotlightSettings ();
 
+		OverrideBitcrushParameters ();
+
 		if (GameController.Instance.isInBonusRound == true) 
 		{
 			Debug.Log ("Bonus round cancelled, loading up next boss.");
@@ -1089,7 +1091,6 @@ public class PlayerController : MonoBehaviour
 	// Allows player to re enter while temporarily invincible.
 	void RejoinGame ()
 	{
-		//GameController.Instance.UpdateLives ();
 		CurrentShootingHeat = 0;
 		CurrentShootingCooldown = 0;
 		PlayerFollow.transform.position = Vector3.zero;
@@ -1103,6 +1104,19 @@ public class PlayerController : MonoBehaviour
 		spotlightsScript.OverrideSpotlightLookObject ();
 		spotlightsScript.SuccessSpotlightSettings ();
 		GameController.Instance.VhsAnim.SetTrigger ("Play");
+		Invoke ("ResetBitcrushParameters", 5);
+	}
+
+	void OverrideBitcrushParameters ()
+	{
+		BitcrusherGroup.Instance.UpdateBitcrusherParameters (BitcrusherGroup.Instance.OverrideBitcrushParameters);
+		BitcrusherGroup.Instance.UpdateBitcrushers ();
+	}
+
+	void ResetBitcrushParameters ()
+	{
+		BitcrusherGroup.Instance.UpdateBitcrusherParameters (BitcrusherGroup.Instance.NormalBitcrushParameters);
+		BitcrusherGroup.Instance.UpdateBitcrushers ();
 	}
 
 	void PlaySpaceshipAmbience ()

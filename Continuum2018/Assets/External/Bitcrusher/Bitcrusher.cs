@@ -31,6 +31,7 @@ public class Bitcrusher : MonoBehaviour
 		}
 	}
 
+	// Reads incoming samples and processes the bitcrush effect
     void OnAudioFilterRead (float[] data, int channels)
     {
         float bcMult = (1 << (bitdepth - 1));
