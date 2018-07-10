@@ -22,6 +22,7 @@ public class SceneLoader : MonoBehaviour
 	public TextMeshProUGUI LoadProgressText;
 	public Animator SceneLoaderUI;
 	public ParticleSystem[] LoadingParticles;
+	public Animator LoadParticlesAnim;
 
 	private AsyncOperation async = null; // The async operation variable. 
 
@@ -47,9 +48,11 @@ public class SceneLoader : MonoBehaviour
 		// Resets all UI fill and text values.
 		LoadProgressText.text = "0%";
 
+		LoadParticlesAnim.Play ("LoadingParticlesLoop");
+
 		foreach (ParticleSystem loadParticle in LoadingParticles) 
 		{
-			loadParticle.Play ();
+			loadParticle.Play (true);
 		}
 	}
 

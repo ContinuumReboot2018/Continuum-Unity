@@ -1997,6 +1997,7 @@ MonoBehaviour:
   - {fileID: 198378185793449780}
   - {fileID: 198191206520258506}
   - {fileID: 198956093141820684}
+  LoadParticlesAnim: {fileID: 95691582457990732}
 --- !u!114 &114632370220662854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2606,7 +2607,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 1
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 4693597320124524}
   scalingMode: 1
   randomSeed: -1208465081
   InitialModule:
@@ -5973,7 +5974,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 1
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 4114457687658916}
   scalingMode: 1
   randomSeed: 308383776
   InitialModule:
@@ -9340,7 +9341,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 1
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 4109541636260350}
   scalingMode: 1
   randomSeed: 1111593888
   InitialModule:
@@ -12707,7 +12708,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 1
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 4584513825559762}
   scalingMode: 1
   randomSeed: -564765508
   InitialModule:

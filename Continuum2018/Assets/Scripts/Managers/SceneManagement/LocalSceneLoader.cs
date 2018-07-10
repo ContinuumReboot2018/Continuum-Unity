@@ -18,22 +18,31 @@ public class LocalSceneLoader : MonoBehaviour
 	{
 		if (SceneLoadCommit == false)
 		{
-			SceneLoadCommit = true;
 			SceneLoader.Instance.SceneName = sceneName;
-			StartCoroutine (SceneLoadSequence ());
+			SceneLoadSequence ();
+			//StartCoroutine (SceneLoadSequence ());
 
 			if (sceneName == "menu") 
 			{
 				InitManager.Instance.LoadingMissionText.text = "MAIN MENU";
 			}
+
+			SceneLoadCommit = true;
 		}
 
 		return;
 	}
 
+	void SceneLoadSequence ()
+	{
+		SceneLoader.Instance.StartLoadSequence ();
+	}
+
+	/*
 	IEnumerator SceneLoadSequence ()
 	{
 		SceneLoader.Instance.StartLoadSequence ();
 		yield return null;
 	}
+	*/
 }

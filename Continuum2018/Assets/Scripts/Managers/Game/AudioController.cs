@@ -45,20 +45,6 @@ public class AudioController : MonoBehaviour
 
 	public float[] DistanceValues;
 
-	/*
-	[Tooltip ("The distance at which any lower will give the lowest assigned audio pitch.")]
-	public float BaseDistance;
-
-	[Tooltip ("Higher = 1.0f, Lower = 0.75f.")]
-	public float LowDistance;
-
-	[Tooltip ("Higher = 1.25f, Lower = 1.0f.")]
-	public float MediumDistance;
-
-	[Tooltip ("The distance at which any higher will give the highest assigned audio pitch.")]
-	public float HighDistance;
-	*/
-
 	[Header ("Track Sequence")]
 
 	[Tooltip ("Current track number referenced in array.")]
@@ -80,40 +66,12 @@ public class AudioController : MonoBehaviour
 
 	public AudioSource[] LayerSources;
 
-	/*
-	// The soundtrack audio sources.
-	[Tooltip ("Plays bass tracks.")]
-	public AudioSource BassTrack;
-
-	[Tooltip ("Plays layer one tracks.")]
-	public AudioSource LayerOneTrack;
-
-	[Tooltip ("Plays layer two tracks.")]
-	public AudioSource LayerTwoTrack;
-
-	[Tooltip ("Plays layer three tracks.")]
-	public AudioSource LayerThreeTrack;
-	*/
-
 	[Tooltip ("Plays beat detection tracks.")]
 	public AudioSource[] BeatDetectionTracks;
 
 	[Header ("Soundtrack Library")]
 
 	public List<AudioClipsByLayer> TracksByLayer;
-	/*
-	[Tooltip ("Bassdrums, main beat, bed.")]
-	public AudioClip[] BassTracks;
-
-	[Tooltip ("Bass synths, Pads.")]
-	public AudioClip[] LayerOneTracks;
-
-	[Tooltip ("Mains and lead synths.")]
-	public AudioClip[] LayerTwoTracks; 
-
-	[Tooltip ("Riffs, arps, all sorts of cool audio flourishes.")]
-	public AudioClip[] LayerThreeTracks;
-	*/
 
 	[Tooltip ("Beat detection tracks. Must show what tempo this is to synchronize with audio.")]
 	public AudioClip[] BeatDetectionLayerOneTracks;
@@ -141,29 +99,8 @@ public class AudioController : MonoBehaviour
 
 	public List<VolumesByLayer> TrackVolumesByLayer;
 
-	/*
-	[Tooltip ("Bass current volume lerps to this value.")]
-	public float BaseTargetVolume;
-
-	[Tooltip ("Layer one current volume lerps to this value.")]
-	public float LayerOneTargetVolume;
-
-	[Tooltip ("Layer two current volume lerps to this value.")]
-	public float LayerTwoTargetVolume;
-
-	[Tooltip ("Layer two current volume lerps to this value.")]
-	public float LayerThreeTargetVolume;
-	*/
-
 	[Tooltip ("Layer three current volume lerps to this value.")]
 	public float VolumeSmoothTime;
-
-
-
-	/*
-	[Tooltip ("Volume values based on distance value.")]
-	public Vector4 BassVolume, LayerOneVolume, LayerTwoVolume, LayerThreeVolume;
-	*/
 
 	[Header ("Pitch")]
 
@@ -175,11 +112,6 @@ public class AudioController : MonoBehaviour
 
 	public List<float> TimePitchesByLayer;
 
-	/*
-	[Tooltip ("Pitch values based on distance values.")]
-	public Vector4 TimePitch;
-	*/
-
 	[Tooltip ("Is pitch being reversed?")]
 	public bool ReversePitch;
 
@@ -188,7 +120,6 @@ public class AudioController : MonoBehaviour
 	void Awake ()
 	{
 		Instance = this;
-		// DontDestroyOnLoad (gameObject);
 	}
 
 	void Start ()
@@ -200,13 +131,6 @@ public class AudioController : MonoBehaviour
 		{
 			TrackNumber = Random.Range (0, TracksByLayer.Count);
 		}
-
-		/*
-		if (TrackSequenceMode == trackSequence.Random) 
-		{
-			TrackNumber = Random.Range (0, BassTracks.Length);
-		}
-		*/
 
 		LoadTracks (); // Load the track by track number.
 		InvokeRepeating ("CheckReversePitch", 0, 0.5f); // If in rewind, check for reversing the pitch.
@@ -358,53 +282,6 @@ public class AudioController : MonoBehaviour
 				TargetVolumes [i] = TrackVolumesByLayer [i].Volumes[i];
 			}
 		}
-
-		/*
-		// Base distance.
-		if (Distance < BaseDistance) 
-		{
-			BaseTargetVolume = BassVolume.x;
-			LayerOneTargetVolume = LayerOneVolume.x;
-			LayerTwoTargetVolume = LayerTwoVolume.x;
-			LayerThreeTargetVolume = LayerThreeVolume.x;
-		}
-
-		// Low distance.
-		if (Distance >= BaseDistance && Distance < LowDistance) 
-		{
-			BaseTargetVolume = BassVolume.y;
-			LayerOneTargetVolume = LayerOneVolume.y;
-			LayerTwoTargetVolume = LayerTwoVolume.y;
-			LayerThreeTargetVolume = LayerThreeVolume.y;
-		}
-
-		// Medium distance.
-		if (Distance >= LowDistance && Distance < MediumDistance) 
-		{
-			BaseTargetVolume = BassVolume.z;
-			LayerOneTargetVolume = LayerOneVolume.z;
-			LayerTwoTargetVolume = LayerTwoVolume.z;
-			LayerThreeTargetVolume = LayerThreeVolume.z;
-		}
-
-		// High distance.
-		if (Distance >= MediumDistance && Distance < HighDistance) 
-		{
-			BaseTargetVolume = BassVolume.w;
-			LayerOneTargetVolume = LayerOneVolume.w;
-			LayerTwoTargetVolume = LayerTwoVolume.w;
-			LayerThreeTargetVolume = LayerThreeVolume.w;
-		}
-
-		// Top distance.
-		if (Distance >= HighDistance) 
-		{
-			BaseTargetVolume = 1;
-			LayerOneTargetVolume = 1;
-			LayerTwoTargetVolume = 1;
-			LayerThreeTargetVolume = 1;
-		}
-		*/
 	}
 
 	// Updates target pitch values for the sountrack to interpolate towards.
@@ -417,38 +294,6 @@ public class AudioController : MonoBehaviour
 				BassTargetPitch = TimePitchesByLayer [i] * (ReversePitch ? -1 : 1);
 			}
 		}
-
-		/*
-		// Base distance.
-		if (Distance < BaseDistance) 
-		{
-			BassTargetPitch = TimePitch.x * (ReversePitch ? -1 : 1);
-		}
-
-		// Low distance.
-		if (Distance >= BaseDistance && Distance < LowDistance) 
-		{
-			BassTargetPitch = TimePitch.y * (ReversePitch ? -1 : 1);
-		}
-
-		// Medium distance.
-		if (Distance >= LowDistance && Distance < MediumDistance) 
-		{
-			BassTargetPitch = TimePitch.z * (ReversePitch ? -1 : 1);
-		}
-
-		// High distance.
-		if (Distance >= MediumDistance && Distance < HighDistance) 
-		{
-			BassTargetPitch = TimePitch.w * (ReversePitch ? -1 : 1);
-		}
-
-		// Top distance.
-		if (Distance >= HighDistance) 
-		{
-			BassTargetPitch = 1.5f * (ReversePitch ? -1 : 1);
-		}
-		*/
 	}
 
 	// Updates volume by reading targets and lerping.
@@ -465,32 +310,6 @@ public class AudioController : MonoBehaviour
 				VolumeSmoothTime * Time.unscaledDeltaTime
 			);
 		}
-
-		/*
-		BassTrack.volume = Mathf.Lerp (
-			BassTrack.volume, 
-			BaseTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
-			VolumeSmoothTime * Time.unscaledDeltaTime
-		);
-
-		LayerOneTrack.volume = Mathf.Lerp (
-			LayerOneTrack.volume, 
-			LayerOneTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
-			VolumeSmoothTime * Time.unscaledDeltaTime
-		);
-
-		LayerTwoTrack.volume = Mathf.Lerp (
-			LayerTwoTrack.volume, 
-			LayerTwoTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
-			VolumeSmoothTime * Time.unscaledDeltaTime
-		);
-
-		LayerThreeTrack.volume = Mathf.Lerp (
-			LayerThreeTrack.volume, 
-			LayerThreeTargetVolume + (1 + (float)System.Math.Round (0.0125f * SaveAndLoadScript.Instance.SoundtrackVolume, 1)), 
-			VolumeSmoothTime * Time.unscaledDeltaTime
-		);
-		*/
 	}
 
 	// Updates pitch by reading targets and lerping.
@@ -503,14 +322,6 @@ public class AudioController : MonoBehaviour
 			BassTargetPitch, 
 			PitchSmoothTime * Time.unscaledDeltaTime
 		);
-
-		/*
-		BassTrack.pitch = Mathf.Lerp (
-			BassTrack.pitch, 
-			BassTargetPitch, 
-			PitchSmoothTime * Time.unscaledDeltaTime
-		);
-		*/
 	}
 
 	// Updates the current track name string value.
@@ -522,7 +333,7 @@ public class AudioController : MonoBehaviour
 	// Replaces audio clips in the specified audio source by index.
 	public void LoadTracks ()
 	{
-		TrackName 			 = TrackNames 		[TrackNumber];
+		TrackName = TrackNames [TrackNumber];
 
 		// Assigns clips to audio sources.
 
@@ -531,13 +342,6 @@ public class AudioController : MonoBehaviour
 			LayerSources [i].clip = TracksByLayer [i].clips [TrackNumber];
 			LayerSources [i].Play ();
 		}
-
-		/*
-		BassTrack.clip 		 = BassTracks 		[TrackNumber];
-		LayerOneTrack.clip	 = LayerOneTracks 	[TrackNumber];
-		LayerTwoTrack.clip 	 = LayerTwoTracks 	[TrackNumber];
-		LayerThreeTrack.clip = LayerThreeTracks [TrackNumber];
-		*/
 
 		// Loop through beat detection tracks, assign beat detection clip.
 		for (int i = 0; i < BeatDetectionTracks.Length; i++)
@@ -561,14 +365,6 @@ public class AudioController : MonoBehaviour
 			BeatDetectionTracks [i].Play ();
 		}
 
-		/*
-		// Plays all audio sources.
-		BassTrack.Play ();
-		LayerOneTrack.Play ();
-		LayerTwoTrack.Play ();
-		LayerThreeTrack.Play ();
-		*/
-
 		// Reset beat amounts.
 		Beats = 1;
 		TimeSinceTrackLoad = 0;
@@ -589,24 +385,11 @@ public class AudioController : MonoBehaviour
 			{
 				TrackNumber = 0;
 			}
-
-			/*
-			if (TrackNumber < BassTracks.Length) 
-			{
-				TrackNumber += 1;
-			}
-
-			if (TrackNumber >= BassTracks.Length) 
-			{
-				TrackNumber = 0;
-			}
-			*/
 		}
 
 		// Randomize.
 		if (TrackSequenceMode == trackSequence.Random) 
 		{
-			//TrackNumber = Random.Range (0, BassTracks.Length);
 			TrackNumber = Random.Range (0, TracksByLayer[0].clips.Count);
 		}
 
@@ -621,7 +404,6 @@ public class AudioController : MonoBehaviour
 		{
 			if (TrackNumber <= 0) 
 			{
-				//TrackNumber = BassTracks.Length;
 				TrackNumber = TracksByLayer[0].clips.Count;
 			}
 
@@ -657,13 +439,6 @@ public class AudioController : MonoBehaviour
 			LayerSources [i].Pause ();
 		}
 
-		/*
-		BassTrack.Pause ();
-		LayerOneTrack.Pause ();
-		LayerTwoTrack.Pause ();
-		LayerThreeTrack.Pause ();
-		*/
-
 		foreach (AudioSource beatdetection in BeatDetectionTracks) 
 		{
 			beatdetection.Pause ();
@@ -686,13 +461,6 @@ public class AudioController : MonoBehaviour
 			{
 				StopAllSoundtracks ();
 			}
-
-			/*
-			if (BassTrack.isPlaying == true) 
-			{
-				StopAllSoundtracks ();
-			}
-			*/
 		}
 	}
 }
