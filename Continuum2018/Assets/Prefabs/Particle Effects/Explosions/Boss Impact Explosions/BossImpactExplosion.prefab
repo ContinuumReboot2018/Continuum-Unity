@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 82630998734724706}
   - component: {fileID: 114538948711491612}
   - component: {fileID: 114351785667017142}
+  - component: {fileID: 114392202562356252}
   m_Layer: 9
   m_Name: BossImpactExplosion_Shock
   m_TagString: Bullet
@@ -50,7 +51,7 @@ GameObject:
   - component: {fileID: 114009839658393486}
   - component: {fileID: 114684019318801360}
   - component: {fileID: 114258735634023278}
-  - component: {fileID: 114015633444161140}
+  - component: {fileID: 114416952467286666}
   m_Layer: 9
   m_Name: BossImpactExplosion
   m_TagString: Untagged
@@ -292,20 +293,6 @@ MonoBehaviour:
   delay: 5
   DestroyObj: {fileID: 1107170480724288}
   useUnscaledTime: 0
---- !u!114 &114015633444161140
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1107170480724288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d41c288e575eb84aac00fc3b880a5d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 25
-  initialDelay: 0.2
 --- !u!114 &114031326233937388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -405,6 +392,34 @@ MonoBehaviour:
   particleEffect: {fileID: 0}
   BaseRateDistance: 0
   BaseRateTime: 0
+--- !u!114 &114392202562356252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072586396597310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26303925b48bc14e879db71eaf9773c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 15
+  initialDelay: 0.1
+--- !u!114 &114416952467286666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107170480724288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26303925b48bc14e879db71eaf9773c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 15
+  initialDelay: 0.1
 --- !u!114 &114538948711491612
 MonoBehaviour:
   m_ObjectHideFlags: 1

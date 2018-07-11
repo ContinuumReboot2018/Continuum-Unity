@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 114950144086609448}
   - component: {fileID: 114761209950128014}
   - component: {fileID: 114949060129875630}
-  - component: {fileID: 114204604804802516}
+  - component: {fileID: 114147417694040024}
   m_Layer: 0
   m_Name: BossExplosion_Large
   m_TagString: Untagged
@@ -291,7 +291,7 @@ MonoBehaviour:
   particleEffect: {fileID: 0}
   BaseRateDistance: 0
   BaseRateTime: 0
---- !u!114 &114204604804802516
+--- !u!114 &114147417694040024
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -299,12 +299,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1467768591832020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d41c288e575eb84aac00fc3b880a5d8, type: 3}
+  m_Script: {fileID: 11500000, guid: a26303925b48bc14e879db71eaf9773c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 25
-  initialDelay: 0.2
+  speed: 15
+  initialDelay: 0.1
 --- !u!114 &114303257506555196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -348,8 +348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 5
-  initialDelay: 0
+  speed: 25
+  initialDelay: 0.1
 --- !u!114 &114567766254516920
 MonoBehaviour:
   m_ObjectHideFlags: 1

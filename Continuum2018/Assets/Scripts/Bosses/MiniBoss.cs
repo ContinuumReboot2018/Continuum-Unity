@@ -164,16 +164,16 @@ public class MiniBoss : MonoBehaviour
 			Quaternion.Euler (75, 75, 0)
 		);
 
-		LargeExplosionInstance.GetComponent<particleAttractorLinear> ().FindAttractor (
+		LargeExplosionInstance.GetComponent<particleAttractorSpherical> ().FindAttractor (
 			PlayerPos,
-			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().speed,
-			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().initialDelay
+			LargeExplosionInstance.GetComponent<particleAttractorSpherical> ().speed,
+			LargeExplosionInstance.GetComponent<particleAttractorSpherical> ().initialDelay
 		);
 
-		LargeExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().FindAttractor (
+		LargeExplosionInstance.GetComponentInChildren<particleAttractorSpherical> ().FindAttractor (
 			PlayerPos,
-			LargeExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().speed,
-			LargeExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().initialDelay
+			LargeExplosionInstance.GetComponentInChildren<particleAttractorSpherical> ().speed,
+			LargeExplosionInstance.GetComponentInChildren<particleAttractorSpherical> ().initialDelay
 		);
 	}
 
@@ -385,16 +385,16 @@ public class MiniBoss : MonoBehaviour
 	{
 		GameObject SmallExplosionInstance = Instantiate (SmallExplosion, transform.position, transform.rotation);
 
-		SmallExplosionInstance.GetComponent<particleAttractorLinear> ().FindAttractor (
+		SmallExplosionInstance.GetComponent<particleAttractorSpherical> ().FindAttractor (
 			PlayerPos,
-			SmallExplosionInstance.GetComponent<particleAttractorLinear> ().speed,
-			SmallExplosionInstance.GetComponent<particleAttractorLinear> ().initialDelay
+			SmallExplosionInstance.GetComponent<particleAttractorSpherical> ().speed,
+			SmallExplosionInstance.GetComponent<particleAttractorSpherical> ().initialDelay
 		);
 
-		SmallExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().FindAttractor (
+		SmallExplosionInstance.GetComponentInChildren<particleAttractorSpherical> ().FindAttractor (
 			PlayerPos,
-			SmallExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().speed,
-			SmallExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().initialDelay
+			SmallExplosionInstance.GetComponentInChildren<particleAttractorSpherical> ().speed,
+			SmallExplosionInstance.GetComponentInChildren<particleAttractorSpherical> ().initialDelay
 		);
 	}
 
