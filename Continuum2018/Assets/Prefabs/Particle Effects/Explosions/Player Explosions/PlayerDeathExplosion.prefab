@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 82416826305370060}
   - component: {fileID: 114332952257693096}
   - component: {fileID: 114060466472016130}
+  - component: {fileID: 114268675051488050}
   m_Layer: 0
   m_Name: PlayerDeathExplosion
   m_TagString: Untagged
@@ -42,6 +43,7 @@ GameObject:
   - component: {fileID: 198205617773909924}
   - component: {fileID: 199577071453475186}
   - component: {fileID: 114469901863503088}
+  - component: {fileID: 114536614143705508}
   m_Layer: 0
   m_Name: Burst
   m_TagString: Untagged
@@ -173,6 +175,21 @@ MonoBehaviour:
   sampleRateReduction: 1
   volume: 0.7
   dryWet: 1
+--- !u!114 &114268675051488050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452556291565750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26303925b48bc14e879db71eaf9773c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 5
+  initialDelay: 0.25
+  AutoFindPlayer: 1
 --- !u!114 &114332952257693096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,6 +218,21 @@ MonoBehaviour:
   particleEffect: {fileID: 0}
   BaseRateDistance: 0
   BaseRateTime: 0
+--- !u!114 &114536614143705508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781124802439604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26303925b48bc14e879db71eaf9773c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 5
+  initialDelay: 0.25
+  AutoFindPlayer: 1
 --- !u!198 &198099487845412760
 ParticleSystem:
   m_ObjectHideFlags: 1

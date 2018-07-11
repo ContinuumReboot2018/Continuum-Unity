@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(ParticleSystem))]
 public class particleAttractorSpherical : MonoBehaviour 
 {
@@ -13,6 +14,8 @@ public class particleAttractorSpherical : MonoBehaviour
 	private float lifetime;
 	int numParticlesAlive;
 
+	public bool AutoFindPlayer;
+
 	void Start () 
 	{
 		ps = GetComponent<ParticleSystem>();
@@ -20,6 +23,11 @@ public class particleAttractorSpherical : MonoBehaviour
 		if (!GetComponent<Transform>())
 		{
 			GetComponent<Transform>();
+		}
+
+		if (AutoFindPlayer == true) 
+		{
+			FindAttractor (PlayerController.PlayerOneInstance.playerCol.transform, speed, initialDelay);
 		}
 	}
 
@@ -31,6 +39,11 @@ public class particleAttractorSpherical : MonoBehaviour
 			return;
 		}
 
+		CheckParticlesToAttract ();
+	}
+
+	void CheckParticlesToAttract ()
+	{
 		m_Particles = new ParticleSystem.Particle[ps.main.maxParticles];
 		numParticlesAlive = ps.GetParticles(m_Particles);
 
@@ -40,7 +53,7 @@ public class particleAttractorSpherical : MonoBehaviour
 		{
 			for (int i = 0; i < numParticlesAlive; i++)
 			{
-				m_Particles[i].position = Vector3.SlerpUnclamped (m_Particles[i].position, target.position, step);
+				m_Particles[i].position = Vector3.LerpUnclamped (m_Particles[i].position, target.position, step);
 			}
 		}
 

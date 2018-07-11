@@ -327,11 +327,33 @@ public class PowerupPickup : MonoBehaviour
 			}
 		}
 	}
+
+	void CollectExplosionInstance ()
+	{
+		GameObject collectExplosion = Instantiate (
+			CollectExplosion, 
+			transform.position, 
+			Quaternion.identity
+		);
+
+		collectExplosion.GetComponent<particleAttractorSpherical> ().FindAttractor (
+			PlayerController.PlayerOneInstance.playerCol.transform,
+			collectExplosion.GetComponent<particleAttractorSpherical> ().speed,
+			collectExplosion.GetComponent<particleAttractorSpherical> ().initialDelay
+		);
+
+		collectExplosion.GetComponentInChildren<particleAttractorSpherical> ().FindAttractor (
+			PlayerController.PlayerOneInstance.playerCol.transform,
+			collectExplosion.GetComponentInChildren<particleAttractorSpherical> ().speed,
+			collectExplosion.GetComponentInChildren<particleAttractorSpherical> ().initialDelay
+		);
+	}
 		
 	// Finds powerup from list and activates it.
 	void ActivatePowerup (int PlayerId)
 	{
-		Instantiate (CollectExplosion, transform.position, Quaternion.identity); // Creates powerup explosion particles.
+		CollectExplosionInstance ();
+			
 		GameController.Instance.SetPowerupTime (PowerupTime);
 		GameController.Instance.totalPowerupsCollected++;
 
@@ -1041,7 +1063,7 @@ public class PowerupPickup : MonoBehaviour
 			break;
 		}
 
-		Destroy (gameObject);
+		//Destroy (gameObject);
 		return;
 	}
 
