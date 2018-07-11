@@ -134,18 +134,7 @@ public class MiniBoss : MonoBehaviour
 		{
 			BossPartsConvertToNoise ();
 			hitPoints = 0;
-
-			GameObject LargeExplosionInstance = Instantiate (
-				LargeExplosion, 
-				transform.position, 
-				Quaternion.Euler (75, 75, 0)
-			);
-
-			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().FindAttractor (
-				PlayerPos,
-				LargeExplosionInstance.GetComponent<particleAttractorLinear> ().speed,
-				LargeExplosionInstance.GetComponent<particleAttractorLinear> ().initialDelay
-			);
+			InstanceLargeExplosion ();
 
 			GameController.Instance.StartNewWave ();
 			GameController.Instance.IsInWaveTransition = true;
@@ -165,6 +154,27 @@ public class MiniBoss : MonoBehaviour
 		}
 
 		Invoke ("EnableCol", 5);
+	}
+
+	void InstanceLargeExplosion ()
+	{
+		GameObject LargeExplosionInstance = Instantiate (
+			LargeExplosion, 
+			transform.position, 
+			Quaternion.Euler (75, 75, 0)
+		);
+
+		LargeExplosionInstance.GetComponent<particleAttractorLinear> ().FindAttractor (
+			PlayerPos,
+			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().speed,
+			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().initialDelay
+		);
+
+		LargeExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().FindAttractor (
+			PlayerPos,
+			LargeExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().speed,
+			LargeExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().initialDelay
+		);
 	}
 
 	void TurnOnEvasiveManeuverScript ()
@@ -343,13 +353,7 @@ public class MiniBoss : MonoBehaviour
 		BossPartsConvertToNoise (); // Convert all blocks in array to noise and detach.
 
 		hitPoints = 0; // Reset all hit points.
-		GameObject LargeExplosionInstance = Instantiate (LargeExplosion, transform.position, Quaternion.Euler (75, 75, 0)); // Spawn a large explosion.
-
-		LargeExplosionInstance.GetComponent<particleAttractorLinear> ().FindAttractor (
-			PlayerPos,
-			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().speed,
-			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().initialDelay
-		);
+		InstanceLargeExplosion ();
 
 		GameController.Instance.StartNewWave (); // Go to next wave.
 		GameController.Instance.IsInWaveTransition = true; // Set to be in wave transition.
@@ -385,6 +389,12 @@ public class MiniBoss : MonoBehaviour
 			PlayerPos,
 			SmallExplosionInstance.GetComponent<particleAttractorLinear> ().speed,
 			SmallExplosionInstance.GetComponent<particleAttractorLinear> ().initialDelay
+		);
+
+		SmallExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().FindAttractor (
+			PlayerPos,
+			SmallExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().speed,
+			SmallExplosionInstance.GetComponentInChildren<particleAttractorLinear> ().initialDelay
 		);
 	}
 
