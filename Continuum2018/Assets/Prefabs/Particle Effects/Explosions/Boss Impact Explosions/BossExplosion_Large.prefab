@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114950144086609448}
   - component: {fileID: 114761209950128014}
   - component: {fileID: 114949060129875630}
+  - component: {fileID: 114204604804802516}
   m_Layer: 0
   m_Name: BossExplosion_Large
   m_TagString: Untagged
@@ -66,6 +67,7 @@ GameObject:
   - component: {fileID: 82468254860613168}
   - component: {fileID: 114308594553079224}
   - component: {fileID: 114567766254516920}
+  - component: {fileID: 114405098661968146}
   m_Layer: 0
   m_Name: BossExplosion_Shock
   m_TagString: Untagged
@@ -289,6 +291,20 @@ MonoBehaviour:
   particleEffect: {fileID: 0}
   BaseRateDistance: 0
   BaseRateTime: 0
+--- !u!114 &114204604804802516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467768591832020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d41c288e575eb84aac00fc3b880a5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 25
+  initialDelay: 0.2
 --- !u!114 &114303257506555196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -320,6 +336,20 @@ MonoBehaviour:
   minimumPitch: 0
   maximumPitch: 20
   addPitch: 0
+--- !u!114 &114405098661968146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686186521210418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26303925b48bc14e879db71eaf9773c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 5
+  initialDelay: 0
 --- !u!114 &114567766254516920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3854,9 +3884,9 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 1036936380
   InitialModule:
     serializedVersion: 3
@@ -7332,9 +7362,9 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: -165459938
   InitialModule:
     serializedVersion: 3

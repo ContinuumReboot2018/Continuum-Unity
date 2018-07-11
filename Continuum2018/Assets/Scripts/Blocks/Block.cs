@@ -117,6 +117,9 @@ public class Block : MonoBehaviour
 	[Tooltip ("The explosion to create on the player if collided with.")]
 	public GameObject playerExplosion;
 
+	public float particleAttractSpeed = 5;
+	public float particleAttractInitialDelay;
+
 	[Header ("Block Formation")]
 	[Tooltip ("If the block is part of a formation, reference this.")]
 	public BlockFormation blockFormationScript;
@@ -699,6 +702,8 @@ public class Block : MonoBehaviour
 		BasePointValue = NoiseBlock.BasePointValue; // Reset base point value.
 		TextColor = NoiseBlock.TextColor; // set gray text color.
 		Explosion = NoiseBlock.Explosion; // Set noise explosion.
+		particleAttractSpeed = NoiseBlock.particleAttractionSpeed;
+		particleAttractInitialDelay = NoiseBlock.particleAttractorInitialDelay;
 
 		GetComponentInChildren<Animator> (true).enabled = false;
 
@@ -917,6 +922,12 @@ public class Block : MonoBehaviour
 		_Explosion.GetComponent<Explosion> ().blockScript = this;
 		_Explosion.GetComponent<Explosion> ().TextColor = TextColor;
 		_Explosion.GetComponent<Explosion> ().Anim ();
+
+		_Explosion.GetComponent<particleAttractorSpherical> ().FindAttractor (
+			PlayerController.PlayerOneInstance.playerCol.transform,
+			particleAttractSpeed,
+			particleAttractInitialDelay
+		);
 	}
 
 	// Checks boundary for noise blocks.
@@ -970,6 +981,8 @@ public class Block : MonoBehaviour
 				AddAbilityTime = NoiseBlock.AddAbilityTime;
 				TextColor = NoiseBlock.TextColor;
 				Explosion = NoiseBlock.Explosion;
+				particleAttractSpeed = NoiseBlock.particleAttractionSpeed;
+				particleAttractInitialDelay = NoiseBlock.particleAttractorInitialDelay;
 				transform.name = "Noise block";
 				transform.GetChild (0).name = "Noise block child";
 
@@ -991,6 +1004,8 @@ public class Block : MonoBehaviour
 				AddAbilityTime = RedBlock.AddAbilityTime;
 				TextColor = RedBlock.TextColor;
 				Explosion = RedBlock.Explosion;
+				particleAttractSpeed = RedBlock.particleAttractionSpeed;
+				particleAttractInitialDelay = RedBlock.particleAttractorInitialDelay;
 				transform.name = "Red block";
 				transform.GetChild (0).name = "Red block child";
 				break;
@@ -1030,6 +1045,8 @@ public class Block : MonoBehaviour
 				AddAbilityTime = AquaBlock.AddAbilityTime;
 				TextColor = AquaBlock.TextColor;
 				Explosion = AquaBlock.Explosion;
+				particleAttractSpeed = AquaBlock.particleAttractionSpeed;
+				particleAttractInitialDelay = AquaBlock.particleAttractorInitialDelay;
 				transform.name = "Aqua block";
 				transform.GetChild (0).name = "Aqua block child";
 				break;
@@ -1040,6 +1057,8 @@ public class Block : MonoBehaviour
 				AddAbilityTime = BlueBlock.AddAbilityTime;
 				TextColor = BlueBlock.TextColor;
 				Explosion = BlueBlock.Explosion;
+				particleAttractSpeed = BlueBlock.particleAttractionSpeed;
+				particleAttractInitialDelay = BlueBlock.particleAttractorInitialDelay;
 				transform.name = "Blue block";
 				transform.GetChild (0).name = "Blue block child";
 				break;
@@ -1050,6 +1069,8 @@ public class Block : MonoBehaviour
 				AddAbilityTime = PurpleBlock.AddAbilityTime;
 				TextColor = PurpleBlock.TextColor;
 				Explosion = PurpleBlock.Explosion;
+				particleAttractSpeed = PurpleBlock.particleAttractionSpeed;
+				particleAttractInitialDelay = PurpleBlock.particleAttractorInitialDelay;
 				transform.name = "Purple block";
 				transform.GetChild (0).name = "Purple block child";
 				break;
@@ -1060,6 +1081,8 @@ public class Block : MonoBehaviour
 				AddAbilityTime = PinkBlock.AddAbilityTime;
 				TextColor = PinkBlock.TextColor;
 				Explosion = PinkBlock.Explosion;
+				particleAttractSpeed = PinkBlock.particleAttractionSpeed;
+				particleAttractInitialDelay = PinkBlock.particleAttractorInitialDelay;
 				transform.name = "Pink block";
 				transform.GetChild (0).name = "Pink block child";
 				break;

@@ -15,4 +15,7 @@ public class BlockManager : ScriptableObject
 	public GameObject Explosion;
 	[Tooltip ("Default text color for this block type.")]
 	public Color TextColor;
+
+	public float particleAttractionSpeed = 5;
+	public float particleAttractorInitialDelay;
 }

@@ -27,6 +27,8 @@ GameObject:
   - component: {fileID: 114172317614392464}
   - component: {fileID: 114997764973308148}
   - component: {fileID: 114506349663514914}
+  - component: {fileID: 114124758758760316}
+  - component: {fileID: 114626283985386200}
   m_Layer: 0
   m_Name: BlockExplosion_Noise
   m_TagString: Untagged
@@ -261,6 +263,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114124758758760316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1081727288271718}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d41c288e575eb84aac00fc3b880a5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 25
+  initialDelay: 0
 --- !u!114 &114172317614392464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -517,6 +533,20 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114626283985386200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1081727288271718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26303925b48bc14e879db71eaf9773c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 5
+  initialDelay: 0
 --- !u!114 &114997764973308148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -588,9 +618,9 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 1789782167
   InitialModule:
     serializedVersion: 3

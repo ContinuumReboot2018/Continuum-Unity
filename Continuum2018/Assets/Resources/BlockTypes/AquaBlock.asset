@@ -17,3 +17,5 @@ MonoBehaviour:
   AddAbilityTime: 0.04
   Explosion: {fileID: 1072586396597310, guid: aa93664080333bd4aad618659d66114a, type: 2}
   TextColor: {r: 0, g: 0.9916434, b: 1, a: 1}
+  particleAttractionSpeed: 8
+  particleAttractorInitialDelay: 0.35

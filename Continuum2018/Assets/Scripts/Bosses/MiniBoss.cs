@@ -134,7 +134,19 @@ public class MiniBoss : MonoBehaviour
 		{
 			BossPartsConvertToNoise ();
 			hitPoints = 0;
-			Instantiate (LargeExplosion, transform.position, Quaternion.Euler (75, 75, 0));
+
+			GameObject LargeExplosionInstance = Instantiate (
+				LargeExplosion, 
+				transform.position, 
+				Quaternion.Euler (75, 75, 0)
+			);
+
+			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().FindAttractor (
+				PlayerPos,
+				LargeExplosionInstance.GetComponent<particleAttractorLinear> ().speed,
+				LargeExplosionInstance.GetComponent<particleAttractorLinear> ().initialDelay
+			);
+
 			GameController.Instance.StartNewWave ();
 			GameController.Instance.IsInWaveTransition = true;
 			Debug.LogWarning ("No player found, bailing out.");
@@ -331,7 +343,13 @@ public class MiniBoss : MonoBehaviour
 		BossPartsConvertToNoise (); // Convert all blocks in array to noise and detach.
 
 		hitPoints = 0; // Reset all hit points.
-		Instantiate (LargeExplosion, transform.position, Quaternion.Euler (75, 75, 0)); // Spawn a large explosion.
+		GameObject LargeExplosionInstance = Instantiate (LargeExplosion, transform.position, Quaternion.Euler (75, 75, 0)); // Spawn a large explosion.
+
+		LargeExplosionInstance.GetComponent<particleAttractorLinear> ().FindAttractor (
+			PlayerPos,
+			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().speed,
+			LargeExplosionInstance.GetComponent<particleAttractorLinear> ().initialDelay
+		);
 
 		GameController.Instance.StartNewWave (); // Go to next wave.
 		GameController.Instance.IsInWaveTransition = true; // Set to be in wave transition.
@@ -361,7 +379,13 @@ public class MiniBoss : MonoBehaviour
 	// Creates small explosion.
 	void InstanceExplosion ()
 	{
-		Instantiate (SmallExplosion, transform.position, transform.rotation);
+		GameObject SmallExplosionInstance = Instantiate (SmallExplosion, transform.position, transform.rotation);
+
+		SmallExplosionInstance.GetComponent<particleAttractorLinear> ().FindAttractor (
+			PlayerPos,
+			SmallExplosionInstance.GetComponent<particleAttractorLinear> ().speed,
+			SmallExplosionInstance.GetComponent<particleAttractorLinear> ().initialDelay
+		);
 	}
 
 	// Converts all existing boss parts in array into the static noise type.

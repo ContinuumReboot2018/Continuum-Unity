@@ -252,7 +252,8 @@ public class TimescaleController : MonoBehaviour
 				// Updates fixed time step based on time scale. (Current period: 1/200 of a second, 200Hz).
 				// Physics updates must be this fast to maintain accuracy.
 				Time.fixedDeltaTime = Time.timeScale * 0.005f; // gets called 200 times per second.
-				Time.maximumParticleDeltaTime = Time.timeScale * 0.005f;
+				//Time.maximumParticleDeltaTime = Time.timeScale * 0.005f;
+				Time.maximumParticleDeltaTime = 0.05f;
 			}
 
 			// When overriding time scale.

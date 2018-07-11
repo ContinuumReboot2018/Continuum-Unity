@@ -61,6 +61,8 @@ GameObject:
   - component: {fileID: 114994073970807432}
   - component: {fileID: 114428494665079332}
   - component: {fileID: 114929850739687922}
+  - component: {fileID: 114552700167659646}
+  - component: {fileID: 114874245720242902}
   m_Layer: 14
   m_Name: BlockExplosion_Red
   m_TagString: Hazard
@@ -351,6 +353,20 @@ MonoBehaviour:
   particleEffect: {fileID: 0}
   BaseRateDistance: 0
   BaseRateTime: 0
+--- !u!114 &114552700167659646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450244663619750}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d41c288e575eb84aac00fc3b880a5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 25
+  initialDelay: 0
 --- !u!114 &114556119907244482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -497,6 +513,20 @@ MonoBehaviour:
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxScale: 4
   TextPos: {x: 1, y: 1}
+--- !u!114 &114874245720242902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450244663619750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26303925b48bc14e879db71eaf9773c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 5
+  initialDelay: 0
 --- !u!114 &114929850739687922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -588,9 +618,9 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 276854689
   InitialModule:
     serializedVersion: 3
