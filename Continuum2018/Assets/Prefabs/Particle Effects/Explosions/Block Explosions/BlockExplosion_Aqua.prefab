@@ -2208,7 +2208,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0.1
+    dampen: 0.3
     drag:
       serializedVersion: 2
       minMaxState: 0
@@ -4010,7 +4010,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 529191128
+  randomSeed: -277732009
   InitialModule:
     serializedVersion: 3
     enabled: 1

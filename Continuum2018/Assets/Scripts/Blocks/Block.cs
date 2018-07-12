@@ -125,6 +125,7 @@ public class Block : MonoBehaviour
 	public BlockFormation blockFormationScript;
 	[Tooltip ("Checks if the block is connected to the referenced block formation.")]
 	public bool isBlockFormationConnected;
+	public bool DestroyOnCollision = true;
 
 	[Header ("Camera Shake")]
 	[Tooltip ("Camera shaker.")]
@@ -455,7 +456,17 @@ public class Block : MonoBehaviour
 							}
 						}
 					
-						Destroy (gameObject);
+						if (DestroyOnCollision == true) 
+						{
+							Destroy (gameObject);
+						} 
+
+						else 
+						
+						{
+							gameObject.SetActive (false);
+						}
+
 						//gameObject.SetActive (false);
 						return; // Prevent any further code execution.
 					}

@@ -1108,7 +1108,7 @@ public class PlayerController : MonoBehaviour
 		GameController.Instance.VhsAnim.SetTrigger ("Play");
 		GlitchEffect.Play ("CameraGlitchDefault");
 		//PostProcessProfile.grain.enabled = false;
-		Invoke ("ResetBitcrushParameters", 5);
+		Invoke ("ResetBitcrushParameters", 0);
 	}
 
 	void OverrideBitcrushParameters ()

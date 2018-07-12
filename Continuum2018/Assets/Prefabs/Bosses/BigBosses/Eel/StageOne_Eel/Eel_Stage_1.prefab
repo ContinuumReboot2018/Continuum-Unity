@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1583665409360876
 GameObject:
   m_ObjectHideFlags: 0
@@ -52,13 +52,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266124494609072}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.0000020940422, y: 0, z: 0.0000013148342}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4590321149701380}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4590321149701380
 Transform:
   m_ObjectHideFlags: 1
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1583665409360876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 7.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4108354993429826}
@@ -124,13 +124,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aca8e49733d6ce4fa8adbc49f4e94d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  TranslateInterpolation: 0
+  speed: 15
+  TranslateInterpolation: 1
   rotationSpeed: 300
   RotationInterpolation: 0
-  bodyPrefab: {fileID: 1063289208264560, guid: 6c96cb93802663b4f99ad9fc8bf2f6c4, type: 2}
-  startSize: 8
-  minDistance: 1.5
+  xBounds: {x: -20, y: 20}
+  yBounds: {x: 0, y: 10}
+  bodyPrefab: {fileID: 1520585642279696, guid: b6bac10aa3216b74cb9eda7f3870832e, type: 2}
+  startSize: 12
+  minDistance: 50
   TThreshold: 0.5
   BodyParts:
   - {fileID: 4590321149701380}
